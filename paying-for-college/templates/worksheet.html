@@ -1,0 +1,1104 @@
+{% extends base_template %} 
+{% load static from staticfiles %}
+{% block title %}Check the financial risks and rewards of a college program{% endblock %}
+
+{% block page_viewport %}	
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static "paying_for_college/comparisontool/css/comparison-tool.css" %}">
+<link rel='stylesheet' id='cfpb_icon_font-css'  href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons.css?ver=all" type="text/css" media="all">
+    <!--[if IE 7]>
+    <link rel="stylesheet" id="cfpb_icon_font_ie7-css"  href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons-ie7.css?ver=all" type="text/css" media="all" />
+    <![endif]-->
+{% endblock %}
+
+{% block page_js %}
+<script>
+
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+    $(function(){
+        $.post('/token-provider/', function(token_tag){ $(token_tag).appendTo('#reg-form')})
+    })
+</script>
+
+<script type="text/javascript">
+var restoredata = {{ data_js|safe }};
+</script>
+
+<script src="{% static "paying_for_college/comparisontool/js/xml2json.js" %}"></script>
+<script src="{% static "paying_for_college/comparisontool/js/raphael-min.js" %}"></script>
+<script src="{% static "paying_for_college/comparisontool/js/comparison-tool.js" %}"></script>
+<script src="{% static "paying_for_college/comparisontool/js/pfc-analytics.js" %}"></script>
+{% endblock page_js %}
+
+{% block body_class %}page paying-for-college{% endblock %}
+
+{% block app_notification %}
+<div id="pfc-notification-wrapper" class="pfc-notification-wrapper">
+	<div id="pfc-notification-bar" class="pfc-notification-bar clearfix">
+		<p class="pfc-notification-left">This page works better on a desktop, but you can <a id="pfc-close-text" class="pfc-close-text" href="javascript:void(0)">continue anyway</a>.</p>
+		<p class="pfc-notification-right"><button id="pfc-close-bar" class="pfc-close-bar"><i class="icon-delete"></i><span class="cfpb_visually_hide">Dismiss</span></button></p>
+	</div>
+</div>
+{% endblock %}
+{% block content %}
+<div id="comparison-tool" class="comparison-tool" page="visualize">
+		<header id="comparison-tool-header" class="pfc-header">
+		    <div id="pfc-hero-wrapper" class="pfc-hero-wrapper clearfix">
+		    	<div class="pfc-hero-content">
+		    		<div class="breadcrumbs">
+		    			<p><i class="icon-left"></i><a href="/paying-for-college/">Paying for College</a></p>
+		    		</div>
+		    		<h1 class="sub-page">Compare financial aid</h1>
+		    		<p>Compare college costs and financial aid offers to see how they might impact you down the road. Just researching schools? Check out <a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank">College Scorecard</a>.</p>
+		    	</div>
+		    	<div class="pfc-hero-image">
+		    		<img alt="" src="{% static "paying_for_college/comparisontool/images/hero_compare.png" %}">
+		    	</div>
+		    </div><!-- end .pfc-hero-wrapper -->
+		    <a class="cfpb_visually_hide focusable" href="#introduction">Skip to main content</a>
+		    <div class="pfc-nav-wrapper">
+		        <nav>
+		            <ul class="pfc-nav">
+		                <li><a href="/paying-for-college/">Get started</a></li>
+		                <li><span tabindex="0" class="fake-link">Student financial guides</span>
+		                	<ul>
+		                		<li><a href="/paying-for-college/choose-a-student-loan/">Student loans</a></li>
+		                		<li><a href="/paying-for-college/manage-your-college-money/">Student banking</a></li>
+		                	</ul>
+		                </li>
+		                <li><a class="is-active" href="/paying-for-college/compare-financial-aid-and-college-cost/">Compare financial aid offers</a></li>
+		                <li><a href="/paying-for-college/repay-student-debt/">Repay student debt</a></li>
+		            </ul><!-- end .pfc-nav -->
+		        </nav>
+		    </div><!-- end .pfc-nav-wrapper -->
+		</header><!-- end #comparison-tool-header -->
+
+		<section id="introduction" class="introduction p-rel">
+			<div class="pfc-intro-text">
+				<p></p>
+			</div>
+			<h2 class="h3 vert-pad bottom-border bold">Compare Schools</h2>
+			<span class="about-link"><a class="school-link" href="/paying-for-college/compare-financial-aid-and-college-cost/technote/" target="_blank">About this tool</a></span>
+			<div id="step-one" class="get-started step-one clearfix">
+				<div class="step-left">
+					<div class="pfc-container-left">
+						<h3 class="h4">Compare college costs and financial aid offers.</h3>
+						<p class="max-schools">Your worksheet is full. Remove a school below to add a new one.</p>
+						<p>Add some information about the schools you’re considering to see the financial impact down the road. If you don’t have a financial aid offer, we’ll show you where to find cost info for each school.</p>
+						<p>You can compare up to 3 schools.</p>
+					</div>
+				</div><!--/step-left -->
+				<div class="step-right">
+					<div class="pfc-container-right center">
+						<button class="pfc-button" id="get-started-button">Get started</button>
+						<button id="save-and-share" class="button">Save your work</button>
+					</div>
+				</div><!--/step-right -->
+			</div><!--/step-one -->
+			<div id="step-two" class="get-started step-two clearfix">
+				<fieldset id="add-a-school">
+					<legend class="h4 demi step-legend">Tell us more information about the school</legend>
+					<div class="step-left">
+						<div class="pfc-container-left">
+							<div class="school-search staged stage-search clearfix">
+								<label for="school-name-search" class="school-name">
+									School name
+									<span class="cfpb_visually_hide">(required)</span>
+								</label>
+								<input type="text" name="schoolname-search" placeholder="Search school name" required="required" aria-required="true" id="school-name-search" class="school-search-box">
+								<ul class="search-results"></ul>
+								<div class="get-started-ckbx-group">
+									<input id="finaidoffer" class="finaidoffer" type="checkbox" name="finaidoffer"><label for="finaidoffer">I have a financial aid offer from this school</label>
+								</div>
+							</div><!--/school-search /staged /stage-search -->
+							<div class="program-selection staged stage-program clearfix">
+								<fieldset class="clearfix">
+									<legend class="demi">Program Type</legend>
+									<div class="get-started-radios">
+										<div class="get-started-radio-group">
+											<input id="program1" class="prgmtype radio-input" type="radio" name="program" value="aa">
+											<label class="prgmtype" for="program1">
+												Associates or certificate
+											</label>
+										</div><!-- /get-started-radio-group -->
+										<div class="get-started-radio-group">
+											<input id="program2" class="prgmtype radio-input" type="radio" name="program" value="ba" checked="checked">
+											<label class="prgmtype" for="program2">
+												Bachelors
+											</label>
+										</div><!-- /get-started-radio-group -->
+										<div class="get-started-radio-group">
+											<input id="program3" class="radio-input" type="radio" name="program" value="grad">	
+											<label class="prgmtype" for="program3">
+												Graduate
+											</label>
+										</div><!-- /get-started-radio-group -->
+									</div><!-- /get-started-radios -->
+								</fieldset>
+							</div><!--/prgmlength-selection /staged /stage-program -->
+							<div class="prgmlength-selection staged stage-prgmlength clearfix">
+								<label class="prgmlength" for="prgmlength">
+									Program Length
+								</label>
+								<select id="prgmlength" name="prgmlength">
+									<option value="5">5 years</option>
+									<option value="4" selected="selected">4 years</option>
+									<option value="3">3 years</option>
+									<option value="2">2 years</option>
+									<option value="1">1 year</option>
+								</select>
+							</div><!--/prgmlength-selection /staged /stage-prgmlength -->
+						</div><!-- /pfc-container-left -->
+					</div><!--/step-left -->
+					<div class="step-right">
+						<div class="pfc-container-right">
+							<button disabled class="continue disabled">Continue</button>
+							<button class="add-cancel button-link">Cancel</button>
+						</div><!--/pfc-container-right -->
+					</div><!--/step-right -->
+				</fieldset>
+			</div><!--/step-two -->
+
+			<div id="step-three" class="get-started step-three clearfix">
+			    <div class="add-xml xml-info staged step-3b stage-xml step-left">
+			        <div class="pfc-container-left">
+			        	<h4>This school pledged to use the Financial Aid Shopping Sheet!</h4>
+						<p>This standardized financial aid offer format will make things a lot easier. If they provided an XML file with your offer, copy and paste the code below. If not, just click continue.</p>
+						<p class="xml-error">Looks like that XML didn’t work. Try adding new XML, or click continue to skip this step.</p>
+						<label for="xml-text" class="xml">School XML data (optional)</label>
+						<textarea name="xmlbukkit" id="xml-text" class="xml-text" data-nickname="xmlbukkit" placeholder="Paste XML code here. Example: xmlfile_example.xml"></textarea>
+			        </div><!-- /pfc-container-left -->
+			    </div><!-- /add-xml /xml-info /staged /step-3b /stage-xml /step-left -->
+			    <div class="add-school staged stage-res-hse step-3d3 res-hse step-left">
+			        <div class="pfc-container-left">
+			        	<div id="add-school-residency">
+				        	<h4>Residency</h4>
+				        	<fieldset>
+				        		<legend class="medium">This school has different tuition/fees depending on your residency situation:</legend>
+								<div id="residency-in-district" class="get-started-radio-group radio-indistrict">
+									<input id="residency-radio-1" class="restype radio-input" type="radio" name="step-three-residency" value="indis">
+									<label class="restype" for="residency-radio-1">
+										I am an “in-district” resident for this school <span class="tooltip-info" data-tooltip="Some schools charge lower tuition/fee rates for students who live in the same district as the school (usually the same county). These costs are typically less than in-state rates.">(what’s this?)</span>
+									</label>
+								</div><!-- /get-started-radio-group -->
+								<div class="get-started-radio-group">
+									<input id="residency-radio-2" class="restype radio-input" type="radio" name="step-three-residency" value="instate">
+									<label class="restype" for="residency-radio-2">
+										I am a resident in the same state as this school (in-state)
+									</label>
+								</div><!-- /get-started-radio-group -->
+								<div class="get-started-radio-group">
+									<input id="residency-radio-3" class="restype radio-input" type="radio" name="step-three-residency" value="outstate">
+									<label class="restype" for="residency-radio-3">
+										I live in a different state (out-of-state)
+									</label>
+								</div><!-- /get-started-radio-group -->
+				        	</fieldset>
+				        	<hr>
+			       		</div>
+			        	<h4>Housing situation</h4>
+			        	<fieldset>
+			        		<legend class="medium">Where do you plan to live?</legend>
+			        		<div id="housing-on-campus" class="get-started-radio-group">
+								<input id="housing-radio-1" class="housingtype radio-input" type="radio" name="step-three-housing" value="oncampus">
+								<label class="houstype" for="housing-radio-1">
+									On campus
+								</label>
+							</div><!-- /get-started-radio-group -->
+							<div class="get-started-radio-group">
+								<input id="housing-radio-2" class="housingtype radio-input" type="radio" name="step-three-housing" value="offcampus">
+								<label class="houstype" for="housing-radio-2">
+									Off campus (in an apartment or similar)
+								</label>
+							</div><!-- /get-started-radio-group -->
+							<div class="get-started-radio-group">
+								<input id="housing-radio-3" class="housingtype radio-input" type="radio" name="step-three-housing" value="withfamily">
+								<label class="houstype" for="housing-radio-3">
+									With family (little or no cost to you)
+								</label>
+							</div><!-- /get-started-radio-group -->
+			        	</fieldset>			            
+			        </div><!-- /pfc-container-left -->
+			    </div><!-- /add-school /staged /stage-res-hse /step-3d3 /res-hse /step-left -->
+			    <div class="step-right">
+			        <div class="pfc-container-right">
+			            <button class="continue">Continue</button>
+			            <button class="add-cancel button-link">Cancel</button>
+			        </div><!-- /pfc-container-right -->
+			    </div><!-- /step-right -->
+			</div><!--/step-three -->
+
+			<div id="step-four" class="get-started step-four clearfix">
+				<div class="step-left">
+			        <div class="pfc-container-left">
+			        	<h4>Success!</h4>
+			        	<div id="success-no-data" class="success-message">
+			        		<p>You have added <span class="success-school-name"></span> to the chart below. We don’t have all the cost info for this school, but you can look up this information on <a href="" class="navigator-link" target="_blank">College Navigator</a>.</p>
+			        		<p>Add another school, or continue to enter your financial aid offer below.</p>
+			       	 	</div>
+			        	<div id="success-offer-xml" class="success-message">
+				        	<p>You have added <span class="success-school-name"></span> to the comparison chart.</p>
+				        	<p>Add another school, or continue to review this info.</p>
+				        </div>
+				        <div id="success-offer-no-data" class="success-message">
+				        	<p>You have added <span class="success-school-name"></span> to the chart below, but you still need to enter your financial aid offer.</p>
+				        	<p>Add another school, or continue to enter your financial aid offer below.</p>
+				        </div>
+				        <div id="success-prepop" class="success-message">
+				        	<p>You have added <span class="success-school-name"></span> to the comparison chart. We’ve added this school’s cost info from last year based on what they reported to the Department of Education.</p>
+				        	<p>Add another school, or compare costs/add Money for School below.</p>
+				        </div>
+			        </div><!-- /pfc-container-left -->
+			    </div><!-- /step-left -->
+			    <div class="step-right">
+			        <div class="pfc-container-right">
+			            <button class="add-another-school">Add another school</button>
+			            <button class="continue">Continue</button>
+			        </div><!-- /pfc-container-right -->
+			    </div><!-- /step-right -->
+			</div>
+		</section>
+		<section id="comparison-tables" class="comparison-tables">
+			<table>
+				<thead>
+					<tr id="institution-row" class="institution-row highlighted-row">
+						<td data-column="0"></td>
+						<th scope="col" data-column="1" data-schoolid="" class="header-cell">
+							<div class="p-rel">
+							    <div class="h2" data-nickname="institution_name">School 1</div>
+							    <div class="removal-row">
+							        <div class="remove-this-school">
+							            <button class="remove-school-link button-link">Remove this school</button>
+							        </div>
+							        <div class="remove-confirm hidden-box">
+							            <p>Are you sure you want to remove this school?</p>
+							            <p class="button-group"><button class="destructive remove-yes">Yes</button> <button class="cancel remove-no">No</button></p>
+							        </div>
+							    </div>
+							</div>
+						</th>
+						<th scope="col" data-column="2" data-schoolid="" class="header-cell">
+							<div class="p-rel">
+							    <div class="h2" data-nickname="institution_name">School 2</div>
+							    <div class="removal-row">
+							        <div class="remove-this-school">
+							            <button class="remove-school-link button-link">Remove this school</button>
+							        </div>
+							        <div class="remove-confirm hidden-box">
+							            <p>Are you sure you want to remove this school?</p>
+							            <p class="button-group"><button class="destructive remove-yes">Yes</button> <button class="cancel remove-no">No</button></p>
+							        </div>
+							    </div>
+							</div>
+						</th>
+						<th scope="col" data-column="3" data-schoolid="" class="header-cell">
+							<div class="p-rel">
+							    <div class="h2" data-nickname="institution_name">School 3</div>
+							    <div class="removal-row">
+							        <div class="remove-this-school">
+							            <button class="remove-school-link button-link">Remove this school</button>
+							        </div>
+							        <div class="remove-confirm hidden-box">
+							            <p>Are you sure you want to remove this school?</p>
+							            <p class="button-group"><button class="destructive remove-yes">Yes</button> <button class="cancel remove-no">No</button></p>
+							        </div>
+							    </div>
+							</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="show highlighted-row">
+						<th class="width-holder" data-column="0"><div id="first-year-costs" class="h3">First year costs</div></th>
+						<th class="width-holder" data-column="1"></th>
+						<th class="width-holder" data-column="2"></th>
+						<th class="width-holder" data-column="3"></th>
+					</tr>
+					<tr id="open" class="totalcost show arrw-collapse" data-arrwname="Cost of Attendance">
+						<th scope="row" data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h4">Cost of attendance</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="firstyrcostattend">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="firstyrcostattend">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="firstyrcostattend">$0</div></td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<td class="full" colspan="4">If you have a financial aid offer from this school, use it to enter your information here. If not, you can go to <a href="http://www.collegenavigator.gov/" target="_blank" class="exit-link">www.collegenavigator.gov</a> to look up this school’s cost of attendance info, add it to the fields below, then add more schools to see how they compare.</td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Tuition &amp; Fees: Tuition and fees are what the school charges the student to participate in classes." data-tipname="tuitionfees">Tuition &amp; fees</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-tuitionfees">Tuition &amp; fees for school one</label><input type="text" id="s-one-tuitionfees" class="school-data" data-nickname="tuitionfees" value="0" name="s-one-tuitionfees"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-tuitionfees">Tuition &amp; fees for school two</label><input type="text" id="s-two-tuitionfees" class="school-data" data-nickname="tuitionfees" value="0" name="s-two-tuitionfees"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-tuitionfees">Tuition &amp; fees for school three</label><input type="text" id="s-three-tuitionfees" class="school-data" data-nickname="tuitionfees" value="0" name="s-three-tuitionfees"></td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<th data-column="0"><span class="tooltip-info" data-tooltip="Housing &amp; Meals: Cost of meals and housing. Usually based on the cost for a full time student to live and eat on campus." data-tipname="roombrd">Housing &amp; meals</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-roombrd">Housing &amp; meals for school one</label><input type="text" id="s-one-roombrd" class="school-data" data-nickname="roombrd" value="0" name="s-one-roombrd"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-roombrd">Housing &amp; meals for school two</label><input type="text" id="s-two-roombrd" class="school-data" data-nickname="roombrd" value="0" name="s-two-roombrd"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-roombrd">Housing &amp; meals for school three</label><input type="text" id="s-three-roombrd" class="school-data" data-nickname="roombrd" value="0" name="s-three-roombrd"></td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Books &amp; Supplies: Cost of books and supplies for an entire academic year." data-tipname="books">Books &amp; supplies</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-books">Books &amp; supplies for school one</label><input type="text" id="s-one-books" class="school-data" data-nickname="books" value="0" name="s-one-books"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-books">Books &amp; supplies for school two</label><input type="text" id="s-two-books" class="school-data" data-nickname="books" value="0" name="s-two-books"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-books">Books &amp; supplies for school three</label><input type="text" id="s-three-books" class="school-data" data-nickname="books" value="0" name="s-three-books"></td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Transportation: Cost of gas, parking and/or public transportation expenses." data-tipname="transportation">Transportation</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-transportation">Transportation for school one</label><input type="text" id="s-one-transportation" class="school-data" data-nickname="transportation" value="0" name="s-one-transportation"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-transportation">Transportation for school two</label><input type="text" id="s-two-transportation" class="school-data" data-nickname="transportation" value="0" name="s-two-transportation"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-transportation">Transportation for school three</label><input type="text" id="s-three-transportation" class="school-data" data-nickname="transportation" value="0" name="s-three-transportation"></td>
+					</tr>
+					<tr class="hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Other education costs: Cost of items such as laundry and dependent care." data-tipname="otherexpenses">Other education costs</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-otherexpenses">Other education costs for school one</label><input type="text" id="s-one-otherexpenses" class="school-data" data-nickname="otherexpenses" value="0" name="s-one-otherexpenses"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-otherexpenses">Other education costs for school two</label><input type="text" id="s-two-otherexpenses" class="school-data" data-nickname="otherexpenses" value="0" name="s-two-otherexpenses"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-otherexpenses">Other education costs for school three</label><input type="text" id="s-three-otherexpenses" class="school-data" data-nickname="otherexpenses" value="0" name="s-three-otherexpenses"></td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr class="show highlighted-row">
+						<th data-column="0"><div class="h3">First year financial aid offer</div></th>
+						<td data-column="1"></td>
+						<td data-column="2"></td>
+						<td data-column="3"></td>
+					</tr>
+					<tr class="totalcont show arrw-collapse" data-arrwname="Money for school">
+						<th scope="row" data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h4">Money for school</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="moneyforcollege">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="moneyforcollege">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="moneyforcollege">$0</div></td>
+					</tr>
+					<tr class="grants hide arrw-collapse highlighted-row" data-arrwname="Scholarships and Grants">
+						<th scope="row" data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h5">Grants &amp; scholarships</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="grantstotal">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="grantstotal">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="grantstotal">$0</div></td>
+					</tr>
+					<tr class="grants-row instructions tr-hide highlighted-row">
+						<td class="full" colspan="4">Grants, scholarships, military tuition assistance, including the GI Bill.</td>
+					</tr>
+					<tr class="grants-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Pell Grants are federal grants that do not have to be repaid and are awarded based on your financial need, up to $5,730 per year." data-tipname="pell">Federal Pell Grant</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-pell">Federal Pell Grant amount for school one</label><input type="text" id="s-one-pell" class="school-data" data-nickname="pell" value="0" name="s-one-pell"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-pell">Federal Pell Grant amount for school two</label><input type="text" id="s-two-pell" class="school-data" data-nickname="pell" value="0" name="s-two-pell"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-pell">Federal Pell Grant amount for school two</label><input type="text" id="s-three-pell" class="school-data" data-nickname="pell" value="0" name="s-three-pell"></td>
+					</tr>
+					<tr class="grants-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Other Scholarships &amp; Grants: Any state, institutional and private aid you will receive that does not need to be repaid. " data-tipname="scholar">Other scholarships &amp; grants</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-scholar">Other scholarships &amp; grants for school one</label><input type="text" id="s-one-scholar" class="school-data" data-nickname="scholar" value="0" name="s-one-scholar"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-scholar">Other scholarships &amp; grants for school one</label><input type="text" id="s-two-scholar" class="school-data" data-nickname="scholar" value="0" name="s-two-scholar"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-scholar">Other scholarships &amp; grants for school one</label><input type="text" id="s-three-scholar" class="school-data" data-nickname="scholar" value="0" name="s-three-scholar"></td>
+					</tr>
+					<tr class="grants-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Military Tuition Assistance: Servicemembers (active &amp; reserve) in some branches are eligible to receive up to $4,500 per year. These benefits do not need to be repaid." data-tipname="tuitionassist">Military tuition assistance</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-tuitionassist">Military tuition assistance for school one</label><input type="text" id="s-one-tuitionassist" class="school-data" data-nickname="tuitionassist" value="0" name="s-one-tuitionassist"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-tuitionassist">Military tuition assistance for school one</label><input type="text" id="s-two-tuitionassist" class="school-data" data-nickname="tuitionassist" value="0" name="s-two-tuitionassist"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-tuitionassist">Military tuition assistance for school one</label><input type="text" id="s-three-tuitionassist" class="school-data" data-nickname="tuitionassist" value="0" name="s-three-tuitionassist"></td>
+					</tr>
+					<tr class="grants-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="GI Bill benefits offer education benefits for servicemembers and veterans. This funding covers tuition and fees, a monthly living allowance, and an annual book stipend. GI Bill benefits do not need to be repaid." data-tipname="gibill">GI Bill</span></th>
+						<td data-column="1">
+							<div class="p-rel">
+								<button class="gibill-calculator hide-on-inactive">GI Bill Calculator</button>
+								<div class="gibill-panel hidden-box">
+									<span class="gibill-calculator-tip"></span>
+									<fieldset>
+										<legend class="gibill-title">Calculate your Post-9/11 GI Bill benefits here.</legend>
+										<label for="s-one-military-status" class="military-status tooltip-info" data-tooltip="Servicemembers serving on active duty do not qualify for the Post-9/11 GI Bill living allowance." data-tipname="gibillmilitarystatus">Military status</label>
+										<select name="s-one-military-status" id="s-one-military-status" class="military-status-select">
+											<option value="none" selected="selected">No Military Service</option>
+											<option value="ad">Active</option>
+											<option value="ng">Guard/Reserve</option>
+											<option value="vet">Veteran/Dependent</option>
+										</select>
+										<label for="s-one-tier" class="military-service tooltip-info" data-tooltip="Eligibility for the Post-9/11 GI Bill is based on your cumulative active duty service after 9/11/01." data-tipname="gibillcumulativeservice">Cumulative service</label>
+										<select name="s-one-military-tier" id="s-one-tier" class="military-tier-select" disabled="disabled">
+										 	<option value="1" selected="selected">36+ months, including BASIC (100%)</option>
+										 	<option value=".9">30 months, including BASIC (90%)</option>
+										 	<option value=".8">24 months, including BASIC (80%)</option>
+										 	<option value=".7">18 months, excluding BASIC (70%)</option>
+										 	<option value=".6">12 months, excluding BASIC (60%)</option>
+										 	<option value=".5">6 months, excluding BASIC (50%)</option>
+										 	<option value=".4">90 days, excluding BASIC (40%)</option>
+										 	<option value="0">Less than 90 days, excluding BASIC (0%)</option>
+											<option value="1.0">Service Connected Discharge (100%)</option>
+											<option value="1.00">MSGT Fry Scholarship (100%)</option>
+										</select>
+										<div class="military-residency-panel">
+											<fieldset>
+												<legend class="tooltip-info" data-tooltip="Does your public school consider you an in-state or out of state student? Some schools (mainly community colleges) also have an in-district status which for GI Bill purposes is the same as an in-state student." data-tipname="gibillresidency">Residency</legend>
+												<input id="s-one-military-residency-instate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-one-military-residency" value="instate" checked="checked">
+												<label class="radio-label radio-instate" for="s-one-military-residency-instate">In-State</label>
+												<input id="s-one-military-residency-outofstate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-one-military-residency" value="outofstate">
+												<label class="radio-label radio-outofstate" for="s-one-military-residency-outofstate">Out-of-State</label>
+												<input id="s-one-military-residency-indistrict" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-one-military-residency" value="indistrict">
+												<label class="radio-label radio-indistrict" for="s-one-military-residency-indistrict">In-District</label>
+												<label class="military-instate tooltip-info" for="s-one-military-instate-tuition" data-tooltip="The Post-9/11 GI Bill will pay up to the in-state rate of tuition/fees at public schools." data-tipname="gibillinstatetuition">In-State Tuition</label>
+												<input id="s-one-military-instate-tuition" class="military-instate school-data" data-nickname="gibillinstatetuition" type="text" name="s-one-militaryinstatetuition">
+											</fieldset>
+										</div>
+										<button class="military-calculate">Calculate</button>
+									</fieldset>
+								</div>
+								<label class="cfpb_visually_hide" for="s-one-gibill">GI Bill value</label>
+								<input type="text" id="s-one-gibill" class="school-data" data-nickname="gibill" value="0" name="s-one-gibill">
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="p-rel">
+								<button class="gibill-calculator hide-on-inactive">GI Bill Calculator</button>
+								<div class="gibill-panel hidden-box">
+									<span class="gibill-calculator-tip"></span>
+									<fieldset>
+										<legend class="gibill-title">Calculate your Post-9/11 GI Bill benefits here.</legend>
+										<label for="s-two-military-status" class="military-status tooltip-info" data-tooltip="Servicemembers serving on active duty do not qualify for the Post-9/11 GI Bill living allowance." data-tipname="gibillmilitarystatus">Military status</label>
+										<select name="s-two-military-status" id="s-two-military-status" class="military-status-select">
+											<option value="none" selected="selected">No Military Service</option>
+											<option value="ad">Active</option>
+											<option value="ng">Guard/Reserve</option>
+											<option value="vet">Veteran/Dependent</option>
+										</select>
+										<label for="s-two-tier" class="military-service tooltip-info" data-tooltip="Eligibility for the Post-9/11 GI Bill is based on your cumulative active duty service after 9/11/01." data-tipname="gibillcumulativeservice">Cumulative service</label>
+										<select name="s-two-military-tier" id="s-two-tier" class="military-tier-select" disabled="disabled">
+										 	<option value="1" selected="selected">36+ months, including BASIC (100%)</option>
+										 	<option value=".9">30 months, including BASIC (90%)</option>
+										 	<option value=".8">24 months, including BASIC (80%)</option>
+										 	<option value=".7">18 months, excluding BASIC (70%)</option>
+										 	<option value=".6">12 months, excluding BASIC (60%)</option>
+										 	<option value=".5">6 months, excluding BASIC (50%)</option>
+										 	<option value=".4">90 days, excluding BASIC (40%)</option>
+										 	<option value="0">Less than 90 days, excluding BASIC (0%)</option>
+											<option value="1.0">Service Connected Discharge (100%)</option>
+											<option value="1.00">MSGT Fry Scholarship (100%)</option>
+										</select>
+										<div class="military-residency-panel">
+											<fieldset>
+												<legend class="tooltip-info" data-tooltip="Does your public school consider you an in-state or out of state student? Some schools (mainly community colleges) also have an in-district status which for GI Bill purposes is the same as an in-state student." data-tipname="gibillresidency">Residency</legend>
+												<input id="s-two-military-residency-instate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-two-military-residency" value="instate" checked="checked">
+												<label class="radio-label radio-instate" for="s-two-military-residency-instate">In-State</label>
+												<input id="s-two-military-residency-outofstate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-two-military-residency" value="outofstate">
+												<label class="radio-label radio-outofstate" for="s-two-military-residency-outofstate">Out-of-State</label>
+												<input id="s-two-military-residency-indistrict" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-two-military-residency" value="indistrict">
+												<label class="radio-label radio-indistrict" for="s-two-military-residency-indistrict">In-District</label>
+												<label class="military-instate tooltip-info" for="s-two-military-instate-tuition" data-tooltip="The Post-9/11 GI Bill will pay up to the in-state rate of tuition/fees at public schools." data-tipname="gibillinstatetuition">In-State Tuition</label>
+												<input id="s-two-military-instate-tuition" class="military-instate school-data" data-nickname="gibillinstatetuition" type="text" name="s-two-militaryinstatetuition">
+											</fieldset>
+										</div>
+										<button class="military-calculate">Calculate</button>
+									</fieldset>
+								</div>
+								<label class="cfpb_visually_hide" for="s-two-gibill">GI Bill value</label>
+								<input type="text" id="s-two-gibill" class="school-data" data-nickname="gibill" value="0" name="s-two-gibill">
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="p-rel">
+								<button class="gibill-calculator hide-on-inactive">GI Bill Calculator</button>
+								<div class="gibill-panel hidden-box">
+									<span class="gibill-calculator-tip"></span>
+									<fieldset>
+										<legend class="gibill-title">Calculate your Post-9/11 GI Bill benefits here.</legend>
+										<label for="s-three-military-status" class="military-status tooltip-info" data-tooltip="Servicemembers serving on active duty do not qualify for the Post-9/11 GI Bill living allowance." data-tipname="gibillmilitarystatus">Military status</label>
+										<select name="s-three-military-status" id="s-three-military-status" class="military-status-select">
+											<option value="none" selected="selected">No Military Service</option>
+											<option value="ad">Active</option>
+											<option value="ng">Guard/Reserve</option>
+											<option value="vet">Veteran/Dependent</option>
+										</select>
+										<label for="s-three-tier" class="military-service tooltip-info" data-tooltip="Eligibility for the Post-9/11 GI Bill is based on your cumulative active duty service after 9/11/01." data-tipname="gibillcumulativeservice">Cumulative service</label>
+										<select name="s-three-military-tier" id="s-three-tier" class="military-tier-select" disabled="disabled">
+										 	<option value="1" selected="selected">36+ months, including BASIC (100%)</option>
+										 	<option value=".9">30 months, including BASIC (90%)</option>
+										 	<option value=".8">24 months, including BASIC (80%)</option>
+										 	<option value=".7">18 months, excluding BASIC (70%)</option>
+										 	<option value=".6">12 months, excluding BASIC (60%)</option>
+										 	<option value=".5">6 months, excluding BASIC (50%)</option>
+										 	<option value=".4">90 days, excluding BASIC (40%)</option>
+										 	<option value="0">Less than 90 days, excluding BASIC (0%)</option>
+											<option value="1.0">Service Connected Discharge (100%)</option>
+											<option value="1.00">MSGT Fry Scholarship (100%)</option>
+										</select>
+										<div class="military-residency-panel">
+											<fieldset>
+												<legend class="tooltip-info" data-tooltip="Does your public school consider you an in-state or out of state student? Some schools (mainly community colleges) also have an in-district status which for GI Bill purposes is the same as an in-state student." data-tipname="gibillresidency">Residency</legend>
+												<input id="s-three-military-residency-instate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-three-military-residency" value="instate" checked="checked">
+												<label class="radio-label radio-instate" for="s-three-military-residency-instate">In-State</label>
+												<input id="s-three-military-residency-outofstate" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-three-military-residency" value="outofstate">
+												<label class="radio-label radio-outofstate" for="s-three-military-residency-outofstate">Out-of-State</label>
+												<input id="s-three-military-residency-indistrict" class="radio-input" data-nickname="gibillresidency" type="radio" name="s-three-military-residency" value="indistrict">
+												<label class="radio-label radio-indistrict" for="s-three-military-residency-indistrict">In-District</label>
+												<label class="military-instate tooltip-info" for="s-three-military-instate-tuition" data-tooltip="The Post-9/11 GI Bill will pay up to the in-state rate of tuition/fees at public schools." data-tipname="gibillinstatetuition">In-State Tuition</label>
+												<input id="s-three-military-instate-tuition" class="military-instate school-data" data-nickname="gibillinstatetuition" type="text" name="s-three-militaryinstatetuition">
+											</fieldset>
+										</div>
+										<button class="military-calculate">Calculate</button>
+									</fieldset>
+								</div>
+								<label class="cfpb_visually_hide" for="s-three-gibill">GI Bill value</label>
+								<input type="text" id="s-three-gibill" class="school-data" data-nickname="gibill" value="0" name="s-three-gibill">
+							</div>
+						</td>
+					</tr>
+
+					<tr class="contributions hide arrw-collapse highlighted-row" data-arrwname="Contributions">
+						<th scope="row" data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h5">Contributions</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="savingstotal">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="savingstotal">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="savingstotal">$0</div></td>
+					</tr>
+					<tr class="contrib-row instructions tr-hide highlighted-row">
+						<td class="full" colspan="4">What you can pay, what others are contributing to your studies.</td>
+					</tr>
+					<tr class="contrib-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="What You Can Pay: How much will you be contributing in savings or future income (e.g. part time job) toward your education this year? " data-tipname="savings">What you can pay</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-savings">What you can pay for school one</label><input type="text" id="s-one-savings" class="school-data" data-nickname="savings" value="0" name="s-one-savings"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-savings">What you can pay for school two</label><input type="text" id="s-two-savings" class="school-data" data-nickname="savings" value="0" name="s-two-savings"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-savings">What you can pay for school three</label><input type="text" id="s-three-savings" class="school-data" data-nickname="savings" value="0" name="s-three-savings"></td>
+					</tr>
+					<tr class="contrib-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="What Family &amp; Others Can Pay: How much is your family or others planning to contribute toward your education this year? This includes 529 college savings plans." data-tipname="family">What family &amp; others can pay</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-family">What family &amp; others can pay for school one</label><input type="text" id="s-one-family" class="school-data" data-nickname="family" value="0" name="s-one-family"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-family">What family &amp; others can pay for school two</label><input type="text" id="s-two-family" class="school-data" data-nickname="family" value="0" name="s-two-family"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-family">What family &amp; others can pay for school three</label><input type="text" id="s-three-family" class="school-data" data-nickname="family" value="0" name="s-three-family"></td>
+					</tr>
+					<tr class="contrib-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Parent Loans: Parents of dependent students may apply for a Direct PLUS Loan to help pay their child's education expenses. Some parents also consider taking out home equity loans using their homes as collateral. " data-tipname="state529plan">Parent loans</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-state529plan">Parent loans for school one</label><input type="text" id="s-one-state529plan" class="school-data" data-nickname="state529plan" value="0" name="s-one-state529plan"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-state529plan">Parent loans for school two</label><input type="text" id="s-two-state529plan" class="school-data" data-nickname="state529plan" value="0" name="s-two-state529plan"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-state529plan">Parent loans for school three</label><input type="text" id="s-three-state529plan" class="school-data" data-nickname="state529plan" value="0" name="s-three-state529plan"></td>
+					</tr>
+					<tr class="contrib-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Work study: Federal Work-Study helps provide part-time jobs for undergraduate and graduate students with financial need, allowing them to earn money to help pay education expenses." data-tipname="workstudy">Work study</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-workstudy">Work study for school one</label><input type="text" id="s-one-workstudy" class="school-data" data-nickname="workstudy" value="0" name="s-one-workstudy"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-workstudy">Work study for school two</label><input type="text" id="s-two-workstudy" class="school-data" data-nickname="workstudy" value="0" name="s-two-workstudy"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-workstudy">Work study for school three</label><input type="text" id="s-three-workstudy" class="school-data" data-nickname="workstudy" value="0" name="s-three-workstudy"></td>
+					</tr>
+
+					<tr class="federal hide arrw-collapse highlighted-row" data-arrwname="Federal loans">
+						<th data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h5">Federal loans</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="federaltotal">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="federaltotal">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="federaltotal">$0</div></td>
+					</tr>
+					<tr class="federal-row instructions tr-hide highlighted-row">
+						<td class="full" colspan="4">Borrowed money from the government that must be repaid with interest. Typically lower interest rates than private loans.</td>
+					</tr>
+					<tr class="federal-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Perkins loans are low-interest loans for students with financial need and do not accrue interest while students are enrolled in school, up to $5,500/year." data-tipname="perkins">Perkins loan</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-perkins">Perkins loan for school one</label><input type="text" id="s-one-perkins" class="school-data" data-nickname="perkins" value="0" name="s-one-perkins"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-perkins">Perkins loan for school two</label><input type="text" id="s-two-perkins" class="school-data" data-nickname="perkins" value="0" name="s-two-perkins"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-perkins">Perkins loan for school three</label><input type="text" id="s-three-perkins" class="school-data" data-nickname="perkins" value="0" name="s-three-perkins"></td>
+					</tr>
+					<tr class="federal-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Subsidized Loans are federal loans for students who demonstrate financial need and do not accrue interest while students are enrolled in school. These loans, which must be repaid, are available for up to $3,500 per year for first year college students." data-tipname="staffsubsidized">Subsidized loan</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-staffsubsidized">Subsidized loan for school one</label><input type="text" id="s-one-staffsubsidized" class="school-data" data-nickname="staffsubsidized" value="0" name="s-one-staffsubsidized"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-staffsubsidized">Subsidized loan for school two</label><input type="text" id="s-two-staffsubsidized" class="school-data" data-nickname="staffsubsidized" value="0" name="s-two-staffsubsidized"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-staffsubsidized">Subsidized loan for school three</label><input type="text" id="s-three-staffsubsidized" class="school-data" data-nickname="staffsubsidized" value="0" name="s-three-staffsubsidized"></td>
+					</tr>
+					<tr class="federal-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Unsubsidized Loans do not require students to demonstrate financial need; but, do accrue interest while students are in school. All dependent, undergraduate students may borrow up to $5,500 per year in subsidized and unsubsidized loans. For independent undergraduate students, this limit rises to $9,500 per year." data-tipname="staffunsubsidized">Unsubsidized loan</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-staffunsubsidized">Unsubsidized loan for school one</label><input type="text" id="s-one-staffunsubsidized" class="school-data" data-nickname="staffunsubsidized" value="0" name="s-one-staffunsubsidized"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-staffunsubsidized">Unsubsidized loan for school two</label><input type="text" id="s-two-staffunsubsidized" class="school-data" data-nickname="staffunsubsidized" value="0" name="s-two-staffunsubsidized"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-staffunsubsidized">Unsubsidized loan for school three</label><input type="text" id="s-three-staffunsubsidized" class="school-data" data-nickname="staffunsubsidized" value="0" name="s-three-staffunsubsidized"></td>
+					</tr>
+					<tr class="federal-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="PLUS Loans are available to graduate and professional students, up to the program’s cost of attendance minus any other financial assistance received. Parents may also borrow PLUS loans to pay for the expenses of undergraduate dependents. Under some circumstances, independent undergraduate students may also borrow PLUS loans. Unlike other federal student loans, eligibility for PLUS loans is dependent on the borrower’s credit." data-tipname="gradplus">Grad PLUS</span></th>
+						<td data-column="1"><label class="cfpb_visually_hide" for="s-one-gradplus">Grad PLUS for school one</label><input type="text" id="s-one-gradplus" class="school-data" data-nickname="gradplus" value="0" name="s-one-gradplus"></td>
+						<td data-column="2"><label class="cfpb_visually_hide" for="s-two-gradplus">Grad PLUS for school two</label><input type="text" id="s-two-gradplus" class="school-data" data-nickname="gradplus" value="0" name="s-two-gradplus"></td>
+						<td data-column="3"><label class="cfpb_visually_hide" for="s-three-gradplus">Grad PLUS for school three</label><input type="text" id="s-three-gradplus" class="school-data" data-nickname="gradplus" value="0" name="s-three-gradplus"></td>
+					</tr>
+
+					<tr class="private arrw-collapse hide highlighted-row" data-arrwname="Private loans">
+						<th data-column="0"><a class="arrw-click" href="#"><span class="cfpb_visually_hide arrw-collapsable">Expand</span><div class="h5">Private loans</div></a></th>
+						<td data-column="1"><div class="h6 data-total" data-nickname="privatetotal">$0</div></td>
+						<td data-column="2"><div class="h6 data-total" data-nickname="privatetotal">$0</div></td>
+						<td data-column="3"><div class="h6 data-total" data-nickname="privatetotal">$0</div></td>
+					</tr>
+					<tr class="private-row instructions tr-hide highlighted-row">
+						<td class="full" colspan="4">Borrowed money that must be repaid with interest.</td>
+					</tr>
+					<tr class="private-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Loans from Your School: A private loan from your school may have variable interest rates, require a credit check and/or a cosigner and lacks many of the repayment options of federal student loans. Students should explore all of their federal grant and loan options before taking out a private student loan." data-tipname="institutionalloan">Loans from your school</span></th>
+						<td data-column="1">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-one-institutionalloan">Loans from your school for school one</label><input type="text" id="s-one-institutionalloan" class="school-data" data-nickname="institutionalloan" value="0" name="s-one-institutionalloan">
+								<label class="cfpb_visually_hide" for="s-one-institutionalloanrate">Value of interest rate for school one</label><input type="text" id="s-one-institutionalloanrate" class="school-data interest-rate" data-nickname="institutionalloanrate" value="0" name="s-one-institutionalloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Loans from your school increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Loans from your school decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-two-institutionalloan">Loans from your school for school two</label><input type="text" id="s-two-institutionalloan" class="school-data" data-nickname="institutionalloan" value="0" name="s-two-institutionalloan">
+								<label class="cfpb_visually_hide" for="s-two-institutionalloanrate">Value of interest rate for school two</label><input type="text" id="s-two-institutionalloanrate" class="school-data interest-rate" data-nickname="institutionalloanrate" value="0" name="s-two-institutionalloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Loans from your school increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Loans from your school decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-three-institutionalloan">Loans from your school for school three</label><input type="text" id="s-three-institutionalloan" class="school-data" data-nickname="institutionalloan" value="0" name="s-three-institutionalloan">
+								<label class="cfpb_visually_hide" for="s-three-institutionalloanrate">Value of interest rate for school three</label><input type="text" id="s-three-institutionalloanrate" class="school-data interest-rate" data-nickname="institutionalloanrate" value="0" name="s-three-institutionalloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Loans from your school increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Loans from your school decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+					</tr>
+					<tr class="private-row tr-hide highlighted-row">
+						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Private Loans often have variable interest rates, require a credit check and/or a cosigner and lack many of the repayment options of federal student loans. Students should explore all of their federal grant and loan options before taking out a private student loan." data-tipname="privateloan">Other loans</span></th>
+						<td data-column="1">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-one-privateloan">Other loans for school one</label><input type="text" id="s-one-privateloan" class="school-data" data-nickname="privateloan" value="0" name="s-one-privateloan">
+								<label class="cfpb_visually_hide" for="s-one-privateloanrate">Value of interest rate for school one</label><input type="text" id="s-one-privateloanrate" class="school-data interest-rate" data-nickname="privateloanrate" value="0" name="s-one-privateloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Other loans increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Other loans decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-two-privateloan">Other loans for school two</label><input type="text" id="s-two-privateloan" class="school-data" data-nickname="privateloan" value="0" name="s-two-privateloan">
+								<label class="cfpb_visually_hide" for="s-two-privateloanrate">Value of interest rate for school two</label><input type="text" id="s-two-privateloanrate" class="school-data interest-rate" data-nickname="privateloanrate" value="0" name="s-two-privateloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Other loans increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Other loans decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="p-rel">
+								<label class="cfpb_visually_hide" for="s-three-privateloan">Other loans for school three</label><input type="text" id="s-three-privateloan" class="school-data" data-nickname="privateloan" value="0" name="s-three-privateloan">
+								<label class="cfpb_visually_hide" for="s-three-privateloanrate">Value of interest rate for school three</label><input type="text" id="s-three-privateloanrate" class="school-data interest-rate" data-nickname="privateloanrate" value="0" name="s-three-privateloanrate">
+								<button class="rate-change up hide-on-inactive" data-buttonid="Other loans increase"><span class="cfpb_visually_hide">Up</span></button> <button class="rate-change down hide-on-inactive" data-buttonid="Other loans decrease"><span class="cfpb_visually_hide">Down</span></button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+				<tbody class="bg-spacer">
+					<tr class="breakdown">
+						<th class="bg-spacing" data-column="0">
+							<div class="h4">Compare first year costs</div>
+							<p>Edit the contribution amounts above and see how it affects the breakdown</p>
+						</th>
+						<td class="bg-spacing" data-column="1">
+							<div class="meter group visualization">
+								<table class="bars cost-of-attendance">
+									<tr>
+										<th scope="col" colspan="2" class="institution-name" data-nickname="institution_name">
+											School 1
+										</th>
+									</tr>
+									<tr class="total-first-year-costs">
+										<td class="costs-label">Total first year costs:</td>
+										<td data-nickname="firstyrcostattend" class="costs-value value">$0</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="bars-container">
+											<div class="chart_mask_internal">
+												<div class="full">
+													<div class="bar discount bar-info" data-nickname="pell" data-tooltip="Pell Grants"></div>
+													<div class="bar discount bar-info" data-nickname="scholar" data-tooltip="Other Scholarships &amp; Grants"></div>
+													<div class="bar discount bar-info" data-nickname="tuitionassist"  data-tooltip="Military Tuition Assistance"></div>
+													<div class="bar discount bar-info" data-nickname="gibill" data-tooltip="GI Bill"></div>
+													<div class="bar savings bar-info" data-nickname="savings" data-tooltip="What You Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="family" data-tooltip="What Family &amp; Others Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="state529plan" data-tooltip="Parent Loans"></div>
+													<div class="bar savings bar-info" data-nickname="workstudy" data-tooltip="Work-Study"></div>
+													<div class="bar fedloans bar-info" data-nickname="perkins" data-tooltip="Perkins Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffsubsidized" data-tooltip="Subsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffunsubsidized" data-tooltip="Unsubsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="gradplus" data-tooltip="Grad PLUS Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="institutionalloan" data-tooltip="Other Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="privateloan"  data-tooltip="Loans from Your School"></div>
+												</div>
+											</div>
+										</td><!-- end .bars-container -->
+									</tr>
+									<tr>
+										<td>Contributions, scholarships, and grants:</td>
+										<td data-nickname="totalgrantsandsavings" class="total-grants-savings-value value">$0</td>
+									</tr>
+									<tr class="borrowing-loans-text">
+										<td class="federal-loans-label">Federal Loans</td>
+										<td data-nickname="federaltotal" class="federal-loans-value value">$0</td>
+									</tr>
+									<tr>
+										<td class="private-loans-label">Private Loans</td>
+										<td data-nickname="privatetotal" class="private-loans-value value">$0</td>
+									</tr>
+									<tr class="left-to-pay">
+										<td>Left to pay:</td>
+										<td data-nickname="gap" class="value">$0</td>
+									</tr>
+								</table><!-- end .bars -->		
+							</div><!-- end .meter -->
+						</td>
+						<td class="bg-spacing" data-column="2">
+							<div class="meter group visualization">
+								<table class="bars cost-of-attendance">
+									<tr>
+										<th scope="col" colspan="2" class="institution-name" data-nickname="institution_name">
+											School 2
+										</th>
+									</tr>
+									<tr class="total-first-year-costs">
+										<td class="costs-label">Total first year costs:</td>
+										<td data-nickname="firstyrcostattend" class="costs-value value">$0</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="bars-container">
+											<div class="chart_mask_internal">
+												<div class="full">
+													<div class="bar discount bar-info" data-nickname="pell" data-tooltip="Pell Grants"></div>
+													<div class="bar discount bar-info" data-nickname="scholar" data-tooltip="Other Scholarships &amp; Grants"></div>
+													<div class="bar discount bar-info" data-nickname="tuitionassist"  data-tooltip="Military Tuition Assistance"></div>
+													<div class="bar discount bar-info" data-nickname="gibill" data-tooltip="GI Bill"></div>
+													<div class="bar savings bar-info" data-nickname="savings" data-tooltip="What You Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="family" data-tooltip="What Family &amp; Others Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="state529plan" data-tooltip="Parent Loans"></div>
+													<div class="bar savings bar-info" data-nickname="workstudy" data-tooltip="Work-Study"></div>
+													<div class="bar fedloans bar-info" data-nickname="perkins" data-tooltip="Perkins Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffsubsidized" data-tooltip="Subsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffunsubsidized" data-tooltip="Unsubsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="gradplus" data-tooltip="Grad PLUS Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="institutionalloan" data-tooltip="Other Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="privateloan"  data-tooltip="Loans from Your School"></div>
+												</div>
+											</div>
+										</td><!-- end .bars-container -->
+									</tr>
+									<tr>
+										<td>Contributions, scholarships, and grants:</td>
+										<td data-nickname="totalgrantsandsavings" class="total-grants-savings-value value">$0</td>
+									</tr>
+									<tr class="borrowing-loans-text">
+										<td class="federal-loans-label">Federal Loans</td>
+										<td data-nickname="federaltotal" class="federal-loans-value value">$0</td>
+									</tr>
+									<tr>
+										<td class="private-loans-label">Private Loans</td>
+										<td data-nickname="privatetotal" class="private-loans-value value">$0</td>
+									</tr>
+									<tr class="left-to-pay">
+										<td>Left to pay:</td>
+										<td data-nickname="gap" class="value">$0</td>
+									</tr>
+								</table><!-- end .bars -->		
+							</div><!-- end .meter -->
+						</td>
+						<td class="bg-spacing" data-column="3">
+							<div class="meter group visualization">
+								<table class="bars cost-of-attendance">
+									<tr>
+										<th scope="col" colspan="2" class="institution-name" data-nickname="institution_name">
+											School 3
+										</th>
+									</tr>
+									<tr class="total-first-year-costs">
+										<td class="costs-label">Total first year costs:</td>
+										<td data-nickname="firstyrcostattend" class="costs-value value">$0</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="bars-container">
+											<div class="chart_mask_internal">
+												<div class="full">
+													<div class="bar discount bar-info" data-nickname="pell" data-tooltip="Pell Grants"></div>
+													<div class="bar discount bar-info" data-nickname="scholar" data-tooltip="Other Scholarships &amp; Grants"></div>
+													<div class="bar discount bar-info" data-nickname="tuitionassist"  data-tooltip="Military Tuition Assistance"></div>
+													<div class="bar discount bar-info" data-nickname="gibill" data-tooltip="GI Bill"></div>
+													<div class="bar savings bar-info" data-nickname="savings" data-tooltip="What You Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="family" data-tooltip="What Family &amp; Others Can Pay"></div>
+													<div class="bar savings bar-info" data-nickname="state529plan" data-tooltip="Parent Loans"></div>
+													<div class="bar savings bar-info" data-nickname="workstudy" data-tooltip="Work-Study"></div>
+													<div class="bar fedloans bar-info" data-nickname="perkins" data-tooltip="Perkins Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffsubsidized" data-tooltip="Subsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="staffunsubsidized" data-tooltip="Unsubsidized Federal Loans"></div>
+													<div class="bar fedloans bar-info" data-nickname="gradplus" data-tooltip="Grad PLUS Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="institutionalloan" data-tooltip="Other Loans"></div>
+													<div class="bar privloans bar-info" data-nickname="privateloan"  data-tooltip="Loans from Your School"></div>
+												</div>
+											</div>
+										</td><!-- end .bars-container -->
+									</tr>
+									<tr>
+										<td>Contributions, scholarships, and grants:</td>
+										<td data-nickname="totalgrantsandsavings" class="total-grants-savings-value value">$0</td>
+									</tr>
+									<tr class="borrowing-loans-text">
+										<td class="federal-loans-label">Federal Loans</td>
+										<td data-nickname="federaltotal" class="federal-loans-value value">$0</td>
+									</tr>
+									<tr>
+										<td class="private-loans-label">Private Loans</td>
+										<td data-nickname="privatetotal" class="private-loans-value value">$0</td>
+									</tr>
+									<tr class="left-to-pay">
+										<td>Left to pay:</td>
+										<td data-nickname="gap" class="value">$0</td>
+									</tr>
+								</table><!-- end .bars -->		
+							</div><!-- end .meter -->
+						</td>
+					</tr>
+				</tbody>
+				<tbody id="after-school-section">
+					<tr class="stop bottom-border">
+						<th class="nopad-horiz" colspan="4"><div class="h3 bold">After school</div></th>
+					</tr>
+					<tr class="school-name-row">
+						<td data-column="0">&nbsp;</td>
+						<th scope="col" data-column="1">
+							<span class="institution-name" data-nickname="institution_name">School 1</span>
+						</th>
+						<th scope="col" data-column="2">
+							<span class="institution-name" data-nickname="institution_name">School 2</span>
+						</th>
+						<th scope="col" data-column="3">
+							<span class="institution-name" data-nickname="institution_name">School 3</span>
+						</th>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0"><div class="h4 tooltip-info" data-tooltip="An estimate of how much you will owe in students loans when you begin repayment after you graduate" data-tipname="totaldebtgrad">Debt at graduation</div></th>
+						<td data-column="1"><span data-nickname="totaldebtgrad" class="visualization school-data total-debt">$0</span></td>
+						<td data-column="2"><span data-nickname="totaldebtgrad" class="visualization school-data total-debt">$0</span></td>
+						<td data-column="3"><span data-nickname="totaldebtgrad" class="visualization school-data total-debt">$0</span></td>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0">
+							<div class="h4">Monthly payments</div>
+							<p>Per month for 10 years to cover your total borrowing</p>
+						</th>
+						<td data-column="1">
+							<div class="visualization">
+								<div class="debt-pie"></div>
+								<p class="monthly-payment"><span data-nickname="loanmonthly" class="school-data payment-amount">$0</span> per month</p>
+								<p class="monthly-payment percent-of-salary"><span class="payment-percent">0%</span> of your monthly salary</p>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="visualization">
+								<div class="debt-pie"></div>
+								<p class="monthly-payment"><span data-nickname="loanmonthly" class="school-data payment-amount">$0</span> per month</p>
+								<p class="monthly-payment percent-of-salary"><span class="payment-percent">0%</span> of your monthly salary</p>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="visualization">
+								<div class="debt-pie"></div>
+								<p class="monthly-payment"><span data-nickname="loanmonthly" class="school-data payment-amount">$0</span> per month</p>
+								<p class="monthly-payment percent-of-salary"><span class="payment-percent">0%</span> of your monthly salary</p>
+							</div>
+						</td>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0">
+							<div class="h4 tooltip-info" data-tooltip="Debt Burden: Based on your estimated debt and the average national salary for bachelors graduates. Not school specific." data-tipname="debtburden">Debt burden</div>
+						</th>
+						<td data-column="1" class="debt-burden-cell"><span data-nickname="debtburden" class="visualization">None</span></td>
+						<td data-column="2" class="debt-burden-cell"><span data-nickname="debtburden" class="visualization">None</span></td>
+						<td data-column="3" class="debt-burden-cell"><span data-nickname="debtburden" class="visualization">None</span></td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr class="bottom-border" id="indicators-row">
+						<th class="nopad-horiz" colspan="4">
+							<div class="h3 bold">School indicators (<a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank">Source</a>)</div>
+						</th>
+					</tr>
+					<tr class="school-name-row">
+						<td data-column="0">&nbsp;</td>
+						<th scope="col" data-column="1">
+							<span class="institution-name" data-nickname="institution_name">School 1</span>
+						</th>
+						<th scope="col" data-column="2">
+							<span class="institution-name" data-nickname="institution_name">School 2</span>
+						</th>
+						<th scope="col" data-column="3">
+							<span class="institution-name" data-nickname="institution_name">School 3</span>
+						</th>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0">
+							<div class="h4">Graduation rate</div>
+							<p>Percentage of full-time students who graduate within 6 years or 3 years for undergraduate and associates programs, respectively.</p>
+						</th>
+						<td data-column="1">
+							<div class="hide-on-inactive">
+								<div class="graduation-rate-chart">
+									<div class="gradrisk-container">
+										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
+										<div class="gradrisk-pointer"></div>	
+									</div>
+									<div class="gradrisk-bar">
+										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
+									</div>
+								</div>
+								<p data-nickname="gradrisk" class="gradrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="hide-on-inactive">
+								<div class="graduation-rate-chart">
+									<div class="gradrisk-container">
+										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
+										<div class="gradrisk-pointer"></div>	
+									</div>
+									<div class="gradrisk-bar">
+										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
+									</div>
+								</div>
+								<p data-nickname="gradrisk" class="gradrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="hide-on-inactive">
+								<div class="graduation-rate-chart">
+									<div class="gradrisk-container">
+										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
+										<div class="gradrisk-pointer"></div>	
+									</div>
+									<div class="gradrisk-bar">
+										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
+									</div>
+								</div>
+								<p data-nickname="gradrisk" class="gradrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0">
+							<div class="h4">Loan Default Rate</div>
+							<p>Percentage of borrowers who have defaulted on their loan after entering repayment. </p>
+						</th>
+						<td data-column="1">
+							<div class="hide-on-inactive">
+								<div class="default-rate-chart">
+									<p class="default-rate-this">This school<span class="percent">&nbsp;</span></p>
+									<p class="default-rate-avg">National average<span class="percent">&nbsp;</span></p>
+								</div>
+								<p data-nickname="defaultrisk" class="defaultrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="hide-on-inactive">
+								<div class="default-rate-chart">
+									<p class="default-rate-this">This school<span class="percent">&nbsp;</span></p>
+									<p class="default-rate-avg">National average<span class="percent">&nbsp;</span></p>
+								</div>
+								<p data-nickname="defaultrisk" class="defaultrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="hide-on-inactive">
+								<div class="default-rate-chart">
+									<p class="default-rate-this">This school<span class="percent">&nbsp;</span></p>
+									<p class="default-rate-avg">National average<span class="percent">&nbsp;</span></p>
+								</div>
+								<p data-nickname="defaultrisk" class="defaultrisk-text indicator-textbox">&nbsp;</p>
+							</div>
+						</td>
+					</tr>
+					<tr class="visualization-row">
+						<th scope="row" data-column="0">
+							<div class="h4">Median Borrowing</div>
+							<p>Families typically borrow this amount in federal loans for a student’s undergraduate study. This shows the Federal loan payment over 10 years for this amount. Your borrowing may be different.</p>
+						</th>
+						<td data-column="1">
+							<div class="hide-on-inactive">
+								<div class="median-borrowing-chart">
+								</div>
+								<p data-nickname="loandebtrisk" class="median-borrowing-text indicator-textbox">&nbsp;</p><span class="cfpb_visually_hide indicator-text"></span>
+							</div>
+						</td>
+						<td data-column="2">
+							<div class="hide-on-inactive">
+								<div class="median-borrowing-chart">
+								</div>
+								<p data-nickname="loandebtrisk" class="median-borrowing-text indicator-textbox">&nbsp;</p><span class="cfpb_visually_hide indicator-text"></span>
+							</div>
+						</td>
+						<td data-column="3">
+							<div class="hide-on-inactive">
+								<div class="median-borrowing-chart">
+								</div>
+								<p data-nickname="loandebtrisk" class="median-borrowing-text indicator-textbox">&nbsp;</p><span class="cfpb_visually_hide indicator-text"></span>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="tooltip-container">
+				<div class="outertip"> </div>
+				<div class="innertip"> </div>
+				<p>content</p>
+			</div>
+			<div id="bar-info-container">
+				<div class="outertip"> </div>
+				<div class="innertip"> </div>
+				<p>content</p>
+			</div>
+		</section><!-- end #comparison-tables -->
+
+		<div id="save-footer" class="save-footer">
+			<h2 class="h3 vert-pad bottom-border bold">Feedback</h2>
+			<div class="feedback-container">
+				<p>What do you think about Paying for College? We're always looking to make our tools and resources better for you. Tell us how!</p>
+				<a class="feedback button school-link" target="_blank" href="/paying-for-college/compare-financial-aid-and-college-cost/feedback/">Give us Feedback</a>
+			</div>
+		</div><!-- end #save-footer -->
+	</div><!-- end #comparison-tool -->
+{% endblock content %}
+
+{% block app_modal %}
+<div id="modal" class="save-modal" aria-hidden="true" aria-labelledby="modal-title" aria-describedby="modal-description" role="dialog">
+	<div id="modal-description" class="cfpb_visually_hide">Beginning of dialog window. It begins with a heading 1 called &quot;Your work has been saved!&quot;. Escape will cancel and close the window.</div>
+	<h1 id="modal-title">Your work has been saved!</h1>
+	<p>Copy and save the unique URL below to come back to your completed worksheet. You can also use the form to email the URL to yourself or to anyone helping you with your decision!</p>
+	<div class="modal-container">
+		<div class="form-container">
+			<label class="unique-label" for="unique">URL</label>
+			<textarea id="unique" rows="4" cols="50" readonly="readonly">http://www.consumerfinance.gov/paying-for-college/compare-financial-aid-and-college-cost/?restore=871e01a4-a12b-403c-9e9a-5523909cecef</textarea>
+		</div>
+		<div class="form-container">
+			<label class="email-label" for="email">Email</label>
+			<input id="email" type="text" value="">
+		</div>
+		<p class="no-save">The CFPB does not share your email address. We will only use it to send you this information.</p>
+	</div>
+	<div class="email-group">
+		<button id="send-email" class="button">Email worksheet</button> <span id="send-email-confirm" style="display:none;">Success!</span>
+	</div>
+	<p class="time"><i class="icon-approved-alt"></i><span id="timestamp"></span></p>
+	<button id="close-modal"><i class="icon-delete-alt"></i><span class="cfpb_visually_hide">Close modal</span></button>
+</div><!-- end #modal -->
+<div id="modal-overlay" tabindex="-1"></div>
+{% endblock %}
