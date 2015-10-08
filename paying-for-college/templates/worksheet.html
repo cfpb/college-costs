@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static "paying_for_college/comparisontool/css/comparison-tool.css" %}">
+<link rel="stylesheet" href="{% static "paying_for_college/disclosures/css/comparison-tool.css" %}">
 <link rel='stylesheet' id='cfpb_icon_font-css'  href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons.css?ver=all" type="text/css" media="all">
     <!--[if IE 7]>
     <link rel="stylesheet" id="cfpb_icon_font_ie7-css"  href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons-ie7.css?ver=all" type="text/css" media="all" />
@@ -54,7 +54,7 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
     }
 });
     $(function(){
-        $.post('/token-provider/', function(token_tag){ $(token_tag).appendTo('#reg-form')})
+        $.post('http://www.consumerfinance.gov/token-provider/', function(token_tag){ $(token_tag).appendTo('#reg-form')})
     })
 </script>
 
@@ -62,10 +62,10 @@ jQuery(document).ajaxSend(function(event, xhr, settings) {
 var restoredata = {{ data_js|safe }};
 </script>
 
-<script src="{% static "paying_for_college/comparisontool/js/xml2json.js" %}"></script>
-<script src="{% static "paying_for_college/comparisontool/js/raphael-min.js" %}"></script>
-<script src="{% static "paying_for_college/comparisontool/js/comparison-tool.js" %}"></script>
-<script src="{% static "paying_for_college/comparisontool/js/pfc-analytics.js" %}"></script>
+<script src="{% static "paying_for_college/disclosures/js/xml2json.js" %}"></script>
+<script src="{% static "paying_for_college/disclosures/js/raphael-min.js" %}"></script>
+<script src="{% static "paying_for_college/disclosures/js/comparison-tool.js" %}"></script>
+<script src="{% static "paying_for_college/disclosures/js/pfc-analytics.js" %}"></script>
 {% endblock page_js %}
 
 {% block body_class %}page paying-for-college{% endblock %}
@@ -90,7 +90,7 @@ var restoredata = {{ data_js|safe }};
 		    		<p>Compare college costs and financial aid offers to see how they might impact you down the road. Just researching schools? Check out <a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank">College Scorecard</a>.</p>
 		    	</div>
 		    	<div class="pfc-hero-image">
-		    		<img alt="" src="{% static "paying_for_college/comparisontool/images/hero_compare.png" %}">
+		    		<img alt="" src="{% static "paying_for_college/disclosures/images/hero_compare.png" %}">
 		    	</div>
 		    </div><!-- end .pfc-hero-wrapper -->
 		    <a class="cfpb_visually_hide focusable" href="#introduction">Skip to main content</a>

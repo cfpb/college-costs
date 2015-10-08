@@ -1,17 +1,57 @@
-# College costs tool
-A web app to help students weight the costs and benefits of a specific college program.
+# Paying for College
+Tools to help students make informed financial decisions about college.
 
-  - **Status**:  Alpha
+![](compare_hero.png)
 
-## Dependencies
+- **Status**:  Alpha
+- This project is under construction Please wear a hardhat.
 
-- Django
+### Setup dependencies
+ * [pip](https://pypi.python.org/pypi/pip)
+ * [virtualenv](https://virtualenv.pypa.io/en/latest/)
+ * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
+ * [Node](http://nodejs.org/)
+ * [Grunt](http://gruntjs.com/)
 
-<!-- ## Installation
-- 
-Detailed instructions on how to install, configure, and get the project running.
-This should be frequently tested to ensure reliability. Alternatively, a link to
-another page is fine, but it's important that this works.
+### Code dependencies
+- [Django](https://www.djangoproject.com/)
+- [requests](http://docs.python-requests.org/en/latest/)
+- [Unipath](https://github.com/mikeorr/Unipath)
+
+### Testing dependencies
+- [selenium](https://selenium-python.readthedocs.org/installation.html)
+- [behave](http://pythonhosted.org/behave/)
+- [PyHamcrest](https://pyhamcrest.readthedocs.org/en/V1.8.2/)
+
+### Installation
+This project is not fully functional, but feel free to give it a spin. Here's how:
+- Install the setup dependencies.
+- Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it) and install requirements and settings.
+```bash
+mkvirtualenv college-costs
+git clone https://github.com/cfpb/college-costs.git .
+setvirtualenvproject
+pip install -r requirements/base.txt
+```
+- Set up front-end resources and database assets with the setup script:
+```bash
+./setup.sh
+```
+- Move to the `paying-for-college` directory and fire up a local server:
+```bash
+cd paying-for-college
+python manage.py runserver
+```
+
+The only working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
+
+<!-- INCLUDE IN setup.sh
+- Build the front-end requirements and the JavaScript files.
+
+```bash
+npm install
+grunt Build
+```
 
 ## Configuration
 

@@ -49,6 +49,7 @@ coverage.xml
 # Django stuff:
 *.log
 db.sqlite3
+paying-for-college/static/*
 
 # Sphinx documentation
 docs/_build/
