@@ -12,11 +12,13 @@ Tools to help students make informed financial decisions about college.
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
  * [Node](http://nodejs.org/)
  * [Grunt](http://gruntjs.com/)
+ * [elasticsearch](https://www.elastic.co/products/elasticsearch)
 
 ### Code dependencies
 - [Django](https://www.djangoproject.com/)
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
+- [django-haystack](http://haystacksearch.org/)
 
 ### Testing dependencies
 - [selenium](https://selenium-python.readthedocs.org/installation.html)
@@ -25,21 +27,20 @@ Tools to help students make informed financial decisions about college.
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
-- Install the setup dependencies.
-- Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it) and install requirements and settings.
+- Install the setup dependencies if you don't have them.
+- Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
 git clone https://github.com/cfpb/college-costs.git .
 setvirtualenvproject
-pip install -r requirements/base.txt
 ```
-- Set up front-end resources and database assets with the setup script:
+- Set up front-end resources and database assets:
 ```bash
 ./setup.sh
 ```
 - Move to the `paying-for-college` directory and fire up a local server:
 ```bash
-cd paying-for-college
+cd 'paying-for-college'
 python manage.py runserver
 ```
 

@@ -11,15 +11,8 @@ install(){
   echo 'Installing project dependencies...'
   pip install -r requirements/base.txt
   # npm install
-  # bower install --config.interactive=false
+  # grunt build
 
-  # Update test dependencies.
-
-  # Protractor - JavaScript acceptance testing.
-  # ./$NODE_DIR/protractor/bin/webdriver-manager update
-
-  # Tox - Django server unit testing.
-  # pip install tox
 }
 
 # Setup local data store in sqlite3
@@ -28,7 +21,8 @@ dbsetup(){
   cd 'paying-for-college'
   python manage.py makemigrations
   python manage.py migrate
-  python loaddata colleges.json
+  python manage.py loaddata colleges.json
+  python manage.py collectstatic --noinput
 }
 
 install
