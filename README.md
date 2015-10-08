@@ -4,7 +4,7 @@ Tools to help students make informed financial decisions about college.
 ![](compare_hero.png)
 
 - **Status**:  Alpha
-- This project is under construction Please wear a hardhat.
+- This project is under construction. Please wear a hardhat.
 
 ### Setup dependencies
  * [pip](https://pypi.python.org/pypi/pip)
@@ -21,6 +21,9 @@ Tools to help students make informed financial decisions about college.
 - [django-haystack](http://haystacksearch.org/)
 
 ### Testing dependencies
+- [mock](https://github.com/testing-cabal/mock)
+- [nose](https://nose.readthedocs.org/en/latest/)
+- [coverage](https://coverage.readthedocs.org/en/latest/)
 - [selenium](https://selenium-python.readthedocs.org/installation.html)
 - [behave](http://pythonhosted.org/behave/)
 - [PyHamcrest](https://pyhamcrest.readthedocs.org/en/V1.8.2/)
