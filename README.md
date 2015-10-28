@@ -10,15 +10,16 @@ Tools to help students make informed financial decisions about college.
  * [pip](https://pypi.python.org/pypi/pip)
  * [virtualenv](https://virtualenv.pypa.io/en/latest/)
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
- * [Node](http://nodejs.org/)
- * [Grunt](http://gruntjs.com/)
  * [elasticsearch](https://www.elastic.co/products/elasticsearch)
+ * [node](http://nodejs.org/)
+ * [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 ### Code dependencies
 - [Django](https://www.djangoproject.com/)
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
-- [django-haystack](http://haystacksearch.org/)
+
+<!-- - [django-haystack](http://haystacksearch.org/) -->
 
 ### Testing dependencies
 - [mock](https://github.com/testing-cabal/mock)

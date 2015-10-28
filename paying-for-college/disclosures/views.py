@@ -14,7 +14,7 @@ from django.template.loader import get_template
 from django.http import HttpResponse
 from django.conf import settings
 
-from haystack.query import SearchQuerySet
+# from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback, BAHRate
 from forms import FeedbackForm, EmailForm
@@ -65,26 +65,26 @@ class BuildComparisonView(View):
                                   context_instance=RequestContext(request))
 
     def post(self, request):
-        # extract id's and in-state information
-
+        """extract id's and in-state information"""
         index = 1
         schools = {}
         data = {
             "global": {
-            "aaprgmlength": 2,
-            "yrincollege": 1,
-            "gradprgmlength": 2,
-            "familyincome": 48,
-            "vet": False,
-            "serving": "no",
-            "tier": 100,
-            "program": request.POST.get('school-program', 'ba')
-
-            },
+                "aaprgmlength": 2,
+                "yrincollege": 1,
+                "gradprgmlength": 2,
+                "familyincome": 48,
+                "vet": False,
+                "serving": "no",
+                "tier": 100,
+                "program": request.POST.get('school-program', 'ba')
+                },
             "schools": {}
         }
 
-        for school_id in [value for key, value in request.POST.iteritems() if key.endswith('-unitid')] + [100000, 100001]:
+        for school_id in [value for key, value
+                          in request.POST.iteritems()
+                          if key.endswith('-unitid')] + [100000, 100001]:
             if school_id:
                 institution = Institution.objects.get(pk=int(school_id))
                 in_state = request.POST.get('school-state-%s' % index, 'in')
@@ -153,13 +153,15 @@ class EmailLink(View):
             recipient = form.cleaned_data['email']
             subject = "Your Personalized College Financial Aid Information"
             body_template = get_template('email_body.txt')
-            body = body_template.render(RequestContext(request,dict(guid=worksheet.guid)))
+            body = body_template.render(RequestContext(request,
+                                        dict(guid=worksheet.guid)))
 
             send_mail(subject, body, 'no-reply@cfpb.gov', [recipient],
                       fail_silently=False)
 
         document = {'status': 'ok'}
-        return HttpResponse(json.dumps(document), mimetype='application/javascript')
+        return HttpResponse(json.dumps(document),
+                            mimetype='application/javascript')
 
 
 class CreateWorksheetView(View):
@@ -199,8 +201,9 @@ def bah_lookup_api(request):
 
 
 def school_search_api(request):
-    sqs = SearchQuerySet().models(School)
-    sqs = sqs.autocomplete(autocomplete=request.GET.get('q', ''))
+    es_query = ''
+    # sqs = SearchQuerySet().models(School)
+    # sqs = sqs.autocomplete(autocomplete=request.GET.get('q', ''))
 
     document = [{'schoolname': school.text,
                  'id': school.school_id,
@@ -208,7 +211,7 @@ def school_search_api(request):
                  'state': school.state,
                  'url': reverse('school-json',
                                 args=[school.school_id])}
-                for school in sqs]
+                for school in es_query]
     json_doc = json.dumps(document)
 
     return HttpResponse(json_doc, mimetype='application/json')

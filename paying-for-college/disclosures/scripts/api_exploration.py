@@ -16,6 +16,8 @@ import os
 import requests
 import json
 import datetime
+from decimal import Decimal
+
 from csvkit import CSVKitWriter as ckw
 
 
@@ -77,11 +79,11 @@ def build_string(YEAR):
         '%s.aid.median_debt_suppressed.overall' % YEAR,
         '%s.aid.median_debt_suppressed.completers.overall' % YEAR,
         '%s.aid.median_debt_suppressed.completers.monthly_payments' % YEAR,
-        '%s.aid.students_with_any_loan' % YEAR,  # no data
+        '%s.aid.students_with_any_loan' % YEAR,
         '%s.repayment.3_yr_repayment_suppressed.overall' % YEAR,
-        '%s.repayment.repayment_cohort.1_year_declining_balance' % YEAR,  # no data
-        '%s.repayment.1_yr_repayment.completers' % YEAR,  # no data
-        '%s.repayment.1_yr_repayment.noncompleters' % YEAR,  # no data
+        '%s.repayment.repayment_cohort.1_year_declining_balance' % YEAR,
+        '%s.repayment.1_yr_repayment.completers' % YEAR,
+        '%s.repayment.1_yr_repayment.noncompleters' % YEAR,
         '%s.repayment.repayment_cohort.3_year_declining_balance' % YEAR,
         '%s.repayment.3_yr_repayment.completers' % YEAR,
         '%s.repayment.3_yr_repayment.noncompleters' % YEAR,
@@ -91,8 +93,8 @@ def build_string(YEAR):
         '%s.repayment.repayment_cohort.7_year_declining_balance' % YEAR,
         '%s.repayment.7_yr_repayment.completers' % YEAR,
         '%s.repayment.7_yr_repayment.noncompleters' % YEAR,
-        '%s.earnings.6_yrs_after_entry.working_not_enrolled.mean_earnings' % YEAR,  # no data
-        '%s.earnings.6_yrs_after_entry.median' % YEAR,  # no data
+        '%s.earnings.6_yrs_after_entry.working_not_enrolled.mean_earnings' % YEAR,
+        '%s.earnings.6_yrs_after_entry.median' % YEAR,
         '%s.earnings.6_yrs_after_entry.percent_greater_than_25000' % YEAR,
         '%s.earnings.7_yrs_after_entry.mean_earnings' % YEAR,
         '%s.earnings.7_yrs_after_entry.percent_greater_than_25000' % YEAR,
@@ -107,15 +109,6 @@ def build_string(YEAR):
         ]
     field_string = ",".join([field for field in fields])
     return field_string
-
-# 2015-09-14 could not find:
-    # '%s.earnings.7_yrs_after_entry.median_earnings' % YEAR,
-    # '%s.earnings.9_yrs_after_entry.median_earnings' % YEAR,
-
-# api_root_18F = "https://ccapi-prod.18f.gov"  # not given access
-# beta_api_root = "https://api.data.gov/TEST/ed/beta"
-# beta_school_root = "%s/school" % beta_api_root
-# datagov CKAN api: http://catalog.data.gov/api/3/
 
 api_key = os.getenv('ED_API_KEY')
 api_root = "https://api.data.gov/ed/collegescorecard/v1"
@@ -135,12 +128,28 @@ def get_schools_by_page(year, page=0):
     return data
 
 
+def search_by_school_name(name):
+    """search api by school name, return school name, id, city, state"""
+    fields = "id,school.name,school.city,school.state"
+    url = "%s?api_key=%s&school.name=%s&fields=%s" % (schools_root,
+                                                      api_key,
+                                                      name,
+                                                      fields)
+    data = json.loads(requests.get(url).text)['results']
+    return data
+
+
 def get_school_data(school_id):
     """get a full api data set for a single school as dict"""
     school_id = "%s" % school_id
     url = "%s?id=%s&api_key=%s" % (schools_root, school_id, api_key)
-    data = json.loads(requests.get(url).text)
+    data = json.loads(requests.get(url).text)['results'][0]
     return data
+
+
+def get_school_size(school_id, year):
+    sdata = get_school_data(school_id)
+    return year, sdata['school']['name'], sdata[str(year)]['student']['size']
 
 
 def get_all_school_ids():
@@ -218,3 +227,51 @@ if __name__ == '__main__':  # pragma: no cover
                 export_spreadsheet(year)
         else:
             print "please provide a valid 4-digit year"
+
+
+def unpack_alias(alist, school):
+    "create aliases for a list of concatinated aliases"
+    for alias in alist:
+        new, created = Alias.objects.get_or_create(alias=alias,
+                                                   institution=school,
+                                                   defaults={'is_primary':
+                                                             False})
+
+
+def calculate_percent(group1, group2):
+    """calculates one group's percentage of a two-group total"""
+    if group1 + group2 == 0:
+        return 0
+    else:
+        return Decimal(str(round(group1 * 100.0 / (group1 + group2), 2)))
+
+
+# USF = 137351
+def get_repayment_data(school_id, year):
+    """return metric on student debt repayment"""
+    school_id = "%s" % school_id
+    entrylist = [
+        '%s.repayment.3_yr_repayment_suppressed.overall',
+        '%s.repayment.repayment_cohort.1_year_declining_balance',
+        '%s.repayment.1_yr_repayment.completers',
+        '%s.repayment.1_yr_repayment.noncompleters',
+        '%s.repayment.repayment_cohort.3_year_declining_balance',
+        '%s.repayment.3_yr_repayment.completers',
+        '%s.repayment.3_yr_repayment.noncompleters',
+        '%s.repayment.repayment_cohort.5_year_declining_balance',
+        '%s.repayment.5_yr_repayment.completers',
+        '%s.repayment.5_yr_repayment.noncompleters',
+        '%s.repayment.repayment_cohort.7_year_declining_balance',
+        '%s.repayment.7_yr_repayment.completers',
+        '%s.repayment.7_yr_repayment.noncompleters']
+    fields = ",".join([entry % year for entry in entrylist])
+    url = "%s?id=%s&api_key=%s&fields=%s" % (schools_root,
+                                             school_id,
+                                             api_key,
+                                             fields)
+    data = json.loads(requests.get(url).text)['results'][0]
+    repay_completers = data['%s.repayment.5_yr_repayment.completers' % year]
+    repay_non = data['%s.repayment.5_yr_repayment.noncompleters' % year]
+    data['completer_repayment_rate_after_5_yrs'] = calculate_percent(repay_completers,
+                                                    repay_non)
+    return data
