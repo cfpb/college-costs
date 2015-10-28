@@ -31,7 +31,7 @@ Tools to help students make informed financial decisions about college.
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
-- Install the setup dependencies if you don't have them.
+- Install the setup dependencies if you don't have them. Make sure you have elasticsearch installed and running.
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
