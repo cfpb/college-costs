@@ -1,0 +1,10 @@
+[run]
+omit = 
+    paying_for_college/config*
+    paying_for_college/disclosures/admin*
+
+[report]
+
+exclude_lines = 
+    pragma: no cover
+    if __name__ == .__main__.:

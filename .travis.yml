@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+install:
+  - pip install -r requirements/test.txt --use-mirrors
+  - pip install coveralls
+script: 
+  - nosetests --with-coverage --config=.coveragerc --cover-package disclosures
+  # - coverage run --source='.' manage.py test
+after_success:
+  - coveralls

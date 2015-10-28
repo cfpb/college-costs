@@ -40,7 +40,7 @@ setvirtualenvproject
 ```
 - Set up front-end resources and database assets:
 ```bash
-./setup.sh
+./local_setup.sh
 ```
 - Move to the `paying-for-college` directory and fire up a local server:
 ```bash
@@ -48,7 +48,7 @@ cd 'paying-for-college'
 python manage.py runserver
 ```
 
-The only working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
+The only semi-working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
 
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
