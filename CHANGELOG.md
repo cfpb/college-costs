@@ -8,7 +8,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Retooling comparisontool as a disclosures app
 
 ### Added
-- elasticsearch
+- elasticsearch dependency and utilities script
 - new model for school program data
 - extended model for schools
 - tests and test framework
