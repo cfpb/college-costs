@@ -2,6 +2,8 @@
 omit = 
     config/*
     disclosures/admin*
+    */site-packages*
+    */python2.7/*
 
 [report]
 
