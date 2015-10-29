@@ -1,6 +1,6 @@
 [run]
 omit = 
-    config*
+    config/*
     disclosures/admin*
 
 [report]
