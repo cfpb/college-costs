@@ -4,6 +4,10 @@ python:
 install:
   - pip install -r requirements/testing.txt
   - pip install coveralls
+env:
+  - DJANGO_SETTINGS_MODULE=config.settings.dev
+before_script:
+  - cd paying-for-college
 script: 
   - nosetests --with-coverage --config=.coveragerc --cover-package disclosures
   # - coverage run --source='.' manage.py test
