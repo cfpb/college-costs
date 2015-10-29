@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 install:
-  - pip install -r requirements/test.txt --use-mirrors
+  - pip install -r requirements/testing.txt
   - pip install coveralls
 script: 
   - nosetests --with-coverage --config=.coveragerc --cover-package disclosures
