@@ -1,9 +1,10 @@
 import os
-from setuptools import setup, find_packages
-from subprocess import call
-from setuptools import Command
-from distutils.command.build_ext import build_ext as _build_ext
-from setuptools.command.bdist_egg import bdist_egg as _bdist_egg
+from setuptools import setup
+# from setuptools import find_packages
+# from subprocess import call
+# from setuptools import Command
+# from distutils.command.build_ext import build_ext as _build_ext
+# from setuptools.command.bdist_egg import bdist_egg as _bdist_egg
 
 
 def read_file(filename):

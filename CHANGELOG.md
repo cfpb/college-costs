@@ -2,16 +2,17 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 
-## x.y.z - YYYY-MM-DD
+## 1.1.0 - 2015-10-28
+
+### Initial refactoring
+- Retooling comparisontool as a disclosures app
 
 ### Added
-- Lorem ipsum dolor sit amet
-
-### Deprecated
-- Nothing.
+- elasticsearch dependency and utilities script
+- new model for school program data
+- extended model for schools
+- tests and test framework
 
 ### Removed
-- Nothing.
+- Haystack and Solr dependencies.
 
-### Fixed
-- Nothing.

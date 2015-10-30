@@ -1,4 +1,3 @@
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import base64
 from unipath import Path
@@ -21,43 +20,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'haystack',
     'disclosures',
     'debt',
     # 'guides',
 )
 
-HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr'
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://localhost:9001/solr/default',
-        'TIMEOUT': 60 * 5,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
-        'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
-    },
-    # 'autocomplete': {
-    #     'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-    #     'PATH': '/home/search/whoosh_index',
-    #     'STORAGE': 'file',
-    #     'POST_LIMIT': 128 * 1024 * 1024,
-    #     'INCLUDE_SPELLING': True,
-    #     'BATCH_SIZE': 100,
-    #     'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
-    # },
-    # 'slave': {
-    #     'ENGINE': 'xapian_backend.XapianEngine',
-    #     'PATH': '/home/search/xapian_index',
-    #     'INCLUDE_SPELLING': True,
-    #     'BATCH_SIZE': 100,
-    #     'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
-    # },
-    'db': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-        'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
-    }
-}
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -75,8 +42,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [PROJECT_ROOT.child('templates'),
-                 '/Users/higginsw/Projects/UnityBox/cfpb_django/apps/django-cfgov-common/cfpb_common/templates'],
+        'DIRS': [PROJECT_ROOT.child('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,10 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -105,10 +67,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = PROJECT_ROOT.child('static')
-# STATIC_ROOT = '/Users/higginsw/Projects/college-costs/paying-for-college/static/'

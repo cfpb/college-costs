@@ -12,15 +12,16 @@ Tools to help students make informed financial decisions about college.
  * [pip](https://pypi.python.org/pypi/pip)
  * [virtualenv](https://virtualenv.pypa.io/en/latest/)
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
- * [Node](http://nodejs.org/)
- * [Grunt](http://gruntjs.com/)
  * [elasticsearch](https://www.elastic.co/products/elasticsearch)
+ * [node](http://nodejs.org/)
+ * [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 ### Code dependencies
 - [Django](https://www.djangoproject.com/)
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
-- [django-haystack](http://haystacksearch.org/)
+
+<!-- - [django-haystack](http://haystacksearch.org/) -->
 
 ### Testing dependencies
 - [mock](https://github.com/testing-cabal/mock)
@@ -32,7 +33,7 @@ Tools to help students make informed financial decisions about college.
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
-- Install the setup dependencies if you don't have them.
+- Install the setup dependencies if you don't have them. Make sure you have elasticsearch installed and running.
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
@@ -41,7 +42,7 @@ setvirtualenvproject
 ```
 - Set up front-end resources and database assets:
 ```bash
-./setup.sh
+./local_setup.sh
 ```
 - Move to the `paying-for-college` directory and fire up a local server:
 ```bash
@@ -49,7 +50,7 @@ cd 'paying-for-college'
 python manage.py runserver
 ```
 
-The only working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
+The only semi-working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
 
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
@@ -89,6 +90,4 @@ If you find a bug or see a way to improve the project, we'd love to hear from yo
 
 ## Credits and references
 
-1. Projects that inspired you
-2. Related projects
-3. Books, papers, talks, or other sources that have meaniginful impact or influence on this project 
+This project is based on the current [CFPB Paying for College](http://www.consumerfinance.gov/paying-for-college/) suite of tools for students.

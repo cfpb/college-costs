@@ -50,6 +50,7 @@ coverage.xml
 *.log
 db.sqlite3
 paying-for-college/static/*
+*data/
 
 # Sphinx documentation
 docs/_build/

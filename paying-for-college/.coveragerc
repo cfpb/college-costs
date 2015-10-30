@@ -1,0 +1,12 @@
+[run]
+omit = 
+    config/*
+    disclosures/admin*
+    */site-packages*
+    */python2.7/*
+
+[report]
+
+exclude_lines = 
+    pragma: no cover
+    if __name__ == .__main__.:
