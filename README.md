@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cfpb/college-costs.png)](https://travis-ci.org/cfpb/college-costs) [![Coverage Status](https://coveralls.io/repos/cfpb/college-costs/badge.svg)](https://coveralls.io/r/cfpb/college-costs)
+[![Build Status](https://travis-ci.org/cfpb/college-costs.png)](https://travis-ci.org/cfpb/college-costs) [![Coverage Status](https://coveralls.io/repos/cfpb/college-costs/badge.svg?branch=master&service=github)](https://coveralls.io/github/cfpb/college-costs?branch=master)
 
 # Paying for College
 Tools to help students make informed financial decisions about college.
