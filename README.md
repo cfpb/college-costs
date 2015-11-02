@@ -23,6 +23,7 @@ Tools to help students make informed financial decisions about college.
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
 - [haystack](http://haystacksearch.org/)
+- [pysolr](https://github.com/toastdriven/pysolr)
 
 <!-- - [django-haystack](http://haystacksearch.org/) -->
 
