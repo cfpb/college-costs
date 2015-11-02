@@ -22,9 +22,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    # 'debt',
+    'debt',
     'disclosures',
-    # 'guides',
+    'guides',
     'haystack',
 )
 
