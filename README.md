@@ -9,23 +9,25 @@ Tools to help students make informed financial decisions about college.
 - This project is under construction. Please wear a hardhat.
 
 ### Setup dependencies
+ * [solr](http://lucene.apache.org/solr/)
  * [pip](https://pypi.python.org/pypi/pip)
  * [virtualenv](https://virtualenv.pypa.io/en/latest/)
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
- * [elasticsearch](https://www.elastic.co/products/elasticsearch)
  * [node](http://nodejs.org/)
  * [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
+
+<!--  * [elasticsearch](https://www.elastic.co/products/elasticsearch) -->
 
 ### Code dependencies
 - [Django](https://www.djangoproject.com/)
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
+- [haystack](http://haystacksearch.org/)
 
 <!-- - [django-haystack](http://haystacksearch.org/) -->
 
 ### Testing dependencies
 - [mock](https://github.com/testing-cabal/mock)
-- [nose](https://nose.readthedocs.org/en/latest/)
 - [coverage](https://coverage.readthedocs.org/en/latest/)
 - [selenium](https://selenium-python.readthedocs.org/installation.html)
 - [behave](http://pythonhosted.org/behave/)
@@ -33,7 +35,7 @@ Tools to help students make informed financial decisions about college.
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
-- Install the setup dependencies if you don't have them. Make sure you have elasticsearch installed and running.
+- Install the setup dependencies if you don't have them. Make sure you have solr installed and running.
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
@@ -50,7 +52,9 @@ cd 'paying-for-college'
 python manage.py runserver
 ```
 
-The only semi-working piece at present is the page for comparing aid offers, which should show up at [http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/](http://127.0.0.1:8000/disclosures/compare-financial-aid-and-college-cost/)
+The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-college/](http://127.0.0.1:8000/paying-for-college/)
+
+The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.

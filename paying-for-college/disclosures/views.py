@@ -14,7 +14,7 @@ from django.template.loader import get_template
 from django.http import HttpResponse
 from django.conf import settings
 
-# from haystack.query import SearchQuerySet
+from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback, BAHRate
 from forms import FeedbackForm, EmailForm
@@ -23,6 +23,28 @@ try:
     STANDALONE = settings.STANDALONE
 except:  # pragma: no cover
     STANDALONE = False
+
+if STANDALONE:
+    BASE_TEMPLATE = "standalone/base_update.html"
+else:
+    BASE_TEMPLATE = "base_update.html"
+
+
+class StandAloneView(TemplateView):
+
+    def get_context_data(self, **kwargs):
+        context = super(StandAloneView, self).get_context_data(**kwargs)
+        context['base_template'] = BASE_TEMPLATE
+        return context
+
+
+class LandingView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+        context['base_template'] = BASE_TEMPLATE
+        return context
 
 
 class FeedbackView(TemplateView):
@@ -37,7 +59,9 @@ class FeedbackView(TemplateView):
             return FeedbackForm(self.request.POST)
 
     def get_context_data(self):
-        return dict(form=self.form)
+        cdict = dict(form=self.form)
+        cdict['base_template'] = BASE_TEMPLATE
+        return cdict
 
     def post(self, request):
         form = self.form
@@ -54,14 +78,9 @@ class FeedbackView(TemplateView):
 class BuildComparisonView(View):
 
     def get(self, request):
-        if STANDALONE:
-            base_template = "standalone/base_update.html"
-        else:
-            base_template = "front/base_update.html"
-
         return render_to_response('worksheet.html',
                                   {'data_js': "0",
-                                   'base_template': base_template},
+                                   'base_template': BASE_TEMPLATE},
                                   context_instance=RequestContext(request))
 
     def post(self, request):
@@ -140,7 +159,7 @@ class SchoolRepresentation(View):
 
     def get(self, request, school_id, **kwargs):
         school = self.get_school(school_id)
-        return HttpResponse(school.data_json, mimetype='application/json')
+        return HttpResponse(school.data_json, content_type='application/json')
 
 
 class EmailLink(View):
@@ -161,7 +180,7 @@ class EmailLink(View):
 
         document = {'status': 'ok'}
         return HttpResponse(json.dumps(document),
-                            mimetype='application/javascript')
+                            content_type='application/javascript')
 
 
 class CreateWorksheetView(View):
@@ -197,21 +216,21 @@ def bah_lookup_api(request):
         document_as_json = json.dumps(document)
     except:
         document_as_json = json.dumps({})
-    return HttpResponse(document_as_json, mimetype='application/javascript')
+    return HttpResponse(document_as_json,
+                        content_type='application/javascript')
 
 
 def school_search_api(request):
-    es_query = ''
-    # sqs = SearchQuerySet().models(School)
-    # sqs = sqs.autocomplete(autocomplete=request.GET.get('q', ''))
+    sqs = SearchQuerySet().models(School)
+    sqs = sqs.autocomplete(autocomplete=request.GET.get('q', ''))
 
     document = [{'schoolname': school.text,
                  'id': school.school_id,
                  'city': school.city,
                  'state': school.state,
-                 'url': reverse('school-json',
+                 'url': reverse('disclosures:school-json',
                                 args=[school.school_id])}
-                for school in es_query]
+                for school in sqs]
     json_doc = json.dumps(document)
 
-    return HttpResponse(json_doc, mimetype='application/json')
+    return HttpResponse(json_doc, content_type='application/json')

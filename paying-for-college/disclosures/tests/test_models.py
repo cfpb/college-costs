@@ -2,8 +2,6 @@
 # -*- coding: utf8 -*-
 import json
 
-import django
-django.setup()
 from django.test import TestCase
 from disclosures.models import School, Contact, Program, Alias, Nickname
 
