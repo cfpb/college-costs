@@ -3,7 +3,8 @@
 import json
 
 from django.test import TestCase
-from disclosures.search_indexes import SchoolIndex, School
+from disclosures.search_indexes import SchoolIndex
+from disclosures.models import School
 
 
 class SchoolIndexTest(TestCase):
