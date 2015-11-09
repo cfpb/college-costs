@@ -4,6 +4,7 @@ import json
 
 from django.test import TestCase
 from disclosures.models import School, Contact, Program, Alias, Nickname
+from disclosures.models import print_vals
 
 
 class SchoolAliasTest(TestCase):
@@ -54,6 +55,9 @@ class SchoolAliasTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
+        self.assertTrue("Emerald City" in print_vals(s, val_list=True))
+        self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
+        self.assertTrue(print_vals(s) is None)
 
 
 # from django.test import TestCase

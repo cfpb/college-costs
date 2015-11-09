@@ -197,9 +197,14 @@ def print_vals(obj, val_list=False, val_dict=False):
                      key=lambda s: s.lower())
     try:
         print "%s values for %s:\n" % (obj._meta.object_name, obj)
-    except:
+    except:  # pragma: no cover
         pass
     if val_list:
+        for key in keylist:
+            try:
+                obj.__getattribute__(key)
+            except:
+                del keylist[keylist.index(key)]
         return [obj.__getattribute__(key) for key in keylist]
     elif val_dict:
         return obj.__dict__
