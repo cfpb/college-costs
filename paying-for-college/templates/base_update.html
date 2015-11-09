@@ -1,9 +1,6 @@
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 {% get_media_prefix as MEDIA_PREFIX %}
-
-{% load staticversions %}
-{% get_static_version as STATIC_VERSION %}
 {% load remit_var %}
 {% is_remit as IS_REMIT %}
 
@@ -68,12 +65,13 @@ And by the way, there’s another hidden message somewhere on the following page
     <!-- Styles -->
 
     <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/woff.css{{ STATIC_VERSION }}">
+    <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/woff.css">
     <!--<![endif]-->
     <!--[if lt IE 9]>
     <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/eot.css">
     <![endif]-->
-    <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/styles.css{{ STATIC_VERSION }}">
+    <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/styles.css">
+    <link rel='stylesheet' id='cfpb_icon_font-css'  href="/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons.css?ver=all" type="text/css" media="all">
 
     {% block app_css %}
     {% endblock %}

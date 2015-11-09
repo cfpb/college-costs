@@ -1,7 +1,9 @@
 import os
 import base64
 from unipath import Path
+import getpass
 
+LOCAL_USER = getpass.getuser()
 REPOSITORY_ROOT = Path(__file__).ancestor(4)
 PROJECT_ROOT = Path(__file__).ancestor(3)
 
@@ -20,10 +22,22 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'disclosures',
     'debt',
-    # 'guides',
+    'disclosures',
+    'guides',
+    'haystack',
 )
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr',
+        'TIMEOUT': 60 * 5,
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+        'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
+    },
+}
 
 
 MIDDLEWARE_CLASSES = (
@@ -48,8 +62,11 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static'
             ],
         },
     },
@@ -67,7 +84,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = PROJECT_ROOT.child('static')
+MEDIA_URL = "http://files.consumerfinance.gov/f/theme/"
+
+STATICFILES_DIRS = (
+    PROJECT_ROOT.child('static_built'),
+)

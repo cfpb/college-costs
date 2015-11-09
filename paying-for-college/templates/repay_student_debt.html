@@ -1,4 +1,5 @@
-{% extends "front/base_update.html" %}
+{% extends base_template %}
+{% load staticfiles %}
 
 {% block page_meta %}
 <meta charset="UTF-8" />
@@ -14,8 +15,7 @@
 
 
 {% block page_css %}
-    <link href="{{ STATIC_PREFIX }}repaystudentdebt/css/repay.css" rel="stylesheet">
-    <link rel='stylesheet' id='cfpb_icon_font-css'  href="/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons.css?ver=all" type="text/css" media="all">
+    <link href="{% static "paying_for_college/repaystudentdebt/css/repay.css" rel="stylesheet" %}">
     <!--[if IE 7]>
     <link rel="stylesheet" id="cfpb_icon_font_ie7-css"  href="/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons-ie7.css?ver=all" type="text/css" media="all" />
     <![endif]-->
@@ -23,8 +23,6 @@
 
 {% block analytics_js %}
     <!-- this is where we put our custom analytics --> 
-    <script src="/wp-content/themes/cfpb_nemo/_/js/analytics-global.js{{ STATIC_VERSION }}"></script>
-
     <!-- H5BP's Asynchronous Google Analytics snippet. -->
     <script>
       var _gaq=[['_setAccount','UA-20466645-3'],['_setDomainName', '.consumerfinance.gov']];
@@ -59,7 +57,7 @@
       <p>Paying off student debt can be confusing. Walk through your options and optimize how to pay off your loans.</p>
     </div>
     <div class="pfc-hero-image alignbottomright">
-      <img alt="" src="{{ STATIC_PREFIX }}repaystudentdebt/images/3_hero_repaying_debt.png">
+      <img alt="" src="{% static "paying_for_college/repaystudentdebt/images/3_hero_repaying_debt.png" %}">
     </div>
   </div><!-- end .pfc-hero-wrapper -->
   <a class="cfpb_visually_hide focusable" href="#wizroot">Skip to main content</a>
@@ -91,7 +89,7 @@
         <p>Get started by answering a few questions below.</p>
       </div>
       <div class="content-l_col content-l_col-1-4">
-        <img class="repaying-page-icon" src="{{ STATIC_PREFIX }}repaystudentdebt/images/Page_icon.png">
+        <img class="repaying-page-icon" src="{% static "paying_for_college/repaystudentdebt/images/Page_icon.png" %}">
       </div>
     </div>
     <hr>
@@ -983,7 +981,7 @@
           <p>You’re well on your way as long as you keep up with your loan payments. Here's some helpful advice to keep you on track:</p>
           <div class="content-l option-box">
             <div class="content-l_col content-l_col-1-8">
-              <img src="{{ STATIC_PREFIX }}repaystudentdebt/images/Icon_1_40x40.png">
+              <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_1_40x40.png" %}">
             </div>
             <div class="content-l_col content-l_col-7-8">
               <h3>Consider enrolling in auto-debit (setting up automatic payments)</h3>
@@ -993,7 +991,7 @@
           <hr>
           <div class="content-l option-box">
             <div class="content-l_col content-l_col-1-8">
-              <img src="{{ STATIC_PREFIX }}repaystudentdebt/images/Icon_2_40x40.png">
+              <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_2_40x40.png" %}">
             </div>
             <div class="content-l_col content-l_col-7-8 read-more read-more_is-closed">
 
@@ -1042,7 +1040,7 @@
           <hr>
           <div class="content-l option-box">
             <div class="content-l_col content-l_col-1-8">
-              <img src="{{ STATIC_PREFIX }}repaystudentdebt/images/Icon_3_40x40.png">
+              <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_3_40x40.png" %}">
             </div>
             <div class="content-l_col content-l_col-7-8">
               <h3>Find out about consolidating (or refinancing) your private loans at a lower interest rate.</h3>
@@ -1057,7 +1055,7 @@
           <hr>
           <div class="content-l option-box">
             <div class="content-l_col content-l_col-1-8">
-              <img src="{{ STATIC_PREFIX }}repaystudentdebt/images/Icon_4_40x40.png">
+              <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_4_40x40.png" %}">
             </div>
             <div class="content-l_col content-l_col-7-8 read-more read-more_is-closed">
               <h3 class="inline-header">Release your co-signer.</h3>
@@ -1581,7 +1579,7 @@
 {% endblock %}
 
 {% block page_js %}
-    <script src="{{ STATIC_PREFIX }}repaystudentdebt/js/repay.js"></script>
-    <script src="{{ STATIC_PREFIX }}repaystudentdebt/js/decision-stacker.js"></script>
-    <script src="{{ STATIC_PREFIX }}comparisontool/js/pfc-analytics.js"></script>
+    <script src="{% static "paying_for_college/repaystudentdebt/js/repay.js" %}"></script>
+    <script src="{% static "paying_for_college/repaystudentdebt/js/decision-stacker.js" %}"></script>
+    <script src="{% static "paying_for_college/comparisontool/js/pfc-analytics.js" %}"></script>
 {% endblock %}
