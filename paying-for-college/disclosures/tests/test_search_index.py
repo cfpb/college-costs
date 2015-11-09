@@ -8,7 +8,7 @@ from disclosures.search_indexes import SchoolIndex, School
 
 class SchoolIndexTest(TestCase):
 
-    fixtures = ['test_fixture.json']
+    fixtures = ['disclosures/fixtures/test_fixture.json']
     MOCK_INDEX = SchoolIndex()
     mock_obj = School.objects.get(pk=155317)
 

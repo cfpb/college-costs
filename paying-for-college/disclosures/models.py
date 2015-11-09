@@ -212,5 +212,5 @@ def print_vals(obj, val_list=False, val_dict=False):
         for key in keylist:
             try:
                 print "%s: %s" % (key, obj.__getattribute__(key))
-            except:
+            except:  # pragma: no cover
                 pass

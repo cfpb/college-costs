@@ -58,14 +58,3 @@ class SchoolAliasTest(TestCase):
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
         self.assertTrue(print_vals(s) is None)
-
-
-# from django.test import TestCase
-# from django.test import Client
-# from django.contrib.auth.models import User
-# from django.conf import settings
-
-# from datetime import datetime
-# from rest_framework import status
-# from rest_framework.test import APITestCase
-# from cr_search.models import SavedSearch
