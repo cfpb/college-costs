@@ -2,6 +2,20 @@ from django.db import models
 import uuid
 
 
+class Constant(models.Model):
+    """Computation values that generally only change annually"""
+    name = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255,
+                            blank=True,
+                            help_text="VARIABLE NAME FOR JS")
+    value = models.FloatField()
+    note = models.TextField(blank=True)
+    updated = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
+
+
 class School(models.Model):
     """
     Represents a school
