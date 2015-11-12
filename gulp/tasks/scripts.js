@@ -12,7 +12,7 @@ gulp.task( 'scripts', function() {
   return gulp.src( config.src )
     .pipe( $.sourcemaps.init() )
     .pipe( $.concat( config.name ) )
-    .pipe( $.uglify() )
+    // .pipe( $.uglify() )
     .on( 'error', handleErrors )
     .pipe( $.header( banner, { pkg: pkg } ) )
     .pipe( $.rename( {

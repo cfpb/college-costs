@@ -6,7 +6,7 @@ var fs = require( 'fs' );
  * Set up file paths
  */
 var loc = {
-  src:  './src',
+  src:  './src/disclosures',
   dist: './paying-for-college/disclosures/static/paying_for_college/disclosures',
   lib:  JSON.parse( fs.readFileSync( './.bowerrc' ) ).directory, // eslint-disable-line no-sync, no-inline-comments, max-len
   test: './test'
@@ -39,7 +39,7 @@ module.exports = {
     dest: loc.dist
   },
   styles: {
-    cwd:      loc.src + '/static/css',
+    cwd:      loc.src + '/css',
     src:      '/main.less',
     dest:     loc.dist + '/static/css',
     settings: {
@@ -55,10 +55,16 @@ module.exports = {
       loc.lib + '/jquery/dist/jquery.js',
       loc.lib + '/jquery.easing/js/jquery.easing.js',
       loc.lib + '/cf-*/src/js/*.js',
-      loc.src + '/static/js/app.js'
+      loc.src + '/js/app.js',
+      './dist/scripts/*.js'
     ],
     dest: loc.dist + '/static/js/',
     name: 'main.js'
+  },
+  browserify: {
+    paths: {
+      scripts: 'src/disclosures/js/*.js'
+    }
   },
   images: {
     src:  loc.src + '/static/img/**',

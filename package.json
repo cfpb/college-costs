@@ -18,6 +18,7 @@
   ],
   "devDependencies": {
     "browser-sync": "^2.8.0",
+    "browserify": "^12.0.1",
     "del": "^1.2.0",
     "fs": "0.0.2",
     "gulp": "^3.9.0",
@@ -39,6 +40,12 @@
     "gulp-util": "^3.0.6",
     "jquery": "^1.11.3",
     "pretty-hrtime": "^1.0.0",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "format-usd": "^0.2.0",
+    "student-debt-calc": "0.0.3"
   }
 }
