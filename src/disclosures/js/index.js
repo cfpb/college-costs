@@ -1,10 +1,10 @@
 'use strict';
 
-var calcDebt = require( 'student-debt-calc' ),
-    $ = require( 'jquery' ),
-    formatUSD = require( 'format-usd' ),
-    stringToNum = require( './lib/handle-string-input.js'),
-    financials = {};
+var $ = require( 'jquery' ),
+    FinancialModel = require( './lib/financial-data.js' ),
+    financials = new FinancialModel(),
+    View = require( './lib/school-view.js' ),
+    schoolView = new View();    
 
 function randomFinancials() {
   $( '[data-financial]' ).each( function() {
@@ -14,34 +14,20 @@ function randomFinancials() {
   });
 }
 
-function getFinancials() {
-  $( '[data-financial]' ).each( function() {
-    var name = $( this ).attr('data-financial'),
-        value = stringToNum( $( this ).val() );
-
-    financials[ name ] = value;
-  });
+function updateModelFromView() {
+  var newValues = schoolView.getValues();
+  $.extend( financials.values, newValues );
+  financials.calc();
 }
 
-function setFinancials() {
-  $( '[data-financial]' ).each( function() {
-    var name = $( this ).attr('data-financial'),
-        value = formatUSD( financials[ name ], { decimalPlaces: 0 } );
-
-    if ( $( this ).prop( 'tagName' ) === 'INPUT' ) {
-      $( this ).val( value );
-    }
-    else {
-      $( this ).text( value );
-    }
-  });
+function updateViewFromModel() {
+  schoolView.updateView( financials.values );
 }
 
 $( document ).ready( function() {
   $( '#calculate-debt' ).click( function() {
-    getFinancials();
-    financials = calcDebt( financials );
-    setFinancials();
+    updateModelFromView();
+    updateViewFromModel();
   });
 
   $( '#add-random' ).click( function() {

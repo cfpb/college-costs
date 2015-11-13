@@ -65,3 +65,6 @@ opensource-checklist.md
 node_modules/
 paying-for-college/disclosures/static/paying_for_college/disclosures/static/
 src/vendor/
+
+# Include front-end lib
+!src/disclosures/js/lib
