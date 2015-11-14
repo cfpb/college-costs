@@ -2,18 +2,38 @@ from django.db import models
 import uuid
 
 
-class Constant(models.Model):
-    """Computation values that generally only change annually"""
+class ConstantRate(models.Model):
+    """Rate values that generally only change annually"""
     name = models.CharField(max_length=255)
     slug = models.CharField(max_length=255,
                             blank=True,
                             help_text="VARIABLE NAME FOR JS")
-    value = models.FloatField()
+    value = models.DecimalField(max_digits=6, decimal_places=5)
     note = models.TextField(blank=True)
     updated = models.DateField(auto_now=True)
 
     def __unicode__(self):
         return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
+
+    class Meta:
+        ordering = ['slug']
+
+
+class ConstantCap(models.Model):
+    """Cap values that generally only change annually"""
+    name = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255,
+                            blank=True,
+                            help_text="VARIABLE NAME FOR JS")
+    value = models.IntegerField()
+    note = models.TextField(blank=True)
+    updated = models.DateField(auto_now=True)
+
+    def __unicode__(self):
+        return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
+
+    class Meta:
+        ordering = ['name']
 
 
 class School(models.Model):
