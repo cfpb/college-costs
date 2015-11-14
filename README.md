@@ -57,6 +57,13 @@ The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-colle
 
 The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
+
+### Running tests
+You can run python tests from the project root with this command:
+```bash
+. pytest.sh
+```
+
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
 
