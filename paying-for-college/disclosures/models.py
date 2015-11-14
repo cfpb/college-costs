@@ -189,3 +189,28 @@ class Feedback(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
+
+
+def print_vals(obj, val_list=False, val_dict=False):
+    """inspect a Django db object"""
+    keylist = sorted([key for key in obj._meta.get_all_field_names()],
+                     key=lambda s: s.lower())
+    try:
+        print "%s values for %s:\n" % (obj._meta.object_name, obj)
+    except:  # pragma: no cover
+        pass
+    if val_list:
+        for key in keylist:
+            try:
+                obj.__getattribute__(key)
+            except:
+                del keylist[keylist.index(key)]
+        return [obj.__getattribute__(key) for key in keylist]
+    elif val_dict:
+        return obj.__dict__
+    else:
+        for key in keylist:
+            try:
+                print "%s: %s" % (key, obj.__getattribute__(key))
+            except:  # pragma: no cover
+                pass

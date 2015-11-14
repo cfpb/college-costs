@@ -10,7 +10,7 @@ urlpatterns = [
         LandingView.as_view(), name='pfc-landing'),
     url(r'^paying-for-college/compare-financial-aid-and-college-cost/',
         include('disclosures.urls', namespace='disclosures')),
-    url(r'^paying-for-college/debt/',
+    url(r'^paying-for-college/repay-student-debt/',
         include('debt.urls', namespace='debt')),
     url(r'^paying-for-college/guides/',
         include('guides.urls', namespace='guides')),

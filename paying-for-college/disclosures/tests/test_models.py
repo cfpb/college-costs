@@ -4,6 +4,7 @@ import json
 
 from django.test import TestCase
 from disclosures.models import School, Contact, Program, Alias, Nickname
+from disclosures.models import print_vals
 
 
 class SchoolAliasTest(TestCase):
@@ -54,14 +55,6 @@ class SchoolAliasTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
-
-
-# from django.test import TestCase
-# from django.test import Client
-# from django.contrib.auth.models import User
-# from django.conf import settings
-
-# from datetime import datetime
-# from rest_framework import status
-# from rest_framework.test import APITestCase
-# from cr_search.models import SavedSearch
+        self.assertTrue("Emerald City" in print_vals(s, val_list=True))
+        self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
+        self.assertTrue(print_vals(s) is None)

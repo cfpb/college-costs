@@ -8,8 +8,9 @@ env:
   - DJANGO_SETTINGS_MODULE=config.settings.dev
 before_script:
   - cd paying-for-college
-  # - python manage.py makemigrations
-  # - python manage.py migrate
+  - python manage.py makemigrations
+  - python manage.py migrate
+  - python manage.py loaddata test_fixture.json
 script: 
   # - nosetests --with-coverage --config=.coveragerc --cover-package disclosures
   - coverage run --source='.' manage.py test
