@@ -52,7 +52,7 @@ class School(models.Model):
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     def __unicode__(self):
-        return self.primary_alias + u"(%s)" % self.school_id
+        return self.primary_alias + u" (%s)" % self.school_id
 
     @property
     def primary_alias(self):
@@ -69,7 +69,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=255, blank=True)
 
     def __unicode__(self):
-        return self.contact + u"(%s)" % unicode(self.institution)
+        return self.contact + u" (%s)" % unicode(self.institution)
 
 
 class Program(models.Model):
@@ -195,6 +195,9 @@ class Nickname(models.Model):
     def __unicode__(self):
         return u"%s (nickname for %s)" % (self.nickname,
                                           unicode(self.institution))
+
+    class Meta:
+        ordering = ['nickname']
 
 
 class BAHRate(models.Model):
