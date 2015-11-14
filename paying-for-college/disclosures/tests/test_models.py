@@ -44,7 +44,7 @@ class SchoolAliasTest(TestCase):
         self.assertTrue(isinstance(a, Alias))
         self.assertTrue(a.alias in a.__unicode__())
         self.assertEqual(s.primary_alias, a.alias)
-        self.assertEqual(s.__unicode__(), a.alias + u"(%s)" % s.school_id)
+        self.assertEqual(s.__unicode__(), a.alias + u" (%s)" % s.school_id)
         c = self.create_contact(s)
         self.assertTrue(isinstance(c, Contact))
         self.assertTrue(c.contact in c.__unicode__())
