@@ -4,6 +4,7 @@ import json
 
 from django.test import TestCase
 from disclosures.models import School, Contact, Program, Alias, Nickname
+from disclosures.models import ConstantCap, ConstantRate
 from disclosures.models import print_vals
 
 
@@ -58,3 +59,9 @@ class SchoolAliasTest(TestCase):
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
         self.assertTrue(print_vals(s) is None)
+
+    def test_constant_models(self):
+        cr = ConstantRate(name='cr test', slug='crTest', value='0.1')
+        self.assertTrue(cr.__unicode__() == u'cr test (crTest), updated None')
+        cc = ConstantCap(name='cc test', slug='ccTest', value='0')
+        self.assertTrue(cc.__unicode__() == u'cc test (ccTest), updated None')
