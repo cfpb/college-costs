@@ -18,7 +18,7 @@ install(){
 # Setup local data store in sqlite3
 dbsetup(){
   echo 'Loading college data into local test database'
-  cd 'paying-for-college'
+  cd 'paying_for_college'
   python manage.py makemigrations
   python manage.py migrate
   python manage.py loaddata colleges.json
