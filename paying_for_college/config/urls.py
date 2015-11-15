@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 from django.conf import settings
 from disclosures.views import LandingView
 from django.contrib import admin
+from paying_for_college import disclosures, debt, guides
 # from django.conf.urls.static import static
 
 urlpatterns = [
