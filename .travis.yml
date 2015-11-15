@@ -7,7 +7,7 @@ install:
 env:
   - DJANGO_SETTINGS_MODULE=config.settings.dev
 before_script:
-  - cd paying-for-college
+  - cd paying_for_college
   - python manage.py makemigrations
   - python manage.py migrate
   - python manage.py loaddata test_fixture.json
