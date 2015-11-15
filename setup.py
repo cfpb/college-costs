@@ -23,7 +23,7 @@ setup(
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
     maintainer_email='tech@cfpb.gov',
-    packages=['disclosures', 'guides', 'debt'],
+    packages=['paying_for_college'],
     include_package_data=True,
     description=u'College cost tools',
     classifiers=[

@@ -47,15 +47,22 @@ setvirtualenvproject
 ```bash
 ./local_setup.sh
 ```
-- Move to the `paying-for-college` directory and fire up a local server:
+- Move to the `paying_for_college` directory and fire up a local server:
 ```bash
-cd 'paying-for-college'
+cd 'paying_for_college'
 python manage.py runserver
 ```
 
 The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-college/](http://127.0.0.1:8000/paying-for-college/)
 
 The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
+
+
+### Running tests
+You can run python tests from the project root with this command:
+```bash
+. pytest.sh
+```
 
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
