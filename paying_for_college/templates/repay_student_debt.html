@@ -15,7 +15,7 @@
 
 
 {% block page_css %}
-    <link href="{% static "paying_for_college/repaystudentdebt/css/repay.css" rel="stylesheet" %}">
+    <link href="{% static "paying_for_college/repaystudentdebt/css/repay.css" %}" rel="stylesheet">
     <!--[if IE 7]>
     <link rel="stylesheet" id="cfpb_icon_font_ie7-css"  href="/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons-ie7.css?ver=all" type="text/css" media="all" />
     <![endif]-->
@@ -61,21 +61,7 @@
     </div>
   </div><!-- end .pfc-hero-wrapper -->
   <a class="cfpb_visually_hide focusable" href="#wizroot">Skip to main content</a>
-  <div class="pfc-nav-wrapper">
-    <nav>
-      <ul class="pfc-nav">
-        <li><a href="/paying-for-college/">Get started</a></li>
-        <li><span tabindex="0" class="fake-link">Student financial guides</span>
-          <ul>
-            <li><a href="/paying-for-college/choose-a-student-loan/">Student loans</a></li>
-            <li><a href="/paying-for-college/manage-your-college-money/">Student banking</a></li>
-          </ul>
-        </li>
-        <li><a href="/paying-for-college/compare-financial-aid-and-college-cost/">Compare financial aid offers</a></li>
-        <li><a class="is-active" href="/paying-for-college/repay-student-debt/">Repay student debt</a></li>
-      </ul><!-- end .pfc-nav -->
-    </nav>
-  </div><!-- end .pfc-nav-wrapper -->
+{% include "nav_wrapper.html" %}
 </header><!-- end #repay-debt-header -->
 
 
@@ -1581,5 +1567,5 @@
 {% block page_js %}
     <script src="{% static "paying_for_college/repaystudentdebt/js/repay.js" %}"></script>
     <script src="{% static "paying_for_college/repaystudentdebt/js/decision-stacker.js" %}"></script>
-    <script src="{% static "paying_for_college/comparisontool/js/pfc-analytics.js" %}"></script>
+    <script src="{% static "paying_for_college/disclosures/js/pfc-analytics.js" %}"></script>
 {% endblock %}

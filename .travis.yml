@@ -5,9 +5,8 @@ install:
   - pip install -r requirements/testing.txt
   - pip install coveralls
 env:
-  - DJANGO_SETTINGS_MODULE=config.settings.dev
+  - DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
 before_script:
-  - cd paying_for_college
   - python manage.py makemigrations
   - python manage.py migrate
   - python manage.py loaddata test_fixture.json

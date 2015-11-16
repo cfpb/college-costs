@@ -11,8 +11,8 @@
 {% block title %}Choose a student loan{% endblock %}
 
 {% block page_css %}
-    <link href="{% static "/paying_for_college/choosealoan/css/guides.css" %}" rel="stylesheet" media="screen">
-    <link href="{% static "/paying_for_college/choosealoan/css/print.css" %}" rel="stylesheet" media="print">
+    <link href="{% static "paying_for_college/choosealoan/css/guides.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "paying_for_college/choosealoan/css/print.css" %}" rel="stylesheet" media="print">
     <!--[if IE 7]>
     <link rel="stylesheet" id="cfpb_icon_font_ie7-css"  href="/wp-content/themes/cfpb_nemo/_/cfpb-icon-font/css/icons-ie7.css?ver=all" type="text/css" media="all" />
     <![endif]-->
@@ -31,25 +31,11 @@
             <p>Three steps that can help you get the right loan for you.</p>
         </div>
         <div class="pfc-hero-image alignbottomright">
-            <img alt="" src="{% static "/paying_for_college/choosealoan/images/2_hero_explore.png" %}">
+            <img alt="" src="{% static "paying_for_college/choosealoan/images/2_hero_explore.png" %}">
         </div>
     </div><!-- end .pfc-hero-wrapper -->
     <a class="cfpb_visually_hide focusable" href="#guide-content">Skip to main content</a>
-    <div class="pfc-nav-wrapper">
-        <nav>
-            <ul class="pfc-nav">
-                <li><a href="/paying-for-college/">Get started</a></li>
-                <li><span class="fake-link is-active" tabindex="0" class="fake-link">Student financial guides</span>
-                    <ul>
-                        <li><a href="/paying-for-college/choose-a-student-loan/">Student loans</a></li>
-                        <li><a href="/paying-for-college/manage-your-college-money/">Student banking</a></li>
-                    </ul>
-                </li>
-                <li><a href="/paying-for-college/compare-financial-aid-and-college-cost/">Compare financial aid offers</a></li>
-                <li><a href="/paying-for-college/repay-student-debt/">Repay student debt</a></li>
-            </ul><!-- end .pfc-nav -->
-        </nav>
-    </div><!-- end .pfc-nav-wrapper -->
+{% include "nav_wrapper.html" %}
 </header><!-- end #repay-debt-header -->
     <div class="cfpb-logo" alt="Consumer Financial Protection Bureau"></div>
     
@@ -68,19 +54,19 @@
         <div class="bubble-text key-clock">
 			I have to borrow money for school. What are my options?
 		</div>
-        <img alt="" src="{% static "/paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
+        <img alt="" src="{% static "paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
 	</div>
 	<div class="bubble" _id='o2' id='_o2' rel="answer2">
 		<div class="bubble-text key-dollar">
 			What if my grants and federal loans don't cover the cost of attendance? 
 		</div>
-        <img alt="" src="{% static "/paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
+        <img alt="" src="{% static "paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
 	</div>
 	<div class="bubble" _id='o3' id='_o3' rel="answer3">
 		<div class="bubble-text key-bank">
 			What should I consider when shopping for a private loan?
 		</div>
-        <img alt="" src="{% static "/paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
+        <img alt="" src="{% static "paying_for_college/pb/payingforcollege/key_questions/negbubble.png" %}">
 	</div>
 	
 	<div style='clear:both;'></div>		
@@ -575,6 +561,6 @@ If you are having trouble filling out the form, <a class="exit-link" href="http:
 {% endblock %}
 
 {% block page_js %}
-    <script src="{% static "/paying_for_college/choosealoan/js/guides.js" %}"></script>
-    <script src="{% static "/paying_for_college/disclosures/js/pfc-analytics.js" %}"></script>
+    <script src="{% static "paying_for_college/choosealoan/js/guides.js" %}"></script>
+    <script src="{% static "paying_for_college/disclosures/js/pfc-analytics.js" %}"></script>
 {% endblock %}

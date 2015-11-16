@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import *
+from paying_for_college.views import *
 
 urlpatterns = [
     url(r'^$', BuildComparisonView.as_view(), name='worksheet'),

@@ -1,20 +1,19 @@
 from django.conf.urls import url, include
 from django.conf import settings
-from disclosures.views import LandingView
+from paying_for_college.views import LandingView
 from django.contrib import admin
-from paying_for_college import disclosures, debt, guides
 # from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^paying-for-college/admin/', include(admin.site.urls)),
-    url(r'^paying-for-college/$',
+    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^$',
         LandingView.as_view(), name='pfc-landing'),
-    url(r'^paying-for-college/compare-financial-aid-and-college-cost/',
-        include('disclosures.urls', namespace='disclosures')),
-    url(r'^paying-for-college/repay-student-debt/',
-        include('debt.urls', namespace='debt')),
-    url(r'^paying-for-college/guides/',
-        include('guides.urls', namespace='guides')),
+    url(r'^compare-financial-aid-and-college-cost/',
+        include('paying_for_college.disclosures.urls', namespace='disclosures')),
+    url(r'^repay-student-debt/',
+        include('paying_for_college.debt.urls', namespace='debt')),
+    url(r'^guides/',
+        include('paying_for_college.guides.urls', namespace='guides')),
 ]
 
 # if settings.DEBUG:

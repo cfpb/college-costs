@@ -22,9 +22,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'debt',
-    'disclosures',
-    'guides',
+    'paying_for_college',
     'haystack',
 )
 
@@ -51,7 +49,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'paying_for_college.config.urls'
 
 TEMPLATES = [
     {
