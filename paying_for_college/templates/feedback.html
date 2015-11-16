@@ -1,0 +1,46 @@
+{% extends base_template %}
+{% load staticfiles %}
+
+{% block title %}Paying for College - Compare financial aid and college cost{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static "paying_for_college/disclosures/css/comparison-tool.css" %}">
+{% endblock %}
+
+
+{% block page_js %}
+<script type="text/javascript" src="{% static "paying_for_college/disclosures/js/cfpb-comparison-analytics-min.js" %}"></script>
+<script src="{% static "paying_for_college/disclosures/js/feedback.js" %}"></script>
+{% endblock %}
+
+{% block body_class %}page paying-for-college{% endblock %}
+
+{% block content %}		
+<div id="comparison-tool" class="comparison-tool sub-page-wrapper">		
+	<header id="comparison-tool-header" class="feedback-header">
+		<a class="noStyles" href="/paying-for-college/">
+			<h1>Paying for College</h1>
+		</a>
+		<span>Compare financial aid and college cost</span>				
+	</header><!-- end #comparison-tool-header -->
+	
+	<section class="feedback-section clearfix">
+		<div class="col col7 suf5">
+			<hr>
+			<header>
+				<h2>What do you think about this tool?</h2>
+			</header>
+			<div>
+				<p>The Consumer Financial Protection Bureau is a 21st century agency committed to using technology to empower consumers to take control over their economic lives.</p>
+				<p>With your help, you can help us design a tool that makes that process a little bit less daunting&ndash; helping families make smarter choices about student debt.</p>
+				<form method="post" id="feedback-container">
+					<label for="id_message"><span class="demi">Enter your comments here</span></label>
+	                {% csrf_token %}
+	                <span class="pfc-feedback">{{ form.message }}</span>
+	                <p><button>Submit your feedback</button></p>
+                </form>
+			</div>
+		</div>		
+	</section><!-- end .feedback-section -->			
+</div><!-- end #comparison-tool .comparison-tool -->
+{% endblock content %}

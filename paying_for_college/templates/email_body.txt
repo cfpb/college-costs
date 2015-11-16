@@ -1,0 +1,15 @@
+
+Thanks for using our tools to compare financial aid and college costs! Here's your personalized college financial aid information
+
+http://{{ request.get_host }}{% url 'worksheet' %}#{{guid}} 
+
+Share
+Facebook: http://on.fb.me/HuP5YX
+Twitter: http://bit.ly/HvWxyQ
+
+Tell us what you think
+This is just the first step in the process of developing a tool that helps students and parents make smarter choices. Your feedback is an important part of this process, and we know that we have more work to do to develop the most useful product. We'll read all of the feedback - weigh in: http://www. consumerfinance.gov/paying-for-college/compare-financial-aid-and-college-cost/feedback/
+
+Thanks!
+
+The CFPB Web Team
