@@ -4,19 +4,11 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-var config = require( '../config' ).scripts;
-
-var config = {
-  paths: {
-    scripts: [
-      'src/*.js'
-    ]
-  }
-};
+var config = require( '../config' ).browserify;
 
 gulp.task('browserify', function() {
   var b = browserify({
-    entries: 'src/disclosures/js/index.js',
+    entries: config.paths.scripts,
     debug: true
   });
 
@@ -26,6 +18,6 @@ gulp.task('browserify', function() {
     // .pipe(sourcemaps.init({loadMaps: true}))
     // .pipe(uglify())
     // .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/scripts/'))
+    .pipe(gulp.dest( config.paths.dest ));
     // .pipe(browserSync.stream());
 });

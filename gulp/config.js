@@ -63,7 +63,8 @@ module.exports = {
   },
   browserify: {
     paths: {
-      scripts: 'src/disclosures/js/*.js'
+      scripts: 'src/disclosures/js/index.js',
+      dest: 'dist/scripts/'
     }
   },
   images: {
