@@ -9,7 +9,7 @@ set -e
 # Install project dependencies.
 install(){
   echo 'Installing project dependencies...'
-  pip install -r paying_for_college/requirements/base.txt
+  pip install -r requirements/base.txt
   # npm install
   # grunt build
 
