@@ -18,13 +18,13 @@ gulp.task( 'scripts', function() {
   });
 
   b.bundle()
-    .pipe(source('main.js'))
-    .pipe(buffer())
-    // .pipe(sourcemaps.init({loadMaps: true}))
-    // .pipe(uglify())
-    // .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest( config.dest ));
-    // .pipe(browserSync.stream());
+    .pipe( source( 'main.js' ) )
+    .pipe( buffer())
+    .pipe( $.sourcemaps.init( { loadMaps: true } ) )
+    .pipe( $.uglify() )
+    .pipe( $.sourcemaps.write( './' ) )
+    .pipe( gulp.dest( config.dest ) )
+    .pipe( browserSync.stream() );
 
   // return gulp.src( config.src )
   //   .pipe( $.sourcemaps.init() )
