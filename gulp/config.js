@@ -51,12 +51,11 @@ module.exports = {
     }
   },
   scripts: {
+    entrypoint: loc.src + '/js/index.js',
     src: [
       loc.lib + '/jquery/dist/jquery.js',
       loc.lib + '/jquery.easing/js/jquery.easing.js',
       loc.lib + '/cf-*/src/js/*.js',
-      loc.src + '/js/app.js',
-      './dist/scripts/*.js'
     ],
     dest: loc.dist + '/static/js/',
     name: 'main.js'
