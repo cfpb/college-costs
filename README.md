@@ -36,7 +36,7 @@ Tools to help students make informed financial decisions about college.
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
-- Install the setup dependencies if you don't have them. Make sure you have solr installed and running.
+- Install the setup dependencies if you don't have them.
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
@@ -46,10 +46,30 @@ setvirtualenvproject
 - Set up front-end resources and database assets:
 ```bash
 ./local_setup.sh
-```
-- Fire up a local server:
+
+### Prepping solr
+- If you want the college-search function to work (you know you do), you'll need to prep and fire up solr.  
+Adust the `build_solr_schema` command to match your local installation of solr and your solr version number.   
+The example is for a brew-installed solr, with brew using the user's home director as its Cellar site and solr version 4.10.2.  
+Be sure you're in the projects root directory, `/college-costs/`:  
 ```bash
-python manage.py runserver
+./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/schema.xml
+```
+
+- Open new terminal window or tab for running the solr process.
+If you installed with homebrew, you can adjust the following command to match your Cellar location and solr version:
+```bash
+cd /[PATH TO HOMEBREW]/homebrew/Cellar/solr/4.10.2/example/ && java -jar start.jar
+```
+That launches the solr process, so leave it running in that terminal window/tab and return to your first window/tab.  
+The last step is to rebuild the solr index:
+```
+./manage.py rebuild_index --noinput
+```
+
+- Finally, fire up a local web server:
+```bash
+./manage.py runserver
 ```
 
 The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-college/](http://127.0.0.1:8000/paying-for-college/)
