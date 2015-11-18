@@ -69,7 +69,7 @@ The last step is to rebuild the solr index:
 
 - Finally, fire up a local web server:
 ```bash
-python manage.py runserver
+./manage.py runserver
 ```
 
 The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-college/](http://127.0.0.1:8000/paying-for-college/)
