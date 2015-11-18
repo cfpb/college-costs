@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'paying_for_college.config.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -83,9 +83,5 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = PROJECT_ROOT.child('static')
+# STATIC_ROOT = PROJECT_ROOT.child('static')
 MEDIA_URL = "http://files.consumerfinance.gov/f/theme/"
-
-STATICFILES_DIRS = (
-    PROJECT_ROOT.child('static_built'),
-)
