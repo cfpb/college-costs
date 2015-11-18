@@ -60,3 +60,11 @@ target/
 
 # cfpb
 opensource-checklist.md
+
+# Build artifacts
+node_modules/
+paying-for-college/disclosures/static/paying_for_college/disclosures/static/
+src/vendor/
+
+# Include front-end lib
+!src/disclosures/js/lib
