@@ -9,7 +9,7 @@ set -e
 # Install project dependencies.
 install(){
   echo 'Installing project dependencies...'
-  pip install -r requirements/base.txt
+  pip install -r requirements/testing.txt
   # npm install
   # grunt build
 
@@ -17,12 +17,12 @@ install(){
 
 # Setup local data store in sqlite3
 dbsetup(){
+  source .env
   echo 'Loading college data into local test database'
   python manage.py makemigrations
   python manage.py migrate
-  python manage.py loaddata colleges.json
-  python manage.py collectstatic --noinput
-#  python manage.py rebuild_index
+  python manage.py loaddata collegedata.json
+  # python manage.py rebuild_index
 }
 
 install

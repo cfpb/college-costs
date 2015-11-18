@@ -60,7 +60,7 @@ The app is set up to run as a component of CFPB's website, [consumerfinance.gov]
 ### Running tests
 You can run python tests from the project root with this command:
 ```bash
-. pytest.sh
+./pytest.sh
 ```
 
 <!-- INCLUDE IN setup.sh
