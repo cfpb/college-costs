@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.test")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "paying_for_college.config.settings.test")
 
 application = get_wsgi_application()
