@@ -47,9 +47,8 @@ setvirtualenvproject
 ```bash
 ./local_setup.sh
 ```
-- Move to the `paying_for_college` directory and fire up a local server:
+- Fire up a local server:
 ```bash
-cd 'paying_for_college'
 python manage.py runserver
 ```
 
