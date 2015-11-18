@@ -46,6 +46,7 @@ setvirtualenvproject
 - Set up front-end resources and database assets:
 ```bash
 ./local_setup.sh
+```
 
 ### Prepping solr
 - If you want the college-search function to work (you know you do), you'll need to prep and fire up solr.  
@@ -53,7 +54,7 @@ Adust the `build_solr_schema` command to match your local installation of solr a
 The example is for a brew-installed solr, with brew using the user's home director as its Cellar site and solr version 4.10.2.  
 Be sure you're in the projects root directory, `/college-costs/`:  
 ```bash
-./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/schema.xml
+./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/solr/solr.xml
 ```
 
 - Open new terminal window or tab for running the solr process.
