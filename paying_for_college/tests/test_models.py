@@ -4,7 +4,7 @@ import json
 
 from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
-from paying_for_college.models import ConstantCap, ConstantRate
+from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import print_vals
 
 
@@ -37,12 +37,20 @@ class SchoolAliasTest(TestCase):
 
     def create_program(self, school):
         return Program.objects.create(institution=school,
-                                       program_name='Hacking')
+                                      program_name='Hacking')
 
-    def test_school_alias_creation(self):
+    def create_disclosure(self, school):
+        return Disclosure.objects.create(institution=school,
+                                         name='Regional transferability',
+                                         text="Your credits won't transfer")
+
+    def test_school_related_models(self):
         s = self.create_school()
         self.assertTrue(isinstance(s, School))
         self.assertEqual(s.primary_alias, "Not Available")
+        d = self.create_disclosure(s)
+        self.assertTrue(isinstance(d, Disclosure))
+        self.assertTrue(d.name in d.__unicode__())
         a = self.create_alias('Wizard U', s)
         self.assertTrue(isinstance(a, Alias))
         self.assertTrue(a.alias in a.__unicode__())
