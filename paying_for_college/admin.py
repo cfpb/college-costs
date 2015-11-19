@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 from __future__ import absolute_import
 from django.contrib import admin
-from .models import School, Program, Alias, Nickname, Contact
+from .models import School, Program, Alias, Nickname, Contact, Disclosure
 from .models import BAHRate, Feedback, Worksheet, ConstantRate, ConstantCap
+
+
+class DisclosureAdmin(admin.ModelAdmin):
+    list_display = ('name', 'institution', 'text')
 
 
 class ConstantRateAdmin(admin.ModelAdmin):
@@ -29,6 +33,7 @@ class NicknameAdmin(admin.ModelAdmin):
     list_display = ('nickname', 'institution', 'is_female')
     search_fields = ['nickname']
 
+admin.site.register(Disclosure, DisclosureAdmin)
 admin.site.register(ConstantRate, ConstantRateAdmin)
 admin.site.register(ConstantCap, ConstantCapAdmin)
 admin.site.register(School, SchoolAdmin)
