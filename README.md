@@ -54,21 +54,16 @@ Adust the `build_solr_schema` command to match your local installation of solr a
 The example is for a brew-installed solr, with brew using the user's home director as its Cellar site and solr version 4.10.2.  
 Be sure you're in the projects root directory, `/college-costs/`:  
 ```bash
-./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/solr/solr.xml
+./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/solr/collection1/conf/schema.xml
+solr start
 ```
 
-- Open new terminal window or tab for running the solr process.
-If you installed with homebrew, you can adjust the following command to match your Cellar location and solr version:
-```bash
-cd /[PATH TO HOMEBREW]/homebrew/Cellar/solr/4.10.2/example/ && java -jar start.jar
-```
-That launches the solr process, so leave it running in that terminal window/tab and return to your first window/tab.  
 The last step is to rebuild the solr index:
 ```
 ./manage.py rebuild_index --noinput
 ```
 
-- Finally, fire up a local web server:
+- After that finishes, fire up a local web server:
 ```bash
 ./manage.py runserver
 ```
