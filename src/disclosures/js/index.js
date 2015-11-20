@@ -31,6 +31,8 @@ function updateViewFromModel() {
 }
 
 $( document ).ready( function() {
+  init();
+
   $( '#calculate-debt' ).click( function() {
     updateModelFromView();
     updateViewFromModel();
