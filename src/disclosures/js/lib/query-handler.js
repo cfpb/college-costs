@@ -11,8 +11,8 @@ function queryHandler( queryString ) {
       parameters = {},
       stringToNum = require( './handle-string-input.js'),
       numericKeys = [
-        'tf', 'rb', 'bk', 'tr', 'oe', 'sc', 'pg', 'sv', 'fm', 'pk', 'ss',
-        'su', 'il', 'ir', 'pl', 'pr'
+        'tf', 'rb', 'bk', 'tr', 'oe', 'sc', 'pg', 'sv', 'ws', 'fm', 'fl',
+        'pk', 'ss', 'su', 'il', 'ir', 'pl', 'pr'
       ],
       keyMaps = {
         'tf' : 'tuitionFees',
@@ -23,11 +23,13 @@ function queryHandler( queryString ) {
         'sc' : 'scholarships',
         'pg' : 'pell',
         'sv' : 'savings',
+        'ws' : 'workstudy',
         'fm' : 'family',
+        'fl' : 'state529plan',
         'pk' : 'perkins',
         'ss' : 'staffSubsidized',
         'su' : 'staffUnsubsidized',
-        'il' : 'instituionalLoan',
+        'il' : 'institutionalLoan',
         'ir' : 'institutionalLoanRate',
         'pl' : 'privateLoan',
         'pr' : 'privateLoanRate'
