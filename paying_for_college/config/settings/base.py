@@ -23,6 +23,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'paying_for_college',
+    'south',
     'haystack',
 )
 
