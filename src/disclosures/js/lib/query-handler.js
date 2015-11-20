@@ -16,7 +16,7 @@ function queryHandler( queryString ) {
       ],
       keyMaps = {
         'tf' : 'tuitionFees',
-        'tb' : 'roomBoard',
+        'rb' : 'roomBoard',
         'bk' : 'books',
         'tr' : 'transportation',
         'oe' : 'otherExpenses',
