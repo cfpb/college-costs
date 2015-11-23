@@ -66,7 +66,7 @@ class Disclosure(models.Model):
     """Legally required wording for aspects of a school's aid disclosure"""
     name = models.CharField(max_length=255)
     institution = models.ForeignKey(School, blank=True, null=True)
-    text = models.TextField(max_length=255, blank=True)
+    text = models.TextField(blank=True)
 
     def __unicode__(self):
         return self.name + u" (%s)" % unicode(self.institution)

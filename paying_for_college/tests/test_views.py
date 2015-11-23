@@ -16,7 +16,7 @@ class TestViews(django.test.TestCase):
         self.assertTrue('base_template' in response.context_data.keys())
 
     def test_stand_alone_view(self):
-        response = client.get(reverse('debt:pfc-repay'))
+        response = client.get(reverse('pfc-repay'))
         self.assertTrue('base_template' in response.context_data.keys())
 
     def test_feedback(self):

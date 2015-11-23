@@ -19,8 +19,8 @@ install(){
 dbsetup(){
   source .env
   echo 'Loading college data into local test database'
-  python manage.py makemigrations
-  python manage.py migrate
+  python manage.py syncdb --noinput --no-initial-data
+  python manage.py migrate paying_for_college
   python manage.py loaddata collegedata.json
   # python manage.py rebuild_index
 }
