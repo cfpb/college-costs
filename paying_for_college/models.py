@@ -62,6 +62,16 @@ class School(models.Model):
             return 'Not Available'
 
 
+class Disclosure(models.Model):
+    """Legally required wording for aspects of a school's aid disclosure"""
+    name = models.CharField(max_length=255)
+    institution = models.ForeignKey(School, blank=True, null=True)
+    text = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.name + u" (%s)" % unicode(self.institution)
+
+
 class Contact(models.Model):
     """school email account to which we send confirmations"""
     institution = models.ForeignKey(School)
@@ -228,14 +238,10 @@ class Feedback(models.Model):
     message = models.TextField()
 
 
-def print_vals(obj, val_list=False, val_dict=False):
+def print_vals(obj, val_list=False, val_dict=False, noprint=False):
     """inspect a Django db object"""
     keylist = sorted([key for key in obj._meta.get_all_field_names()],
                      key=lambda s: s.lower())
-    try:
-        print "%s values for %s:\n" % (obj._meta.object_name, obj)
-    except:  # pragma: no cover
-        pass
     if val_list:
         for key in keylist:
             try:
@@ -246,8 +252,17 @@ def print_vals(obj, val_list=False, val_dict=False):
     elif val_dict:
         return obj.__dict__
     else:
+        msg = ""
+        try:
+            msg += "%s values for %s:\n" % (obj._meta.object_name, obj)
+        except:  # pragma: no cover
+            pass
         for key in keylist:
             try:
-                print "%s: %s" % (key, obj.__getattribute__(key))
+                msg += "%s: %s\n" % (key, obj.__getattribute__(key))
             except:  # pragma: no cover
                 pass
+        if noprint is False:
+            print msg
+        else:
+            return msg

@@ -16,6 +16,7 @@ import os
 import requests
 import json
 import datetime
+from copy import copy
 from decimal import Decimal
 
 from csvkit import CSVKitWriter as ckw
@@ -171,6 +172,9 @@ def export_spreadsheet(year):
     fields = build_string(year)
     headings = fields.replace('.', '_').split(',')
     collector = {}
+    container = {}
+    for key in headings:
+        container[key] = ''
     url = '%s?api_key=%s&per_page=%s&fields=%s' % (schools_root,
                                                    api_key,
                                                    page_max,
@@ -181,7 +185,7 @@ def export_spreadsheet(year):
         print 'no results'
         return data
     for school in data['results']:
-        collector[school['id']] = {key: '' for key in headings}
+        collector[school['id']] = copy(container)
         for key, value in school.iteritems():
             collector[school['id']][key.replace('.', '_')] = value
     next_page = data['metadata']['page'] + 1
@@ -196,7 +200,7 @@ def export_spreadsheet(year):
             print "no more pages; exporting ..."
         else:
             for school in nextdata['results']:
-                collector[school['id']] = {key: '' for key in headings}
+                collector[school['id']] = opy(container)
                 for key, value in school.iteritems():
                     collector[school['id']][key.replace('.', '_')] = value
             next_page = nextdata['metadata']['page'] + 1
