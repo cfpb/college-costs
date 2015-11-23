@@ -31,7 +31,7 @@ if STANDALONE:
     url(r'^paying-for-college/admin/', include(admin.site.urls)),
     url(r'^paying-for-college/$',
         LandingView.as_view(), name='standalone:pfc-landing'),
-    url(r'^paying-for-college/compare-financial-aid-and-college-cost/',
+    url(r'^paying-for-college/understanding-financial-aid-offers/',
         include('paying_for_college.disclosures.urls',
                 namespace='standalone-disclosures')),
     url(r'^paying-for-college/repaying-student-debt/',
