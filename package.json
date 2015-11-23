@@ -45,7 +45,12 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "chai": "^3.4.1",
     "format-usd": "^0.2.0",
+    "mocha": "^2.3.4",
     "student-debt-calc": "0.0.4"
+  },
+  "scripts": {
+    "test": "mocha test/js/"
   }
 }

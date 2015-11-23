@@ -4,7 +4,13 @@ var $ = require( 'jquery' ),
     FinancialModel = require( './lib/financial-data.js' ),
     financials = new FinancialModel(),
     View = require( './lib/school-view.js' ),
-    schoolView = new View();    
+    schoolView = new View(),
+    queryHandler = require( './lib/query-handler.js' );
+
+function init() {
+  // Set the financials.values property with defaults
+  financials.calc();
+}
 
 function randomFinancials() {
   $( '[data-financial]' ).each( function() {
@@ -25,6 +31,8 @@ function updateViewFromModel() {
 }
 
 $( document ).ready( function() {
+  init();
+
   $( '#calculate-debt' ).click( function() {
     updateModelFromView();
     updateViewFromModel();
@@ -33,6 +41,14 @@ $( document ).ready( function() {
   $( '#add-random' ).click( function() {
     randomFinancials();
   });
+
+  if ( location.search !== '' ) {
+    var urlValues = queryHandler( location.search );
+    $.extend( financials.values, urlValues );
+    financials.calc();
+    schoolView.updateView( financials.values );
+  }
+
 
 });
 
