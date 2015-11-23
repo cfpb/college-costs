@@ -4,7 +4,7 @@ import json
 
 from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
-from paying_for_college.models import ConstantCap, ConstantRate
+from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import print_vals
 
 
@@ -12,10 +12,12 @@ class SchoolAliasTest(TestCase):
 
     def create_school(self, ID=999999,
                       data_json='',
+                      accreditor="Almighty Wizard",
                       city="Emerald City",
                       state="OZ"):
         return School.objects.create(school_id=ID,
                                      data_json=data_json,
+                                     accreditor=accreditor,
                                      city=city,
                                      state=state)
 
@@ -35,12 +37,20 @@ class SchoolAliasTest(TestCase):
 
     def create_program(self, school):
         return Program.objects.create(institution=school,
-                                       program_name='Hacking')
+                                      program_name='Hacking')
 
-    def test_school_alias_creation(self):
+    def create_disclosure(self, school):
+        return Disclosure.objects.create(institution=school,
+                                         name='Regional transferability',
+                                         text="Your credits won't transfer")
+
+    def test_school_related_models(self):
         s = self.create_school()
         self.assertTrue(isinstance(s, School))
         self.assertEqual(s.primary_alias, "Not Available")
+        d = self.create_disclosure(s)
+        self.assertTrue(isinstance(d, Disclosure))
+        self.assertTrue(d.name in d.__unicode__())
         a = self.create_alias('Wizard U', s)
         self.assertTrue(isinstance(a, Alias))
         self.assertTrue(a.alias in a.__unicode__())
@@ -56,9 +66,10 @@ class SchoolAliasTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
+        self.assertTrue(print_vals(s) is None)
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
-        self.assertTrue(print_vals(s) is None)
+        self.assertTrue("Emerald City" in print_vals(s, noprint=True))
 
     def test_constant_models(self):
         cr = ConstantRate(name='cr test', slug='crTest', value='0.1')
