@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^managing-college-money/$',
         StandAloneView.as_view(template_name='manage_your_money.html'),
         name='pfc-manage'),
+    url(r'^demo/$',
+        StandAloneView.as_view(template_name='just-a-demo.html'),
+        name='pfc-demo'),
 ]
 
 if STANDALONE:
@@ -43,4 +46,7 @@ if STANDALONE:
     url(r'^paying-for-college/managing-college-money/$',
         StandAloneView.as_view(template_name='manage_your_money.html'),
         name='standalone-pfc-manage'),
+    url(r'^paying-for-college/demo/$',
+        StandAloneView.as_view(template_name='just-a-demo.html'),
+        name='standalone-pfc-demo'),
     ]

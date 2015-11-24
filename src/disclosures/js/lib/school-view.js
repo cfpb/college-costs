@@ -6,8 +6,8 @@
 
 'use strict';
 
-var $ = require( 'jquery' ),
-    stringToNum = require( './handle-string-input.js'),
+//var $ = require( 'jquery' ),
+var stringToNum = require( './handle-string-input.js'),
     formatUSD = require( 'format-usd' );
 
 var SchoolView = function() {
