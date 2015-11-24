@@ -1,11 +1,15 @@
 'use strict';
 
-var $ = require( 'jquery' ),
-    FinancialModel = require( './lib/financial-data.js' ),
+// var $ = require( 'jquery' ),
+var FinancialModel = require( './lib/financial-data.js' ),
     financials = new FinancialModel(),
     View = require( './lib/school-view.js' ),
     schoolView = new View(),
     queryHandler = require( './lib/query-handler.js' );
+
+require('./nemo');
+require('./nemo-shim');
+
 
 function init() {
   // Set the financials.values property with defaults
@@ -51,4 +55,3 @@ $( document ).ready( function() {
 
 
 });
-

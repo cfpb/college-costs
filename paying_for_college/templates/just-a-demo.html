@@ -1,8 +1,13 @@
 {% extends base_template %}
 {% load staticfiles %}
-{% block title %}ust a demo!{% endblock %}
+{% block title %}Just a demo!{% endblock %}
+{% block nemo_styles %}
+{% endblock %}
 {% block app_css %}
   <link rel="stylesheet" type="text/css" href="{% static "paying_for_college/disclosures/static/css/main.min.css" %}">
+{% endblock %}
+{% block responsive_nav %}
+<a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i><span class="u-visually-hidden">Menu</span></a>
 {% endblock %}
 {% block content %}
 <h1>Paying for College</h1>
@@ -52,10 +57,10 @@
   <label for="contrib__perkins">Perkins
     <input type="text" name="contrib__perkins" data-financial="perkins">
   </label>
-  <label for="contrib__staffsubsidized">Subsidized loan 
+  <label for="contrib__staffsubsidized">Subsidized loan
     <input type="text" name="contrib__subsidized" data-financial="staffSubsidized">
   </label>
-  <label for="contrib__staffunsubsidized">Unsubsidized loan 
+  <label for="contrib__staffunsubsidized">Unsubsidized loan
     <input type="text" name="contrib__unsubsidized" data-financial="staffUnsubsidized">
   </label>
   <label for="contrib__institutionalloan">Institutional Loan
@@ -81,6 +86,10 @@
   </table>
 </div>
 {% endblock %}
+
+{% block nemo_js %}
+{% endblock %}
+
 {% block app_js %}
   <script type="text/javascript" src="{% static "paying_for_college/disclosures/static/js/main.js" %}"></script>
 {% endblock %}
