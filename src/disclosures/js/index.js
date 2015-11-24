@@ -1,6 +1,5 @@
 'use strict';
 
-// var $ = require( 'jquery' ),
 var FinancialModel = require( './lib/financial-data.js' ),
     financials = new FinancialModel(),
     View = require( './lib/school-view.js' ),
