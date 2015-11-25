@@ -8,3 +8,29 @@
 // Whenever building enhancements or changes to existing CF components, write them here
 // to work out the details before contributing them back to a Capital Framework component
 //
+
+ /* ==========================================================================
+   Full-width buttons on small screens
+   ========================================================================== */
+
+.btn {
+  .respond-to-max(@bp-xs-max, {
+    display: block;
+    width: 100%;
+  });
+}
+
+.btn__link {
+  .respond-to-max(@bp-xs-max, {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  });
+}
+
+.btn + .btn {
+  .respond-to-max(@bp-xs-max, {
+    margin-top: 1em;
+    margin-left: auto;
+  });
+}
