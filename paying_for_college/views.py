@@ -28,15 +28,15 @@ except:  # pragma: no cover
 
 if STANDALONE:
     BASE_TEMPLATE = "standalone/base_update.html"
-else:
+else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
     # BASE_TEMPLATE = "%s/templates/base_update.html" % BASEDIR
 
 
-class StandAloneView(TemplateView):
+class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
-        context = super(StandAloneView, self).get_context_data(**kwargs)
+        context = super(BaseTemplateView, self).get_context_data(**kwargs)
         context['base_template'] = BASE_TEMPLATE
         return context
 
@@ -86,67 +86,67 @@ class BuildComparisonView(View):
                                    'base_template': BASE_TEMPLATE},
                                   context_instance=RequestContext(request))
 
-    def post(self, request):
-        """extract id's and in-state information"""
-        index = 1
-        schools = {}
-        data = {
-            "global": {
-                "aaprgmlength": 2,
-                "yrincollege": 1,
-                "gradprgmlength": 2,
-                "familyincome": 48,
-                "vet": False,
-                "serving": "no",
-                "tier": 100,
-                "program": request.POST.get('school-program', 'ba')
-                },
-            "schools": {}
-        }
+    # def post(self, request):
+    #     """extract id's and in-state information"""
+    #     index = 1
+    #     schools = {}
+    #     data = {
+    #         "global": {
+    #             "aaprgmlength": 2,
+    #             "yrincollege": 1,
+    #             "gradprgmlength": 2,
+    #             "familyincome": 48,
+    #             "vet": False,
+    #             "serving": "no",
+    #             "tier": 100,
+    #             "program": request.POST.get('school-program', 'ba')
+    #             },
+    #         "schools": {}
+    #     }
 
-        for school_id in [value for key, value
-                          in request.POST.iteritems()
-                          if key.endswith('-unitid')] + [100000, 100001]:
-            if school_id:
-                institution = Institution.objects.get(pk=int(school_id))
-                in_state = request.POST.get('school-state-%s' % index, 'in')
-                field_dict = serializers.serialize(
-                    "python", [institution])[0]['fields']
-                field_dict["institutionname"] = unicode(
-                    institution.primary_alias)
-                field_dict['instate'] = True if in_state == 'in' else False
-                field_dict['color'] = False
-                field_dict['fouryruniv'] = field_dict['four_year']
-                field_dict.update({"color": False,
-                                   "oncampus": True,
-                                   "tuitionfees": 0,
-                                   "roombrd": 0,
-                                   "books": 0,
-                                   "personal": 0,
+    #     for school_id in [value for key, value
+    #                       in request.POST.iteritems()
+    #                       if key.endswith('-unitid')] + [100000, 100001]:
+    #         if school_id:
+    #             institution = School.objects.get(pk=int(school_id))
+    #             in_state = request.POST.get('school-state-%s' % index, 'in')
+    #             field_dict = serializers.serialize(
+    #                 "python", [institution])[0]['fields']
+    #             field_dict["institutionname"] = unicode(
+    #                 institution.primary_alias)
+    #             field_dict['instate'] = True if in_state == 'in' else False
+    #             field_dict['color'] = False
+    #             field_dict['fouryruniv'] = field_dict['four_year']
+    #             field_dict.update({"color": False,
+    #                                "oncampus": True,
+    #                                "tuitionfees": 0,
+    #                                "roombrd": 0,
+    #                                "books": 0,
+    #                                "personal": 0,
 
-                                   "pell": 0,
-                                   "scholar": 0,
-                                   "tuitionassist": 0,
-                                   "gibill": 0,
-                                   "perkins": 0,
-                                   "staffsubsidized": 0,
-                                   "staffunsubsidized": 0,
-                                   "gradplus": 0,
+    #                                "pell": 0,
+    #                                "scholar": 0,
+    #                                "tuitionassist": 0,
+    #                                "gibill": 0,
+    #                                "perkins": 0,
+    #                                "staffsubsidized": 0,
+    #                                "staffunsubsidized": 0,
+    #                                "gradplus": 0,
 
-                                   "savings": 0,
-                                   "family": 0,
-                                   "state529plan": 0,
-                                   "workstudy": 0,
+    #                                "savings": 0,
+    #                                "family": 0,
+    #                                "state529plan": 0,
+    #                                "workstudy": 0,
 
-                                   "privateloan": 0,
-                                   "institutionalloan": 0,
-                                   "parentplus": 0,
-                                   "homeequity": 0,
-                                   "order": index - 1})
+    #                                "privateloan": 0,
+    #                                "institutionalloan": 0,
+    #                                "parentplus": 0,
+    #                                "homeequity": 0,
+    #                                "order": index - 1})
 
-                csrf.get_token(request)
-                data['schools'][str(school_id)] = field_dict
-                index += 1
+    #             csrf.get_token(request)
+    #             data['schools'][str(school_id)] = field_dict
+    #             index += 1
 
         data_js = json.dumps(data)
         csrf.get_token(request)
@@ -180,7 +180,6 @@ class EmailLink(View):
 
             send_mail(subject, body, 'no-reply@cfpb.gov', [recipient],
                       fail_silently=False)
-
         document = {'status': 'ok'}
         return HttpResponse(json.dumps(document),
                             content_type='application/javascript')
