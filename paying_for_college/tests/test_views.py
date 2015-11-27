@@ -67,7 +67,7 @@ class EmailTest(django.test.TestCase):
 
     url = reverse('disclosures:email')
     post_data = {'id': '00470019-e077-4fc3-9dbb-4a595fe976e6',
-                 'email': 'higs4281@gmail.com'}
+                 'email': 'xxxfakexxx@gmail.com'}
 
     def test_post_data(self):
         """EmailList.post() gathers post form data."""
