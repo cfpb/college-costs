@@ -149,25 +149,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <div role="banner">
                 {% block responsive_nav %}
                 {% endblock %}
-                <h1>
-                    <a href="/">
+                <a href="/" class="logo">
+                    <img id="logo"
+                         class="logo__js"
+                         src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.svg"
+                         onerror="this.src='http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.png';"
+                         alt="Consumer Financial Protection Bureau"
+                         width="262"
+                         height="66">
+                    <noscript>
                         <img id="logo"
-                             class="logo__js"
-                             src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.svg"
-                             onerror="this.src='http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.png';"
+                             class="logo__no-js"
+                             src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.png"
                              alt="Consumer Financial Protection Bureau"
                              width="262"
                              height="66">
-                        <noscript>
-                            <img id="logo"
-                                 class="logo__no-js"
-                                 src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/logo.png"
-                                 alt="Consumer Financial Protection Bureau"
-                                 width="262"
-                                 height="66">
-                        </noscript>
-                    </a>
-                  </h1>
+                    </noscript>
+                </a>
                   <p class="lang"><span class="tel"><a href="tel:+18554112372">Contact us&nbsp;&nbsp;<strong>(855) 411-2372</strong></a></span></p>
                   <form accept-charset="UTF-8" action="http://search.consumerfinance.gov/search" class="single" id="search_form" method="get">
                                       <input name="utf8" type="hidden" value="&#x2713;" />
