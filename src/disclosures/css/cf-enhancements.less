@@ -30,7 +30,16 @@
 
 .btn + .btn {
   .respond-to-max(@bp-xs-max, {
-    margin-top: 1em;
+    margin-top: 0.625em;
     margin-left: auto;
   });
+}
+
+ /* ==========================================================================
+   Flush left lists
+   ========================================================================== */
+
+.list__flush-left {
+  padding-left: 0;
+  list-style-position: inside;
 }

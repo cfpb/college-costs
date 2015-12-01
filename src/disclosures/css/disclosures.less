@@ -2,32 +2,54 @@
    Global
    ========================================================================== */
 
- .understanding-offer {
+.understanding-financial-aid-offer {
   .webfont-regular();
- }
+}
 
- /* ==========================================================================
+/* ==========================================================================
    Verify offer
    ========================================================================== */
 
- .verify_list {
-  margin-bottom: 1.875em;
- }
+.verify_prompt {
+  .heading-4();
+  padding-top: 0.8333em;
+  border-top: 1px solid @gray-50;
+  margin-top: 2.5em;
+  margin-bottom: 1.6667em;
+}
 
- .verify_heading {
+.verify_school {
+  .heading-3();
+  margin-bottom: 0;
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+}
+
+.verify_list {
+  margin-top: 0.9375em;
+  margin-bottom: 1.875em;
+}
+
+.verify_heading {
   .heading-6();
   margin-bottom: 0;
- }
+}
 
- .verify_value {
+.verify_value {
   margin: 0;
- }
+}
 
- .verify_value + .verify_heading {
+.verify_value + .verify_heading {
   margin-top: 1.875em;
- }
+}
 
- /* ==========================================================================
+.verify_wrong-info-btn {
+  font-size: 1em;
+}
+
+/* ==========================================================================
    Student debt calculator demo
    ========================================================================== */
 
