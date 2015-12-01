@@ -22,6 +22,13 @@
 // Import the Capital Framework enhancements
 @import (less) "cf-enhancements.less";
 
+// import CFPB nemo theme header and footer styles
+.nemo {
+  @import "nemo.less";
+  // and a shim to override some things
+  @import "nemo-shim.less";
+}
+
 // We've generated some sample rules for you. They're used with the index.html file.
 // Please delete them before starting your project.
 
