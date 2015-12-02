@@ -6,6 +6,22 @@
   .webfont-regular();
 }
 
+.step {
+  margin-top: 3.75em;
+}
+
+.step_heading {
+  .heading-2();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-1();
+  });
+}
+
+.content_line {
+  background-color: @black;
+}
+
 /* ==========================================================================
    Verify offer
    ========================================================================== */
@@ -47,6 +63,118 @@
 
 .verify_wrong-info-btn {
   font-size: 1em;
+}
+
+/* ==========================================================================
+   Review your first year offer
+   ========================================================================== */
+
+.offer-part {
+  margin-top: 2.8125em;
+
+  .form-group {
+    margin-top: 2.8125em;
+  }
+
+  .form-label-header {
+    padding-bottom: 0.3125em;
+    border-bottom: 1px solid @gray-50;
+    margin-bottom: 0.9375em;
+  }
+
+  .content_line {
+    margin-top: 15px;
+    margin-bottom: 7px;
+  }
+}
+
+.offer-part_heading {
+  .heading-3();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+
+  & + .form-group {
+    margin-top: 1.875em;
+  }
+}
+
+.offer-part_unit {
+  line-height: 2;
+}
+
+.offer-part_definition {
+  font-size: 0.875em;
+}
+
+.form-label + .offer-part_definition {
+  margin-top: -0.3125em;
+}
+
+.offer-part_currency {
+  position: relative;
+
+  .offer-part_unit {
+    position: absolute;
+    right: 3.625em;
+  }
+
+  .offer-part_input {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.offer-part_summary {
+  padding-bottom: 1.875em;
+  margin-top: 2.8125em;
+  background-color: @gold-20;
+
+  .content_line {
+    margin-top: 15px;
+    margin-bottom: 7px;
+  }
+}
+
+.offer-part_summary-heading {
+  .heading-5();
+  border-bottom: 1px solid @black;
+  margin-bottom: 0.7143em;
+}
+
+.line-item {
+  .grid_nested-col-group();
+  .heading-4();
+  margin-bottom: 0.8333em;
+}
+
+.line-item_title {
+  .grid_column(7);
+}
+
+.line-item_value {
+  .grid_column(5);
+}
+
+.line-item_sign {
+  position: relative;
+  left: -0.5em;
+  font-size: 0.875em;
+}
+
+.line-item_currency {
+  position: absolute;
+  right: 4.25em;
+}
+
+.line-item_amount {
+  float: right;
+}
+
+.line-item__total {
+  margin-bottom: 0;
 }
 
 /* ==========================================================================

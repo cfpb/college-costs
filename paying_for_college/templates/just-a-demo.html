@@ -41,6 +41,110 @@
             <button class="btn" title="Yes, this information is correct">Yes, this is correct</button>
             <button class="btn btn__link verify_wrong-info-btn" title="No, this is not my information">No, this is not my information</button>
         </div>
+        <section class="step review">
+            <h2 class="step_heading">Step 1: Review your first year offer</h2>
+            <p>Here is your financial aid offer from [School Name]. Once you review the summary, you can learn about the risks and rewards of accepting this student aid offer. You’ll need to complete this before you are able to enroll.</p>
+            <p>Please verify the amounts provided by your school below, making any necessary changes or adding missing information.</p>
+            <form class="offer-part cost-to-attend" action="#">
+                <h3 class="offer-part_heading">How much will attending this school cost?</h3>
+                <div class="form-group">
+                    <label class="form-label-header">Cost of attendance</label>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="costs__tuition">Tuition and fees</label>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="costs__tuition" name="costs__tuition" data-financial="tuitionFees">
+                    </div>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="costs__room-and-board">Housing and meals</label>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard">
+                    </div>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="costs__books">Books and supplies</label>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="costs__books" name="costs__books" data-financial="books">
+                    </div>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="costs__transportation">Transportation</label>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation">
+                    </div>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="costs__other">Other</label>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="costs__other" name="costs__other" data-financial="otherExpenses">
+                    </div>
+                    <div class="content_line"></div>
+                    <div class="line-item">
+                        <div class="line-item_title">
+                            Total cost of attendance
+                        </div>
+                        <div class="line-item_value">
+                            <span class="line-item_currency">$</span>
+                            <span class="line-item_amount" data-financial="costOfAttendance"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-header">Grants and scholarships</label>
+                    <p class="offer-part_definition">Money you don’t have to pay back</p>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="grants__pell">Federal Pell Grant</label>
+                        <p class="offer-part_definition">Based on financial need</p>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="grants__pell" name="grants__pell" data-financial="pell">
+                    </div>
+                    <div class="form-group_item offer-part_currency">
+                        <label class="form-label" for="grants__scholarships">Other grants and scholarships</label>
+                        <p class="offer-part_definition">Such as academic scholarships, grants from a foundation, or military tuition assistance</p>
+                        <span class="offer-part_unit">$</span>
+                        <input class="offer-part_input" type="text" id="grants__scholarships" name="grants__scholarships" data-financial="scholarships">
+                    </div>
+                    <div class="content_line"></div>
+                    <div class="line-item">
+                        <div class="line-item_title">
+                            Total grants and scholarships
+                        </div>
+                        <div class="line-item_value">
+                            <span class="line-item_currency">$</span>
+                            <span class="line-item_amount" data-financial="totalGrantsScholarships"></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="block block__flush-sides block__bg offer-part_summary">
+                <h4 class="offer-part_summary-heading">Cost for you to attend this school</h4>
+                <div class="line-item">
+                    <div class="line-item_title">
+                        Total cost of attendance
+                    </div>
+                    <div class="line-item_value">
+                        <span class="line-item_currency">$</span>
+                        <span class="line-item_amount" data-financial="costOfAttendance"></span>
+                    </div>
+                </div>
+                <div class="line-item">
+                    <div class="line-item_title">
+                        Total grants and scholarships
+                    </div>
+                    <div class="line-item_value">
+                        <span class="line-item_sign">( &minus; )</span>
+                        <span class="line-item_currency">$</span>
+                        <span class="line-item_amount" data-financial="totalGrantsScholarships"></span>
+                    </div>
+                </div>
+                <div class="content_line"></div>
+                <div class="line-item line-item__total">
+                    <div class="line-item_title">
+                        Your total cost
+                    </div>
+                    <div class="line-item_value">
+                        <span class="line-item_currency">$</span>
+                        <span class="line-item_amount" data-financial="totalCost"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </section>
 </div>
 <div class="financial-inputs">
