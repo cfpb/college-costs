@@ -7,86 +7,115 @@
 {% block nemo_styles %}
 {% endblock %}
 {% block app_css %}
-  <link rel="stylesheet" type="text/css" href="{% static "paying_for_college/disclosures/static/css/main.min.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "paying_for_college/disclosures/static/css/main.min.css" %}">
 {% endblock %}
 {% block responsive_nav %}
 <a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i><span class="u-visually-hidden">Menu</span></a>
 {% endblock %}
 {% block content %}
-<h1>Paying for College</h1>
-<h2>Student Debt Calculator Demo</h2>
-<button id="add-random">Add random demo values!</button>
+<main class="understanding-financial-aid-offer content_wrapper">
+    <section class="content_main">
+        <h1>Understanding your financial aid offer</h1>
+        <div class="verify">
+            <p>This personalized summary was created to help you analyze the financial aid offer you received from [School Name] and better understand how excessive student debt can impact your financial life in the future.</p>
+            <p>Before you are able to enroll, you will need to review the following sections:</p>
+            <ol class="list__flush-left">
+                <li>Your aid offer</li>
+                <li>Your offer evaluation</li>
+                <li>Your options</li>
+            </ol>
+            <p class="verify_prompt">Verify that the below information is correct to display the details and analysis of your offer.</p>
+            <div class="verify_school">
+                [School Name]
+            </div>
+            <div class="verify_location">
+                [City, ST]
+            </div>
+            <dl class="verify_list">
+                <dt class="verify_heading">Program</dt>
+                <dd class="verify_value">[Program name]</dd>
+                <dd class="verify_value">[Program length]</dd>
+                <dt class="verify_heading">Offer ID</dt>
+                <dd class="verify_value">[XXXXXXX]</dd>
+            </dl>
+            <button class="btn" title="Yes, this information is correct">Yes, this is correct</button>
+            <button class="btn btn__link verify_wrong-info-btn" title="No, this is not my information">No, this is not my information</button>
+        </div>
+    </section>
+</div>
 <div class="financial-inputs">
-  <!-- Costs of Attendance -->
-  <label for="costs__tuition">Tuition
-    <input type="text" name="costs__tuition" data-financial="tuitionFees">
-  </label>
-  <label for="costs__room-and-board">Room and Board
-    <input type="text" name="costs__room-and-board" data-financial="roomBoard">
-  </label>
-  <label for="costs__books">Books
-    <input type="text" name="costs__books" data-financial="books">
-  </label>
-  <label for="costs__other">Other
-    <input type="text" name="costs__other" data-financial="otherExpenses">
-  </label>
-  <label for="costs__transportation">Transportation
-    <input type="text" name="costs__transportation" data-financial="transportation">
-  </label>
+    <h2>Student debt calculator demo</h2>
+    <button id="add-random">Add random demo values!</button>
+    <!-- Costs of Attendance -->
+    <label for="costs__tuition">Tuition
+        <input type="text" name="costs__tuition" data-financial="tuitionFees">
+    </label>
+    <label for="costs__room-and-board">Room and Board
+        <input type="text" name="costs__room-and-board" data-financial="roomBoard">
+    </label>
+    <label for="costs__books">Books
+        <input type="text" name="costs__books" data-financial="books">
+    </label>
+    <label for="costs__other">Other
+        <input type="text" name="costs__other" data-financial="otherExpenses">
+    </label>
+    <label for="costs__transportation">Transportation
+        <input type="text" name="costs__transportation" data-financial="transportation">
+    </label>
 
-  <!-- Grants & Scholarships -->
-  <label for="grants__pell">Federal Pell Grant
-    <input type="text" name="grants__pell" data-financial="pell">
-  </label>
-  <label for="grants__scholarships">Scholarships
-    <input type="text" name="grants__scholarships" data-financial="scholarships">
-  </label>
+    <!-- Grants & Scholarships -->
+    <label for="grants__pell">Federal Pell Grant
+        <input type="text" name="grants__pell" data-financial="pell">
+    </label>
+    <label for="grants__scholarships">Scholarships
+        <input type="text" name="grants__scholarships" data-financial="scholarships">
+    </label>
 
-  <!-- Contributions -->
-  <label for="contrib__savings">Personal Savings
-    <input type="text" name="contrib__savings" data-financial="savings">
-  </label>
-  <label for="contrib__family">Family Contributions
-    <input type="text" name="contrib__family" data-financial="family">
-  </label>
-  <label for="contrib__state529plan">Parent Loans (529 Plan)
-    <input type="text" name="contrib__state529plan" data-financial="state529plan">
-  </label>
-  <label for="contrib__workstudy">Work Study
-    <input type="text" name="contrib__workstudy" data-financial="workstudy">
-  </label>
+    <!-- Contributions -->
+    <label for="contrib__savings">Personal Savings
+        <input type="text" name="contrib__savings" data-financial="savings">
+    </label>
+    <label for="contrib__family">Family Contributions
+        <input type="text" name="contrib__family" data-financial="family">
+    </label>
+    <label for="contrib__state529plan">Parent Loans (529 Plan)
+        <input type="text" name="contrib__state529plan" data-financial="state529plan">
+    </label>
+    <label for="contrib__workstudy">Work Study
+        <input type="text" name="contrib__workstudy" data-financial="workstudy">
+    </label>
 
-  <!-- Contributions -->
-  <label for="contrib__perkins">Perkins
-    <input type="text" name="contrib__perkins" data-financial="perkins">
-  </label>
-  <label for="contrib__staffsubsidized">Subsidized loan
-    <input type="text" name="contrib__subsidized" data-financial="staffSubsidized">
-  </label>
-  <label for="contrib__staffunsubsidized">Unsubsidized loan
-    <input type="text" name="contrib__unsubsidized" data-financial="staffUnsubsidized">
-  </label>
-  <label for="contrib__institutionalloan">Institutional Loan
-    <input type="text" name="contrib__perkins" data-financial="institutionalLoan">
-  </label>
-  <label for="contrib__privateloan">Private Loan
-    <input type="text" name="contrib__perkins" data-financial="privateLoan">
-  </label>
-  <button id="calculate-debt">Run Calculations</button>
-  <table class="outputs">
-    <tr>
-      <td>Total Debt at Graduation:</td>
-      <td data-financial="totalDebt"></td>
-    </tr>
-    <tr>
-      <td>Monthly Loan Payment:</td>
-      <td data-financial="loanMonthly"></td>
-    </tr>
-    <tr>
-      <td>Amount Left to Pay:</td>
-      <td data-financial="gap"></td>
-    </tr>
-  </table>
+    <!-- Contributions -->
+    <label for="contrib__perkins">Perkins
+        <input type="text" name="contrib__perkins" data-financial="perkins">
+    </label>
+    <label for="contrib__staffsubsidized">Subsidized loan
+        <input type="text" name="contrib__subsidized" data-financial="staffSubsidized">
+    </label>
+    <label for="contrib__staffunsubsidized">Unsubsidized loan
+        <input type="text" name="contrib__unsubsidized" data-financial="staffUnsubsidized">
+    </label>
+    <label for="contrib__institutionalloan">Institutional Loan
+        <input type="text" name="contrib__perkins" data-financial="institutionalLoan">
+    </label>
+    <label for="contrib__privateloan">Private Loan
+        <input type="text" name="contrib__perkins" data-financial="privateLoan">
+    </label>
+    <button id="calculate-debt">Run Calculations</button>
+    <table class="outputs">
+        <tr>
+            <td>Total Debt at Graduation:</td>
+            <td data-financial="totalDebt"></td>
+        </tr>
+        <tr>
+            <td>Monthly Loan Payment:</td>
+            <td data-financial="loanMonthly"></td>
+        </tr>
+        <tr>
+            <td>Amount Left to Pay:</td>
+            <td data-financial="gap"></td>
+        </tr>
+    </table>
 </div>
 {% endblock %}
 
@@ -97,5 +126,5 @@
 {% endblock %}
 
 {% block app_js %}
-  <script type="text/javascript" src="{% static "paying_for_college/disclosures/static/js/main.js" %}"></script>
+<script type="text/javascript" src="{% static "paying_for_college/disclosures/static/js/main.js" %}"></script>
 {% endblock %}
