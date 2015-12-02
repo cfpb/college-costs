@@ -47,16 +47,16 @@ $( document ).ready( function() {
     randomFinancials();
   });
 
-  $('#costs__tuition').val('10,000');
-  $('#costs__room-and-board').val('5,000');
-  $('#costs__books').val('500');
-  $('#costs__transportation').val('500');
-  $('#costs__other').val('0');
-  $('[data-financial="costOfAttendance"]').text('16,000');
-  $('#grants__pell').val('1,000');
-  $('#grants__scholarships').val('3,000');
-  $('[data-financial="totalGrantsScholarships"]').text('4,000');
-  $('[data-financial="totalCost"]').text('12,000');
+  $( '#costs__tuition' ).val( '10,000' );
+  $( '#costs__room-and-board' ).val( '5,000' );
+  $( '#costs__books' ).val( '500' );
+  $( '#costs__transportation' ).val( '500' );
+  $( '#costs__other' ).val( '0' );
+  $( '[data-financial="costOfAttendance"]' ).text( '16,000' );
+  $( '#grants__pell' ).val( '1,000' );
+  $( '#grants__scholarships' ).val( '3,000' );
+  $( '[data-financial="totalGrantsScholarships"]' ).text( '4,000' );
+  $( '[data-financial="totalCost"]' ).text( '12,000' );
 
   // End demo code
 

@@ -2,12 +2,15 @@
    Global
    ========================================================================== */
 
+@small-font-size-px:    14px;
+@x-small-font-size-px:  12px;
+
 .understanding-financial-aid-offer {
   .webfont-regular();
 }
 
 .step {
-  margin-top: 3.75em;
+  margin-top: unit(60px / @base-font-size-px, em);
 }
 
 .step_heading {
@@ -28,10 +31,10 @@
 
 .verify_prompt {
   .heading-4();
-  padding-top: 0.8333em;
+  padding-top: unit(15px / @font-size, em);
   border-top: 1px solid @gray-50;
-  margin-top: 2.5em;
-  margin-bottom: 1.6667em;
+  margin-top: unit(45px / @font-size, em);
+  margin-bottom: unit(30px / @font-size, em);
 }
 
 .verify_school {
@@ -44,8 +47,8 @@
 }
 
 .verify_list {
-  margin-top: 0.9375em;
-  margin-bottom: 1.875em;
+  margin-top: unit(15px / @base-font-size-px, em);
+  margin-bottom: unit(30px / @base-font-size-px, em);
 }
 
 .verify_heading {
@@ -58,11 +61,11 @@
 }
 
 .verify_value + .verify_heading {
-  margin-top: 1.875em;
+  padding-top: unit(15px / @x-small-font-size-px, em);
 }
 
 .verify_wrong-info-btn {
-  font-size: 1em;
+  font-size: unit(16px / @base-font-size-px, em);
 }
 
 /* ==========================================================================
@@ -70,21 +73,21 @@
    ========================================================================== */
 
 .offer-part {
-  margin-top: 2.8125em;
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .form-group {
-    margin-top: 2.8125em;
+    margin-top: unit(45px / @base-font-size-px, em);
   }
 
   .form-label-header {
-    padding-bottom: 0.3125em;
+    padding-bottom: unit(5px / @small-font-size-px, em);
     border-bottom: 1px solid @gray-50;
-    margin-bottom: 0.9375em;
+    margin-bottom: unit(15px / @small-font-size-px, em);
   }
 
   .content_line {
-    margin-top: 15px;
-    margin-bottom: 7px;
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(7px / @base-font-size-px, em);
   }
 }
 
@@ -96,7 +99,7 @@
   });
 
   & + .form-group {
-    margin-top: 1.875em;
+    margin-top: unit(30px / @base-font-size-px, em);
   }
 }
 
@@ -105,11 +108,11 @@
 }
 
 .offer-part_definition {
-  font-size: 0.875em;
+  font-size: unit(14px / @base-font-size-px, em);
 }
 
 .form-label + .offer-part_definition {
-  margin-top: -0.3125em;
+  margin-top: unit(-5px / @small-font-size-px, em);
 }
 
 .offer-part_currency {
@@ -117,7 +120,7 @@
 
   .offer-part_unit {
     position: absolute;
-    right: 3.625em;
+    right: unit(58px / @base-font-size-px, em);
   }
 
   .offer-part_input {
@@ -128,26 +131,38 @@
 }
 
 .offer-part_summary {
-  padding-bottom: 1.875em;
-  margin-top: 2.8125em;
+  padding-bottom: unit(30px / @base-font-size-px, em);
+  margin-top: unit(45px / @base-font-size-px, em);
   background-color: @gold-20;
 
   .content_line {
-    margin-top: 15px;
-    margin-bottom: 7px;
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(7px / @base-font-size-px, em);
   }
 }
 
 .offer-part_summary-heading {
   .heading-5();
   border-bottom: 1px solid @black;
-  margin-bottom: 0.7143em;
+  margin-bottom: unit(10px / @font-size, em);
 }
 
+// Elements need to be nested here to inherit @font-size
 .line-item {
   .grid_nested-col-group();
   .heading-4();
-  margin-bottom: 0.8333em;
+  margin-bottom: unit(15px / @font-size, em);
+
+  &_sign {
+    position: relative;
+    left: unit(-5px / @font-size, em);
+    font-size: unit(18px / @font-size, em);
+  }
+
+  &_currency {
+    position: absolute;
+    right: unit(77px / @font-size, em);
+  }
 }
 
 .line-item_title {
@@ -156,17 +171,6 @@
 
 .line-item_value {
   .grid_column(5);
-}
-
-.line-item_sign {
-  position: relative;
-  left: -0.5em;
-  font-size: 0.875em;
-}
-
-.line-item_currency {
-  position: absolute;
-  right: 4.25em;
 }
 
 .line-item_amount {
