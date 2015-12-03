@@ -210,16 +210,16 @@ class DataStorageView(View):
         return HttpResponse(worksheet.saved_data)
 
 
-def bah_lookup_api(request):
-    zip5 = request.GET.get('zip5')
-    try:
-        rate = BAHRate.objects.filter(zip5=zip5).get()
-        document = {'rate': rate.value}
-        document_as_json = json.dumps(document)
-    except:
-        document_as_json = json.dumps({})
-    return HttpResponse(document_as_json,
-                        content_type='application/javascript')
+# def bah_lookup_api(request):
+#     zip5 = request.GET.get('zip5')
+#     try:
+#         rate = BAHRate.objects.filter(zip5=zip5).get()
+#         document = {'rate': rate.value}
+#         document_as_json = json.dumps(document)
+#     except:
+#         document_as_json = json.dumps({})
+#     return HttpResponse(document_as_json,
+#                         content_type='application/javascript')
 
 
 def school_search_api(request):

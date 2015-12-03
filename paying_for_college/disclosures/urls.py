@@ -17,7 +17,7 @@ urlpatterns = [
         school_search_api,
         name='school_search'),
 
-    url(r'^api/bah-lookup.json', bah_lookup_api),
+    # url(r'^api/bah-lookup.json', bah_lookup_api),
 
     url(r'^api/school/(\d+).json',
         SchoolRepresentation.as_view(),
