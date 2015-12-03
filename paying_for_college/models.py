@@ -36,19 +36,68 @@ class ConstantCap(models.Model):
         ordering = ['name']
 
 
+# data_json fields:
+# ALIAS
+# AVGMONTHLYPAY
+# AVGSTULOANDEBT
+# AVGSTULOANDEBTRANK
+# BADALIAS
+# BAH 1356
+# BOOKS
+# CITY Pittsburgh
+# CONTROL For Profit
+# DEFAULTRATE
+# GRADRATE
+# GRADRATERANK
+# INDICATORGROUP
+# KBYOSS
+# NETPRICE110K
+# NETPRICE3OK
+# NETPRICE48K
+# NETPRICE75K
+# NETPRICEGENERAL
+# NETPRICEOK
+# OFFERAA Yes
+# OFFERBA Yes
+# OFFERGRAD Yes
+# ONCAMPUSAVAIL No
+# ONLINE No
+# OTHEROFFCAMPUS
+# OTHERONCAMPUS
+# OTHERWFAMILY
+# RETENTRATE
+# ROOMBRDOFFCAMPUS
+# ROOMBRDONCAMPUS
+# SCHOOL EDMC Central Administrative Office
+# SCHOOL_ID 483090
+# STATE PA
+# TUITIONGRADINDIS
+# TUITIONGRADINS
+# TUITIONGRADOSS
+# TUITIONUNDERINDIS
+# TUITIONUNDERINS
+# TUITIONUNDEROSS
+# ZIP 15222
+
+
 class School(models.Model):
     """
     Represents a school
     """
     school_id = models.IntegerField(primary_key=True)
+    ope6_id = models.IntegerField(blank=True, null=True)
+    ope8_id = models.IntegerField(blank=True, null=True)
     data_json = models.TextField()
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=2)
     accreditor = models.CharField(max_length=255, blank=True)
+    ownership = models.CharField(max_length=255, blank=True)
     url = models.TextField(blank=True)
     degrees_predominant = models.TextField(blank=True)
     degrees_highest = models.TextField(blank=True)
+    # main_campus = models.BooleanField(default=True)
     operating = models.BooleanField(default=True)
+
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     def __unicode__(self):
@@ -88,12 +137,15 @@ class Program(models.Model):
     """
     institution = models.ForeignKey(School)
     program_name = models.CharField(max_length=255)
+    accreditor = models.CharField(max_length=255, blank=True)
     level = models.CharField(max_length=255, blank=True)
-    code = models.CharField(max_length=255, blank=True)
+    program_code = models.CharField(max_length=255, blank=True)
+    cip_code = models.CharField(max_length=255, blank=True)
+    soc_codes = models.CharField(max_length=255, blank=True)
     total_cost = models.IntegerField(blank=True, null=True)
     time_to_complete = models.IntegerField(blank=True,
                                            null=True,
-                                           help_text="IN DAYS")
+                                           help_text="IN MONTHS")
     completion_rate = models.DecimalField(blank=True,
                                           null=True,
                                           max_digits=5,
@@ -110,10 +162,11 @@ class Program(models.Model):
     salary = models.IntegerField(blank=True, null=True)
     program_length = models.IntegerField(blank=True,
                                          null=True,
-                                         help_text="IN DAYS")
-    program_cost = models.IntegerField(blank=True,
-                                       null=True,
-                                       help_text="TUITION & FEES")
+                                         help_text="IN MONTHS")
+    tuition = models.IntegerField(blank=True,
+                                       null=True)
+    fees = models.IntegerField(blank=True,
+                                       null=True)
     housing = models.IntegerField(blank=True,
                                   null=True,
                                   help_text="HOUSING & MEALS")
@@ -122,8 +175,7 @@ class Program(models.Model):
                                 help_text="BOOKS & SUPPLIES")
     transportation = models.IntegerField(blank=True, null=True)
     other_costs = models.IntegerField(blank=True,
-                                      null=True,
-                                      help_text="BOOKS & SUPPLIES")
+                                      null=True)
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
