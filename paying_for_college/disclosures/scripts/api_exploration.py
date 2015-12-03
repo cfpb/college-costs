@@ -1,8 +1,9 @@
 """
-Exploration of Dept of Ed college api, released 2015-09-12
+Utilities for querying thepaying_for_college/disclosures/scripts/api_exploration.py Dept of Ed's collegescorecard api
 
-The api requires a key, which you can get from https://api.data.gov/signup/
-- api repo:
+The API, released 2015-09-12, requires a key, which you can get
+from https://api.data.gov/signup/
+- API repo:
     https://github.com/18F/open-data-maker
 - collegechoice repo:
     https://github.com/18F/college-choice
@@ -21,28 +22,61 @@ from decimal import Decimal
 
 from csvkit import CSVKitWriter as ckw
 
+API_KEY = os.getenv('ED_API_KEY')
+API_ROOT = "https://api.data.gov/ed/collegescorecard/v1"
+SCHOOLS_ROOT = "%s/schools" % API_ROOT
+# SCHEMA_ROOT = "%s/data.json" % API_ROOT
+PAGE_MAX = 100  # the max page size allowed as of 2015-09-14
 
-def build_string(YEAR):
-    """assemble api fields for an api query string"""
-    fields = [
-        'id',
-        'ope8_id',
-        'ope6_id',
-        'school.name',
-        'school.city',
-        'school.state',
-        'school.zip',
-        'school.accreditor',
-        'school.school_url',
-        'school.degrees_awarded.predominant',
-        'school.degrees_awarded.highest',
-        'school.ownership',
-        'school.main_campus',
-        'school.branches',
-        'school.online_only',
-        'school.operating',
-        'school.under_investigation',
-        # detail fields delivered by year
+MODEL_MAP = {
+    'ope6_id': 'ope6_id',
+    'ope8_id': 'ope8_id',
+    '%s.student.size' % LATEST_YEAR: 'enrollment',
+    'school.accreditor': 'accreditor',
+    'school.school_url': 'url',
+    'school.degrees_awarded.predominant': 'degrees_predominant',  # data guide says this is INDICATORGROUP
+    'school.degrees_awarded.highest': 'degrees_highest',
+    'school.ownership': 'ownership',
+    'school.main_campus': 'main_campus',
+    # 'school.branches',  # ??
+    'school.online_only': 'online_only',
+    'school.operating': 'operating',
+    'school.under_investigation',
+}
+
+JSON_MAP ={
+    '%s.student.retention_rate.four_year.full_time' % LATEST_YEAR: 'RETENTRATE',
+    '%s.student.retention_rate.lt_four_year.full_time' % LATEST_YEAR: 'RETENTRATELT4',  # NEW
+    '%s.repayment.repayment_cohort.3_year_declining_balance' % LATEST_YEAR: 'REPAY3YR',  # NEW
+    '%s.repayment.3_yr_default_rate' % LATEST_YEAR: 'DEFAULTRATE',
+    '%s.aid.median_debt_suppressed.overall' % LATEST_YEAR: 'AVGSTULOANDEBT',
+    '%s.aid.median_debt_suppressed.completers.monthly_payments' % LATEST_YEAR: 'MEDIANDEBTCOMPLETER',  # NEW
+}
+
+BASE_STRING = [
+    'id',
+    'ope6_id',
+    'ope8_id',
+    'school.name',
+    'school.city',
+    'school.state',
+    'school.zip',
+    'school.accreditor',
+    'school.school_url',
+    'school.degrees_awarded.predominant',
+    'school.degrees_awarded.highest',
+    'school.ownership',
+    'school.main_campus',
+    'school.branches',
+    'school.online_only',
+    'school.operating',
+    'school.under_investigation',
+]
+
+
+def build_csv_fields(YEAR=LATEST_YEAR):
+    """assemble fields for an api query for an analysis csv"""
+    fields = BASE_STRING + [
         '%s.cost.attendance.academic_year' % YEAR,
         '%s.cost.attendance.program_year' % YEAR,
         '%s.cost.tuition.in_state' % YEAR,
@@ -111,20 +145,14 @@ def build_string(YEAR):
     field_string = ",".join([field for field in fields])
     return field_string
 
-api_key = os.getenv('ED_API_KEY')
-api_root = "https://api.data.gov/ed/collegescorecard/v1"
-schools_root = "%s/schools" % api_root
-schema_root = "%s/data.json" % api_root
-page_max = 100  # the max page size allowed as of 2015-09-14
-
 
 def get_schools_by_page(year, page=0):
     """get a page of schools for a single year as dict"""
     field_string = build_string(year)
-    url = "%s?api_key=%s&page=%s&per_page=%s&fields=%s" % (schools_root,
-                                               api_key,
-                                               page_max,
-                                               field_string)
+    url = "%s?api_key=%s&page=%s&per_page=%s&fields=%s" % (SCHOOLS_ROOT,
+                                                           API_KEY,
+                                                           PAGE_MAX,
+                                                           field_string)
     data = json.loads(requests.get(url).text)
     return data
 
@@ -132,8 +160,8 @@ def get_schools_by_page(year, page=0):
 def search_by_school_name(name):
     """search api by school name, return school name, id, city, state"""
     fields = "id,school.name,school.city,school.state"
-    url = "%s?api_key=%s&school.name=%s&fields=%s" % (schools_root,
-                                                      api_key,
+    url = "%s?api_key=%s&school.name=%s&fields=%s" % (SCHOOLS_ROOT,
+                                                      API_KEY,
                                                       name,
                                                       fields)
     data = json.loads(requests.get(url).text)['results']
@@ -143,7 +171,7 @@ def search_by_school_name(name):
 def get_school_data(school_id):
     """get a full api data set for a single school as dict"""
     school_id = "%s" % school_id
-    url = "%s?id=%s&api_key=%s" % (schools_root, school_id, api_key)
+    url = "%s?id=%s&api_key=%s" % (SCHOOLS_ROOT, school_id, API_KEY)
     data = json.loads(requests.get(url).text)['results'][0]
     return data
 
@@ -156,7 +184,7 @@ def get_school_size(school_id, year):
 def get_all_school_ids():
     """traverse pages, assemble all school ids and names and output as json."""
     collector = {}
-    url = '%s?api_key=%s&fields=id,school.name' % (schools_root, api_key)
+    url = '%s?api_key=%s&fields=id,school.name' % (SCHOOLS_ROOT, API_KEY)
     for page in range(1, 391):
         next_url = "%s&page=%s" % (url, page)
         nextdata = json.loads(requests.get(next_url).text)
@@ -175,9 +203,9 @@ def export_spreadsheet(year):
     container = {}
     for key in headings:
         container[key] = ''
-    url = '%s?api_key=%s&per_page=%s&fields=%s' % (schools_root,
-                                                   api_key,
-                                                   page_max,
+    url = '%s?api_key=%s&per_page=%s&fields=%s' % (SCHOOLS_ROOT,
+                                                   API_KEY,
+                                                   PAGE_MAX,
                                                    fields)
     data = json.loads(requests.get(url).text)
     #  initial pass
@@ -269,9 +297,9 @@ def get_repayment_data(school_id, year):
         '%s.repayment.7_yr_repayment.completers',
         '%s.repayment.7_yr_repayment.noncompleters']
     fields = ",".join([entry % year for entry in entrylist])
-    url = "%s?id=%s&api_key=%s&fields=%s" % (schools_root,
+    url = "%s?id=%s&api_key=%s&fields=%s" % (SCHOOLS_ROOT,
                                              school_id,
-                                             api_key,
+                                             API_KEY,
                                              fields)
     data = json.loads(requests.get(url).text)['results'][0]
     repay_completers = data['%s.repayment.5_yr_repayment.completers' % year]

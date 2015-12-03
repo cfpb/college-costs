@@ -90,6 +90,7 @@ class School(models.Model):
     data_json = models.TextField()
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=2)
+    enrollment = models.IntegerField(blank=True, null=True)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
     control = models.CharField(max_length=50,
@@ -98,7 +99,8 @@ class School(models.Model):
     url = models.TextField(blank=True)
     degrees_predominant = models.TextField(blank=True)
     degrees_highest = models.TextField(blank=True)
-    # main_campus = models.BooleanField(default=True)
+    main_campus = models.NullBooleanField()
+    online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
 
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
