@@ -57,6 +57,27 @@ $( document ).ready( function() {
   $( '#grants__scholarships' ).val( '3,000' );
   $( '[data-financial="totalGrantsScholarships"]' ).text( '4,000' );
   $( '[data-financial="totalCost"]' ).text( '12,000' );
+  $( '#contrib__savings' ).val( '1,000' );
+  $( '#contrib__state529plan' ).val( '0' );
+  $( '#contrib__workstudy' ).val( '0' );
+  $( '[data-financial="totalCash"]' ).text( '1,000' );
+  $( '[data-financial="totalParentLoans"]' ).text( '0' );
+  $( '[data-financial="totalWorkstudy"]' ).text( '0' );
+  $( '[data-financial="totalContributions"]' ).text( '1,000' );
+  $( '#contrib__perkins' ).val( '3,000' );
+  $( '#contrib__subsidized' ).val( '3,000' );
+  $( '#contrib__unsubsidized' ).val( '2,000' );
+  $( '[data-financial="totalFederalLoans"]' ).text( '8,000' );
+  $( '[data-financial="privateLoan"]' ).val( '0' );
+  $( '[data-financial="privateLoanInterest"]' ).val( '7.9' );
+  $( '[data-financial="privateLoanGracePeriod"]' ).val( '6' );
+  $( '[data-financial="privateLoanTerm"]' ).val( '10' );
+  $( '#contrib__payment-plan' ).val( '2,000' );
+  $( '[data-financial="totalPrivateLoans"]' ).text( '2,000' );
+  $( '[data-financial="totalDebt"]' ).text( '10,000' );
+  $( '[data-financial="remainingCost"]' ).text( '1,000' );
+  $( '[data-financial="totalProgramDebt"]' ).text( '20,000' );
+  $( '[data-financial="totalRepayment"]' ).text( '36,450' );
 
   // End demo code
 
