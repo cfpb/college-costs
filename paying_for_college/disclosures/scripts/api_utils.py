@@ -1,5 +1,5 @@
 """
-Utilities for querying thepaying_for_college/disclosures/scripts/api_exploration.py Dept of Ed's collegescorecard api
+Utilities for querying the Dept of Ed's collegescorecard api
 
 The API, released 2015-09-12, requires a key, which you can get
 from https://api.data.gov/signup/
@@ -12,15 +12,22 @@ from https://api.data.gov/signup/
 - api_key usage:
     https://api.data.gov/docs/api-key/
 """
-import sys
 import os
-import requests
+import sys
+import csv
 import json
 import datetime
 from copy import copy
 from decimal import Decimal
 
-from csvkit import CSVKitWriter as ckw
+import requests
+
+from paying_for_college.models import ConstantCap
+
+try:
+    LATEST_YEAR = ConstantCap.objects.get(slug='latest_year').value
+except:
+    LATEST_YEAR = 2013
 
 API_KEY = os.getenv('ED_API_KEY')
 API_ROOT = "https://api.data.gov/ed/collegescorecard/v1"
@@ -233,7 +240,7 @@ def export_spreadsheet(year):
                     collector[school['id']][key.replace('.', '_')] = value
             next_page = nextdata['metadata']['page'] + 1
     with open('schools_%s.csv' % year, 'w') as f:
-        writer = ckw(f)
+        writer = csv.writer(f)
         writer.writerow(headings)
         for school_id in collector:
             writer.writerow([
@@ -268,6 +275,17 @@ def unpack_alias(alist, school):
                                                    institution=school,
                                                    defaults={'is_primary':
                                                              False})
+    # #example from Penn's alias string
+    # ALIST = [
+    #     'Penn',
+    #     'U of PA',
+    #     'U-Penn',
+    #     'U of P',
+    #     'Pennsylvania',
+    #     'UPenn',
+    #     'Pennsylvania University',
+    #     'Wharton',
+    #     'Wharton School of Business']
 
 
 def calculate_percent(group1, group2):
@@ -275,7 +293,7 @@ def calculate_percent(group1, group2):
     if group1 + group2 == 0:
         return 0
     else:
-        return Decimal(str(round(group1 * 100.0 / (group1 + group2), 2)))
+        return round(group1 * 100.0 / (group1 + group2), 2)
 
 
 # USF = 137351
@@ -304,6 +322,5 @@ def get_repayment_data(school_id, year):
     data = json.loads(requests.get(url).text)['results'][0]
     repay_completers = data['%s.repayment.5_yr_repayment.completers' % year]
     repay_non = data['%s.repayment.5_yr_repayment.noncompleters' % year]
-    data['completer_repayment_rate_after_5_yrs'] = calculate_percent(repay_completers,
-                                                    repay_non)
+    data['completer_repayment_rate_after_5_yrs'] = calculate_percent(repay_completers, repay_non)
     return data
