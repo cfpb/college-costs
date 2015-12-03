@@ -92,6 +92,9 @@ class School(models.Model):
     state = models.CharField(max_length=2)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
+    control = models.CharField(max_length=50,
+                               blank=True,
+                               help_text="'Public', 'Private' or 'For Profit'")
     url = models.TextField(blank=True)
     degrees_predominant = models.TextField(blank=True)
     degrees_highest = models.TextField(blank=True)
