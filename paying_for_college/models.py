@@ -106,6 +106,26 @@ class School(models.Model):
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
 
+    def convert_ope6(self):
+        if self.ope6_id:
+            digits = len(str(self.ope6_id))
+            if digits < 6:
+                return ('0' * (6-digits)) + str(self.ope6_id)
+            else:
+                return str(self.ope6_id)
+        else:
+            return ''
+
+    def convert_ope8(self):
+        if self.ope8_id:
+            digits = len(str(self.ope8_id))
+            if digits < 8:
+                return ('0' * (8-digits)) + str(self.ope8_id)
+            else:
+                return str(self.ope8_id)
+        else:
+            return ''
+
     @property
     def primary_alias(self):
         if len(self.alias_set.values()) != 0:
