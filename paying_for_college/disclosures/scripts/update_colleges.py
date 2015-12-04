@@ -33,7 +33,7 @@ def update():
         school_count += 1
         sys.stdout.write('.')
         sys.stdout.flush()
-        if school_count % 500 == 0:
+        if school_count % 500 == 0:  # pragma: no cover
             print(school_count)
         url = id_url % (ID_BASE, school.school_id, FIELDS)
         try:
