@@ -9,7 +9,7 @@
 // to work out the details before contributing them back to a Capital Framework component
 //
 
- /* ==========================================================================
+/* ==========================================================================
    Full-width buttons on small screens
    ========================================================================== */
 
@@ -30,16 +30,32 @@
 
 .btn + .btn {
   .respond-to-max(@bp-xs-max, {
-    margin-top: 0.625em;
+    margin-top: unit(10px / @base-font-size-px, em);
     margin-left: auto;
   });
 }
 
- /* ==========================================================================
+/* ==========================================================================
    Flush left lists
    ========================================================================== */
 
 .list__flush-left {
   padding-left: 0;
   list-style-position: inside;
+}
+
+/* ==========================================================================
+   New style form labels
+   ========================================================================== */
+
+.form-label {
+  .webfont-medium();
+  font-size: 1.125em;
+}
+
+.form-label_text-wrapper {
+  display: block;
+  margin-bottom: unit(5px / @base-font-size-px, em);
+  .webfont-medium();
+  font-size: 1.125em;
 }
