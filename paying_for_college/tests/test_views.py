@@ -1,5 +1,6 @@
 import datetime
 import unittest
+import json
 
 import mock
 import django
@@ -36,6 +37,9 @@ class TestViews(django.test.TestCase):
     POST.POST = {'school-program': '999999',
                  'ba': True,
                  'is_valid': True}
+    feedback_post_data = {'csrfmiddlewaretoken': 'abc',
+                          'message': 'test'}
+    # '0InrCI5HGbiBEJ1esg6IBi3ax42fwPnL'
 
     def test_landing_page_views(self):
         for url_name in self.landing_page_views:
@@ -46,6 +50,16 @@ class TestViews(django.test.TestCase):
         response = client.get(reverse('disclosures:pfc-feedback'))
         self.assertTrue(sorted(response.context_data.keys()) ==
                         ['base_template', 'form'])
+
+    @mock.patch('paying_for_college.views.render_to_response')
+    def test_feedback_post(self, mock_render):
+        response = client.post(reverse('disclosures:pfc-feedback'),
+                               data=self.feedback_post_data)
+        self.assertTrue(mock_render.call_count == 1)
+
+    def test_feedback_post_invalid(self):
+        response = client.post(reverse('disclosures:pfc-feedback'))
+        self.assertTrue(response.status_code == 400)
 
     def test_disclosure(self):
         response = client.get(reverse('disclosures:worksheet'))
@@ -119,7 +133,7 @@ class SchoolSearchTest(django.test.TestCase):
         self.assertTrue('155317' in resp.content)
 
 
-# /paying-for-college/compare-financial-aid-and-college-cost/api/school/145637.json
+# /paying-for-college/understanding-financial-aid-offers/api/school/155317.json
 class SchoolJsonTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
@@ -133,18 +147,41 @@ class SchoolJsonTest(django.test.TestCase):
         self.assertTrue('155317' in resp.content)
 
 
-# to test
+# SAVED WORKSHEET
+# /paying-for-college/understanding-financial-aid-offers/#c1e6ecd7-2665-4b26-abeb-7b43240af2fb
+class SavedWorksheetTest(django.test.TestCase):
 
-# 'disclosures:school-json',
-# /paying-for-college/compare-financial-aid-and-college-cost/api/school/145637.json
+    fixtures = ['test_fixture.json']
 
-# 'disclosures:create-worksheet',
+    def test_saved_worksheet(self):
+        """api call for saved worksheet."""
+
+        url = reverse('disclosures:school-json', args=['155317'])
+        resp = client.get(url)
+        self.assertTrue('Kansas' in resp.content)
+        self.assertTrue('155317' in resp.content)
+
 
 # NO-DATA WORKSHEET POST
 # /paying-for-college/compare-financial-aid-and-college-cost/api/worksheet/
+class CreateWorksheetTest(django.test.TestCase):
+
+    fixtures = ['test_fixture.json']
+
+    def test_create_worksheet(self):
+        """step 1 in creating worksheet via api."""
+
+        url = reverse('disclosures:create_worksheet')
+        resp = client.post(url)
+        self.assertTrue('id' in resp.content)
+        data = json.loads(resp.content)
+        self.assertTrue(len(data['id']) == 36)
 
 # SAVE POST
-# /paying-for-college/compare-financial-aid-and-college-cost/api/worksheet/c1e6ecd7-2665-4b26-abeb-7b43240af2fb.json
+# /paying-for-college/compare-financial-aid-and-college-cost/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
+    def test_save_worksheet(self):
+        """step 2 in creating worksheet via api."""
 
-# SAVED WORKSHEET
-# /paying-for-college/compare-financial-aid-and-college-cost/#c1e6ecd7-2665-4b26-abeb-7b43240af2fb
+        url = reverse('disclosures:api-worksheet', args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
+        resp = client.post(url)
+        self.assertTrue(resp.status_code == 200)

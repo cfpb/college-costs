@@ -12,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.template import RequestContext
 from django.template.loader import get_template
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.conf import settings
 
 from haystack.query import SearchQuerySet
@@ -75,7 +75,7 @@ class FeedbackView(TemplateView):
                                       locals(),
                                       context_instance=RequestContext(request))
         else:
-            return
+            return HttpResponseBadRequest("Invalid form")
 
 
 class BuildComparisonView(View):
@@ -148,11 +148,11 @@ class BuildComparisonView(View):
     #             data['schools'][str(school_id)] = field_dict
     #             index += 1
 
-        data_js = json.dumps(data)
-        csrf.get_token(request)
-        return render_to_response('worksheet.html',
-                                  locals(),
-                                  context_instance=RequestContext(request))
+    #     data_js = json.dumps(data)
+    #     csrf.get_token(request)
+    #     return render_to_response('worksheet.html',
+    #                               locals(),
+    #                               context_instance=RequestContext(request))
 
 
 class SchoolRepresentation(View):
@@ -210,16 +210,16 @@ class DataStorageView(View):
         return HttpResponse(worksheet.saved_data)
 
 
-def bah_lookup_api(request):
-    zip5 = request.GET.get('zip5')
-    try:
-        rate = BAHRate.objects.filter(zip5=zip5).get()
-        document = {'rate': rate.value}
-        document_as_json = json.dumps(document)
-    except:
-        document_as_json = json.dumps({})
-    return HttpResponse(document_as_json,
-                        content_type='application/javascript')
+# def bah_lookup_api(request):
+#     zip5 = request.GET.get('zip5')
+#     try:
+#         rate = BAHRate.objects.filter(zip5=zip5).get()
+#         document = {'rate': rate.value}
+#         document_as_json = json.dumps(document)
+#     except:
+#         document_as_json = json.dumps({})
+#     return HttpResponse(document_as_json,
+#                         content_type='application/javascript')
 
 
 def school_search_api(request):

@@ -14,12 +14,16 @@ class SchoolAliasTest(TestCase):
                       data_json='',
                       accreditor="Almighty Wizard",
                       city="Emerald City",
-                      state="OZ"):
+                      state="OZ",
+                      ope6=5555,
+                      ope8=555500):
         return School.objects.create(school_id=ID,
                                      data_json=data_json,
                                      accreditor=accreditor,
                                      city=city,
-                                     state=state)
+                                     state=state,
+                                     ope6_id=ope6,
+                                     ope8_id=ope8)
 
     def create_alias(self, alias, school):
         return Alias.objects.create(alias=alias,
@@ -70,6 +74,16 @@ class SchoolAliasTest(TestCase):
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
         self.assertTrue("Emerald City" in print_vals(s, noprint=True))
+        self.assertTrue(s.convert_ope6() == '005555')
+        self.assertTrue(s.convert_ope8() == '00555500')
+        s.ope6_id = 555555
+        s.ope8_id = 55555500
+        self.assertTrue(s.convert_ope6() == '555555')
+        self.assertTrue(s.convert_ope8() == '55555500')
+        s.ope6_id = None
+        s.ope8_id = None
+        self.assertTrue(s.convert_ope6() == '')
+        self.assertTrue(s.convert_ope8() == '')
 
     def test_constant_models(self):
         cr = ConstantRate(name='cr test', slug='crTest', value='0.1')
