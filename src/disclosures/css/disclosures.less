@@ -254,6 +254,188 @@
 }
 
 /* ==========================================================================
+   Evaluating your offer
+   ========================================================================== */
+
+.criteria + .criteria {
+  margin-top: unit(45px / @base-font-size-px, em);
+}
+
+.criteria_heading {
+  .heading-3();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+}
+
+.metric {
+  padding-top: unit(10px / @base-font-size-px, em);
+  border-top: 1px solid @gray-50;
+  margin-top: unit(30px / @base-font-size-px, em);
+}
+
+.metric_heading {
+  .heading-4();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-3();
+  });
+}
+
+.metric_explanation {
+  margin-bottom: unit(15px / 14px, em);
+  font-size: unit(14px / @base-font-size-px, em);
+}
+
+.debt-burden_projection {
+  .grid_nested-col-group();
+  margin-bottom: unit(20px / @base-font-size-px, em);
+}
+
+.debt-burden_projection-name {
+  .grid_column(7);
+}
+
+.debt-burden_projection-value {
+  .grid_column(5);
+}
+
+.debt-equation {
+  padding-top: unit(10px / @base-font-size-px, em);
+  margin-bottom: unit(30px / @base-font-size-px, em);
+}
+
+.debt-equation_part {
+  float: left;
+}
+
+.debt-equation_part__loan {
+  width: 25%;
+}
+
+.debt-equation_part__income {
+  width: 25%;
+}
+
+.debt-equation_part__percent {
+  width: 20%;
+}
+
+.debt-equation_symbol {
+  @symbol-font-size-px: 36px;
+  margin-top: unit(3px / @symbol-font-size-px, em);
+  width: 15%;
+  float: left;
+  .webfont-medium();
+  font-size: @symbol-font-size-px;
+  text-align: center;
+}
+
+.debt-equation_number {
+  .webfont-medium();
+  font-size: unit(18px / @base-font-size-px, em);
+}
+
+// Needs to be nested to keep variables scoped
+.bar-graph {
+  @bar-graph-width:       45px;
+  @bar-graph-height:      130px;
+  @bar-graph-line-width:  51px;
+
+  height: @bar-graph-height;
+  margin-bottom: unit(10px / @base-font-size-px, em);
+  position: relative;
+
+  &_point {
+    width: 100%;
+    position: absolute;
+  }
+
+  &_row {
+    .grid_nested-col-group();
+  }
+
+  &_label,
+  &_value {
+    .grid_column(6);
+  }
+
+  &_line {
+    display: inline-block;
+    width: @bar-graph-line-width;
+    border-top-width: 3px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+
+  &_number {
+    display: inline-block;
+  }
+
+  &_bar {
+    width: @bar-graph-width;
+    height: @bar-graph-height;
+    margin-left: unit( (@grid_gutter-width / 2) + (@bar-graph-line-width - @bar-graph-width) / 2, px);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: @gray-20;
+  }
+}
+
+.bar-graph_point__you {
+
+  .bar-graph_number{
+    .webfont-medium();
+    font-size: unit(18px / @base-font-size-px, em);
+  }
+
+  .bar-graph_line {
+    border-top-color: @black;
+    border-top-style: solid;
+  }
+}
+
+.bar-graph_point__average {
+  color: @darkgray;
+
+  .bar-graph_line {
+    border-top-color: @darkgray;
+    border-top-style: dotted;
+  }
+}
+
+.estimated-expenses {
+  @expense-summary-font-size: 18px;
+
+  &_form {
+    margin-top: 0;
+  }
+
+  &_summary {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+
+  &_heading {
+    padding-bottom: unit(5px / @expense-summary-font-size, em);
+    border-bottom: 1px solid @black;
+    margin-bottom: unit(10px / @expense-summary-font-size, em);
+  }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @expense-summary-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @expense-summary-font-size, em);
+  }
+
+  .content_line {
+    margin-bottom: unit(5px / @expense-summary-font-size, em);
+  }
+}
+
+/* ==========================================================================
    Student debt calculator demo
    ========================================================================== */
 

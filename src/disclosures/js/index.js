@@ -78,6 +78,24 @@ $( document ).ready( function() {
   $( '[data-financial="remainingCost"]' ).text( '1,000' );
   $( '[data-financial="totalProgramDebt"]' ).text( '20,000' );
   $( '[data-financial="totalRepayment"]' ).text( '36,450' );
+  $( '.total-debt-after-graduation .bar-graph_point__you').css('top', '20px');
+  $( '.total-debt-after-graduation .bar-graph_point__average').css('top', '80px');
+  $( '.graduation-rate .bar-graph_point__you').css('top', '100px');
+  $( '.graduation-rate .bar-graph_point__average').css('top', '20px');
+  $( '.average-salary .bar-graph_point__you').css('top', '90px');
+  $( '.average-salary .bar-graph_point__average').css('top', '40px');
+  $( '.loan-default-rates .bar-graph_point__you').css('top', '25px');
+  $( '.loan-default-rates .bar-graph_point__average').css('top', '70px');
+  $( '[data-expense="monthlyRent"]' ).val( '800' );
+  $( '[data-expense="monthlyLoanPayment"]' ).val( '550' );
+  $( '[data-expense="monthlyFood"]' ).val( '300' );
+  $( '[data-expense="monthlyTransportation"]' ).val( '200' );
+  $( '[data-expense="monthlyHealthInsurance"]' ).val( '100' );
+  $( '[data-expense="monthlySavings"]' ).val( '50' );
+  $( '[data-expense="monthlyOther"]' ).val( '50' );
+  $( '[data-expense="totalMonthlyExpenses"]' ).text( '2,050' );
+  $( '[data-expense="monthlySalary"]' ).text( '2,166' );
+  $( '[data-expense="monthlyLeftover"]' ).text( '116' );
 
   // End demo code
 
