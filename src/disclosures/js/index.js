@@ -78,6 +78,8 @@ $( document ).ready( function() {
   $( '[data-financial="remainingCost"]' ).text( '1,000' );
   $( '[data-financial="totalProgramDebt"]' ).text( '20,000' );
   $( '[data-financial="totalRepayment"]' ).text( '36,450' );
+  $( '.total-debt-after-graduation .bar-graph_point__you').css('top', '20px');
+  $( '.total-debt-after-graduation .bar-graph_point__average').css('top', '60px');
 
   // End demo code
 
