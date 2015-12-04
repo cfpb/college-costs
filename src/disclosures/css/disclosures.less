@@ -272,7 +272,7 @@
 .metric {
   padding-top: unit(10px / @base-font-size-px, em);
   border-top: 1px solid @gray-50;
-  margin-top: unit(45px / @base-font-size-px, em);
+  margin-top: unit(30px / @base-font-size-px, em);
 }
 
 .metric_heading {
@@ -344,11 +344,16 @@
   @bar-graph-line-width:  51px;
 
   height: @bar-graph-height;
+  margin-bottom: unit(10px / @base-font-size-px, em);
   position: relative;
 
   &_point {
+    width: 100%;
+    position: absolute;
+  }
+
+  &_row {
     .grid_nested-col-group();
-    position: relative;
   }
 
   &_label,
@@ -398,6 +403,35 @@
   .bar-graph_line {
     border-top-color: @darkgray;
     border-top-style: dotted;
+  }
+}
+
+.estimated-expenses {
+  @expense-summary-font-size: 18px;
+
+  &_form {
+    margin-top: 0;
+  }
+
+  &_summary {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+
+  &_heading {
+    padding-bottom: unit(5px / @expense-summary-font-size, em);
+    border-bottom: 1px solid @black;
+    margin-bottom: unit(10px / @expense-summary-font-size, em);
+  }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @expense-summary-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @expense-summary-font-size, em);
+  }
+
+  .content_line {
+    margin-bottom: unit(5px / @expense-summary-font-size, em);
   }
 }
 
