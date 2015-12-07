@@ -1,9 +1,10 @@
-{% extends 'front/base_update.html' %}
+{% extends base_template %}
+{% load staticfiles %}
 
 {% block title %}Paying for College Cost Comparison Tool{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{{ STATIC_PREFIX }}comparisontool/css/comparison-tool.css">
+<link rel="stylesheet" href="{% static "paying_for_college/comparisontool/css/comparison-tool.css" %}">
 {% endblock %}
 
 {% block body_class %}page paying-for-college{% endblock %}
@@ -149,5 +150,5 @@
 {% endblock content %}
 
 {% block page_js %}
-    <script src="{{ STATIC_PREFIX }}comparisontool/js/pfc-analytics.js"></script>
+    <script src="{% static "paying_for_college/comparisontool/js/pfc-analytics.js" %}"></script>
 {% endblock %}

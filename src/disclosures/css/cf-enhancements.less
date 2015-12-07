@@ -8,3 +8,118 @@
 // Whenever building enhancements or changes to existing CF components, write them here
 // to work out the details before contributing them back to a Capital Framework component
 //
+
+/* ==========================================================================
+   Full-width buttons on small screens
+   ========================================================================== */
+
+.btn {
+  .respond-to-max(@bp-xs-max, {
+    display: block;
+    width: 100%;
+  });
+}
+
+.btn__link {
+  .respond-to-max(@bp-xs-max, {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+  });
+}
+
+.btn + .btn {
+  .respond-to-max(@bp-xs-max, {
+    margin-top: unit(10px / @base-font-size-px, em);
+    margin-left: auto;
+  });
+}
+
+/* ==========================================================================
+   Flush left lists
+   ========================================================================== */
+
+.list__flush-left {
+  padding-left: 0;
+  list-style-position: inside;
+}
+
+/* ==========================================================================
+   New style form labels
+   ========================================================================== */
+
+.form-label {
+  .webfont-medium();
+  font-size: 1.125em;
+}
+
+.form-label_text-wrapper {
+  display: block;
+  margin-bottom: unit(5px / @base-font-size-px, em);
+  .webfont-medium();
+  font-size: 1.125em;
+}
+
+/* ==========================================================================
+   Capital Framework Notification Styling
+   from https://github.com/cfpb/cfgov-refresh/blob/2c62c966880afba0d634df7062876abec3393661/cfgov/unprocessed/css/cf-notifications.less
+   ========================================================================== */
+
+.cf-notification {
+  @notification-padding__px: 11px;
+
+  position: relative;
+
+  padding: @notification-padding__px;
+  padding-left: 40px;
+  margin-bottom: @notification-padding__px + 4px;
+
+  background: @gray-20;
+  border: 1px solid @gray;
+
+  &__error {
+    background: @redorange-20;
+    border-color: @input-error;
+  }
+
+  &__success {
+    background: @green-tint;
+    border-color: @input-success;
+  }
+
+  &__warning {
+    background: @gold-20;
+    border-color: @input-warning;
+  }
+
+  &_icon {
+    position: absolute;
+    top: @notification-padding__px + 2px;
+    left: @notification-padding__px + 4px;
+
+    color: @gray-20;
+    font-size: unit( 18px / @base-font-size-px, em );
+
+    &__error {
+      color: #d14327;
+    }
+
+    &__success {
+      color: #2cb34a;
+    }
+
+    &__warning {
+      color: #ff931b;
+    }
+  }
+
+  &_text {
+    .h4();
+    margin: 0;
+
+    .short-desc {
+      display: block;
+      font-size: @base-font-size-px;
+    }
+  }
+}

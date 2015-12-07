@@ -19,4 +19,5 @@ class SchoolIndex(indexes.SearchIndex, indexes.Indexable):
         alias_strings = [a.alias for a in obj.alias_set.all()]
         nickname_strings = [n.nickname for n in obj.nickname_set.all()]
         auto_strings = alias_strings + nickname_strings
+        auto_strings.append(str(obj.pk))
         return ' '.join(auto_strings)

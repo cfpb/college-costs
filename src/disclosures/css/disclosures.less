@@ -1,7 +1,449 @@
-#maincontent {
+/* ==========================================================================
+   Global
+   ========================================================================== */
+
+@small-font-size-px:    14px;
+@x-small-font-size-px:  12px;
+
+.understanding-financial-aid-offer {
+  .webfont-regular();
+}
+
+.step {
+  margin-top: unit(60px / @base-font-size-px, em);
+}
+
+.step_heading {
+  .heading-2();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-1();
+  });
+}
+
+.content_line {
+  background-color: @black;
+}
+
+/* ==========================================================================
+   Verify offer
+   ========================================================================== */
+
+.verify_prompt {
+  .heading-4();
+  padding-top: unit(15px / @font-size, em);
+  border-top: 1px solid @gray-50;
+  margin-top: unit(45px / @font-size, em);
+  margin-bottom: unit(30px / @font-size, em);
+}
+
+.verify_school {
+  .heading-3();
+  margin-bottom: 0;
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+}
+
+.verify_list {
+  margin-top: unit(15px / @base-font-size-px, em);
+  margin-bottom: unit(30px / @base-font-size-px, em);
+}
+
+.verify_heading {
+  .heading-6();
+  margin-bottom: 0;
+}
+
+.verify_value {
+  margin: 0;
+}
+
+.verify_value + .verify_heading {
+  padding-top: unit(15px / @x-small-font-size-px, em);
+}
+
+.verify_wrong-info-btn {
+  font-size: 1em;
+}
+
+/* ==========================================================================
+   Review your first year offer
+   ========================================================================== */
+
+.offer-part {
+  margin-top: unit(45px / @base-font-size-px, em);
+
+  .form-group {
+    margin-top: unit(45px / @base-font-size-px, em);
+  }
+
+  .form-label-header {
+    padding-bottom: unit(5px / @small-font-size-px, em);
+    border-bottom: 1px solid @gray-50;
+    margin-bottom: unit(15px / @small-font-size-px, em);
+  }
+
+  .content_line {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(7px / @base-font-size-px, em);
+  }
+}
+
+.offer-part_heading {
+  .heading-3();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+
+  & + .form-group {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+}
+
+.offer-part_unit {
+  line-height: 2;
+}
+
+.offer-part_definition {
+  font-size: unit(14px / @base-font-size-px, em);
+}
+
+.form-label + .offer-part_definition {
+  margin-top: unit(-5px / @small-font-size-px, em);
+}
+
+.offer-part_currency {
+  position: relative;
+
+  .offer-part_unit {
+    position: absolute;
+    right: unit(58px / @base-font-size-px, em);
+  }
+
+  .offer-part_input {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.offer-part_non-currency {
+
+  .offer-part_input {
+    box-sizing: border-box;
+    width: unit(40px / @base-font-size-px, em);
+  }
+
+  .offer-part_unit {
+    display: inline-block;
+    margin-left: unit(10px / @base-font-size-px, em);
+  }
+}
+
+.offer-part_summary {
+  padding-bottom: unit(30px / @base-font-size-px, em);
+  margin-top: unit(45px / @base-font-size-px, em);
+  margin-bottom: unit(45px / @base-font-size-px, em);
+  background-color: @gold-20;
+
+  &.debt-summary {
+    margin-top: 0;
+    background-color: @gold-50;
+  }
+
+  .content_line {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(7px / @base-font-size-px, em);
+  }
+}
+
+.offer-part_summary-heading {
+  .heading-5();
+  border-bottom: 1px solid @black;
+  margin-bottom: unit(10px / @font-size, em);
+}
+
+// Elements need to be nested here to inherit @font-size
+.line-item {
+  .grid_nested-col-group();
+  .heading-4();
+  margin-bottom: unit(15px / @font-size, em);
+
+  &_sign {
+    position: relative;
+    left: unit(-5px / @font-size, em);
+    font-size: unit(18px / @font-size, em);
+  }
+
+  &_currency {
+    position: absolute;
+    right: unit(77px / @font-size, em);
+  }
+}
+
+.line-item_title {
+  .grid_column(7);
+}
+
+.line-item_value {
+  .grid_column(5);
+}
+
+.line-item_amount {
+  float: right;
+}
+
+.line-item__total {
+  margin-bottom: 0;
+}
+
+.offer-part_terms {
+  padding-bottom: unit(17px / @base-font-size-px, em);
+  border-bottom: 1px dashed @gray-50;
+}
+
+.offer-part_terms__last {
+  border-bottom: 1px solid @black;
+  margin-bottom: unit(7px / @base-font-size-px, em);
+}
+
+.offer-part_term {
+  margin-top: unit(15px / @base-font-size-px, em);
+  margin-bottom: unit(5px / @base-font-size-px, em);
+}
+
+.private-loans {
+  border-bottom: 1px dashed @gray-50;
+  margin-bottom: unit(15px / @base-font-size-px, em);
+}
+
+.private-loans_add-btn {
+  margin-top: unit(20px / @base-font-size-px, em);
+  margin-right: 0;
+  margin-bottom: unit(30px / @base-font-size-px, em);
+  margin-left: 0;
+  border-bottom: none;
+  font-size: 1em;
+  text-align: left;
+
+  &:hover,
+  &:visited,
+  &:active {
+    border-bottom: none;
+  }
+}
+
+.offer-part_heading + .offer-part_summary {
+  margin-top: unit(30px / @base-font-size-px, em);
+  margin-bottom: 0;
+}
+
+.line-item + p {
+  margin-top: unit(20px / @base-font-size-px, em);
+}
+
+.debt-summary_heading {
+  .heading-3();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+}
+
+/* ==========================================================================
+   Evaluating your offer
+   ========================================================================== */
+
+.criteria + .criteria {
+  margin-top: unit(45px / @base-font-size-px, em);
+}
+
+.criteria_heading {
+  .heading-3();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-2();
+  });
+}
+
+.metric {
+  padding-top: unit(10px / @base-font-size-px, em);
+  border-top: 1px solid @gray-50;
+  margin-top: unit(30px / @base-font-size-px, em);
+}
+
+.metric_heading {
+  .heading-4();
+
+  .respond-to-min(@bp-sm-min, {
+    .heading-3();
+  });
+}
+
+.metric_explanation {
+  margin-bottom: unit(15px / 14px, em);
+  font-size: unit(14px / @base-font-size-px, em);
+}
+
+.debt-burden_projection {
+  .grid_nested-col-group();
+  margin-bottom: unit(20px / @base-font-size-px, em);
+}
+
+.debt-burden_projection-name {
+  .grid_column(7);
+}
+
+.debt-burden_projection-value {
+  .grid_column(5);
+}
+
+.debt-equation {
+  padding-top: unit(10px / @base-font-size-px, em);
+  margin-bottom: unit(30px / @base-font-size-px, em);
+}
+
+.debt-equation_part {
+  float: left;
+}
+
+.debt-equation_part__loan {
+  width: 25%;
+}
+
+.debt-equation_part__income {
+  width: 25%;
+}
+
+.debt-equation_part__percent {
+  width: 20%;
+}
+
+.debt-equation_symbol {
+  @symbol-font-size-px: 36px;
+  margin-top: unit(3px / @symbol-font-size-px, em);
+  width: 15%;
+  float: left;
+  .webfont-medium();
+  font-size: @symbol-font-size-px;
+  text-align: center;
+}
+
+.debt-equation_number {
+  .webfont-medium();
+  font-size: unit(18px / @base-font-size-px, em);
+}
+
+// Needs to be nested to keep variables scoped
+.bar-graph {
+  @bar-graph-width:       45px;
+  @bar-graph-height:      130px;
+  @bar-graph-line-width:  51px;
+
+  height: @bar-graph-height;
+  margin-bottom: unit(10px / @base-font-size-px, em);
+  position: relative;
+
+  &_point {
+    width: 100%;
+    position: absolute;
+  }
+
+  &_row {
+    .grid_nested-col-group();
+  }
+
+  &_label,
+  &_value {
+    .grid_column(6);
+  }
+
+  &_line {
+    display: inline-block;
+    width: @bar-graph-line-width;
+    border-top-width: 3px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+
+  &_number {
+    display: inline-block;
+  }
+
+  &_bar {
+    width: @bar-graph-width;
+    height: @bar-graph-height;
+    margin-left: unit( (@grid_gutter-width / 2) + (@bar-graph-line-width - @bar-graph-width) / 2, px);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: @gray-20;
+  }
+}
+
+.bar-graph_point__you {
+
+  .bar-graph_number{
+    .webfont-medium();
+    font-size: unit(18px / @base-font-size-px, em);
+  }
+
+  .bar-graph_line {
+    border-top-color: @black;
+    border-top-style: solid;
+  }
+}
+
+.bar-graph_point__average {
+  color: @darkgray;
+
+  .bar-graph_line {
+    border-top-color: @darkgray;
+    border-top-style: dotted;
+  }
+}
+
+.estimated-expenses {
+  @expense-summary-font-size: 18px;
+
+  &_form {
+    margin-top: 0;
+  }
+
+  &_summary {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+
+  &_heading {
+    padding-bottom: unit(5px / @expense-summary-font-size, em);
+    border-bottom: 1px solid @black;
+    margin-bottom: unit(10px / @expense-summary-font-size, em);
+  }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @expense-summary-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @expense-summary-font-size, em);
+  }
+
+  .content_line {
+    margin-bottom: unit(5px / @expense-summary-font-size, em);
+  }
+}
+
+/* ==========================================================================
+   Student debt calculator demo
+   ========================================================================== */
+
+.financial-inputs {
   max-width: 1100px;
-  margin: 0 auto;
-  padding-top: 30px;
+  margin: 120px auto 0 auto;
+  padding-top: 60px;
+  border-top: 1px solid @table-border;
 
   label {
     line-height: 3;
