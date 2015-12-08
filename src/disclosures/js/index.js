@@ -58,8 +58,10 @@ $( document ).ready( function() {
   $( '[data-financial="totalGrantsScholarships"]' ).text( '4,000' );
   $( '[data-financial="totalCost"]' ).text( '12,000' );
   $( '#contrib__savings' ).val( '1,000' );
+  $( '#contrib__family' ).val( '0' );
   $( '#contrib__workstudy' ).val( '0' );
-  $( '[data-financial="totalCash"]' ).text( '1,000' );
+  $( '[data-financial="totalCashYou"]' ).text( '1,000' );
+  $( '[data-financial="totalCashFamily"]' ).text( '0' );
   $( '[data-financial="totalWorkstudy"]' ).text( '0' );
   $( '[data-financial="totalContributions"]' ).text( '1,000' );
   $( '#contrib__perkins' ).val( '3,000' );
@@ -69,7 +71,7 @@ $( document ).ready( function() {
   $( '[data-financial="totalFederalLoans"]' ).text( '8,000' );
   $( '[data-financial="privateLoan"]' ).val( '0' );
   $( '[data-financial="privateLoanInterest"]' ).val( '7.9' );
-  $( '[data-financial="privateLoanOrigination"]' ).val( '0' );
+  $( '[data-financial="privateLoanFees"]' ).val( '4.9' );
   $( '[data-financial="privateLoanGracePeriod"]' ).val( '6' );
   $( '[data-financial="privateLoanTerm10"]' ).attr( 'checked', true );
   $( '#contrib__payment-plan' ).val( '2,000' );
