@@ -38,7 +38,7 @@
         <div class="step instructions">
             <div class="instructions_info-wrong">
                 <p class="instructions_subheading">If the information provided is not correct, please contact your school to have it adjusted.</p>
-                <p>Once your school provides you with an updated <a href="#">link to our tool</a>, you will be able to return to the tool and complete it so you can continue with the enrollment process.</p>
+                <p>Once your school provides you with an updated link to our tool, you will be able to return to the tool and complete it so you can continue with the enrollment process.</p>
             </div>
             <div class="instructions_info-right">
                 <p class="step_heading">Before you are able to enroll, you will need to review the following sections:</p>
@@ -153,9 +153,9 @@
                 </div>
             </div>
             <form class="offer-part contributions" action="#">
-                <h3 class="offer-part_heading">How much can I contribute personally without going into debt?</h3>
+                <h3 class="offer-part_heading">How much can I contribute without personally going into debt?</h3>
                 <div class="form-group personal-family-contributions">
-                    <label class="form-label-header">personal and family contributions</label>
+                    <label class="form-label-header">Personal and family contributions</label>
                     <div class="form-group_item offer-part_currency">
                         <label class="form-label" for="contrib__savings">Cash you will provide</label>
                         <p class="offer-part_definition">Includes money that you can pay now or will earn from a job during the school year</p>
@@ -242,7 +242,7 @@
                             <p class="offer-part_term">4.29% interest</p>
                             <p class="offer-part_definition">Starts accumulating 6 months after leaving school</p>
                             <p class="offer-part_term">1.07% loan fee</p>
-                            <p class="offer-part_definition">Added to the total borrowed amount, without lowering what you receive at disbursement (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000 at disbursement)</p>
+                            <p class="offer-part_definition">Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)</p>
                             <p class="offer-part_term">6 month grace period</p>
                             <p class="offer-part_definition">The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment</p>
                         </div>
@@ -254,8 +254,8 @@
                         <div class="offer-part_terms">
                             <p class="offer-part_term">4.29% interest</p>
                             <p class="offer-part_definition">Starts accumulating when you sign the loan</p>
-                            <p class="offer-part_term">4.27% loan fee</p>
-                            <p class="offer-part_definition">Deducted immediately from your loan disbursements (for example, a $42 fee is added to a $1,000 loan but you only receive $958 at disbursement)</p>
+                            <p class="offer-part_term">1.07% loan fee</p>
+                            <p class="offer-part_definition">Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)</p>
                             <p class="offer-part_term">6 month grace period</p>
                             <p class="offer-part_definition">The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment</p>
                         </div>
@@ -267,6 +267,8 @@
                         <div class="offer-part_terms offer-part_terms__last">
                             <p class="offer-part_term">6.84% interest</p>
                             <p class="offer-part_definition">Starts accumulating when you sign the loan</p>
+                            <p class="offer-part_term">4.27% loan fee</p>
+                            <p class="offer-part_definition">Deducted immediately, lowering the amount of money you receive at disbursement (for example, a $42 fee is applied to a $1,000 loan, leaving you with $958)</p>
                             <p class="offer-part_term">6 month deferment period</p>
                             <p class="offer-part_definition">You can apply to postpone repayment until six months after you graduate, leave school, or drop below half-time</p>
                         </div>
@@ -300,7 +302,7 @@
                             </div>
                             <div class="form-group_item offer-part_non-currency">
                                 <label class="form-label" for="contrib__private-loan-fees">Loan fees</label>
-                                <p class="offer-part_definition">Added to the total borrowed amount, without lowering what you receive at disbursement (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000 at disbursement) </p>
+                                <p class="offer-part_definition">Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000)</p>
                                 <input class="offer-part_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off">
                                 <span class="offer-part_unit">%</span>
                             </div>
@@ -313,7 +315,7 @@
                             <div class="form-group_item offer-part_non-currency">
                                 <fieldset class="private-loans_term-group">
                                     <legend class="form-label_text-wrapper">Loan term</legend>
-                                    <p class="offer-part_definition">A longer loan term means smaller monthly payments, but a higher total cost of interest over the life of the loan.</p>
+                                    <p class="offer-part_definition">A longer loan term means smaller monthly payments, but a higher total cost of interest over the life of the loan</p>
                                     <label class="private-loan_term">
                                         <input name="privateLoanTerm" value="10-years" data-financial="privateLoanTerm10" type="radio" />
                                         10 years
@@ -336,9 +338,9 @@
                         <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="paymentPlan" autocorrect="off">
                     </div>
                     <div class="offer-part_terms offer-part_terms__last">
-                        <p class="offer-part_term">7.9% interest</p>
+                        <p class="offer-part_term">[X.X]% interest</p>
                         <p class="offer-part_definition">Starts accumulating when you sign the plan</p>
-                        <p class="offer-part_term">Must pay loan balance and interest by March 1, 2016</p>
+                        <p class="offer-part_term">Must pay loan balance and interest by [date]</p>
                     </div>
                     <div class="line-item">
                         <div class="line-item_title">
@@ -440,7 +442,7 @@
                 </div>
                 <div class="line-item">
                     <div class="line-item_title">
-                        Loans for 2 years (program length)
+                        Loans for [X] years (program length)
                     </div>
                     <div class="line-item_value">
                         <span class="line-item_currency">$</span>
@@ -459,7 +461,7 @@
             </div>
         </section>
         <section class="step evaluate">
-            <h2 class="step_heading">Step 2. Evaluating your offer</h2>
+            <h2 class="step_heading">Step 2: Evaluate your offer</h2>
             <p>Asking yourself these questions will help you understand how accepting this offer can impact your ability to pay back your student debt and impact your financial future.</p>
             <section class="criteria">
                 <h3 class="criteria_heading">Will I graduate?</h3>
@@ -526,7 +528,7 @@
                     <div class="cf-notification cf-notification__error">
                         <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-error-round"></span>
                         <p class="cf-notification_text">
-                            Lower average salary than national average
+                            Lower salary than national average
                         </p>
                     </div>
                 </section>
@@ -685,7 +687,7 @@
                 </section>
                 <section class="metric total-debt-after-graduation">
                     <h4 class="metric_heading">Total debt after graduation</h4>
-                    <p class="metric_explanation">Average total debt (for the length of your program) that students studying Medical billing at Oak College or similar programs had after graduation.</p>
+                    <p class="metric_explanation">Average total debt (for the length of your program) that students studying [program name] at [School Name] or similar programs had after graduation</p>
                     <div class="bar-graph">
                         <div class="bar-graph_bar"></div>
                         <div class="bar-graph_point bar-graph_point__you u-clearfix">
@@ -761,37 +763,39 @@
             <p>Your response does not affect your ability to accept or reject the actual offer with your school.</p>
         </div>
         <section class="step get-options">
-            <h2 class="step_heading">Step 3. You have options</h2>
+            <h2 class="step_heading">Step 3: You have options</h2>
             <p>Rest assured that there are things you can do if you are uncertain about taking the next step. Here are some choices you can make that may help you improve your financial future.</p>
+            <h2 class="step_heading">Step 3: A few more things to consider</h2>
+            <p>It’s important to feel confident in the financial decisions you are making. Here are some additional choices you can make that may help you improve your financial future even more.</p>
             <section class="option option__first">
                 <h3>Maximize all available grants and scholarships.</h3>
-                <p>Consider applying for additional  scholarships and grants, which provide money you don't have to repay. By increasing the amount of this type of aid, you can decrease the overall amount of debt you have to borrow—and consequently pay back.</p>
+                <p>Consider applying for <a href="https://studentaid.ed.gov/sa/types/grants-scholarships">additional scholarships and grants</a>,  which provide money you don’t have to repay. By increasing the amount of this type of aid, you can decrease the overall amount of debt you have to borrow—and consequently pay back.</p>
             </section>
             <section class="option">
                 <h3>Reduce your living costs.</h3>
-                <p>Living at home or finding cheaper off-campus housing can reduce the cost of attendance, meaning you'll need to borrow less money overall.</p>
+                <p>Living at home or finding cheaper off-campus housing can <a href="https://studentaid.ed.gov/sa/prepare-for-college/choosing-schools/consider/costs#lower-costs">reduce the cost of attendance</a>, meaning you’ll need to borrow less money overall.</p>
             </section>
             <section class="option">
                 <h3>Consider a different program with better outcomes.</h3>
-                <p>Salaries are often influenced by the degree you earn. If the projected salary of your program is far below the national average, you might consider a different program with a higher projected earning potential. Ask your admission counselor or search for “gainful employment” on your school’s website to learn more about your projected salary.</p>
+                <p>Salaries are often influenced by the degree you earn. If the projected salary of your program is far below the national average, you might consider a different program with a higher projected earning potential. Ask your admission counselor or search for “gainful employment” on your school’s website to <a href="#">learn more about your projected salary</a>.</p>
             </section>
             <section class="option">
                 <h3>Make sure you don’t have to take classes twice.</h3>
-                <p>Ask if credits from your school transfer to degrees earned at other schools. Only X% of students who start at this school finish here. In the case you decide to finish your education somewhere else, it’s important to know if the hard work you’ve put into your degree will be honored at another school.</p>
+                <p><a href="http://www.consumer.ftc.gov/articles/0395-choosing-college-questions-ask">Ask if credits from your school transfer</a> to degrees earned at other schools. Only X% of students who start at this school finish here. In the case you decide to finish your education somewhere else, it’s important to know if the hard work you’ve put into your degree will be honored at another school.</p>
             </section>
             <section class="option">
                 <h3>Explore other schools that have similar programs.</h3>
-                <p>Review your total cost of attendance and determine if a less expensive school option (such as a community college) might also meet your educational needs. See all schools that offer the same type of program in your area.</p>
+                <p>Review your total cost of attendance and determine if a less expensive school option (such as a community college) might also meet your educational needs. <a href="#">See all schools</a> that offer the same type of program in your area.</p>
             </section>
             <h3 class="get-options_heading">What you can do</h3>
-            <p>Using some of the strategies outlined above in the evaluation, try adjusting some of the offer amounts in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.</p>
-            <p>You can also research schools to compare things like graduation rate and projected salary. </p>
+            <h3 class="get-options_heading">If you want to make a change</h3>
+            <p>Using some of the strategies outlined above in the evaluation, try <a href="#">adjusting some of the offer amounts</a> in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.</p>
         </section>
         <section class="step next-steps">
             <h2 class="step_heading">Next steps</h2>
             <p>We have sent an email to your school notifying them that you have reviewed your personalized offer.</p>
             <p>You can now choose to move forward in the enrollment process.</p>
-            <p>Next you will need to complete a brief training called Federal Loan Entrance Counseling, which explains in more detail the federal loans being offered you. This must be done before you can sign your promissory note, which will lock in your loans before you enroll.</p>
+            <p>Next you will need to complete a brief training called <a href="https://studentaid.ed.gov/sa/fafsa/next-steps/entrance-counseling">Federal Loan Entrance Counseling</a>, which explains in more detail the federal loans being offered to you. This must be done before you can sign your promissory note, which will lock in your loans before you enroll.</p>
         </section>
     </section>
 </main>
