@@ -35,6 +35,19 @@
   });
 }
 
+.btn__grouped-first,
+.btn__grouped,
+.btn__grouped-last,
+.btn + .btn.btn__grouped,
+.btn + .btn.btn__grouped-last {
+  .respond-to-max(@bp-xs-max, {
+    display: inline-block;
+    width: auto;
+    margin-top: 0;
+    margin-left: unit( -3px / @super-btn-font-size, em );
+  });
+}
+
 /* ==========================================================================
    Flush left lists
    ========================================================================== */
