@@ -1,10 +1,10 @@
 'use strict';
 
-var FinancialModel = require( './lib/financial-data.js' ),
+var FinancialModel = require( './modules/financial-data.js' ),
     financials = new FinancialModel(),
-    View = require( './lib/school-view.js' ),
+    View = require( './modules/school-view.js' ),
     schoolView = new View(),
-    queryHandler = require( './lib/query-handler.js' );
+    queryHandler = require( './modules/query-handler.js' );
 
 require('./nemo');
 require('./nemo-shim');
