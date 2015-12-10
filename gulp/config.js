@@ -72,6 +72,9 @@ module.exports = {
     src:  loc.src + '/static/img/**',
     dest: loc.dist + '/static/img'
   },
+  templates: {
+    src: './paying_for_college/templates/**'
+  },
   copy: {
     files: {
       src: [
