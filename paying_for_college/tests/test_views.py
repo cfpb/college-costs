@@ -48,8 +48,9 @@ class TestViews(django.test.TestCase):
 
     def test_feedback(self):
         response = client.get(reverse('disclosures:pfc-feedback'))
+        print("context keys are %s" % sorted(response.context_data.keys()))
         self.assertTrue(sorted(response.context_data.keys()) ==
-                        ['base_template', 'form'])
+                        ['base_template', 'form', 'url_root'])
 
     @mock.patch('paying_for_college.views.render_to_response')
     def test_feedback_post(self, mock_render):
