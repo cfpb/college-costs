@@ -58,8 +58,8 @@ if STANDALONE:
         name='standalone-pfc-demo'),
     url(r'^paying-for-college2/know-before-you-owe-student-debt/$',
         BaseTemplateView.as_view(template_name='just-a-demo.html'),
-        name='pfc-kbyo'),
+        name='standalone-pfc-kbyo'),
     url(r'^paying-for-college2/student-loan-forgiveness-pledge/$',
         BaseTemplateView.as_view(template_name='just-a-demo.html'),
-        name='pfc-pledge'),
+        name='standalone-pfc-pledge'),
     ]
