@@ -22,10 +22,7 @@ gulp.task( 'styles:modern', function() {
       suffix: ".min"
     } ) )
     .pipe( $.sourcemaps.write( '.' ) )
-    .pipe( gulp.dest( config.dest ) )
-    .pipe( browserSync.reload( {
-      stream: true
-    } ) );
+    .pipe( gulp.dest( config.dest ) );
 } );
 
 gulp.task( 'styles:ie', function() {
@@ -51,10 +48,7 @@ gulp.task( 'styles:ie', function() {
       suffix:  '.ie',
       extname: '.css'
     } ) )
-    .pipe( gulp.dest( config.dest ) )
-    .pipe( browserSync.reload( {
-      stream: true
-    } ) );
+    .pipe( gulp.dest( config.dest ) );
 } );
 
 gulp.task( 'styles', [
