@@ -9,7 +9,6 @@ var pkg = require( '../config' ).pkg;
 var banner = require( '../config' ).banner;
 var config = require( '../config' ).scripts;
 var handleErrors = require( '../utils/handleErrors' );
-var browserSync = require( 'browser-sync' );
 
 gulp.task( 'scripts', function() {
   var b = browserify({
@@ -23,21 +22,5 @@ gulp.task( 'scripts', function() {
     .pipe( $.sourcemaps.init( { loadMaps: true } ) )
     .pipe( $.uglify() )
     .pipe( $.sourcemaps.write( './' ) )
-    .pipe( gulp.dest( config.dest ) )
-    .pipe( browserSync.stream() );
-
-  // return gulp.src( config.src )
-  //   .pipe( $.sourcemaps.init() )
-  //   .pipe( $.concat( config.name ) )
-  //   // .pipe( $.uglify() )
-  //   .on( 'error', handleErrors )
-  //   .pipe( $.header( banner, { pkg: pkg } ) )
-  //   .pipe( $.rename( {
-  //     suffix: ".min"
-  //   } ) )
-  //   .pipe( $.sourcemaps.write( '.' ) )
-  //   .pipe( gulp.dest( config.dest ) )
-  //   .pipe( browserSync.reload( {
-  //     stream: true
-  //   } ) );
+    .pipe( gulp.dest( config.dest ) );
 } );
