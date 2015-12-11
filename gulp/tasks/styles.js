@@ -7,7 +7,6 @@ var pkg = require( '../config' ).pkg;
 var banner = require( '../config' ).banner;
 var config = require( '../config' ).styles;
 var handleErrors = require( '../utils/handleErrors' );
-var browserSync = require( 'browser-sync' );
 
 gulp.task( 'styles:modern', function() {
   return gulp.src( config.cwd + config.src )
@@ -19,7 +18,7 @@ gulp.task( 'styles:modern', function() {
     } ) )
     .pipe( $.header( banner, { pkg: pkg } ) )
     .pipe( $.rename( {
-      suffix: ".min"
+      suffix: '.min'
     } ) )
     .pipe( $.sourcemaps.write( '.' ) )
     .pipe( gulp.dest( config.dest ) );

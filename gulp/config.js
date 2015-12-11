@@ -18,7 +18,7 @@ module.exports = {
       '/*!\n' +
       ' *  <%= pkg.name %> - v<%= pkg.version %>\n' +
       ' *  <%= pkg.homepage %>\n' +
-      ' *  Licensed <%= pkg.license %> by Consumer Financial Protection Bureau christopher.contolini@cfpb.gov\n' +
+      ' *  Licensed <%= pkg.license %> by Consumer Financial Protection Bureau' +
       ' */',
   lint: {
     src: [
@@ -56,8 +56,7 @@ module.exports = {
       loc.lib + '/jquery/dist/jquery.js',
       loc.lib + '/jquery.easing/js/jquery.easing.js',
       loc.lib + '/cf-*/src/js/*.js',
-      loc.src + '/js/*.js',
-      loc.src + '/js/lib/*.js'
+      loc.src + '/js/**/*.js'
     ],
     dest: loc.dist + '/static/js/',
     name: 'main.js'
