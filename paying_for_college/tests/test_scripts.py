@@ -41,9 +41,9 @@ class TestUpdater(django.test.TestCase):
         mock_response.json.return_value = self.mock_dict
         mock_response.ok.return_value = True
         mock_requests.return_value = mock_response
-        (FAILED, NO_DATA, endmsg) = update_colleges.update()
+        (FAILED, NO_DATA, BAD_JSON, endmsg) = update_colleges.update()
         self.assertTrue(len(NO_DATA) == 0)
-        self.assertTrue('checked' in endmsg)
+        self.assertTrue('updated' in endmsg)
 
 
 class TestScripts(unittest.TestCase):
