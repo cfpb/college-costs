@@ -74,6 +74,41 @@
 }
 
 /* ==========================================================================
+   Expanded intros
+   ========================================================================== */
+
+.intro {
+
+  &_wrapper {
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_content {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
+
+  &_summary {
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-2();
+    });
+  }
+
+  &_image {
+      text-align: center;
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(3);
+      .grid_push(1);
+    });
+  }
+}
+
+/* ==========================================================================
    Capital Framework Notification Styling
    from https://github.com/cfpb/cfgov-refresh/blob/2c62c966880afba0d634df7062876abec3393661/cfgov/unprocessed/css/cf-notifications.less
    ========================================================================== */
