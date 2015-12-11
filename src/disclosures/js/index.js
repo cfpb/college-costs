@@ -58,20 +58,22 @@ $( document ).ready( function() {
   $( '[data-financial="totalGrantsScholarships"]' ).text( '4,000' );
   $( '[data-financial="totalCost"]' ).text( '12,000' );
   $( '#contrib__savings' ).val( '1,000' );
-  $( '#contrib__state529plan' ).val( '0' );
+  $( '#contrib__family' ).val( '0' );
   $( '#contrib__workstudy' ).val( '0' );
-  $( '[data-financial="totalCash"]' ).text( '1,000' );
-  $( '[data-financial="totalParentLoans"]' ).text( '0' );
+  $( '[data-financial="totalCashYou"]' ).text( '1,000' );
+  $( '[data-financial="totalCashFamily"]' ).text( '0' );
   $( '[data-financial="totalWorkstudy"]' ).text( '0' );
   $( '[data-financial="totalContributions"]' ).text( '1,000' );
   $( '#contrib__perkins' ).val( '3,000' );
   $( '#contrib__subsidized' ).val( '3,000' );
   $( '#contrib__unsubsidized' ).val( '2,000' );
+  $( '#contrib__direct-plus' ).val( '0' );
   $( '[data-financial="totalFederalLoans"]' ).text( '8,000' );
   $( '[data-financial="privateLoan"]' ).val( '0' );
   $( '[data-financial="privateLoanInterest"]' ).val( '7.9' );
+  $( '[data-financial="privateLoanFees"]' ).val( '4.9' );
   $( '[data-financial="privateLoanGracePeriod"]' ).val( '6' );
-  $( '[data-financial="privateLoanTerm"]' ).val( '10' );
+  $( '[data-financial="privateLoanTerm10"]' ).attr( 'checked', true );
   $( '#contrib__payment-plan' ).val( '2,000' );
   $( '[data-financial="totalPrivateLoans"]' ).text( '2,000' );
   $( '[data-financial="totalDebt"]' ).text( '10,000' );
@@ -87,14 +89,14 @@ $( document ).ready( function() {
   $( '.loan-default-rates .bar-graph_point__you').css('top', '25px');
   $( '.loan-default-rates .bar-graph_point__average').css('top', '70px');
   $( '[data-expense="monthlyRent"]' ).val( '800' );
-  $( '[data-expense="monthlyLoanPayment"]' ).val( '550' );
   $( '[data-expense="monthlyFood"]' ).val( '300' );
   $( '[data-expense="monthlyTransportation"]' ).val( '200' );
-  $( '[data-expense="monthlyHealthInsurance"]' ).val( '100' );
+  $( '[data-expense="monthlyInsurance"]' ).val( '100' );
   $( '[data-expense="monthlySavings"]' ).val( '50' );
   $( '[data-expense="monthlyOther"]' ).val( '50' );
-  $( '[data-expense="totalMonthlyExpenses"]' ).text( '2,050' );
+  $( '[data-expense="totalMonthlyExpenses"]' ).text( '1,500' );
   $( '[data-expense="monthlySalary"]' ).text( '2,166' );
+  $( '[data-expense="monthlyLoanPayment"]' ).text( '550' );
   $( '[data-expense="monthlyLeftover"]' ).text( '116' );
 
   // End demo code

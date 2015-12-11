@@ -32,12 +32,15 @@ else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
     # BASE_TEMPLATE = "%s/templates/base_update.html" % BASEDIR
 
+URL_ROOT = 'paying_for_college2'
+
 
 class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseTemplateView, self).get_context_data(**kwargs)
         context['base_template'] = BASE_TEMPLATE
+        context['url_root'] = URL_ROOT
         return context
 
 
@@ -47,6 +50,7 @@ class LandingView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
         context['base_template'] = BASE_TEMPLATE
+        context['url_root'] = URL_ROOT
         return context
 
 
@@ -64,6 +68,7 @@ class FeedbackView(TemplateView):
     def get_context_data(self):
         cdict = dict(form=self.form)
         cdict['base_template'] = BASE_TEMPLATE
+        cdict['url_root'] = URL_ROOT
         return cdict
 
     def post(self, request):
@@ -83,7 +88,8 @@ class BuildComparisonView(View):
     def get(self, request):
         return render_to_response('worksheet.html',
                                   {'data_js': "0",
-                                   'base_template': BASE_TEMPLATE},
+                                   'base_template': BASE_TEMPLATE,
+                                   'url_root': URL_ROOT},
                                   context_instance=RequestContext(request))
 
     # def post(self, request):
