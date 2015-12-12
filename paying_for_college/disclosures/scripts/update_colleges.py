@@ -21,9 +21,6 @@ from paying_for_college.models import School
 
 SCRIPTNAME = os.path.basename(__file__)
 ID_BASE = "{}?api_key={}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
-FAILED = []  # failed to get a good API response
-NO_DATA = []  # API responded with no data
-BAD_JSON = []  # our School object had misformed data_json
 FIELDS = sorted(MODEL_MAP.keys() + JSON_MAP.keys())
 FIELDSTRING = ",".join(FIELDS)
 
@@ -38,13 +35,17 @@ def fix_json(jstring):
 
 def update():
     """update college-level data for current year"""
+    FAILED = []  # failed to get a good API response
+    NO_DATA = []  # API responded with no data
+    BAD_JSON = []  # our School object had misformed data_json
     updated = False
     starter = datetime.datetime.now()
     processed = 0
     update_count = 0
     bad_json_count = 0
     id_url = "{}&id={}&fields={}"
-    for school in School.objects.all()[5:10]:
+    for school in School.objects.all():
+    # for school in School.objects.all()[5:10]:
         processed += 1
         sys.stdout.write('.')
         sys.stdout.flush()
@@ -59,7 +60,7 @@ def update():
             continue
         else:
             time.sleep(1)
-            if resp.ok:
+            if resp.ok is True:
                 raw_data = resp.json()
                 if raw_data and raw_data['results']:
                     data = raw_data['results'][0]
@@ -90,7 +91,7 @@ def update():
                     print("API returned no data for {}".format(school))
                     NO_DATA.append(school)
             else:
-                print("request returned {}".format(resp.reason))
+                print("request not OK, returned {}".format(resp.reason))
                 FAILED.append(school)
                 if resp.status_code == 429:
                     print("API limit reached")
@@ -105,12 +106,12 @@ def update():
     API response failures: {}\n\
     {} schools had malformed data_json; {} of those couldn't be fixed.\n\
     \n{} took {} to run".format(processed,
-                              update_count,
-                              len(NO_DATA),
-                              len(FAILED),
-                              bad_json_count,
-                              len(BAD_JSON),
-                              SCRIPTNAME,
-                              (datetime.datetime.now()-starter))
+                                update_count,
+                                len(NO_DATA),
+                                len(FAILED),
+                                bad_json_count,
+                                len(BAD_JSON),
+                                SCRIPTNAME,
+                                (datetime.datetime.now()-starter))
     print(endmsg)
     return (FAILED, NO_DATA, BAD_JSON, endmsg)

@@ -37,47 +37,47 @@ class ConstantCap(models.Model):
 
 
 # data_json fields:
-# ALIAS
+# ALIAS (not needed)
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
 # AVGSTULOANDEBTRANK
-# BADALIAS
-# BAH 1356
+# BADALIAS (not needed)
+# BAH 1356 (no longer needed)
 # BOOKS
-# CITY Pittsburgh
-# CONTROL For Profit
+# CITY (now school.city)
+# CONTROL (now school.control)
 # DEFAULTRATE
 # GRADRATE
 # GRADRATERANK
 # INDICATORGROUP
-# KBYOSS
+# KBYOSS (now school.KBYOSS)
 # NETPRICE110K
 # NETPRICE3OK
 # NETPRICE48K
 # NETPRICE75K
 # NETPRICEGENERAL
 # NETPRICEOK
-# OFFERAA Yes
-# OFFERBA Yes
-# OFFERGRAD Yes
-# ONCAMPUSAVAIL No
-# ONLINE No
+# OFFERAA
+# OFFERBA
+# OFFERGRAD
+# ONCAMPUSAVAIL
+# ONLINE (now school.online)
 # OTHEROFFCAMPUS
 # OTHERONCAMPUS
 # OTHERWFAMILY
 # RETENTRATE
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
-# SCHOOL EDMC Central Administrative Office
-# SCHOOL_ID 483090
-# STATE PA
+# SCHOOL (now school.primary_alias)
+# SCHOOL_ID (now school.pk)
+# STATE (now school.state)
 # TUITIONGRADINDIS
 # TUITIONGRADINS
 # TUITIONGRADOSS
 # TUITIONUNDERINDIS
 # TUITIONUNDERINS
 # TUITIONUNDEROSS
-# ZIP 15222
+# ZIP (now school.zip5)
 
 
 class School(models.Model):
@@ -87,9 +87,10 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
-    data_json = models.TextField()
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=2)
+    data_json = models.TextField(blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=2, blank=True)
+    zip5 = models.CharField(max_length=5, blank=True)
     enrollment = models.IntegerField(blank=True, null=True)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
@@ -177,6 +178,12 @@ class Program(models.Model):
                                           null=True,
                                           max_digits=5,
                                           decimal_places=2)
+    titleiv_debt = models.IntegerField(blank=True, null=True)
+    private_debt = models.IntegerField(blank=True, null=True)
+    institutional_debt = models.IntegerField(blank=True, null=True)
+    mean_student_loan_completers = models.IntegerField(blank=True,
+                                                         null=True,
+                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
     median_student_loan_completers = models.IntegerField(blank=True,
                                                          null=True,
                                                          help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
