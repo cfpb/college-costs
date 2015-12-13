@@ -51,6 +51,7 @@ class ConstantCap(models.Model):
 # GRADRATERANK
 # INDICATORGROUP
 # KBYOSS (now school.KBYOSS)
+# MEDIANDEBTCOMPLETER # new in 2015
 # NETPRICE110K
 # NETPRICE3OK
 # NETPRICE48K
@@ -66,6 +67,8 @@ class ConstantCap(models.Model):
 # OTHERONCAMPUS
 # OTHERWFAMILY
 # RETENTRATE
+# RETENTRATELT4 # new in 2015
+# REPAY3YR # new in 2015
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
 # SCHOOL (now school.primary_alias)
@@ -103,7 +106,6 @@ class School(models.Model):
     main_campus = models.NullBooleanField()
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
-
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     def __unicode__(self):
