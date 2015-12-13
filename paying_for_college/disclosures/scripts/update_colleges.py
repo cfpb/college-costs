@@ -45,7 +45,7 @@ def update():
     bad_json_count = 0
     id_url = "{}&id={}&fields={}"
     for school in School.objects.all():
-    # for school in School.objects.all()[5:10]:
+        # print("{}".format(school))
         processed += 1
         sys.stdout.write('.')
         sys.stdout.flush()
@@ -79,6 +79,8 @@ def update():
                             if key in data.keys():
                                 data_dict[JSON_MAP[key]] = data[key]
                                 updated = True
+                            else:
+                                data_dict[JSON_MAP[key]] = None
                     else:
                         BAD_JSON.append(school)
                         print("second json parsing attempt failed for {}".format(school))
