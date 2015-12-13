@@ -52,6 +52,7 @@ MODEL_MAP = {
     'school.online_only': 'online_only',
     'school.operating': 'operating',
     'school.under_investigation': 'under_investigation',
+    'school.zip': 'zip5',
 }
 
 JSON_MAP = {
