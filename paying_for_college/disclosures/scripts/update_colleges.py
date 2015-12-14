@@ -19,6 +19,9 @@ from paying_for_college.disclosures.scripts import api_utils
 from paying_for_college.disclosures.scripts.api_utils import MODEL_MAP, JSON_MAP
 from paying_for_college.models import School
 
+DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
+HOME = os.path.expanduser("~")
+NO_DATA_FILE = "{}/no_data_{}.json".format(HOME, DATESTAMP)
 SCRIPTNAME = os.path.basename(__file__)
 ID_BASE = "{}?api_key={}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
 FIELDS = sorted(MODEL_MAP.keys() + JSON_MAP.keys())
@@ -35,22 +38,26 @@ def fix_json(jstring):
 
 def update():
     """update college-level data for current year"""
+    print("This job is paced to be kind to the Ed API;\n\
+          it can take an hour or more to run.")
     FAILED = []  # failed to get a good API response
     NO_DATA = []  # API responded with no data
-    BAD_JSON = []  # our School object had misformed data_json
+    BAD_JSON = []  # catch School objects that have malformed data_json
     updated = False
     starter = datetime.datetime.now()
     processed = 0
     update_count = 0
     bad_json_count = 0
     id_url = "{}&id={}&fields={}"
-    for school in School.objects.all():
+    for school in School.objects.filter(operating=True)[:20]:
         # print("{}".format(school))
         processed += 1
         sys.stdout.write('.')
         sys.stdout.flush()
         if processed % 500 == 0:  # pragma: no cover
-            print(processed)
+            print("\n{}\n".format(processed))
+        if processed % 5 == 0:
+            time.sleep(1)
         url = id_url.format(ID_BASE, school.school_id, FIELDSTRING)
         # print(url)
         try:
@@ -59,7 +66,6 @@ def update():
             FAILED.append(school)
             continue
         else:
-            time.sleep(1)
             if resp.ok is True:
                 raw_data = resp.json()
                 if raw_data and raw_data['results']:
@@ -72,7 +78,7 @@ def update():
                         data_dict = json.loads(school.data_json)
                     except ValueError:
                         bad_json_count += 1
-                        print("data_json wouldn't load on first try for {}".format(school))
+                        # print("data_json wouldn't load on first try for {}".format(school))
                         data_dict = fix_json(school.data_json)
                     if data_dict:
                         for key in JSON_MAP:
@@ -83,14 +89,14 @@ def update():
                                 data_dict[JSON_MAP[key]] = None
                     else:
                         BAD_JSON.append(school)
-                        print("second json parsing attempt failed for {}".format(school))
-                        continue
+                        # print("second json parsing attempt failed for {}".format(school))
                     if updated is True:
                         update_count += 1
                         school.data_json = json.dumps(data_dict)
                         school.save()
                 else:
-                    print("API returned no data for {}".format(school))
+                    sys.stdout.write('-')
+                    sys.stdout.flush()
                     NO_DATA.append(school)
             else:
                 print("request not OK, returned {}".format(resp.reason))
@@ -115,5 +121,15 @@ def update():
                                 len(BAD_JSON),
                                 SCRIPTNAME,
                                 (datetime.datetime.now()-starter))
+    if NO_DATA:
+        endmsg += "\nA list of schools that had no API data was saved to {}".format(NO_DATA_FILE)
+        no_data_dict = {}
+        for school in NO_DATA:
+            no_data_dict[school.pk] = school.primary_alias
+        with open(NO_DATA_FILE, 'w') as f:
+            f.write(json.dumps(no_data_dict))
     print(endmsg)
-    return (FAILED, NO_DATA, BAD_JSON, endmsg)
+    return (FAILED, NO_DATA, endmsg)
+
+if __name__ == '__main__':
+    (failed, no_data, endmsg) = update()

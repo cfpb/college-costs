@@ -12,6 +12,7 @@ from https://api.data.gov/signup/
 - api_key usage:
     https://api.data.gov/docs/api-key/
 """
+from __future__ import print_function
 import os
 import sys
 import csv
@@ -34,14 +35,14 @@ try:
 except:  # pragma: no cover
     API_KEY = '0123456789' * 4
 API_ROOT = "https://api.data.gov/ed/collegescorecard/v1"
-SCHOOLS_ROOT = "%s/schools" % API_ROOT
-# SCHEMA_ROOT = "%s/data.json" % API_ROOT
+SCHOOLS_ROOT = "{}/schools".format(API_ROOT)
+# SCHEMA_ROOT = "{}/data.json".format(API_ROOT)
 PAGE_MAX = 100  # the max page size allowed as of 2015-09-14
 
 MODEL_MAP = {
     'ope6_id': 'ope6_id',
     'ope8_id': 'ope8_id',
-    '%s.student.size' % LATEST_YEAR: 'enrollment',
+    '{}.student.size'.format(LATEST_YEAR): 'enrollment',
     'school.accreditor': 'accreditor',
     'school.school_url': 'url',
     'school.degrees_awarded.predominant': 'degrees_predominant',  # data guide says this is INDICATORGROUP
@@ -56,12 +57,12 @@ MODEL_MAP = {
 }
 
 JSON_MAP = {
-    '%s.student.retention_rate.four_year.full_time' % LATEST_YEAR: 'RETENTRATE',
-    '%s.student.retention_rate.lt_four_year.full_time' % LATEST_YEAR: 'RETENTRATELT4',  # NEW
-    '%s.repayment.repayment_cohort.3_year_declining_balance' % LATEST_YEAR: 'REPAY3YR',  # NEW
-    '%s.repayment.3_yr_default_rate' % LATEST_YEAR: 'DEFAULTRATE',
-    '%s.aid.median_debt_suppressed.overall' % LATEST_YEAR: 'AVGSTULOANDEBT',
-    '%s.aid.median_debt_suppressed.completers.monthly_payments' % LATEST_YEAR: 'MEDIANDEBTCOMPLETER',  # NEW
+    '{}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
+    '{}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
+    '{}.repayment.repayment_cohort.3_year_declining_balance'.format(LATEST_YEAR): 'REPAY3YR',  # NEW
+    '{}.repayment.3_yr_default_rate'.format(LATEST_YEAR): 'DEFAULTRATE',
+    '{}.aid.median_debt_suppressed.overall'.format(LATEST_YEAR): 'AVGSTULOANDEBT',
+    '{}.aid.median_debt_suppressed.completers.monthly_payments'.format(LATEST_YEAR): 'MEDIANDEBTCOMPLETER',  # NEW
 }
 
 BASE_FIELDS = [
@@ -154,7 +155,8 @@ YEAR_FIELDS = [
 
 def build_field_string(YEAR=LATEST_YEAR):
     """assemble fields for an api query for an analysis csv"""
-    fields = BASE_FIELDS + ['%s.%s' % (YEAR, field) for field in YEAR_FIELDS]
+    fields = BASE_FIELDS + ['{}.{}'.format(YEAR, field)
+                            for field in YEAR_FIELDS]
     field_string = ",".join([field for field in fields])
     return field_string
 
@@ -162,7 +164,7 @@ def build_field_string(YEAR=LATEST_YEAR):
 # def get_schools_by_page(year, page=0):
 #     """get a page of schools for a single year as dict"""
 #     field_string = build_fields_string(year)
-#     url = "%s?api_key=%s&page=%s&per_page=%s&fields=%s" % (SCHOOLS_ROOT,
+#     url = "{}?api_key={}&page={}&per_page={}&fields={}".format(SCHOOLS_ROOT,
 #                                                            API_KEY,
 #                                                            page,
 #                                                            PAGE_MAX,
@@ -174,10 +176,10 @@ def build_field_string(YEAR=LATEST_YEAR):
 def search_by_school_name(name):
     """search api by school name, return school name, id, city, state"""
     fields = "id,school.name,school.city,school.state"
-    url = "%s?api_key=%s&school.name=%s&fields=%s" % (SCHOOLS_ROOT,
-                                                      API_KEY,
-                                                      name,
-                                                      fields)
+    url = "{}?api_key={}&school.name={}&fields={}".format(SCHOOLS_ROOT,
+                                                          API_KEY,
+                                                          name,
+                                                          fields)
     data = requests.get(url).json()['results']
     return data
 
@@ -185,9 +187,9 @@ def search_by_school_name(name):
 # def get_all_school_ids():
 #     """traverse pages, assemble all school ids and names and output as json."""
 #     collector = {}
-#     url = '%s?api_key=%s&fields=id,school.name' % (SCHOOLS_ROOT, API_KEY)
+#     url = '{}?api_key={}&fields=id,school.name'.format(SCHOOLS_ROOT, API_KEY)
 #     for page in range(1, 391):
-#         next_url = "%s&page=%s" % (url, page)
+#         next_url = "{}&page={}".format(url, page)
 #         nextdata = json.loads(requests.get(next_url).text)
 #         for entry in nextdata['results']:
 #             collector[entry['id']] = entry['school.name']
@@ -204,14 +206,14 @@ def export_spreadsheet(year):
     container = {}
     for key in headings:
         container[key] = ''
-    url = '%s?api_key=%s&per_page=%s&fields=%s' % (SCHOOLS_ROOT,
+    url = '{}?api_key={}&per_page={}&fields={}'.format(SCHOOLS_ROOT,
                                                    API_KEY,
                                                    PAGE_MAX,
                                                    fields)
     data = requests.get(url).json()
     #  initial pass
     if 'results' not in data:
-        print 'no results'
+        print('no results')
         return data
     for school in data['results']:
         collector[school['id']] = copy(container)
@@ -221,22 +223,22 @@ def export_spreadsheet(year):
     more_data = True
     #  harvest rest of pages
     while more_data:
-        print "getting page %s" % next_page
-        next_url = "%s&page=%s" % (url, next_page)
+        print("getting page {}".format(next_page))
+        next_url = "{}&page={}".format(url, next_page)
         try:
             nextdata = json.loads(requests.get(next_url).text)
         except:
             nextdata = {'results': []}
         if len(nextdata['results']) == 0:
             more_data = False
-            print "no more pages; exporting ..."
+            print("no more pages; exporting ...")
         else:
             for school in nextdata['results']:
                 collector[school['id']] = opy(container)
                 for key, value in school.iteritems():
                     collector[school['id']][key.replace('.', '_')] = value
             next_page = nextdata['metadata']['page'] + 1
-    with open('schools_%s.csv' % year, 'w') as f:
+    with open('schools_{}.csv'.format(year), 'w') as f:
         writer = csv.writer(f)
         writer.writerow(headings)
         for school_id in collector:
@@ -244,25 +246,25 @@ def export_spreadsheet(year):
                              collector[school_id][field]
                              for field in headings
                              ])
-    print "export_spreadsheet took %s to process schools\
-    for the year %s" % ((datetime.datetime.now()-starter), year)
+    print("export_spreadsheet took {} to process schools\
+    for the year {}".format((datetime.datetime.now()-starter), year))
     return data
 
 if __name__ == '__main__':  # pragma: no cover
     try:
         param = sys.argv[1]
     except:
-        print "please provide a 4-digit year"
+        print("please provide a 4-digit year")
     else:
         if len(param) == 4:
             try:
                 year = int(param)
             except:
-                print "please provide a valid year"
+                print("please provide a valid year")
             else:
                 export_spreadsheet(year)
         else:
-            print "please provide a valid 4-digit year"
+            print("please provide a valid 4-digit year")
 
 
 # def unpack_alias(alist, school):
@@ -296,28 +298,28 @@ def calculate_group_percent(group1, group2):
 # USF = 137351
 def get_repayment_data(school_id, year):
     """return metric on student debt repayment"""
-    school_id = "%s" % school_id
+    school_id = "{}".format(school_id)
     entrylist = [
-        '%s.repayment.3_yr_repayment_suppressed.overall',
-        '%s.repayment.repayment_cohort.1_year_declining_balance',
-        '%s.repayment.1_yr_repayment.completers',
-        '%s.repayment.1_yr_repayment.noncompleters',
-        '%s.repayment.repayment_cohort.3_year_declining_balance',
-        '%s.repayment.3_yr_repayment.completers',
-        '%s.repayment.3_yr_repayment.noncompleters',
-        '%s.repayment.repayment_cohort.5_year_declining_balance',
-        '%s.repayment.5_yr_repayment.completers',
-        '%s.repayment.5_yr_repayment.noncompleters',
-        '%s.repayment.repayment_cohort.7_year_declining_balance',
-        '%s.repayment.7_yr_repayment.completers',
-        '%s.repayment.7_yr_repayment.noncompleters']
-    fields = ",".join([entry % year for entry in entrylist])
-    url = "%s?id=%s&api_key=%s&fields=%s" % (SCHOOLS_ROOT,
+        '{}.repayment.3_yr_repayment_suppressed.overall',
+        '{}.repayment.repayment_cohort.1_year_declining_balance',
+        '{}.repayment.1_yr_repayment.completers',
+        '{}.repayment.1_yr_repayment.noncompleters',
+        '{}.repayment.repayment_cohort.3_year_declining_balance',
+        '{}.repayment.3_yr_repayment.completers',
+        '{}.repayment.3_yr_repayment.noncompleters',
+        '{}.repayment.repayment_cohort.5_year_declining_balance',
+        '{}.repayment.5_yr_repayment.completers',
+        '{}.repayment.5_yr_repayment.noncompleters',
+        '{}.repayment.repayment_cohort.7_year_declining_balance',
+        '{}.repayment.7_yr_repayment.completers',
+        '{}.repayment.7_yr_repayment.noncompleters']
+    fields = ",".join([entry.format(year) for entry in entrylist])
+    url = "{}?id={}&api_key={}&fields={}".format(SCHOOLS_ROOT,
                                              school_id,
                                              API_KEY,
                                              fields)
     data = requests.get(url).json()['results'][0]
-    repay_completers = data['%s.repayment.5_yr_repayment.completers' % year]
-    repay_non = data['%s.repayment.5_yr_repayment.noncompleters' % year]
+    repay_completers = data['{}.repayment.5_yr_repayment.completers'.format(year)]
+    repay_non = data['{}.repayment.5_yr_repayment.noncompleters'.format(year)]
     data['completer_repayment_rate_after_5_yrs'] = calculate_group_percent(repay_completers, repay_non)
     return data
