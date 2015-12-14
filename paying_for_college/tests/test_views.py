@@ -48,8 +48,9 @@ class TestViews(django.test.TestCase):
 
     def test_feedback(self):
         response = client.get(reverse('disclosures:pfc-feedback'))
+        print("context keys are %s" % sorted(response.context_data.keys()))
         self.assertTrue(sorted(response.context_data.keys()) ==
-                        ['base_template', 'form'])
+                        ['base_template', 'form', 'url_root'])
 
     @mock.patch('paying_for_college.views.render_to_response')
     def test_feedback_post(self, mock_render):
@@ -147,29 +148,14 @@ class SchoolJsonTest(django.test.TestCase):
         self.assertTrue('155317' in resp.content)
 
 
-# SAVED WORKSHEET
-# /paying-for-college/understanding-financial-aid-offers/#c1e6ecd7-2665-4b26-abeb-7b43240af2fb
-class SavedWorksheetTest(django.test.TestCase):
-
-    fixtures = ['test_fixture.json']
-
-    def test_saved_worksheet(self):
-        """api call for saved worksheet."""
-
-        url = reverse('disclosures:school-json', args=['155317'])
-        resp = client.get(url)
-        self.assertTrue('Kansas' in resp.content)
-        self.assertTrue('155317' in resp.content)
-
-
 # NO-DATA WORKSHEET POST
-# /paying-for-college/compare-financial-aid-and-college-cost/api/worksheet/
+# /paying-for-college/understanding-financial-aid-offers/api/worksheet/
 class CreateWorksheetTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
 
     def test_create_worksheet(self):
-        """step 1 in creating worksheet via api."""
+        """generating a worksheet ID via api."""
 
         url = reverse('disclosures:create_worksheet')
         resp = client.post(url)
@@ -178,10 +164,11 @@ class CreateWorksheetTest(django.test.TestCase):
         self.assertTrue(len(data['id']) == 36)
 
 # SAVE POST
-# /paying-for-college/compare-financial-aid-and-college-cost/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
+# /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
     def test_save_worksheet(self):
-        """step 2 in creating worksheet via api."""
+        """retrieving a creating worksheet via api."""
 
-        url = reverse('disclosures:api-worksheet', args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
+        url = reverse('disclosures:api-worksheet',
+                      args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
         resp = client.post(url)
         self.assertTrue(resp.status_code == 200)

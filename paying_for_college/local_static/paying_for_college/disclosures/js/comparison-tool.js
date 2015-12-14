@@ -2300,7 +2300,7 @@ var CFPBComparisonTool = (function() {
                     $("#save-container").append( "Save failed!" + foo + " " + textStatus);
                 });
                 var geturl = "http://" + document.location.host
-                            + "/paying-for-college/compare-financial-aid-and-college-cost/"
+                            + "/paying-for-college/understanding-financial-aid-offers/"
                             + "#"
                             + global.worksheet_id;
                 $("#unique").val(geturl);
