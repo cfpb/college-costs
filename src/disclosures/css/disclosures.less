@@ -523,13 +523,37 @@
    ========================================================================== */
 
 .question {
-  padding-bottom: unit(30px / @base-font-size-px, em);
-  margin-top: unit(45px / @base-font-size-px, em);
-  background-color: @gray-20;
-}
+  background-color: @gold-20;
 
-.question_answers {
-  margin-bottom: unit(20px / @base-font-size-px, em);
+  &_wrapper {
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_content {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
+
+  &_answers {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
+
+  & .content_main {
+    padding-top: unit(20px / @base-font-size-px, em);
+    padding-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+    padding-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
 /* ==========================================================================
