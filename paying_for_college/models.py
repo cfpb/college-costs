@@ -37,47 +37,50 @@ class ConstantCap(models.Model):
 
 
 # data_json fields:
-# ALIAS
+# ALIAS (not needed)
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
 # AVGSTULOANDEBTRANK
-# BADALIAS
-# BAH 1356
+# BADALIAS (not needed)
+# BAH 1356 (no longer needed)
 # BOOKS
-# CITY Pittsburgh
-# CONTROL For Profit
+# CITY (now school.city)
+# CONTROL (now school.control)
 # DEFAULTRATE
 # GRADRATE
 # GRADRATERANK
 # INDICATORGROUP
-# KBYOSS
+# KBYOSS (now school.KBYOSS)
+# MEDIANDEBTCOMPLETER # new in 2015
 # NETPRICE110K
 # NETPRICE3OK
 # NETPRICE48K
 # NETPRICE75K
 # NETPRICEGENERAL
 # NETPRICEOK
-# OFFERAA Yes
-# OFFERBA Yes
-# OFFERGRAD Yes
-# ONCAMPUSAVAIL No
-# ONLINE No
+# OFFERAA
+# OFFERBA
+# OFFERGRAD
+# ONCAMPUSAVAIL
+# ONLINE (now school.online)
 # OTHEROFFCAMPUS
 # OTHERONCAMPUS
 # OTHERWFAMILY
 # RETENTRATE
+# RETENTRATELT4 # new in 2015
+# REPAY3YR # new in 2015
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
-# SCHOOL EDMC Central Administrative Office
-# SCHOOL_ID 483090
-# STATE PA
+# SCHOOL (now school.primary_alias)
+# SCHOOL_ID (now school.pk)
+# STATE (now school.state)
 # TUITIONGRADINDIS
 # TUITIONGRADINS
 # TUITIONGRADOSS
 # TUITIONUNDERINDIS
 # TUITIONUNDERINS
 # TUITIONUNDEROSS
-# ZIP 15222
+# ZIP (now school.zip5)
 
 
 class School(models.Model):
@@ -87,9 +90,10 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
-    data_json = models.TextField()
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=2)
+    data_json = models.TextField(blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=2, blank=True)
+    zip5 = models.CharField(max_length=5, blank=True)
     enrollment = models.IntegerField(blank=True, null=True)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
@@ -102,7 +106,6 @@ class School(models.Model):
     main_campus = models.NullBooleanField()
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
-
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     def __unicode__(self):
@@ -165,9 +168,11 @@ class Program(models.Model):
     accreditor = models.CharField(max_length=255, blank=True)
     level = models.CharField(max_length=255, blank=True)
     program_code = models.CharField(max_length=255, blank=True)
+    campus = models.CharField(max_length=255, blank=True)
     cip_code = models.CharField(max_length=255, blank=True)
     soc_codes = models.CharField(max_length=255, blank=True)
-    total_cost = models.IntegerField(blank=True, null=True)
+    total_cost = models.IntegerField(blank=True, null=True,
+                                     help_text="COMPUTED")
     time_to_complete = models.IntegerField(blank=True,
                                            null=True,
                                            help_text="IN MONTHS")
@@ -175,15 +180,19 @@ class Program(models.Model):
                                           null=True,
                                           max_digits=5,
                                           decimal_places=2)
+    titleiv_debt = models.IntegerField(blank=True, null=True)
+    private_debt = models.IntegerField(blank=True, null=True)
+    institutional_debt = models.IntegerField(blank=True, null=True)
+    mean_student_loan_completers = models.IntegerField(blank=True,
+                                                         null=True,
+                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
+    median_student_loan_completers = models.IntegerField(blank=True,
+                                                         null=True,
+                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
     default_rate = models.DecimalField(blank=True,
                                        null=True,
                                        max_digits=5,
                                        decimal_places=2)
-    job_rate = models.DecimalField(blank=True,
-                                   null=True,
-                                   max_digits=5,
-                                   decimal_places=2,
-                                   help_text="COMPLETERS WHO GET RELATED JOB")
     salary = models.IntegerField(blank=True, null=True)
     program_length = models.IntegerField(blank=True,
                                          null=True,
@@ -201,6 +210,13 @@ class Program(models.Model):
     transportation = models.IntegerField(blank=True, null=True)
     other_costs = models.IntegerField(blank=True,
                                       null=True)
+    job_rate = models.DecimalField(blank=True,
+                                   null=True,
+                                   max_digits=5,
+                                   decimal_places=2,
+                                   help_text="COMPLETERS WHO GET RELATED JOB")
+    job_note = models.TextField(blank=True,
+                                      help_text="EXPLANATION FROM SCHOOL")
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
