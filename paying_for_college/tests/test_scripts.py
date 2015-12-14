@@ -41,10 +41,9 @@ class TestUpdater(django.test.TestCase):
         mock_response.json.return_value = self.mock_dict
         mock_response.ok = True
         mock_requests.return_value = mock_response
-        (FAILED, NO_DATA, BAD_JSON, endmsg) = update_colleges.update()
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
         self.assertTrue(len(NO_DATA) == 0)
         self.assertTrue(len(FAILED) == 0)
-        self.assertTrue(len(BAD_JSON) == 0)
         self.assertTrue('updated' in endmsg)
 
     @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
@@ -52,11 +51,11 @@ class TestUpdater(django.test.TestCase):
         mock_response = mock.Mock()
         mock_response.ok = False
         mock_response.reason = "Testing OK == False"
-        (FAILED, NO_DATA, BAD_JSON, endmsg) = update_colleges.update()
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
         # print("\n after OK == False, FAILED is %s" % FAILED)
         self.assertTrue(len(FAILED) == 1)
         mock_requests.status_code = 429
-        (FAILED, NO_DATA, BAD_JSON, endmsg) = update_colleges.update()
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
         # print("after 429 FAILED is %s" % FAILED)
         self.assertTrue(len(FAILED) == 1)
 
@@ -65,7 +64,7 @@ class TestUpdater(django.test.TestCase):
         mock_response = mock.Mock()
         mock_response.ok = True
         mock_response.json.return_value = {'results': []}
-        (FAILED, NO_DATA, BAD_JSON, endmsg) = update_colleges.update()
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
         # print("after results==[], NO_DATA is %s" % FAILED)
         self.assertTrue('no data' in endmsg)
 

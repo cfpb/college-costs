@@ -30,22 +30,21 @@ if STANDALONE:
     BASE_TEMPLATE = "standalone/base_update.html"
 else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
-    # BASE_TEMPLATE = "%s/templates/base_update.html" % BASEDIR
 
 URL_ROOT = 'paying_for_college2'
 
 LEVEL_MAP = {  # Dept. of Ed classification of post-secondary degree levels
-    '1': 'Program of less than 1 academic year',
-    '2': 'Program of at least 1 but less than 2 academic years',
-    '3': 'Associate’s degree - 2 academic years',
-    '4': 'Program of at least 2 but less than 4 academic years',
-    '5': 'Bachelor’s degree',
-    '6': 'Post-baccalaureate certificate',
-    '7': 'Master’s degree',
-    '8': 'Post-master’s certificate',
-    '17': 'Doctor’s degree-research/scholarship',
-    '18': 'Doctor’s degree-professional practice',
-    '19': 'Doctor’s degree-other'
+    '1': "Program of less than 1 academic year",
+    '2': "Program of at least 1 but less than 2 academic years",
+    '3': "Associate's degree",
+    '4': "Program of at least 2 but less than 4 academic years",
+    '5': "Bachelor's degree",
+    '6': "Post-baccalaureate certificate",
+    '7': "Master's degree",
+    '8': "Post-master's certificate",
+    '17': "Doctor's degree-research/scholarship",
+    '18': "Doctor's degree-professional practice",
+    '19': "Doctor's degree-other"
 }
 
 
