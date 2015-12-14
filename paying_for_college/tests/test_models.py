@@ -2,7 +2,6 @@
 # -*- coding: utf8 -*-
 import json
 
-from paying_for_college.config.settings import no_haystack
 from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
