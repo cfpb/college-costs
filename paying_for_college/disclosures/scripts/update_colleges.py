@@ -21,9 +21,9 @@ from paying_for_college.models import School
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
 HOME = os.path.expanduser("~")
-NO_DATA_FILE = "{}/no_data_{}.json".format(HOME, DATESTAMP)
+NO_DATA_FILE = "{0}/no_data_{1}.json".format(HOME, DATESTAMP)
 SCRIPTNAME = os.path.basename(__file__)
-ID_BASE = "{}?api_key={}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
+ID_BASE = "{0}?api_key={1}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
 FIELDS = sorted(MODEL_MAP.keys() + JSON_MAP.keys())
 FIELDSTRING = ",".join(FIELDS)
 
@@ -48,14 +48,14 @@ def update():
     processed = 0
     update_count = 0
     bad_json_count = 0
-    id_url = "{}&id={}&fields={}"
+    id_url = "{0}&id={1}&fields={2}"
     for school in School.objects.filter(operating=True)[:20]:
-        # print("{}".format(school))
+        # print("{0}".format(school))
         processed += 1
         sys.stdout.write('.')
         sys.stdout.flush()
         if processed % 500 == 0:  # pragma: no cover
-            print("\n{}\n".format(processed))
+            print("\n{0}\n".format(processed))
         if processed % 5 == 0:
             time.sleep(1)
         url = id_url.format(ID_BASE, school.school_id, FIELDSTRING)
@@ -78,7 +78,7 @@ def update():
                         data_dict = json.loads(school.data_json)
                     except ValueError:
                         bad_json_count += 1
-                        # print("data_json wouldn't load on first try for {}".format(school))
+                        # print("data_json wouldn't load on first try for {0}".format(school))
                         data_dict = fix_json(school.data_json)
                     if data_dict:
                         for key in JSON_MAP:
@@ -89,7 +89,7 @@ def update():
                                 data_dict[JSON_MAP[key]] = None
                     else:
                         BAD_JSON.append(school)
-                        # print("second json parsing attempt failed for {}".format(school))
+                        # print("second json parsing attempt failed for {0}".format(school))
                     if updated is True:
                         update_count += 1
                         school.data_json = json.dumps(data_dict)
@@ -99,21 +99,21 @@ def update():
                     sys.stdout.flush()
                     NO_DATA.append(school)
             else:
-                print("request not OK, returned {}".format(resp.reason))
+                print("request not OK, returned {0}".format(resp.reason))
                 FAILED.append(school)
                 if resp.status_code == 429:
                     print("API limit reached")
                     print(resp.content)
                     break
                 else:
-                    print("request for {} returned {}".format(school,
+                    print("request for {0} returned {1}".format(school,
                                                               resp.status_code))
                     continue
-    endmsg = "\nTried to get new data for {} schools:\n\
-    updated {} and found no data for {}\n\
-    API response failures: {}\n\
-    {} schools had malformed data_json; {} of those couldn't be fixed.\n\
-    \n{} took {} to run".format(processed,
+    endmsg = "\nTried to get new data for {0} schools:\n\
+    updated {1} and found no data for {2}\n\
+    API response failures: {3}\n\
+    {4} schools had malformed data_json; {5} of those couldn't be fixed.\n\
+    \n{6} took {7} to run".format(processed,
                                 update_count,
                                 len(NO_DATA),
                                 len(FAILED),
@@ -122,7 +122,7 @@ def update():
                                 SCRIPTNAME,
                                 (datetime.datetime.now()-starter))
     if NO_DATA:
-        endmsg += "\nA list of schools that had no API data was saved to {}".format(NO_DATA_FILE)
+        endmsg += "\nA list of schools that had no API data was saved to {0}".format(NO_DATA_FILE)
         no_data_dict = {}
         for school in NO_DATA:
             no_data_dict[school.pk] = school.primary_alias
