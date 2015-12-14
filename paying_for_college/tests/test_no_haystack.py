@@ -3,10 +3,9 @@
 
 from unittest import TestCase
 
-from paying_for_college.config.settings import no_haystack
-
 
 class NoHaystackTest(TestCase):
 
     def test_settings(self):
+        from paying_for_college.config.settings import no_haystack
         self.assertTrue('haystack' not in no_haystack.INSTALLED_APPS)
