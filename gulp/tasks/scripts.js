@@ -16,9 +16,8 @@ gulp.task( 'scripts', function() {
 
   b.bundle()
     .pipe( source( 'main.js' ) )
-    .pipe( buffer() )
+    .pipe( buffer().on( 'error', handleErrors ) )
     .pipe( $.sourcemaps.init( { loadMaps: true } ) )
-    .on( 'error', handleErrors )
     .pipe( $.uglify() )
     .pipe( $.sourcemaps.write( './' ) )
     .pipe( gulp.dest( config.dest ) );
