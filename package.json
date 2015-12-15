@@ -17,7 +17,7 @@
     "college-costs"
   ],
   "scripts": {
-    "test": "mocha test/js-unit/ -R mocha-istanbul"
+    "test": "mocha test/js-unit/"
   },
   "devDependencies": {
     "browser-sync": "^2.8.0",

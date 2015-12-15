@@ -23,13 +23,13 @@ var financialModel = {
     model.totalGrantsScholarships =
       model.scholarships + model.pell;
 
-  // total cost is attendance minus grants and scholarships
-  model.totalCost =
-    model.costOfAttendance - model.totalGrantsScholarships
+    // total cost is attendance minus grants and scholarships
+    model.totalCost =
+      model.costOfAttendance - model.totalGrantsScholarships
 
-  // total contributions
-  model.totalContributions =
-    model.savings + model.family + model.workstudy;
+    // total contributions
+    model.totalContributions =
+      model.savings + model.family + model.workstudy;
   }
 };
 module.exports = financialModel;
