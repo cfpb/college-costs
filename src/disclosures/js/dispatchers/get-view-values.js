@@ -10,7 +10,7 @@ var getViewValues = {
 
     $elements.each( function() {
       var name = $( this ).attr( 'data-financial' );
-      values[ name ] = stringToNum( $( this ).val() );
+      values[ name ] = stringToNum( $( this ).val() ) || 0;
     });
     return values;
   }
