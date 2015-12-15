@@ -47,8 +47,9 @@
   "dependencies": {
     "chai": "^3.4.1",
     "format-usd": "^0.2.0",
+    "lodash.sum": "^3.6.2",
     "mocha": "^2.3.4",
-    "student-debt-calc": "0.0.4"
+    "student-debt-calc": "0.0.5"
   },
   "scripts": {
     "test": "mocha test/js/"
