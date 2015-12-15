@@ -31,6 +31,8 @@ if STANDALONE:
 else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
+URL_ROOT = 'paying_for_college2'
+
 LEVEL_MAP = {  # Dept. of Ed classification of post-secondary degree levels
     '1': "Program of less than 1 academic year",
     '2': "Program of at least 1 but less than 2 academic years",
@@ -44,8 +46,6 @@ LEVEL_MAP = {  # Dept. of Ed classification of post-secondary degree levels
     '18': "Doctor's degree-professional practice",
     '19': "Doctor's degree-other"
 }
-
-URL_ROOT = 'paying_for_college2'
 
 
 class BaseTemplateView(TemplateView):

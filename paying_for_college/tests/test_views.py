@@ -48,7 +48,6 @@ class TestViews(django.test.TestCase):
 
     def test_feedback(self):
         response = client.get(reverse('disclosures:pfc-feedback'))
-
         self.assertTrue(sorted(response.context_data.keys()) ==
                         ['base_template', 'form', 'url_root'])
 
