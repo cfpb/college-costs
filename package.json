@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "chai": "^3.4.1",
+    "debounce": "^1.0.0",
     "format-usd": "^0.2.0",
     "lodash.sum": "^3.6.2",
     "mocha": "^2.3.4",
