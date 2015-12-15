@@ -703,6 +703,36 @@
       .grid_column(8);
     });
   }
+
+  &_list {
+    margin-top: unit(45px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(60px / @base-font-size-px, em);
+      .grid_nested-col-group();
+    });
+  }
+
+  &_list-item {
+    margin-top: unit(30px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: 0;
+      .grid_column(4);
+    });
+  }
+
+  &_list-intro {
+    .heading-4();
+  }
+
+  &_controls {
+    margin-top: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
 /* ==========================================================================
