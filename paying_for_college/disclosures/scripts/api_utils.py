@@ -21,6 +21,7 @@ import datetime
 from copy import copy
 from decimal import Decimal
 
+# import csvkit
 import requests
 
 from paying_for_college.models import ConstantCap
@@ -57,8 +58,8 @@ MODEL_MAP = {
 }
 
 JSON_MAP = {
-    '{0}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
-    '{0}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
+    # '{0}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
+    # '{0}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
     '{0}.repayment.repayment_cohort.3_year_declining_balance'.format(LATEST_YEAR): 'REPAY3YR',  # NEW
     '{0}.repayment.3_yr_default_rate'.format(LATEST_YEAR): 'DEFAULTRATE',
     '{0}.aid.median_debt_suppressed.overall'.format(LATEST_YEAR): 'AVGSTULOANDEBT',
@@ -68,7 +69,7 @@ JSON_MAP = {
 BASE_FIELDS = [
     'id',
     'ope6_id',
-    'ope8_id',
+    # 'ope8_id',
     'school.name',
     'school.city',
     'school.state',
@@ -207,9 +208,9 @@ def export_spreadsheet(year):
     for key in headings:
         container[key] = ''
     url = '{0}?api_key={1}&per_page={2}&fields={3}'.format(SCHOOLS_ROOT,
-                                                   API_KEY,
-                                                   PAGE_MAX,
-                                                   fields)
+                                                           API_KEY,
+                                                           PAGE_MAX,
+                                                           fields)
     data = requests.get(url).json()
     #  initial pass
     if 'results' not in data:
@@ -234,18 +235,22 @@ def export_spreadsheet(year):
             print("no more pages; exporting ...")
         else:
             for school in nextdata['results']:
-                collector[school['id']] = opy(container)
+                collector[school['id']] = copy(container)
                 for key, value in school.iteritems():
                     collector[school['id']][key.replace('.', '_')] = value
             next_page = nextdata['metadata']['page'] + 1
-    with open('schools_{0}.csv'.format(year), 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(headings)
-        for school_id in collector:
-            writer.writerow([
-                             collector[school_id][field]
-                             for field in headings
-                             ])
+    try:
+        with open('schools_{0}.csv'.format(year), 'w') as f:
+            # writer = csvkit.CSVKitWriter(f)
+            writer = csv.writer(f)
+            writer.writerow(headings)
+            for school_id in collector:
+                writer.writerow([
+                                 collector[school_id][field]
+                                 for field in headings
+                                 ])
+    except:
+        return collector
     print("export_spreadsheet took {0} to process schools\
     for the year {1}".format((datetime.datetime.now()-starter), year))
     return data

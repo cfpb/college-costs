@@ -37,27 +37,27 @@ class ConstantCap(models.Model):
 
 
 # data_json fields:
-# ALIAS (not needed)
+# ALIAS -- not needed, DELETE
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
-# AVGSTULOANDEBTRANK
-# BADALIAS (not needed)
-# BAH 1356 (no longer needed)
+# AVGSTULOANDEBTRANK -- not needed, DELETE
+# BADALIAS -- not needed, DELETE
+# BAH 1356 -- not needed, DELETE
 # BOOKS
 # CITY (now school.city)
 # CONTROL (now school.control)
 # DEFAULTRATE
 # GRADRATE
-# GRADRATERANK
+# GRADRATERANK -- not needed, DELETE
 # INDICATORGROUP
-# KBYOSS (now school.KBYOSS)
+# KBYOSS (now school.KBYOSS) -- not needed, DELETE
 # MEDIANDEBTCOMPLETER # new in 2015
-# NETPRICE110K
-# NETPRICE3OK
-# NETPRICE48K
-# NETPRICE75K
-# NETPRICEGENERAL
-# NETPRICEOK
+# NETPRICE110K -- not needed, DELETE
+# NETPRICE3OK -- not needed, DELETE
+# NETPRICE48K -- not needed, DELETE
+# NETPRICE75K -- not needed, DELETE
+# NETPRICEGENERAL -- not needed, DELETE
+# NETPRICEOK -- not needed, DELETE
 # OFFERAA
 # OFFERBA
 # OFFERGRAD
@@ -66,8 +66,8 @@ class ConstantCap(models.Model):
 # OTHEROFFCAMPUS
 # OTHERONCAMPUS
 # OTHERWFAMILY
-# RETENTRATE
-# RETENTRATELT4 # new in 2015
+# RETENTRATE -- not needed, DELETE
+# RETENTRATELT4 # new in 2015 -- not needed, DELETE
 # REPAY3YR # new in 2015
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
