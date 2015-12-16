@@ -21,75 +21,115 @@
 }
 
 .step {
-  margin-top: unit(60px / @base-font-size-px, em);
-}
 
-.step_heading {
-  .heading-2();
-
-  .respond-to-min(@bp-sm-min, {
-    .heading-1();
-  });
-}
-
-.content_line {
-  background-color: @black;
+  &_heading {
+    .heading-2();
+  }
 }
 
 /* ==========================================================================
    Verify offer
    ========================================================================== */
 
-.verify_prompt {
-  .heading-4();
-  padding-top: unit(15px / @font-size, em);
-  border-top: 1px solid @gray-50;
-  margin-top: unit(20px / @font-size, em);
-  margin-bottom: unit(20px / @font-size, em);
-}
+.verify {
 
-.verify_school {
-  .heading-3();
-  margin-bottom: 0;
+  &_wrapper {
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
 
-  .respond-to-min(@bp-sm-min, {
-    .heading-2();
-  });
-}
+  &_content {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
 
-.verify_list {
-  margin-top: unit(15px / @base-font-size-px, em);
-  margin-bottom: unit(30px / @base-font-size-px, em);
-}
+  &_prompt {
+    .heading-4();
+    margin-bottom: unit(30px / @font-size, em);
 
-.verify_heading {
-  .heading-6();
-  margin-bottom: 0;
-}
+    .respond-to-min(@bp-sm-min, {
+      .heading-2();
+      margin-bottom: unit(30px / @font-size, em);
+    });
+  }
 
-.verify_value {
-  margin: 0;
-}
+  &_school {
+    .heading-3();
+    margin-bottom: 0;
 
-.verify_value + .verify_heading {
-  padding-top: unit(15px / @x-small-font-size-px, em);
-}
+    .respond-to-min(@bp-sm-min, {
+      .heading-2();
+      margin-bottom: unit(5px / @font-size, em);
+    });
+  }
 
-.verify_wrong-info-btn {
-  font-size: 1em;
+  &_list {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(30px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(20px / @base-font-size-px, em);
+    });
+  }
+
+  &_heading {
+    .heading-6();
+    margin-bottom: 0;
+  }
+
+  &_value {
+    margin: 0;
+  }
+
+  &_value + &_heading {
+    padding-top: unit(15px / @x-small-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(20px / @x-small-font-size-px, em);
+    });
+  }
+
+  &_wrong-info-btn {
+    font-size: 1em;
+  }
+
+  .content_main {
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
 /* ==========================================================================
    Instructions
    ========================================================================== */
 
-.instructions_subheading {
-  .heading-4();
-}
+.instructions {
 
-.instructions_info-right {
-  padding-bottom: unit(15px / @base-font-size-px, em);
-  border-bottom: 1px solid @gray-50;
+  &_wrapper {
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_content {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
+
+  &_subheading {
+    .heading-4();
+  }
+
+  .content_main {
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+      padding-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
 /* ==========================================================================
@@ -483,13 +523,37 @@
    ========================================================================== */
 
 .question {
-  padding-bottom: unit(30px / @base-font-size-px, em);
-  margin-top: unit(45px / @base-font-size-px, em);
-  background-color: @gray-20;
-}
+  background-color: @gold-20;
 
-.question_answers {
-  margin-bottom: unit(20px / @base-font-size-px, em);
+  &_wrapper {
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_content {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
+
+  &_answers {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
+
+  & .content_main {
+    padding-top: unit(20px / @base-font-size-px, em);
+    padding-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+      padding-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
 /* ==========================================================================
