@@ -1,6 +1,5 @@
 'use strict';
 
-var debounce = require('debounce');
 var getModelValues = require( '../dispatchers/get-model-values' );
 var publish = require('../dispatchers/publish-update');
 var stringToNum = require( '../utils/handle-string-input');
