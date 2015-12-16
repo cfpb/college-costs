@@ -151,7 +151,7 @@
 
   .form-label-header {
     padding-bottom: unit(5px / @small-font-size-px, em);
-    border-bottom: 1px solid @gray-50;
+    border-bottom: 1px solid @gray-40;
     margin-bottom: unit(15px / @small-font-size-px, em);
   }
 
@@ -236,7 +236,7 @@
 
   &.debt-summary {
     margin-top: 0;
-    background-color: @gold-50;
+    background-color: @gold-60;
   }
 
   .content_line {
@@ -287,7 +287,7 @@
 
 .offer-part_terms {
   padding-bottom: unit(17px / @base-font-size-px, em);
-  border-bottom: 1px dashed @gray-50;
+  border-bottom: 1px dashed @gray-40;
 }
 
 .offer-part_terms__last {
@@ -301,7 +301,7 @@
 }
 
 .private-loans {
-  border-bottom: 1px dashed @gray-50;
+  border-bottom: 1px dashed @gray-40;
   margin-bottom: unit(15px / @base-font-size-px, em);
 }
 
@@ -356,7 +356,7 @@
 
 .metric {
   padding-top: unit(10px / @base-font-size-px, em);
-  border-top: 1px solid @gray-50;
+  border-top: 1px solid @gray-40;
   margin-top: unit(30px / @base-font-size-px, em);
 }
 
@@ -465,7 +465,7 @@
     position: absolute;
     top: 0;
     left: 50%;
-    background-color: @gray-20;
+    background-color: @gray-10;
   }
 }
 
@@ -483,10 +483,10 @@
 }
 
 .bar-graph_point__average {
-  color: @darkgray;
+  color: @dark-gray;
 
   .bar-graph_line {
-    border-top-color: @darkgray;
+    border-top-color: @dark-gray;
     border-top-style: dotted;
   }
 }
@@ -629,7 +629,7 @@
 
   // Rules on all but the first option on small screens but only the second row of options on larger screens
   & + & &_heading {
-    border-top: 1px solid @gray-50;
+    border-top: 1px solid @gray-40;
 
     .respond-to-min(@bp-sm-min, {
       border-top: none;
@@ -639,7 +639,7 @@
   & + & + & + & &_heading {
 
     .respond-to-min(@bp-sm-min, {
-      border-top: 1px solid @gray-50;
+      border-top: 1px solid @gray-40;
     });
   }
 }
@@ -662,7 +662,7 @@
     top: 0;
     left: unit(-(@grid_gutter-width / @base-font-size-px) / 2, em);
     z-index: 0;
-    background-color: @green-tint;
+    background-color: @green-20;
     content: '';
 
     .respond-to-min(@bp-sm-min, {
