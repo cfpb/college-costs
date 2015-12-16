@@ -107,6 +107,8 @@ class School(models.Model):
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
+    grad_rate_4yr = models.DecimalField(max_digits=4, decimal_places=2, blank=True)
+    grad_rate_lt4 = models.DecimalField(max_digits=4, decimal_places=2, blank=True)
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
