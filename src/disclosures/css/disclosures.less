@@ -342,87 +342,132 @@
    Evaluating your offer
    ========================================================================== */
 
-.criteria + .criteria {
-  margin-top: unit(45px / @base-font-size-px, em);
+.evaluate {
+
+  &_wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+
+    & + .criteria {
+      margin-top: unit(30px / @base-font-size-px, em);
+    }
+  }
+
+  &_intro {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
 }
 
-.criteria_heading {
-  .heading-3();
+.criteria {
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
-    .heading-2();
+    border-bottom: 1px solid @gray-20;
   });
+
+  &_heading {
+    .heading-3();
+  }
+
+  &_wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_intro {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(5);
+    });
+  }
 }
 
 .metric {
   padding-top: unit(10px / @base-font-size-px, em);
-  border-top: 1px solid @gray-40;
+  border-top: 1px solid @gray-20;
   margin-top: unit(30px / @base-font-size-px, em);
-}
-
-.metric_heading {
-  .heading-4();
 
   .respond-to-min(@bp-sm-min, {
-    .heading-3();
+    .grid_column(4);
+    .grid_push(2);
+    padding-top: unit(30px / @base-font-size-px, em);
+    margin-top: 0;
   });
+
+  &_heading {
+    .heading-4();
+  }
+
+  &_explanation {
+    margin-bottom: unit(15px / 14px, em);
+    font-size: unit(14px / @base-font-size-px, em);
+  }
+
+  &_notification__better {
+    .heading-4();
+    margin-bottom: 0;
+  }
 }
 
-.metric_explanation {
-  margin-bottom: unit(15px / 14px, em);
-  font-size: unit(14px / @base-font-size-px, em);
-}
+.debt-burden {
 
-.debt-burden_projection {
-  .grid_nested-col-group();
-  margin-bottom: unit(20px / @base-font-size-px, em);
-}
+  &_projection {
+    .grid_nested-col-group();
+    margin-bottom: unit(20px / @base-font-size-px, em);
+  }
 
-.debt-burden_projection-name {
-  .grid_column(7);
-}
+  &_projection-name {
+    .grid_column(7);
+  }
 
-.debt-burden_projection-value {
-  .grid_column(5);
+  &_projection-value {
+    .grid_column(5);
+  }
 }
 
 .debt-equation {
   padding-top: unit(10px / @base-font-size-px, em);
   margin-bottom: unit(30px / @base-font-size-px, em);
+
+  &_part {
+    float: left;
+  }
+
+  &_part__loan {
+    width: 25%;
+  }
+
+  &_part__income {
+    width: 25%;
+  }
+
+  &_part__percent {
+    width: 20%;
+  }
+
+  &_symbol {
+    @symbol-font-size-px: 36px;
+    margin-top: unit(3px / @symbol-font-size-px, em);
+    width: 15%;
+    float: left;
+    .webfont-medium();
+    font-size: @symbol-font-size-px;
+    text-align: center;
+  }
+
+  &_number {
+    .webfont-medium();
+    font-size: unit(18px / @base-font-size-px, em);
+  }
 }
 
-.debt-equation_part {
-  float: left;
-}
-
-.debt-equation_part__loan {
-  width: 25%;
-}
-
-.debt-equation_part__income {
-  width: 25%;
-}
-
-.debt-equation_part__percent {
-  width: 20%;
-}
-
-.debt-equation_symbol {
-  @symbol-font-size-px: 36px;
-  margin-top: unit(3px / @symbol-font-size-px, em);
-  width: 15%;
-  float: left;
-  .webfont-medium();
-  font-size: @symbol-font-size-px;
-  text-align: center;
-}
-
-.debt-equation_number {
-  .webfont-medium();
-  font-size: unit(18px / @base-font-size-px, em);
-}
-
-// Needs to be nested to keep variables scoped
 .bar-graph {
   @bar-graph-width:       45px;
   @bar-graph-height:      130px;
@@ -467,32 +512,51 @@
     left: 50%;
     background-color: @gray-10;
   }
+
+  &_point__you {
+
+    .bar-graph_number{
+      .webfont-medium();
+      font-size: unit(18px / @base-font-size-px, em);
+    }
+
+    .bar-graph_line {
+      border-top-color: @black;
+      border-top-style: solid;
+    }
+  }
+
+  &_point__average {
+    color: @dark-gray;
+
+    .bar-graph_line {
+      border-top-color: @dark-gray;
+      border-top-style: dotted;
+    }
+  }
 }
 
-.bar-graph_point__you {
+/* ==========================================================================
+   Estimated monthly expenses
+   ========================================================================== */
 
-  .bar-graph_number{
-    .webfont-medium();
-    font-size: unit(18px / @base-font-size-px, em);
-  }
-
-  .bar-graph_line {
-    border-top-color: @black;
-    border-top-style: solid;
-  }
-}
-
-.bar-graph_point__average {
-  color: @dark-gray;
-
-  .bar-graph_line {
-    border-top-color: @dark-gray;
-    border-top-style: dotted;
-  }
+.average-salary .column-well_content {
+  .respond-to-min(@bp-sm-min, {
+    position: absolute;
+  });
 }
 
 .estimated-expenses {
   @expense-summary-font-size: 18px;
+  padding-top: unit(10px / @base-font-size-px, em);
+  border-top: 1px solid @gray-20;
+  margin-top: unit(30px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-sm-min, {
+    .grid_column(6);
+    padding-top: 0;
+    margin-top: unit(15px / @base-font-size-px, em);
+  });
 
   &_form {
     margin-top: 0;
@@ -504,7 +568,6 @@
     margin-bottom: unit(45px / @base-font-size-px, em);
     background-color: @gold-20;
   }
-
 
   &_heading {
     padding-bottom: unit(5px / @expense-summary-font-size, em);
@@ -567,8 +630,6 @@
    ========================================================================== */
 
 .get-options {
-  // Needed for the non-standard one-column well
-  overflow: hidden;
 
   .respond-to-min(@bp-sm-min, {
     padding-bottom: unit(30px / @base-font-size-px, em);
@@ -587,7 +648,6 @@
   }
 
   .content_main {
-    // Needed for the non-standard one-column well
     padding-bottom: 0;
   }
 
@@ -627,6 +687,10 @@
     .heading-4();
   }
 
+  &__take-action-header {
+    .heading-3();
+  }
+
   // Rules on all but the first option on small screens but only the second row of options on larger screens
   & + & &_heading {
     border-top: 1px solid @gray-40;
@@ -641,48 +705,6 @@
     .respond-to-min(@bp-sm-min, {
       border-top: 1px solid @gray-40;
     });
-  }
-}
-
-// Non-standard one-column well
-.column-well {
-  padding-top: unit(25px / @base-font-size-px, em);
-  padding-bottom: unit(10px / @base-font-size-px, em);
-  position: relative;
-
-  .respond-to-min(@bp-sm-min, {
-    padding-top: unit(50px / @base-font-size-px, em);
-    padding-bottom: unit(50px / @base-font-size-px, em);
-  });
-
-  &:after {
-    width: 999px;
-    height: 999px;
-    position: absolute;
-    top: 0;
-    left: unit(-(@grid_gutter-width / @base-font-size-px) / 2, em);
-    z-index: 0;
-    background-color: @green-20;
-    content: '';
-
-    .respond-to-min(@bp-sm-min, {
-      width: 100%;
-      left: 0;
-    });
-  }
-
-  &_content {
-    position: relative;
-    z-index: 1;
-
-    .respond-to-min(@bp-sm-min, {
-      padding-right: unit(30px / @base-font-size-px, em);
-      padding-left: unit(30px / @base-font-size-px, em);
-    });
-  }
-
-  &_header {
-    .heading-3();
   }
 }
 
