@@ -7,7 +7,8 @@ var financialModel = {
   values: {},
 
   init: function() {
-    var val = getViewValues.inputs();
+    var val = getViewValues.init();
+    console.log( val );
     this.calc( val );
   },
 
