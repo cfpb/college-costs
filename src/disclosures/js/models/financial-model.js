@@ -8,7 +8,7 @@ var financialModel = {
 
   init: function() {
     var val = getViewValues.inputs();
-    this.calc ( val );
+    this.calc( val );
   },
 
   calc: function( val ) {
@@ -25,14 +25,14 @@ var financialModel = {
 
     // total cost is attendance minus grants and scholarships
     model.totalCost =
-      model.costOfAttendance - model.totalGrantsScholarships
+      model.costOfAttendance - model.totalGrantsScholarships;
 
     // total contributions
     model.totalContributions =
       model.savings + model.family + model.workstudy;
 
     // total private loans
-    //TODO: accomodate for multiple private loans
+    // TODO accomodate for multiple private loans
     model.totalPrivateLoans =
       model.privateLoan + model.paymentPlan;
 
