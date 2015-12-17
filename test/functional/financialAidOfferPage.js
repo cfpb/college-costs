@@ -28,18 +28,30 @@ financialAidOfferPage.prototype = Object.create({}, {
     unsubsidizedLoans: { get: function () { return element(by.id('contrib__unsubsidized'])); } },
     directPLUSLoans: { get: function () { return element(by.id('contrib__direct-plus'])); } },
     totalFederalLoans: { get: function () { return element(by.css('span[data-financial="totalFederalLoans"]'])); } },
-    studentTotalCost: { get: function () { return element(by.css('span[data-financial="totalCost"]'])); } },
-    addUpCostOfAttendance: { value: function () {
+    // TODO: Refactor this here and in the HTML/CSS for multiple private loans
+    privateLoanAmount: { get: function () { return element(by.id('contrib__private-loan'])); } },
+    privateLoanInterestRate: { get: function () { return element(by.id('contrib__private-loan-interest'])); } },
+    privateLoanFees: { get: function () { return element(by.id('contrib__private-loan-fees'])); } },
+    privateLoanGracePeriod { get: function () { return element(by.id('contrib__private-loan-grace-period'])); } },
+    addPrivateLoanButton { get: function () { return element(by.css('a[title="Add another private loan"]'])); } },
+    paymentPlanAmount: { get: function () { return element(by.id('contrib__payment-plan'])); } },
+    paymentPlanInterestRate: { get: function () { return element(by.id('contrib__payment-plan-interest'])); } },
+    paymentPlanDueDate: { get: function () { return element(by.id('contrib__payment-plan-due-date'])); } },
+    addUpCostOfAttendanceFields: { value: function () {
         // return the sum of the values of the cost fields
+        return ( tuitionFeesCosts.val() + housingMealsCosts.val() + booksSuppliesCosts.val() + transportationCosts.val() + otherEducationCosts.val() );
     } },
     addUpGrantsAndScholarships: { value: function () {
         // return the sum of the values of the grant and scholarship fields
+        return ( federalPellGrants.val() + schoolScholarships.val() + stateScholarships.val() + otherGrantsScholarships.val() );
     } },
     addUpContributions: { value: function () {
         // return the sum of the values of the contribution fields
+        return ( studentContribution.val() + familyContribution.val() + workStudyContribution.val() );
     } },
     addUpFederalLoans: { value: function () {
         // return the sum of the values of the federal loan fields
+        return ( federalPerkinsLoans.val() + subsidizedLoans.val() + unsubsidizedLoans.val() + directPLUSLoans.val() );
     } },
     // Step 2: Evaluate your offer
     evaluateSection: { get: function () { return element(by.css('.evaluate')); } },
