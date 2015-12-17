@@ -135,7 +135,7 @@ def update(exclude_ids=[], single_school=None):
         with open(NO_DATA_FILE, 'w') as f:
             f.write(json.dumps(no_data_dict))
     print(endmsg)
-    return NO_DATA
+    return (FAILED, NO_DATA, endmsg)
 
 if __name__ == '__main__':
     no_data = update()
