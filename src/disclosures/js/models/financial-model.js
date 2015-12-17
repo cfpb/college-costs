@@ -41,6 +41,10 @@ var financialModel = {
     model.loanTotal =
       model.federalTotal + model.totalPrivateLoans;
 
+    // remaining cost
+    model.remainingCost =
+      model.totalCost - model.totalContributions - model.loanTotal;
+
     // monthly expenses
     model.totalMonthlyExpenses =
       model.monthlyRent + model.monthlyFood +
