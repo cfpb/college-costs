@@ -30,6 +30,21 @@ var financialModel = {
     // total contributions
     model.totalContributions =
       model.savings + model.family + model.workstudy;
+
+    // total private loans
+    //TODO: accomodate for multiple private loans
+    model.totalPrivateLoans =
+      model.privateLoan + model.paymentPlan;
+
+    // loan totals
+    model.loanTotal =
+      model.federalTotal + model.totalPrivateLoans;
+
+    // monthly expenses
+    model.totalMonthlyExpenses =
+      model.monthlyRent + model.monthlyFood +
+      model.monthlyTransportation + model.monthlyInsurance +
+      model.monthlySavings + model.monthlyOther;
   }
 };
 module.exports = financialModel;
