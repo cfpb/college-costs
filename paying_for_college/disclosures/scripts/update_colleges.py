@@ -138,4 +138,4 @@ def update(exclude_ids=[], single_school=None):
     return (FAILED, NO_DATA, endmsg)
 
 if __name__ == '__main__':
-    no_data = update()
+    (failed, no_data, endmsg) = update()
