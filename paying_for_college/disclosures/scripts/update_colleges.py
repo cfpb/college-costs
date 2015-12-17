@@ -36,7 +36,7 @@ def fix_json(jstring):
         return {}
 
 
-def update():
+def update(exclude_ids=[], single_school=None):
     """update college-level data for current year"""
     print("This job is paced to be kind to the Ed API;\n\
           it can take an hour or more to run.")
@@ -49,8 +49,14 @@ def update():
     update_count = 0
     bad_json_count = 0
     id_url = "{0}&id={1}&fields={2}"
-    for school in School.objects.filter(operating=True)[:20]:
-        # print("{0}".format(school))
+    if single_school:
+        base_query = School.objects.filter(pk=single_school)
+        print("updating {0}".format(base_query[0]))
+    else:
+        base_query = School.objects.filter(operating=True)
+        if exclude_ids:
+            base_query = base_query.exclude(pk__in=exclude_ids)
+    for school in base_query:
         processed += 1
         sys.stdout.write('.')
         sys.stdout.flush()
@@ -114,13 +120,13 @@ def update():
     API response failures: {3}\n\
     {4} schools had malformed data_json; {5} of those couldn't be fixed.\n\
     \n{6} took {7} to run".format(processed,
-                                update_count,
-                                len(NO_DATA),
-                                len(FAILED),
-                                bad_json_count,
-                                len(BAD_JSON),
-                                SCRIPTNAME,
-                                (datetime.datetime.now()-starter))
+                                  update_count,
+                                  len(NO_DATA),
+                                  len(FAILED),
+                                  bad_json_count,
+                                  len(BAD_JSON),
+                                  SCRIPTNAME,
+                                  (datetime.datetime.now()-starter))
     if NO_DATA:
         endmsg += "\nA list of schools that had no API data was saved to {0}".format(NO_DATA_FILE)
         no_data_dict = {}
@@ -129,7 +135,7 @@ def update():
         with open(NO_DATA_FILE, 'w') as f:
             f.write(json.dumps(no_data_dict))
     print(endmsg)
-    return (FAILED, NO_DATA, endmsg)
+    return NO_DATA
 
 if __name__ == '__main__':
-    (failed, no_data, endmsg) = update()
+    no_data = update()

@@ -15,14 +15,16 @@ from https://api.data.gov/signup/
 from __future__ import print_function
 import os
 import sys
-import csv
 import json
 import datetime
 from copy import copy
 from decimal import Decimal
 
-# import csvkit
 import requests
+try:
+    from csvkit import CSVKitWriter as cwriter
+except:
+    from csv import writer as cwriter
 
 from paying_for_college.models import ConstantCap
 
@@ -30,6 +32,10 @@ try:
     LATEST_YEAR = ConstantCap.objects.get(slug='latest_year').value
 except:  # pragma: no cover
     LATEST_YEAR = 2013
+try:
+    LATEST_SALARY_YEAR = ConstantCap.objects.get(slug='latest_salary_year').value
+except:  # pragma: no cover
+    LATEST_YEAR = 2011
 
 try:
     API_KEY = os.getenv('ED_API_KEY')
@@ -55,15 +61,18 @@ MODEL_MAP = {
     'school.operating': 'operating',
     'school.under_investigation': 'under_investigation',
     'school.zip': 'zip5',
+    '{0}.completion.completion_rate_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate',
+    '{0}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate',
+    '{0}.repayment.repayment_cohort.3_year_declining_balance'.format(LATEST_YEAR): 'repay_3yr',  # NEW
+    '{0}.repayment.3_yr_default_rate'.format(LATEST_YEAR): 'default_rate',
+    '{0}.aid.median_debt_suppressed.overall'.format(LATEST_YEAR): 'median_total_debt',
+    '{0}.aid.median_debt_suppressed.completers.monthly_payments'.format(LATEST_YEAR): 'median_monthly_debt',  # NEW
+    '{0}.earnings.10_yrs_after_entry.median'.format(LATEST_SALARY_YEAR): 'median_annual_pay',
 }
 
 JSON_MAP = {
     # '{0}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
     # '{0}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
-    '{0}.repayment.repayment_cohort.3_year_declining_balance'.format(LATEST_YEAR): 'REPAY3YR',  # NEW
-    '{0}.repayment.3_yr_default_rate'.format(LATEST_YEAR): 'DEFAULTRATE',
-    '{0}.aid.median_debt_suppressed.overall'.format(LATEST_YEAR): 'AVGSTULOANDEBT',
-    '{0}.aid.median_debt_suppressed.completers.monthly_payments'.format(LATEST_YEAR): 'MEDIANDEBTCOMPLETER',  # NEW
 }
 
 BASE_FIELDS = [
@@ -87,6 +96,8 @@ BASE_FIELDS = [
 ]
 
 YEAR_FIELDS = [
+    'completion.completion_rate_4yr_150nt_pooled',
+    'completion.completion_rate_less_than_4yr_150nt_pooled',
     'cost.attendance.academic_year',
     'cost.attendance.program_year',
     'cost.tuition.in_state',
@@ -241,8 +252,7 @@ def export_spreadsheet(year):
             next_page = nextdata['metadata']['page'] + 1
     try:
         with open('schools_{0}.csv'.format(year), 'w') as f:
-            # writer = csvkit.CSVKitWriter(f)
-            writer = csv.writer(f)
+            writer = cwriter(f)
             writer.writerow(headings)
             for school_id in collector:
                 writer.writerow([
