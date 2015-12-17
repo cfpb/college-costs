@@ -47,7 +47,7 @@ class ConstantCap(models.Model):
 # CITY (now school.city)
 # CONTROL (now school.control)
 # DEFAULTRATE
-# GRADRATE
+# GRADRATE -- now school.grad_rate
 # GRADRATERANK -- not needed, DELETE
 # INDICATORGROUP
 # KBYOSS (now school.KBYOSS) -- not needed, DELETE
@@ -107,6 +107,36 @@ class School(models.Model):
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
+
+    grad_rate_4yr = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate_lt4 = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate = models.DecimalField(max_digits=4,
+                                    decimal_places=2,
+                                    blank=True, null=True,
+                                    help_text="A 2-YEAR POOLED VALUE")
+    repay_3yr = models.DecimalField(max_digits=13,
+                                    decimal_places=10,
+                                    blank=True, null=True,
+                                    help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
+    default_rate = models.DecimalField(max_digits=4,
+                                       decimal_places=3,
+                                       blank=True, null=True,
+                                       help_text="LOAN DEFAULT RATE AT 3 YRS")
+    median_total_debt = models.DecimalField(max_digits=7,
+                                       decimal_places=1,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT DEBT")
+    median_monthly_debt = models.DecimalField(max_digits=14,
+                                       decimal_places=9,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT MONTHLY DEBT PAYMENT")
+    median_annual_pay = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id

@@ -37,6 +37,7 @@ urlpatterns = [
 ]
 
 if STANDALONE:
+    admin.autodiscover()
     urlpatterns += [
     url(r'^paying-for-college2/admin/', include(admin.site.urls)),
     url(r'^paying-for-college2/$',
