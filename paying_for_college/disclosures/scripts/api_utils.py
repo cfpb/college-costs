@@ -35,7 +35,7 @@ except:  # pragma: no cover
 try:
     LATEST_SALARY_YEAR = ConstantCap.objects.get(slug='latest_salary_year').value
 except:  # pragma: no cover
-    LATEST_YEAR = 2011
+    LATEST_SALARY_YEAR = 2011
 
 try:
     API_KEY = os.getenv('ED_API_KEY')
