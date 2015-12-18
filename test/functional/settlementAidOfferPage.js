@@ -18,54 +18,54 @@ settlementAidOfferPage.prototype = Object.create({}, {
     // Step 1: Review your first year offer
     reviewSection: { get: function () { return element(by.css('.review')); } },
     tuitionFeesCosts: { get: function () { return element(by.id('costs__tuition'])); } },
-    setTuitionFeesCosts: { get: function (tuition) { tuitionFeesCosts.sendKeys(tuition); } },
+    setTuitionFeesCosts: { get: function (tuition) { this.tuitionFeesCosts.sendKeys(tuition); } },
     housingMealsCosts: { get: function () { return element(by.id('costs__room-and-board'])); } },
-    setHousingMealsCosts: { get: function (housing) { housingMealsCosts.sendKeys(housing); } },
+    setHousingMealsCosts: { get: function (housing) { this.housingMealsCosts.sendKeys(housing); } },
     booksSuppliesCosts: { get: function () { return element(by.id('costs__books'])); } },
-    setBooksSuppliesCosts: { get: function (books) { booksSuppliesCosts.sendKeys(books); } },
+    setBooksSuppliesCosts: { get: function (books) { this.booksSuppliesCosts.sendKeys(books); } },
     transportationCosts: { get: function () { return element(by.id('costs__transportation'])); } },
-    setTransportationCosts: { get: function (transportation) { transportationCosts.sendKeys(transportation); } },
+    setTransportationCosts: { get: function (transportation) { this.transportationCosts.sendKeys(transportation); } },
     otherEducationCosts: { get: function () { return element(by.id('costs__other'])); } },
-    setOtherEducationCosts: { get: function (othercosts) { otherEducationCosts.sendKeys(othercosts); } },
+    setOtherEducationCosts: { get: function (othercosts) { this.otherEducationCosts.sendKeys(othercosts); } },
     totalCostOfAttendance: { get: function () { return element(by.css('span[data-financial="costOfAttendance"]'])); } },
     federalPellGrants: { get: function () { return element(by.id('grants__pell'])); } },
-    setFederalPellGrants: { get: function (pellgrant) { federalPellGrants.sendKeys(pellgrant); } },
+    setFederalPellGrants: { get: function (pellgrant) { this.federalPellGrants.sendKeys(pellgrant); } },
     schoolScholarships: { get: function () { return element(by.id('grants__school-scholarships'])); } },
-    setSchoolScholarships: { get: function (schoolscholarships) { schoolScholarships.sendKeys(schoolscholarships); } },
+    setSchoolScholarships: { get: function (schoolscholarships) { this.schoolScholarships.sendKeys(schoolscholarships); } },
     stateScholarships: { get: function () { return element(by.id('grants__state-scholarships'])); } },
-    setStateScholarships: { get: function (statescholarships) { stateScholarships.sendKeys(statescholarships); } },
+    setStateScholarships: { get: function (statescholarships) { this.stateScholarships.sendKeys(statescholarships); } },
     otherGrantsScholarships: { get: function () { return element(by.id('grants__other-scholarships'])); } },
-    setOtherGrantsScholarships: { get: function (othergrants) { otherGrantsScholarships.sendKeys(othergrants); } },
+    setOtherGrantsScholarships: { get: function (othergrants) { this.otherGrantsScholarships.sendKeys(othergrants); } },
     totalGrantsScholarships: { get: function () { return element(by.css('span[data-financial="totalGrantsScholarships"]'])); } },
     studentTotalCost: { get: function () { return element(by.css('span[data-financial="totalCost"]'])); } },
     studentContribution: { get: function () { return element(by.id('contrib__savings'])); } },
-    setStudentContribution: { get: function (studentcontrib) { studentContribution.sendKeys(studentcontrib); } },
+    setStudentContribution: { get: function (studentcontrib) { this.studentContribution.sendKeys(studentcontrib); } },
     familyContribution: { get: function () { return element(by.id('contrib__family'])); } },
-    setFamilyContribution: { get: function (familycontrib) { familyContribution.sendKeys(familycontrib); } },
+    setFamilyContribution: { get: function (familycontrib) { this.familyContribution.sendKeys(familycontrib); } },
     workStudyContribution: { get: function () { return element(by.id('contrib__workstudy'])); } },
-    setWorkStudyContribution: { get: function (workstudy) { workStudyContribution.sendKeys(workstudy); } },
+    setWorkStudyContribution: { get: function (workstudy) { this.workStudyContribution.sendKeys(workstudy); } },
     totalContributions: { get: function () { return element(by.css('span[data-financial="totalContributions"]'])); } },
     federalPerkinsLoans: { get: function () { return element(by.id('contrib__perkins'])); } },
-    setFederalPerkinsLoans: { get: function (perkins) { federalPerkinsLoans.sendKeys(perkins); } },
+    setFederalPerkinsLoans: { get: function (perkins) { this.federalPerkinsLoans.sendKeys(perkins); } },
     subsidizedLoans: { get: function () { return element(by.id('contrib__subsidized'])); } },
-    setSubsidizedLoans: { get: function (subsidized) { subsidizedLoans.sendKeys(subsidized); } },
+    setSubsidizedLoans: { get: function (subsidized) { this.subsidizedLoans.sendKeys(subsidized); } },
     unsubsidizedLoans: { get: function () { return element(by.id('contrib__unsubsidized'])); } },
-    setUnsubsidizedLoans: { get: function (unsubsidized) { unsubsidizedLoans.sendKeys(unsubsidized); } },
+    setUnsubsidizedLoans: { get: function (unsubsidized) { this.unsubsidizedLoans.sendKeys(unsubsidized); } },
     directPLUSLoans: { get: function () { return element(by.id('contrib__direct-plus'])); } },
-    setDirectPLUSLoans: { get: function (directplus) { directPLUSLoans.sendKeys(directplus); } },
+    setDirectPLUSLoans: { get: function (directplus) { this.directPLUSLoans.sendKeys(directplus); } },
     totalFederalLoans: { get: function () { return element(by.css('span[data-financial="totalFederalLoans"]'])); } },
     // TODO: Refactor this here and in the HTML/CSS for multiple private loans?
     privateLoanAmount: { get: function () { return element(by.id('contrib__private-loan'])); } },
-    setPrivateLoanAmount: { get: function (privateamount) { privateLoanAmount.sendKeys(privateamount); } },
+    setPrivateLoanAmount: { get: function (privateamount) { this.privateLoanAmount.sendKeys(privateamount); } },
     privateLoanInterestRate: { get: function () { return element(by.id('contrib__private-loan-interest'])); } },
-    setPrivateLoanInterestRate: { get: function (privateinterest) { privateLoanInterestRate.sendKeys(privateinterest); } },
+    setPrivateLoanInterestRate: { get: function (privateinterest) { this.privateLoanInterestRate.sendKeys(privateinterest); } },
     privateLoanFees: { get: function () { return element(by.id('contrib__private-loan-fees'])); } },
-    setPrivateLoanFees: { get: function (privatefees) { privateLoanFees.sendKeys(privatefees); } },
+    setPrivateLoanFees: { get: function (privatefees) { this.privateLoanFees.sendKeys(privatefees); } },
     privateLoanGracePeriod { get: function () { return element(by.id('contrib__private-loan-grace-period'])); } },
-    setPrivateLoanGracePeriod: { get: function (privategrace) { privateLoanGracePeriod.sendKeys(privategrace); } },
+    setPrivateLoanGracePeriod: { get: function (privategrace) { this.privateLoanGracePeriod.sendKeys(privategrace); } },
     addPrivateLoanButton { get: function () { return element(by.css('a[title="Add another private loan"]'])); } },
     paymentPlanAmount: { get: function () { return element(by.id('contrib__payment-plan'])); } },
-    setPrivateLoanAmount: { get: function (privateamount) { privateLoanAmount.sendKeys(privateamount); } },
+    setPrivateLoanAmount: { get: function (privateamount) { this.privateLoanAmount.sendKeys(privateamount); } },
     paymentPlanInterestRate: { get: function () { return element(by.id('contrib__payment-plan-interest'])); } },
     paymentPlanDueDate: { get: function () { return element(by.id('contrib__payment-plan-due-date'])); } },
     totalPrivateLoansPaymentPlans: { get: function () { return element(by.css('span[data-financial="totalPrivateLoans"]'])); } },
@@ -75,35 +75,35 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalRepayment: { get: function () { return element(by.css('span[data-financial="totalRepayment"]'])); } },
     addUpCostOfAttendance: { value: function () {
         // return the sum of the values of the cost fields
-        return ( tuitionFeesCosts.val() + housingMealsCosts.val() + booksSuppliesCosts.val() + transportationCosts.val() + otherEducationCosts.val() );
+        return ( this.tuitionFeesCosts.val() + this.housingMealsCosts.val() + this.booksSuppliesCosts.val() + this.transportationCosts.val() + this.otherEducationCosts.val() );
     } },
     addUpGrantsScholarships: { value: function () {
         // return the sum of the values of the grant and scholarship fields
-        return ( federalPellGrants.val() + schoolScholarships.val() + stateScholarships.val() + otherGrantsScholarships.val() );
+        return ( this.federalPellGrants.val() + this.schoolScholarships.val() + this.stateScholarships.val() + this.otherGrantsScholarships.val() );
     } },
     addUpTotalCost: { value: function () {
         // return the sum of the values of the grant and scholarship fields
-        return ( addUpCostOfAttendance.val() - addUpGrantsScholarships.val() );
+        return ( this.addUpCostOfAttendance.val() - this.addUpGrantsScholarships.val() );
     } },
     addUpContributions: { value: function () {
         // return the sum of the values of the contribution fields
-        return ( studentContribution.val() + familyContribution.val() + workStudyContribution.val() );
+        return ( this.studentContribution.val() + this.familyContribution.val() + this.workStudyContribution.val() );
     } },
     addUpFederalLoans: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( federalPerkinsLoans.val() + subsidizedLoans.val() + unsubsidizedLoans.val() + directPLUSLoans.val() );
+        return ( this.federalPerkinsLoans.val() + this.subsidizedLoans.val() + this.unsubsidizedLoans.val() + this.directPLUSLoans.val() );
     } },
     addUpPrivateLoansPaymentPlans: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( privateLoanAmount.val() + paymentPlanAmount.val() );
+        return ( this.privateLoanAmount.val() + this.paymentPlanAmount.val() );
     } },
     addUpTotalDebt: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( addUpFederalLoans.val() + addUpPrivateLoansPaymentPlans.val() );
+        return ( this.addUpFederalLoans.val() + this.addUpPrivateLoansPaymentPlans.val() );
     } },
     addUpRemainingCost: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( addUpTotalCost.val() - addUpContributions.val() - addUpTotalDebt.val() );
+        return ( this.addUpTotalCost.val() - this.addUpContributions.val() - this.addUpTotalDebt.val() );
     } },
     // Step 2: Evaluate your offer
     evaluateSection: { get: function () { return element(by.css('.evaluate')); } },

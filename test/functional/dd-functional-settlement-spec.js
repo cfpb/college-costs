@@ -1,36 +1,38 @@
-describe("A settlement student with a financial aid offer", function() {
+'use strict';
+
+var SettlementPage = require('../settlementAidOfferPage.js');
+
+describe('A settlement aid offer page', function () {
+	var page;
 	var EC = protractor.ExpectedConditions;
 
-	// TODO: We will need to add offer variables to the end of the following URL.
-	beforeEach(function() {
-		browser.get('http://localhost:8000/paying-for-college/demo/'); 
-  	});
+	beforeEach(function () {
+		page = new SettlementPage();
+	});
 
-	it('should be provided with the correct page', function(){
+	it('should provide a student with the right page', function(){
 		expect(browser.getTitle()).toBe('Just a demo! > Consumer Financial Protection Bureau');
 	});
 
-	describe("should be able to access the URL", function() {
-
-		it('and view the verify offer area', function(){
-			var verify = element(by.id('verify'));
-			EC.visibilityOf(verify);
-		});
-		
+	it('should contain an offer ID', function(){
+		expect(browser.getCurrentUrl()).toContain('oid');
 	});
 
-	describe("should be able to report incorrect aid offer information", function() {
+	// TODO - Add expectation that other sections are invisible
+	it('should display the verify offer area first and no other sections', function(){			
+		expect(EC.visibilityOf(page.verifySection));
+	});
 
-		it('and see information about contacting the school', function(){
-		 	var wrongInfo = element(by.id('verify-wrong-info-btn'));
-	    	wrongInfo.click();
-	    	EC.visibilityOf(element(by.id('contact-your-school')));
-		});
+	// TODO - Add expectation that verification buttons disappear and that Step 3 is hidden
+	it("should let a student verify their information and go on to Step 1 and Step 2 of the offer", function() {
+		page.confirmVerification();
+		expect(EC.visibilityOf(page.reviewSection));
+		expect(EC.visibilityOf(page.evaluateSection));
+	});
 
-		it('and have the school be contacted', function(){
-	    	element(by.id('verify-wrong-info-btn')).click();
-		});
-		
+	// TODO - Add expectation that verification buttons disappear, offer ssections are not visible, and that next steps for incorrect info are displayed
+	it("should let a student report incorrect aid offer information", function() {
+		page.denyVerification();
 	});
 	
 });
