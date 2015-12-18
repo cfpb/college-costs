@@ -469,9 +469,15 @@
 }
 
 .bar-graph {
-  @bar-graph-width:       45px;
-  @bar-graph-height:      130px;
-  @bar-graph-line-width:  51px;
+  @bar-graph-width:                45px;
+  @bar-graph-height:              130px;
+  @bar-graph-label-width:         135px;
+  @bar-graph-value-min-width:      95px;
+  @bar-graph-you-font-size:        18px;
+  @bar-graph-average-font-size:    16px;
+  @bar-graph-line-overhang:         6px;
+  // A little cheat to make the line look vertically centered
+  @bar-graph-line-top-cheat:        3px;
 
   height: @bar-graph-height;
   margin-bottom: unit(10px / @base-font-size-px, em);
@@ -482,21 +488,33 @@
     position: absolute;
   }
 
-  &_row {
-    .grid_nested-col-group();
-  }
-
   &_label,
   &_value {
-    .grid_column(6);
+    position: absolute;
+    top: 0;
+    background-color: @white;
+
+    .respond-to-min(@bp-sm-min, {
+      background-color: @gray-5;
+    });
+  }
+
+  &_label {
+    width: @bar-graph-label-width;
+    left: 0;
+    z-index: 10;
+  }
+
+  &_value {
+    min-width: @bar-graph-value-min-width;
+    padding-left: 8px;
+    right: 0;
   }
 
   &_line {
-    display: inline-block;
-    width: @bar-graph-line-width;
+    width: 100%;
     border-top-width: 3px;
-    margin-bottom: 5px;
-    margin-right: 5px;
+    position: absolute;
   }
 
   &_number {
@@ -506,7 +524,7 @@
   &_bar {
     width: @bar-graph-width;
     height: @bar-graph-height;
-    margin-left: unit( (@grid_gutter-width / 2) + (@bar-graph-line-width - @bar-graph-width) / 2, px);
+    margin-left: -@bar-graph-line-overhang;
     position: absolute;
     top: 0;
     left: 50%;
@@ -514,15 +532,13 @@
   }
 
   &_point__you {
-
-    .bar-graph_number{
-      .webfont-medium();
-      font-size: unit(18px / @base-font-size-px, em);
-    }
+    .webfont-medium();
+    font-size: unit(@bar-graph-you-font-size / @base-font-size-px, em);
 
     .bar-graph_line {
       border-top-color: @black;
       border-top-style: solid;
+      top: unit( (@bar-graph-you-font-size + @bar-graph-line-top-cheat) / 2, px);
     }
   }
 
@@ -532,6 +548,7 @@
     .bar-graph_line {
       border-top-color: @dark-gray;
       border-top-style: dotted;
+      top: unit( (@bar-graph-average-font-size + @bar-graph-line-top-cheat) / 2, px);
     }
   }
 }
