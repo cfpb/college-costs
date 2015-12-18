@@ -37,27 +37,27 @@ class ConstantCap(models.Model):
 
 
 # data_json fields:
-# ALIAS (not needed)
+# ALIAS -- not needed, DELETE
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
-# AVGSTULOANDEBTRANK
-# BADALIAS (not needed)
-# BAH 1356 (no longer needed)
+# AVGSTULOANDEBTRANK -- not needed, DELETE
+# BADALIAS -- not needed, DELETE
+# BAH 1356 -- not needed, DELETE
 # BOOKS
 # CITY (now school.city)
 # CONTROL (now school.control)
 # DEFAULTRATE
-# GRADRATE
-# GRADRATERANK
+# GRADRATE -- now school.grad_rate
+# GRADRATERANK -- not needed, DELETE
 # INDICATORGROUP
-# KBYOSS (now school.KBYOSS)
+# KBYOSS (now school.KBYOSS) -- not needed, DELETE
 # MEDIANDEBTCOMPLETER # new in 2015
-# NETPRICE110K
-# NETPRICE3OK
-# NETPRICE48K
-# NETPRICE75K
-# NETPRICEGENERAL
-# NETPRICEOK
+# NETPRICE110K -- not needed, DELETE
+# NETPRICE3OK -- not needed, DELETE
+# NETPRICE48K -- not needed, DELETE
+# NETPRICE75K -- not needed, DELETE
+# NETPRICEGENERAL -- not needed, DELETE
+# NETPRICEOK -- not needed, DELETE
 # OFFERAA
 # OFFERBA
 # OFFERGRAD
@@ -66,8 +66,8 @@ class ConstantCap(models.Model):
 # OTHEROFFCAMPUS
 # OTHERONCAMPUS
 # OTHERWFAMILY
-# RETENTRATE
-# RETENTRATELT4 # new in 2015
+# RETENTRATE -- not needed, DELETE
+# RETENTRATELT4 # new in 2015 -- not needed, DELETE
 # REPAY3YR # new in 2015
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
@@ -107,6 +107,36 @@ class School(models.Model):
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
+
+    grad_rate_4yr = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate_lt4 = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate = models.DecimalField(max_digits=4,
+                                    decimal_places=2,
+                                    blank=True, null=True,
+                                    help_text="A 2-YEAR POOLED VALUE")
+    repay_3yr = models.DecimalField(max_digits=13,
+                                    decimal_places=10,
+                                    blank=True, null=True,
+                                    help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
+    default_rate = models.DecimalField(max_digits=4,
+                                       decimal_places=3,
+                                       blank=True, null=True,
+                                       help_text="LOAN DEFAULT RATE AT 3 YRS")
+    median_total_debt = models.DecimalField(max_digits=7,
+                                       decimal_places=1,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT DEBT")
+    median_monthly_debt = models.DecimalField(max_digits=14,
+                                       decimal_places=9,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT MONTHLY DEBT PAYMENT")
+    median_annual_pay = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
