@@ -8,7 +8,6 @@ var financialModel = {
 
   init: function() {
     var val = getViewValues.init();
-    console.log( val );
     this.calc( val );
   },
 
