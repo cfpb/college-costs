@@ -14,12 +14,14 @@ class SchoolAliasTest(TestCase):
                       data_json='',
                       accreditor="Almighty Wizard",
                       city="Emerald City",
+                      degrees_highest="3",
                       state="OZ",
                       ope6=5555,
                       ope8=555500):
         return School.objects.create(school_id=ID,
                                      data_json=data_json,
                                      accreditor=accreditor,
+                                     degrees_highest=degrees_highest,
                                      city=city,
                                      state=state,
                                      ope6_id=ope6,
@@ -41,7 +43,8 @@ class SchoolAliasTest(TestCase):
 
     def create_program(self, school):
         return Program.objects.create(institution=school,
-                                      program_name='Hacking')
+                                      program_name='Hacking',
+                                      level='5')
 
     def create_disclosure(self, school):
         return Disclosure.objects.create(institution=school,
@@ -70,12 +73,17 @@ class SchoolAliasTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
+        self.assertTrue(p.program_name in p.dump_json())
+        self.assertTrue('Bachelor' in p.get_level())
         self.assertTrue(print_vals(s) is None)
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
         self.assertTrue("Emerald City" in print_vals(s, noprint=True))
         self.assertTrue(s.convert_ope6() == '005555')
         self.assertTrue(s.convert_ope8() == '00555500')
+        # print("school.degrees_highest is '{0}'".format(s.degrees_highest))
+        # print("school.get_highest_degree returns '{0}'".format(s.get_highest_degree()))
+        self.assertTrue('Bachelor' in s.get_highest_degree())
         s.ope6_id = 555555
         s.ope8_id = 55555500
         self.assertTrue(s.convert_ope6() == '555555')
