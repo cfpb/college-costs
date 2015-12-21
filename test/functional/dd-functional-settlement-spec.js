@@ -20,7 +20,7 @@ describe('A dynamic financial aid disclosure that\'s required by settlement', fu
 	});
 
 	// TODO - Add expectation that other sections are invisible
-	it('should display the verify offer area first and no other sections', function() {			
+	it('should display the verify offer area first and no other sections', function() {
 		browser.wait(EC.visibilityOf(page.verifySection), 8000);
 	});
 
@@ -42,8 +42,9 @@ describe('A dynamic financial aid disclosure that\'s required by settlement', fu
 	it("should properly update when the tuition is modified", function() {
 		page.confirmVerification();
 		page.setTuitionFeesCosts(35000);
-		expect(page.addUpCostOfAttendance()).toEqual(page.totalCostOfAttendance.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		var tuitionFeesCosts = element(by.id('costs__tuition'));
+		expect(tuitionFeesCosts.getAttribute('value')).toEqual(page.totalCostOfAttendance.getText());
+		expect(tuitionFeesCosts.getAttribute('value')).toEqual(page.studentTotalCost.getText());
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
@@ -91,7 +92,7 @@ describe('A dynamic financial aid disclosure that\'s required by settlement', fu
 		expect(page.addUpGrantsScholarships()).toEqual(page.totalGrantsScholarships.getText());
 		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
-	});	
+	});
 
 	// TODO - Test Federal Pell grants above the limit
 

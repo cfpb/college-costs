@@ -6,8 +6,8 @@ var settlementAidOfferPage = function () {
 };
 
 settlementAidOfferPage.prototype = Object.create({}, {
-    verifySection: { get: function () { return element(by.css('.verify_wrapper')); }}, 
-    correctInfoButton: { get: function () { return element(by.css('button[title="Yes, this information is correct"]')); } }, 
+    verifySection: { get: function () { return element(by.css('.verify_wrapper')); }},
+    correctInfoButton: { get: function () { return element(by.css('button[title="Yes, this information is correct"]')); } },
     incorrectInfoButton: { get: function () { return element(by.css('button[title="No, this is not my information"]')); } },
     confirmVerification: { value: function () {
         this.correctInfoButton.click();
@@ -75,54 +75,53 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalProgramDebt: { get: function () { return element(by.css('span[data-financial="totalProgramDebt"]')); } },
     totalRepayment: { get: function () { return element(by.css('span[data-financial="totalRepayment"]')); } },
     addUpCostOfAttendance: { value: function () {
-        // return the sum of the values of the cost fields
-        return ( +this.tuitionFeesCosts.value );
+
     } },
     addUpGrantsScholarships: { value: function () {
         // return the sum of the values of the grant and scholarship fields
-        return ( this.federalPellGrants.value + 
-            /* this.schoolScholarships.getText() + 
-            this.stateScholarships.getText() + */ 
+        return ( this.federalPellGrants.value +
+            /* this.schoolScholarships.getText() +
+            this.stateScholarships.getText() + */
             this.otherGrantsScholarships.value );
     } },
     addUpTotalCost: { value: function () {
         // return the sum of the values of the grant and scholarship fields
-        return ( this.addUpCostOfAttendance() - 
+        return ( this.addUpCostOfAttendance() -
             this.addUpGrantsScholarships() );
     } },
     addUpContributions: { value: function () {
         // return the sum of the values of the contribution fields
-        return ( this.studentContribution.value + 
-            this.familyContribution.value + 
+        return ( this.studentContribution.value +
+            this.familyContribution.value +
             this.workStudyContribution.value );
     } },
     addUpFederalLoans: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( this.federalPerkinsLoans.getText() + 
-            this.subsidizedLoans.getText() + 
-            this.unsubsidizedLoans.getText() + 
+        return ( this.federalPerkinsLoans.getText() +
+            this.subsidizedLoans.getText() +
+            this.unsubsidizedLoans.getText() +
             this.directPLUSLoans.getText() );
     } },
     addUpPrivateLoansPaymentPlans: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( this.privateLoanAmount.getText() + 
+        return ( this.privateLoanAmount.getText() +
             this.paymentPlanAmount.getText() );
     } },
     addUpTotalDebt: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( this.addUpFederalLoans() + 
+        return ( this.addUpFederalLoans() +
             this.addUpPrivateLoansPaymentPlans() );
     } },
     addUpRemainingCost: { value: function () {
         // return the sum of the values of the federal loan fields
-        return ( this.addUpTotalCost() - this.addUpContributions() - 
+        return ( this.addUpTotalCost() - this.addUpContributions() -
             this.addUpTotalDebt() );
     } },
     // Step 2: Evaluate your offer
     evaluateSection: { get: function () { return element(by.css('.evaluate')); } },
     // Step 3: You have options / A few more things to consider
     optionsConsiderationsSection: { get: function () { return element(by.css('.get-options')); } }
-    
+
 } );
 
 module.exports = settlementAidOfferPage;
