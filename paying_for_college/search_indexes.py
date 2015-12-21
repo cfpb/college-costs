@@ -13,7 +13,7 @@ class SchoolIndex(indexes.SearchIndex, indexes.Indexable):
         return School
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter(operating=True)
 
     def prepare_autocomplete(self, obj):
         alias_strings = [a.alias for a in obj.alias_set.all()]

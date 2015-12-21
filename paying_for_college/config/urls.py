@@ -28,15 +28,16 @@ urlpatterns = [
         BaseTemplateView.as_view(template_name='just-a-demo.html'),
         name='pfc-demo'),
     url(r'^know-before-you-owe-student-debt/$',
-        BaseTemplateView.as_view(template_name='just-a-demo.html'),
+        BaseTemplateView.as_view(template_name='kbyo-static.html'),
         name='pfc-kbyo'),
     url(r'^student-loan-forgiveness-pledge/$',
-        BaseTemplateView.as_view(template_name='just-a-demo.html'),
+        BaseTemplateView.as_view(template_name='pledge-static.html'),
         name='pfc-pledge'),
 
 ]
 
 if STANDALONE:
+    admin.autodiscover()
     urlpatterns += [
     url(r'^paying-for-college2/admin/', include(admin.site.urls)),
     url(r'^paying-for-college2/$',
@@ -57,9 +58,9 @@ if STANDALONE:
         BaseTemplateView.as_view(template_name='just-a-demo.html'),
         name='standalone-pfc-demo'),
     url(r'^paying-for-college2/know-before-you-owe-student-debt/$',
-        BaseTemplateView.as_view(template_name='just-a-demo.html'),
+        BaseTemplateView.as_view(template_name='kbyo-static.html'),
         name='standalone-pfc-kbyo'),
     url(r'^paying-for-college2/student-loan-forgiveness-pledge/$',
-        BaseTemplateView.as_view(template_name='just-a-demo.html'),
+        BaseTemplateView.as_view(template_name='pledge-static.html'),
         name='standalone-pfc-pledge'),
     ]

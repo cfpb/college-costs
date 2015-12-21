@@ -126,12 +126,12 @@
   border: 1px solid @gray;
 
   &__error {
-    background: @redorange-20;
+    background: @red-20;
     border-color: @input-error;
   }
 
   &__success {
-    background: @green-tint;
+    background: @green-20;
     border-color: @input-success;
   }
 
@@ -169,5 +169,63 @@
       display: block;
       font-size: @base-font-size-px;
     }
+  }
+}
+
+/* ==========================================================================
+   Big numbered lists (from Know Before You Owe)
+   ========================================================================== */
+
+@char-icon-size: unit(32px / @base-font-size-px, em);
+@char-icon-spacing: 0.5em;
+
+.char-icon {
+  box-sizing: border-box;
+  padding-left: @char-icon-size + @char-icon-spacing;
+  position: relative;
+
+  &:before {
+    display: block;
+    box-sizing: border-box;
+    width: @char-icon-size;
+    height: @char-icon-size;
+    border-radius: 100%;
+    margin-right: @char-icon-spacing;
+    position: absolute;
+    left: 0;
+    top: unit(@base-line-height - @char-icon-size, em);
+    background: @green-20;
+    color: @black;
+    .webfont-medium();
+    font-size: unit(18px / @base-font-size-px, em);
+    line-height: @char-icon-size;
+    text-align: center;
+    text-indent: 0;
+  }
+
+  &__1:before { content: '1'; }
+  &__2:before { content: '2'; }
+  &__3:before { content: '3'; }
+  &__4:before { content: '4'; }
+  &__5:before { content: '5'; }
+  &__6:before { content: '6'; }
+  &__7:before { content: '7'; }
+  &__8:before { content: '8'; }
+  &__9:before { content: '9'; }
+  &__0:before { content: '0'; }
+}
+
+// Ordered list with char-icon-style numerals
+.super-numerals {
+  padding-left: 0;
+  list-style: none;
+
+  & > li {
+    counter-increment: steps;
+    .char-icon();
+  }
+
+  & > li:before {
+    content: counter(steps);
   }
 }

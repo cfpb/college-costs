@@ -7,7 +7,12 @@
 {% block nemo_styles %}
 {% endblock %}
 {% block app_css %}
-<link rel="stylesheet" type="text/css" href="{% static "paying_for_college/disclosures/static/css/main.min.css" %}">
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="{% static "paying_for_college/disclosures/static/css/main.ie.css" %}">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="{% static "paying_for_college/disclosures/static/css/main.min.css" %}">
+<!--<![endif]-->
 {% endblock %}
 {% block responsive_nav %}
 <a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i><span class="u-visually-hidden">Menu</span></a>
@@ -138,7 +143,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="costs__tuition" name="costs__tuition" data-financial="tuitionFees" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="costs__tuition" name="costs__tuition" data-financial="tuitionFees" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__room-and-board">
@@ -147,7 +152,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__books">
@@ -156,7 +161,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="costs__books" name="costs__books" data-financial="books" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="costs__books" name="costs__books" data-financial="books" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__transportation">
@@ -165,7 +170,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__other">
@@ -174,7 +179,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="costs__other" name="costs__other" data-financial="otherExpenses" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="costs__other" name="costs__other" data-financial="otherExpenses" autocorrect="off" value="0">
                         </div>
                         <div class="content_line"></div>
                         <div class="line-item">
@@ -206,7 +211,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="grants__pell" name="grants__pell" data-financial="pell" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="grants__pell" name="grants__pell" data-financial="pell" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="grants__scholarships">
@@ -218,7 +223,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="grants__scholarships" name="grants__scholarships" data-financial="scholarships" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="grants__scholarships" name="grants__scholarships" data-financial="scholarships" autocorrect="off" value="0">
                         </div>
                         <div class="content_line"></div>
                         <div class="line-item">
@@ -294,7 +299,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__savings" name="contrib__savings" data-financial="savings" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__savings" name="contrib__savings" data-financial="savings" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="contrib__family">
@@ -306,7 +311,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__family" name="contrib__family" data-financial="family" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__family" name="contrib__family" data-financial="family" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="contrib__workstudy">
@@ -318,7 +323,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__workstudy" name="contrib__workstudy" data-financial="workstudy" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__workstudy" name="contrib__workstudy" data-financial="workstudy" autocorrect="off" value="0">
                         </div>
                     </div>
                 </form>
@@ -334,7 +339,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalCashYou"></span>
+                            <span class="line-item_amount" data-financial="savings"></span>
                         </div>
                     </div>
                     <div class="line-item">
@@ -348,7 +353,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalCashFamily"></span>
+                            <span class="line-item_amount" data-financial="family"></span>
                         </div>
                     </div>
                     <div class="line-item">
@@ -362,7 +367,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalWorkstudy"></span>
+                            <span class="line-item_amount" data-financial="workstudy"></span>
                         </div>
                     </div>
                     <div class="content_line"></div>
@@ -396,7 +401,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__perkins" name="contrib__perkins" data-financial="perkins" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__perkins" name="contrib__perkins" data-financial="perkins" autocorrect="off" value="0">
                             <div class="offer-part_terms">
                                 <p class="offer-part_term">
                                     5% interest
@@ -419,7 +424,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__subsidized" name="contrib__subsidized" data-financial="staffSubsidized" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__subsidized" name="contrib__subsidized" data-financial="staffSubsidized" autocorrect="off" value="0">
                             <div class="offer-part_terms">
                                 <p class="offer-part_term">
                                     4.29% interest
@@ -448,7 +453,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__unsubsidized" name="contrib__unsubsidized" data-financial="staffUnsubsidized" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__unsubsidized" name="contrib__unsubsidized" data-financial="staffUnsubsidized" autocorrect="off" value="0">
                             <div class="offer-part_terms">
                                 <p class="offer-part_term">
                                     4.29% interest
@@ -477,7 +482,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__direct-plus" name="contrib__direct-plus" data-financial="directPlus" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__direct-plus" name="contrib__direct-plus" data-financial="directPlus" autocorrect="off" value="0">
                             <div class="offer-part_terms offer-part_terms__last">
                                 <p class="offer-part_term">
                                     6.84% interest
@@ -507,7 +512,7 @@
                                 <span class="line-item_currency">
                                     $
                                 </span>
-                                <span class="line-item_amount" data-financial="totalFederalLoans"></span>
+                                <span class="line-item_amount" data-financial="federalTotal"></span>
                             </div>
                         </div>
                     </div>
@@ -527,7 +532,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" id="contrib__private-loan" name="contrib__private-loan" data-financial="privateLoan" autocorrect="off">
+                                    <input class="offer-part_input" type="text" id="contrib__private-loan" name="contrib__private-loan" data-financial="privateLoan" autocorrect="off" value="0">
                                 </div>
                                 <div class="form-group_item offer-part_non-currency">
                                     <label class="form-label" for="contrib__private-loan-interest">
@@ -536,7 +541,7 @@
                                     <p class="offer-part_definition">
                                         Starts accumulating when you sign the loan
                                     </p>
-                                    <input class="offer-part_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanInterest" autocorrect="off">
+                                    <input class="offer-part_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanInterest" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
                                         %
                                     </span>
@@ -548,7 +553,7 @@
                                     <p class="offer-part_definition">
                                         Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000)
                                     </p>
-                                    <input class="offer-part_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off">
+                                    <input class="offer-part_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
                                         %
                                     </span>
@@ -560,7 +565,7 @@
                                     <p class="offer-part_definition">
                                         The amount of time before you must begin repayment
                                     </p>
-                                    <input class="offer-part_input" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off">
+                                    <input class="offer-part_input" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
                                         months
                                     </span>
@@ -596,7 +601,7 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="paymentPlan" autocorrect="off">
+                            <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="paymentPlan" autocorrect="off" value="0">
                         </div>
                         <div class="offer-part_terms offer-part_terms__last">
                             <p class="offer-part_term">
@@ -634,7 +639,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalFederalLoans"></span>
+                            <span class="line-item_amount" data-financial="federalTotal"></span>
                         </div>
                     </div>
                     <div class="line-item">
@@ -660,7 +665,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalDebt"></span>
+                            <span class="line-item_amount" data-financial="loanTotal"></span>
                         </div>
                     </div>
                 </div>
@@ -707,7 +712,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalDebt"></span>
+                            <span class="line-item_amount" data-financial="loanTotal"></span>
                         </div>
                     </div>
                     <div class="content_line"></div>
@@ -738,7 +743,7 @@
                             <span class="line-item_currency">
                                 $
                             </span>
-                            <span class="line-item_amount" data-financial="totalDebt"></span>
+                            <span class="line-item_amount" data-financial="loanTotal"></span>
                         </div>
                     </div>
                     <div class="line-item">
@@ -889,7 +894,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlyRent" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlyRent" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="form-group_item offer-part_currency">
@@ -900,7 +905,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlyFood" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlyFood" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="form-group_item offer-part_currency">
@@ -911,7 +916,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlyTransportation" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlyTransportation" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="form-group_item offer-part_currency">
@@ -922,7 +927,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlyInsurance" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlyInsurance" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="form-group_item offer-part_currency">
@@ -933,7 +938,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlySavings" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlySavings" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="form-group_item offer-part_currency">
@@ -944,7 +949,7 @@
                                     <span class="offer-part_unit">
                                         $
                                     </span>
-                                    <input class="offer-part_input" type="text" data-expense="monthlyOther" autocorrect="off">
+                                    <input class="offer-part_input" type="text" data-financial="monthlyOther" autocorrect="off" value="0">
                                 </label>
                             </div>
                             <div class="content_line"></div>
@@ -956,7 +961,7 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-expense="totalMonthlyExpenses"></span>
+                                    <span class="line-item_amount" data-financial="totalMonthlyExpenses"></span>
                                 </div>
                             </div>
                         </form>
@@ -975,7 +980,7 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-expense="monthlySalary"></span>
+                                    <span class="line-item_amount" data-financial="monthlySalary"></span>
                                 </div>
                             </div>
                             <div class="line-item">
@@ -989,7 +994,7 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-expense="totalMonthlyExpenses"></span>
+                                    <span class="line-item_amount" data-financial="totalMonthlyExpenses"></span>
                                 </div>
                             </div>
                             <div class="line-item">
@@ -1003,7 +1008,7 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-expense="monthlyLoanPayment"></span>
+                                    <span class="line-item_amount" data-financial="monthlyLoanPayment"></span>
                                 </div>
                             </div>
                             <div class="content_line"></div>
@@ -1015,7 +1020,7 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-expense="monthlyLeftover"></span>
+                                    <span class="line-item_amount" data-financial="monthlyLeftover"></span>
                                 </div>
                             </div>
                         </div>
@@ -1190,179 +1195,166 @@
                     </section>
                 </section>
             </section>
-            <div class="block block__flush-sides block__bg question">
-                <h2 class="step_heading">
-                    Do you feel like acquiring this amount of debt by attending this school is a good investment in your future?
-                </h2>
-                <div class="question_answers">
-                    <button class="btn btn__grouped-first">
-                        No
-                    </button>
-                    <button class="btn btn__grouped">
-                        Yes
-                    </button>
-                    <button class="btn btn__grouped-last">
-                        Not sure
-                    </button>
+        </section>
+    </div>
+
+
+
+
+    <section class="question step">
+        <div class="content_wrapper">
+            <div class="content_main">
+                <div class="question_wrapper">
+                    <div class="question_content">
+                        <h2 class="step_heading">
+                            Do you feel like acquiring this amount of debt by attending this school is a good investment in your future?
+                        </h2>
+                        <div class="question_answers">
+                            <button class="btn btn__grouped-first">
+                                No
+                            </button>
+                            <button class="btn btn__grouped">
+                                Yes
+                            </button>
+                            <button class="btn btn__grouped-last">
+                                Not sure
+                            </button>
+                        </div>
+                        <p>
+                            Your response does not affect your ability to accept or reject the actual offer with your school.
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    Your response does not affect your ability to accept or reject the actual offer with your school.
-                </p>
             </div>
-            <section class="step get-options">
-                <h2 class="step_heading">
-                    Step 3: You have options
-                </h2>
-                <p>
-                    Rest assured that there are things you can do if you are uncertain about taking the next step. Here are some choices you can make that may help you improve your financial future.
-                </p>
-                <h2 class="step_heading">
-                    Step 3: A few more things to consider
-                </h2>
-                <p>
-                    It’s important to feel confident in the financial decisions you are making. Here are some additional choices you can make that may help you improve your financial future even more.
-                </p>
-                <section class="option option__first">
-                    <h3>
+        </div>
+    </section>
+    <section class="get-options step content_wrapper">
+        <div class="content_main">
+            <div class="get-options_wrapper">
+                <div class="get-options_intro get-options_intro__no">
+                    <h2 class="step_heading">
+                        Step 3: You have options
+                    </h2>
+                    <p class="step_intro">
+                        Rest assured that there are things you can do if you are uncertain about taking the next step. Here are some choices you can make that may help you improve your financial future.
+                    </p>
+                </div>
+                <div class="get-options_intro get-options_intro__yes-not-sure">
+                    <h2 class="step_heading">
+                        Step 3: A few more things to consider
+                    </h2>
+                    <p class="step_intro">
+                        It’s important to feel confident in the financial decisions you are making. Here are some additional choices you can make that may help you improve your financial future even more.
+                    </p>
+                </div>
+            </div>
+            <div class="get-options_wrapper">
+                <section class="option option__maximize-grants">
+                    <h3 class="option_heading">
                         Maximize all available grants and scholarships.
                     </h3>
                     <p>
                         Consider applying for <a href="https://studentaid.ed.gov/sa/types/grants-scholarships">additional scholarships and grants</a>,  which provide money you don’t have to repay. By increasing the amount of this type of aid, you can decrease the overall amount of debt you have to borrow—and consequently pay back.
                     </p>
                 </section>
-                <section class="option">
-                    <h3>
+                <section class="option option__reduce-costs">
+                    <h3 class="option_heading">
                         Reduce your living costs.
                     </h3>
                     <p>
                         Living at home or finding cheaper off-campus housing can <a href="https://studentaid.ed.gov/sa/prepare-for-college/choosing-schools/consider/costs#lower-costs">reduce the cost of attendance</a>, meaning you’ll need to borrow less money overall.
                     </p>
                 </section>
-                <section class="option">
-                    <h3>
+                <section class="option option__different-program">
+                    <h3 class="option_heading">
                         Consider a different program with better outcomes.
                     </h3>
                     <p>
                         Salaries are often influenced by the degree you earn. If the projected salary of your program is far below the national average, you might consider a different program with a higher projected earning potential. Ask your admission counselor or search for “gainful employment” on your school’s website to <a href="#">learn more about your projected salary</a>.
                     </p>
                 </section>
-                <section class="option">
-                    <h3>
+                <section class="option option__transfer-credits">
+                    <h3 class="option_heading">
                         Make sure you don’t have to take classes twice.
                     </h3>
                     <p>
                         <a href="http://www.consumer.ftc.gov/articles/0395-choosing-college-questions-ask">Ask if credits from your school transfer</a> to degrees earned at other schools. Only X% of students who start at this school finish here. In the case you decide to finish your education somewhere else, it’s important to know if the hard work you’ve put into your degree will be honored at another school.
                     </p>
                 </section>
-                <section class="option">
-                    <h3>
+                <section class="option option__explore-schools">
+                    <h3 class="option_heading">
                         Explore other schools that have similar programs.
                     </h3>
                     <p>
                         Review your total cost of attendance and determine if a less expensive school option (such as a community college) might also meet your educational needs. <a href="#">See all schools</a> that offer the same type of program in your area.
                     </p>
                 </section>
-                <h3 class="get-options_heading">
-                    What you can do
-                </h3>
-                <h3 class="get-options_heading">
-                    If you want to make a change
-                </h3>
-                <p>
-                    Using some of the strategies outlined above in the evaluation, try <a href="#">adjusting some of the offer amounts</a> in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.
-                </p>
-            </section>
-            <section class="step next-steps">
-                <h2 class="step_heading">
-                    Next steps
-                </h2>
-                <p>
-                    We have sent an email to your school notifying them that you have reviewed your personalized offer.
-                </p>
-                <p>
-                    You can now choose to move forward in the enrollment process.
-                </p>
-                <p>
-                    Next you will need to complete a brief training called <a href="https://studentaid.ed.gov/sa/fafsa/next-steps/entrance-counseling">Federal Loan Entrance Counseling</a>, which explains in more detail the federal loans being offered to you. This must be done before you can sign your promissory note, which will lock in your loans before you enroll.
-                </p>
-            </section>
-        </section>
-    </div>
+                <section class="option option__take-action column-well">
+                    <div class="column-well_content">
+                        <h3 class="column-well_header">
+                            What you can do
+                        </h3>
+                        <h3 class="column-well_header">
+                            If you want to make a change
+                        </h3>
+                        <p>
+                            Using some of the strategies outlined above in the evaluation, try <a href="#">adjusting some of the offer amounts</a> in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+    <div class="content_line"></div>
+    <section class="next-steps step content_wrapper">
+        <div class="content_main">
+            <div class="next-steps_wrapper">
+                <div class="next-steps_intro">
+                    <h2 class="step_heading">
+                        Next steps
+                    </h2>
+                    <p class="step_intro">
+                        We have notified your school that you have reviewed your personalized offer. You can now choose to move forward in the enrollment process.
+                    </p>
+                </div>
+            </div>
+            <ol class="super-numerals next-steps_list">
+                <li class="super-numerals next-steps_list-item">
+                    <p class="next-steps_list-intro">
+                        Review the edits you made to your offer:
+                    </p>
+                    <ul>
+                        <li>[Edit 1]</li>
+                        <li>[Edit 2]</li>
+                    </ul>
+                </li>
+                <li class="super-numerals next-steps_list-item">
+                    <p class="next-steps_list-intro">
+                        If you choose to move forward with the enrollment process, request any necessary changes to your offer from your school.
+                    </p>
+                    <p>
+                        Edits you made during this session are meant for your guidance and are not sent to your school. Use the summary to assist you during the conversation.
+                    </p>
+                    <p>
+                        After requesting any changes, ask your school to send you a revised offer to make sure they reflect your desired financial plan.
+                    </p>
+                </li>
+                <li class="super-numerals next-steps_list-item">
+                    <p class="next-steps_list-intro">
+                        Print your offer or save it as a PDF for reference while talking with your school or making your final decision.
+                    </p>
+                    <div class="next-steps_controls">
+                        <button class="btn">
+                            <span class="btn_icon__left cf-icon cf-icon-print"></span>
+                            Print my offer
+                        </button>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
 </main>
-<div class="financial-inputs">
-    <h2>Student debt calculator demo</h2>
-    <button id="add-random">Add random demo values!</button>
-    <!-- Costs of Attendance -->
-    <label for="costs__tuition">Tuition
-        <input type="text" name="costs__tuition" data-financial="tuitionFees" autocorrect="off">
-    </label>
-    <label for="costs__room-and-board">Room and Board
-        <input type="text" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off">
-    </label>
-    <label for="costs__books">Books
-        <input type="text" name="costs__books" data-financial="books" autocorrect="off">
-    </label>
-    <label for="costs__other">Other
-        <input type="text" name="costs__other" data-financial="otherExpenses" autocorrect="off">
-    </label>
-    <label for="costs__transportation">Transportation
-        <input type="text" name="costs__transportation" data-financial="transportation" autocorrect="off">
-    </label>
 
-    <!-- Grants & Scholarships -->
-    <label for="grants__pell">Federal Pell Grant
-        <input type="text" name="grants__pell" data-financial="pell" autocorrect="off">
-    </label>
-    <label for="grants__scholarships">Scholarships
-        <input type="text" name="grants__scholarships" data-financial="scholarships" autocorrect="off">
-    </label>
-
-    <!-- Contributions -->
-    <label for="contrib__savings">Personal Savings
-        <input type="text" name="contrib__savings" data-financial="savings" autocorrect="off">
-    </label>
-    <label for="contrib__family">Family Contributions
-        <input type="text" name="contrib__family" data-financial="family" autocorrect="off">
-    </label>
-    <label for="contrib__state529plan">Parent Loans (529 Plan)
-        <input type="text" name="contrib__state529plan" data-financial="state529plan" autocorrect="off">
-    </label>
-    <label for="contrib__workstudy">Work Study
-        <input type="text" name="contrib__workstudy" data-financial="workstudy" autocorrect="off">
-    </label>
-
-    <!-- Contributions -->
-    <label for="contrib__perkins">Perkins
-        <input type="text" name="contrib__perkins" data-financial="perkins" autocorrect="off">
-    </label>
-    <label for="contrib__staffsubsidized">Subsidized loan
-        <input type="text" name="contrib__subsidized" data-financial="staffSubsidized" autocorrect="off">
-    </label>
-    <label for="contrib__staffunsubsidized">Unsubsidized loan
-        <input type="text" name="contrib__unsubsidized" data-financial="staffUnsubsidized" autocorrect="off">
-    </label>
-    <label for="contrib__institutionalloan">Institutional Loan
-        <input type="text" name="contrib__perkins" data-financial="institutionalLoan" autocorrect="off">
-    </label>
-    <label for="contrib__privateloan">Private Loan
-        <input type="text" name="contrib__perkins" data-financial="privateLoan" autocorrect="off">
-    </label>
-    <button id="calculate-debt">Run Calculations</button>
-    <table class="outputs">
-        <tr>
-            <td>Total Debt at Graduation:</td>
-            <td data-financial="totalDebt"></td>
-        </tr>
-        <tr>
-            <td>Monthly Loan Payment:</td>
-            <td data-financial="loanMonthly"></td>
-        </tr>
-        <tr>
-            <td>Amount Left to Pay:</td>
-            <td data-financial="gap"></td>
-        </tr>
-    </table>
-</div>
 {% endblock %}
 
 {% block share_box %}

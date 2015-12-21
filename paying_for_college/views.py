@@ -2,6 +2,10 @@
 import os
 import json
 import uuid
+try:
+    from collections import OrderedDict
+except:  # pragma: no cover
+    from ordereddict import OrderedDict
 
 from django.middleware import csrf
 from django.core.urlresolvers import reverse
@@ -17,7 +21,9 @@ from django.conf import settings
 
 from haystack.query import SearchQuerySet
 
-from models import School, Worksheet, Feedback, BAHRate
+from models import School, Worksheet, Feedback
+from models import Program, ConstantCap, ConstantRate
+# from models import BAHRate
 from forms import FeedbackForm, EmailForm
 BASEDIR = os.path.dirname(__file__)
 
@@ -30,7 +36,6 @@ if STANDALONE:
     BASE_TEMPLATE = "standalone/base_update.html"
 else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
-    # BASE_TEMPLATE = "%s/templates/base_update.html" % BASEDIR
 
 URL_ROOT = 'paying_for_college2'
 
@@ -169,6 +174,32 @@ class SchoolRepresentation(View):
     def get(self, request, school_id, **kwargs):
         school = self.get_school(school_id)
         return HttpResponse(school.data_json, content_type='application/json')
+
+
+class ProgramRepresentation(View):
+
+    def get_program(self, program_code):
+        return get_object_or_404(Program, program_code=program_code)
+
+    def get(self, request, program_code, **kwargs):
+        program = self.get_program(program_code)
+        return HttpResponse(program.dump_json(),
+                            content_type='application/json')
+
+
+class ConstantsRepresentation(View):
+
+    def get_constants(self):
+        constants = OrderedDict()
+        for ccap in ConstantCap.objects.order_by('slug'):
+            constants[ccap.slug] = ccap.value
+        for crate in ConstantRate.objects.order_by('slug'):
+            constants[crate.slug] = "{0}".format(crate.value)
+        return json.dumps(constants)
+
+    def get(self, request):
+        return HttpResponse(self.get_constants(),
+                            content_type='application/json')
 
 
 class EmailLink(View):

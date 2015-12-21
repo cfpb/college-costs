@@ -1,5 +1,32 @@
 from django.db import models
+try:
+    from collections import OrderedDict
+except:  # pragma: no cover
+    from ordereddict import OrderedDict
 import uuid
+import json
+
+HIGHEST_DEGREES = {  # highest-awarded values from Ed API
+    '0': "Non-degree-granting",
+    '1': 'Certificate degree',
+    '2': "Associate degree",
+    '3': "Bachelor's degree",
+    '4': "Graduate degree"
+    }
+
+LEVELS = {  # Dept. of Ed classification of post-secondary degree levels
+    '1': "Program of less than 1 academic year",
+    '2': "Program of at least 1 but less than 2 academic years",
+    '3': "Associate's degree",
+    '4': "Program of at least 2 but less than 4 academic years",
+    '5': "Bachelor's degree",
+    '6': "Post-baccalaureate certificate",
+    '7': "Master's degree",
+    '8': "Post-master's certificate",
+    '17': "Doctor's degree-research/scholarship",
+    '18': "Doctor's degree-professional practice",
+    '19': "Doctor's degree-other"
+}
 
 
 class ConstantRate(models.Model):
@@ -33,51 +60,54 @@ class ConstantCap(models.Model):
         return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['slug']
 
 
 # data_json fields:
-# ALIAS
+# ALIAS -- not needed, DELETE
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
-# AVGSTULOANDEBTRANK
-# BADALIAS
-# BAH 1356
+# AVGSTULOANDEBTRANK -- not needed, DELETE
+# BADALIAS -- not needed, DELETE
+# BAH 1356 -- not needed, DELETE
 # BOOKS
-# CITY Pittsburgh
-# CONTROL For Profit
+# CITY (now school.city)
+# CONTROL (now school.control)
 # DEFAULTRATE
-# GRADRATE
-# GRADRATERANK
+# GRADRATE -- now school.grad_rate
+# GRADRATERANK -- not needed, DELETE
 # INDICATORGROUP
-# KBYOSS
-# NETPRICE110K
-# NETPRICE3OK
-# NETPRICE48K
-# NETPRICE75K
-# NETPRICEGENERAL
-# NETPRICEOK
-# OFFERAA Yes
-# OFFERBA Yes
-# OFFERGRAD Yes
-# ONCAMPUSAVAIL No
-# ONLINE No
+# KBYOSS (now school.KBYOSS) -- not needed, DELETE
+# MEDIANDEBTCOMPLETER # new in 2015
+# NETPRICE110K -- not needed, DELETE
+# NETPRICE3OK -- not needed, DELETE
+# NETPRICE48K -- not needed, DELETE
+# NETPRICE75K -- not needed, DELETE
+# NETPRICEGENERAL -- not needed, DELETE
+# NETPRICEOK -- not needed, DELETE
+# OFFERAA
+# OFFERBA
+# OFFERGRAD
+# ONCAMPUSAVAIL
+# ONLINE (now school.online)
 # OTHEROFFCAMPUS
 # OTHERONCAMPUS
 # OTHERWFAMILY
-# RETENTRATE
+# RETENTRATE -- not needed, DELETE
+# RETENTRATELT4 # new in 2015 -- not needed, DELETE
+# REPAY3YR # new in 2015
 # ROOMBRDOFFCAMPUS
 # ROOMBRDONCAMPUS
-# SCHOOL EDMC Central Administrative Office
-# SCHOOL_ID 483090
-# STATE PA
+# SCHOOL (now school.primary_alias)
+# SCHOOL_ID (now school.pk)
+# STATE (now school.state)
 # TUITIONGRADINDIS
 # TUITIONGRADINS
 # TUITIONGRADOSS
 # TUITIONUNDERINDIS
 # TUITIONUNDERINS
 # TUITIONUNDEROSS
-# ZIP 15222
+# ZIP (now school.zip5)
 
 
 class School(models.Model):
@@ -87,9 +117,10 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
-    data_json = models.TextField()
-    city = models.CharField(max_length=50)
-    state = models.CharField(max_length=2)
+    data_json = models.TextField(blank=True)
+    city = models.CharField(max_length=50, blank=True)
+    state = models.CharField(max_length=2, blank=True)
+    zip5 = models.CharField(max_length=5, blank=True)
     enrollment = models.IntegerField(blank=True, null=True)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
@@ -102,11 +133,46 @@ class School(models.Model):
     main_campus = models.NullBooleanField()
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
-
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
+
+    grad_rate_4yr = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate_lt4 = models.DecimalField(max_digits=4,
+                                        decimal_places=2,
+                                        blank=True, null=True)
+    grad_rate = models.DecimalField(max_digits=4,
+                                    decimal_places=2,
+                                    blank=True, null=True,
+                                    help_text="A 2-YEAR POOLED VALUE")
+    repay_3yr = models.DecimalField(max_digits=13,
+                                    decimal_places=10,
+                                    blank=True, null=True,
+                                    help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
+    default_rate = models.DecimalField(max_digits=4,
+                                       decimal_places=3,
+                                       blank=True, null=True,
+                                       help_text="LOAN DEFAULT RATE AT 3 YRS")
+    median_total_debt = models.DecimalField(max_digits=7,
+                                       decimal_places=1,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT DEBT")
+    median_monthly_debt = models.DecimalField(max_digits=14,
+                                       decimal_places=9,
+                                       blank=True, null=True,
+                                       help_text="MEDIAN STUDENT MONTHLY DEBT PAYMENT")
+    median_annual_pay = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
+
+    def get_highest_degree(self):
+        highest = ''
+        if self.degrees_highest and self.degrees_highest in HIGHEST_DEGREES:
+            highest = HIGHEST_DEGREES[self.degrees_highest]
+        return highest
 
     def convert_ope6(self):
         if self.ope6_id:
@@ -165,9 +231,11 @@ class Program(models.Model):
     accreditor = models.CharField(max_length=255, blank=True)
     level = models.CharField(max_length=255, blank=True)
     program_code = models.CharField(max_length=255, blank=True)
+    campus = models.CharField(max_length=255, blank=True)
     cip_code = models.CharField(max_length=255, blank=True)
     soc_codes = models.CharField(max_length=255, blank=True)
-    total_cost = models.IntegerField(blank=True, null=True)
+    total_cost = models.IntegerField(blank=True, null=True,
+                                     help_text="COMPUTED")
     time_to_complete = models.IntegerField(blank=True,
                                            null=True,
                                            help_text="IN MONTHS")
@@ -175,15 +243,19 @@ class Program(models.Model):
                                           null=True,
                                           max_digits=5,
                                           decimal_places=2)
+    titleiv_debt = models.IntegerField(blank=True, null=True)
+    private_debt = models.IntegerField(blank=True, null=True)
+    institutional_debt = models.IntegerField(blank=True, null=True)
+    mean_student_loan_completers = models.IntegerField(blank=True,
+                                                         null=True,
+                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
+    median_student_loan_completers = models.IntegerField(blank=True,
+                                                         null=True,
+                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
     default_rate = models.DecimalField(blank=True,
                                        null=True,
                                        max_digits=5,
                                        decimal_places=2)
-    job_rate = models.DecimalField(blank=True,
-                                   null=True,
-                                   max_digits=5,
-                                   decimal_places=2,
-                                   help_text="COMPLETERS WHO GET RELATED JOB")
     salary = models.IntegerField(blank=True, null=True)
     program_length = models.IntegerField(blank=True,
                                          null=True,
@@ -201,9 +273,57 @@ class Program(models.Model):
     transportation = models.IntegerField(blank=True, null=True)
     other_costs = models.IntegerField(blank=True,
                                       null=True)
+    job_rate = models.DecimalField(blank=True,
+                                   null=True,
+                                   max_digits=5,
+                                   decimal_places=2,
+                                   help_text="COMPLETERS WHO GET RELATED JOB")
+    job_note = models.TextField(blank=True,
+                                      help_text="EXPLANATION FROM SCHOOL")
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
+
+    def get_level(self):
+        level = ''
+        if self.level and self.level in LEVELS:
+            level = LEVELS[self.level]
+        return level
+
+    def dump_json(self):
+        ordered_out = OrderedDict()
+        dict_out = {
+            'accreditor': self.accreditor,
+            'books': self.books,
+            'campus': self.campus,
+            'cipCode': self.cip_code,
+            'completionRate': "{0}".format(self.completion_rate),
+            'defaultRate': "{0}".format(self.default_rate),
+            'fees': self.fees,
+            'housing': self.housing,
+            'institution': self.institution.primary_alias,
+            'institutionalDebt': self.institutional_debt,
+            'jobNote': self.job_note,
+            'jobRate': "{0}".format(self.job_rate),
+            'level': self.get_level(),
+            'medianStudentLoanCompleters': self.median_student_loan_completers,
+            'meanStudentLoanCompleters': self.mean_student_loan_completers,
+            'privateDebt': self.private_debt,
+            'programCode': self.program_code,
+            'programLength': self.program_length,
+            'programName': self.program_name,
+            'salary': self.salary,
+            'socCodes': self.soc_codes,
+            'timeToComplete': self.time_to_complete,
+            'titleIVDebt': self.titleiv_debt,
+            'totalCost': self.total_cost,
+            'transportation': self.transportation,
+            'tuition': self.tuition,
+        }
+        for key in sorted(dict_out.keys()):
+            ordered_out[key] = dict_out[key]
+
+        return json.dumps(ordered_out)
 
 # class Offer(models.Model):
 #     """
