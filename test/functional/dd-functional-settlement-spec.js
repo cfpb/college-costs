@@ -32,69 +32,73 @@ describe('A dynamic financial aid disclosure that\'s required by settlement', fu
 	});
 
 	// TODO - Add expectation that verification buttons disappear, offer ssections are not visible, that next steps for incorrect info are displayed, and that the trigger to notify the school is activated
-	it("should let a student report incorrect aid offer information", function() {
+	it('should let a student report incorrect aid offer information', function() {
 		page.denyVerification();
 	});
 
 	// *** Step 1: Review your offer ***
 
 	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the tuition is modified", function() {
+	it('should properly update when the tuition is modified', function() {
 		page.confirmVerification();
-		page.setTuitionFeesCosts(35000);
-		var tuitionFeesCosts = element(by.id('costs__tuition'));
-		expect(tuitionFeesCosts.getAttribute('value')).toEqual(page.totalCostOfAttendance.getText());
-		expect(tuitionFeesCosts.getAttribute('value')).toEqual(page.studentTotalCost.getText());
-		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
-	});
-
-/*
-	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the housing and meals are modified", function() {
-		page.confirmVerification();
-		page.setHousingMealsCosts(15000);
-		expect(page.addUpCostOfAttendance()).toEqual(page.totalCostOfAttendance.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		page.setTuitionFeesCosts(3500);
+		expect(page.totalCostOfAttendance.getText()).toEqual('3500');
+		expect(page.studentTotalCost.getText()).toEqual('3500');
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
 	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the transportation is modified", function() {
+	it('should properly update when the housing and meals are modified', function() {
 		page.confirmVerification();
-		page.setTransportationCosts(5000);
-		expect(page.addUpCostOfAttendance()).toEqual(page.totalCostOfAttendance.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		page.setTuitionFeesCosts(3500);
+		page.setHousingMealsCosts(1500);
+		expect(page.totalCostOfAttendance.getText()).toEqual('5000');
+		expect(page.studentTotalCost.getText()).toEqual('5000');
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
 	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the books and supplies are modified", function() {
+	it('should properly update when the transportation is modified', function() {
 		page.confirmVerification();
+		page.setTuitionFeesCosts(3500);
+		page.setHousingMealsCosts(1500);
+		page.setTransportationCosts(500);
+		expect(page.totalCostOfAttendance.getText()).toEqual('5500');
+		expect(page.studentTotalCost.getText()).toEqual('5500');
+		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
+	});
+
+	// TODO - Uncomment remaining cost when it's hooked up
+	it('should properly update when the books and supplies are modified', function() {
+		page.confirmVerification();
+		page.setTuitionFeesCosts(3500);
+		page.setHousingMealsCosts(1500);
+		page.setTransportationCosts(500);
 		page.setBooksSuppliesCosts(500);
-		expect(page.addUpCostOfAttendance()).toEqual(page.totalCostOfAttendance.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		expect(page.totalCostOfAttendance.getText()).toEqual('6000');
+		expect(page.studentTotalCost.getText()).toEqual('6000');
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
 	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the other education costs are modified", function() {
+	it('should properly update when the other education costs are modified', function() {
 		page.confirmVerification();
+		page.setTuitionFeesCosts(3500);
+		page.setHousingMealsCosts(1500);
 		page.setOtherEducationCosts(250);
-		expect(page.addUpCostOfAttendance()).toEqual(page.totalCostOfAttendance.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		expect(page.totalCostOfAttendance.getText()).toEqual('5250');
+		expect(page.studentTotalCost.getText()).toEqual('5250');
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
 	// TODO - Uncomment remaining cost when it's hooked up
-	it("should properly update when the Federal Pell Grants are modified within the limits", function() {
+	it('should properly update when the Federal Pell Grants are modified within the limits', function() {
 		page.confirmVerification();
+		page.setTuitionFeesCosts(15000);
 		page.setFederalPellGrants(5000);
-		expect(page.addUpGrantsScholarships()).toEqual(page.totalGrantsScholarships.getText());
-		expect(page.addUpTotalCost()).toEqual(page.studentTotalCost.getText());
+		expect(page.totalGrantsScholarships.getText()).toEqual('5000');
+		expect(page.studentTotalCost.getText()).toEqual('10000');
 		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
 	});
 
-	// TODO - Test Federal Pell grants above the limit
-
-*/
 });

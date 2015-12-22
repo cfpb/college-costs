@@ -74,9 +74,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
     remainingCost: { get: function () { return element(by.css('span[data-financial="remainingCost"]')); } },
     totalProgramDebt: { get: function () { return element(by.css('span[data-financial="totalProgramDebt"]')); } },
     totalRepayment: { get: function () { return element(by.css('span[data-financial="totalRepayment"]')); } },
-    addUpCostOfAttendance: { value: function () {
-
-    } },
     addUpGrantsScholarships: { value: function () {
         // return the sum of the values of the grant and scholarship fields
         return ( this.federalPellGrants.value +
