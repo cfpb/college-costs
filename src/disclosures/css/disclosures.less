@@ -309,6 +309,8 @@
 
 // Elements need to be nested here to inherit @font-size
 .line-item {
+  @line-item-font-size: 18px;
+
   .grid_nested-col-group();
   .heading-4();
   margin-bottom: unit(15px / @font-size, em);
@@ -322,6 +324,13 @@
   &_currency {
     position: absolute;
     right: unit(77px / @font-size, em);
+  }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @line-item-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @line-item-font-size, em);
   }
 }
 
@@ -647,13 +656,6 @@
     margin-bottom: unit(10px / @expense-summary-font-size, em);
   }
 
-  &_explanation {
-    display: block;
-    margin-top: unit(5px / @expense-summary-font-size, em);
-    .webfont-regular();
-    font-size: unit(14px / @expense-summary-font-size, em);
-  }
-
   .content_line {
     margin-bottom: unit(5px / @expense-summary-font-size, em);
   }
@@ -688,9 +690,11 @@
   }
 
   &_answers {
+    margin-top: unit(20px / @base-font-size-px, em);
     margin-bottom: unit(20px / @base-font-size-px, em);
 
     .respond-to-min(@bp-sm-min, {
+      margin-top: unit(30px / @base-font-size-px, em);
       margin-bottom: unit(30px / @base-font-size-px, em);
     });
   }

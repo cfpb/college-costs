@@ -1,6 +1,6 @@
 {% extends base_template %}
 {% load staticfiles %}
-{% block title %}Just a demo!{% endblock %}
+{% block title %}Understanding your financial aid offer{% endblock %}
 {% block page_viewport %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
@@ -51,25 +51,25 @@
                             School type
                         </dt>
                         <dd class="verify_value">
-                            [School type]
+                            [school type]
                         </dd>
                         <dt class="verify_heading">
                             Program
                         </dt>
                         <dd class="verify_value">
-                            [Program name]
+                            [program name]
                         </dd>
                         <dt class="verify_heading">
                             Program type
                         </dt>
                         <dd class="verify_value">
-                            [Program type]
+                            [program type]
                         </dd>
                         <dt class="verify_heading">
                             Offer ID
                         </dt>
                         <dd class="verify_value">
-                            [XXXXXXX]
+                            [offer ID]
                         </dd>
                     </dl>
                     <form class="verify_form">
@@ -85,22 +85,22 @@
                                     Select an option
                                 </option>
                                 <option>
-                                    1 year
+                                    1
                                 </option>
                                 <option>
-                                    2 years
+                                    2
                                 </option>
                                 <option>
-                                    3 years
+                                    3
                                 </option>
                                 <option>
-                                    4 years
+                                    4
                                 </option>
                                 <option>
-                                    5 years
+                                    5
                                 </option>
                                 <option>
-                                    6 years
+                                    6
                                 </option>
                             </select>
                         </div>
@@ -109,7 +109,7 @@
                                 Yes, this is correct
                             </button>
                             <button class="btn btn__link verify_wrong-info-btn" type="button" title="No, this is not my information">
-                                No, this is not my information.
+                                No, this is not my information
                             </button>
                         </div>
                     </form>
@@ -126,13 +126,13 @@
                         This tool helps explain a few important things about your financial aid offer:
                     </h2>
                     <p>
-                        <strong>Step 1</strong>, review your first-year financial aid offer and update any incorrect information. This helps us provide a more accurate evaluation.
+                        In <strong>Step 1</strong>, review your first-year financial aid offer and update any incorrect information. This helps us provide a more accurate evaluation.
                     </p>
                     <p>
-                        <strong>Step 2</strong>, evaluate your offer to learn about the risks and rewards of accepting it. We include things like graduation rate, affordability, and loan default rates.
+                        In <strong>Step 2</strong>, evaluate your offer to learn about the risks and rewards of accepting it. We include things like graduation rate, affordability, and loan default rates.
                     </p>
                     <p>
-                        <strong>Step 3</strong>, learn about your options when it comes to how to reduce student debt for a more positive financial future.
+                        In <strong>Step 3</strong>, learn about your options when it comes to how to reduce student debt for a more positive financial future.
                     </p>
                     <p class="instructions_subheading">
                         You must review all three parts of this tool before you can enroll.
@@ -163,7 +163,7 @@
                     Step 1: Review your first year offer
                 </h2>
                 <p>
-                    Here is your financial aid offer from [School Name]. Please verify the amounts provided by your school below, making any necessary changes or adding missing information.
+                    Here is your financial aid offer from [insert college name]. Please verify the amounts provided by your school below, making any necessary changes or adding missing information.
                 </p>
                 <form class="offer-part cost-to-attend" action="#">
                     <h3 class="offer-part_heading">
@@ -192,15 +192,6 @@
                             <input class="offer-part_input" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
-                            <label class="form-label" for="costs__transportation">
-                                Transportation
-                            </label>
-                            <span class="offer-part_unit">
-                                $
-                            </span>
-                            <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off" value="0">
-                        </div>
-                        <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__books">
                                 Books and supplies
                             </label>
@@ -208,6 +199,15 @@
                                 $
                             </span>
                             <input class="offer-part_input" type="text" id="costs__books" name="costs__books" data-financial="books" autocorrect="off" value="0">
+                        </div>
+                        <div class="form-group_item offer-part_currency">
+                            <label class="form-label" for="costs__transportation">
+                                Transportation
+                            </label>
+                            <span class="offer-part_unit">
+                                $
+                            </span>
+                            <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="costs__other">
@@ -249,6 +249,30 @@
                                 $
                             </span>
                             <input class="offer-part_input" type="text" id="grants__pell" name="grants__pell" data-financial="pell" autocorrect="off" value="0">
+                        </div>
+                        <div class="form-group_item offer-part_currency">
+                            <label class="form-label" for="grants__school">
+                                Grants and scholarships from your school
+                            </label>
+                            <p class="offer-part_definition">
+                                Total amount awarded from your school
+                            </p>
+                            <span class="offer-part_unit">
+                                $
+                            </span>
+                            <input class="offer-part_input" type="text" id="grants__school" name="grants__school" data-financial="schoolGrants" autocorrect="off" value="0">
+                        </div>
+                        <div class="form-group_item offer-part_currency">
+                            <label class="form-label" for="grants__state">
+                                Grants from your state
+                            </label>
+                            <p class="offer-part_definition">
+                                Total amount awarded from your state
+                            </p>
+                            <span class="offer-part_unit">
+                                $
+                            </span>
+                            <input class="offer-part_input" type="text" id="grants__state" name="grants__state" data-financial="stateGrants" autocorrect="off" value="0">
                         </div>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="grants__scholarships">
@@ -346,7 +370,7 @@
                                 Money your family will provide
                             </label>
                             <p class="offer-part_definition">
-                                Includes money given to you, loans your family takes out (Parent PLUS loans, home equity loans), etc.
+                                Includes money given to you, loans your family takes out and has to repay (Parent PLUS loans, home equity loans), etc.
                             </p>
                             <span class="offer-part_unit">
                                 $
@@ -384,7 +408,10 @@
                     </div>
                     <div class="line-item">
                         <div class="line-item_title">
-                            Money your family will provide and may have to pay back
+                            Money your family will provide
+                            <span class="line-item_explanation">
+                                And may have to pay back
+                            </span>
                         </div>
                         <div class="line-item_value">
                             <span class="line-item_sign">
@@ -432,7 +459,7 @@
                             Federal loans
                         </label>
                         <p class="offer-part_definition">
-                            Money you have to pay back
+                            Money you have to pay back, assuming a 10-year loan term; longer loan terms mean smaller monthly payments but a higher total cost of interest over the life of the loan.
                         </p>
                         <div class="form-group_item offer-part_currency">
                             <label class="form-label" for="contrib__perkins">
@@ -476,7 +503,7 @@
                                     1.07% loan fee
                                 </p>
                                 <p class="offer-part_definition">
-                                    Added to the total borrowed amount, without lowering what you receive at disbursement (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000 at disbursement)
+                                    Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
                                 </p>
                                 <p class="offer-part_term">
                                     6 month grace period
@@ -502,10 +529,10 @@
                                     Starts accumulating when you sign the loan
                                 </p>
                                 <p class="offer-part_term">
-                                    4.27% loan fee
+                                    1.07% loan fee
                                 </p>
                                 <p class="offer-part_definition">
-                                    Deducted immediately from your loan disbursements (for example, a $42 fee is added to a $1,000 loan but you only receive $958 at disbursement)
+                                    Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
                                 </p>
                                 <p class="offer-part_term">
                                     6 month grace period
@@ -531,7 +558,13 @@
                                     Starts accumulating when you sign the loan
                                 </p>
                                 <p class="offer-part_term">
-                                    6 month grace period
+                                    4.27% loan fee
+                                </p>
+                                <p class="offer-part_definition">
+                                    Deducted immediately, lowering the amount of money you receive at disbursement (for example, a $42 fee is applied to a $1,000 loan, leaving you with $958)
+                                </p>
+                                <p class="offer-part_term">
+                                    6 month deferment period
                                 </p>
                                 <p class="offer-part_definition">
                                     You can apply to postpone repayment until six months after you graduate, leave school, or drop below half-time
@@ -582,10 +615,10 @@
                                 </div>
                                 <div class="form-group_item offer-part_non-currency">
                                     <label class="form-label" for="contrib__private-loan-fees">
-                                        Loan fee
+                                        Loan fees
                                     </label>
                                     <p class="offer-part_definition">
-                                        Added to the total borrowed amount, without lowering what you receive at disbursement (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000 at disbursement)
+                                        Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000)
                                     </p>
                                     <input class="offer-part_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
@@ -597,7 +630,7 @@
                                         Grace period
                                     </label>
                                     <p class="offer-part_definition">
-                                        Amount of time before you must begin repayment
+                                        The amount of time before you must begin repayment
                                     </p>
                                     <input class="offer-part_input" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
@@ -690,13 +723,16 @@
                     </div>
                 </div>
                 <h3 class="offer-part_heading">
-                    What does this mean for my future?
+                    What does this mean for your future?
                 </h3>
                 <p>
-                    It looks like you still have a remaining cost of $1,000 to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
+                    It looks like you still have a remaining cost of [$XX] to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
                 </p>
                 <p>
-                    While the idea of $20,000 in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after 2 years after interest equals $36,450.
+                    It looks like you are borrowing [$XX] more than you need to pay for school. You can reduce your future debt by decreasing your loan amount to cover only what you need.
+                </p>
+                <p>
+                    While the idea of [$XX] in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after [years attending school] years after interest equals [$XX].
                 </p>
                 <p>
                     Some students find themselves struggling to repay student debt once they finish school. In Step 2, learn how factors like graduation rates and expected salary can affect your ability to repay your student debt.
@@ -757,7 +793,7 @@
                         </div>
                     </div>
                     <p>
-                        After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [School Name] for one year.
+                        After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
                     </p>
                 </div>
                 <div class="block block__flush-sides block__bg offer-part_summary debt-summary">
@@ -809,7 +845,7 @@
             <div class="evaluate_wrapper">
                 <div class="evaluate_intro">
                     <h2 class="step_heading">
-                        Step 2. Evaluating your offer
+                        Step 2: Evaluate your offer
                     </h2>
                     <p class="step_intro">
                         Ask yourself these questions to help you understand how accepting this offer could affect your ability to pay back your student debt and impact your financial future.
@@ -914,7 +950,7 @@
                             <div class="cf-notification metric_notification cf-notification__error">
                                 <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-error-round"></span>
                                 <p class="cf-notification_text">
-                                    Lower average salary than national average
+                                    Lower salary than national average
                                 </p>
                             </div>
                         </div>
@@ -924,7 +960,7 @@
                             Estimated expenses
                         </h4>
                         <p class="metric_explanation">
-                            Monthly living expenses for single person based on national averages
+                            Monthly living expenses for single person based on [regional OR national] averages
                         </p>
                         <form class="offer-part estimated-expenses_form" action="#">
                             <div class="form-group_item offer-part_currency">
@@ -996,7 +1032,7 @@
                             <div class="content_line"></div>
                             <div class="line-item">
                                 <div class="line-item_title">
-                                    Monthly expenses
+                                    Total monthly expenses
                                 </div>
                                 <div class="line-item_value">
                                     <span class="line-item_currency">
@@ -1013,7 +1049,7 @@
                             <div class="line-item">
                                 <div class="line-item_title">
                                     Average monthly salary
-                                    <span class="estimated-expenses_explanation">
+                                    <span class="line-item_explanation">
                                         Before taxes
                                     </span>
                                 </div>
@@ -1075,10 +1111,10 @@
                 <div class="criteria_wrapper">
                     <div class="criteria_intro">
                         <p>
-                            There are two factors that make up your debt burden—your loan payment and your salary. The general rule of thumb is that you shouldn’t borrow more than you will make during your first year out of college. That means your student loan payment shouldn’t be more than 14% of your total monthly income.
+                            There are two factors that make up your debt burden—your loan payment and your salary. The general rule of thumb is that you shouldn’t borrow more than you will make during your first year out of college. Your student loan payment shouldn’t be more than 14% of your total monthly income.
                         </p>
                         <p>
-                            Your total estimated debt, according to the amounts entered above, is $[XX,XXX]. On average, students from your school graduate with $[XX,XXX] of debt (includes part-time, full-time, and transfer students), compared with a national average of $[XX,XXX]. The lower your total debt, the lower your debt burden will be.
+                            Your total estimated debt, according to the amounts entered above, is [$XX]. On average, students from your school graduate with [$XX] of debt (includes part-time, full-time, and transfer students), compared with a national average of [$XX]. The lower your total debt, the lower your debt burden will be.
                         </p>
                         <p>
                             If your debt burden is too high, it increases the chances of defaulting on your loan or not being able to pay for other necessities, like health insurance. Since it’s difficult to predict or actively increase your future salary, the best way to lower your debt burden is to reduce the amount of student loans you take out.
@@ -1097,8 +1133,8 @@
                                     Projected salary
                                 </div>
                                 <div class="debt-burden_projection-value">
-                                    $30,000 / yr.<br>
-                                    $2,500 / mo.
+                                    $XX,XXX / yr.<br>
+                                    $X,XXX / mo.
                                 </div>
                             </div>
                             <div class="debt-burden_projection">
@@ -1106,13 +1142,13 @@
                                     Your projected loan payment
                                 </div>
                                 <div class="debt-burden_projection-value">
-                                    $550 / mo.
+                                    $XXX / mo.
                                 </div>
                             </div>
                             <div class="debt-equation u-clearfix">
                                 <div class="debt-equation_part debt-equation_part__loan">
                                     <div class="debt-equation_number">
-                                        $550
+                                        $XXX
                                     </div>
                                     <div class="debt-equation_label">
                                         loan payment
@@ -1123,7 +1159,7 @@
                                 </div>
                                 <div class="debt-equation_part debt-equation_part__income">
                                     <div class="debt-equation_number">
-                                        $2,500
+                                        $X,XXX
                                     </div>
                                     <div class="debt-equation_label">
                                         monthly salary
@@ -1134,7 +1170,7 @@
                                 </div>
                                 <div class="debt-equation_part debt-equation_part__percent">
                                     <div class="debt-equation_number">
-                                        22%
+                                        XX%
                                     </div>
                                     <div class="debt-equation_label">
                                         of your income
@@ -1212,7 +1248,7 @@
                 <div class="question_wrapper">
                     <div class="question_content">
                         <h2 class="step_heading">
-                            Do you feel like going into $[XX,XXX] of debt to attend this school is a good investment in your future?
+                            Do you feel like going into [$XX,XXX] of debt to attend this school is a good investment in your future?
                         </h2>
                         <div class="question_answers">
                             <button class="btn btn__grouped-first" type="button">
@@ -1236,15 +1272,15 @@
     <section class="get-options step content_wrapper column-well_wrapper">
         <div class="content_main">
             <div class="get-options_wrapper">
-                <div class="get-options_intro get-options_intro__no">
+                <div class="get-options_intro followup__no-not-sure">
                     <h2 class="step_heading">
-                        Step 3. Consider your options
+                        Step 3: Consider your options
                     </h2>
                     <p class="step_intro">
                         Rest assured that there are things you can do if you are uncertain about going into this much debt. Here are some choices you can make that may help you improve your financial future.
                     </p>
                 </div>
-                <div class="get-options_intro get-options_intro__yes-not-sure">
+                <div class="get-options_intro followup__yes">
                     <h2 class="step_heading">
                         Step 3: A few more things to consider
                     </h2>
@@ -1259,7 +1295,7 @@
                         Maximize all available grants and scholarships.
                     </h3>
                     <p>
-                        Consider <a href="https://studentaid.ed.gov/sa/types/grants-scholarships">applying for additional scholarships and grants</a>,  which provide money you don't have to repay. By increasing the amount of this type of aid, you can decrease the overall amount of debt you have to borrow—and consequently pay back.
+                        Consider applying for <a href="https://studentaid.ed.gov/sa/types/grants-scholarships">additional scholarships and grants</a>,  which provide money you don’t have to repay. By increasing the amount of this type of aid, you can decrease the overall amount of debt you have to borrow—and consequently pay back.
                     </p>
                 </section>
                 <section class="option option__reduce-costs">
@@ -1296,15 +1332,22 @@
                 </section>
                 <section class="option option__take-action column-well column-well__emphasis">
                     <div class="column-well_content">
-                        <h3 class="option__take-action-header">
-                            What you can do
-                        </h3>
-                        <h3 class="option__take-action-header">
-                            If you want to make a change
-                        </h3>
-                        <p>
-                            Using some of the strategies outlined in the above evaluation, try adjusting some of the offer amounts in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.
-                        </p>
+                        <div class="followup__no-not-sure">
+                            <h3 class="option__take-action-header">
+                                What you can do
+                            </h3>
+                            <p>
+                                Using some of the strategies outlined in the above evaluation, you can adjust some of the offer amounts in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.
+                            </p>
+                        </div>
+                        <div class="followup__no-not-sure">
+                            <h3 class="option__take-action-header">
+                                If you want to make a change
+                            </h3>
+                            <p>
+                                Using some of the strategies outlined above in the evaluation, try adjusting some of the offer amounts in the tool. For instance, you can try reducing the amount of federal or private loans to see how it affects your overall debt.
+                            </p>
+                        </div>
                     </div>
                 </section>
             </div>
@@ -1329,8 +1372,15 @@
                         Review the edits you made to your offer:
                     </p>
                     <ul>
-                        <li>[Edit 1]</li>
-                        <li>[Edit 2]</li>
+                        <li>
+                           You [increased/decreased] the [field name] by [$amount].
+                        </li>
+                        <li>
+                            You [increased/decreased] the [field name] of your [loan name] by [$amount/percent].
+                        </li>
+                        <li>
+                            You made no changes to your offer.
+                        </li>
                     </ul>
                 </li>
                 <li class="super-numerals next-steps_list-item">
@@ -1354,7 +1404,7 @@
                     <div class="next-steps_controls">
                         <button class="btn" type="button">
                             <span class="btn_icon__left cf-icon cf-icon-print"></span>
-                            Print my offer
+                            Print offer
                         </button>
                     </div>
                 </li>
