@@ -40,7 +40,7 @@ rules:
 
   # Disallows assignment in conditional expressions.
   no-cond-assign:
-    - 2
+    - 1
     - except-parens
 
   # Enforces flagging use of the console.

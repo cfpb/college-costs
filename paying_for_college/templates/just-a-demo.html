@@ -541,7 +541,7 @@
                                     <p class="offer-part_definition">
                                         Starts accumulating when you sign the loan
                                     </p>
-                                    <input class="offer-part_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanInterest" autocorrect="off" value="0">
+                                    <input class="offer-part_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanRate" autocorrect="off" value="0">
                                     <span class="offer-part_unit">
                                         %
                                     </span>
@@ -601,11 +601,11 @@
                             <span class="offer-part_unit">
                                 $
                             </span>
-                            <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="paymentPlan" autocorrect="off" value="0">
+                            <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="institutionalLoan" autocorrect="off" value="0">
                         </div>
                         <div class="offer-part_terms offer-part_terms__last">
                             <p class="offer-part_term">
-                                [X.X]% interest
+                                <span data-financial="institutionalLoanRate">[X.X]</span>% interest
                             </p>
                             <p class="offer-part_definition">
                                 Starts accumulating when you sign the plan

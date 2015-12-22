@@ -3,8 +3,8 @@
 var financialModel = require( './models/financial-model' );
 var financialView = require( './views/financial-view' );
 
-require('./utils/nemo');
-require('./utils/nemo-shim');
+require( './utils/nemo' );
+require( './utils/nemo-shim' );
 
 var app = {
   init: function() {
@@ -13,7 +13,6 @@ var app = {
   }
 };
 
-
 $( document ).ready( function() {
   app.init();
-});
+} );
