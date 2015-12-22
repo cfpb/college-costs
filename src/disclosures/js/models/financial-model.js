@@ -35,7 +35,6 @@ var financialModel = {
     // TODO accomodate for multiple private loans
     model.totalPrivateLoans =
       model.privateLoan + model.institutionalLoan;
-    console.log(model.privateLoan, model.institutionalLoan);
 
     // loan totals
     model.loanTotal =
