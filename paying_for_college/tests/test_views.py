@@ -134,9 +134,11 @@ class SchoolSearchTest(django.test.TestCase):
 
 
 # /paying-for-college/understanding-financial-aid-offers/api/school/155317.json
-class SchoolJsonTest(django.test.TestCase):
+class APITests(django.test.TestCase):
 
-    fixtures = ['test_fixture.json']
+    fixtures = ['test_fixture.json',
+                'test_constants.json',
+                'test_program.json']
 
     def test_school_json(self):
         """api call for school details."""
@@ -145,6 +147,23 @@ class SchoolJsonTest(django.test.TestCase):
         resp = client.get(url)
         self.assertTrue('Kansas' in resp.content)
         self.assertTrue('155317' in resp.content)
+
+    def test_constants_json(self):
+        """api call for constants."""
+
+        url = reverse('disclosures:constants-json')
+        resp = client.get(url)
+        self.assertTrue('institutionalLoanRate' in resp.content)
+        self.assertTrue('latestYear' in resp.content)
+
+    def test_program_json(self):
+        """api call for program details."""
+
+        url = reverse('disclosures:program-json', args=['981'])
+        resp = client.get(url)
+        print("program_json response content is {0}".format(resp))
+        self.assertTrue('housing' in resp.content)
+        self.assertTrue('books' in resp.content)
 
 
 # NO-DATA WORKSHEET POST

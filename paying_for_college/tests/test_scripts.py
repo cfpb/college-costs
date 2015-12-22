@@ -53,11 +53,11 @@ class TestUpdater(django.test.TestCase):
         mock_response.reason = "Testing OK == False"
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         # print("\n after OK == False, FAILED is %s" % FAILED)
-        self.assertTrue(len(FAILED) == 1)
+        self.assertTrue(len(FAILED) == 2)
         mock_requests.status_code = 429
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         # print("after 429 FAILED is %s" % FAILED)
-        self.assertTrue(len(FAILED) == 1)
+        self.assertTrue(len(FAILED) == 2)
 
     @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
     def test_update_colleges_bad_responses(self, mock_requests):

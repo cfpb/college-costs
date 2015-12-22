@@ -1,5 +1,32 @@
 from django.db import models
+try:
+    from collections import OrderedDict
+except:  # pragma: no cover
+    from ordereddict import OrderedDict
 import uuid
+import json
+
+HIGHEST_DEGREES = {  # highest-awarded values from Ed API
+    '0': "Non-degree-granting",
+    '1': 'Certificate degree',
+    '2': "Associate degree",
+    '3': "Bachelor's degree",
+    '4': "Graduate degree"
+    }
+
+LEVELS = {  # Dept. of Ed classification of post-secondary degree levels
+    '1': "Program of less than 1 academic year",
+    '2': "Program of at least 1 but less than 2 academic years",
+    '3': "Associate's degree",
+    '4': "Program of at least 2 but less than 4 academic years",
+    '5': "Bachelor's degree",
+    '6': "Post-baccalaureate certificate",
+    '7': "Master's degree",
+    '8': "Post-master's certificate",
+    '17': "Doctor's degree-research/scholarship",
+    '18': "Doctor's degree-professional practice",
+    '19': "Doctor's degree-other"
+}
 
 
 class ConstantRate(models.Model):
@@ -33,7 +60,7 @@ class ConstantCap(models.Model):
         return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['slug']
 
 
 # data_json fields:
@@ -140,6 +167,12 @@ class School(models.Model):
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
+
+    def get_highest_degree(self):
+        highest = ''
+        if self.degrees_highest and self.degrees_highest in HIGHEST_DEGREES:
+            highest = HIGHEST_DEGREES[self.degrees_highest]
+        return highest
 
     def convert_ope6(self):
         if self.ope6_id:
@@ -250,6 +283,47 @@ class Program(models.Model):
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
+
+    def get_level(self):
+        level = ''
+        if self.level and self.level in LEVELS:
+            level = LEVELS[self.level]
+        return level
+
+    def dump_json(self):
+        ordered_out = OrderedDict()
+        dict_out = {
+            'accreditor': self.accreditor,
+            'books': self.books,
+            'campus': self.campus,
+            'cipCode': self.cip_code,
+            'completionRate': "{0}".format(self.completion_rate),
+            'defaultRate': "{0}".format(self.default_rate),
+            'fees': self.fees,
+            'housing': self.housing,
+            'institution': self.institution.primary_alias,
+            'institutionalDebt': self.institutional_debt,
+            'jobNote': self.job_note,
+            'jobRate': "{0}".format(self.job_rate),
+            'level': self.get_level(),
+            'medianStudentLoanCompleters': self.median_student_loan_completers,
+            'meanStudentLoanCompleters': self.mean_student_loan_completers,
+            'privateDebt': self.private_debt,
+            'programCode': self.program_code,
+            'programLength': self.program_length,
+            'programName': self.program_name,
+            'salary': self.salary,
+            'socCodes': self.soc_codes,
+            'timeToComplete': self.time_to_complete,
+            'titleIVDebt': self.titleiv_debt,
+            'totalCost': self.total_cost,
+            'transportation': self.transportation,
+            'tuition': self.tuition,
+        }
+        for key in sorted(dict_out.keys()):
+            ordered_out[key] = dict_out[key]
+
+        return json.dumps(ordered_out)
 
 # class Offer(models.Model):
 #     """

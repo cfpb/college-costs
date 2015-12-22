@@ -19,6 +19,14 @@ urlpatterns = [
 
     # url(r'^api/bah-lookup.json', bah_lookup_api),
 
+    url(r'^api/program/(\d+)/$',
+        ProgramRepresentation.as_view(),
+        name='program-json'),
+
+    url(r'^api/constants/$',
+        ConstantsRepresentation.as_view(),
+        name='constants-json'),
+
     url(r'^api/school/(\d+).json',
         SchoolRepresentation.as_view(),
         name='school-json'),
