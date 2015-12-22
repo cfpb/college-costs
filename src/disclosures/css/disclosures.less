@@ -48,7 +48,8 @@
     border-right: 0;
     border-left: 0;
     margin-right: 0;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     left: @grid_gutter-width / 2;
     z-index: 10;
     background-color: @gray-40;
@@ -97,8 +98,14 @@
     margin-bottom: 0;
 
     .respond-to-min(@bp-sm-min, {
-      .heading-2();
       margin-bottom: unit(5px / @font-size, em);
+    });
+  }
+
+  &_location {
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-4();
     });
   }
 
@@ -430,6 +437,10 @@
 
 .criteria {
   margin-top: unit(30px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-sm-min, {
+    margin-top: unit(45px / @base-font-size-px, em);
+  });
 
   &_heading {
     .heading-3();
