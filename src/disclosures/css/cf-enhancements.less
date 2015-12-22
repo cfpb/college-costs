@@ -77,44 +77,30 @@
    Expanded intros
    ========================================================================== */
 
-.intro {
-  padding-top: unit(30px / @base-font-size-px, em);
-  padding-bottom: unit(30px / @base-font-size-px, em);
+.hero__intro {
+  background-color: transparent;
 
-  .respond-to-min(@bp-sm-min, {
-    padding-top: unit(60px / @base-font-size-px, em);
-    padding-bottom: unit(60px / @base-font-size-px, em);
-  });
+  .hero_text {
 
-  &_wrapper {
-    .respond-to-min(@bp-sm-min, {
-      .grid_nested-col-group();
+    .respond-to-min(@tablet-min, {
+      .grid_column(8,12);
+      vertical-align: middle;
     });
   }
 
-  &_content {
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
-    });
-  }
-
-  &_summary {
-    .heading-4();
+  .hero_subhead {
     .webfont-regular();
+  }
 
-    .respond-to-min(@bp-sm-min, {
-      .heading-3();
+  .hero_image {
+
+    .respond-to-min(@tablet-min, {
+      .grid_column(3,12);
+      .grid_push(1,12);
+      vertical-align: middle;
     });
   }
 
-  &_image {
-      text-align: center;
-
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(3);
-      .grid_push(1);
-    });
-  }
 }
 
 /* ==========================================================================
