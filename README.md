@@ -85,10 +85,10 @@ To run JavaScript unit tests:
 npm test
 ```
 
-To run functional tests you'll first need webdriver-manager:
+To run functional tests you'll first need webdriver-manager and protractor:
 
 ```bash
-npm install -g webdriver-manager
+npm install -g webdriver-manager protractor
 webdriver-manager update --standalone
 ```
 
