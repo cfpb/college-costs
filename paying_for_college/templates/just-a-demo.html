@@ -953,81 +953,77 @@
                             </div>
                         </section>
                         <section class="estimated-expenses">
-                            <h4 class="metric_heading">
-                                Estimated expenses
-                            </h4>
-                            <p class="metric_explanation">
-                                Monthly living expenses for single person based on [regional OR national] averages
-                            </p>
-                            <form class="offer-part estimated-expenses_form" action="#">
-                                <div class="form-group_item offer-part_currency">
+                            <form class="aid-form" action="#">
+                                <div class="aid-form_heading">
+                                    <h4 class="aid-form_title">
+                                        Estimated expenses
+                                    </h4>
+                                    <p class="aid-form_caption">
+                                        Monthly living expenses for single person based on [regional OR national] averages
+                                    </p>
+                                </div>
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Mortgage or rent
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyRent" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyRent" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Food
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyFood" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyFood" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Transportation
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyTransportation" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyTransportation" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Insurance (health, car, etc.)
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyInsurance" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyInsurance" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Retirement and savings
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlySavings" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlySavings" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Other
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyOther" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyOther" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="content_line"></div>
-                                <div class="line-item">
+                                <div class="content_line aid-form_equals-line"></div>
+                                <div class="line-item aid-form_subtotal">
                                     <div class="line-item_title">
                                         Total monthly expenses
                                     </div>
@@ -1039,8 +1035,8 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="block block__flush-sides block__bg estimated-expenses_summary">
-                                <h5 class="estimated-expenses_heading">
+                            <div class="aid-form_summary">
+                                <h5 class="aid-form_summary-heading">
                                     Grand total
                                 </h5>
                                 <div class="line-item">
@@ -1085,7 +1081,7 @@
                                         <span class="line-item_amount" data-financial="monthlyLoanPayment"></span>
                                     </div>
                                 </div>
-                                <div class="content_line"></div>
+                                <div class="content_line aid-form_equals-line"></div>
                                 <div class="line-item line-item__total">
                                     <div class="line-item_title">
                                         What you have left over

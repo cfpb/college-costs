@@ -198,6 +198,84 @@
 }
 
 /* ==========================================================================
+   Offer and expenses forms
+   ========================================================================== */
+
+.aid-form {
+
+  .respond-to-min(@bp-sm-min, {
+    padding-left: unit(40px / @base-font-size-px, em);
+  });
+
+  &_heading {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      padding-bottom: unit(5px / @base-font-size-px, em);
+      border-bottom: 1px solid @gray-40;
+    });
+  }
+
+  &_title {
+    margin-bottom: unit(5px / 18px, em);
+  }
+
+  &_caption {
+    margin-bottom: 0;
+    font-size: @small-font-size-px;
+  }
+
+  &_input-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(9,24);
+    });
+  }
+
+  &_input {
+    box-sizing: border-box;
+    width: 100%;
+
+    &__currency {
+      text-align: right;
+    }
+  }
+
+  &_equals-line {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(5px / @base-font-size-px, em);
+    background-color: @black;
+  }
+
+  &_summary-heading {
+    padding-bottom: unit(5px / @font-size, em);
+    border-bottom: 1px solid @black;
+    .heading-5();
+  }
+
+  .form-group_item {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  .form-group_item + .form-group_item {
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(20px / @base-font-size-px, em)
+    });
+  }
+
+  .form-label_text-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(15,24);
+    });
+  }
+}
+
+/* ==========================================================================
    Review your first year offer
    ========================================================================== */
 
@@ -639,36 +717,32 @@
 }
 
 .estimated-expenses {
-  @expense-summary-font-size: 18px;
   padding-top: unit(10px / @base-font-size-px, em);
-  border-top: 1px solid @gray-20;
+  border-top: 1px solid @gray-40;
   margin-top: unit(30px / @base-font-size-px, em);
+  margin-bottom: unit(15px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(6);
     padding-top: 0;
+    border-top: none;
     margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(45px / @base-font-size-px, em);
   });
 
-  &_form {
-    margin-top: 0;
-  }
-
-  &_summary {
-    padding-bottom: unit(30px / @base-font-size-px, em);
+  .aid-form_summary {
     margin-top: unit(30px / @base-font-size-px, em);
-    margin-bottom: unit(45px / @base-font-size-px, em);
-    background-color: @gold-20;
+
+    .respond-to-min(@bp-sm-min, {
+      padding-left: unit(40px / @base-font-size-px, em);
+      margin-top: unit(45px / @base-font-size-px, em);
+    });
   }
 
-  &_heading {
-    padding-bottom: unit(5px / @expense-summary-font-size, em);
-    border-bottom: 1px solid @black;
-    margin-bottom: unit(10px / @expense-summary-font-size, em);
-  }
-
-  .content_line {
-    margin-bottom: unit(5px / @expense-summary-font-size, em);
+  .aid-form_summary-heading {
+    .heading-4();
+    margin-bottom: unit(10px / @font-size, em);
+    text-transform: none;
   }
 }
 
