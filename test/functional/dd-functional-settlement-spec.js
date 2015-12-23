@@ -44,7 +44,7 @@ describe('A dynamic financial aid disclosure that\'s required by settlement', fu
 		page.setTuitionFeesCosts(3500);
 		expect(page.totalCostOfAttendance.getText()).toEqual('3500');
 		expect(page.studentTotalCost.getText()).toEqual('3500');
-		//expect(page.addUpRemainingCost()).toEqual(page.remainingCost.getText());
+		expect(page.remainingCost.getText()).toEqual('3500');
 	});
 
 	// TODO - Uncomment remaining cost when it's hooked up
