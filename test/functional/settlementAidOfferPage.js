@@ -1,306 +1,306 @@
 'use strict';
 
-var settlementAidOfferPage = function () {
+var settlementAidOfferPage = function() {
     // TODO: We will need to add offer variables to the end of the following URL.
-    browser.get('http://localhost:8000/paying-for-college2/demo/?oid=1f9y8w1t6y3q0r');
+    browser.get( 'http://localhost:8000/paying-for-college2/demo/?oid=1f9y8w1t6y3q0r' );
 };
 
 settlementAidOfferPage.prototype = Object.create({}, {
     verifySection: {
-      get: function () {
-        return element(by.css('.verify_wrapper'));
+      get: function() {
+        return element( by.css( '.verify_wrapper' ) );
       }
     },
     correctInfoButton: {
-      get: function () {
-        return element(by.css('button[title="Yes, this information is correct"]'));
+      get: function() {
+        return element ( by.css( 'button[title="Yes, this information is correct"]' ) );
       }
     },
     incorrectInfoButton: {
-      get: function () {
-        return element(by.css('button[title="No, this is not my information"]'));
+      get: function() {
+        return element( by.css( 'button[title="No, this is not my information"]' ) );
       }
     },
     confirmVerification: {
-      value: function () {
+      value: function() {
         this.correctInfoButton.click();
       }
     },
     denyVerification: {
-      value: function () {
+      value: function() {
         this.incorrectInfoButton.click();
       }
     },
     // Step 1: Review your first year offer
     reviewSection: {
-      get: function () {
-        return element(by.css('.review'));
+      get: function() {
+        return element( by.css( '.review' ) );
       }
     },
     tuitionFeesCosts: {
-      get: function () {
-        return element(by.id('costs__tuition'));
+      get: function() {
+        return element( by.id( 'costs__tuition' ) );
       }
     },
     setTuitionFeesCosts: {
-      value: function (tuition) {
-        return this.tuitionFeesCosts.sendKeys(tuition);
+      value: function( tuition ) {
+        return this.tuitionFeesCosts.sendKeys( tuition );
       }
     },
     housingMealsCosts: {
-      get: function () {
-        return element(by.id('costs__room-and-board'));
+      get: function() {
+        return element( by.id( 'costs__room-and-board' ) );
       }
     },
     setHousingMealsCosts: {
-      value: function (housing) {
-        return this.housingMealsCosts.sendKeys(housing);
+      value: function( housing ) {
+        return this.housingMealsCosts.sendKeys( housing );
       }
     },
     booksSuppliesCosts: {
-      get: function () {
-        return element(by.id('costs__books'));
+      get: function() {
+        return element( by.id( 'costs__books' ) );
       }
     },
     setBooksSuppliesCosts: {
-      value: function (books) {
-        return this.booksSuppliesCosts.sendKeys(books);
+      value: function( books ) {
+        return this.booksSuppliesCosts.sendKeys( books );
       }
     },
     transportationCosts: {
-      get: function () {
-        return element(by.id('costs__transportation'));
+      get: function() {
+        return element( by.id( 'costs__transportation' ) );
       }
     },
     setTransportationCosts: {
-      value: function (transportation) {
-        return this.transportationCosts.sendKeys(transportation);
+      value: function( transportation ) {
+        return this.transportationCosts.sendKeys( transportation );
       }
     },
     otherEducationCosts: {
-      get: function () {
-        return element(by.id('costs__other'));
+      get: function() {
+        return element( by.id( 'costs__other' ) );
       }
     },
     setOtherEducationCosts: {
-      value: function (othercosts) {
-        return this.otherEducationCosts.sendKeys(othercosts);
+      value: function(othercosts) {
+        return this.otherEducationCosts.sendKeys( othercosts );
       }
     },
     totalCostOfAttendance: {
-      get: function () {
-        return element(by.css('span[data-financial="costOfAttendance"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="costOfAttendance"]' ) );
       }
     },
     federalPellGrants: {
-      get: function () {
-        return element(by.id('grants__pell'));
+      get: function() {
+        return element( by.id( 'grants__pell' ) );
       }
     },
     setFederalPellGrants: {
-      value: function (pellgrant) {
+      value: function(pellgrant) {
         return this.federalPellGrants.sendKeys(pellgrant);
       }
     },
     // TODO - Fix the change in scholarships, once implemented
     /* schoolScholarships: {
-    get: function () { return element(by.id('grants__school-scholarships')); } },
-    setSchoolScholarships: { value: function (schoolscholarships) { return this.schoolScholarships.sendKeys(schoolscholarships); } },
-    stateScholarships: { get: function () { return element(by.id('grants__state-scholarships')); } },
-    setStateScholarships: { value: function (statescholarships) { return this.stateScholarships.sendKeys(statescholarships); } }, */
+    get: function() { return element( by.id( 'grants__school-scholarships' ) ); } },
+    setSchoolScholarships: { value: function(schoolscholarships) { return this.schoolScholarships.sendKeys(schoolscholarships); } },
+    stateScholarships: { get: function() { return element( by.id( 'grants__state-scholarships' ) ); } },
+    setStateScholarships: { value: function(statescholarships) { return this.stateScholarships.sendKeys(statescholarships); } }, */
     otherGrantsScholarships: {
-      get: function () {
-        return element(by.id('grants__scholarships'));
+      get: function() {
+        return element( by.id( 'grants__scholarships' ) );
       }
     },
     setOtherGrantsScholarships: {
-      value: function (othergrants) {
+      value: function(othergrants) {
         return this.otherGrantsScholarships.sendKeys(othergrants);
       }
     },
     totalGrantsScholarships: {
-      get: function () {
-        return element(by.css('span[data-financial="totalGrantsScholarships"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalGrantsScholarships"]' ) );
       }
     },
     studentTotalCost: {
-      get: function () {
-        return element(by.css('span[data-financial="totalCost"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalCost"]' ) );
       }
     },
     studentContribution: {
-      get: function () {
-        return element(by.id('contrib__savings'));
+      get: function() {
+        return element( by.id( 'contrib__savings' ) );
       }
     },
     setStudentContribution: {
-      value: function (studentcontrib) {
+      value: function(studentcontrib) {
         return this.studentContribution.sendKeys(studentcontrib);
       }
     },
     familyContribution: {
-      get: function () {
-        return element(by.id('contrib__family'));
+      get: function() {
+        return element( by.id( 'contrib__family' ) );
       }
     },
     setFamilyContribution: {
-      value: function (familycontrib) {
+      value: function(familycontrib) {
         return this.familyContribution.sendKeys(familycontrib);
       }
     },
     workStudyContribution: {
-      get: function () {
-        return element(by.id('contrib__workstudy'));
+      get: function() {
+        return element( by.id( 'contrib__workstudy' ) );
       }
     },
     setWorkStudyContribution: {
-      value: function (workstudy) {
+      value: function(workstudy) {
         return this.workStudyContribution.sendKeys(workstudy);
       }
     },
     totalContributions: {
-      get: function () {
-        return element(by.css('span[data-financial="totalContributions"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalContributions"]' ) );
       }
     },
     federalPerkinsLoans: {
-      get: function () {
-        return element(by.id('contrib__perkins'));
+      get: function() {
+        return element( by.id( 'contrib__perkins' ) );
       }
     },
     setFederalPerkinsLoans: {
-      value: function (perkins) {
+      value: function(perkins) {
         return this.federalPerkinsLoans.sendKeys(perkins);
       }
     },
     subsidizedLoans: {
-      get: function () {
-        return element(by.id('contrib__subsidized'));
+      get: function() {
+        return element( by.id( 'contrib__subsidized' ) );
       }
     },
     setSubsidizedLoans: {
-      value: function (subsidized) {
-        return this.subsidizedLoans.sendKeys(subsidized);
+      value: function( subsidized ) {
+        return this.subsidizedLoans.sendKeys( subsidized );
       }
     },
     unsubsidizedLoans: {
-      get: function () {
-        return element(by.id('contrib__unsubsidized'));
+      get: function() {
+        return element( by.id( 'contrib__unsubsidized' ) );
       }
     },
     setUnsubsidizedLoans: {
-      value: function (unsubsidized) {
-        return this.unsubsidizedLoans.sendKeys(unsubsidized);
+      value: function( unsubsidized ) {
+        return this.unsubsidizedLoans.sendKeys( unsubsidized );
       }
     },
     directPLUSLoans: {
-      get: function () {
-        return element(by.id('contrib__direct-plus'));
+      get: function() {
+        return element( by.id( 'contrib__direct-plus' ) );
       }
     },
     setDirectPLUSLoans: {
-      value: function (directplus) {
-        return this.directPLUSLoans.sendKeys(directplus);
+      value: function( directplus ) {
+        return this.directPLUSLoans.sendKeys( directplus );
       }
     },
     totalFederalLoans: {
-      get: function () {
-        return element(by.css('span[data-financial="totalFederalLoans"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalFederalLoans"]' ) );
       }
     },
     // TODO: Refactor this here and in the HTML/CSS for multiple private loans?
     privateLoanAmount: {
-      get: function () {
-        return element(by.id('contrib__private-loan'));
+      get: function() {
+        return element( by.id( 'contrib__private-loan' ) );
       }
     },
     setPrivateLoanAmount: {
-      value: function (privateamount) {
-        return this.privateLoanAmount.sendKeys(privateamount);
+      value: function(privateamount) {
+        return this.privateLoanAmount.sendKeys( privateamount );
       }
     },
     privateLoanInterestRate: {
-      get: function () {
-        return element(by.id('contrib__private-loan-interest'));
+      get: function() {
+        return element( by.id( 'contrib__private-loan-interest' ) );
       }
     },
     setPrivateLoanInterestRate: {
-      value: function (privateinterest) {
-        return this.privateLoanInterestRate.sendKeys(privateinterest);
+      value: function( privateinterest ) {
+        return this.privateLoanInterestRate.sendKeys( privateinterest );
       }
     },
     privateLoanFees: {
-      get: function () {
-        return element(by.id('contrib__private-loan-fees'));
+      get: function() {
+        return element( by.id( 'contrib__private-loan-fees' ) );
       }
     },
     setPrivateLoanFees: {
-      value: function (privatefees) {
+      value: function( privatefees ) {
         return this.privateLoanFees.sendKeys(privatefees);
       }
     },
     privateLoanGracePeriod: {
-      get: function () {
-        return element(by.id('contrib__private-loan-grace-period'));
+      get: function() {
+        return element( by.id( 'contrib__private-loan-grace-period' ) );
       }
     },
     setPrivateLoanGracePeriod: {
-      value: function (privategrace) {
+      value: function( privategrace ) {
         return this.privateLoanGracePeriod.sendKeys(privategrace);
       }
     },
     addPrivateLoanButton: {
-      get: function () {
-        return element(by.css('a[title="Add another private loan"]'));
+      get: function() {
+        return element( by.css( 'a[title="Add another private loan"]' ) );
       }
     },
     paymentPlanAmount: {
-      get: function () {
-        return element(by.id('contrib__payment-plan'));
+      get: function() {
+        return element( by.id( 'contrib__payment-plan' ) );
       }
     },
     setPaymentPlanAmount: {
-      value: function (paymentamount) {
-        return this.setPaymentPlanAmount.sendKeys(paymentamount);
+      value: function(paymentamount) {
+        return this.setPaymentPlanAmount.sendKeys( paymentamount );
       }
     },
     paymentPlanInterestRate: {
-      get: function () {
-        return element(by.id('contrib__payment-plan-interest'));
+      get: function() {
+        return element( by.id( 'contrib__payment-plan-interest' ) );
       }
     },
     paymentPlanDueDate: {
-      get: function () {
-        return element(by.id('contrib__payment-plan-due-date'));
+      get: function() {
+        return element( by.id( 'contrib__payment-plan-due-date' ) );
       }
     },
     totalPrivateLoansPaymentPlans: {
-      get: function () {
-        return element(by.css('span[data-financial="totalPrivateLoans"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalPrivateLoans"]' ) );
       }
     },
     totalDebt: {
-      get: function () {
-        return element(by.css('span[data-financial="loanTotal"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="loanTotal"]' ) );
       }
     },
     remainingCost: {
-      get: function () {
-        return element(by.css('span[data-financial="remainingCost"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="remainingCost"]' ) );
       }
     },
     totalProgramDebt: {
-      get: function () {
-        return element(by.css('span[data-financial="totalProgramDebt"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalProgramDebt"]' ) );
       }
     },
     totalRepayment: {
-      get: function () {
-        return element(by.css('span[data-financial="totalRepayment"]'));
+      get: function() {
+        return element( by.css( 'span[data-financial="totalRepayment"]' ) );
       }
     },
     addUpGrantsScholarships: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the grant and scholarship fields
         return ( this.federalPellGrants.value +
             /* this.schoolScholarships.getText() +
@@ -309,14 +309,14 @@ settlementAidOfferPage.prototype = Object.create({}, {
       }
     },
     addUpTotalCost: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the grant and scholarship fields
         return ( this.addUpCostOfAttendance() -
             this.addUpGrantsScholarships() );
       }
     },
     addUpContributions: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the contribution fields
         return ( this.studentContribution.value +
             this.familyContribution.value +
@@ -324,7 +324,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
       }
     },
     addUpFederalLoans: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the federal loan fields
         return ( this.federalPerkinsLoans.getText() +
             this.subsidizedLoans.getText() +
@@ -333,21 +333,21 @@ settlementAidOfferPage.prototype = Object.create({}, {
       }
     },
     addUpPrivateLoansPaymentPlans: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the federal loan fields
         return ( this.privateLoanAmount.getText() +
             this.paymentPlanAmount.getText() );
       }
     },
     addUpTotalDebt: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the federal loan fields
         return ( this.addUpFederalLoans() +
             this.addUpPrivateLoansPaymentPlans() );
       }
     },
     addUpRemainingCost: {
-      value: function () {
+      value: function() {
         // return the sum of the values of the federal loan fields
         return ( this.addUpTotalCost() - this.addUpContributions() -
             this.addUpTotalDebt() );
@@ -355,14 +355,14 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     // Step 2: Evaluate your offer
     evaluateSection: {
-      get: function () {
-        return element(by.css('.evaluate'));
+      get: function() {
+        return element( by.css( '.evaluate' ) );
       }
     },
     // Step 3: You have options / A few more things to consider
     optionsConsiderationsSection: {
-      get: function () {
-        return element(by.css('.get-options'));
+      get: function() {
+        return element( by.css( '.get-options' ) );
       }
     }
 
