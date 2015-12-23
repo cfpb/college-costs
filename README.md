@@ -96,7 +96,7 @@ To run the tests:
 
 ```bash
 # start webdriver in a terminal tab:
-webdriver-manager update
+webdriver-manager start
 # in a fresh tab:
 protractor test/functional/conf.js
 ```
