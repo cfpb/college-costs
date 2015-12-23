@@ -38,7 +38,8 @@
   }
 }
 
-// A bottom border for the sections in step 2 and 3 that use a special grid (11 columns plus bleeding into one gutter)
+// A bottom border for the sections in step 3 that use a special grid (11 columns plus bleeding into one gutter)
+.offer-part:after,
 .criteria_wrapper:after {
 
   .respond-to-min(@bp-sm-min, {
@@ -202,9 +203,10 @@
    ========================================================================== */
 
 .aid-form {
+  @aid-form-left-inset: 40px;
 
   .respond-to-min(@bp-sm-min, {
-    padding-left: unit(40px / @base-font-size-px, em);
+    padding-left: unit(@aid-form-left-inset / @base-font-size-px, em);
   });
 
   &_heading {
@@ -223,6 +225,14 @@
   &_caption {
     margin-bottom: 0;
     font-size: @small-font-size-px;
+  }
+
+  &_label-wrapper,
+  .form-label_text-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(15,24);
+    });
   }
 
   &_input-wrapper {
@@ -253,6 +263,25 @@
     .heading-5();
   }
 
+  &_definition {
+    font-size: unit(@small-font-size-px / @base-font-size-px, em);
+  }
+
+  &_group-header {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-left: unit(-@aid-form-left-inset / @base-font-size-px, em);
+    });
+  }
+
+  &_inline-subtotal {
+
+    .respond-to-min(@bp-sm-min, {
+      display: none;
+    });
+  }
+
   .form-group_item {
 
     .respond-to-min(@bp-sm-min, {
@@ -267,132 +296,20 @@
     });
   }
 
-  .form-label_text-wrapper {
-
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(15,24);
-    });
-  }
-}
-
-/* ==========================================================================
-   Review your first year offer
-   ========================================================================== */
-
-.review {
-  margin-top: unit(45px / @base-font-size-px, em);
-}
-
-.offer-part {
-  margin-top: unit(45px / @base-font-size-px, em);
-
-  .form-group {
-    margin-top: unit(45px / @base-font-size-px, em);
-  }
-
   .form-label-header {
     padding-bottom: unit(5px / @small-font-size-px, em);
     border-bottom: 1px solid @gray-40;
-    margin-bottom: unit(15px / @small-font-size-px, em);
+
+    & + .aid-form_definition {
+      margin-top: unit(-5px / @small-font-size-px, em);
+    }
   }
 
-  .content_line {
-    margin-top: unit(15px / @base-font-size-px, em);
-    margin-bottom: unit(7px / @base-font-size-px, em);
-  }
-}
-
-.offer-part_heading {
-  .heading-3();
-
-  .respond-to-min(@bp-sm-min, {
-    .heading-2();
-  });
-
-  & + .form-group {
-    margin-top: unit(30px / @base-font-size-px, em);
+  .form-label + .aid-form_definition {
+    margin-top: unit(-5px / @small-font-size-px, em);
   }
 }
 
-.offer-part_unit {
-  line-height: 2;
-}
-
-.offer-part_definition {
-  font-size: unit(14px / @base-font-size-px, em);
-}
-
-.form-label + .offer-part_definition {
-  margin-top: unit(-5px / @small-font-size-px, em);
-}
-
-.offer-part_currency {
-  position: relative;
-
-  .offer-part_unit {
-    position: absolute;
-    right: unit(58px / @base-font-size-px, em);
-  }
-
-  .offer-part_input {
-    box-sizing: border-box;
-    width: 100%;
-    text-align: right;
-  }
-}
-
-.offer-part_non-currency {
-
-  .offer-part_input {
-    box-sizing: border-box;
-    width: unit(60px / @base-font-size-px, em);
-  }
-
-  .offer-part_unit {
-    display: inline-block;
-    margin-left: unit(10px / @base-font-size-px, em);
-  }
-}
-
-.private-loans_term-group {
-  padding: 0;
-  border: none;
-}
-
-.private-loan_term {
-  @term-font-size-px: 18px;
-  display: inline-block;
-  font-size: unit(@term-font-size-px / @base-font-size-px, em);
-
-  & + .private-loan_term {
-    margin-left: unit(20px / @term-font-size-px, em);
-  }
-}
-
-.offer-part_summary {
-  padding-bottom: unit(30px / @base-font-size-px, em);
-  margin-top: unit(45px / @base-font-size-px, em);
-  margin-bottom: unit(45px / @base-font-size-px, em);
-  background-color: @gold-20;
-
-  &.debt-summary {
-    margin-top: 0;
-    background-color: @gold-60;
-  }
-
-  .content_line {
-    margin-top: unit(15px / @base-font-size-px, em);
-    margin-bottom: unit(7px / @base-font-size-px, em);
-  }
-}
-
-.offer-part_summary-heading {
-  .heading-5();
-  border-bottom: 1px solid @black;
-  margin-bottom: unit(10px / @font-size, em);
-}
-
-// Elements need to be nested here to inherit @font-size
 .line-item {
   @line-item-font-size: 18px;
 
@@ -417,67 +334,149 @@
     .webfont-regular();
     font-size: unit(14px / @line-item-font-size, em);
   }
+
+  &_title {
+    .grid_column(7);
+  }
+
+  &_value {
+    .grid_column(5);
+  }
+
+  &_amount {
+    float: right;
+  }
+
+  &__total {
+    margin-bottom: 0;
+  }
+
+  & + p {
+    margin-top: unit(20px / @base-font-size-px, em);
+  }
 }
 
-.line-item_title {
-  .grid_column(7);
+/* ==========================================================================
+   Review your first year offer
+   ========================================================================== */
+
+.review {
+  margin-top: unit(45px / @base-font-size-px, em);
+
+  &_wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+
+    & + .criteria {
+      margin-top: unit(30px / @base-font-size-px, em);
+    }
+  }
+
+  &_intro {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
 }
 
-.line-item_value {
-  .grid_column(5);
-}
+.offer-part {
+  margin-top: unit(45px / @base-font-size-px, em);
 
-.line-item_amount {
-  float: right;
-}
+  .respond-to-min(@bp-sm-min, {
+    .grid_nested-col-group();
+    padding-bottom: unit(30px / @base-font-size-px, em);
+  });
 
-.line-item__total {
-  margin-bottom: 0;
-}
+  &_intro {
+    margin-bottom: unit(15px / @base-font-size-px, em);
 
-.offer-part_terms {
-  padding-bottom: unit(17px / @base-font-size-px, em);
-  border-bottom: 1px dashed @gray-40;
-}
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+    });
+  }
 
-.offer-part_terms__last {
-  border-bottom: 1px solid @black;
-  margin-bottom: unit(7px / @base-font-size-px, em);
-}
+  &_intro-wrapper {
 
-.offer-part_term {
-  margin-top: unit(15px / @base-font-size-px, em);
-  margin-bottom: unit(5px / @base-font-size-px, em);
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_intro-content {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
+
+  &_heading {
+    .heading-3();
+  }
+
+  &_form-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
+
+  &_summary-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(4);
+      .grid_push(1);
+      padding-top: unit(30px / @base-font-size-px, em);
+      margin-top: 0;
+    });
+  }
+
+  &.cost-to-attend {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+
+  .offer-part_terms {
+    padding-bottom: unit(17px / @base-font-size-px, em);
+    border-bottom: 1px dashed @gray-40;
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(15,24);
+      margin-top: unit(-15px / @base-font-size-px, em);
+    });
+  }
+
+  .offer-part_terms__last {
+    border-bottom: 1px solid @black;
+    margin-bottom: unit(7px / @base-font-size-px, em);
+  }
+
+  .offer-part_term {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(5px / @base-font-size-px, em);
+  }
 }
 
 .private-loans {
   border-bottom: 1px dashed @gray-40;
   margin-bottom: unit(15px / @base-font-size-px, em);
-}
 
-.private-loans_add-btn {
-  margin-top: unit(20px / @base-font-size-px, em);
-  margin-right: 0;
-  margin-bottom: unit(30px / @base-font-size-px, em);
-  margin-left: 0;
-  border-bottom: none;
-  font-size: 1em;
-  text-align: left;
-
-  &:hover,
-  &:visited,
-  &:active {
+  &_add-btn {
+    margin-top: unit(20px / @base-font-size-px, em);
+    margin-right: 0;
+    margin-bottom: unit(30px / @base-font-size-px, em);
+    margin-left: 0;
     border-bottom: none;
+    font-size: 1em;
+    text-align: left;
+
+    &:hover,
+    &:visited,
+    &:active {
+      border-bottom: none;
+    }
   }
-}
-
-.offer-part_heading + .offer-part_summary {
-  margin-top: unit(30px / @base-font-size-px, em);
-  margin-bottom: 0;
-}
-
-.line-item + p {
-  margin-top: unit(20px / @base-font-size-px, em);
 }
 
 .debt-summary_heading {
@@ -493,6 +492,7 @@
    ========================================================================== */
 
 .evaluate {
+  margin-top: unit(45px / @base-font-size-px, em);
 
   &_wrapper {
 
