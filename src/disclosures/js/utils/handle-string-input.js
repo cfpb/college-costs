@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Turns a string into a number.
  * Assumes each number in the string should be preserved (unlike parseInt)
@@ -5,9 +7,6 @@
  * @param  {string} numberString  A string representing a number
  * @returns {number} The assumed numeric value of numberString
  */
-
-'use strict';
-
 function handleStringInput( numberString ) {
   var signMaker = 1,
       minusPosition = numberString.indexOf( numberString.match( '-' ) ),
