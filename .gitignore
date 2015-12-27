@@ -50,7 +50,8 @@ coverage.xml
 # Django stuff:
 *.log
 db.sqlite3
-*/static/
+paying_for_college/local_static/
+paying_for_college/static/paying_for_college/disclosures/
 *data/
 
 # Sphinx documentation
@@ -67,5 +68,5 @@ node_modules/
 paying-for-college/disclosures/static/paying_for_college/disclosures/static/
 src/vendor/
 
-# Include front-end lib
+# Includes
 !src/disclosures/js/lib
