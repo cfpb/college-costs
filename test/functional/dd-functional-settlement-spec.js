@@ -25,7 +25,7 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
 	} );
 
 	// TODO - Add expectation that verification buttons disappear, and all fields that should be prepopulated actually are, and that Step 3 is still hidden
-	it("should let a student verify their information and go on to Step 1 and Step 2 of the offer", function() {
+	it( 'should let a student verify their information and go on to Step 1 and Step 2 of the offer', function() {
 		page.confirmVerification();
 		browser.wait( EC.visibilityOf(page.reviewSection ), 8000 );
 		browser.wait( EC.visibilityOf(page.evaluateSection ), 8000 );
