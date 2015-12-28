@@ -97,7 +97,9 @@ To run the tests:
 ```bash
 # start webdriver in a terminal tab:
 webdriver-manager start
-# in a fresh tab:
+# if you're running it on a localhost, in a fresh tab:
+python manage.py runserver
+# and in a third tab:
 protractor test/functional/conf.js
 ```
 
