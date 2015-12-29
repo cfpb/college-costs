@@ -1,0 +1,490 @@
+/* PFC LANDING PAGE
+In general, organization flows from the top of the page to the bottom.
+PFC = Paying for College
+
+Styles are for:
+- http://www.consumerfinance.gov/paying-for-college/
+
+Table of Contents
+-----------------
+- ADJUST MAIN CONTENT CONTAINER
+- HEROS
+- PFC NAVIGATION
+- PFC CONTENT GRID
+- TYPOGRAPHY
+- BUTTONS
+- SHARE MODULE
+
+-------------------------------------------------------------------------------*/
+
+/* ADJUST MAIN CONTENT CONTAINER
+This is for full width page background colors. It adjust some styles
+from the main site stylesheet.
+-------------------------------------------------------------------------------*/
+.paying-for-college #maincontent {
+    padding: 0 0 2em;
+    width: 1016px;
+}
+
+/* No breadcrumbs in PFC. Current Django templates output an empty UL when
+breadcrumbs do not exist unfortunately. :( Bug reported; to be fixed in future. */
+.bread {
+    display: none;
+}
+
+/* Padding on inner containers */
+.bread,
+#introduction,
+#comparison-tables,
+#save-footer,
+#save-drawer,
+.sub-page-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* HEROS
+This just the hero for the Comparison Tool.
+-------------------------------------------------------------------------------*/
+/* This is a placeholder for now. */
+.pfc-hero-wrapper {
+    background-color: #2cb34a;
+    padding: 2.375em 3.125em;
+    position: relative;
+}
+
+.pfc-hero-wrapper a {
+    background-color: transparent;
+    border-bottom: 1px dashed #101820;
+    color: #101820;
+}
+
+.pfc-hero-wrapper a:hover,
+.pfc-hero-wrapper a:active,
+.pfc-hero-wrapper a:focus {
+    background-color: transparent;
+    border-bottom-style: solid;
+}
+
+/* IE7 calculates padding with decimals differently. This makes sure the Hero is full width. */
+.lt-ie8 .pfc-hero-wrapper {
+    width: 89.75%;
+}
+
+.breadcrumbs a {
+    background-color: transparent;
+    border-bottom: none;
+    color: #328ed8;
+    padding-left: 0.5em;
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:active,
+.breadcrumbs a:focus {
+    background-color: transparent;
+    border-bottom-style: none;
+}
+
+.breadcrumbs > p {
+    font-family: "Avenir Next", Verdana, sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.625em;
+    margin-top: 0.25em;
+}
+
+.pfc-hero-content {
+    /* Not an official color, but a mix of green and white. */
+    background-color: #d3efdb;
+    font-family: "Avenir Next", Verdana, sans-serif;
+    float: left;
+    min-height: 155px;
+    padding: 1em;
+    width: 35%;
+}
+
+.pfc-hero-content p {
+    font-family: "Avenir Next", Verdana, sans-serif;
+}
+
+.pfc-hero-image {
+    position: absolute;
+        bottom: 38px;
+        right: 30px;
+}
+
+.pfc-hero-image img {
+    vertical-align: bottom;
+}
+
+/* Use this class on Hero images to make it stick to bottom of container. */
+.pfc-hero-image.alignbottom {
+    bottom: 0;
+}
+
+/* Use this class on Hero images to make it stick to bottom right of container. */
+.pfc-hero-image.alignbottomright {
+    bottom: 0;
+    right: 0;
+}
+
+.pfc-header {
+    margin: 0 0 3em 0;
+    position: relative;
+}
+
+.pfc-header h1 {
+    font-size: 2.125em;
+    font-weight: 600;
+    margin-bottom: 0.25em;
+    font-family: "Avenir Next", Arial, sans-serif;
+    text-transform: none;
+}
+
+/* Sub-pages have a different sized H1 */
+.pfc-header h1.sub-page {
+    font-size: 1.625em;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
+/* PFC NAVIGATION
+This has similar styles as the global site navigation.
+-------------------------------------------------------------------------------*/
+.pfc-nav-wrapper {
+    background-color: #337e7d;
+    border-bottom: 1px solid #101820;
+    border-top: 1px solid #101820;
+}
+
+.pfc-nav-wrapper ul {
+    background-color: #337e7d;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pfc-nav-wrapper ul li {
+    background-color: #337e7d;
+    display: inline-block;
+    font-family: "Avenir Next", Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    margin: 0;
+    position: relative;
+    width: auto;
+}
+
+.lt-ie8 .pfc-nav-wrapper ul li {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+.lt-ie9 .pfc-nav-wrapper ul li {
+    font-family: "Avenir Next Demi", Verdana, sans-serif;
+}
+
+/* This class acts like a link because we don't want to use an empty <a> tag. */
+.fake-link {
+    cursor: pointer;
+}
+
+.pfc-nav-wrapper ul li a,
+.fake-link {
+    -webkit-transition: background-color ease 1000ms;
+    -moz-transition: background-color ease 1000ms;
+    transition: background-color ease 1000ms;
+    display: block;
+    width: auto;
+    height: auto;
+    padding: 0.5em 1.75em 0.25em;
+    border-bottom: 0;
+    color: #fff;
+    text-align: center;
+    background-color: #337e7d;
+}
+
+.pfc-nav-wrapper ul li a:visited {
+    color: #fff;
+}
+
+.pfc-nav-wrapper ul li a:hover,
+.fake-link:hover {
+    background-color: #ccdfdf;
+    color: #000;
+}
+
+.pfc-nav-wrapper ul li a:focus {
+    background-color: #ccdfdf;
+    color: #000;
+}
+
+.pfc-nav-wrapper ul li a.is-active,
+.pfc-nav-wrapper ul li .fake-link.is-active {
+    background-color: #ccdfdf;
+    color: #000;
+}
+
+/* Dropdown */
+.pfc-nav-wrapper ul ul {
+    background-color: #ccdfdf;
+    list-style: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: -9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+    text-align: left;
+    top: 100%;
+    width: 12.5em;
+    z-index: 9999;
+}
+
+.pfc-nav-wrapper ul ul li {
+    background-color: #ccdfdf;
+    border-bottom: 1px solid #000;
+    display: block;
+    width: 100%;
+}
+
+.pfc-nav-wrapper ul ul a,
+.pfc-nav-wrapper ul ul a:visited {
+    background-color: #ccdfdf;
+    color: #000;
+    display: block;
+    padding: 1em 0.5em 0.75em 1.5em;
+    text-align: left;
+}
+
+.pfc-nav-wrapper li:hover > ul,
+.pfc-nav-wrapper li.focus > ul { /* Display the dropdown on hover */
+    left: 0; /* Bring back on-screen when needed */
+}
+
+.pfc-nav-wrapper ul ul li:hover > ul,
+.pfc-nav-wrapper ul ul li.focus > ul { /* Display the dropdown on hover */
+    left: 100%; /* Bring back on-screen when needed */
+    top: 0;
+}
+
+.section {
+    border-top: 1px solid #babbbd;
+    margin: 1.5em 0;
+}
+
+#intro {
+    border-top: none;
+}
+
+/* PFC CONTENT GRID
+This has similar styles as the global site navigation.
+-------------------------------------------------------------------------------*/
+/* A grid only used for /paying-for-college/ and /technote/ */
+/* Clear these with .clearfix */
+.paying-for-college .clearfix:before,.clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.paying-for-college .clearfix:after { clear: both; }
+.paying-for-college .clearfix { zoom: 1; }
+
+.paying-for-college .col {
+    display: inline;
+    float: left;
+    margin-right: 30px;
+}
+
+.paying-for-college .col.last,
+.paying-for-college .col.col12 {
+    margin-right: 0;
+}
+
+/* Column widths */
+.paying-for-college .col1 { width: 53.5px; }
+.paying-for-college .col2 { width: 137px; }
+.paying-for-college .col3 { width: 220.5px; }
+.paying-for-college .col4 { width: 304px; }
+.paying-for-college .col5 { width: 387.5px; }
+.paying-for-college .col6 { width: 471px; }
+.paying-for-college .col7 { width: 554.5px; }
+.paying-for-college .col8 { width: 638px; }
+.paying-for-college .col9 { width: 721.5px; }
+.paying-for-college .col10 { width: 805px; }
+.paying-for-college .col11 { width: 888.5px; }
+.paying-for-college .col12 { width: 936px; }
+.paying-for-college .pre1 { padding-left: 53.5px; }
+.paying-for-college .pre2 { padding-left: 137px; }
+.paying-for-college .pre3 { padding-left: 220.5px; }
+.paying-for-college .pre4 { padding-left: 304px; }
+.paying-for-college .pre5 { padding-left: 387.5px; }
+.paying-for-college .pre6 { padding-left: 471px; }
+.paying-for-college .pre7 { padding-left: 554.5px; }
+.paying-for-college .pre8 { padding-left: 638px; }
+.paying-for-college .pre9 { padding-left: 721.5px; }
+.paying-for-college .pre10 { padding-left: 805px; }
+.paying-for-college .pre11 { padding-left: 888.5px; }
+.paying-for-college .suf1 { padding-right: 53.5px; }
+.paying-for-college .suf2 { padding-right: 137px; }
+.paying-for-college .suf3 { padding-right: 220.5px; }
+.paying-for-college .suf4 { padding-right: 304px; }
+.paying-for-college .suf5 { padding-right: 387.5px; }
+.paying-for-college .suf6 { padding-right: 471px; }
+.paying-for-college .suf7 { padding-right: 554.5px; }
+.paying-for-college .suf8 { padding-right: 638px; }
+.paying-for-college .suf9 { padding-right: 721.5px; }
+.paying-for-college .suf10 { padding-right: 805px; }
+.paying-for-college .suf11 { padding-right: 888.5px; }
+
+/* TYPOGRAPHY
+The typographical hierarchy on this page differs from others.
+-------------------------------------------------------------------------------*/
+.paying-for-college #wrapper h1,
+.paying-for-college #wrapper .h1 {
+    font-size: 2.125em;
+    font-weight: 500;
+}
+
+.paying-for-college #wrapper h2,
+.paying-for-college #wrapper .h2 {
+    font-size: 1.625em;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.paying-for-college #wrapper h3,
+.paying-for-college #wrapper .h3 {
+    font-size: 1.125em;
+    font-weight: 500;
+}
+
+.paying-for-college #wrapper h4,
+.paying-for-college #wrapper .h4 {
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.paying-for-college #wrapper h5,
+.paying-for-college #wrapper .h5 {
+    font-size: 1em;
+}
+
+.paying-for-college #wrapper h6,
+.paying-for-college #wrapper .h6 {
+    font-size: 1em;
+}
+
+/* Apply to header element at top of .section to achieve boder overlay */
+.border-overlay-spacing {
+    margin-top: -2px;
+}
+
+/* Apply to heading at top of .section to achieve boder overlay */
+.border-overlay {
+    border-top: 4px solid #30b14a;
+    display: inline-block;
+    zoom: 1;
+        *display: inline;
+    padding-top: 0.25em;
+}
+
+/* Make the intro a little different */
+#intro p {
+    font-family: "Avenir Next", Verdana, sans-serif;
+    font-size: 1.125em;
+}
+
+/* BUTTONS
+The buttons differ from others on the site.
+-------------------------------------------------------------------------------*/
+/* Override current styles */
+.paying-for-college #wrapper button {
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.paying-for-college #wrapper button,
+.paying-for-college #wrapper .button {
+    box-sizing: border-box;
+    display: inline-block;
+    
+    padding: 0.71428571428571em 1em; /* 10/14 14/14 */
+    
+    border: none;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+
+    margin-right: 1em;
+    
+    background-color: #0072ce; /* Pacific */
+    
+    color: #fff;
+    font-size: 1em;
+    line-height: 1;
+    font-family: "Avenir Next Medium", Arial, sans-serif;
+    font-weight: 500;
+    text-decoration: none;
+
+    -webkit-transition: .1s;
+       -moz-transition: .1s;
+            transition: .1s;
+}
+
+.paying-for-college #wrapper button:hover,
+.paying-for-college #wrapper button:focus,
+.paying-for-college #wrapper .button:hover,
+.paying-for-college #wrapper .button:focus {
+    /* Class included for static state examples */
+    background-color: #328ed8; /* Pacific/80 */
+}
+
+.paying-for-college #wrapper button:active,
+.paying-for-college #wrapper .button:active {
+    /* Class included for static state examples */
+    background-color: #33578e; /* Navy/80 */
+}
+
+/* SHARE MODULE
+The sharing module differs from others on the site.
+-------------------------------------------------------------------------------*/
+.share-pfc {
+    margin: 4em auto;
+    text-align: center;
+}
+
+.share-links {
+    font-size: 2em;
+    padding-top: 0.5em;
+}
+
+.share-links a {
+    background-color: transparent;
+    border: none;
+    padding: 0 0.125em;
+
+}
+
+.share-links a:hover {
+    border: none;
+    color: #7eb8dd;
+    text-decoration: none;
+}
+
+.share-links a:focus {
+    border: none;
+    color: #0072ce;
+    outline: thin dotted;
+    text-decoration: none;
+}
+
+.share-links a:active {
+    border: none;
+    color: #002d72;
+    text-decoration: none;
+}
+
+/* Tweak external link icon to match existing link color. */
+.icon-external-link {
+    color: #4d819a;
+}

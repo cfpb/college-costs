@@ -37,7 +37,7 @@ if STANDALONE:
 else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
-URL_ROOT = 'paying_for_college2'
+URL_ROOT = 'paying-for-college2'
 
 
 class BaseTemplateView(TemplateView):
