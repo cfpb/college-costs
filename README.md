@@ -79,6 +79,32 @@ You can run python tests from the project root with this command:
 ./pytest.sh
 ```
 
+To run JavaScript unit tests:
+
+```bash
+npm test
+```
+
+To run functional tests, **you need to make sure that you have version 4.0+ of Node.js**. Install/upgrade it using either `npm` or `brew`.
+
+You'll also need webdriver-manager and protractor:
+
+```bash
+npm install -g webdriver-manager protractor
+webdriver-manager update --standalone
+```
+
+To run the tests:
+
+```bash
+# start webdriver in a terminal tab:
+webdriver-manager start
+# if you're running it on a localhost, in a fresh tab:
+python manage.py runserver
+# and in a third tab:
+protractor test/functional/conf.js
+```
+
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
 
@@ -93,8 +119,8 @@ If the software is configurable, describe it in detail, either here or in other 
 
 ## Usage
 
-Show users how to use the software. 
-Be specific. 
+Show users how to use the software.
+Be specific.
 Use appropriate formatting when showing code snippets.
 
 ## How to test the software
