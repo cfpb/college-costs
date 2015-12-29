@@ -85,7 +85,9 @@ To run JavaScript unit tests:
 npm test
 ```
 
-To run functional tests you'll first need webdriver-manager and protractor:
+To run functional tests, **you need to make sure that you have version 4.0+ of Node.js**. Install/upgrade it using either `npm` or `brew`.
+
+You'll also need webdriver-manager and protractor:
 
 ```bash
 npm install -g webdriver-manager protractor
