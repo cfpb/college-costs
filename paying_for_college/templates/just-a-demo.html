@@ -68,55 +68,48 @@
                         </dd>
                     </dl>
                     <div class="verify_controls">
-                        <button class="btn" title="Yes, this information is correct">
+                        <a href="#info-right" class="btn" title="Yes, this information is correct">
                             Yes, this is correct
-                        </button>
-                        <button class="btn btn__link verify_wrong-info-btn" title="No, this is not my information">
+                        </a>
+                        <a href="#info-wrong" class="btn btn__link verify_wrong-info-btn" title="No, this is not my information">
                             No, this is not my information
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div class="content_line"></div>
-    <section class="instructions step content_wrapper">
-        <div class="content_main">
-            <div class="instructions_wrapper">
-                <div class="instructions_content instructions_content__right">
-                    <h2 class="step_heading">
-                        Before you are able to enroll, you will need to review the following sections:
-                    </h2>
-                    <ol class="list__flush-left">
-                        <li>
-                            Your financial aid offer
-                        </li>
-                        <li>
-                            Your offer evaluation
-                        </li>
-                        <li>
-                            Your options
-                        </li>
-                    </ol>
-                </div>
-                <div class="instructions_content instructions_content__wrong">
-                    <p class="instructions_subheading">
-                        If the information provided is not correct, please contact your school to have it adjusted.
-                    </p>
-                    <p>
-                        Once your school provides you with an updated link to our tool, you will be able to return to the tool and complete it so you can continue with the enrollment process.
-                    </p>
+
+
+
+
+
+    <section id="info-right" class="information-right">
+        <div class="content_line"></div>
+    <div class="wrapper">
+        <section class="instructions step content_wrapper">
+            <div class="content_main">
+                <div class="instructions_wrapper">
+                    <div class="instructions_content instructions_content__right">
+                        <h2 class="step_heading">
+                            Before you are able to enroll, you will need to review the following sections:
+                        </h2>
+                        <ol class="list__flush-left">
+                            <li>
+                                Your financial aid offer
+                            </li>
+                            <li>
+                                Your offer evaluation
+                            </li>
+                            <li>
+                                Your options
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <div class="content_line"></div>
-
-
-
-
-
-    <div class="wrapper">
+        </section>
+        <div class="content_line"></div>
         <section class="content_main">
             <section class="step review">
                 <h2 class="step_heading">
@@ -1324,6 +1317,24 @@
             </ol>
         </div>
     </section>
+</section>
+<section id="info-wrong" class="information-wrong">
+    <div class="content_line"></div>
+    <section class="instructions step content_wrapper">
+        <div class="content_main">
+            <div class="instructions_wrapper">
+                <div class="instructions_content instructions_content__wrong">
+                    <p class="instructions_subheading">
+                        If the information provided is not correct, please contact your school to have it adjusted.
+                    </p>
+                    <p>
+                        Once your school provides you with an updated link to our tool, you will be able to return to the tool and complete it so you can continue with the enrollment process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
 </main>
 
 {% endblock %}
