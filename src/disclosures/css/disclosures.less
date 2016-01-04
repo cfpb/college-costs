@@ -836,6 +836,10 @@
     margin-bottom: unit(45px / @base-font-size-px, em);
   });
 
+  .aid-form {
+    margin-top: 0;
+  }
+
   .aid-form_summary {
 
     .respond-to-min(@bp-sm-min, {
@@ -850,6 +854,23 @@
     .heading-4();
     margin-bottom: unit(10px / @font-size, em);
     text-transform: none;
+  }
+
+  .line-item {
+
+    &_title {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(9);
+      });
+    }
+
+    &_value {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(3);
+      });
+    }
   }
 }
 
