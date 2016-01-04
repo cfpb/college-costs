@@ -163,7 +163,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="offer-part cost-to-attend column-well_wrapper">
+                <div class="offer-part cost-to-attend column-well_wrapper__overflow-small">
                     <div class="offer-part_intro">
                         <div class="offer-part_intro-wrapper">
                             <div class="offer-part_intro-content">
@@ -369,7 +369,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="offer-part contributions column-well_wrapper">
+                <div class="offer-part contributions column-well_wrapper__overflow-small">
                     <div class="offer-part_intro">
                         <div class="offer-part_intro-wrapper">
                             <div class="offer-part_intro-content">
@@ -492,9 +492,54 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="aid-form_summary big-picture column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Big picture
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your total cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost"></span>
+                                </div>
+                            </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Remaining cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="remainingCost"></span>
+                                </div>
+                            </div>
+                            <p>
+                                This is how much you still need to pay to attend [school name] for one year.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="offer-part loans column-well_wrapper">
+                <div class="offer-part loans column-well_wrapper__overflow-small">
                     <div class="offer-part_intro">
                         <div class="offer-part_intro-wrapper">
                             <div class="offer-part_intro-content">
@@ -539,6 +584,7 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="content_line loans_line"></div>
                                 <div class="form-group_item">
                                     <div class="aid-form_label-wrapper">
                                         <label class="form-label" for="contrib__subsidized">
@@ -569,6 +615,7 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="content_line loans_line"></div>
                                 <div class="form-group_item">
                                     <div class="aid-form_label-wrapper">
                                         <label class="form-label" for="contrib__unsubsidized">
@@ -599,6 +646,7 @@
                                         </p>
                                     </div>
                                 </div>
+                                <div class="content_line loans_line"></div>
                                 <div class="form-group_item">
                                     <div class="aid-form_label-wrapper">
                                         <label class="form-label" for="contrib__direct-plus">
@@ -644,7 +692,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group federal-loans">
+                            <div class="form-group private-loans-payment-plans">
                                 <div class="aid-form_group-header">
                                     <label class="form-label-header">
                                         Private loans and payment plans
@@ -728,7 +776,7 @@
                                     <div class="aid-form_input-wrapper">
                                         <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="institutionalLoan" autocorrect="off" value="0">
                                     </div>
-                                    <div class="offer-part_terms offer-part_terms__last">
+                                    <div class="offer-part_terms">
                                         <p class="offer-part_term">
                                             <span data-financial="institutionalLoanRate">[X.X]</span>% interest
                                         </p>
@@ -800,34 +848,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="offer-part future column-well_wrapper">
-                    <div class="offer-part_intro">
-                        <div class="offer-part_intro-wrapper">
-                            <div class="offer-part_intro-content">
-                                <h3 class="offer-part_heading">
-                                    What does this mean for your future?
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offer-part_form-wrapper">
-                        <p>
-                            It looks like you still have a remaining cost of [$XX] to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
-                        </p>
-                        <p>
-                            It looks like you are borrowing [$XX] more than you need to pay for school. You can reduce your future debt by decreasing your loan amount to cover only what you need.
-                        </p>
-                        <p>
-                            While the idea of [$XX] in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after [years attending school] years after interest equals [$XX].
-                        </p>
-                        <p>
-                            Some students find themselves struggling to repay student debt once they finish school. In Step 2, learn how factors like graduation rates and expected salary can affect your ability to repay your student debt.
-                        </p>
-                    </div>
-                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
-                        <div class="aid-form_summary column-well_content">
+                        <div class="aid-form_summary big-picture column-well_content">
                             <h4 class="aid-form_summary-heading">
                                 Big picture
                             </h4>
@@ -885,42 +906,128 @@
                             <p>
                                 After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
                             </p>
-                            <div class="debt-summary">
-                                <h4 class="aid-form_summary-heading">
-                                    Debt summary
-                                </h4>
-                                <div class="line-item">
-                                    <div class="line-item_title">
-                                        Loans for first year
-                                    </div>
-                                    <div class="line-item_value">
-                                        <span class="line-item_currency">
-                                            $
-                                        </span>
-                                        <span class="line-item_amount" data-financial="loanTotal"></span>
-                                    </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="offer-part future column-well_wrapper__overflow-small">
+                    <div class="offer-part_intro">
+                        <div class="offer-part_intro-wrapper">
+                            <div class="offer-part_intro-content">
+                                <h3 class="offer-part_heading">
+                                    What does this mean for your future?
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-part_form-wrapper">
+                        <p>
+                            It looks like you still have a remaining cost of [$XX] to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
+                        </p>
+                        <p>
+                            It looks like you are borrowing [$XX] more than you need to pay for school. You can reduce your future debt by decreasing your loan amount to cover only what you need.
+                        </p>
+                        <p>
+                            While the idea of [$XX] in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after [years attending school] years after interest equals [$XX].
+                        </p>
+                        <p>
+                            Some students find themselves struggling to repay student debt once they finish school. In Step 2, learn how factors like graduation rates and expected salary can affect your ability to repay your student debt.
+                        </p>
+                    </div>
+                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
+                        <div class="aid-form_summary big-picture column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Big picture
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your total cost
                                 </div>
-                                <div class="line-item">
-                                    <div class="line-item_title">
-                                        Loans for [X] years (program length)
-                                    </div>
-                                    <div class="line-item_value">
-                                        <span class="line-item_currency">
-                                            $
-                                        </span>
-                                        <span class="line-item_amount" data-financial="totalProgramDebt"></span>
-                                    </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost"></span>
                                 </div>
-                                <div class="line-item">
-                                    <div class="line-item_title">
-                                        Total cost of repayment with interest
-                                    </div>
-                                    <div class="line-item_value">
-                                        <span class="line-item_currency">
-                                            $
-                                        </span>
-                                        <span class="line-item_amount" data-financial="totalRepayment"></span>
-                                    </div>
+                            </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions"></span>
+                                </div>
+                            </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your debt
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Remaining cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="remainingCost"></span>
+                                </div>
+                            </div>
+                            <p>
+                                After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
+                            </p>
+                        </div>
+                        <div class="aid-form_summary debt-summary column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Debt summary
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Loans for first year
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal"></span>
+                                </div>
+                            </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Loans for [X] years (program length)
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalProgramDebt"></span>
+                                </div>
+                            </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Total cost of repayment with interest
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalRepayment"></span>
                                 </div>
                             </div>
                         </div>
@@ -990,7 +1097,7 @@
                         </section>
                     </div>
                 </section>
-                <section class="criteria column-well_wrapper">
+                <section class="criteria column-well_wrapper__overflow-small">
                     <h3 class="criteria_heading">
                         How will I afford my loan payment?
                     </h3>

@@ -204,9 +204,11 @@
 
 .aid-form {
   @aid-form-left-inset: 40px;
+  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     padding-left: unit(@aid-form-left-inset / @base-font-size-px, em);
+    margin-top: 0;
   });
 
   &_heading {
@@ -233,6 +235,10 @@
     .respond-to-min(@bp-sm-min, {
       .grid_column(15,24);
     });
+
+    .aid-form_definition {
+      margin-bottom: unit(5px / @small-font-size-px, em);
+    }
   }
 
   &_input-wrapper {
@@ -257,10 +263,36 @@
     background-color: @black;
   }
 
+  &_summary,
+  &_summary.column-well_content {
+    padding-top: unit(20px / @base-font-size-px, em);
+    padding-right: (@grid_gutter-width / 2);
+    padding-bottom: unit(20px / @base-font-size-px, em);
+    padding-left: (@grid_gutter-width / 2);
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-right: -(@grid_gutter-width / 2);
+    margin-left: -(@grid_gutter-width / 2);
+    background-color: @gray-5;
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: 0;
+      padding-right: @grid_gutter-width;
+      padding-bottom: 0;
+      padding-left: @grid_gutter-width;
+      margin-top: 0;
+      margin-right: -@grid_gutter-width;
+      margin-left: -@grid_gutter-width;
+    });
+  }
+
   &_summary-heading {
     padding-bottom: unit(5px / @font-size, em);
     border-bottom: 1px solid @black;
-    .heading-5();
+    .heading-4();
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-5();
+    });
   }
 
   &_definition {
@@ -337,10 +369,18 @@
 
   &_title {
     .grid_column(7);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
   }
 
   &_value {
     .grid_column(5);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(4);
+    });
   }
 
   &_amount {
@@ -438,8 +478,6 @@
   }
 
   .offer-part_terms {
-    padding-bottom: unit(17px / @base-font-size-px, em);
-    border-bottom: 1px dashed @gray-40;
 
     .respond-to-min(@bp-sm-min, {
       .grid_column(15,24);
@@ -447,14 +485,79 @@
     });
   }
 
-  .offer-part_terms__last {
-    border-bottom: 1px solid @black;
-    margin-bottom: unit(7px / @base-font-size-px, em);
-  }
-
   .offer-part_term {
     margin-top: unit(15px / @base-font-size-px, em);
     margin-bottom: unit(5px / @base-font-size-px, em);
+  }
+}
+
+.contributions,
+.loans,
+.future {
+
+  .column-well {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .aid-form_summary {
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+      padding-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
+}
+
+.contributions,
+.loans {
+
+  .big-picture {
+    display: none;
+    padding-bottom: 0;
+    background-color: transparent;
+
+    .respond-to-min(@bp-sm-min, {
+      display: block;
+    });
+  }
+
+  .column-well:after {
+    background-color: @gold-20;
+  }
+}
+
+.future {
+
+  .aid-form_summary.debt-summary {
+    margin-top: 0;
+    background-color: @gold-40;
+
+    .respond-to-min(@bp-sm-min, {
+      padding-bottom: 0;
+    });
+  }
+
+  .aid-form_summary.big-picture {
+    background-color: @gold-20;
+  }
+
+  .column-well:after {
+    background-color: @gold-40;
+  }
+}
+
+.loans {
+
+  &_line {
+    border-top: 1px dashed @gray-40;
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-bottom: unit(15px / @base-font-size-px, em);
+    background-color: transparent;
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(15px / @base-font-size-px, em);
+    });
   }
 }
 
@@ -479,12 +582,15 @@
   }
 }
 
-.debt-summary_heading {
-  .heading-3();
+.debt-summary {
 
-  .respond-to-min(@bp-sm-min, {
-    .heading-2();
-  });
+  .aid-form_summary-heading {
+    .heading-3();
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-5();
+    });
+  }
 }
 
 /* ==========================================================================
@@ -731,11 +837,12 @@
   });
 
   .aid-form_summary {
-    margin-top: unit(30px / @base-font-size-px, em);
 
     .respond-to-min(@bp-sm-min, {
       padding-left: unit(40px / @base-font-size-px, em);
       margin-top: unit(45px / @base-font-size-px, em);
+      margin-left: 0;
+      background-color: transparent;
     });
   }
 
