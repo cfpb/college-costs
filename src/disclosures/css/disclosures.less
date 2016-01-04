@@ -18,6 +18,11 @@
   select[multiple] {
     .webfont-regular();
   }
+
+  .content_main {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 }
 
 .step {
@@ -33,21 +38,48 @@
   }
 }
 
+// A bottom border for the sections in step 2 and 3 that use a special grid (11 columns plus bleeding into one gutter)
+.criteria_wrapper:after {
+
+  .respond-to-min(@bp-sm-min, {
+    display: block;
+    width: unit( (11 / @grid_total-columns) * 100, %);
+    height: 1px;
+    border-right: 0;
+    border-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: 0;
+    left: @grid_gutter-width / 2;
+    z-index: 10;
+    background-color: @gray-40;
+    content: ' ';
+  });
+}
+
 /* ==========================================================================
    Verify offer
    ========================================================================== */
 
 .verify {
+  margin-top: unit(20px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-sm-min, {
+    margin-top: unit(30px / @base-font-size-px, em);
+  });
 
   &_wrapper {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
       .grid_nested-col-group();
+      margin-bottom: unit(45px / @base-font-size-px, em);
     });
   }
 
   &_content {
     .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
+      .grid_column(6);
     });
   }
 
@@ -66,8 +98,14 @@
     margin-bottom: 0;
 
     .respond-to-min(@bp-sm-min, {
-      .heading-2();
       margin-bottom: unit(5px / @font-size, em);
+    });
+  }
+
+  &_location {
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-4();
     });
   }
 
@@ -97,14 +135,38 @@
     });
   }
 
-  &_wrong-info-btn {
-    font-size: 1em;
+  &_form {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
   }
 
-  .content_main {
+  &_estimate {
+
     .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
+      .grid_column(8);
     });
+  }
+
+  &_label {
+    .heading-4();
+  }
+
+  &_label-explanation {
+    font-size: unit(@small-font-size-px / @base-font-size-px, em)
+  }
+
+  &_controls {
+    margin-top: unit(30px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+    });
+  }
+
+  &_wrong-info-btn {
+    font-size: 1em;
   }
 }
 
@@ -113,34 +175,35 @@
    ========================================================================== */
 
 .instructions {
+  margin-top: unit(30px / @base-font-size-px, em);
 
   &_wrapper {
+    padding-bottom: unit(5px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
       .grid_nested-col-group();
+      padding-bottom: unit(20px / @base-font-size-px, em);
     });
   }
 
   &_content {
     .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
+      .grid_column(6);
     });
   }
 
   &_subheading {
     .heading-4();
   }
-
-  .content_main {
-    .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
-      padding-bottom: unit(30px / @base-font-size-px, em);
-    });
-  }
 }
 
 /* ==========================================================================
    Review your first year offer
    ========================================================================== */
+
+.review {
+  margin-top: unit(45px / @base-font-size-px, em);
+}
 
 .offer-part {
   margin-top: unit(45px / @base-font-size-px, em);
@@ -253,6 +316,8 @@
 
 // Elements need to be nested here to inherit @font-size
 .line-item {
+  @line-item-font-size: 18px;
+
   .grid_nested-col-group();
   .heading-4();
   margin-bottom: unit(15px / @font-size, em);
@@ -266,6 +331,13 @@
   &_currency {
     position: absolute;
     right: unit(77px / @font-size, em);
+  }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @line-item-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @line-item-font-size, em);
   }
 }
 
@@ -364,10 +436,10 @@
 }
 
 .criteria {
-  margin-top: unit(45px / @base-font-size-px, em);
+  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
-    border-bottom: 1px solid @gray-20;
+    margin-top: unit(45px / @base-font-size-px, em);
   });
 
   &_heading {
@@ -410,9 +482,12 @@
     font-size: unit(14px / @base-font-size-px, em);
   }
 
+  &_notification {
+    margin-bottom: unit(15px / @base-font-size-px, em);
+  }
+
   &_notification__better {
     .heading-4();
-    margin-bottom: 0;
   }
 }
 
@@ -592,13 +667,6 @@
     margin-bottom: unit(10px / @expense-summary-font-size, em);
   }
 
-  &_explanation {
-    display: block;
-    margin-top: unit(5px / @expense-summary-font-size, em);
-    .webfont-regular();
-    font-size: unit(14px / @expense-summary-font-size, em);
-  }
-
   .content_line {
     margin-bottom: unit(5px / @expense-summary-font-size, em);
   }
@@ -609,7 +677,16 @@
    ========================================================================== */
 
 .question {
+  padding-top: unit(25px / @base-font-size-px, em);
+  padding-bottom: unit(5px / @base-font-size-px, em);
+  margin-top: unit(30px / @base-font-size-px, em);
   background-color: @gold-20;
+
+  .respond-to-min(@bp-sm-min, {
+    padding-top: unit(30px / @base-font-size-px, em);
+    padding-bottom: unit(15px / @base-font-size-px, em);
+    margin-top: unit(45px / @base-font-size-px, em);
+  });
 
   &_wrapper {
     .respond-to-min(@bp-sm-min, {
@@ -624,20 +701,12 @@
   }
 
   &_answers {
+    margin-top: unit(20px / @base-font-size-px, em);
     margin-bottom: unit(20px / @base-font-size-px, em);
 
     .respond-to-min(@bp-sm-min, {
+      margin-top: unit(30px / @base-font-size-px, em);
       margin-bottom: unit(30px / @base-font-size-px, em);
-    });
-  }
-
-  .content_main {
-    padding-top: unit(20px / @base-font-size-px, em);
-    padding-bottom: unit(20px / @base-font-size-px, em);
-
-    .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
-      padding-bottom: unit(30px / @base-font-size-px, em);
     });
   }
 }
@@ -647,6 +716,7 @@
    ========================================================================== */
 
 .get-options {
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     padding-bottom: unit(30px / @base-font-size-px, em);
@@ -662,10 +732,6 @@
     .respond-to-min(@bp-sm-min, {
       .grid_column(8);
     });
-  }
-
-  .content_main {
-    padding-bottom: 0;
   }
 
   .step_intro {
@@ -730,9 +796,13 @@
    ========================================================================== */
 
 .next-steps {
+  padding-bottom: unit(30px / @base-font-size-px, em);
 
   &_wrapper {
+    margin-top: unit(30px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
+      margin-top: unit(45px / @base-font-size-px, em);
       .grid_nested-col-group();
     });
   }
@@ -772,28 +842,36 @@
       margin-top: unit(30px / @base-font-size-px, em);
     });
   }
+
+  .content_line {
+    display: none;
+
+    .respond-to-min(@bp-sm-min, {
+      display: block;
+    });
+  }
 }
 
 /* ==========================================================================
-   Student debt calculator demo
+   Feedback
    ========================================================================== */
 
-.financial-inputs {
-  max-width: 1100px;
-  margin: 120px auto 0 auto;
-  padding-top: 60px;
-  border-top: 1px solid @table-border;
+.feedback {
+  margin-bottom: unit(60px / @base-font-size-px, em);
 
-  label {
-    line-height: 3;
-    max-width: 40%;
-    padding-bottom: 0.5em;
-    text-align: right;
-    & > input[type="text"] {
-      display: block;
-      float: right;
-      margin-left: 1em;
-    }
+  &_wrapper {
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-bottom: unit(15px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(45px / @base-font-size-px, em);
+      .grid_nested-col-group();
+    });
   }
 
+  &_intro {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
 }

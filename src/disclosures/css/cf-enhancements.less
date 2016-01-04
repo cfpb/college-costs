@@ -13,39 +13,28 @@
    Full-width buttons on small screens
    ========================================================================== */
 
-.btn {
+.btn__full-small {
+
   .respond-to-max(@bp-xs-max, {
     display: block;
     width: 100%;
   });
-}
 
-.btn__link {
-  .respond-to-max(@bp-xs-max, {
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-  });
-}
+  &.btn__link {
+    .respond-to-max(@bp-xs-max, {
+      width: auto;
+      margin-left: auto;
+      margin-right: auto;
+    });
+  }
 
-.btn + .btn {
-  .respond-to-max(@bp-xs-max, {
-    margin-top: unit(10px / @base-font-size-px, em);
-    margin-left: auto;
-  });
-}
+  & + & {
 
-.btn__grouped-first,
-.btn__grouped,
-.btn__grouped-last,
-.btn + .btn.btn__grouped,
-.btn + .btn.btn__grouped-last {
-  .respond-to-max(@bp-xs-max, {
-    display: inline-block;
-    width: auto;
-    margin-top: 0;
-    margin-left: unit( -3px / @super-btn-font-size, em );
-  });
+    .respond-to-max(@bp-xs-max, {
+      margin-top: unit(10px / @base-font-size-px, em);
+      margin-left: auto;
+    });
+  }
 }
 
 /* ==========================================================================
@@ -77,34 +66,35 @@
    Expanded intros
    ========================================================================== */
 
-.intro {
+.hero__intro {
+  background-color: transparent;
 
-  &_wrapper {
-    .respond-to-min(@bp-sm-min, {
-      .grid_nested-col-group();
+  .hero_text {
+
+    .respond-to-min(@tablet-min, {
+      .grid_column(8,12);
+      vertical-align: middle;
     });
   }
 
-  &_content {
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
-    });
+  .hero_subhead {
+    .webfont-regular();
   }
 
-  &_summary {
+  .hero_image {
 
-    .respond-to-min(@bp-sm-min, {
-      .heading-2();
+    .respond-to-min(@tablet-min, {
+      .grid_column(3,12);
+      .grid_push(1,12);
+      vertical-align: middle;
     });
   }
+}
 
-  &_image {
-      text-align: center;
+.lt-ie9 .hero__intro {
 
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(3);
-      .grid_push(1);
-    });
+  .hero_wrapper {
+    min-height: 0;
   }
 }
 
