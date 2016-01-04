@@ -255,6 +255,18 @@
     &__currency {
       text-align: right;
     }
+
+    &__percent,
+    &__time {
+      width: unit(65px / @base-font-size-px, em);
+      text-align: right;
+    }
+  }
+
+  &_unit {
+    display: inline-block;
+    margin-top: unit(6px / @base-font-size-px, em);
+    margin-left: unit(10px / @base-font-size-px, em);
   }
 
   &_equals-line {
@@ -565,20 +577,41 @@
   border-bottom: 1px dashed @gray-40;
   margin-bottom: unit(15px / @base-font-size-px, em);
 
+  &_heading {
+    border-bottom: 1px solid @gray-40;
+    margin-bottom: unit(15px / @base-font-size-px, em);
+    position: relative;
+  }
+
+  &_heading-text {
+    .heading-4();
+  }
+
+  &_remove-btn,
   &_add-btn {
-    margin-top: unit(20px / @base-font-size-px, em);
-    margin-right: 0;
-    margin-bottom: unit(30px / @base-font-size-px, em);
-    margin-left: 0;
     border-bottom: none;
     font-size: 1em;
-    text-align: left;
 
     &:hover,
     &:visited,
     &:active {
       border-bottom: none;
     }
+  }
+
+  &_remove-btn {
+    position: absolute;
+    top: unit(-8px / @base-font-size-px, em);
+    right: 0;
+    font-size: 1em;
+  }
+
+  &_add-btn {
+    margin-top: unit(20px / @base-font-size-px, em);
+    margin-right: 0;
+    margin-bottom: unit(30px / @base-font-size-px, em);
+    margin-left: 0;
+    text-align: left;
   }
 }
 

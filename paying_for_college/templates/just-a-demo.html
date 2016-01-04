@@ -703,6 +703,15 @@
                                 </div>
                                 <div class="private-loans">
                                     <div class="private-loans_loan">
+                                        <div class="private-loans_heading">
+                                            <div class="private-loans_heading-text">
+                                                Private loan
+                                            </div>
+                                            <button class="btn btn__link private-loans_remove-btn" type="button" title="Remove this private loan">
+                                                Remove
+                                                <span class="cf-icon cf-icon-delete-round"></span>
+                                            </button>
+                                        </div>
                                         <div class="form-group_item">
                                             <div class="aid-form_label-wrapper">
                                                 <label class="form-label" for="contrib__private-loan">
@@ -723,7 +732,7 @@
                                                 </p>
                                             </div>
                                             <div class="aid-form_input-wrapper">
-                                                <input class="aid-form_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanRate" autocorrect="off" value="0">
+                                                <input class="aid-form_input aid-form_input__percent" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanRate" autocorrect="off" value="0">
                                                 <span class="aid-form_unit">
                                                     %
                                                 </span>
@@ -739,8 +748,8 @@
                                                 </p>
                                             </div>
                                             <div class="aid-form_input-wrapper">
-                                                <input class="aid-form_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
-                                                <span class="offer-part_unit">
+                                                <input class="aid-form_input aid-form_input__percent" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
+                                                <span class="aid-form_unit">
                                                     %
                                                 </span>
                                             </div>
@@ -755,8 +764,8 @@
                                                 </p>
                                             </div>
                                             <div class="aid-form_input-wrapper">
-                                                <input class="aid-form_input" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
-                                                <span class="offer-part_unit">
+                                                <input class="aid-form_input aid-form_input__time" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
+                                                <span class="aid-form_unit">
                                                     months
                                                 </span>
                                             </div>
