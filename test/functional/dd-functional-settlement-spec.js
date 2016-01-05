@@ -10,7 +10,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
 		page = new SettlementPage();
 	} );
 
-	// TODO - Change this title when we move from demo mode.
 	it( 'should provide a student with the right page', function() {
 		expect( browser.getTitle() ).toBe( 'Understanding your financial aid offer > Consumer Financial Protection Bureau' );
 	} );
