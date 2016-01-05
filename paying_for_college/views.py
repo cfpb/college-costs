@@ -1,4 +1,3 @@
-# Create your views here.
 import os
 import json
 import uuid
@@ -23,6 +22,8 @@ from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback
 from models import Program, ConstantCap, ConstantRate
+from validators import validate_worksheet, validate_uuid4
+
 # from models import BAHRate
 from forms import FeedbackForm, EmailForm
 BASEDIR = os.path.dirname(__file__)
@@ -37,7 +38,7 @@ if STANDALONE:
 else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
-URL_ROOT = 'paying_for_college2'
+URL_ROOT = 'paying-for-college2'
 
 
 class BaseTemplateView(TemplateView):
@@ -79,7 +80,7 @@ class FeedbackView(TemplateView):
     def post(self, request):
         form = self.form
         if form.is_valid():
-            feedback = Feedback(message=form.cleaned_data['message'])
+            feedback = Feedback(message=form.cleaned_data['message'][:2000])
             feedback.save()
             return render_to_response("feedback_thanks.html",
                                       locals(),
@@ -219,7 +220,7 @@ class EmailLink(View):
                       fail_silently=False)
         document = {'status': 'ok'}
         return HttpResponse(json.dumps(document),
-                            content_type='application/javascript')
+                            content_type='application/json')
 
 
 class CreateWorksheetView(View):
@@ -233,16 +234,15 @@ class CreateWorksheetView(View):
         return response
 
 
-# TODO: JSON should only allow a whitelist of keys through.
-# TODO: Validator should also enforce field value types
 class DataStorageView(View):
     def post(self, request, guid):
-        worksheet = Worksheet.objects.get(
-            guid=guid,
-        )
-        if request.body:
-            worksheet.saved_data = request.body
-            worksheet.save()
+        if validate_uuid4(guid) == None:  # we have a valid uuid
+            worksheet = Worksheet.objects.get(guid=guid)
+        if worksheet and request.body:
+            validated_json = validate_worksheet(request.body)
+            if validated_json:
+                worksheet.saved_data = validated_json
+                worksheet.save()
 
         return HttpResponse(worksheet.saved_data)
 

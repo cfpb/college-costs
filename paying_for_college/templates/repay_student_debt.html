@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block analytics_js %}
-    <!-- this is where we put our custom analytics --> 
+    <!-- this is where we put our custom analytics -->
     <!-- H5BP's Asynchronous Google Analytics snippet. -->
     <script>
       var _gaq=[['_setAccount','UA-20466645-3'],['_setDomainName', '.consumerfinance.gov']];
@@ -40,7 +40,7 @@
                 }
             });
         });
-    </script>    
+    </script>
 {% endblock %}
 
 {% block body_class %}page paying-for-college{% endblock %}
@@ -51,7 +51,7 @@
   <div id="pfc-hero-wrapper" class="pfc-hero-wrapper clearfix">
     <div class="pfc-hero-content">
       <div class="breadcrumbs">
-          <p><i class="icon-left"></i><a href="/paying-for-college/">Paying for College</a></p>
+          <p><i class="icon-left"></i><a href="/{{url_root}}/">Paying for College</a></p>
       </div>
       <h1 class="sub-page">Repay student debt</h1>
       <p>Paying off student debt can be confusing. Walk through your options and optimize how to pay off your loans.</p>
@@ -61,7 +61,7 @@
     </div>
   </div><!-- end .pfc-hero-wrapper -->
   <a class="cfpb_visually_hide focusable" href="#wizroot">Skip to main content</a>
-{% include "nav_wrapper.html" %}
+  {% include "nav_wrapper.html" %}
 </header><!-- end #repay-debt-header -->
 
 
@@ -70,15 +70,13 @@
     <div class="content-l know-your-options">
       <div class="content-l_col content-l_col-3-4">
         <h1>Know your options</h1>
-        <p>This tool provides information and advice for optimizing how you pay off  your student loans based on some basic information about your situation.</p>
-        <p>While we can’t give you advice for your exact situation, we hope it can point you in the right direction and help you learn about some of your options.</p>
+        <p>This tool provides information and advice for optimizing how you pay off  your student loans based on some basic information about your situation. While we can’t give you advice for your exact situation, we hope it can point you in the right direction and help you learn about some of your options.</p>
         <p>Get started by answering a few questions below.</p>
       </div>
       <div class="content-l_col content-l_col-1-4">
-        <img class="repaying-page-icon" src="{% static "paying_for_college/repaystudentdebt/images/Page_icon.png" %}">
+        <!-- <img class="repaying-page-icon" src="{% static "paying_for_college/repaystudentdebt/images/Page_icon.png" %}"> -->
       </div>
     </div>
-    <hr>
 
     <h2 id="your-situation" class="ds-scroll-top">Your situation</h2>
     <div class="ds-content">
@@ -104,7 +102,7 @@
               <div class="content-l_col content-l_col-1-3 content-l_col__before-divider">
                 <h3><span class="cf-icon cf-icon-error-round"></span> Both</h3>
                 <p>Many student loan borrowers have both private and federal student loans. Because repayment options for each type of loan
-                  are different, start by selecting the loan type that you are most concerned about. You can always return to the beginning 
+                  are different, start by selecting the loan type that you are most concerned about. You can always return to the beginning
                   of the tool and select the other loan type here in step one.</p>
                 </div>
               </div>
@@ -116,7 +114,7 @@
                 <p>In order to use this tool, it will be helpful to have a list of your loans and required monthly payment amounts. If you don’t have this information, don’t worry.</p>
                 <div class="read-more read-more_is-closed">
                   <div class="read-more_content">
-                    <p>You can get a list of all federal loans made to you by visiting the <a href="https://www.nslds.ed.gov/nslds_SA/" class="external-link" target="_blank">National Student Loan Data System</a> and selecting “Financial Aid Review.” Click each individual loan to see who the servicer is for that loan (this is also the company that sends you a bill each month). </p> 
+                    <p>You can get a list of all federal loans made to you by visiting the <a href="https://www.nslds.ed.gov/nslds_SA/" class="external-link" target="_blank">National Student Loan Data System</a> and selecting “Financial Aid Review.” Click each individual loan to see who the servicer is for that loan (this is also the company that sends you a bill each month). </p>
                     <p>To learn more about your private student loans, take a look at your credit report or contact your school’s financial aid office.</p>
                   </div>
                   <button class="read-more_target">
@@ -135,7 +133,7 @@
   </section>
 
   <section id="q2" data-ds-qnum="2"  class="ds-section ds-question">
-    <div class="ds-content"> 
+    <div class="ds-content">
       <div class="content-l">
         <div class="content-l_col content-l_col-1-2">
           <p><span class="cf-icon cf-icon-help-round"></span> <strong>Have you missed one or more payments on your student loans?</strong></p>
@@ -147,7 +145,7 @@
         <div class="content-l_col content-l_col-1-2">
           <h3>Additional information</h3>
 
-          <p>Missing payments on your federal or private student loans can hurt your credit rating and your financial future.</p> 
+          <p>Missing payments on your federal or private student loans can hurt your credit rating and your financial future.</p>
 
           <p>Missing a payment on a student loan can result in late fees, additional interest charges, and can increase the cost of repayment over the lifetime of your loan.</p>
         </div>
@@ -253,11 +251,11 @@
   </section>
 
   <section id="q8" data-ds-qnum="8" class="ds-section ds-question">
-  <div class="ds-content">  
+  <div class="ds-content">
       <p><span class="cf-icon cf-icon-supplement-round"></span> <strong>Are you confident you can make the full payment?</strong></p>
-  
+
       <p>When you consider your current income, loan payments, other debt and living expenses, are you confident that you can make your full monthly student loan payments?</p>
-  
+
       <div class='ds-buttons'>
         <button class="btn" data-ds-name="yes">Yes</button>
         <button class="btn" data-ds-name="no">No</button>
@@ -283,7 +281,7 @@
     <div class="ds-response-container">
       <div data-responds-to="yes"><span class="cf-icon cf-icon-user-round"></span> I AM an active duty servicemember. <button class="btn go-back"><span class="cf-icon cf-icon-edit"></span> | <span class="change-answer">Change Answer</span></button></div>
       <div data-responds-to="no"><span class="cf-icon cf-icon-user-round"></span> I am NOT an active duty servicemember. <button class="btn go-back"><span class="cf-icon cf-icon-edit"></span> | <span class="change-answer">Change Answer</span></button>  </div>
-    </div> 
+    </div>
   </section>
 
   <section class="ds-section ds-clear-all ds-clear-after-q">
@@ -291,7 +289,7 @@
   </section>
 
   <section class="ds-section ds-module" id="m1">
-    <div class="some-options ">Some options available to you</div>
+    <div class="some-options "></div>
     <h3>Direct debit and extra payments</h3>
 
     <p>You're well on your way as long as you keep up with your loan payments.</p>
@@ -301,7 +299,7 @@
     <ul>
       <li>Consider contacting your loan servicer to set up direct debit.  Your servicer will automatically withdraw money from your bank account so you're less likely to miss a payment. Many lenders offer an interest rate reduction for those who set up direct debit, which could save you hundreds or thousands of dollars over the life of the loan!</li>
 
-      <li>Even if you set up direct debit, check your account periodically to make sure everything is being processed correctly.  Be sure you have enough funds in your account or you might face fees from your bank and your student loan servicer.</li>  
+      <li>Even if you set up direct debit, check your account periodically to make sure everything is being processed correctly.  Be sure you have enough funds in your account or you might face fees from your bank and your student loan servicer.</li>
 
       <li>If your budget allows for it, and you have already set aside some funds for emergencies, then you could consider making a payment for more than what is required.  You'll pay off your loan faster and pay less in interest. For most federal loans and private (non-federal) loans, you can make additional payments at any time without a penalty.</li>
       <li>If you do pay more than the minimum payment, be sure to apply these payments to your loan with the highest interest rate first.  Generally speaking, this will be the best way to make a big dent in your debt.</li>
@@ -315,8 +313,8 @@
 
     <h4>Helpful advice</h4>
     <ul>
-      <li>For federal student loan borrowers with multiple, older student loans from different lenders, consolidation offers added benefits, including eligibility for <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">Public Service Loan Forgiveness</a>.</li> 
-      <li>If you have a lot of student debt, you may be able to extend your payments over a longer period of time.  For borrowers with extremely high debt, this can be as long as 30 years.  Although this will lower your monthly payments, it will cost you thousands of extra dollars over the lifetime of your loan.  For most borrowers, <a href="http://www.consumerfinance.gov/askcfpb/633/what-income-based-repayment-ibr.html">Income-Based Repayment (IBR)</a> is a cheaper alternative.</li> 
+      <li>For federal student loan borrowers with multiple, older student loans from different lenders, consolidation offers added benefits, including eligibility for <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">Public Service Loan Forgiveness</a>.</li>
+      <li>If you have a lot of student debt, you may be able to extend your payments over a longer period of time.  For borrowers with extremely high debt, this can be as long as 30 years.  Although this will lower your monthly payments, it will cost you thousands of extra dollars over the lifetime of your loan.  For most borrowers, <a href="http://www.consumerfinance.gov/askcfpb/633/what-income-based-repayment-ibr.html">Income-Based Repayment (IBR)</a> is a cheaper alternative.</li>
       <li>If you took out a federal student loan before 2006 and have a variable interest rate, consolidating your loans will "lock in" your current interest rate—a great opportunity for borrowers to take advantage of today's low rates.</li>
       <li>Be aware, your interest rate will be recalculated as the weighted average of your current federal loans and rounded up to the nearest .125%.  This means that your interest rate will not decrease and actually may rise slightly.</li>
     </ul>
@@ -327,7 +325,7 @@
   </section>
 
   <section class="ds-section ds-module" id="m2">
-    <div class="some-options ">Some options available to you</div>
+    <div class="some-options "></div>
     <h3>Lower your interest rate</h3>
 
     <p>If you are currently serving on active-duty you are eligible to have the interest rate lowered to 6% on all student loans taken out prior to your military service. This benefit applies to both your federal and private (non-federal) student loans and is available for all active-duty servicemembers, regardless of where you serve.  Most borrowers on active-duty will qualify for this benefit, so it makes sense to start here.</p>
@@ -338,25 +336,30 @@
 
     <p>You may also be eligible for other benefits available to servicemembers, such as military deferment and Income-Based Repayment.</p>
 
-    <h3>Income-based repayment (IBR) and public service loan forgiveness (PSLF)</h3>
+    <h3>Income-driven repayment plans and public service loan forgiveness (PSLF)</h3>
 
-    <p>This is one of the best options to stay on the road to repayment for federal student loan borrowers. <a href='http://www.consumerfinance.gov/askcfpb/633/what-income-based-repayment-ibr.html'>IBR</a> ties your payment to your income and family size. (The chart below gives you an idea of your approximate payment.)</p>
+    <p>This is one of the best options to stay on the road to repayment for federal student loan borrowers. <a href='http://blog.ed.gov/2015/12/your-federal-student-loans-just-got-easier-to-repaye/'>Income-driven repayment plans</a> ties your payment to your income and family size. (The chart below gives you an idea of your approximate payment.)</p>
 
-    <p class='illus paperwork'>For borrowers who will make a career out of military service, IBR provides another major benefit— you may be eligible for <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">loan forgiveness</a>
-      after 10 years of reduced monthly payments. If you think you will spend a decade or more in the military, it is important to enter into IBR as soon as possible; each qualifying monthly payment gets you closer to <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">Public Service Loan Forgiveness (PSLF)</a>.</p>
+    <p class='illus paperwork'>For borrowers who will make a career out of military service, Income-driven repayment plans provide another major benefit— you may be eligible for <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">loan forgiveness</a>
+      after 10 years of reduced monthly payments. If you think you will spend a decade or more in the military, it is important to enter into an income-driven repayment plan as soon as possible; each qualifying monthly payment gets you closer to <a href="http://studentaid.ed.gov/repay-loans/forgiveness-cancellation/charts/public-service">Public Service Loan Forgiveness (PSLF)</a>.</p>
 
       <p>If you leave the military but plan to pursue another qualifying public service profession, like teaching or serving in government, you may still be eligible for PSLF.</p>
 
-      <p class='act'>To get started on IBR, contact your servicer. Check your servicer's website to learn how to enroll. Just a heads up, your servicer will probably ask for proof of your income to determine your payment. You should have a tax return or a pay stub you can provide.</p>
+      <div class='act'>
+        <p>Get started by <a href="https://studentloans.gov/myDirectLoan/index.action" class="external-link" target="_blank">enrolling online at StudentLoans.gov</a>. Once you sign in, select “Income-Driven Repayment Plan Request.” These plans are always available for free to federal student loan borrowers with eligible loans.</p>
+
+        <p>You can also contact your servicer (the company that sends you a bill each month) about enrolling. They will likely ask for proof of your income, such as a tax return or pay stub, to determine your payment.</p>
+
+        <p>If you have an older federal loan made by a private lender, you may need to consolidate your loans in order to enroll in the income-driven repayment plan with the lowest monthly payment.  Learn more about <a href="http://blog.ed.gov/2015/12/your-federal-student-loans-just-got-easier-to-repaye/">how this works here</a>.</p>
+      </div>
 
       <p class='tip'>For federal loans, consider IBR before options that postpone payment like forbearance or deferment. While completely postponing payment is an attractive option, if you enroll in IBR you can keep your payments low and, if you continue to make payments and continue your service for 10 years, your loan will be forgiven.</p>
 
-      <p>Use this chart to see what your approximate <b>monthly payment</b> would be given your income and family size. Check out the Department of Education's <a href="http://studentaid.ed.gov/PORTALSWebApp/students/english/IBRCalc.jsp">IBR calculator</a> and <a href="http://studentaid.ed.gov/PORTALSWebApp/students/english/IBRPlan.jsp">IBR fact sheet</a> for precise amounts and more information.</p>
+      <p>Use this chart to see what your approximate <b>monthly payment</b> would be given your income and family size under the income-driven repayment plans with the lowest monthly payment. Check out the Department of Education's <a href="https://studentloans.gov/myDirectLoan/mobile/repayment/repaymentEstimator.action">repayment estimator</a> for precise amounts and more information.</p>
 
       <table summary="Estimated monthly loan payments on income-based repayment plans">
-        <caption>Income-Based Repayment guidelines</caption>
         <thead>
-          <tr>
+          <tr class="dark-header">
             <th rowspan="2" abbr="Income" scope="col">Annual income</th>
             <th colspan="7" scope="col">Family size</th>
           </tr>
@@ -407,7 +410,7 @@
           </tr>
           <tr>
             <th scope="row">$20,000</th>
-            <td>$46</td>
+            <td>$20</td>
 
             <td>$0</td>
 
@@ -424,9 +427,9 @@
           </tr>
           <tr class="alt">
             <th scope="row">$25,000</th>
-            <td>$108</td>
+            <td>$61</td>
 
-            <td>$37</td>
+            <td>$9</td>
 
             <td>$0</td>
 
@@ -441,11 +444,11 @@
           </tr>
           <tr>
             <th scope="row">$30,000</th>
-            <td>$171</td>
+            <td>$103</td>
 
-            <td>$99</td>
+            <td>$51</td>
 
-            <td>$28</td>
+            <td>$0</td>
 
             <td>$0</td>
 
@@ -458,13 +461,13 @@
           </tr>
           <tr class="alt">
             <th scope="row">$35,000</th>
-            <td>$233</td>
+            <td>$145</td>
 
-            <td>$162</td>
+            <td>$93</td>
 
-            <td>$90</td>
+            <td>$41</td>
 
-            <td>$18</td>
+            <td>$0</td>
 
             <td>$0</td>
 
@@ -475,15 +478,15 @@
           </tr>
           <tr>
             <th scope="row">$40,000</th>
-            <td>$296</td>
+            <td>$186</td>
 
-            <td>$224</td>
+            <td>$134</td>
 
-            <td>$153</td>
+            <td>$82</td>
 
-            <td>$81</td>
+            <td>$30</td>
 
-            <td>$9</td>
+            <td>$0</td>
 
             <td>$0</td>
 
@@ -492,15 +495,15 @@
           </tr>
           <tr class="alt">
             <th scope="row">$45,000</th>
-            <td>$358</td>
+            <td>$228</td>
 
-            <td>$287</td>
+            <td>$176</td>
 
-            <td>$215</td>
-
-            <td>$143</td>
+            <td>$124</td>
 
             <td>$72</td>
+
+            <td>$20</td>
 
             <td>$0</td>
 
@@ -509,87 +512,87 @@
           </tr>
           <tr>
             <th scope="row">$50,000</th>
-            <td>$421</td>
+            <td>$270</td>
 
-            <td>$349</td>
+            <td>$218</td>
 
-            <td>$278</td>
+            <td>$166</td>
 
-            <td>$206</td>
+            <td>$114</td>
 
-            <td>$134</td>
+            <td>$62</td>
 
-            <td>$63</td>
+            <td>$10</td>
 
             <td>$0</td>
 
           </tr>
           <tr class="alt">
             <th scope="row">$55,000</th>
-            <td>$483</td>
+            <td>$311</td>
 
-            <td>$412</td>
+            <td>$259</td>
 
-            <td>$340</td>
+            <td>$207</td>
 
-            <td>$268</td>
+            <td>$155</td>
 
-            <td>$197</td>
+            <td>$103</td>
 
-            <td>$125</td>
+            <td>$51</td>
 
-            <td>$54</td>
+            <td>$0</td>
 
           </tr>
           <tr>
             <th scope="row">$60,000</th>
-            <td>$546</td>
+            <td>$353</td>
 
-            <td>$474</td>
+            <td>$301</td>
 
-            <td>$403</td>
+            <td>$249</td>
 
-            <td>$331</td>
+            <td>$197</td>
 
-            <td>$259</td>
+            <td>$145</td>
 
-            <td>$188</td>
+            <td>$93</td>
 
-            <td>$116</td>
+            <td>$41</td>
 
           </tr>
           <tr class="alt">
             <th scope="row">$65,000</th>
-            <td>$608</td>
+            <td>$395</td>
 
-            <td>$537</td>
+            <td>$343</td>
 
-            <td>$465</td>
+            <td>$291</td>
 
-            <td>$393</td>
+            <td>$239</td>
 
-            <td>$322</td>
+            <td>$187</td>
 
-            <td>$250</td>
+            <td>$135</td>
 
-            <td>$179</td>
+            <td>$83</td>
 
           </tr>
           <tr>
             <th scope="row">$70,000</th>
-            <td>$671</td>
-
-            <td>$599</td>
-
-            <td>$528</td>
-
-            <td>$456</td>
+            <td>$436</td>
 
             <td>$384</td>
 
-            <td>$313</td>
+            <td>$332</td>
 
-            <td>$241</td>
+            <td>$280</td>
+
+            <td>$228</td>
+
+            <td>$176</td>
+
+            <td>$124</td>
 
           </tr>
         </tbody>
@@ -610,40 +613,44 @@
 
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m3">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <div class="content-l content-l__main">
         <div class="content-l_col content-l_col-3-4">
           <h2>Payment plans based on your income</h2>
 
-          <p>Most borrowers with federal student loans can choose to set their monthly  payment based on how much money they make. Income-driven payment  plans provide the security of knowing that you can afford your payments.</p>
+          <p class="subtitle">Most borrowers with federal student loans can choose to set their monthly  payment based on how much money they make. Income-driven payment  plans provide the security of knowing that you can afford your payments.</p>
 
-          <div class="content-l">
+          <div class="content-l payment-plans">
             <div class="content-l_col content-l__main content-l_col-1-2">
+              <img class="image-left" src="{% static "paying_for_college/repaystudentdebt/images/Icon_1_35x35.png" %}">
               <h3>Pay As You Earn</h3>
 
               <p>If you are a recent grad, <a href="http://www.consumerfinance.gov/askcfpb/1555/what-pay-you-earn-paye-how-do-i-know-if-i-qualify.html" target="_blank" class="internal-link">Pay As You Earn (PAYE)</a> is a newer repayment plan that is likely available for your federal student loans. The plan caps your monthly federal student loan payment at 10 percent of your discretionary income. If you think you might be eligible, learn more about <a href="http://www.consumerfinance.gov/askcfpb/1555/what-pay-you-earn-paye-how-do-i-know-if-i-qualify.html" target="_blank" class="internal-link">who qualifies for PAYE here</a>.</p>
             </div>
             <div class="content-l_col content-l_col-1-2">
-              <h3>Income-Based Repayment</h3>
+              <img class="image-left" src="{% static "paying_for_college/repaystudentdebt/images/Icon_2_35x35.png" %}">
+              <h3>REPAYE</h3>
 
-              <p>If you don’t think you’re eligible for Pay As You Earn, you should look into Income-Based Repayment (IBR). You can get a lower payment if your federal student loan debt is high compared to your income and family size.</p>
+              <p>If you don’t think you’re eligible for Pay As You Earn, you should look into REPAYE (<em>Revised</em> Pay As You Earn). You can get a lower payment if your federal student loan debt is high compared to your income and family size. You can <a href="http://blog.ed.gov/2015/12/your-federal-student-loans-just-got-easier-to-repaye/">learn more here</a> about who is eligible and the differences between these plans. </p>
             </div>
           </div>
 
-          <div class="highlighted">  
+          <div class="highlighted get-started">
               <h3>Get started</h3>
               <p>Get started by <a href="https://studentloans.gov/myDirectLoan/index.action" class="external-link" target="_blank">enrolling online at StudentLoans.gov</a>. Once you sign in, select “Income-Driven Repayment Plan Request.” These plans are always available for free to federal student loan borrowers with eligible loans.</p>
 
               <p>You can also contact your servicer (the company that sends you a bill each month) about enrolling. They will likely ask for proof of your income, such as a tax return or pay stub, to determine your payment.</p>
+
+              <p>If you have an older federal loan made by a private lender, you may need to consolidate your loans in order to enroll in the income-driven repayment plan with the lowest monthly payment.  Learn more about <a href="http://blog.ed.gov/2015/12/your-federal-student-loans-just-got-easier-to-repaye/">how this works here</a>.</p>
           </div>
 
           <div class="content_line"></div>
 
           <h2>How much will I have to pay if I enroll in an income-driven payment plan?</h2>
 
-          <p>Use this chart to see what an approximate monthly payment would be given your income and family size for Income-Based Repayment (IBR), the most common income-driven payment plan. If you’re a recent grad and you’re eligible for Pay As You Earn (PAYE), your monthly payment will be even lower.</p>
+          <p>Use this chart to see what an approximate monthly payment would be given your income and family size for PAYE/REPAYE, the income-driven repayment plans with the lowest monthly payments.</p>
 
           <table class="payment-table" summary="Estimated monthly loan payments on income-based repayment plans">
             <caption>Income-based repayment guidelines</caption>
@@ -678,7 +685,7 @@
 
               </tr>
               <tr>
-                <th scope="row">$20,000</th><td>$46</td>
+                <th scope="row">$20,000</th><td>$20</td>
                 <td>$0</td>
                 <td>$0</td>
                 <td>$0</td>
@@ -688,8 +695,8 @@
 
               </tr>
               <tr class="alt">
-                <th scope="row">$25,000</th><td>$108</td>
-                <td>$37</td>
+                <th scope="row">$25,000</th><td>$61</td>
+                <td>$9</td>
                 <td>$0</td>
                 <td>$0</td>
                 <td>$0</td>
@@ -698,8 +705,8 @@
 
               </tr>
               <tr>
-                <th scope="row">$30,000</th><td>$171</td>
-                <td>$99</td>
+                <th scope="row">$30,000</th><td>$103</td>
+                <td>$51</td>
                 <td>$28</td>
                 <td>$0</td>
                 <td>$0</td>
@@ -708,83 +715,83 @@
 
               </tr>
               <tr class="alt">
-                <th scope="row">$35,000</th><td>$233</td>
-                <td>$162</td>
-                <td>$90</td>
-                <td>$18</td>
+                <th scope="row">$35,000</th><td>$145</td>
+                <td>$93</td>
+                <td>$41</td>
                 <td>$0</td>
                 <td>$0</td>
-                <td>$0</td>
-
-              </tr>
-              <tr>
-                <th scope="row">$40,000</th><td>$296</td>
-                <td>$224</td>
-                <td>$153</td>
-                <td>$81</td>
-                <td>$9</td>
-                <td>$0</td>
-                <td>$0</td>
-
-              </tr>
-              <tr class="alt">
-                <th scope="row">$45,000</th><td>$358</td>
-                <td>$287</td>
-                <td>$215</td>
-                <td>$143</td>
-                <td>$72</td>
                 <td>$0</td>
                 <td>$0</td>
 
               </tr>
               <tr>
-                <th scope="row">$50,000</th><td>$421</td>
-                <td>$349</td>
-                <td>$278</td>
-                <td>$206</td>
+                <th scope="row">$40,000</th><td>$186</td>
                 <td>$134</td>
-                <td>$63</td>
+                <td>$82</td>
+                <td>$30</td>
+                <td>$0</td>
+                <td>$0</td>
                 <td>$0</td>
 
               </tr>
               <tr class="alt">
-                <th scope="row">$55,000</th><td>$483</td>
-                <td>$412</td>
-                <td>$340</td>
-                <td>$268</td>
-                <td>$197</td>
-                <td>$125</td>
-                <td>$54</td>
+                <th scope="row">$45,000</th><td>$228</td>
+                <td>$176</td>
+                <td>$124</td>
+                <td>$72</td>
+                <td>$20</td>
+                <td>$0</td>
+                <td>$0</td>
 
               </tr>
               <tr>
-                <th scope="row">$60,000</th><td>$546</td>
-                <td>$474</td>
-                <td>$403</td>
-                <td>$331</td>
-                <td>$259</td>
-                <td>$188</td>
-                <td>$116</td>
+                <th scope="row">$50,000</th><td>$270</td>
+                <td>$218</td>
+                <td>$166</td>
+                <td>$114</td>
+                <td>$62</td>
+                <td>$10</td>
+                <td>$0</td>
 
               </tr>
               <tr class="alt">
-                <th scope="row">$65,000</th><td>$608</td>
-                <td>$537</td>
-                <td>$465</td>
-                <td>$393</td>
-                <td>$322</td>
-                <td>$250</td>
-                <td>$179</td>
+                <th scope="row">$55,000</th><td>$311</td>
+                <td>$259</td>
+                <td>$207</td>
+                <td>$155</td>
+                <td>$103</td>
+                <td>$51</td>
+                <td>$0</td>
 
               </tr>
               <tr>
-                <th scope="row">$70,000</th><td>$671</td>
-                <td>$599</td>
-                <td>$528</td>
-                <td>$456</td>
+                <th scope="row">$60,000</th><td>$353</td>
+                <td>$301</td>
+                <td>$249</td>
+                <td>$197</td>
+                <td>$145</td>
+                <td>$93</td>
+                <td>$41</td>
+
+              </tr>
+              <tr class="alt">
+                <th scope="row">$65,000</th><td>$395</td>
+                <td>$343</td>
+                <td>$291</td>
+                <td>$239</td>
+                <td>$187</td>
+                <td>$135</td>
+                <td>$83</td>
+
+              </tr>
+              <tr>
+                <th scope="row">$70,000</th><td>$436</td>
                 <td>$384</td>
-                <td>$313</td>
-                <td>$241</td>
+                <td>$332</td>
+                <td>$280</td>
+                <td>$228</td>
+                <td>$176</td>
+                <td>$124</td>
 
               </tr>
             </tbody>
@@ -801,7 +808,7 @@
                 <ul>
                   <li>You can always pay more if you can and want to pay down your loan faster;</li>
                   <li>Depending on your salary and amount of debt, you may qualify to have any remaining balance erased after either 20 or 25 years of payments, depending on your plan; and</li>
-                  <li>If you work in public service, you may be eligible for loan forgiveness after 10 years of on-time monthly payments.</li> 
+                  <li>If you work in public service, you may be eligible for loan forgiveness after 10 years of on-time monthly payments.</li>
                 </ul>
               </div>
               <button class="read-more_target">
@@ -817,9 +824,9 @@
             <div class="read-more read-more_is-closed">
               <div class="read-more_content" style="display: none;">
                 <ul>
-                  <li>It can be a sign of a scam when a "debt relief" company requires you to pay a fee up-front or tries to make you sign a contract on the spot.</li> 
-                  <li>“Debt relief” companies may even make you give your credit card number online or over the phone before they explain how they’ll help you.</li> 
-                  <li>Avoid companies that require payment before they actually do anything, especially if they try to get your credit card number or bank account information.</li> 
+                  <li>It can be a sign of a scam when a "debt relief" company requires you to pay a fee up-front or tries to make you sign a contract on the spot.</li>
+                  <li>“Debt relief” companies may even make you give your credit card number online or over the phone before they explain how they’ll help you.</li>
+                  <li>Avoid companies that require payment before they actually do anything, especially if they try to get your credit card number or bank account information.</li>
                   <li>Not only is free assistance available through your student loan servicer, many times taking payment for debt relief services before providing help is illegal.</li>
                 </ul>
               </div>
@@ -835,7 +842,7 @@
             <p>If you're not eligible for these plans, or if your payment is already lower than the chart says it would be, you may be able to find a different plan that reduces your payment.</p>
             <div class="read-more read-more_is-closed">
               <div class="read-more_content" style="display: none;">
-                <p>Visit <a href="http://www.studentloans.gov/" target="_blank" class="external-link">www.studentloans.gov</a> to use the Department of Education’s Repayment Estimator, which can show you an estimate of your monthly payment for every option that you qualify for.  You’ll need to sign in in order to get personalized information about your loans and monthly payments.</p> 
+                <p>Visit <a href="http://www.studentloans.gov/" target="_blank" class="external-link">www.studentloans.gov</a> to use the Department of Education’s Repayment Estimator, which can show you an estimate of your monthly payment for every option that you qualify for.  You’ll need to sign in in order to get personalized information about your loans and monthly payments.</p>
                 <p>Remember, you might also have other options, like deferment and forbearance. The best way to learn about all of them is to contact your servicer.</p>
               </div>
               <button class="read-more_target">
@@ -846,10 +853,11 @@
           </div>
         </div>
       </div>
+      <hr>
     </section>
-    
+
     <section class="ds-section ds-module" id="m4">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Federal direct consolidation loans</h3>
 
       <p>If you are currently in default on a federal student loan and plan to go back to school, you may benefit from a direct consolidation loan.  If you cannot afford to pay off your loan in full, this is the fastest way to get out of default and restore your eligibility for federal student aid.</p>
@@ -869,9 +877,9 @@
       <p class='tip'>When speaking with your servicer or a debt collector, be sure that you have written documentation about what federal student debt you owe. If you are concerned that you never borrowed certain loans, check the <a href="http://www.nslds.ed.gov/">National Student Loan Data System</a>. If the loan does not appear there, contact the collector and inform the collector of the problem.  Remember, that system shows only your federal student loans, not your private student loans.</p>
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m5">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Rehabilitation</h3>
 
       <p>If you are currently in default on a federal student loan and you are interested in pursuing an option that offers the lowest monthly payment or the greatest benefit to your credit, you may benefit from <b>rehabilitation</b>.</p>
@@ -892,9 +900,9 @@
       <p class='tip'>When speaking with your servicer or a debt collector, be sure that you have written documentation about what federal student debt you owe. If you are concerned that you never borrowed certain loans, check the <a href="http://www.nslds.ed.gov/nslds_SA/">National Student Loan Data System</a>. If the loan does not appear there, contact the collector and inform the collector of the problem.  Remember, that system shows only your federal student loans, not your private student loans.</p>
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m6">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Repay Your Loan</h3>
 
       <p class='act'>Contact your debt collector to learn more about your options and to determine your pay-off balance.  For some borrowers, this can be the cheapest way to bring a federal student loan out of default.</p>
@@ -909,9 +917,9 @@
 
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m7">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Know Your Options</h3>
 
       <p>Generally speaking, you have three options when dealing with the collector on a federal student loan:</p>
@@ -924,7 +932,7 @@
         <li><b><a href='#Module-6:-Default-repayment-'>Repayment</a></b>: If you can afford to pay off your defaulted federal loan, this is the fastest way to settle your debt.  Under certain circumstances, your debt collector may be authorized to waive some of your outstanding fees and other collection costs.  For some borrowers, this can be the cheapest way to bring a federal student loan out of default.  Your defaulted debt will be gone afterward, but it will continue to appear on your credit report as a defaulted loan that was repaid.  You will also restore your eligibility for federal student aid, if you chose to go back to school.</li>
       </ol>
 
-      <p class='act'>Contact your servicer or debt collector immediately to learn more about your options and to make arrangements to bring your loan out of default.</p>  
+      <p class='act'>Contact your servicer or debt collector immediately to learn more about your options and to make arrangements to bring your loan out of default.</p>
 
       <p class='tip'>Ask the debt collector for specific information about fees. The costs associated with bringing your loan out of default may vary substantially depending on your individual circumstances.</p>
 
@@ -934,9 +942,9 @@
 
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m8">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Federal direct consolidation loans</h3>
 
       <p>If you are currently in default on a federal student loan and cannot afford to make any payments toward your loan, you may benefit from a direct consolidation loan.  If you cannot afford to pay off your loan in full, this is the fastest way to get out of default.</p>
@@ -957,9 +965,9 @@
 
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m9">
-      <div class="some-options">Some options available to you</div>
+      <div class="some-options"></div>
       <div class="content-l">
         <div class="content-l_col content-l_col-3-4">
           <h2>Getting ahead on your private student loan</h2>
@@ -967,11 +975,11 @@
           <p>You’re well on your way as long as you keep up with your loan payments. Here's some helpful advice to keep you on track:</p>
           <div class="content-l option-box">
             <div class="content-l_col content-l_col-1-8">
-              <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_1_40x40.png" %}">
+              <img src="{{ STATIC_PREFIX }}repaystudentdebt/images/Icon_1_40x40.png">
             </div>
             <div class="content-l_col content-l_col-7-8">
               <h3>Consider enrolling in auto-debit (setting up automatic payments)</h3>
-              <p>If you enroll in auto-debit, your servicer (the company that sends you a bill each month) will automatically withdraw money from your bank account so you’re less likely to miss a payment. Many servicers and lenders offer an interest rate reduction for those who set up auto-debit, which could save you hundreds or thousands of dollars over the life of the loan!</p>                
+              <p>If you enroll in auto-debit, your servicer (the company that sends you a bill each month) will automatically withdraw money from your bank account so you’re less likely to miss a payment. Many servicers and lenders offer an interest rate reduction for those who set up auto-debit, which could save you hundreds or thousands of dollars over the life of the loan!</p>
             </div>
           </div>
           <hr>
@@ -1091,7 +1099,7 @@
                 </div>
             </div>
           </div>
-        </div>  
+        </div>
         <div class="content-l_col content-l_col-1-4 tip-section">
           <div class="tip_bar"></div><div class="tip_line"></div>
           <h3>TIP</h3>
@@ -1099,9 +1107,9 @@
         </div>
       </div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m10">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Lower your interest rate</h3>
 
       <p>If you are currently serving on active duty, you are eligible to have the interest rate lowered to 6% on all student loans taken out prior to your military service. This benefit applies to both your federal and private (non-federal) student loans and is available for all active-duty servicemembers, regardless of where you serve.  Most borrowers on active duty will qualify for this benefit, so it makes sense to start here.</p>
@@ -1114,9 +1122,9 @@
 
       <h3>Military deferment/forbearance</h3>
 
-      <p>Some private student loan servicers offer deferment or forbearance for servicemembers on active duty.  This may provide temporary relief, but it does not eliminate your obligation to repay your loans.</p>  
+      <p>Some private student loan servicers offer deferment or forbearance for servicemembers on active duty.  This may provide temporary relief, but it does not eliminate your obligation to repay your loans.</p>
 
-      <p class='illus defer'>Unlike some federal student loans, for most private student loans, interest will still accrue during periods of deferment and forbearance.  If you do work with your servicer to temporarily suspend your monthly payments, your total debt will continue to grow and your monthly payments may be much higher when you begin to repay.</p>  
+      <p class='illus defer'>Unlike some federal student loans, for most private student loans, interest will still accrue during periods of deferment and forbearance.  If you do work with your servicer to temporarily suspend your monthly payments, your total debt will continue to grow and your monthly payments may be much higher when you begin to repay.</p>
 
       <p class='act'>To get a military deferment or forbearance, contact your servicer and ask about this option directly. Once you're in deferment, you can still make a payment if you get some extra cash.  If you can afford it, making interest-only payments is a good idea.  It will stop your student debt from growing.</p>
 
@@ -1124,9 +1132,9 @@
 
       <div class='ds-buttons'></div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m11">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
 
       <div class="content-l">
         <div class="content-l_col content-l_col-3-4">
@@ -1135,7 +1143,7 @@
 
           <p>You may have options to lower your monthly payment. Many companies say that they have alternate payment programs for borrowers who might not be able to make a full payment. These plans may include:</p>
           <ul>
-            <li><strong>graduated repayment</strong>&mdash;a plan where your payments start out lower and gradually increase over time.</li> 
+            <li><strong>graduated repayment</strong>&mdash;a plan where your payments start out lower and gradually increase over time.</li>
             <li><strong>extended repayment</strong>&mdash;a plan where you pay less each month but extend the life of your loan over a longer period of time.</li>
         </ul>
 
@@ -1147,7 +1155,7 @@
             <div class="content-l_col content-l_col-1-8">
               <span class="cf-icon cf-icon-dialogue-round big-right-arrow"></span>
             </div>
-            <div class="content-l_col content-l_col-7-8">              
+            <div class="content-l_col content-l_col-7-8">
               <div class="helpful-advice">
                 <h3>Helpful advice</h3>
 
@@ -1159,7 +1167,7 @@
                   <li><strong>Consider using these sample instructions.</strong> You can use the sample letter text below in a letter, email, or message sent via the “Send a Message” or “Contact Us” feature when you log into your account on the servicer’s website. These instructions may help you get valuable information on repayment options to reduce your monthly payment or to temporarily postpone making payments. </li>
                 </ul>
 
-                <div class="read-more read-more_is-closed"> 
+                <div class="read-more read-more_is-closed">
                   <div class="sample-letter-button">
                     <button class="read-more_target">
                       <span class="read-more_open" style="display: none;"><span class="button-underline-text">Sample letter</span> <span class="cf-icon cf-icon-plus-round"></span></span>
@@ -1175,7 +1183,7 @@
                       <div class="content-l_col content-l_col-3-4">
                         <div class="sample-text">
                           <p>I am writing to you because I need to reduce my monthly private student loan payment due to a financial hardship. I am requesting a payment that allows me to meet my other necessary living expenses.</p>
-                          
+
                           <p>Please conduct a review of my account to determine whether I am eligible for an alternative repayment plan.</p>
 
                           <p>[This paragraph is optional] I believe I can afford to pay $____ per month toward my loan(s). If you require details on my monthly income and expenses, I have attached a worksheet which you can use to make an evaluation.</p>
@@ -1217,9 +1225,9 @@
 
           <div class="content-l">
             <div class="content-l_col content-l_col-1-8">
-              <span class="cf-icon cf-icon-right-round big-right-arrow"></span>
+              <span class="cf-icon cf-icon-lightbulb-round big-right-arrow"></span>
             </div>
-            <div class="content-l_col content-l_col-7-8">              
+            <div class="content-l_col content-l_col-7-8">
               <h3>Keep in mind</h3>
               <p>Some student loan companies have told us that they may ask for recent pay stubs or a bank statement to verify income and expenses. Consider including these documents with your request, which you can mail or send through your private student loan servicer’s website after you login.</p>
 
@@ -1237,22 +1245,26 @@
         </div>
       </div>
     </section>
-    
+
     <section class="ds-section ds-module" id="m12">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <div class="content-l">
         <div class="content-l_col content-l_col-3-4">
           <h2 class="m12_h3">Getting out of default when you face debt collection</h2>
 
-          <p>Dealing with a defaulted loan and debt collectors can be stressful.  If you are in default on a private (non-federal) loan, it is important that you know your rights and responsibilities. While it is your responsibility to pay what is owed, remember that you have rights when dealing with debt collectors, and it is against the law for a collector to abuse, harass, or make false statements to you.</p>
+          <p class="subtitle">Dealing with a defaulted loan and debt collectors can be stressful.  If you are in default on a private (non-federal) loan, it is important that you know your rights and responsibilities. While it is your responsibility to pay what is owed, remember that you have rights when dealing with debt collectors, and it is against the law for a collector to abuse, harass, or make false statements to you.</p>
 
           <p class="highlighted five-days">Unless provided in the initial contact, within five (5) days, every debt collector must send a written “validation notice” indicating how much money you owe, the name of the creditor you owe, what dispute rights you have if you think you do not owe this debt, and how to obtain information about the original creditor. Keep this notice and use it as a reference when speaking with a debt collector.</p>
 
           <p>You may receive a notice that your entire student loan must be paid off immediately and in full, however you may be able to negotiate or set up a payment plan. You may also have the opportunity to negotiate with the collector to settle your debt for less than you currently owe. Below are some key points to keep in mind and some sample instructions you can use when communicating with collectors and creditors.</p>
 
+          <hr>
+
           <h3 class="m12_h3">Key differences between private and federal student loan debt</h3>
 
-          <p>For borrowers in default, it is important to remember that there are major differences between federal and private student loans. A debt collector seeking to recover a private student loan does not work for, represent, or collect on behalf of the U.S. Department of Education or any other branch of the federal government. A debt collector trying to collect payments on a private student loan generally may not:</p>
+          <p class="subtitle">For borrowers in default, it is important to remember that there are major differences between federal and private student loans.</p>
+
+          <p>A debt collector seeking to recover a private student loan does not work for, represent, or collect on behalf of the U.S. Department of Education or any other branch of the federal government. A debt collector trying to collect payments on a private student loan generally may not:</p>
 
           <ul class="key-differences-list">
             <li>Garnish your wages without a court order;</li>
@@ -1270,7 +1282,13 @@
 
             <ul class="samples-list">
               <li class="read-more read-more_is-closed">
-                <strong>Ask for more information about the debt:</strong> If you do not immediately recognize the debt a collector has identified or if you want to find out more about the debt before you pay it, you may use this sample letter text to request more information.
+                <div class="numbered-list-icon">
+                  <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_1_40x40.png" %}">
+                </div>
+                <div>
+                  <h4>Ask for more information about the debt</h4>
+                  <p>If you do not immediately recognize the debt a collector has identified or if you want to find out more about the debt before you pay it, you may use this sample letter text to request more information.</p>
+                </div>
 
                 <div class="sample-letter-button">
                   <button class="read-more_target">
@@ -1280,7 +1298,7 @@
                 </div>
 
                 <div class="read-more_content">
-                  <h4 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h4>
+                  <h5 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h5>
                   <div class="content-l option-box">
                     <div class="content-l_col content-l_col-1-4">
                       <p><em>You can copy and paste this text.</em></p>
@@ -1306,7 +1324,7 @@
                           <li>If there have been any additional interest, fees or charges added since the last billing statement from the original creditor, provide an itemization showing the dates and amount of each added amount. In addition, explain how the added interest, fees or other charges are expressly authorized by the agreement creating the debt or are permitted by law.</li>
 
                           <li>If there have been any payments or other reductions since the last billing statement from the original creditor, provide an itemization showing the dates and amount of each of them.</li>
-                           
+
                           <li>If there have been any other changes or adjustments since the last billing statement from the original creditor, please provide full verification and documentation of the amount you are trying to collect. Explain how that amount was calculated. In addition, explain how the other changes or adjustments are expressly authorized by the agreement creating the debt or permitted by law.</li>
 
                           <li>Tell me when the creditor claims this debt became due and when it became delinquent.</li>
@@ -1337,8 +1355,13 @@
               <hr>
 
               <li class="read-more read-more_is-closed">
-                <strong>Dispute the debt and ask collector to prove responsibility or stop communication:</strong> If you do not want to discuss the debt until you have additional information verifying the debt, you may use this template letter to inform a collector that you are disputing the debt and instructs the collector to stop contacting you until they provide evidence that you are responsible for that debt.
-
+                <div class="numbered-list-icon">
+                  <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_2_40x40.png" %}">
+                </div>
+                <div>
+                  <h4>Dispute the debt and ask collector to prove responsibility or stop communication</h4>
+                  <p>If you do not want to discuss the debt until you have additional information verifying the debt, you may use this template letter to inform a collector that you are disputing the debt and instructs the collector to stop contacting you until they provide evidence that you are responsible for that debt.</p>
+                </div>
 
                 <div class="sample-letter-button">
                   <button class="read-more_target">
@@ -1348,7 +1371,7 @@
                 </div>
 
                 <div class="read-more_content">
-                  <h4 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h4>
+                  <h5 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h5>
                   <div class="content-l option-box">
                     <div class="content-l_col content-l_col-1-4">
                       <p><em>You can copy and paste this text.</em></p>
@@ -1369,8 +1392,13 @@
               <hr>
 
               <li class="read-more read-more_is-closed">
-                <strong>Restrict how and when a debt collector can contact you:</strong> The Fair Debt Collection Practices Act prohibits debt collectors from contacting a consumer about a debt at a time or place they should know is inconvenient.  If you want to work with a collector to resolve your debt, you may use this sample text to clearly state to the debt collector how you would like to be contacted.
-
+                <div class="numbered-list-icon">
+                  <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_3_40x40.png" %}">
+                </div>
+                <div>
+                  <h4>Restrict how and when a debt collector can contact you</h4>
+                  <p>The Fair Debt Collection Practices Act prohibits debt collectors from contacting a consumer about a debt at a time or place they should know is inconvenient.  If you want to work with a collector to resolve your debt, you may use this sample text to clearly state to the debt collector how you would like to be contacted.</p>
+                </div>
                 <div class="sample-letter-button">
                   <button class="read-more_target">
                     <span class="read-more_open"><span class="button-underline-text">Sample letter</span> <span class="cf-icon cf-icon-plus-round"></span></span>
@@ -1379,7 +1407,7 @@
                 </div>
 
                 <div class="read-more_content">
-                  <h4 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h4>
+                  <h5 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h5>
                   <div class="content-l option-box">
                     <div class="content-l_col content-l_col-1-4">
                       <p><em>You can copy and paste this text.</em></p>
@@ -1406,8 +1434,13 @@
               <hr>
 
               <li class="read-more read-more_is-closed">
-                <strong>Inform a collector that you have hired a lawyer:</strong> If you have hired a lawyer, generally, the debt collector should be contacting the lawyer instead of you. You may use this letter template to give the debt collector the lawyer’s information and instruct the collector to contact only the lawyer.
-
+                <div class="numbered-list-icon">
+                  <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_4_40x40.png"%}">
+                </div>
+                <div>
+                  <h4>Inform a collector that you have hired a lawyer</h4>
+                  <p>If you have hired a lawyer, generally, the debt collector should be contacting the lawyer instead of you. You may use this letter template to give the debt collector the lawyer’s information and instruct the collector to contact only the lawyer.</p>
+                </div>
                 <div class="sample-letter-button">
                   <button class="read-more_target">
                     <span class="read-more_open"><span class="button-underline-text">Sample letter</span> <span class="cf-icon cf-icon-plus-round"></span></span>
@@ -1416,7 +1449,7 @@
                 </div>
 
                 <div class="read-more_content">
-                  <h4 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h4>
+                  <h5 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h5>
                   <div class="content-l option-box">
                     <div class="content-l_col content-l_col-1-4">
                       <p><em>You can copy and paste this text.</em></p>
@@ -1438,7 +1471,13 @@
               <hr>
 
               <li class="read-more read-more_is-closed">
-                <strong>Stop all communication:</strong> You also have the right to stop a debt collector from attempting to contact you. Stopping contact from a debt collector does not cancel the debt. Stopping contact does not stop the collector from pursuing other remedies, such as reporting the collection on your credit report or suing you. Consider using this letter template if you feel you are being harassed by a collector’s communications.
+                <div class="numbered-list-icon">
+                  <img src="{% static "paying_for_college/repaystudentdebt/images/Icon_5_40x40.png" %}">
+                </div>
+                <div>
+                  <h4>Stop all communication</h4>
+                  <p>You also have the right to stop a debt collector from attempting to contact you. Stopping contact from a debt collector does not cancel the debt. Stopping contact does not stop the collector from pursuing other remedies, such as reporting the collection on your credit report or suing you. Consider using this letter template if you feel you are being harassed by a collector’s communications.</p>
+                </div>
 
                 <div class="sample-letter-button">
                   <button class="read-more_target">
@@ -1448,7 +1487,7 @@
                 </div>
 
                 <div class="read-more_content">
-                  <h4 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h4>
+                  <h5 class="sample-text-header"><span class="cf-icon cf-icon-email"></span> Sample text</h5>
                   <div class="content-l option-box">
                     <div class="content-l_col content-l_col-1-4">
                       <p><em>You can copy and paste this text.</em></p>
@@ -1477,7 +1516,7 @@
           <div class="tip-content">
             <div class="tip_bar"></div><div class="tip_line"></div>
             <h3>TIP</h3>
-      
+
             <p>Dealing with student loan debt should be a financial priority because student loan debt will not “just go away” if you ignore it. </p>
 
             <div class="read-more read-more_is-closed">
@@ -1510,9 +1549,9 @@
         </div><!-- end .col-1-4 -->
       </div><!-- end .content-l -->
     </section>
-      
+
     <section class="ds-section ds-module" id="m13">
-      <div class="some-options ">Some options available to you</div>
+      <div class="some-options "></div>
       <h3>Lower your interest rate</h3>
 
       <p>If you are currently serving on active duty you are eligible to have the interest rate lowered to 6% on all student loans taken out prior to your military service. This benefit applies to both your federal and private (non-federal) student loans and is available for all active-duty servicemembers, regardless of where you serve.  Most borrowers on active duty will qualify for this benefit, so it makes sense to start here.</p>
@@ -1556,14 +1595,13 @@
 
       <p>Remember, you might also have other options. The best way to learn about all of them is to contact your servicer.</p>
     </section>
-  
+
     <section class="ds-section ds-clear-all ds-clear-after-m">
       <button class="btn btn__secondary ds-clear-button">Clear all</button>
     </section>
 </div>
 
 {% endblock %}
-
 {% block page_js %}
     <script src="{% static "paying_for_college/repaystudentdebt/js/repay.js" %}"></script>
     <script src="{% static "paying_for_college/repaystudentdebt/js/decision-stacker.js" %}"></script>
