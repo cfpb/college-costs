@@ -151,75 +151,184 @@
                 <div class="content_line"></div>
             </div>
         </section>
-
-
-
-
-
-
-        <div class="wrapper">
-            <section class="content_main">
-                <section class="step review">
-                    <h2 class="step_heading">
-                        Step 1: Review your first year offer
-                    </h2>
-                    <p>
-                        Here is your financial aid offer from [insert college name]. Please verify the amounts provided by your school below, making any necessary changes or adding missing information.
-                    </p>
-                    <form class="offer-part cost-to-attend" action="#">
-                        <h3 class="offer-part_heading">
-                            How much does it cost to attend this school?
-                        </h3>
-                        <div class="form-group cost-of-attendance">
-                            <label class="form-label-header">
-                                Cost of attendance
-                            </label>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="costs__tuition">
-                                    Tuition and fees
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="costs__tuition" name="costs__tuition" data-financial="tuitionFees" autocorrect="off" value="0">
+        <section class="review step content_wrapper">
+            <div class="content_main">
+                <div class="review_wrapper">
+                    <div class="evaluate_intro">
+                        <h2 class="step_heading">
+                            Step 1: Review your first year offer
+                        </h2>
+                        <p class="step_intro">
+                            Here is your financial aid offer from [insert college name]. Please verify the amounts provided by your school below, making any necessary changes or adding missing information.
+                        </p>
+                    </div>
+                </div>
+                <div class="offer-part cost-to-attend column-well_wrapper__overflow-small">
+                    <div class="offer-part_intro">
+                        <div class="offer-part_intro-wrapper">
+                            <div class="offer-part_intro-content">
+                                <h3 class="offer-part_heading">
+                                    How much does it cost to attend this school?
+                                </h3>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="costs__room-and-board">
-                                    Housing and meals
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off" value="0">
+                        </div>
+                    </div>
+                    <div class="offer-part_form-wrapper">
+                        <form class="aid-form" action="#">
+                            <div class="form-group cost-of-attendance">
+                                <div class="aid-form_group-header">
+                                    <label class="form-label-header">
+                                        Cost of attendance
+                                    </label>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="costs__tuition">
+                                            Tuition and fees
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="costs__tuition" name="costs__tuition" data-financial="tuitionFees" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="costs__room-and-board">
+                                            Housing and meals
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="costs__room-and-board" name="costs__room-and-board" data-financial="roomBoard" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="costs__books">
+                                            Books and supplies
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="costs__books" name="costs__books" data-financial="books" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="costs__transportation">
+                                            Transportation
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="costs__other">
+                                            Other education costs
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="costs__other" name="costs__other" data-financial="otherExpenses" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="aid-form_inline-subtotal">
+                                    <div class="content_line aid-form_equals-line"></div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Total cost of attendance
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-financial="costOfAttendance"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="costs__books">
-                                    Books and supplies
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="costs__books" name="costs__books" data-financial="books" autocorrect="off" value="0">
+                            <div class="form-group grants-and-scholarships">
+                                <div class="aid-form_group-header">
+                                    <label class="form-label-header">
+                                        Grants and scholarships
+                                    </label>
+                                    <p class="aid-form_definition">
+                                        Money you don’t have to pay back
+                                    </p>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="grants__pell">
+                                            Federal Pell Grant
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Based on financial need
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="grants__pell" name="grants__pell" data-financial="pell" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="grants__school">
+                                            Grants and scholarships from your school
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Total amount awarded from your school
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="grants__school" name="grants__school" data-financial="schoolGrants" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="grants__state">
+                                            Grants from your state
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Total amount awarded from your state
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="grants__state" name="grants__state" data-financial="stateGrants" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="grants__scholarships">
+                                            Other grants and scholarships
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Such as academic scholarships, grants from a foundation, or military tuition assistance
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="grants__scholarships" name="grants__scholarships" data-financial="scholarships" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="aid-form_inline-subtotal">
+                                    <div class="content_line aid-form_equals-line"></div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Total grants and scholarships
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-financial="totalGrantsScholarships"></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="costs__transportation">
-                                    Transportation
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="costs__transportation" name="costs__transportation" data-financial="transportation" autocorrect="off" value="0">
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="costs__other">
-                                    Other education costs
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="costs__other" name="costs__other" data-financial="otherExpenses" autocorrect="off" value="0">
-                            </div>
-                            <div class="content_line"></div>
+                        </form>
+                    </div>
+                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
+                        <div class="aid-form_summary column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Cost summary
+                            </h4>
                             <div class="line-item">
                                 <div class="line-item_title">
                                     Total cost of attendance
@@ -228,350 +337,488 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-financial="costOfAttendance"></span>
+                                    <span class="line-item_amount" data-financial="costOfAttendance" id="summary_cost-of-attendance"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group grants-and-scholarships">
-                            <label class="form-label-header">
-                                Grants and scholarships
-                            </label>
-                            <p class="offer-part_definition">
-                                Money you don’t have to pay back
-                            </p>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="grants__pell">
-                                    Federal Pell Grant
-                                </label>
-                                <p class="offer-part_definition">
-                                    Based on financial need
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="grants__pell" name="grants__pell" data-financial="pell" autocorrect="off" value="0">
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="grants__school">
-                                    Grants and scholarships from your school
-                                </label>
-                                <p class="offer-part_definition">
-                                    Total amount awarded from your school
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="grants__school" name="grants__school" data-financial="schoolGrants" autocorrect="off" value="0">
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="grants__state">
-                                    Grants from your state
-                                </label>
-                                <p class="offer-part_definition">
-                                    Total amount awarded from your state
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="grants__state" name="grants__state" data-financial="stateGrants" autocorrect="off" value="0">
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="grants__scholarships">
-                                    Other grants and scholarships
-                                </label>
-                                <p class="offer-part_definition">
-                                    Such as academic scholarships, grants from a foundation, or military tuition assistance
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="grants__scholarships" name="grants__scholarships" data-financial="scholarships" autocorrect="off" value="0">
-                            </div>
-                            <div class="content_line"></div>
                             <div class="line-item">
                                 <div class="line-item_title">
                                     Total grants and scholarships
                                 </div>
                                 <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-financial="totalGrantsScholarships"></span>
+                                    <span class="line-item_amount" data-financial="totalGrantsScholarships" id="summary_total-grants-scholarships"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Your total cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost" id="summary_total-cost"></span>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="block block__flush-sides block__bg offer-part_summary">
-                        <h4 class="offer-part_summary-heading">
-                            Cost summary
-                        </h4>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Total cost of attendance
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="costOfAttendance"></span>
-                            </div>
-                        </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Total grants and scholarships
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &minus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalGrantsScholarships"></span>
-                            </div>
-                        </div>
-                        <div class="content_line"></div>
-                        <div class="line-item line-item__total">
-                            <div class="line-item_title">
-                                Your total cost
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalCost"></span>
+                    </div>
+                </div>
+                <div class="offer-part contributions column-well_wrapper__overflow-small">
+                    <div class="offer-part_intro">
+                        <div class="offer-part_intro-wrapper">
+                            <div class="offer-part_intro-content">
+                                <h3 class="offer-part_heading">
+                                    How much can you contribute without going into debt?
+                                </h3>
+                                <p>
+                                    This section includes loans that your parents have to repay, but are not included in your personal debt or student loan payments.
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <form class="offer-part contributions" action="#">
-                        <h3 class="offer-part_heading">
-                            How much can you contribute without going into debt?
-                        </h3>
-                        <p>
-                            This section includes loans that your parents have to repay, but are not included in your personal debt or student loan payments.
-                        </p>
-                        <div class="form-group personal-family-contributions">
-                            <label class="form-label-header">
-                                Personal and family contributions
-                            </label>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__savings">
+                    <div class="offer-part_form-wrapper">
+                        <form class="aid-form" action="#">
+                            <div class="form-group personal-family-contributions">
+                                <div class="aid-form_group-header">
+                                    <label class="form-label-header">
+                                        Personal and family contributions
+                                    </label>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__savings">
+                                            Cash you will provide
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Includes money that you can pay now or will earn from a job during the school year
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__savings" name="contrib__savings" data-financial="savings" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__family">
+                                            Money your family will provide
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Includes money given to you, loans your family takes out and has to repay (Parent PLUS loans, home equity loans), etc.
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__family" name="contrib__family" data-financial="family" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__workstudy">
+                                            Work study
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            Money you earn per year from a federal, state, or institutional program, awarded based on financial need
+                                        </p>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__workstudy" name="contrib__workstudy" data-financial="workstudy" autocorrect="off" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
+                        <div class="aid-form_summary column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Contributions summary
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
                                     Cash you will provide
-                                </label>
-                                <p class="offer-part_definition">
-                                    Includes money that you can pay now or will earn from a job during the school year
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__savings" name="contrib__savings" data-financial="savings" autocorrect="off" value="0">
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="savings"></span>
+                                </div>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__family">
+                            <div class="line-item">
+                                <div class="line-item_title">
                                     Money your family will provide
-                                </label>
-                                <p class="offer-part_definition">
-                                    Includes money given to you, loans your family takes out and has to repay (Parent PLUS loans, home equity loans), etc.
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__family" name="contrib__family" data-financial="family" autocorrect="off" value="0">
+                                    <span class="line-item_explanation">
+                                        And may have to pay back
+                                    </span>
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( + )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="family"></span>
+                                </div>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__workstudy">
+                            <div class="line-item">
+                                <div class="line-item_title">
                                     Work study
-                                </label>
-                                <p class="offer-part_definition">
-                                    Money you earn per year from a federal, state, or institutional program, awarded based on financial need
-                                </p>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__workstudy" name="contrib__workstudy" data-financial="workstudy" autocorrect="off" value="0">
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( + )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="workstudy"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions" id="summary_total-contributions"></span>
+                                </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="block block__flush-sides block__bg offer-part_summary">
-                        <h4 class="offer-part_summary-heading">
-                            Contributions summary
-                        </h4>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Cash you will provide
+                        <div class="aid-form_summary big-picture column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Big picture
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your total cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost"></span>
+                                </div>
                             </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="savings"></span>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions"></span>
+                                </div>
                             </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Remaining cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="remainingCost"></span>
+                                </div>
+                            </div>
+                            <p>
+                                This is how much you still need to pay to attend [school name] for one year.
+                            </p>
                         </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Money your family will provide
-                                <span class="line-item_explanation">
-                                    And may have to pay back
-                                </span>
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &plus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="family"></span>
-                            </div>
-                        </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Work study
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &plus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="workstudy"></span>
-                            </div>
-                        </div>
-                        <div class="content_line"></div>
-                        <div class="line-item line-item__total">
-                            <div class="line-item_title">
-                                Your contributions
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalContributions"></span>
+                    </div>
+                </div>
+                <div class="offer-part loans column-well_wrapper__overflow-small">
+                    <div class="offer-part_intro">
+                        <div class="offer-part_intro-wrapper">
+                            <div class="offer-part_intro-content">
+                                <h3 class="offer-part_heading">
+                                    How much would you have to borrow to cover the remaining cost?
+                                </h3>
                             </div>
                         </div>
                     </div>
-                    <form class="offer-part loans" action="#">
-                        <h3 class="offer-part_heading">
-                            How much would you have to borrow to cover the remaining cost?
-                        </h3>
-                        <div class="form-group federal-loans">
-                            <label class="form-label-header">
-                                Federal loans
-                            </label>
-                            <p class="offer-part_definition">
-                                Money you have to pay back, assuming a 10-year loan term; longer loan terms mean smaller monthly payments but a higher total cost of interest over the life of the loan.
-                            </p>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__perkins">
-                                    Perkins loans
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__perkins" name="contrib__perkins" data-financial="perkins" autocorrect="off" value="0">
-                                <div class="offer-part_terms">
-                                    <p class="offer-part_term">
-                                        5% interest
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Starts accumulating after leaving school
-                                    </p>
-                                    <p class="offer-part_term">
-                                        9 month grace period
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
+                    <div class="offer-part_form-wrapper">
+                        <form class="aid-form" action="#">
+                            <div class="form-group federal-loans">
+                                <div class="aid-form_group-header">
+                                    <label class="form-label-header">
+                                        Federal loans
+                                    </label>
+                                    <p class="aid-form_definition">
+                                        Money you have to pay back, assuming a 10-year loan term; longer loan terms mean smaller monthly payments but a higher total cost of interest over the life of the loan.
                                     </p>
                                 </div>
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__subsidized">
-                                    Subsidized loans
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__subsidized" name="contrib__subsidized" data-financial="staffSubsidized" autocorrect="off" value="0">
-                                <div class="offer-part_terms">
-                                    <p class="offer-part_term">
-                                        4.29% interest
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Starts accumulating 6 months after leaving school
-                                    </p>
-                                    <p class="offer-part_term">
-                                        1.07% loan fee
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
-                                    </p>
-                                    <p class="offer-part_term">
-                                        6 month grace period
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
-                                    </p>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__perkins">
+                                            Perkins loans
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__perkins" name="contrib__perkins" data-financial="perkins" autocorrect="off" value="0">
+                                    </div>
+                                    <div class="offer-part_terms">
+                                        <p class="offer-part_term">
+                                            5% interest
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Starts accumulating after leaving school
+                                        </p>
+                                        <p class="offer-part_term">
+                                            9 month grace period
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content_line loans_line"></div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__subsidized">
+                                            Subsidized loans
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__subsidized" name="contrib__subsidized" data-financial="staffSubsidized" autocorrect="off" value="0">
+                                    </div>
+                                    <div class="offer-part_terms">
+                                        <p class="offer-part_term">
+                                            4.29% interest
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Starts accumulating 6 months after leaving school
+                                        </p>
+                                        <p class="offer-part_term">
+                                            1.07% loan fee
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
+                                        </p>
+                                        <p class="offer-part_term">
+                                            6 month grace period
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content_line loans_line"></div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__unsubsidized">
+                                            Unsubsidized loans
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__unsubsidized" name="contrib__unsubsidized" data-financial="staffUnsubsidized" autocorrect="off" value="0">
+                                    </div>
+                                    <div class="offer-part_terms">
+                                        <p class="offer-part_term">
+                                            4.29% interest
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Starts accumulating when you sign the loan
+                                        </p>
+                                        <p class="offer-part_term">
+                                            1.07% loan fee
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
+                                        </p>
+                                        <p class="offer-part_term">
+                                            6 month grace period
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="content_line loans_line"></div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__direct-plus">
+                                            Direct PLUS loan
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__direct-plus" name="contrib__direct-plus" data-financial="directPlus" autocorrect="off" value="0">
+                                    </div>
+                                    <div class="offer-part_terms">
+                                        <p class="offer-part_term">
+                                            6.84% interest
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Starts accumulating when you sign the loan
+                                        </p>
+                                        <p class="offer-part_term">
+                                            4.27% loan fee
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Deducted immediately, lowering the amount of money you receive at disbursement (for example, a $42 fee is applied to a $1,000 loan, leaving you with $958)
+                                        </p>
+                                        <p class="offer-part_term">
+                                            6 month deferment period
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            You can apply to postpone repayment until six months after you graduate, leave school, or drop below half-time
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="aid-form_inline-subtotal">
+                                    <div class="content_line aid-form_equals-line"></div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Total federal loans
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-financial="federalTotal"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__unsubsidized">
-                                    Unsubsidized loans
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__unsubsidized" name="contrib__unsubsidized" data-financial="staffUnsubsidized" autocorrect="off" value="0">
-                                <div class="offer-part_terms">
-                                    <p class="offer-part_term">
-                                        4.29% interest
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Starts accumulating when you sign the loan
-                                    </p>
-                                    <p class="offer-part_term">
-                                        1.07% loan fee
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $17 fee is added to a $1,000 loan but you still receive $1,000)
-                                    </p>
-                                    <p class="offer-part_term">
-                                        6 month grace period
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        The amount of time after you graduate, leave school, or drop below half-time enrollment before you must begin repayment
+                            <div class="form-group private-loans-payment-plans">
+                                <div class="aid-form_group-header">
+                                    <label class="form-label-header">
+                                        Private loans and payment plans
+                                    </label>
+                                    <p class="aid-form_definition">
+                                        Money you have to pay back, assuming a 10-year loan term; longer loan terms mean smaller monthly payments but a higher total cost of interest over the life of the loan.
                                     </p>
                                 </div>
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__direct-plus">
-                                    Direct PLUS loan
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__direct-plus" name="contrib__direct-plus" data-financial="directPlus" autocorrect="off" value="0">
-                                <div class="offer-part_terms offer-part_terms__last">
-                                    <p class="offer-part_term">
-                                        6.84% interest
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Starts accumulating when you sign the loan
-                                    </p>
-                                    <p class="offer-part_term">
-                                        4.27% loan fee
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        Deducted immediately, lowering the amount of money you receive at disbursement (for example, a $42 fee is applied to a $1,000 loan, leaving you with $958)
-                                    </p>
-                                    <p class="offer-part_term">
-                                        6 month deferment period
-                                    </p>
-                                    <p class="offer-part_definition">
-                                        You can apply to postpone repayment until six months after you graduate, leave school, or drop below half-time
-                                    </p>
+                                <div class="private-loans">
+                                    <div class="private-loans_loan">
+                                        <div class="private-loans_heading">
+                                            <div class="private-loans_heading-text">
+                                                Private loan
+                                            </div>
+                                            <button class="btn btn__link private-loans_remove-btn" type="button" title="Remove this private loan">
+                                                Remove
+                                                <span class="cf-icon cf-icon-delete-round"></span>
+                                            </button>
+                                        </div>
+                                        <div class="form-group_item">
+                                            <div class="aid-form_label-wrapper">
+                                                <label class="form-label" for="contrib__private-loan">
+                                                    Loan amount
+                                                </label>
+                                            </div>
+                                            <div class="aid-form_input-wrapper">
+                                                <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__private-loan" name="contrib__private-loan" data-financial="privateLoan" autocorrect="off" value="0">
+                                            </div>
+                                        </div>
+                                        <div class="form-group_item">
+                                            <div class="aid-form_label-wrapper">
+                                                <label class="form-label" for="contrib__private-loan-interest">
+                                                    Interest rate
+                                                </label>
+                                                <p class="aid-form_definition">
+                                                    Starts accumulating when you sign the loan
+                                                </p>
+                                            </div>
+                                            <div class="aid-form_input-wrapper">
+                                                <input class="aid-form_input aid-form_input__percent" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanRate" autocorrect="off" value="0">
+                                                <span class="aid-form_unit">
+                                                    %
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group_item">
+                                            <div class="aid-form_label-wrapper">
+                                                <label class="form-label" for="contrib__private-loan-fees">
+                                                    Loan fees
+                                                </label>
+                                                <p class="aid-form_definition">
+                                                    Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000)
+                                                </p>
+                                            </div>
+                                            <div class="aid-form_input-wrapper">
+                                                <input class="aid-form_input aid-form_input__percent" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
+                                                <span class="aid-form_unit">
+                                                    %
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group_item">
+                                            <div class="aid-form_label-wrapper">
+                                                <label class="form-label" for="contrib__private-loan-grace-period">
+                                                    Grace period
+                                                </label>
+                                                <p class="aid-form_definition">
+                                                    The amount of time before you must begin repayment
+                                                </p>
+                                            </div>
+                                            <div class="aid-form_input-wrapper">
+                                                <input class="aid-form_input aid-form_input__time" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
+                                                <span class="aid-form_unit">
+                                                    months
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn__link private-loans_add-btn" type="button" title="Add another private loan">
+                                        <span class="cf-icon cf-icon-plus-round"></span>
+                                        Add another private loan
+                                    </button>
+                                </div>
+                                <div class="form-group_item">
+                                    <div class="aid-form_label-wrapper">
+                                        <label class="form-label" for="contrib__payment-plan">
+                                            Tuition payment plan from your school
+                                        </label>
+                                    </div>
+                                    <div class="aid-form_input-wrapper">
+                                        <input class="aid-form_input aid-form_input__currency" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="institutionalLoan" autocorrect="off" value="0">
+                                    </div>
+                                    <div class="offer-part_terms">
+                                        <p class="offer-part_term">
+                                            <span data-financial="institutionalLoanRate">[X.X]</span>% interest
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Starts accumulating when you sign the plan
+                                        </p>
+                                        <p class="offer-part_term">
+                                            Must pay loan balance and interest by [date]
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="aid-form_inline-subtotal">
+                                    <div class="content_line aid-form_equals-line"></div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Total private loans and payment plans
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-financial="totalPrivateLoans"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
+                        <div class="aid-form_summary column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Loans summary
+                            </h4>
                             <div class="line-item">
                                 <div class="line-item_title">
                                     Total federal loans
@@ -580,263 +827,223 @@
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-financial="federalTotal"></span>
+                                    <span class="line-item_amount" data-financial="federalTotal" id="summary_total-federal-loans"></span>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group private-loans-payment-plans">
-                            <label class="form-label-header">
-                                Private loans and payment plans
-                            </label>
-                            <p class="offer-part_definition">
-                                Money you have to pay back, assuming a 10-year loan term; longer loan terms mean smaller monthly payments but a higher total cost of interest over the life of the loan.
-                            </p>
-                            <div class="private-loans">
-                                <div class="private-loans_loan">
-                                    <div class="form-group_item offer-part_currency">
-                                        <label class="form-label" for="contrib__private-loan">
-                                            Loan amount
-                                        </label>
-                                        <span class="offer-part_unit">
-                                            $
-                                        </span>
-                                        <input class="offer-part_input" type="text" id="contrib__private-loan" name="contrib__private-loan" data-financial="privateLoan" autocorrect="off" value="0">
-                                    </div>
-                                    <div class="form-group_item offer-part_non-currency">
-                                        <label class="form-label" for="contrib__private-loan-interest">
-                                            Interest rate
-                                        </label>
-                                        <p class="offer-part_definition">
-                                            Starts accumulating when you sign the loan
-                                        </p>
-                                        <input class="offer-part_input" type="text" id="contrib__private-loan-interest" name="contrib__private-loan-interest" data-financial="privateLoanRate" autocorrect="off" value="0">
-                                        <span class="offer-part_unit">
-                                            %
-                                        </span>
-                                    </div>
-                                    <div class="form-group_item offer-part_non-currency">
-                                        <label class="form-label" for="contrib__private-loan-fees">
-                                            Loan fees
-                                        </label>
-                                        <p class="offer-part_definition">
-                                            Added to loan total and paid off during repayment, disbursement amount remains the same (for example, a $49 fee is added to a $1,000 loan but you still receive $1,000)
-                                        </p>
-                                        <input class="offer-part_input" type="text" id="contrib__private-loan-fees" name="contrib__private-loan-fees" data-financial="privateLoanFees" autocorrect="off" value="0">
-                                        <span class="offer-part_unit">
-                                            %
-                                        </span>
-                                    </div>
-                                    <div class="form-group_item offer-part_non-currency">
-                                        <label class="form-label" for="contrib__private-loan-grace-period">
-                                            Grace period
-                                        </label>
-                                        <p class="offer-part_definition">
-                                            The amount of time before you must begin repayment
-                                        </p>
-                                        <input class="offer-part_input" type="text" id="contrib__private-loan-grace-period" name="contrib__private-loan-grace-period" data-financial="privateLoanGracePeriod" autocorrect="off" value="0">
-                                        <span class="offer-part_unit">
-                                            months
-                                        </span>
-                                    </div>
-                                </div>
-                                <button class="btn btn__link private-loans_add-btn" type="button" title="Add another private loan">
-                                    <span class="cf-icon cf-icon-plus-round"></span>
-                                    Add another private loan
-                                </button>
-                            </div>
-                            <div class="form-group_item offer-part_currency">
-                                <label class="form-label" for="contrib__payment-plan">
-                                    Tuition payment plan from your school
-                                </label>
-                                <span class="offer-part_unit">
-                                    $
-                                </span>
-                                <input class="offer-part_input" type="text" id="contrib__payment-plan" name="contrib__payment-plan" data-financial="institutionalLoan" autocorrect="off" value="0">
-                            </div>
-                            <div class="offer-part_terms offer-part_terms__last">
-                                <p class="offer-part_term">
-                                    <span data-financial="institutionalLoanRate">[X.X]</span>% interest
-                                </p>
-                                <p class="offer-part_definition">
-                                    Starts accumulating when you sign the plan
-                                </p>
-                                <p class="offer-part_term">
-                                    Must pay loan balance and interest by [date]
-                                </p>
                             </div>
                             <div class="line-item">
                                 <div class="line-item_title">
                                     Total private loans and payment plans
                                 </div>
                                 <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( + )
+                                    </span>
                                     <span class="line-item_currency">
                                         $
                                     </span>
-                                    <span class="line-item_amount" data-financial="totalPrivateLoans"></span>
+                                    <span class="line-item_amount" data-financial="totalPrivateLoans" id="summary_total-private-loans"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Total debt
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal" id="summary_total-loans"></span>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                    <div class="block block__flush-sides block__bg offer-part_summary">
-                        <h4 class="offer-part_summary-heading">
-                            Loans summary
-                        </h4>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Total federal loans
+                        <div class="aid-form_summary big-picture column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Big picture
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your total cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost"></span>
+                                </div>
                             </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="federalTotal"></span>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions"></span>
+                                </div>
                             </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your debt
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Remaining cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="remainingCost"></span>
+                                </div>
+                            </div>
+                            <p>
+                                After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
+                            </p>
                         </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Total private loans and payment plans
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &plus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalPrivateLoans"></span>
-                            </div>
-                        </div>
-                        <div class="content_line"></div>
-                        <div class="line-item line-item__total">
-                            <div class="line-item_title">
-                                Total debt
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="loanTotal"></span>
+                    </div>
+                </div>
+                <div class="offer-part future column-well_wrapper__overflow-small">
+                    <div class="offer-part_intro">
+                        <div class="offer-part_intro-wrapper">
+                            <div class="offer-part_intro-content">
+                                <h3 class="offer-part_heading">
+                                    What does this mean for your future?
+                                </h3>
                             </div>
                         </div>
                     </div>
-                    <h3 class="offer-part_heading">
-                        What does this mean for your future?
-                    </h3>
-                    <p>
-                        It looks like you still have a remaining cost of [$XX] to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
-                    </p>
-                    <p>
-                        It looks like you are borrowing [$XX] more than you need to pay for school. You can reduce your future debt by decreasing your loan amount to cover only what you need.
-                    </p>
-                    <p>
-                        While the idea of [$XX] in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after [years attending school] years after interest equals [$XX].
-                    </p>
-                    <p>
-                        Some students find themselves struggling to repay student debt once they finish school. In Step 2, learn how factors like graduation rates and expected salary can affect your ability to repay your student debt.
-                    </p>
-                    <div class="block block__flush-sides block__bg offer-part_summary">
-                        <h4 class="offer-part_summary-heading">
-                            Big picture
-                        </h4>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Your total cost
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalCost"></span>
-                            </div>
-                        </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Your contributions
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &minus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalContributions"></span>
-                            </div>
-                        </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Your debt
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_sign">
-                                    ( &minus; )
-                                </span>
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="loanTotal"></span>
-                            </div>
-                        </div>
-                        <div class="content_line"></div>
-                        <div class="line-item line-item__total">
-                            <div class="line-item_title">
-                                Remaining cost
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="remainingCost"></span>
-                            </div>
-                        </div>
+                    <div class="offer-part_form-wrapper">
                         <p>
-                            After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
+                            It looks like you still have a remaining cost of [$XX] to pay for the first year of school. You’ll either need to lower your cost of attendance, pay more upfront, or increase your loan amount to cover these costs.
+                        </p>
+                        <p>
+                            It looks like you are borrowing [$XX] more than you need to pay for school. You can reduce your future debt by decreasing your loan amount to cover only what you need.
+                        </p>
+                        <p>
+                            While the idea of [$XX] in loans sounds reasonable today, think about how it will affect your future financial situation. As you can see in the summary, the total cost of these loans after [years attending school] years after interest equals [$XX].
+                        </p>
+                        <p>
+                            Some students find themselves struggling to repay student debt once they finish school. In Step 2, learn how factors like graduation rates and expected salary can affect your ability to repay your student debt.
                         </p>
                     </div>
-                    <div class="block block__flush-sides block__bg offer-part_summary debt-summary">
-                        <h4 class="debt-summary_heading">
-                            Debt summary
-                        </h4>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Loans for first year
+                    <div class="offer-part_summary-wrapper column-well column-well__bleed column-well__not-stacked">
+                        <div class="aid-form_summary big-picture column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Big picture
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your total cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalCost"></span>
+                                </div>
                             </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="loanTotal"></span>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your contributions
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalContributions"></span>
+                                </div>
                             </div>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Your debt
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_sign">
+                                        ( &minus; )
+                                    </span>
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal"></span>
+                                </div>
+                            </div>
+                            <div class="content_line aid-form_equals-line"></div>
+                            <div class="line-item line-item__total">
+                                <div class="line-item_title">
+                                    Remaining cost
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="remainingCost" id="summary_remaining-cost"></span>
+                                </div>
+                            </div>
+                            <p>
+                                After all the grants, scholarships, loans, and personal contributions, this is how much you still need pay to attend [name of school] for one year.
+                            </p>
                         </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Loans for [X] years (program length)
+                        <div class="aid-form_summary debt-summary column-well_content">
+                            <h4 class="aid-form_summary-heading">
+                                Debt summary
+                            </h4>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Loans for first year
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="loanTotal"></span>
+                                </div>
                             </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalProgramDebt"></span>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Loans for [X] years (program length)
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalProgramDebt" id="summary_total-program-debt"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="line-item">
-                            <div class="line-item_title">
-                                Total cost of repayment with interest
-                            </div>
-                            <div class="line-item_value">
-                                <span class="line-item_currency">
-                                    $
-                                </span>
-                                <span class="line-item_amount" data-financial="totalRepayment"></span>
+                            <div class="line-item">
+                                <div class="line-item_title">
+                                    Total cost of repayment with interest
+                                </div>
+                                <div class="line-item_value">
+                                    <span class="line-item_currency">
+                                        $
+                                    </span>
+                                    <span class="line-item_amount" data-financial="totalRepayment" id="summary_total-repayment"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </section>
-        </div>
-
-
-
+                </div>
+            </div>
+        </section>
         <section class="evaluate step content_wrapper">
             <div class="content_main">
                 <div class="evaluate_wrapper">
@@ -899,7 +1106,7 @@
                         </section>
                     </div>
                 </section>
-                <section class="criteria column-well_wrapper">
+                <section class="criteria column-well_wrapper__overflow-small">
                     <h3 class="criteria_heading">
                         How will I afford my loan payment?
                     </h3>
@@ -953,81 +1160,77 @@
                             </div>
                         </section>
                         <section class="estimated-expenses">
-                            <h4 class="metric_heading">
-                                Estimated expenses
-                            </h4>
-                            <p class="metric_explanation">
-                                Monthly living expenses for single person based on [regional OR national] averages
-                            </p>
-                            <form class="offer-part estimated-expenses_form" action="#">
-                                <div class="form-group_item offer-part_currency">
+                            <form class="aid-form" action="#">
+                                <div class="aid-form_heading">
+                                    <h4 class="aid-form_title">
+                                        Estimated expenses
+                                    </h4>
+                                    <p class="aid-form_caption">
+                                        Monthly living expenses for single person based on [regional OR national] averages
+                                    </p>
+                                </div>
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Mortgage or rent
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyRent" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyRent" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Food
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyFood" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyFood" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Transportation
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyTransportation" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyTransportation" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Insurance (health, car, etc.)
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyInsurance" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyInsurance" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Retirement and savings
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlySavings" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlySavings" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="form-group_item offer-part_currency">
+                                <div class="form-group_item">
                                     <label class="form-label__wrapped">
                                         <span class="form-label_text-wrapper">
                                             Other
                                         </span>
-                                        <span class="offer-part_unit">
-                                            $
+                                        <span class="aid-form_input-wrapper">
+                                            <input class="aid-form_input aid-form_input__currency" type="text" data-financial="monthlyOther" autocorrect="off" value="0">
                                         </span>
-                                        <input class="offer-part_input" type="text" data-financial="monthlyOther" autocorrect="off" value="0">
                                     </label>
                                 </div>
-                                <div class="content_line"></div>
-                                <div class="line-item">
+                                <div class="content_line aid-form_equals-line"></div>
+                                <div class="line-item aid-form_subtotal">
                                     <div class="line-item_title">
                                         Total monthly expenses
                                     </div>
@@ -1039,8 +1242,8 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="block block__flush-sides block__bg estimated-expenses_summary">
-                                <h5 class="estimated-expenses_heading">
+                            <div class="aid-form_summary">
+                                <h5 class="aid-form_summary-heading">
                                     Grand total
                                 </h5>
                                 <div class="line-item">
@@ -1085,7 +1288,7 @@
                                         <span class="line-item_amount" data-financial="monthlyLoanPayment"></span>
                                     </div>
                                 </div>
-                                <div class="content_line"></div>
+                                <div class="content_line aid-form_equals-line"></div>
                                 <div class="line-item line-item__total">
                                     <div class="line-item_title">
                                         What you have left over

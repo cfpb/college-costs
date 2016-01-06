@@ -253,6 +253,14 @@
 
   &_wrapper {
     overflow: hidden;
+
+    &__overflow-small {
+      overflow: visible;
+
+      .respond-to-min(@bp-sm-min, {
+        overflow: hidden;
+      });
+    }
   }
 
   &_content {

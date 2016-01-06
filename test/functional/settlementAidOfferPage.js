@@ -89,7 +89,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     totalCostOfAttendance: {
       get: function() {
-        return element( by.css( 'span[data-financial="costOfAttendance"]' ) );
+        return element( by.id( 'summary_cost-of-attendance' ) );
       }
     },
     federalPellGrants: {
@@ -120,12 +120,12 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     totalGrantsScholarships: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalGrantsScholarships"]' ) );
+        return element( by.id( 'summary_total-grants-scholarships' ) );
       }
     },
     studentTotalCost: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalCost"]' ) );
+        return element( by.id( 'summary_total-cost' ) );
       }
     },
     studentContribution: {
@@ -160,7 +160,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     totalContributions: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalContributions"]' ) );
+        return element( by.id( 'summary_total-contributions' ) );
       }
     },
     federalPerkinsLoans: {
@@ -205,7 +205,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     totalFederalLoans: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalFederalLoans"]' ) );
+        return element( by.id( 'summary_total-federal-loans' ) );
       }
     },
     // TODO: Refactor this here and in the HTML/CSS for multiple private loans?
@@ -276,27 +276,27 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     totalPrivateLoansPaymentPlans: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalPrivateLoans"]' ) );
+        return element( by.id( 'summary_total-private-loans' ) );
       }
     },
     totalDebt: {
       get: function() {
-        return element( by.css( 'span[data-financial="loanTotal"]' ) );
+        return element( by.id( 'summary_total-loans' ) );
       }
     },
     remainingCost: {
       get: function() {
-        return element( by.css( 'span[data-financial="remainingCost"]' ) );
+        return element( by.id( 'summary_remaining-cost' ) );
       }
     },
     totalProgramDebt: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalProgramDebt"]' ) );
+        return element( by.id( 'summary_total-program-debt' ) );
       }
     },
     totalRepayment: {
       get: function() {
-        return element( by.css( 'span[data-financial="totalRepayment"]' ) );
+        return element( by.id( 'summary_total-repayment' ) );
       }
     },
     addUpGrantsScholarships: {
