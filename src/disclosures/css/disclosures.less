@@ -977,6 +977,14 @@
     &_title {
 
       .respond-to-min(@bp-sm-min, {
+        .grid_column(7);
+      });
+
+      .respond-to-min(@bp-med-min, {
+        .grid_column(8);
+      });
+
+      .respond-to-min(@bp-xl-min, {
         .grid_column(9);
       });
     }
@@ -984,6 +992,14 @@
     &_value {
 
       .respond-to-min(@bp-sm-min, {
+        .grid_column(5);
+      });
+
+      .respond-to-min(@bp-med-min, {
+        .grid_column(4);
+      });
+
+      .respond-to-min(@bp-xl-min, {
         .grid_column(3);
       });
     }
