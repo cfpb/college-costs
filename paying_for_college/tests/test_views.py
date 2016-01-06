@@ -31,7 +31,6 @@ class TestViews(django.test.TestCase):
         'pfc-repay',
         'pfc-choose',
         'pfc-manage',
-        'pfc-demo',
     ]
     POST = HttpRequest()
     POST.POST = {'school-program': '999999',
