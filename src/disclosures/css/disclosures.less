@@ -52,7 +52,7 @@
 
   .respond-to-min(@bp-sm-min, {
     display: block;
-    width: unit( (11 / @grid_total-columns) * 100, %);
+    width: 100%;
     height: 1px;
     border-right: 0;
     border-left: 0;
@@ -63,6 +63,10 @@
     z-index: 10;
     background-color: @gray-40;
     content: ' ';
+  });
+
+  .respond-to-min(@bp-lg-min, {
+    width: unit( (11 / @grid_total-columns) * 100, %);
   });
 }
 
@@ -239,8 +243,11 @@
   margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
-    padding-left: unit(@aid-form-left-inset / @base-font-size-px, em);
     margin-top: 0;
+  });
+
+  .respond-to-min(@bp-lg-min, {
+    padding-left: unit(@aid-form-left-inset / @base-font-size-px, em);
   });
 
   &_heading {
@@ -730,6 +737,10 @@
   &_intro {
 
     .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+
+    .respond-to-min(@bp-lg-min, {
       .grid_column(5);
     });
   }
@@ -741,10 +752,14 @@
   margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
-    .grid_column(4);
-    .grid_push(2);
+    .grid_column(6);
     padding-top: unit(30px / @base-font-size-px, em);
     margin-top: 0;
+  });
+
+  .respond-to-min(@bp-lg-min, {
+    .grid_column(4);
+    .grid_push(2);
   });
 
   &_heading {
@@ -819,6 +834,7 @@
 
 .bar-graph {
   @bar-graph-width:                45px;
+  @bar-graph-width-narrow:         25px;
   @bar-graph-height:              130px;
   @bar-graph-label-width:         135px;
   @bar-graph-value-min-width:      95px;
@@ -878,6 +894,12 @@
     top: 0;
     left: 50%;
     background-color: @gray-10;
+
+    .respond-to-range(@bp-sm-min, @bp-sm-max, {
+      width: @bar-graph-width-narrow;
+      border-right: (@bar-graph-width - @bar-graph-width-narrow) / 2 solid @gray-5;
+      border-left: (@bar-graph-width - @bar-graph-width-narrow) / 2 solid @gray-5;
+    });
   }
 
   &_point__you {
@@ -933,10 +955,14 @@
   .aid-form_summary {
 
     .respond-to-min(@bp-sm-min, {
-      padding-left: unit(40px / @base-font-size-px, em);
+      padding-left: 0;
       margin-top: unit(45px / @base-font-size-px, em);
       margin-left: 0;
       background-color: transparent;
+    });
+
+    .respond-to-min(@bp-lg-min, {
+      padding-left: unit(40px / @base-font-size-px, em);
     });
   }
 
