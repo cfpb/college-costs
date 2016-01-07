@@ -174,7 +174,7 @@ class SchoolRepresentation(View):
 
     def get(self, request, school_id, **kwargs):
         school = self.get_school(school_id)
-        return HttpResponse(school.data_json, content_type='application/json')
+        return HttpResponse(school.as_json(), content_type='application/json')
 
 
 class ProgramRepresentation(View):

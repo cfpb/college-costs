@@ -165,6 +165,44 @@ class School(models.Model):
                                      null=True,
                                      help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
 
+    def as_json(self):
+        """delivers pertinent data points as json"""
+        jdata = json.loads(self.data_json)
+        dict_out = {
+            'books': jdata['BOOKS'],
+            'city': self.city,
+            'control': self.control,
+            'defaultRate': self.default_rate,
+            'gradRate': self.grad_rate,
+            'indicatorGroup': jdata['INDICATORGROUP'],
+            'KBYOSS': self.KBYOSS,
+            'medianAnnualPay': self.median_annual_pay,
+            'medianMonthlyDebt': self.median_monthly_debt,
+            'medianTotalDebt': self.median_total_debt,
+            'offerAA': jdata['OFFERAA'],
+            'offerBA': jdata['OFFERBA'],
+            'offerGrad': jdata['OFFERGRAD'],
+            'onCampusAvail': jdata['ONCAMPUSAVAIL'],
+            'online': self.online_only,
+            'otherOffCampus': jdata['OTHEROFFCAMPUS'],
+            'otherOnCampus': jdata['OTHERONCAMPUS'],
+            'otherWFamily': jdata['OTHERWFAMILY'],
+            'repay3yr': self.repay_3yr,
+            'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
+            'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
+            'school': self.primary_alias,
+            'schoolID': self.pk,
+            'state': self.state,
+            'tuitionGradInDis': jdata['TUITIONGRADINDIS'],
+            'tuitionGradInS': jdata['TUITIONGRADINS'],
+            'tuitionGradOss': jdata['TUITIONGRADOSS'],
+            'tuitionUnderInDis': jdata['TUITIONUNDERINDIS'],
+            'tuitionUnderInS': jdata['TUITIONUNDERINS'],
+            'tuitionUnderOoss': jdata['TUITIONUNDEROSS'],
+            'zip5': self.zip5,
+        }
+        return json.dumps(dict_out)
+
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
 
