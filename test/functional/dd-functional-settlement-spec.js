@@ -25,8 +25,8 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
 
 	it( 'should contain required aid offer values in the URL', function(){
 		expect( browser.getCurrentUrl() ).toContain( 'tuit' );
-        expect( browser.getCurrentUrl() ).toContain( 'hous' );
-        expect( browser.getCurrentUrl() ).toContain( 'book' );
+    expect( browser.getCurrentUrl() ).toContain( 'hous' );
+    expect( browser.getCurrentUrl() ).toContain( 'book' );
 	} );
 
 	// TODO - Add expectation that other sections are invisible
