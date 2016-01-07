@@ -14,12 +14,23 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
 		expect( browser.getTitle() ).toBe( 'Understanding your financial aid offer > Consumer Financial Protection Bureau' );
 	} );
 
-	it( 'should contain an offer ID', function(){
+	it( 'should contain an offer ID in the URL', function(){
 		expect( browser.getCurrentUrl() ).toContain( 'oid' );
 	} );
 
+	it( 'should contain a college ID and a program ID in the URL', function(){
+		expect( browser.getCurrentUrl() ).toContain( 'iped' );
+		expect( browser.getCurrentUrl() ).toContain( 'pid' );
+	} );
+
+	it( 'should contain required aid offer values in the URL', function(){
+		expect( browser.getCurrentUrl() ).toContain( 'tuit' );
+    expect( browser.getCurrentUrl() ).toContain( 'hous' );
+    expect( browser.getCurrentUrl() ).toContain( 'book' );
+	} );
+
 	// TODO - Add expectation that other sections are invisible
-	it( 'should display the verify offer area first and no other sections', function() {
+	it( 'should display the verify offer area and no other sections', function() {
 		browser.wait( EC.visibilityOf(page.verifySection ), 8000 );
 	} );
 
@@ -36,6 +47,9 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
 	} );
 
 	// *** Step 1: Review your offer ***
+  // TODO: After the offer URL implementation conforms to spec, 
+  // we should draw values straight from the page based on URL values
+  // rather than setting all of them explicitly here.
 
 	// TODO - Uncomment remaining cost when it's hooked up
 	it( 'should properly update when the tuition is modified', function() {
