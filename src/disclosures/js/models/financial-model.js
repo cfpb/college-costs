@@ -8,10 +8,14 @@ var financialModel = {
   values: {},
 
   init: function() {
-    // jquery promise to delay model creation until ajax resolves
+    var val;
+    // immediately populate the view with the url parameters
+    val = getViewValues.url();
+    financialModel.calc( val );
+    // jquery promise to delay full model creation until ajax resolves
     $.when( fetch.constants() ).done( function( resp ) {
-      // get the values from the url and view & calculate
-      var val = getViewValues.init( resp );
+      // get the values from the url and view & re-calculate
+      val = getViewValues.init( resp );
       financialModel.calc( val );
     } );
   },
