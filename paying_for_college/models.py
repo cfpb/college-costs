@@ -167,18 +167,19 @@ class School(models.Model):
 
     def as_json(self):
         """delivers pertinent data points as json"""
+        ordered_out = OrderedDict()
         jdata = json.loads(self.data_json)
         dict_out = {
             'books': jdata['BOOKS'],
             'city': self.city,
             'control': self.control,
-            'defaultRate': self.default_rate,
-            'gradRate': self.grad_rate,
+            'defaultRate': "{0}".format(self.default_rate),
+            'gradRate': "{0}".format(self.grad_rate),
             'indicatorGroup': jdata['INDICATORGROUP'],
             'KBYOSS': self.KBYOSS,
-            'medianAnnualPay': self.median_annual_pay,
-            'medianMonthlyDebt': self.median_monthly_debt,
-            'medianTotalDebt': self.median_total_debt,
+            'medianAnnualPay': str(self.median_annual_pay),
+            'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
+            'medianTotalDebt': "{0}".format(self.median_total_debt),
             'offerAA': jdata['OFFERAA'],
             'offerBA': jdata['OFFERBA'],
             'offerGrad': jdata['OFFERGRAD'],
@@ -187,7 +188,7 @@ class School(models.Model):
             'otherOffCampus': jdata['OTHEROFFCAMPUS'],
             'otherOnCampus': jdata['OTHERONCAMPUS'],
             'otherWFamily': jdata['OTHERWFAMILY'],
-            'repay3yr': self.repay_3yr,
+            'repay3yr': "{0}".format(self.repay_3yr),
             'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
             'school': self.primary_alias,
@@ -201,7 +202,9 @@ class School(models.Model):
             'tuitionUnderOoss': jdata['TUITIONUNDEROSS'],
             'zip5': self.zip5,
         }
-        return json.dumps(dict_out)
+        for key in sorted(dict_out.keys()):
+            ordered_out[key] = dict_out[key]
+        return json.dumps(ordered_out)
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
