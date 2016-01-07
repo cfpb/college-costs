@@ -2,13 +2,18 @@
 
 var recalculate = require( 'student-debt-calc' );
 var getViewValues = require( '../dispatchers/get-view-values' );
+var fetch = require( '../dispatchers/get-api-values' );
 
 var financialModel = {
   values: {},
 
   init: function() {
-    var val = getViewValues.init();
-    this.calc( val );
+    // jquery promise to delay model creation until ajax resolves
+    $.when( fetch.constants() ).done( function( resp ) {
+      // get the values from the url and view & calculate
+      var val = getViewValues.init( resp );
+      financialModel.calc( val );
+    } );
   },
 
   calc: function( val ) {
