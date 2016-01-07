@@ -13,12 +13,12 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     correctInfoButton: {
       get: function() {
-        return element ( by.css( 'button[title="Yes, this information is correct"]' ) );
+        return element ( by.css( 'a[title="Yes, this information is correct"]' ) );
       }
     },
     incorrectInfoButton: {
       get: function() {
-        return element( by.css( 'button[title="No, this is not my information"]' ) );
+        return element( by.css( 'a[title="No, this is not my information"]' ) );
       }
     },
     confirmVerification: {
