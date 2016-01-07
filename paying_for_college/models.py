@@ -165,6 +165,47 @@ class School(models.Model):
                                      null=True,
                                      help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
 
+    def as_json(self):
+        """delivers pertinent data points as json"""
+        ordered_out = OrderedDict()
+        jdata = json.loads(self.data_json)
+        dict_out = {
+            'books': jdata['BOOKS'],
+            'city': self.city,
+            'control': self.control,
+            'defaultRate': "{0}".format(self.default_rate),
+            'gradRate': "{0}".format(self.grad_rate),
+            'indicatorGroup': jdata['INDICATORGROUP'],
+            'KBYOSS': self.KBYOSS,
+            'medianAnnualPay': str(self.median_annual_pay),
+            'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
+            'medianTotalDebt': "{0}".format(self.median_total_debt),
+            'offerAA': jdata['OFFERAA'],
+            'offerBA': jdata['OFFERBA'],
+            'offerGrad': jdata['OFFERGRAD'],
+            'onCampusAvail': jdata['ONCAMPUSAVAIL'],
+            'online': self.online_only,
+            'otherOffCampus': jdata['OTHEROFFCAMPUS'],
+            'otherOnCampus': jdata['OTHERONCAMPUS'],
+            'otherWFamily': jdata['OTHERWFAMILY'],
+            'repay3yr': "{0}".format(self.repay_3yr),
+            'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
+            'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
+            'school': self.primary_alias,
+            'schoolID': self.pk,
+            'state': self.state,
+            'tuitionGradInDis': jdata['TUITIONGRADINDIS'],
+            'tuitionGradInS': jdata['TUITIONGRADINS'],
+            'tuitionGradOss': jdata['TUITIONGRADOSS'],
+            'tuitionUnderInDis': jdata['TUITIONUNDERINDIS'],
+            'tuitionUnderInS': jdata['TUITIONUNDERINS'],
+            'tuitionUnderOoss': jdata['TUITIONUNDEROSS'],
+            'zip5': self.zip5,
+        }
+        for key in sorted(dict_out.keys()):
+            ordered_out[key] = dict_out[key]
+        return json.dumps(ordered_out)
+
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
 
