@@ -2,7 +2,7 @@
 
 var settlementAidOfferPage = function() {
     // TODO: We will need to add offer variables to the end of the following URL.
-    browser.get( 'http://localhost:8000/paying-for-college2/demo/?oid=1f9y8w1t6y3q0r' );
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&fam=4000&wkst=3000&parl=10000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55' );
 };
 
 settlementAidOfferPage.prototype = Object.create({}, {
