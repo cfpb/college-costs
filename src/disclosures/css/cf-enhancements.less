@@ -18,6 +18,7 @@
   .respond-to-max(@bp-xs-max, {
     display: block;
     width: 100%;
+    text-align: center;
   });
 
   &.btn__link {
@@ -35,6 +36,13 @@
       margin-left: auto;
     });
   }
+}
+
+a.btn__full-small.btn__link {
+
+  .respond-to-max(@bp-xs-max, {
+    display: inline-block;
+  });
 }
 
 /* ==========================================================================
