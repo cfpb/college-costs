@@ -4,6 +4,8 @@
 
 @small-font-size-px:    14px;
 @x-small-font-size-px:  12px;
+// Minimum width that putting the + or - sign inline with values in two-column line items works
+@bp-inline-sign-min:    689px;
 
 .understanding-financial-aid-offer {
   .webfont-regular();
@@ -410,13 +412,13 @@
   @line-item-font-size: 18px;
 
   .grid_nested-col-group();
-  .heading-4();
   margin-bottom: unit(15px / @font-size, em);
+  .heading-4();
 
   &_sign {
-    position: relative;
-    left: unit(-5px / @font-size, em);
-    font-size: unit(18px / @font-size, em);
+    display: inline-block;
+    margin-right: unit(5px / @line-item-font-size, em);
+    font-size: unit(@line-item-font-size / @font-size, em);
   }
 
   &_currency {
@@ -584,6 +586,13 @@
       .grid_column(4);
       .grid_push(1);
     });
+
+    .line-item {
+
+      .respond-to-range(@bp-sm-min, @bp-inline-sign-min, {
+        font-size: unit(16px / @base-font-size-px, em);
+      });
+    }
   }
 
   &_terms {
