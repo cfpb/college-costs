@@ -2,6 +2,8 @@
 
 var getApiValues = {
 
+  values: {},
+
   constants: function() {
     var url = '../understanding-your-financial-aid-offer/api/constants/';
     var constantRequest = $.ajax({
