@@ -1037,6 +1037,7 @@
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(10);
+    border-top: 1px solid @gray-40;
   });
 
   .respond-to-min(@bp-graph-cols-min, {
@@ -1049,6 +1050,13 @@
 
   .aid-form {
     margin-top: 0;
+  }
+
+  .aid-form_heading {
+
+    .respond-to-range(@bp-sm-min, @bp-graph-cols-min, {
+      border-bottom: none;
+    });
   }
 
   .aid-form_summary {
