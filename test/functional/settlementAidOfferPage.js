@@ -102,12 +102,26 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.federalPellGrants.sendKeys(pellgrant);
       }
     },
-    // TODO - Fix the change in scholarships, once implemented
-    /* schoolScholarships: {
-    get: function() { return element( by.id( 'grants__school-scholarships' ) ); } },
-    setSchoolScholarships: { value: function(schoolscholarships) { return this.schoolScholarships.sendKeys(schoolscholarships); } },
-    stateScholarships: { get: function() { return element( by.id( 'grants__state-scholarships' ) ); } },
-    setStateScholarships: { value: function(statescholarships) { return this.stateScholarships.sendKeys(statescholarships); } }, */
+    schoolScholarships: {
+      get: function() {
+        return element( by.id( 'grants__school' ) );
+      }
+    },
+    setSchoolScholarships: {
+      value: function(schoolscholarships) {
+        return this.schoolScholarships.sendKeys(schoolscholarships);
+      }
+    },
+    stateScholarships: {
+      get: function() {
+        return element( by.id( 'grants__state' ) );
+      }
+    },
+    setStateScholarships: {
+      value: function(statescholarships) {
+        return this.stateScholarships.sendKeys(statescholarships);
+      }
+    },
     otherGrantsScholarships: {
       get: function() {
         return element( by.id( 'grants__scholarships' ) );

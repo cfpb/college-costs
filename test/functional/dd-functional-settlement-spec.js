@@ -56,18 +56,18 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
   it( 'should properly update when the tuition is modified', function() {
     page.confirmVerification();
     page.setTuitionFeesCosts( 38976 );
-    expect(page.totalCostOfAttendance.getText()).toEqual( '38976' );
-    expect(page.studentTotalCost.getText()).toEqual( '38976' );
-    expect(page.remainingCost.getText()).toEqual( '38976' );
+    expect( page.totalCostOfAttendance.getText() ).toEqual( '38976' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38976' );
+    expect( page.remainingCost.getText() ).toEqual( '38976' );
   } );
 
   it( 'should properly update when the housing and meals are modified', function() {
     page.confirmVerification();
     page.setTuitionFeesCosts( 38976 );
     page.setHousingMealsCosts( 3000 );
-    expect(page.totalCostOfAttendance.getText()).toEqual( '41976' );
-    expect(page.studentTotalCost.getText()).toEqual( '41976' );
-    expect(page.remainingCost.getText()).toEqual( '41976' );
+    expect( page.totalCostOfAttendance.getText() ).toEqual( '41976' );
+    expect( page.studentTotalCost.getText() ).toEqual( '41976' );
+    expect( page.remainingCost.getText() ).toEqual( '41976' );
   } );
 
   it( 'should properly update when the transportation is modified', function() {
@@ -75,9 +75,9 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setTuitionFeesCosts( 38976 );
     page.setHousingMealsCosts( 3000 );
     page.setTransportationCosts( 500 );
-    expect(page.totalCostOfAttendance.getText()).toEqual( '42476' );
-    expect(page.studentTotalCost.getText()).toEqual( '42476' );
-    expect(page.remainingCost.getText()).toEqual( '42476' );
+    expect( page.totalCostOfAttendance.getText() ).toEqual( '42476' );
+    expect( page.studentTotalCost.getText() ).toEqual( '42476' );
+    expect( page.remainingCost.getText() ).toEqual( '42476' );
   } );
 
   it( 'should properly update when the books and supplies are modified', function() {
@@ -86,9 +86,9 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setHousingMealsCosts( 3000 );
     page.setTransportationCosts( 500 );
     page.setBooksSuppliesCosts( 650 );
-    expect(page.totalCostOfAttendance.getText()).toEqual( '43126' );
-    expect(page.studentTotalCost.getText()).toEqual( '43126' );
-    expect(page.remainingCost.getText()).toEqual( '43126' );
+    expect( page.totalCostOfAttendance.getText() ).toEqual( '43126' );
+    expect( page.studentTotalCost.getText() ).toEqual( '43126' );
+    expect( page.remainingCost.getText() ).toEqual( '43126' );
   } );
 
   it( 'should properly update when the other education costs are modified', function() {
@@ -98,9 +98,9 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setTransportationCosts( 500 );
     page.setBooksSuppliesCosts( 650 );
     page.setOtherEducationCosts( 500 );
-    expect(page.totalCostOfAttendance.getText()).toEqual( '43626' );
-    expect(page.studentTotalCost.getText()).toEqual( '43626' );
-    expect(page.remainingCost.getText()).toEqual( '43626' );
+    expect( page.totalCostOfAttendance.getText() ).toEqual( '43626' );
+    expect( page.studentTotalCost.getText() ).toEqual( '43626' );
+    expect( page.remainingCost.getText() ).toEqual( '43626' );
   } );
 
   // Grants and scholarships
@@ -113,12 +113,207 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setBooksSuppliesCosts( 650 );
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 5000 );
-    expect(page.totalGrantsScholarships.getText()).toEqual( '5000' );
-    expect(page.studentTotalCost.getText()).toEqual( '38626' );
-    expect(page.remainingCost.getText()).toEqual( '38626' );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5000' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38626' );
+    expect( page.remainingCost.getText() ).toEqual( '38626' );
   } );
 
+  it( 'should properly update when the Federal Pell Grants are modified above the Federal limits', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 10000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5730' );
+    expect( page.studentTotalCost.getText() ).toEqual( '37896' );
+    expect( page.remainingCost.getText() ).toEqual( '37896' );
+  } );
+
+  // TODO: Uncomment this once it's built in the JS code
+  /* it( 'should properly update when the Federal Pell Grants are modified above the cost of attendance', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 3976 );
+    page.setHousingMealsCosts( 1200 );
+    page.setTransportationCosts( 0 );
+    page.setBooksSuppliesCosts( 0 );
+    page.setOtherEducationCosts( 0 );
+    page.setFederalPellGrants( 5000 );
+    expect( EC.visibilityOf( page.pellGrantWarning ).toEqual( '0' );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '4976' );
+    expect( page.studentTotalCost.getText() ).toEqual( '0' );
+    expect( page.remainingCost.getText() ).toEqual( '0' );
+  } );*/
+
+  // TODO: Uncomment this once it's built in the JS code
+  /* it( 'should properly update when the grants and scholarships from a school are modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setSchoolScholarships( 2000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '7000' );
+    expect( page.studentTotalCost.getText() ).toEqual( '35896' );
+    expect( page.remainingCost.getText() ).toEqual( '35896' );
+  } );
+
+  it( 'should properly update when the grants and scholarships from a state are modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setSchoolScholarships( 2000 );
+    page.setStateScholarships( 2000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '9000' );
+    expect( page.studentTotalCost.getText() ).toEqual( '33896' );
+    expect( page.remainingCost.getText() ).toEqual( '33896' );
+  } ); */
+
+  it( 'should properly update when the other grants and scholarships are modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCost.getText() ).toEqual( '38526' );
+  } );
+
+  // TODO: Uncomment this once it's built in the design, HTML, and JS code
+  /* it( 'should properly update when the tuition assistance is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setSchoolScholarships( 2000 );
+    page.setStateScholarships( 2000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setTuitionAssistance( 3000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCost.getText() ).toEqual( '38526' );
+  } );
+
+  it( 'should properly update when the military assistance is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setSchoolScholarships( 2000 );
+    page.setStateScholarships( 2000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setTuitionAssistance( 3000 );
+    page.setMilitaryAssistance( 3000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCost.getText() ).toEqual( '38526' );
+  } );
+
+  it( 'should properly update when the GI Bill assistance is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setSchoolScholarships( 2000 );
+    page.setStateScholarships( 2000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setTuitionAssistance( 3000 );
+    page.setMilitaryAssistance( 3000 );
+    page.setGIBill( 3000 );
+    expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
+    expect( page.studentTotalCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCost.getText() ).toEqual( '38526' );
+  } ); */
+
   // Personal and family contributions
+
+  it( 'should properly update when the cash a student will personally provide is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setStudentContribution( 1000 );
+    expect( page.studentContribution.getText() ).toEqual( '1000' );
+    expect( page.totalContributions.getText() ).toEqual( '1000' );
+    expect( page.remainingCost.getText() ).toEqual( '37526' );
+  } );
+
+  it( 'should properly update when the cash a student\'s family will provide is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    expect( page.familyContribution.getText() ).toEqual( '4000' );
+    expect( page.totalContributions.getText() ).toEqual( '5000' );
+    expect( page.remainingCost.getText() ).toEqual( '33526' );
+  } );
+
+  it( 'should properly update when the work study earnings are modified within the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    expect( page.workStudyContribution.getText() ).toEqual( '3000' );
+    expect( page.totalContributions.getText() ).toEqual( '8000' );
+    expect( page.remainingCost.getText() ).toEqual( '30526' );
+  } );
+
+  // TODO: Uncomment this once it's built in the JS code
+  /* it( 'should properly update when the work study earnings are modified above the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    page.setStudentContribution( 100 );
+    page.setFamilyContribution( 100 );
+    page.setWorkStudyContribution( 100 );
+    expect(page.workStudyContribution.getText()).toEqual( '5100' );
+    expect(page.totalContributions.getText()).toEqual( '38526' );
+    expect(page.remainingCost.getText()).toEqual( '38526' );
+  } ); */
+
+
 
   // Federal loans
 
