@@ -257,7 +257,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setFederalPellGrants( 5000 );
     page.setOtherGrantsScholarships( 100 );
     page.setStudentContribution( 1000 );
-    expect( page.studentContribution.getText() ).toEqual( '1000' );
     expect( page.totalContributions.getText() ).toEqual( '1000' );
     expect( page.remainingCost.getText() ).toEqual( '37526' );
   } );
@@ -273,7 +272,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setOtherGrantsScholarships( 100 );
     page.setStudentContribution( 1000 );
     page.setFamilyContribution( 4000 );
-    expect( page.familyContribution.getText() ).toEqual( '4000' );
     expect( page.totalContributions.getText() ).toEqual( '5000' );
     expect( page.remainingCost.getText() ).toEqual( '33526' );
   } );
@@ -290,7 +288,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setStudentContribution( 1000 );
     page.setFamilyContribution( 4000 );
     page.setWorkStudyContribution( 3000 );
-    expect( page.workStudyContribution.getText() ).toEqual( '3000' );
     expect( page.totalContributions.getText() ).toEqual( '8000' );
     expect( page.remainingCost.getText() ).toEqual( '30526' );
   } );
@@ -312,8 +309,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     expect(page.totalContributions.getText()).toEqual( '38526' );
     expect(page.remainingCost.getText()).toEqual( '38526' );
   } ); */
-
-
 
   // Federal loans
 
