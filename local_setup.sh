@@ -10,8 +10,8 @@ set -e
 install(){
   echo 'Installing project dependencies...'
   pip install -r requirements/testing.txt
-  # npm install
-  # grunt build
+  npm install
+  grunt build
 
 }
 
