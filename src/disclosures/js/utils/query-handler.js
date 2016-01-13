@@ -33,7 +33,7 @@ function queryHandler( queryString ) {
     mta:  '',
     gib:  '',
     fam:  'family',
-    wkst: 'workstudy'
+    wkst: 'workstudy',
     parl: '',
     perl: 'perkins',
     subl: 'staffSubsidized',
