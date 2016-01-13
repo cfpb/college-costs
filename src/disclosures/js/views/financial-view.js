@@ -5,12 +5,17 @@ var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 
 var financialView = {
+  self: this,
   $elements: $( '[data-financial]' ),
+  $addPrivateButton: $( '.private-loans_add-btn' ),
+  $privateContainer: $( '.private-loans' ),
 
   init: function() {
     var values = getModelValues.financial();
     this.updateView( values );
     this.keyupListener();
+    this.addPrivateListener();
+    this.removePrivateListener();
   },
 
   updateView: function( values ) {
@@ -24,6 +29,23 @@ var financialView = {
       } else {
         $ele.text( value );
       }
+    } );
+  },
+
+  addPrivateListener: function() {
+    this.$addPrivateButton.click( function() {
+      var $container = $( '.private-loans' ),
+          $ele = $container.find( '.private-loans_loan:first' );
+      $ele.clone().insertAfter( $container.find( '.private-loans_loan:last' ) );
+      $container.find( '.private-loans_loan:last .aid-form_input' ).val( '0' );
+    } );
+  },
+
+  removePrivateListener: function() {
+    var buttonClass = '.private-loans_remove-btn';
+    this.$privateContainer.on( 'click', buttonClass, function() {
+      var $ele = $( this ).closest( '.private-loans_loan' );
+      $ele.remove();
     } );
   },
 
