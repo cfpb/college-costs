@@ -11,28 +11,40 @@ function queryHandler( queryString ) {
   var valuePairs = {};
   var parameters = {};
   var numericKeys = [
-    'tf', 'rb', 'bk', 'tr', 'oe', 'sc', 'pg', 'sv', 'ws', 'fm', 'fl',
-    'pk', 'ss', 'su', 'il', 'ir', 'pl', 'pr'
+    'iped', 'pid', 'oid', 'tuit', 'hous', 'book', 'tran', 'othr',
+    'pelg', 'schg', 'stag',  'othg', 'ta', 'mta', 'gib', 'fam',
+    'wkst', 'parl', 'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl',
+    'prvi', 'insl', 'insi', 'sav'
   ];
   var keyMaps = {
-    tf : 'tuitionFees',
-    rb : 'roomBoard',
-    bk : 'books',
-    tr : 'transportation',
-    oe : 'otherExpenses',
-    sc : 'scholarships',
-    pg : 'pell',
-    sv : 'savings',
-    ws : 'workstudy',
-    fm : 'family',
-    fl : 'state529plan',
-    pk : 'perkins',
-    ss : 'staffSubsidized',
-    su : 'staffUnsubsidized',
-    il : 'institutionalLoan',
-    ir : 'institutionalLoanRate',
-    pl : 'privateLoan',
-    pr : 'privateLoanRate'
+    iped: 'collegeID',
+    pid:  'programID',
+    oid:  'offerID',
+    tuit: 'tuitionFees',
+    hous: 'roomBoard',
+    book: 'books',
+    tran: 'transportation',
+    othr: 'otherExpenses',
+    pelg: 'pell',
+    schg: 'scholarships',
+    stag: 'state529plan',
+    othg: '',
+    ta:   '',
+    mta:  '',
+    gib:  '',
+    fam:  'family',
+    wkst: 'workstudy'
+    parl: '',
+    perl: 'perkins',
+    subl: 'staffSubsidized',
+    unsl: 'staffUnsubsidized',
+    ppl:  'parentplus',
+    gpl:  'gradplus',
+    prvl: 'privateLoan',
+    prvi: 'privateLoanRate',
+    insl: 'institutionalLoan',
+    insi: 'institutionalLoanRate',
+    sav:  'savings'
   };
 
   function checkValue( key, value ) {
