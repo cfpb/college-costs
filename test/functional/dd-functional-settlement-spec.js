@@ -126,6 +126,8 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setBooksSuppliesCosts( 650 );
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 10000 );
+    // TODO: expect student is informed about the Pell Grant cap
+    // expect( EC.visibilityOf( page.pellGrantCapWarning ) );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '5730' );
     expect( page.studentTotalCost.getText() ).toEqual( '37896' );
     expect( page.remainingCost.getText() ).toEqual( '37896' );
@@ -140,7 +142,7 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setBooksSuppliesCosts( 0 );
     page.setOtherEducationCosts( 0 );
     page.setFederalPellGrants( 5000 );
-    expect( EC.visibilityOf( page.pellGrantWarning ).toEqual( '0' );
+    expect( EC.visibilityOf( page.pellGrantCostWarning ) );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '4976' );
     expect( page.studentTotalCost.getText() ).toEqual( '0' );
     expect( page.remainingCost.getText() ).toEqual( '0' );
@@ -191,7 +193,7 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
   } );
 
   // TODO: Uncomment this once it's built in the design, HTML, and JS code
-  /* it( 'should properly update when the tuition assistance is modified', function() {
+  /* it( 'should properly update when the military assistance is modified', function() {
     page.confirmVerification();
     page.setTuitionFeesCosts( 38976 );
     page.setHousingMealsCosts( 3000 );
@@ -202,24 +204,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setSchoolScholarships( 2000 );
     page.setStateScholarships( 2000 );
     page.setOtherGrantsScholarships( 100 );
-    page.setTuitionAssistance( 3000 );
-    expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
-    expect( page.studentTotalCost.getText() ).toEqual( '38526' );
-    expect( page.remainingCost.getText() ).toEqual( '38526' );
-  } );
-
-  it( 'should properly update when the military assistance is modified', function() {
-    page.confirmVerification();
-    page.setTuitionFeesCosts( 38976 );
-    page.setHousingMealsCosts( 3000 );
-    page.setTransportationCosts( 500 );
-    page.setBooksSuppliesCosts( 650 );
-    page.setOtherEducationCosts( 500 );
-    page.setFederalPellGrants( 5000 );
-    page.setSchoolScholarships( 2000 );
-    page.setStateScholarships( 2000 );
-    page.setOtherGrantsScholarships( 100 );
-    page.setTuitionAssistance( 3000 );
     page.setMilitaryAssistance( 3000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
     expect( page.studentTotalCost.getText() ).toEqual( '38526' );
@@ -237,7 +221,6 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setSchoolScholarships( 2000 );
     page.setStateScholarships( 2000 );
     page.setOtherGrantsScholarships( 100 );
-    page.setTuitionAssistance( 3000 );
     page.setMilitaryAssistance( 3000 );
     page.setGIBill( 3000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
@@ -256,6 +239,8 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 5000 );
     page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
     page.setStudentContribution( 1000 );
     expect( page.totalContributions.getText() ).toEqual( '1000' );
     expect( page.remainingCost.getText() ).toEqual( '37526' );
@@ -270,6 +255,8 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 5000 );
     page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
     page.setStudentContribution( 1000 );
     page.setFamilyContribution( 4000 );
     expect( page.totalContributions.getText() ).toEqual( '5000' );
@@ -285,6 +272,8 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 5000 );
     page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
     page.setStudentContribution( 1000 );
     page.setFamilyContribution( 4000 );
     page.setWorkStudyContribution( 3000 );
@@ -302,17 +291,308 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
     page.setOtherEducationCosts( 500 );
     page.setFederalPellGrants( 5000 );
     page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
     page.setStudentContribution( 100 );
     page.setFamilyContribution( 100 );
     page.setWorkStudyContribution( 100 );
-    expect(page.workStudyContribution.getText()).toEqual( '5100' );
+    // TODO: expect student is informed about the work study earnings cap
+    // expect( EC.visibilityOf( page.workStudyCapWarning ) );
     expect(page.totalContributions.getText()).toEqual( '38526' );
     expect(page.remainingCost.getText()).toEqual( '38526' );
   } ); */
 
   // Federal loans
+  // TODO: Uncomment ALL program debt and repayment once it's built in the JS
+
+  it( 'should properly update when the federal Perkins loans are modified within the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    page.setFederalPerkinsLoans( 3000 );
+    expect( page.totalFederalLoans.getText() ).toEqual( '3000' );
+    expect( page.totalDebt.getText() ).toEqual( '3000' );
+    expect( page.remainingCost.getText() ).toEqual( '27526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+  it( 'should properly update when the federal Perkins loans are modified above the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    page.setFederalPerkinsLoans( 10000 );
+    // TODO: expect student is informed about the Perkins loan cap
+    // expect( EC.visibilityOf( page.perkinsLoanCapWarning ) );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    expect( page.totalFederalLoans.getText() ).toEqual( '5500' );
+    expect( page.totalDebt.getText() ).toEqual( '5500' );
+    expect( page.remainingCost.getText() ).toEqual( '25026' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+it( 'should properly update when the federal subsidized loans are modified within the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 3000 );
+    expect( page.totalFederalLoans.getText() ).toEqual( '6000' );
+    expect( page.totalDebt.getText() ).toEqual( '6000' );
+    expect( page.remainingCost.getText() ).toEqual( '24526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+  it( 'should properly update when the federal subsidized loans are modified above the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent first-year undergraduate
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 15000 );
+    // TODO: expect student is informed about the subsidized loan cap
+    // expect( EC.visibilityOf( page.subsidizedLoanCapWarning ) );
+    expect( page.totalFederalLoans.getText() ).toEqual( '6500' );
+    expect( page.totalDebt.getText() ).toEqual( '6500' );
+    expect( page.remainingCost.getText() ).toEqual( '24026' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+it( 'should properly update when the federal unsubsidized loans are modified within the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent first-year undergraduate
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 3000 );
+    page.setUnsubsidizedLoans( 3000 );
+    expect( page.totalFederalLoans.getText() ).toEqual( '9000' );
+    expect( page.totalDebt.getText() ).toEqual( '9000' );
+    expect( page.remainingCost.getText() ).toEqual( '21526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+  it( 'should properly update when the federal unsubsidized loans are modified above the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent first-year undergraduate
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 3000 );
+    page.setUnsubsidizedLoans( 15000 );
+    // TODO: expect student is informed about the unsubsidized loan cap
+    // expect( EC.visibilityOf( page.unsussidizedLoanCapWarning ) );
+    expect( page.totalFederalLoans.getText() ).toEqual( '12500' );
+    expect( page.totalDebt.getText() ).toEqual( '12500' );
+    expect( page.remainingCost.getText() ).toEqual( '18026' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+  it( 'should properly update when the federal Direct PLUS loans are modified within the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent graduate student
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 0 );
+    page.setUnsubsidizedLoans( 3000 );
+    page.setDirectPLUSLoans( 1000 );
+    expect( page.totalFederalLoans.getText() ).toEqual( '7000' );
+    expect( page.totalDebt.getText() ).toEqual( '7000' );
+    expect( page.remainingCost.getText() ).toEqual( '23526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
+    // expect( page.totalRepayment.getText() ).toEqual( '10000' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+  // TODO: Uncomment this once it's built in the JS code
+  /* it( 'should properly update when the federal Direct PLUS loans are modified above the allowed limit', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent graduate student
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 0 );
+    page.setUnsubsidizedLoans( 3000 );
+    page.setDirectPLUSLoans( 150000 );
+    // TODO: expect student is informed about the Direct PLUS loan cap
+    // expect( EC.visibilityOf( page.directPLUSCapWarning ) );
+    expect( page.totalFederalLoans.getText() ).toEqual( '12500' );
+    expect( page.totalDebt.getText() ).toEqual( '12500' );
+    expect( page.remainingCost.getText() ).toEqual( '18026' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
+    // expect( page.totalRepayment.getText() ).toEqual( '?' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } ); */
 
   // Private loans and payment plans
+
+  it( 'should properly update when a private loan is modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent first-year undergraduate
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 3000 );
+    page.setUnsubsidizedLoans( 3000 );
+    page.setPrivateLoanAmount( 3000 );
+    page.setPrivateLoanInterestRate( 4.55 );
+    page.setPrivateLoanFees( 1 );
+    page.setPrivateLoanGracePeriod( 6 );
+    expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
+    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '3000' );
+    expect( page.totalDebt.getText() ).toEqual( '12000' );
+    expect( page.remainingCost.getText() ).toEqual( '18526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
+    // expect( page.totalRepayment.getText() ).toEqual( '?' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } );
+
+/* it( 'should properly update when more than one private loans are modified', function() {
+    page.confirmVerification();
+    page.setTuitionFeesCosts( 38976 );
+    page.setHousingMealsCosts( 3000 );
+    page.setTransportationCosts( 500 );
+    page.setBooksSuppliesCosts( 650 );
+    page.setOtherEducationCosts( 500 );
+    page.setFederalPellGrants( 5000 );
+    page.setOtherGrantsScholarships( 100 );
+    // page.setMilitaryAssistance( 3000 );
+    // page.setGIBill( 3000 );
+    page.setStudentContribution( 1000 );
+    page.setFamilyContribution( 4000 );
+    page.setWorkStudyContribution( 3000 );
+    // Federal loan assumption: independent first-year undergraduate
+    page.setFederalPerkinsLoans( 3000 );
+    page.setSubsidizedLoans( 3000 );
+    page.setUnsubsidizedLoans( 3000 );
+    // The following lines need to be modified for multiple private loans.
+    // The page model needs modification as well.
+    page.setPrivateLoanAmount( 3000 );
+    page.setPrivateLoanInterestRate( 4.55 );
+    page.setPrivateLoanFees( 1 );
+    page.setPrivateLoanGracePeriod( 6 );
+    expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
+    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '3000' );
+    expect( page.totalDebt.getText() ).toEqual( '12000' );
+    expect( page.remainingCost.getText() ).toEqual( '18526' );
+    // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
+    // expect( page.totalRepayment.getText() ).toEqual( '?' );
+    // TODO: expect the estimated debt burden is recalculated
+    // TODO: expect the est. monthly student loan expense is recalculated
+  } ); */
+
+
 
   // Big picture summary
 

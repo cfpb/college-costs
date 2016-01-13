@@ -313,60 +313,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'summary_total-repayment' ) );
       }
     },
-    addUpGrantsScholarships: {
-      value: function() {
-        // return the sum of the values of the grant and scholarship fields
-        return ( this.federalPellGrants.value +
-            /* this.schoolScholarships.getText() +
-            this.stateScholarships.getText() + */
-            this.otherGrantsScholarships.value );
-      }
-    },
-    addUpTotalCost: {
-      value: function() {
-        // return the sum of the values of the grant and scholarship fields
-        return ( this.addUpCostOfAttendance() -
-            this.addUpGrantsScholarships() );
-      }
-    },
-    addUpContributions: {
-      value: function() {
-        // return the sum of the values of the contribution fields
-        return ( this.studentContribution.value +
-            this.familyContribution.value +
-            this.workStudyContribution.value );
-      }
-    },
-    addUpFederalLoans: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.federalPerkinsLoans.getText() +
-            this.subsidizedLoans.getText() +
-            this.unsubsidizedLoans.getText() +
-            this.directPLUSLoans.getText() );
-      }
-    },
-    addUpPrivateLoansPaymentPlans: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.privateLoanAmount.getText() +
-            this.paymentPlanAmount.getText() );
-      }
-    },
-    addUpTotalDebt: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.addUpFederalLoans() +
-            this.addUpPrivateLoansPaymentPlans() );
-      }
-    },
-    addUpRemainingCost: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.addUpTotalCost() - this.addUpContributions() -
-            this.addUpTotalDebt() );
-      }
-    },
     // Step 2: Evaluate your offer
     evaluateSection: {
       get: function() {
