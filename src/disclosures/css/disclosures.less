@@ -303,6 +303,10 @@
     box-sizing: border-box;
     width: 100%;
 
+    .respond-to-min(@bp-sm-min, {
+      max-width: unit(280px / @base-font-size-px, em);
+    });
+
     &__currency {
       text-align: right;
     }
@@ -878,6 +882,7 @@
 
   &_projection {
     .grid_nested-col-group();
+    max-width: unit(380px / @base-font-size-px, em);
     margin-bottom: unit(20px / @base-font-size-px, em);
   }
 
@@ -887,10 +892,12 @@
 
   &_projection-value {
     .grid_column(5);
+    text-align: right;
   }
 }
 
 .debt-equation {
+  max-width: unit(380px / @base-font-size-px, em);
   padding-top: unit(10px / @base-font-size-px, em);
   margin-bottom: unit(30px / @base-font-size-px, em);
 
@@ -927,6 +934,7 @@
 }
 
 .bar-graph {
+  @bar-graph-container-max-width:  380px;
   @bar-graph-width:                45px;
   @bar-graph-width-narrow:         25px;
   @bar-graph-height:              130px;
@@ -939,6 +947,7 @@
   @bar-graph-line-top-cheat:        3px;
 
   height: @bar-graph-height;
+  max-width: unit(@bar-graph-container-max-width / @base-font-size-px, em);
   margin-bottom: unit(10px / @base-font-size-px, em);
   position: relative;
 
@@ -1050,37 +1059,41 @@
 
   .aid-form {
     margin-top: 0;
-  }
 
-  .aid-form_heading {
+    &_heading {
 
-    .respond-to-range(@bp-sm-min, @bp-graph-cols-min, {
-      border-bottom: none;
-    });
-  }
+      .respond-to-range(@bp-sm-min, @bp-graph-cols-min, {
+        border-bottom: none;
+      });
+    }
 
-  .aid-form_summary {
+    &_input {
+      max-width: none;
+    }
 
-    .respond-to-min(@bp-sm-min, {
-      padding-left: 0;
-      margin-top: unit(45px / @base-font-size-px, em);
-      margin-left: 0;
-      background-color: transparent;
-    });
+    &_summary {
 
-    .respond-to-range(@bp-sm-min, @bp-sm-max, {
-      padding-right: 0;
-    });
+      .respond-to-min(@bp-sm-min, {
+        padding-left: 0;
+        margin-top: unit(45px / @base-font-size-px, em);
+        margin-left: 0;
+        background-color: transparent;
+      });
 
-    .respond-to-min(@bp-lg-min, {
-      padding-left: unit(40px / @base-font-size-px, em);
-    });
-  }
+      .respond-to-range(@bp-sm-min, @bp-sm-max, {
+        padding-right: 0;
+      });
 
-  .aid-form_summary-heading {
-    .heading-4();
-    margin-bottom: unit(10px / @font-size, em);
-    text-transform: none;
+      .respond-to-min(@bp-lg-min, {
+        padding-left: unit(40px / @base-font-size-px, em);
+      });
+    }
+
+    &_summary-heading {
+      .heading-4();
+      margin-bottom: unit(10px / @font-size, em);
+      text-transform: none;
+    }
   }
 
   .line-item {
