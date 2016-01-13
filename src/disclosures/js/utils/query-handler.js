@@ -12,9 +12,8 @@ function queryHandler( queryString ) {
   var parameters = {};
   var numericKeys = [
     'iped', 'pid', 'oid', 'tuit', 'hous', 'book', 'tran', 'othr',
-    'pelg', 'schg', 'stag',  'othg', 'ta', 'mta', 'gib', 'fam',
-    'wkst', 'parl', 'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl',
-    'prvi', 'insl', 'insi', 'sav'
+    'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'wkst', 'parl',
+    'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'insl', 'insi', 'sav'
   ];
   var keyMaps = {
     iped: 'collegeID',
@@ -26,15 +25,14 @@ function queryHandler( queryString ) {
     tran: 'transportation',
     othr: 'otherExpenses',
     pelg: 'pell',
-    schg: 'scholarships',
+    schg: 'schoolGrants',
     stag: 'state529plan',
-    othg: '',
-    ta:   '',
-    mta:  '',
-    gib:  '',
-    fam:  'family',
+    othg: 'otherScholarships',
+    mta:  'militaryAssistance',
+    gib:  'giBill',
+    fam:  'familyContrib',
     wkst: 'workstudy',
-    parl: '',
+    parl: 'parentLoan',
     perl: 'perkins',
     subl: 'staffSubsidized',
     unsl: 'staffUnsubsidized',
@@ -68,7 +66,7 @@ function queryHandler( queryString ) {
       var value = decodeURIComponent( pair[2] );
 
       value = checkValue( key, value );
-      parameters[key] = value;
+      parameters[key] = value || 0;
     }
   }
 
