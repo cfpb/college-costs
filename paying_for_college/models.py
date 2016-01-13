@@ -110,6 +110,16 @@ class ConstantCap(models.Model):
 # ZIP (now school.zip5)
 
 
+class Contact(models.Model):
+    """school email account to which we send confirmations"""
+    contact = models.CharField(max_length=255, help_text="EMAIL")
+    name = models.CharField(max_length=255, blank=True)
+    internal_note = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.contact
+
+
 class School(models.Model):
     """
     Represents a school
@@ -117,6 +127,7 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
+    contact = models.ForeignKey(Contact, blank=True, null=True)
     data_json = models.TextField(blank=True)
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=2, blank=True)
@@ -251,16 +262,6 @@ class Disclosure(models.Model):
 
     def __unicode__(self):
         return self.name + u" (%s)" % unicode(self.institution)
-
-
-class Contact(models.Model):
-    """school email account to which we send confirmations"""
-    institution = models.ForeignKey(School)
-    contact = models.CharField(max_length=255)
-    name = models.CharField(max_length=255, blank=True)
-
-    def __unicode__(self):
-        return self.contact + u" (%s)" % unicode(self.institution)
 
 
 class Program(models.Model):
