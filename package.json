@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "format-usd": "^0.2.0",
-    "student-debt-calc": "0.0.6"
+    "student-debt-calc": "0.1.2"
   }
 }
