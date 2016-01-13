@@ -5,7 +5,6 @@ var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 
 var financialView = {
-  self: this,
   $elements: $( '[data-financial]' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
