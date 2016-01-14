@@ -21,9 +21,7 @@ var financialModel = {
 
     // total family contributions and loans
     // since these values aren't in the UI we optionally add them as 0
-    model.family = ( model.familyContrib || 0 ) +
-      ( model.parentLoan || 0 ) +
-      ( model.parentplus || 0 );
+    model.family = ( model.parentLoan || 0 ) + ( model.parentplus || 0 );
 
     // total other scholarships and grants
     // since these values aren't in the UI we optionally add them as 0
