@@ -41,8 +41,7 @@ function queryHandler( queryString ) {
     prvl: 'privateLoan',
     prvi: 'privateLoanRate',
     insl: 'institutionalLoan',
-    insi: 'institutionalLoanRate',
-    sav:  'savings'
+    insi: 'institutionalLoanRate'
   };
 
   function checkValue( key, value ) {
