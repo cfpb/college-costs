@@ -6,6 +6,9 @@ try:
 except:  # pragma: no cover
     from ordereddict import OrderedDict
 
+import requests
+
+from django.utils import timezone
 from django.middleware import csrf
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView
@@ -20,7 +23,7 @@ from django.conf import settings
 
 from haystack.query import SearchQuerySet
 
-from models import School, Worksheet, Feedback
+from models import School, Worksheet, Feedback, Notification
 from models import Program, ConstantCap, ConstantRate
 from validators import validate_worksheet, validate_uuid4
 
@@ -273,3 +276,18 @@ def school_search_api(request):
     json_doc = json.dumps(document)
 
     return HttpResponse(json_doc, content_type='application/json')
+
+
+class VerifyView(View):
+    def post(self, request):
+        if request.body:
+            timestamp = timezone.now()
+            data = json.loads(request.body)
+            school = School.objects.get(school_id=int(data['iped']))
+            notification = Notification.objects.create(institution=school,
+                                                       oid=data['oid'],
+                                                       timestamp=timestamp,
+                                                       errors=data['errors'])
+            msg = notification.notify_school()
+        response = HttpResponse({'result': msg})
+        return response

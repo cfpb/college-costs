@@ -204,3 +204,21 @@ class CreateWorksheetTest(django.test.TestCase):
                            data=json.dumps(self.mock_worksheet_data),
                            content_type="application/x-www-form-urlencoded; charset=UTF-8")
         self.assertTrue(resp.status_code == 200)
+
+
+class VerifyViewTest(django.test.TestCase):
+
+    fixtures = ['test_fixture.json']
+    mock_payload = {
+        'oid': 'f38283b5b7c939a058889f997949efa566c616c5',
+        'iped': '408039',
+        'errors': 'none'
+    }
+
+    def test_verify_view(self):
+        url = reverse('disclosures:verify')
+        resp = client.post(url,
+                           data=json.dumps(self.mock_payload),
+                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
+        print "verify_view response status code is {}".format(resp.status_code)
+        self.assertTrue(resp.status_code == 200)
