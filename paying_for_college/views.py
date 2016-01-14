@@ -289,5 +289,8 @@ class VerifyView(View):
                                                        timestamp=timestamp,
                                                        errors=data['errors'])
             msg = notification.notify_school()
+        else:
+            return HttpResponseBadRequest("No form data found")
+
         response = HttpResponse({'result': msg})
         return response

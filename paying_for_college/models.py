@@ -284,6 +284,7 @@ class Notification(models.Model):
             'errors': self.errors
         }
         school = self.institution
+        # we prefer to use endpount notification, so use it first if existing
         if school.contact:
             if school.contact.endpoint:
                 requests.post(school.contact.endpoint, data=payload)
