@@ -31,7 +31,6 @@ class TestViews(django.test.TestCase):
         'pfc-repay',
         'pfc-choose',
         'pfc-manage',
-        'pfc-demo',
     ]
     POST = HttpRequest()
     POST.POST = {'school-program': '999999',
@@ -161,7 +160,7 @@ class APITests(django.test.TestCase):
 
         url = reverse('disclosures:program-json', args=['981'])
         resp = client.get(url)
-        print("program_json response content is {0}".format(resp))
+        # print("program_json response content is {0}".format(resp))
         self.assertTrue('housing' in resp.content)
         self.assertTrue('books' in resp.content)
 
@@ -171,6 +170,19 @@ class APITests(django.test.TestCase):
 class CreateWorksheetTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
+    mock_worksheet_data = {'1': {'netpriceok': '12964',
+                                 'oncampusavail': 'Yes',
+                                 'badkey': 'badinfo',
+                                 'tuitiongradoss': '',
+                                 'control': 'Public',
+                                 'offerba': 'Yes',
+                                 'books': 900,
+                                 'instate': False,
+                                 'retentrate': 0.12,
+                                 'online': 'No',
+                                 'school_id': '155317',
+                                 'state': 'KS',
+                                 'school': 'University of Kansas'}}
 
     def test_create_worksheet(self):
         """generating a worksheet ID via api."""
@@ -181,12 +193,14 @@ class CreateWorksheetTest(django.test.TestCase):
         data = json.loads(resp.content)
         self.assertTrue(len(data['id']) == 36)
 
-# SAVE POST
-# /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
+    # SAVE POST
+    # /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
     def test_save_worksheet(self):
-        """retrieving a creating worksheet via api."""
+        """saving a worksheet via api."""
 
         url = reverse('disclosures:api-worksheet',
                       args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
-        resp = client.post(url)
+        resp = client.post(url,
+                           data=json.dumps(self.mock_worksheet_data),
+                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
         self.assertTrue(resp.status_code == 200)

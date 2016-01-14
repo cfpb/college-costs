@@ -12,6 +12,6 @@ var metricView = {
     $( '.loan-default-rates .bar-graph_point__average' ).css( 'top', '70px' );
   }
 
-}
+};
 
 module.exports = metricView;

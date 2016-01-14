@@ -18,6 +18,19 @@
   select[multiple] {
     .webfont-regular();
   }
+
+  .content_main {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .information-right, .information-wrong {
+    display: none;
+  }
+
+  #info-right:target, #info-wrong:target {
+    display: block;
+  }
 }
 
 .step {
@@ -33,21 +46,49 @@
   }
 }
 
+// A bottom border for the sections in step 3 that use a special grid (11 columns plus bleeding into one gutter)
+.offer-part:after,
+.criteria_wrapper:after {
+
+  .respond-to-min(@bp-sm-min, {
+    display: block;
+    width: unit( (11 / @grid_total-columns) * 100, %);
+    height: 1px;
+    border-right: 0;
+    border-left: 0;
+    margin-right: 0;
+    position: absolute;
+    bottom: 0;
+    left: @grid_gutter-width / 2;
+    z-index: 10;
+    background-color: @gray-40;
+    content: ' ';
+  });
+}
+
 /* ==========================================================================
    Verify offer
    ========================================================================== */
 
 .verify {
+  margin-top: unit(20px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-sm-min, {
+    margin-top: unit(30px / @base-font-size-px, em);
+  });
 
   &_wrapper {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
       .grid_nested-col-group();
+      margin-bottom: unit(45px / @base-font-size-px, em);
     });
   }
 
   &_content {
     .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
+      .grid_column(6);
     });
   }
 
@@ -66,8 +107,14 @@
     margin-bottom: 0;
 
     .respond-to-min(@bp-sm-min, {
-      .heading-2();
       margin-bottom: unit(5px / @font-size, em);
+    });
+  }
+
+  &_location {
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-4();
     });
   }
 
@@ -97,14 +144,40 @@
     });
   }
 
-  &_wrong-info-btn {
-    font-size: 1em;
+  &_form {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
   }
 
-  .content_main {
+  &_estimate {
+
     .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
+      .grid_column(8);
     });
+  }
+
+  &_label {
+    .heading-4();
+  }
+
+  &_label-explanation {
+    font-size: unit(@small-font-size-px / @base-font-size-px, em)
+  }
+
+  &_controls {
+    margin-top: unit(30px / @base-font-size-px, em);
+    text-align: center;
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+      text-align: left;
+    });
+  }
+
+  &_wrong-info-btn {
+    font-size: 1em;
   }
 }
 
@@ -113,146 +186,187 @@
    ========================================================================== */
 
 .instructions {
+  margin-top: unit(30px / @base-font-size-px, em);
 
   &_wrapper {
+    padding-bottom: unit(5px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
       .grid_nested-col-group();
+      padding-bottom: unit(20px / @base-font-size-px, em);
     });
   }
 
   &_content {
     .respond-to-min(@bp-sm-min, {
-      .grid_column(8);
+      .grid_column(6);
     });
   }
 
   &_subheading {
     .heading-4();
   }
-
-  .content_main {
-    .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
-      padding-bottom: unit(30px / @base-font-size-px, em);
-    });
-  }
 }
 
 /* ==========================================================================
-   Review your first year offer
+   Offer and expenses forms
    ========================================================================== */
 
-.offer-part {
-  margin-top: unit(45px / @base-font-size-px, em);
+.aid-form {
+  @aid-form-left-inset: 40px;
+  margin-top: unit(30px / @base-font-size-px, em);
 
-  .form-group {
-    margin-top: unit(45px / @base-font-size-px, em);
+  .respond-to-min(@bp-sm-min, {
+    padding-left: unit(@aid-form-left-inset / @base-font-size-px, em);
+    margin-top: 0;
+  });
+
+  &_heading {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      padding-bottom: unit(5px / @base-font-size-px, em);
+      border-bottom: 1px solid @gray-40;
+    });
+  }
+
+  &_title {
+    margin-bottom: unit(5px / 18px, em);
+  }
+
+  &_caption {
+    margin-bottom: 0;
+    font-size: @small-font-size-px;
+  }
+
+  &_label-wrapper,
+  .form-label_text-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(15,24);
+    });
+
+    .aid-form_definition {
+      margin-bottom: unit(5px / @small-font-size-px, em);
+    }
+  }
+
+  &_input-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(9,24);
+    });
+  }
+
+  &_input {
+    box-sizing: border-box;
+    width: 100%;
+
+    &__currency {
+      text-align: right;
+    }
+
+    &__percent,
+    &__time {
+      width: unit(65px / @base-font-size-px, em);
+      text-align: right;
+    }
+  }
+
+  &_unit {
+    display: inline-block;
+    margin-top: unit(6px / @base-font-size-px, em);
+    margin-left: unit(10px / @base-font-size-px, em);
+  }
+
+  &_equals-line {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(5px / @base-font-size-px, em);
+    background-color: @black;
+  }
+
+  &_summary,
+  &_summary.column-well_content {
+    padding-top: unit(20px / @base-font-size-px, em);
+    padding-right: (@grid_gutter-width / 2);
+    padding-bottom: unit(20px / @base-font-size-px, em);
+    padding-left: (@grid_gutter-width / 2);
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-right: -(@grid_gutter-width / 2);
+    margin-left: -(@grid_gutter-width / 2);
+    background-color: @gray-5;
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: 0;
+      padding-right: @grid_gutter-width;
+      padding-bottom: 0;
+      padding-left: @grid_gutter-width;
+      margin-top: 0;
+      margin-right: -@grid_gutter-width;
+      margin-left: -@grid_gutter-width;
+    });
+  }
+
+  &_summary-heading {
+    padding-bottom: unit(5px / @font-size, em);
+    border-bottom: 1px solid @black;
+    .heading-4();
+
+    .respond-to-min(@bp-sm-min, {
+      .heading-5();
+    });
+  }
+
+  &_definition {
+    font-size: unit(@small-font-size-px / @base-font-size-px, em);
+  }
+
+  &_group-header {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-left: unit(-@aid-form-left-inset / @base-font-size-px, em);
+    });
+  }
+
+  &_inline-subtotal {
+
+    .respond-to-min(@bp-sm-min, {
+      display: none;
+    });
+  }
+
+  .form-group_item {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  .form-group_item + .form-group_item {
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(20px / @base-font-size-px, em)
+    });
   }
 
   .form-label-header {
     padding-bottom: unit(5px / @small-font-size-px, em);
     border-bottom: 1px solid @gray-40;
-    margin-bottom: unit(15px / @small-font-size-px, em);
+
+    & + .aid-form_definition {
+      margin-top: unit(-5px / @small-font-size-px, em);
+    }
   }
 
-  .content_line {
-    margin-top: unit(15px / @base-font-size-px, em);
-    margin-bottom: unit(7px / @base-font-size-px, em);
-  }
-}
-
-.offer-part_heading {
-  .heading-3();
-
-  .respond-to-min(@bp-sm-min, {
-    .heading-2();
-  });
-
-  & + .form-group {
-    margin-top: unit(30px / @base-font-size-px, em);
+  .form-label + .aid-form_definition {
+    margin-top: unit(-5px / @small-font-size-px, em);
   }
 }
 
-.offer-part_unit {
-  line-height: 2;
-}
-
-.offer-part_definition {
-  font-size: unit(14px / @base-font-size-px, em);
-}
-
-.form-label + .offer-part_definition {
-  margin-top: unit(-5px / @small-font-size-px, em);
-}
-
-.offer-part_currency {
-  position: relative;
-
-  .offer-part_unit {
-    position: absolute;
-    right: unit(58px / @base-font-size-px, em);
-  }
-
-  .offer-part_input {
-    box-sizing: border-box;
-    width: 100%;
-    text-align: right;
-  }
-}
-
-.offer-part_non-currency {
-
-  .offer-part_input {
-    box-sizing: border-box;
-    width: unit(60px / @base-font-size-px, em);
-  }
-
-  .offer-part_unit {
-    display: inline-block;
-    margin-left: unit(10px / @base-font-size-px, em);
-  }
-}
-
-.private-loans_term-group {
-  padding: 0;
-  border: none;
-}
-
-.private-loan_term {
-  @term-font-size-px: 18px;
-  display: inline-block;
-  font-size: unit(@term-font-size-px / @base-font-size-px, em);
-
-  & + .private-loan_term {
-    margin-left: unit(20px / @term-font-size-px, em);
-  }
-}
-
-.offer-part_summary {
-  padding-bottom: unit(30px / @base-font-size-px, em);
-  margin-top: unit(45px / @base-font-size-px, em);
-  margin-bottom: unit(45px / @base-font-size-px, em);
-  background-color: @gold-20;
-
-  &.debt-summary {
-    margin-top: 0;
-    background-color: @gold-60;
-  }
-
-  .content_line {
-    margin-top: unit(15px / @base-font-size-px, em);
-    margin-bottom: unit(7px / @base-font-size-px, em);
-  }
-}
-
-.offer-part_summary-heading {
-  .heading-5();
-  border-bottom: 1px solid @black;
-  margin-bottom: unit(10px / @font-size, em);
-}
-
-// Elements need to be nested here to inherit @font-size
 .line-item {
+  @line-item-font-size: 18px;
+
   .grid_nested-col-group();
   .heading-4();
   margin-bottom: unit(15px / @font-size, em);
@@ -267,75 +381,276 @@
     position: absolute;
     right: unit(77px / @font-size, em);
   }
+
+  &_explanation {
+    display: block;
+    margin-top: unit(5px / @line-item-font-size, em);
+    .webfont-regular();
+    font-size: unit(14px / @line-item-font-size, em);
+  }
+
+  &_title {
+    .grid_column(7);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
+
+  &_value {
+    .grid_column(5);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(4);
+    });
+  }
+
+  &_amount {
+    float: right;
+  }
+
+  &__total {
+    margin-bottom: 0;
+  }
+
+  & + p {
+    margin-top: unit(20px / @base-font-size-px, em);
+  }
 }
 
-.line-item_title {
-  .grid_column(7);
+.lt-ie9 {
+
+  .line-item_title {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(7);
+    });
+  }
+
+  .line-item_value {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(5);
+    });
+  }
 }
 
-.line-item_value {
-  .grid_column(5);
+/* ==========================================================================
+   Review your first year offer
+   ========================================================================== */
+
+.review {
+  margin-top: unit(45px / @base-font-size-px, em);
+
+  &_wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+
+    & + .criteria {
+      margin-top: unit(30px / @base-font-size-px, em);
+    }
+  }
+
+  &_intro {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
+  }
 }
 
-.line-item_amount {
-  float: right;
+.offer-part {
+  margin-top: unit(45px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-sm-min, {
+    .grid_nested-col-group();
+    padding-bottom: unit(30px / @base-font-size-px, em);
+  });
+
+  &_intro {
+    margin-bottom: unit(15px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+    });
+  }
+
+  &_intro-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_nested-col-group();
+    });
+  }
+
+  &_intro-content {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
+
+  &_heading {
+    .heading-3();
+  }
+
+  &_form-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
+
+  &_summary-wrapper {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(4);
+      .grid_push(1);
+      padding-top: unit(30px / @base-font-size-px, em);
+      margin-top: 0;
+    });
+  }
+
+  &.cost-to-attend {
+    margin-top: unit(30px / @base-font-size-px, em);
+  }
+
+  .offer-part_terms {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(15,24);
+      margin-top: unit(-15px / @base-font-size-px, em);
+    });
+  }
+
+  .offer-part_term {
+    margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(5px / @base-font-size-px, em);
+  }
 }
 
-.line-item__total {
-  margin-bottom: 0;
+.contributions,
+.loans,
+.future {
+
+  .column-well {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .aid-form_summary {
+
+    .respond-to-min(@bp-sm-min, {
+      padding-top: unit(30px / @base-font-size-px, em);
+      padding-bottom: unit(30px / @base-font-size-px, em);
+    });
+  }
 }
 
-.offer-part_terms {
-  padding-bottom: unit(17px / @base-font-size-px, em);
-  border-bottom: 1px dashed @gray-40;
+.contributions,
+.loans {
+
+  .big-picture {
+    display: none;
+    padding-bottom: 0;
+    background-color: transparent;
+
+    .respond-to-min(@bp-sm-min, {
+      display: block;
+    });
+  }
+
+  .column-well:after {
+    background-color: @gold-20;
+  }
 }
 
-.offer-part_terms__last {
-  border-bottom: 1px solid @black;
-  margin-bottom: unit(7px / @base-font-size-px, em);
+.future {
+
+  .aid-form_summary.debt-summary {
+    margin-top: 0;
+    background-color: @gold-40;
+
+    .respond-to-min(@bp-sm-min, {
+      padding-bottom: 0;
+    });
+  }
+
+  .aid-form_summary.big-picture {
+    background-color: @gold-20;
+  }
+
+  .column-well:after {
+    background-color: @gold-40;
+  }
 }
 
-.offer-part_term {
-  margin-top: unit(15px / @base-font-size-px, em);
-  margin-bottom: unit(5px / @base-font-size-px, em);
+.loans {
+
+  &_line {
+    border-top: 1px dashed @gray-40;
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-bottom: unit(15px / @base-font-size-px, em);
+    background-color: transparent;
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(15px / @base-font-size-px, em);
+    });
+  }
 }
 
 .private-loans {
   border-bottom: 1px dashed @gray-40;
   margin-bottom: unit(15px / @base-font-size-px, em);
-}
 
-.private-loans_add-btn {
-  margin-top: unit(20px / @base-font-size-px, em);
-  margin-right: 0;
-  margin-bottom: unit(30px / @base-font-size-px, em);
-  margin-left: 0;
-  border-bottom: none;
-  font-size: 1em;
-  text-align: left;
+  &_heading {
+    border-bottom: 1px solid @gray-40;
+    margin-bottom: unit(15px / @base-font-size-px, em);
+    position: relative;
+  }
 
-  &:hover,
-  &:visited,
-  &:active {
+  &_heading-text {
+    .heading-4();
+  }
+
+  &_remove-btn,
+  &_add-btn {
     border-bottom: none;
+    font-size: 1em;
+
+    &:hover,
+    &:visited,
+    &:active {
+      border-bottom: none;
+    }
+  }
+
+  &_remove-btn {
+    position: absolute;
+    top: unit(-8px / @base-font-size-px, em);
+    right: 0;
+    font-size: 1em;
+  }
+
+  &_add-btn {
+    margin-top: unit(20px / @base-font-size-px, em);
+    margin-right: 0;
+    margin-bottom: unit(30px / @base-font-size-px, em);
+    margin-left: 0;
+    text-align: left;
   }
 }
 
-.offer-part_heading + .offer-part_summary {
-  margin-top: unit(30px / @base-font-size-px, em);
-  margin-bottom: 0;
-}
+.debt-summary {
 
-.line-item + p {
-  margin-top: unit(20px / @base-font-size-px, em);
-}
+  .aid-form_summary-heading {
+    .heading-3();
 
-.debt-summary_heading {
-  .heading-3();
-
-  .respond-to-min(@bp-sm-min, {
-    .heading-2();
-  });
+    .respond-to-min(@bp-sm-min, {
+      .heading-5();
+    });
+  }
 }
 
 /* ==========================================================================
@@ -343,6 +658,7 @@
    ========================================================================== */
 
 .evaluate {
+  margin-top: unit(45px / @base-font-size-px, em);
 
   &_wrapper {
 
@@ -364,10 +680,10 @@
 }
 
 .criteria {
-  margin-top: unit(45px / @base-font-size-px, em);
+  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
-    border-bottom: 1px solid @gray-20;
+    margin-top: unit(45px / @base-font-size-px, em);
   });
 
   &_heading {
@@ -410,9 +726,12 @@
     font-size: unit(14px / @base-font-size-px, em);
   }
 
+  &_notification {
+    margin-bottom: unit(15px / @base-font-size-px, em);
+  }
+
   &_notification__better {
     .heading-4();
-    margin-bottom: 0;
   }
 }
 
@@ -564,43 +883,71 @@
 }
 
 .estimated-expenses {
-  @expense-summary-font-size: 18px;
   padding-top: unit(10px / @base-font-size-px, em);
-  border-top: 1px solid @gray-20;
+  border-top: 1px solid @gray-40;
   margin-top: unit(30px / @base-font-size-px, em);
+  margin-bottom: unit(15px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(6);
     padding-top: 0;
+    border-top: none;
     margin-top: unit(15px / @base-font-size-px, em);
+    margin-bottom: unit(45px / @base-font-size-px, em);
   });
 
-  &_form {
+  .aid-form {
     margin-top: 0;
   }
 
-  &_summary {
-    padding-bottom: unit(30px / @base-font-size-px, em);
-    margin-top: unit(30px / @base-font-size-px, em);
-    margin-bottom: unit(45px / @base-font-size-px, em);
-    background-color: @gold-20;
+  .aid-form_summary {
+
+    .respond-to-min(@bp-sm-min, {
+      padding-left: unit(40px / @base-font-size-px, em);
+      margin-top: unit(45px / @base-font-size-px, em);
+      margin-left: 0;
+      background-color: transparent;
+    });
   }
 
-  &_heading {
-    padding-bottom: unit(5px / @expense-summary-font-size, em);
-    border-bottom: 1px solid @black;
-    margin-bottom: unit(10px / @expense-summary-font-size, em);
+  .aid-form_summary-heading {
+    .heading-4();
+    margin-bottom: unit(10px / @font-size, em);
+    text-transform: none;
   }
 
-  &_explanation {
-    display: block;
-    margin-top: unit(5px / @expense-summary-font-size, em);
-    .webfont-regular();
-    font-size: unit(14px / @expense-summary-font-size, em);
+  .line-item {
+
+    &_title {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(9);
+      });
+    }
+
+    &_value {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(3);
+      });
+    }
+  }
+}
+
+.lt-ie9 {
+
+  .estimated-expenses .line-item_title {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(8);
+    });
   }
 
-  .content_line {
-    margin-bottom: unit(5px / @expense-summary-font-size, em);
+  .estimated-expenses .line-item_value {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(4);
+    });
   }
 }
 
@@ -609,7 +956,16 @@
    ========================================================================== */
 
 .question {
+  padding-top: unit(25px / @base-font-size-px, em);
+  padding-bottom: unit(5px / @base-font-size-px, em);
+  margin-top: unit(30px / @base-font-size-px, em);
   background-color: @gold-20;
+
+  .respond-to-min(@bp-sm-min, {
+    padding-top: unit(30px / @base-font-size-px, em);
+    padding-bottom: unit(15px / @base-font-size-px, em);
+    margin-top: unit(45px / @base-font-size-px, em);
+  });
 
   &_wrapper {
     .respond-to-min(@bp-sm-min, {
@@ -624,20 +980,12 @@
   }
 
   &_answers {
+    margin-top: unit(20px / @base-font-size-px, em);
     margin-bottom: unit(20px / @base-font-size-px, em);
 
     .respond-to-min(@bp-sm-min, {
+      margin-top: unit(30px / @base-font-size-px, em);
       margin-bottom: unit(30px / @base-font-size-px, em);
-    });
-  }
-
-  .content_main {
-    padding-top: unit(20px / @base-font-size-px, em);
-    padding-bottom: unit(20px / @base-font-size-px, em);
-
-    .respond-to-min(@bp-sm-min, {
-      padding-top: unit(30px / @base-font-size-px, em);
-      padding-bottom: unit(30px / @base-font-size-px, em);
     });
   }
 }
@@ -647,6 +995,7 @@
    ========================================================================== */
 
 .get-options {
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     padding-bottom: unit(30px / @base-font-size-px, em);
@@ -662,10 +1011,6 @@
     .respond-to-min(@bp-sm-min, {
       .grid_column(8);
     });
-  }
-
-  .content_main {
-    padding-bottom: 0;
   }
 
   .step_intro {
@@ -730,9 +1075,13 @@
    ========================================================================== */
 
 .next-steps {
+  padding-bottom: unit(30px / @base-font-size-px, em);
 
   &_wrapper {
+    margin-top: unit(30px / @base-font-size-px, em);
+
     .respond-to-min(@bp-sm-min, {
+      margin-top: unit(45px / @base-font-size-px, em);
       .grid_nested-col-group();
     });
   }
@@ -772,28 +1121,36 @@
       margin-top: unit(30px / @base-font-size-px, em);
     });
   }
+
+  .content_line {
+    display: none;
+
+    .respond-to-min(@bp-sm-min, {
+      display: block;
+    });
+  }
 }
 
 /* ==========================================================================
-   Student debt calculator demo
+   Feedback
    ========================================================================== */
 
-.financial-inputs {
-  max-width: 1100px;
-  margin: 120px auto 0 auto;
-  padding-top: 60px;
-  border-top: 1px solid @table-border;
+.feedback {
+  margin-bottom: unit(60px / @base-font-size-px, em);
 
-  label {
-    line-height: 3;
-    max-width: 40%;
-    padding-bottom: 0.5em;
-    text-align: right;
-    & > input[type="text"] {
-      display: block;
-      float: right;
-      margin-left: 1em;
-    }
+  &_wrapper {
+    margin-top: unit(30px / @base-font-size-px, em);
+    margin-bottom: unit(15px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      margin-top: unit(45px / @base-font-size-px, em);
+      .grid_nested-col-group();
+    });
   }
 
+  &_intro {
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+  }
 }
