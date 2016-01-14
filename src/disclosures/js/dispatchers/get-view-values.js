@@ -17,9 +17,9 @@ var getViewValues = {
           $fields = $ele.find( '[data-private-loan_key]' ),
           loanObject = { amount: 0, rate: 0, deferPeriod: 0 };
       $fields.each( function() {
-        var key = $( this ).attr( '[data-private-loan_key]' ),
+        var key = $( this ).attr( 'data-private-loan_key' ),
             value = $( this ).val();
-        loanObject[key] = value;
+        loanObject[key] = stringToNum( value );
       } );
       loanObject.amount += loanObject.fees;
       delete loanObject.fees;
