@@ -102,12 +102,26 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.federalPellGrants.sendKeys(pellgrant);
       }
     },
-    // TODO - Fix the change in scholarships, once implemented
-    /* schoolScholarships: {
-    get: function() { return element( by.id( 'grants__school-scholarships' ) ); } },
-    setSchoolScholarships: { value: function(schoolscholarships) { return this.schoolScholarships.sendKeys(schoolscholarships); } },
-    stateScholarships: { get: function() { return element( by.id( 'grants__state-scholarships' ) ); } },
-    setStateScholarships: { value: function(statescholarships) { return this.stateScholarships.sendKeys(statescholarships); } }, */
+    schoolScholarships: {
+      get: function() {
+        return element( by.id( 'grants__school' ) );
+      }
+    },
+    setSchoolScholarships: {
+      value: function(schoolscholarships) {
+        return this.schoolScholarships.sendKeys(schoolscholarships);
+      }
+    },
+    stateScholarships: {
+      get: function() {
+        return element( by.id( 'grants__state' ) );
+      }
+    },
+    setStateScholarships: {
+      value: function(statescholarships) {
+        return this.stateScholarships.sendKeys(statescholarships);
+      }
+    },
     otherGrantsScholarships: {
       get: function() {
         return element( by.id( 'grants__scholarships' ) );
@@ -297,60 +311,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalRepayment: {
       get: function() {
         return element( by.id( 'summary_total-repayment' ) );
-      }
-    },
-    addUpGrantsScholarships: {
-      value: function() {
-        // return the sum of the values of the grant and scholarship fields
-        return ( this.federalPellGrants.value +
-            /* this.schoolScholarships.getText() +
-            this.stateScholarships.getText() + */
-            this.otherGrantsScholarships.value );
-      }
-    },
-    addUpTotalCost: {
-      value: function() {
-        // return the sum of the values of the grant and scholarship fields
-        return ( this.addUpCostOfAttendance() -
-            this.addUpGrantsScholarships() );
-      }
-    },
-    addUpContributions: {
-      value: function() {
-        // return the sum of the values of the contribution fields
-        return ( this.studentContribution.value +
-            this.familyContribution.value +
-            this.workStudyContribution.value );
-      }
-    },
-    addUpFederalLoans: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.federalPerkinsLoans.getText() +
-            this.subsidizedLoans.getText() +
-            this.unsubsidizedLoans.getText() +
-            this.directPLUSLoans.getText() );
-      }
-    },
-    addUpPrivateLoansPaymentPlans: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.privateLoanAmount.getText() +
-            this.paymentPlanAmount.getText() );
-      }
-    },
-    addUpTotalDebt: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.addUpFederalLoans() +
-            this.addUpPrivateLoansPaymentPlans() );
-      }
-    },
-    addUpRemainingCost: {
-      value: function() {
-        // return the sum of the values of the federal loan fields
-        return ( this.addUpTotalCost() - this.addUpContributions() -
-            this.addUpTotalDebt() );
       }
     },
     // Step 2: Evaluate your offer
