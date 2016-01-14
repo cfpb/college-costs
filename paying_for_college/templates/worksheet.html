@@ -47,35 +47,35 @@
                             display the details and evaluation of your offer.
                         </h2>
                         <div class="verify_school">
-                            [School Name]
+                            {{school.primary_alias}}
                         </div>
                         <div class="verify_location">
-                            [City, ST]
+                            {{school.city}}, {{school.state}}
                         </div>
                         <dl class="verify_list">
                             <dt class="verify_heading">
                                 School type
                             </dt>
                             <dd class="verify_value">
-                                [school type]
+                                {{school.control}}
                             </dd>
                             <dt class="verify_heading">
                                 Program
                             </dt>
                             <dd class="verify_value">
-                                [program name]
+                                {{program.program_name}}
                             </dd>
                             <dt class="verify_heading">
                                 Program type
                             </dt>
                             <dd class="verify_value">
-                                [program type]
+                                {{program.get_level}}
                             </dd>
                             <dt class="verify_heading">
                                 Offer ID
                             </dt>
                             <dd class="verify_value">
-                                [offer ID]
+                                {{ oid|slice:":7" }}
                             </dd>
                         </dl>
                         <form class="verify_form">
@@ -175,7 +175,7 @@
             <section class="review step content_wrapper">
                 <div class="content_main">
                     <div class="review_wrapper">
-                        <div class="evaluate_intro">
+                        <div class="review_intro">
                             <h2 class="step_heading">
                                 Step 1: Review your first year offer
                             </h2>
@@ -445,10 +445,10 @@
                                         Total grants and scholarships
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -596,10 +596,10 @@
                                         </span>
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( + )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -611,10 +611,10 @@
                                         Work study
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( + )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -660,10 +660,10 @@
                                         Your contributions
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1155,10 +1155,10 @@
                                         Total private loans and payment plans
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( + )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1205,10 +1205,10 @@
                                         Your contributions
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1221,10 +1221,10 @@
                                         Your debt
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1319,10 +1319,10 @@
                                         Your contributions
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1335,10 +1335,10 @@
                                         Your debt
                                     </div>
                                     <div class="line-item_value">
-                                        <span class="line-item_sign">
-                                            ( &minus; )
-                                        </span>
                                         <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             $
                                         </span>
                                         <span class="line-item_amount"
@@ -1711,10 +1711,10 @@
                                             Total monthly expenses
                                         </div>
                                         <div class="line-item_value">
-                                            <span class="line-item_sign">
-                                                ( &minus; )
-                                            </span>
                                             <span class="line-item_currency">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 $
                                             </span>
                                             <span class="line-item_amount"
@@ -1726,10 +1726,10 @@
                                             Student loans
                                         </div>
                                         <div class="line-item_value">
-                                            <span class="line-item_sign">
-                                                ( &minus; )
-                                            </span>
                                             <span class="line-item_currency">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 $
                                             </span>
                                             <span class="line-item_amount"
@@ -2243,5 +2243,11 @@
 
 {% block app_js %}
 <script type="text/javascript"
-src="{% static "paying_for_college/disclosures/static/js/main.js" %}"></script>
+src="{% static "paying_for_college/disclosures/static/js/main.js" %}">
+</script>
+<script>
+  var schoolData = {{schoolData|safe}};
+  var programData = {{programData|safe}};
+</script>
+
 {% endblock %}

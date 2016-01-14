@@ -2,7 +2,12 @@ from django.conf.urls import url
 from paying_for_college.views import *
 
 urlpatterns = [
-    url(r'^$', BuildComparisonView.as_view(), name='worksheet'),
+    url(r'^$',
+        BuildComparisonView.as_view(), name='worksheet'),
+
+    url(r'^offer/$',
+        OfferView.as_view(), name='offer'),
+
     url(r'^api/email/$', EmailLink.as_view(), name='email'),
 
     url(r'^feedback/$',
@@ -19,7 +24,7 @@ urlpatterns = [
 
     # url(r'^api/bah-lookup.json', bah_lookup_api),
 
-    url(r'^api/program/(\d+)/$',
+    url(r'^api/program/([^/]+)/$',
         ProgramRepresentation.as_view(),
         name='program-json'),
 

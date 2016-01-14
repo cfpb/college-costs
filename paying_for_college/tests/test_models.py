@@ -73,7 +73,7 @@ class SchoolAliasTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
-        self.assertTrue(p.program_name in p.dump_json())
+        self.assertTrue(p.program_name in p.as_json())
         self.assertTrue('Bachelor' in p.get_level())
         self.assertTrue(print_vals(s) is None)
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))

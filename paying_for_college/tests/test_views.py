@@ -132,13 +132,44 @@ class SchoolSearchTest(django.test.TestCase):
         self.assertTrue('155317' in resp.content)
 
 
-# /paying-for-college/understanding-financial-aid-offers/api/school/155317.json
+class OfferTest(django.test.TestCase):
+
+    fixtures = ['test_fixture.json',
+                'test_program.json']
+
+    # /paying-for-college/understanding-financial-aid-offers/offer/?[QUERYSTRING]
+    def test_offer(self):
+        """request for offer disclosure."""
+
+        url = reverse('disclosures:offer')
+        qstring = '?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=10000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55'
+        no_oid = '?iped=408039&pid=981&oid='
+        bad_school = '?iped=xxxxxx&pid=981&oid=f38283b5b7c939a058889f997949efa566c61'
+        bad_program = '?iped=408039&pid=xxx&oid=f38283b5b7c939a058889f997949efa566c616c5'
+        missing_field = '?iped=408039&pid=981'
+        resp = client.get(url+qstring)
+        self.assertTrue(resp.status_code == 200)
+        resp2 = client.get(url+no_oid)
+        self.assertTrue("required" in resp2.content)
+        self.assertTrue(resp2.status_code == 400)
+        resp3 = client.get(url+bad_school)
+        self.assertTrue("No school" in resp3.content)
+        self.assertTrue(resp3.status_code == 400)
+        resp4 = client.get(url+bad_program)
+        self.assertTrue("No program" in resp4.content)
+        self.assertTrue(resp4.status_code == 400)
+        resp5 = client.get(url+missing_field)
+        self.assertTrue("required" in resp5.content)
+        self.assertTrue(resp5.status_code == 400)
+
+
 class APITests(django.test.TestCase):
 
     fixtures = ['test_fixture.json',
                 'test_constants.json',
                 'test_program.json']
 
+    # /paying-for-college/understanding-financial-aid-offers/api/school/155317.json
     def test_school_json(self):
         """api call for school details."""
 
@@ -147,6 +178,7 @@ class APITests(django.test.TestCase):
         self.assertTrue('Kansas' in resp.content)
         self.assertTrue('155317' in resp.content)
 
+    # /paying-for-college/understanding-financial-aid-offers/api/constants/
     def test_constants_json(self):
         """api call for constants."""
 
@@ -155,10 +187,11 @@ class APITests(django.test.TestCase):
         self.assertTrue('institutionalLoanRate' in resp.content)
         self.assertTrue('latestYear' in resp.content)
 
+    # /paying-for-college/understanding-financial-aid-offers/api/program/408039-981/
     def test_program_json(self):
         """api call for program details."""
 
-        url = reverse('disclosures:program-json', args=['981'])
+        url = reverse('disclosures:program-json', args=['408039-981'])
         resp = client.get(url)
         # print("program_json response content is {0}".format(resp))
         self.assertTrue('housing' in resp.content)
