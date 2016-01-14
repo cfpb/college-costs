@@ -220,5 +220,5 @@ class VerifyViewTest(django.test.TestCase):
         resp = client.post(url,
                            data=json.dumps(self.mock_payload),
                            content_type="application/x-www-form-urlencoded; charset=UTF-8")
-        print "verify_view response status code is {}".format(resp.status_code)
+        print "verify_view response status code is {0}".format(resp.status_code)
         self.assertTrue(resp.status_code == 200)
