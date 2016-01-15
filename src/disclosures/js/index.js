@@ -7,7 +7,6 @@ var metricView = require( './views/metric-view' );
 
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
-require( './utils/print-page' );
 
 var app = {
   init: function() {
@@ -23,10 +22,4 @@ var app = {
 
 $( document ).ready( function() {
   app.init();
-
-  $('.next-steps_controls.btn').click(function(e) {
-    e.preventDefault();
-    printPage();
-    return false;
-  });
 } );
