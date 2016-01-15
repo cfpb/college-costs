@@ -385,6 +385,10 @@
     });
   }
 
+  .form-group + .form-group {
+    margin-top: unit(60px / @base-font-size-px, em);
+  }
+
   .form-group_item {
 
     .respond-to-min(@bp-sm-min, {
@@ -395,7 +399,14 @@
   .form-group_item + .form-group_item {
 
     .respond-to-min(@bp-sm-min, {
-      margin-top: unit(20px / @base-font-size-px, em)
+      margin-top: unit(20px / @base-font-size-px, em);
+    });
+  }
+
+  .form-label {
+
+    .respond-to-min(@bp-med-min, {
+      margin-top: unit(4px / @base-font-size-px, em);
     });
   }
 
@@ -733,9 +744,9 @@
     text-align: left;
   }
 
-  &_loan + .private-loans_loan {
-    margin-top: 30px;
-  } 
+  &_loan + &_loan {
+    margin-top: unit(45px / @base-font-size-px, em);
+  }
 }
 
 .debt-summary {
@@ -818,27 +829,31 @@
       .grid_column(5);
     });
   }
+
+  & + & {
+    padding-top: unit(15px / @base-font-size-px, em);
+    border-top: 1px solid @gray-20;
+
+    .respond-to-min(@bp-graph-cols-min, {
+      padding-top: 0;
+      border-top: none;
+    });
+  }
 }
 
 .metric {
-  padding-top: unit(10px / @base-font-size-px, em);
-  border-top: 1px solid @gray-20;
-  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(10);
-    padding-top: 0;
   });
 
   .respond-to-range(@bp-sm-min, @bp-graph-cols-min - 1, {
     padding-bottom: 0;
-    margin-top: unit(15px / @base-font-size-px, em);
   });
 
   .respond-to-min(@bp-graph-cols-min, {
     .grid_column(6);
     padding-top: unit(30px / @base-font-size-px, em);
-    margin-top: 0;
   });
 
   .respond-to-min(@bp-med-min, {
@@ -863,6 +878,13 @@
     .heading-4();
   }
 
+  &.column-well__not-stacked {
+
+    .respond-to-range(@bp-sm-min, @bp-graph-cols-min - 1, {
+      padding-top: 0;
+    });
+  }
+
   &.column-well__not-stacked:after {
 
     .respond-to-range(@bp-sm-min, @bp-graph-cols-min - 1, {
@@ -873,10 +895,8 @@
   .column-well_content {
 
     .respond-to-range(@bp-sm-min, @bp-graph-cols-min - 1, {
-      padding-top: unit(10px / @base-font-size-px, em);
       padding-right: 0;
       padding-left: 0;
-      border-top: 1px solid @gray-20;
     });
   }
 }
@@ -1043,12 +1063,14 @@
 
 .estimated-expenses {
   padding-top: unit(10px / @base-font-size-px, em);
+  padding-bottom: unit(15px / @base-font-size-px, em);
   border-top: 1px solid @gray-40;
   margin-top: unit(30px / @base-font-size-px, em);
   margin-bottom: unit(15px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(10);
+    padding-bottom: 0;
     border-top: 1px solid @gray-40;
   });
 
