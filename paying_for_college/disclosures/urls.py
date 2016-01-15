@@ -27,6 +27,10 @@ urlpatterns = [
         ConstantsRepresentation.as_view(),
         name='constants-json'),
 
+    url(r'^api/verify/$',
+        VerifyView.as_view(),
+        name='verify'),
+
     url(r'^api/school/(\d+).json',
         SchoolRepresentation.as_view(),
         name='school-json'),

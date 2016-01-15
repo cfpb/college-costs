@@ -1,6 +1,8 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+- added notification functionality for disclosures
 
 ##  Unreleased
 - Added user interface for adding and removing private loans
