@@ -6,9 +6,9 @@ var getViewValues = require( '../dispatchers/get-view-values' );
 var financialModel = {
   values: {},
 
-  init: function() {
-    var val = getViewValues.init();
-    this.calc( val );
+  init: function( apiData ) {
+    var val = getViewValues.init( apiData );
+    financialModel.calc( val );
   },
 
   calc: function( val ) {
