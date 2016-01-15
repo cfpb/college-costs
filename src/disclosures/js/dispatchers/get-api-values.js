@@ -4,8 +4,10 @@ var getApiValues = {
 
   values: {},
 
+
   constants: function() {
-    var url = '../understanding-your-financial-aid-offer/api/constants/';
+    var url_base = $('main').attr('data-context');
+    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/constants/';
     var constantRequest = $.ajax({
       url: url,
       dataType: 'json',
