@@ -1361,6 +1361,11 @@
 
   &_controls {
     margin-top: unit(20px / @base-font-size-px, em);
+    margin-left: -2.5em;
+
+    .respond-to-min(@bp-sm-min, {
+      margin-left: 0;
+    });
 
     .respond-to-min(@bp-med-min, {
       margin-top: unit(30px / @base-font-size-px, em);
@@ -1374,6 +1379,14 @@
       display: block;
     });
   }
+}
+
+.change-list {
+  padding-left: 1em;
+
+  .respond-to-min(@bp-sm-min, {
+    padding-left: 2em;
+  });
 }
 
 /* ==========================================================================
