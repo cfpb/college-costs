@@ -10,6 +10,7 @@ var financialView = {
   $privateLoans: $( '[data-private-loan]' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
+  privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
 
   init: function() {
     var values = getModelValues.financial();
@@ -17,6 +18,7 @@ var financialView = {
     this.keyupListener();
     this.addPrivateListener();
     this.removePrivateListener();
+    this.resetPrivateLoanView();
   },
 
   setPrivateLoans: function( values ) {
@@ -56,6 +58,7 @@ var financialView = {
           $ele = $container.find( '.private-loans_loan:first' );
       $ele.clone().insertAfter( $container.find( '.private-loans_loan:last' ) );
       $container.find( '.private-loans_loan:last .aid-form_input' ).val( '0' );
+      publish.addPrivateLoan();
     } );
   },
 
@@ -67,6 +70,17 @@ var financialView = {
     } );
   },
 
+  resetPrivateLoanView: function() {
+    // remove the 2 excess private loans (3 exist initially as a NoJS fallback)
+    this.$privateLoans.each( function() {
+      var index = $( this ).index();
+      if ( index > 0 ) {
+        $( this ).remove();
+        publish.dropPrivateLoan( index );
+      }
+    } );
+  },
+
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
       this.financialKey = $( this ).attr( 'data-financial' );
@@ -74,13 +88,10 @@ var financialView = {
       if ( typeof $( this ).attr( 'data-private-loan_key' ) !== 'undefined' ) {
         var index = $( this ).closest( '[data-private-loan]' ).index(),
             key = $( this ).attr( 'data-private-loan_key' );
-        this.financialKey = {
-          financialKey: this.financialKey,
-          index: index,
-          key: key
-        };
+        publish.updatePrivateLoan( index, key, this.keyValue );
+      } else {
+        publish.financialData( this.financialKey, this.keyValue );
       }
-      publish.financialData( this.financialKey, this.keyValue );
       var values = getModelValues.financial();
       financialView.updateView( values );
     } );
