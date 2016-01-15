@@ -2,6 +2,11 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 
+##  Unreleased
+- Added user interface for adding and removing private loans
+- Update version of student-debt-calc to support multiple private loans
+- Updated dispatchers to handle multiple private loans
+
 ## 1.1.0 - 2015-10-28
 
 ### Initial refactoring
