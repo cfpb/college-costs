@@ -1,6 +1,8 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+- new url for handling querystring offer data
 
 ## 1.1.0 - 2015-10-28
 
