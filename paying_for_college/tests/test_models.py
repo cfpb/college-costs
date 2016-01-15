@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import json
+import dateutil.parser
+
+import mock
 
 from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
-from paying_for_college.models import print_vals
+from paying_for_college.models import Notification, print_vals
 
 
-class SchoolAliasTest(TestCase):
+class SchoolModelsTest(TestCase):
 
     def create_school(self, ID=999999,
                       data_json='',
@@ -32,9 +35,8 @@ class SchoolAliasTest(TestCase):
                                     is_primary=True,
                                     institution=school)
 
-    def create_contact(self, school):
-        return Contact.objects.create(institution=school,
-                                      contact='hackey@school.edu',
+    def create_contact(self):
+        return Contact.objects.create(contact='hackey@school.edu',
                                       name='Hackey Sack')
 
     def create_nickname(self, school):
@@ -51,6 +53,15 @@ class SchoolAliasTest(TestCase):
                                          name='Regional transferability',
                                          text="Your credits won't transfer")
 
+    def create_notification(self,
+                            school,
+                            oid='f38283b5b7c939a058889f997949efa566c616c5',
+                            time='2016-01-13T20:06:18.913112+00:00'):
+        return Notification.objects.create(institution=school,
+                                           oid=oid,
+                                           timestamp=dateutil.parser.parse(time),
+                                           errors='none')
+
     def test_school_related_models(self):
         s = self.create_school()
         self.assertTrue(isinstance(s, School))
@@ -63,10 +74,9 @@ class SchoolAliasTest(TestCase):
         self.assertTrue(a.alias in a.__unicode__())
         self.assertEqual(s.primary_alias, a.alias)
         self.assertEqual(s.__unicode__(), a.alias + u" (%s)" % s.school_id)
-        c = self.create_contact(s)
+        c = self.create_contact()
         self.assertTrue(isinstance(c, Contact))
         self.assertTrue(c.contact in c.__unicode__())
-        self.assertTrue(s.primary_alias in c.__unicode__())
         n = self.create_nickname(s)
         self.assertTrue(isinstance(n, Nickname))
         self.assertTrue(n.nickname in n.__unicode__())
@@ -75,14 +85,15 @@ class SchoolAliasTest(TestCase):
         self.assertTrue(p.program_name in p.__unicode__())
         self.assertTrue(p.program_name in p.as_json())
         self.assertTrue('Bachelor' in p.get_level())
+        noti = self.create_notification(s)
+        self.assertTrue(isinstance(noti, Notification))
+        self.assertTrue(noti.oid in noti.__unicode__())
         self.assertTrue(print_vals(s) is None)
         self.assertTrue("Emerald City" in print_vals(s, val_list=True))
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True)['city'])
         self.assertTrue("Emerald City" in print_vals(s, noprint=True))
         self.assertTrue(s.convert_ope6() == '005555')
         self.assertTrue(s.convert_ope8() == '00555500')
-        # print("school.degrees_highest is '{0}'".format(s.degrees_highest))
-        # print("school.get_highest_degree returns '{0}'".format(s.get_highest_degree()))
         self.assertTrue('Bachelor' in s.get_highest_degree())
         s.ope6_id = 555555
         s.ope8_id = 55555500
@@ -98,3 +109,44 @@ class SchoolAliasTest(TestCase):
         self.assertTrue(cr.__unicode__() == u'cr test (crTest), updated None')
         cc = ConstantCap(name='cc test', slug='ccTest', value='0')
         self.assertTrue(cc.__unicode__() == u'cc test (ccTest), updated None')
+
+    @mock.patch('paying_for_college.models.send_mail')
+    def test_email_notification(self, mock_mail):
+        skul = self.create_school()
+        noti = self.create_notification(skul)
+        msg = noti.notify_school()
+        self.assertTrue('failed' in msg)
+        contact = self.create_contact()
+        skul.contact = contact
+        skul.save()
+        noti2 = self.create_notification(skul)
+        msg1 = noti2.notify_school()
+        self.assertTrue(mock_mail.call_count == 1)
+        self.assertTrue('email' in msg1)
+
+    @mock.patch('paying_for_college.models.requests.post')
+    def test_endpoint_notification(self, mock_post):
+        skul = self.create_school()
+        contact = self.create_contact()
+        contact.endpoint = 'fake-api.fakeschool.edu'
+        contact.save()
+        skul.contact = contact
+        skul.save()
+        noti = self.create_notification(skul)
+        msg = noti.notify_school()
+        # print("notification mock_post.call_count is {0}".format(mock_post.call_count))
+        # print("endpoint notification msg is {0}".format(msg))
+        self.assertTrue(mock_post.call_count == 1)
+        self.assertTrue('endpoint' in msg)
+
+    def test_endpoint_notification_blank_contact(self):
+        skul = self.create_school()
+        contact = self.create_contact()
+        contact.contact = ''
+        contact.endpoint = ''
+        contact.save()
+        skul.contact = contact
+        skul.save()
+        noti = self.create_notification(skul)
+        msg = noti.notify_school()
+        self.assertTrue('failed' in msg)

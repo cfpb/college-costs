@@ -172,7 +172,7 @@
                     <div class="content_line"></div>
                 </div>
             </section>
-            <section class="review step content_wrapper">
+            <section class="review step content_wrapper" data-section="review">
                 <div class="content_main">
                     <div class="review_wrapper">
                         <div class="review_intro">
@@ -933,7 +933,7 @@
                                         </p>
                                     </div>
                                     <div class="private-loans">
-                                        <div class="private-loans_loan">
+                                        <div class="private-loans_loan" data-private-loan="0">
                                             <div class="private-loans_heading">
                                                 <div
                                                 class="private-loans_heading-text">
@@ -966,6 +966,7 @@
                                                     id="contrib__private-loan"
                                                     name="contrib__private-loan"
                                                     data-financial="privateLoan"
+                                                    data-private-loan_key="amount"
                                                     autocorrect="off"
                                                     value="0">
                                                 </div>
@@ -992,6 +993,7 @@
                                                     id="contrib__private-loan-interest"
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
+                                                    data-private-loan_key="rate"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span class="aid-form_unit">
@@ -1028,6 +1030,7 @@
                                                     id="contrib__private-loan-fees"
                                                     name="contrib__private-loan-fees"
                                                     data-financial="privateLoanFees"
+                                                    data-private-loan_key="fees"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span
@@ -1059,6 +1062,7 @@
                                                     id="contrib__private-loan-grace-period"
                                                     name="contrib__private-loan-grace-period"
                                                     data-financial="privateLoanGracePeriod"
+                                                    data-private-loan_key="deferPeriod"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span

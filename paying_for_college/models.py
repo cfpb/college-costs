@@ -5,6 +5,10 @@ except:  # pragma: no cover
     from ordereddict import OrderedDict
 import uuid
 import json
+from string import Template
+
+import requests
+from django.core.mail import send_mail
 
 HIGHEST_DEGREES = {  # highest-awarded values from Ed API
     '0': "Non-degree-granting",
@@ -27,6 +31,13 @@ LEVELS = {  # Dept. of Ed classification of post-secondary degree levels
     '18': "Doctor's degree-professional practice",
     '19': "Doctor's degree-other"
 }
+
+
+NOTIFICATION_TEMPLATE = Template("""Disclosure notification for offer ID $oid\n\
+    timestamp: $time\n\
+    errors: $errors\n\
+If errors are "none," the disclosure is confirmed.\
+""")
 
 
 class ConstantRate(models.Model):
@@ -110,6 +121,17 @@ class ConstantCap(models.Model):
 # ZIP (now school.zip5)
 
 
+class Contact(models.Model):
+    """school email account to which we send confirmations"""
+    contact = models.CharField(max_length=255, help_text="EMAIL", blank=True)
+    endpoint = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, blank=True)
+    internal_note = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return u", ".join([bit for bit in [self.contact, self.endpoint] if bit])
+
+
 class School(models.Model):
     """
     Represents a school
@@ -117,6 +139,7 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
+    contact = models.ForeignKey(Contact, blank=True, null=True)
     data_json = models.TextField(blank=True)
     city = models.CharField(max_length=50, blank=True)
     state = models.CharField(max_length=2, blank=True)
@@ -160,10 +183,10 @@ class School(models.Model):
     median_monthly_debt = models.DecimalField(max_digits=14,
                                        decimal_places=9,
                                        blank=True, null=True,
-                                       help_text="MEDIAN STUDENT MONTHLY DEBT PAYMENT")
+                                       help_text="MEDIAN STUDENT MONTHLY DEBT")
     median_annual_pay = models.IntegerField(blank=True,
                                      null=True,
-                                     help_text="MEDIAN PAY 10 YEARS AFTER ENTRY")
+                                     help_text="MEDIAN PAY 10 YRS AFTER ENTRY")
 
     def as_json(self):
         """delivers pertinent data points as json"""
@@ -243,6 +266,41 @@ class School(models.Model):
             return 'Not Available'
 
 
+class Notification(models.Model):
+    """record of a disclosure verification"""
+    institution = models.ForeignKey(School)
+    oid = models.CharField(max_length=40)
+    timestamp = models.DateTimeField()
+    errors = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, blank=True)
+
+    def __unicode__(self):
+        return "{0} {1}".format(self.oid, self.institution.primary_alias)
+
+    def notify_school(self):
+        payload = {
+            'oid': self.oid,
+            'time': self.timestamp.isoformat(),
+            'errors': self.errors
+        }
+        school = self.institution
+        # we prefer to use endpount notification, so use it first if existing
+        if school.contact:
+            if school.contact.endpoint:
+                requests.post(school.contact.endpoint, data=payload)
+                return "school notified via endpoint"
+            elif school.contact.contact:
+                send_mail("CFPB disclosure notification",
+                          NOTIFICATION_TEMPLATE.substitute(payload),
+                          "no-reply@cfpb.gov",
+                          [school.contact.contact])
+                return "school notified via email"
+            else:
+                return "school notification failed: no endpoint or email info"
+        else:
+            return "school notification failed: no school contact found"
+
+
 class Disclosure(models.Model):
     """Legally required wording for aspects of a school's aid disclosure"""
     name = models.CharField(max_length=255)
@@ -251,16 +309,6 @@ class Disclosure(models.Model):
 
     def __unicode__(self):
         return self.name + u" (%s)" % unicode(self.institution)
-
-
-class Contact(models.Model):
-    """school email account to which we send confirmations"""
-    institution = models.ForeignKey(School)
-    contact = models.CharField(max_length=255)
-    name = models.CharField(max_length=255, blank=True)
-
-    def __unicode__(self):
-        return self.contact + u" (%s)" % unicode(self.institution)
 
 
 class Program(models.Model):
@@ -482,12 +530,15 @@ def print_vals(obj, val_list=False, val_dict=False, noprint=False):
     keylist = sorted([key for key in obj._meta.get_all_field_names()],
                      key=lambda s: s.lower())
     if val_list:
+        newlist = []
         for key in keylist:
             try:
-                obj.__getattribute__(key)
+                print "%s: %s" % (key, obj.__getattribute__(key))
             except:
-                del keylist[keylist.index(key)]
-        return [obj.__getattribute__(key) for key in keylist]
+                pass
+            else:
+                newlist.append(key)
+        return [obj.__getattribute__(key) for key in newlist]
     elif val_dict:
         return obj.__dict__
     else:
