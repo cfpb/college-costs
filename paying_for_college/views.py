@@ -283,12 +283,15 @@ class VerifyView(View):
         if request.body:
             timestamp = timezone.now()
             data = json.loads(request.body)
-            school = School.objects.get(school_id=int(data['iped']))
-            notification = Notification.objects.create(institution=school,
-                                                       oid=data['oid'],
-                                                       timestamp=timestamp,
-                                                       errors=data['errors'])
-            msg = notification.notify_school()
+            if 'iped' in data and data['iped']:
+                school = School.objects.get(school_id=int(data['iped']))
+                notification = Notification.objects.create(institution=school,
+                                                           oid=data['oid'],
+                                                           timestamp=timestamp,
+                                                           errors=data['errors'])
+                msg = notification.notify_school()
+            else:
+                return HttpResponseBadRequest("No valid school ID found")
         else:
             return HttpResponseBadRequest("No form data found")
 

@@ -228,3 +228,10 @@ class VerifyViewTest(django.test.TestCase):
                            data='',
                            content_type="application/x-www-form-urlencoded; charset=UTF-8")
         self.assertTrue(resp.status_code == 400)
+
+    def test_verify_view_bad_id(self):
+        url = reverse('disclosures:verify')
+        resp = client.post(url,
+                           data='{"iped": ""}',
+                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
+        self.assertTrue(resp.status_code == 400)
