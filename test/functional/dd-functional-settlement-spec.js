@@ -558,7 +558,12 @@ it( 'should properly update when the federal unsubsidized loans are modified wit
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
-/* it( 'should properly update when more than one private loans are modified', function() {
+/*
+
+it( 'should properly update when a new private loan is added', function() {
+} );
+
+it( 'should properly update when more than one private loans is modified', function() {
     page.confirmVerification();
     page.setTuitionFeesCosts( 38976 );
     page.setHousingMealsCosts( 3000 );
@@ -590,12 +595,16 @@ it( 'should properly update when the federal unsubsidized loans are modified wit
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated
     // TODO: expect the est. monthly student loan expense is recalculated
-  } ); */
+  } ); 
+
+  
+
+  it( 'should properly update when a private loan is removed', function() {
+  } );
+
+*/
 
 
 
-  // Big picture summary
-
-  // Debt summary
 
 });
