@@ -963,7 +963,7 @@
                                                     class="aid-form_input
                                                     aid-form_input__currency"
                                                     type="text"
-                                                    id="contrib__private-loan"
+                                                    id="contrib__private-loan_0"
                                                     name="contrib__private-loan"
                                                     data-financial="privateLoan"
                                                     data-private-loan_key="amount"
@@ -990,7 +990,7 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-interest"
+                                                    id="contrib__private-loan-interest_0"
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
@@ -1027,7 +1027,7 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-fees"
+                                                    id="contrib__private-loan-fees_0"
                                                     name="contrib__private-loan-fees"
                                                     data-financial="privateLoanFees"
                                                     data-private-loan_key="fees"
@@ -1059,7 +1059,285 @@
                                                     class="aid-form_input
                                                     aid-form_input__time"
                                                     type="text"
-                                                    id="contrib__private-loan-grace-period"
+                                                    id="contrib__private-loan-grace-period_0"
+                                                    name="contrib__private-loan-grace-period"
+                                                    data-financial="privateLoanGracePeriod"
+                                                    data-private-loan_key="deferPeriod"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span
+                                                    class="aid-form_unit">
+                                                        months
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="private-loans_loan" data-private-loan="1">
+                                            <div class="private-loans_heading">
+                                                <div
+                                                class="private-loans_heading-text">
+                                                    Private loan
+                                                </div>
+                                                <button class="btn btn__link
+                                                private-loans_remove-btn"
+                                                type="button"
+                                                title="Remove this private loan">
+                                                    Remove
+                                                    <span class="cf-icon
+                                                    cf-icon-delete-round">
+                                                </span>
+                                                </button>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan">
+                                                        Loan amount
+                                                    </label>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__currency"
+                                                    type="text"
+                                                    id="contrib__private-loan_1"
+                                                    name="contrib__private-loan"
+                                                    data-financial="privateLoan"
+                                                    data-private-loan_key="amount"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-interest">
+                                                        Interest rate
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        Starts accumulating
+                                                        when you sign the loan
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__percent"
+                                                    type="text"
+                                                    id="contrib__private-loan-interest_1"
+                                                    name="contrib__private-loan-interest"
+                                                    data-financial="privateLoanRate"
+                                                    data-private-loan_key="rate"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span class="aid-form_unit">
+                                                        %
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-fees">
+                                                        Loan fees
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        Added to loan total
+                                                        and paid off during
+                                                        repayment,
+                                                        disbursement amount
+                                                        remains the same (for
+                                                        example, a $49 fee is
+                                                        added to a $1,000 loan
+                                                        but you still receive
+                                                        $1,000)
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__percent"
+                                                    type="text"
+                                                    id="contrib__private-loan-fees_1"
+                                                    name="contrib__private-loan-fees"
+                                                    data-financial="privateLoanFees"
+                                                    data-private-loan_key="fees"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span
+                                                    class="aid-form_unit">
+                                                        %
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-grace-period">
+                                                        Grace period
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        The amount of time
+                                                        before you must begin
+                                                        repayment
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__time"
+                                                    type="text"
+                                                    id="contrib__private-loan-grace-period_1"
+                                                    name="contrib__private-loan-grace-period"
+                                                    data-financial="privateLoanGracePeriod"
+                                                    data-private-loan_key="deferPeriod"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span
+                                                    class="aid-form_unit">
+                                                        months
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="private-loans_loan" data-private-loan="2">
+                                            <div class="private-loans_heading">
+                                                <div
+                                                class="private-loans_heading-text">
+                                                    Private loan
+                                                </div>
+                                                <button class="btn btn__link
+                                                private-loans_remove-btn"
+                                                type="button"
+                                                title="Remove this private loan">
+                                                    Remove
+                                                    <span class="cf-icon
+                                                    cf-icon-delete-round">
+                                                </span>
+                                                </button>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan">
+                                                        Loan amount
+                                                    </label>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__currency"
+                                                    type="text"
+                                                    id="contrib__private-loan_2"
+                                                    name="contrib__private-loan"
+                                                    data-financial="privateLoan"
+                                                    data-private-loan_key="amount"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-interest">
+                                                        Interest rate
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        Starts accumulating
+                                                        when you sign the loan
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__percent"
+                                                    type="text"
+                                                    id="contrib__private-loan-interest_2"
+                                                    name="contrib__private-loan-interest"
+                                                    data-financial="privateLoanRate"
+                                                    data-private-loan_key="rate"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span class="aid-form_unit">
+                                                        %
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-fees">
+                                                        Loan fees
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        Added to loan total
+                                                        and paid off during
+                                                        repayment,
+                                                        disbursement amount
+                                                        remains the same (for
+                                                        example, a $49 fee is
+                                                        added to a $1,000 loan
+                                                        but you still receive
+                                                        $1,000)
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__percent"
+                                                    type="text"
+                                                    id="contrib__private-loan-fees_2"
+                                                    name="contrib__private-loan-fees"
+                                                    data-financial="privateLoanFees"
+                                                    data-private-loan_key="fees"
+                                                    autocorrect="off"
+                                                    value="0">
+                                                    <span
+                                                    class="aid-form_unit">
+                                                        %
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group_item">
+                                                <div
+                                                class="aid-form_label-wrapper">
+                                                    <label class="form-label"
+                                                    for="contrib__private-loan-grace-period">
+                                                        Grace period
+                                                    </label>
+                                                    <p
+                                                    class="aid-form_definition">
+                                                        The amount of time
+                                                        before you must begin
+                                                        repayment
+                                                    </p>
+                                                </div>
+                                                <div
+                                                class="aid-form_input-wrapper">
+                                                    <input
+                                                    class="aid-form_input
+                                                    aid-form_input__time"
+                                                    type="text"
+                                                    id="contrib__private-loan-grace-period_2"
                                                     name="contrib__private-loan-grace-period"
                                                     data-financial="privateLoanGracePeriod"
                                                     data-private-loan_key="deferPeriod"
