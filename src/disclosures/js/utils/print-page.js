@@ -20,6 +20,9 @@ function printPage() {
 
 }
 
-$( '.next-steps_controls .btn' ).click( function( e ) {
-  window.print();
+$( document ).ready( function() {
+  $( '.next-steps_controls > .btn' ).on( 'click', function( e ) {
+    e.preventDefault();
+    printPage();
+  } );
 } );
