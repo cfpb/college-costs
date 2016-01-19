@@ -225,7 +225,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     // TODO: Refactor this here and in the HTML/CSS for multiple private loans?
     privateLoanAmount: {
       get: function() {
-        return element( by.id( 'contrib__private-loan' ) );
+        return element( by.css( '[data-private-loan] [data-private-loan_key="amount"]' ) );
       }
     },
     setPrivateLoanAmount: {
@@ -235,7 +235,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     privateLoanInterestRate: {
       get: function() {
-        return element( by.id( 'contrib__private-loan-interest' ) );
+        return element( by.css( '[data-private-loan] [data-private-loan_key="rate"]' ) );
       }
     },
     setPrivateLoanInterestRate: {
@@ -245,7 +245,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     privateLoanFees: {
       get: function() {
-        return element( by.id( 'contrib__private-loan-fees' ) );
+        return element( by.css( '[data-private-loan] [data-private-loan_key="fees"]' ) );
       }
     },
     setPrivateLoanFees: {
@@ -255,7 +255,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     privateLoanGracePeriod: {
       get: function() {
-        return element( by.id( 'contrib__private-loan-grace-period' ) );
+        return element( by.css( '[data-private-loan] [data-private-loan_key="deferPeriod"]' ) );
       }
     },
     setPrivateLoanGracePeriod: {
