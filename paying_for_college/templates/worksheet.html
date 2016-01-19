@@ -19,7 +19,7 @@
     <span class="u-visually-hidden">Menu</span></a>
 {% endblock %}
 {% block content %}
-<main>
+<main data-context="{{url_root}}">
     <div class="understanding-financial-aid-offer">
         <section class="content_hero hero hero__intro">
             <div class="hero_wrapper wrapper">
@@ -47,35 +47,35 @@
                             display the details and evaluation of your offer.
                         </h2>
                         <div class="verify_school">
-                            [School Name]
+                            {{school.primary_alias}}
                         </div>
                         <div class="verify_location">
-                            [City, ST]
+                            {{school.city}}, {{school.state}}
                         </div>
                         <dl class="verify_list">
                             <dt class="verify_heading">
                                 School type
                             </dt>
                             <dd class="verify_value">
-                                [school type]
+                                {{school.control}}
                             </dd>
                             <dt class="verify_heading">
                                 Program
                             </dt>
                             <dd class="verify_value">
-                                [program name]
+                                {{program.program_name}}
                             </dd>
                             <dt class="verify_heading">
                                 Program type
                             </dt>
                             <dd class="verify_value">
-                                [program type]
+                                {{program.get_level}}
                             </dd>
                             <dt class="verify_heading">
                                 Offer ID
                             </dt>
                             <dd class="verify_value">
-                                [offer ID]
+                                {{ oid|slice:":7" }}
                             </dd>
                         </dl>
                         <form class="verify_form">
@@ -2247,5 +2247,12 @@
 
 {% block app_js %}
 <script type="text/javascript"
-src="{% static "paying_for_college/disclosures/static/js/main.js" %}"></script>
+src="{% static "paying_for_college/disclosures/static/js/main.js" %}">
+</script>
+{% if schoolData %}
+<script>
+  var schoolData = {{schoolData|safe}};
+  var programData = {{programData|safe}};
+</script>
+{% endif %}
 {% endblock %}
