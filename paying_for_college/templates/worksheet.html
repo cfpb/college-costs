@@ -1583,7 +1583,8 @@
                                             class="aid-form_input-wrapper">
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
-                                                type="text"
+                                                type="text" id="expenses__rent"
+                                                name="expenses__rent"
                                                 data-financial="monthlyRent"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1599,7 +1600,8 @@
                                             class="aid-form_input-wrapper">
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
-                                                type="text"
+                                                type="text" id="expenses__food"
+                                                name="expenses__food"
                                                 data-financial="monthlyFood"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1616,6 +1618,8 @@
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
+                                                id="expenses__transportation"
+                                                name="expenses__transportation"
                                                 data-financial="monthlyTransportation"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1632,6 +1636,8 @@
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
+                                                id="expenses__insurance"
+                                                name="expenses__insurance"
                                                 data-financial="monthlyInsurance"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1648,6 +1654,8 @@
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
+                                                id="expenses__retirement"
+                                                name="expenses__retirement"
                                                 data-financial="monthlySavings"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1665,6 +1673,8 @@
                                                 class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
+                                                id="expenses__other"
+                                                name="expenses__other"
                                                 data-financial="monthlyOther"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -1702,7 +1712,8 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount"
-                                            data-financial="monthlySalary">
+                                            data-financial="monthlySalary"
+                                            id="summary_monthly-salary">
                                             </span>
                                         </div>
                                     </div>
@@ -1718,7 +1729,9 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount"
-                                            data-financial="totalMonthlyExpenses"></span>
+                                            data-financial="totalMonthlyExpenses"
+                                            id="summary_monthly-expenses">
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="line-item">
@@ -1747,8 +1760,9 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount"
-                                            data-financial="monthlyLeftover">
-                                        </span>
+                                            data-financial="monthlyLeftover"
+                                            id="summary_monthly-left-over">
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

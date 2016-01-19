@@ -597,14 +597,75 @@ it( 'should properly update when more than one private loans is modified', funct
     // TODO: expect the est. monthly student loan expense is recalculated
   } ); 
 
-  
-
   it( 'should properly update when a private loan is removed', function() {
   } );
 
 */
 
+  // *** Step 2: Evaluate your offer ***
+  // TODO: Uncomment when API values are coming in and JS is fully hooked up
 
+  it( 'should properly update when estimated monthly mortage or rent is modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '1150' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1850' );
+  } );
 
+  it( 'should properly update when estimated monthly food is modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    page.setMonthlyFood( 400 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '1550' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1450' );
+  } );
+
+  it( 'should properly update when estimated monthly transportation is modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    page.setMonthlyFood( 400 );
+    page.setMonthlyTransportation( 500 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2050' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1350' );
+  } );
+
+  it( 'should properly update when estimated monthly insurance is modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    page.setMonthlyFood( 400 );
+    page.setMonthlyTransportation( 500 );
+    page.setMonthlyInsurance( 200 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2250' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+  } );
+
+  it( 'should properly update when estimated monthly retirement and savings are modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    page.setMonthlyFood( 400 );
+    page.setMonthlyTransportation( 500 );
+    page.setMonthlyInsurance( 200 );
+    page.setMonthlyRetirement( 100 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2350' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+  } );
+
+  it( 'should properly update when estimated monthly other expenses are modified', function() {
+    page.confirmVerification();
+    page.setMonthlyRent( 1150 );
+    page.setMonthlyFood( 400 );
+    page.setMonthlyTransportation( 500 );
+    page.setMonthlyInsurance( 200 );
+    page.setMonthlyRetirement( 100 );
+    page.setMonthlyOther( 500 );
+    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2850' );
+    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+  } );
 
 });

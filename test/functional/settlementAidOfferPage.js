@@ -319,6 +319,81 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.evaluate' ) );
       }
     },
+    monthlyRent: {
+      get: function() {
+        return element( by.id( 'expenses__rent' ) );
+      }
+    },
+    setMonthlyRent: {
+      value: function( rentamount ) {
+        return this.monthlyRent.sendKeys( rentamount );
+      }
+    },
+    monthlyFood: {
+      get: function() {
+        return element( by.id( 'expenses__food' ) );
+      }
+    },
+    setMonthlyFood: {
+      value: function( foodamount ) {
+        return this.monthlyFood.sendKeys( foodamount );
+      }
+    },
+    monthlyTransportation: {
+      get: function() {
+        return element( by.id( 'expenses__transportation' ) );
+      }
+    },
+    setMonthlyTransportation: {
+      value: function( transportationamount ) {
+        return this.monthlyTransportation.sendKeys( transportationamount );
+      }
+    },
+    monthlyInsurance: {
+      get: function() {
+        return element( by.id( 'expenses__insurance' ) );
+      }
+    },
+    setMonthlyInsurance: {
+      value: function( insuranceamount ) {
+        return this.monthlyInsurance.sendKeys( insuranceamount );
+      }
+    },
+    monthlyRetirement: {
+      get: function() {
+        return element( by.id( 'expenses__retirement' ) );
+      }
+    },
+    setMonthlyRetirement: {
+      value: function( retirementamount ) {
+        return this.monthlyRetirement.sendKeys( retirementamount );
+      }
+    },
+    monthlyOther: {
+      get: function() {
+        return element( by.id( 'expenses__other' ) );
+      }
+    },
+    setMonthlyOther: {
+      value: function( otherexpensesamount ) {
+        return this.monthlyOther.sendKeys( otherexpensesamount );
+      }
+    },
+    averageMonthlySalary: {
+      get: function() {
+        return element( by.id( 'summary_monthly-salary' ) );
+      }
+    },
+    totalMonthlyExpenses: {
+      get: function() {
+        return element( by.id( 'summary_monthly-expenses' ) );
+      }
+    },
+    totalMonthlyLeftOver: {
+      get: function() {
+        return element( by.id( 'summary_monthly-left-over' ) );
+      }
+    },
     // Step 3: You have options / A few more things to consider
     optionsConsiderationsSection: {
       get: function() {
