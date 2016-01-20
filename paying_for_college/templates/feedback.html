@@ -4,13 +4,12 @@
 {% block title %}Paying for College - Compare financial aid and college cost{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{% static "paying_for_college/disclosures/css/comparison-tool.css" %}">
+<link rel="stylesheet" href="{% static "paying_for_college/feedback/css/comparison-tool.css" %}">
 {% endblock %}
 
 
 {% block page_js %}
-<script type="text/javascript" src="{% static "paying_for_college/disclosures/js/cfpb-comparison-analytics-min.js" %}"></script>
-<script src="{% static "paying_for_college/disclosures/js/feedback.js" %}"></script>
+<script src="{% static "paying_for_college/feedback/js/feedback.js" %}"></script>
 {% endblock %}
 
 {% block body_class %}page paying-for-college{% endblock %}
@@ -18,10 +17,10 @@
 {% block content %}		
 <div id="comparison-tool" class="comparison-tool sub-page-wrapper">		
 	<header id="comparison-tool-header" class="feedback-header">
-		<a class="noStyles" href="/paying-for-college/">
+		<a class="noStyles" href="/{{url_root}}/">
 			<h1>Paying for College</h1>
 		</a>
-		<span>Compare financial aid and college cost</span>				
+		<span>Understanding your financial aid offer</span>				
 	</header><!-- end #comparison-tool-header -->
 	
 	<section class="feedback-section clearfix">
