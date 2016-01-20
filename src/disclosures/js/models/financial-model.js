@@ -7,17 +7,32 @@ var financialModel = {
   values: {},
 
   init: function( apiData ) {
-    var val = getViewValues.init( apiData );
-    financialModel.calc( val );
+    this.values = getViewValues.init( apiData );
+    // we don't use directPlus in the UI
+    this.values.directPlus = 0;
+    this.calc();
   },
 
-  calc: function( val ) {
-    this.values = recalculate( val );
+  calc: function() {
+    this.values = recalculate( this.values );
     this.sumTotals();
   },
 
-  sumTotals: function( ) {
+  sumTotals: function() {
     var model = financialModel.values;
+
+    // total family contributions and loans
+    // since these values aren't in the UI we optionally add them as 0
+    model.family =
+      ( model.parentLoan || 0 ) +
+      ( model.parentplus || 0 );
+
+    // total other scholarships and grants
+    // since these values aren't in the UI we optionally add them as 0
+    model.scholarships =
+      ( model.otherScholarships || 0 ) +
+      ( model.militaryAssistance || 0 ) +
+      ( model.giBill || 0 );
 
     // total grants and scholarships
     model.totalGrantsScholarships =

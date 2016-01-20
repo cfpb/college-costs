@@ -83,7 +83,7 @@ class SchoolModelsTest(TestCase):
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())
-        self.assertTrue(p.program_name in p.dump_json())
+        self.assertTrue(p.program_name in p.as_json())
         self.assertTrue('Bachelor' in p.get_level())
         noti = self.create_notification(s)
         self.assertTrue(isinstance(noti, Notification))
