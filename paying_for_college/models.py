@@ -379,7 +379,7 @@ class Program(models.Model):
             level = LEVELS[self.level]
         return level
 
-    def dump_json(self):
+    def as_json(self):
         ordered_out = OrderedDict()
         dict_out = {
             'accreditor': self.accreditor,
@@ -402,6 +402,7 @@ class Program(models.Model):
             'programLength': self.program_length,
             'programName': self.program_name,
             'salary': self.salary,
+            'schoolID': self.institution.school_id,
             'socCodes': self.soc_codes,
             'timeToComplete': self.time_to_complete,
             'titleIVDebt': self.titleiv_debt,

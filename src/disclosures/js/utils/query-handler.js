@@ -11,28 +11,36 @@ function queryHandler( queryString ) {
   var valuePairs = {};
   var parameters = {};
   var numericKeys = [
-    'tf', 'rb', 'bk', 'tr', 'oe', 'sc', 'pg', 'sv', 'ws', 'fm', 'fl',
-    'pk', 'ss', 'su', 'il', 'ir', 'pl', 'pr'
+    'iped', 'pid', 'oid', 'tuit', 'hous', 'book', 'tran', 'othr',
+    'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'wkst', 'parl',
+    'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'insl', 'insi', 'sav'
   ];
   var keyMaps = {
-    tf : 'tuitionFees',
-    rb : 'roomBoard',
-    bk : 'books',
-    tr : 'transportation',
-    oe : 'otherExpenses',
-    sc : 'scholarships',
-    pg : 'pell',
-    sv : 'savings',
-    ws : 'workstudy',
-    fm : 'family',
-    fl : 'state529plan',
-    pk : 'perkins',
-    ss : 'staffSubsidized',
-    su : 'staffUnsubsidized',
-    il : 'institutionalLoan',
-    ir : 'institutionalLoanRate',
-    pl : 'privateLoan',
-    pr : 'privateLoanRate'
+    iped: 'collegeID',
+    pid:  'programID',
+    oid:  'offerID',
+    tuit: 'tuitionFees',
+    hous: 'roomBoard',
+    book: 'books',
+    tran: 'transportation',
+    othr: 'otherExpenses',
+    pelg: 'pell',
+    schg: 'schoolGrants',
+    stag: 'stateGrants',
+    othg: 'otherScholarships',
+    mta:  'militaryAssistance',
+    gib:  'giBill',
+    wkst: 'workstudy',
+    parl: 'parentLoan',
+    perl: 'perkins',
+    subl: 'staffSubsidized',
+    unsl: 'staffUnsubsidized',
+    ppl:  'parentplus',
+    gpl:  'gradplus',
+    prvl: 'privateLoan',
+    prvi: 'privateLoanRate',
+    insl: 'institutionalLoan',
+    insi: 'institutionalLoanRate'
   };
 
   function checkValue( key, value ) {
@@ -56,7 +64,7 @@ function queryHandler( queryString ) {
       var value = decodeURIComponent( pair[2] );
 
       value = checkValue( key, value );
-      parameters[key] = value;
+      parameters[key] = value || 0;
     }
   }
 

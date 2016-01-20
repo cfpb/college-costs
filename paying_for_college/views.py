@@ -53,6 +53,44 @@ class BaseTemplateView(TemplateView):
         return context
 
 
+class OfferView(TemplateView):
+    """check for reqired values in querystring and pass school/program data"""
+    # TODO log errors
+
+    def get(self, request):
+        if (
+                'iped' in request.GET and
+                'pid' in request.GET and
+                'oid' in request.GET and request.GET['oid']
+           ):
+            errors = ''
+            try:
+                school = School.objects.get(school_id=int(request.GET['iped']))
+            except:
+                errors += "No school could be found for iped ID {0}".format(request.GET['iped'])
+                return HttpResponseBadRequest(errors)
+            else:  # get the latest program row, in case of dupes
+                try:
+                    program = Program.objects.filter(program_code=request.GET['pid'],
+                                                     institution=school).order_by('-pk')[0]
+                except:
+                    errors += "No program could be found for program ID {0}".format(request.GET['pid'])
+                    return HttpResponseBadRequest(errors)
+                else:
+                    return render_to_response('worksheet.html',
+                                              {'data_js': "0",
+                                               'school': school,
+                                               'schoolData': school.as_json(),
+                                               'program': program,
+                                               'programData': program.as_json(),
+                                               'oid': request.GET['oid'],
+                                               'base_template': BASE_TEMPLATE,
+                                               'url_root': URL_ROOT},
+                                              context_instance=RequestContext(request))
+        else:
+            return HttpResponseBadRequest("URL doesn't contain required fields")
+
+
 class LandingView(TemplateView):
     template_name = "landing.html"
 
@@ -183,11 +221,12 @@ class SchoolRepresentation(View):
 class ProgramRepresentation(View):
 
     def get_program(self, program_code):
-        return get_object_or_404(Program, program_code=program_code)
+        ids = program_code.split('-')
+        return get_object_or_404(Program, institution__school_id=int(ids[0]), program_code=ids[1])
 
     def get(self, request, program_code, **kwargs):
         program = self.get_program(program_code)
-        return HttpResponse(program.dump_json(),
+        return HttpResponse(program.as_json(),
                             content_type='application/json')
 
 
