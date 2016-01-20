@@ -11,7 +11,7 @@ install(){
   echo 'Installing project dependencies...'
   pip install -r requirements/testing.txt
   npm install
-  grunt build
+  gulp build
 
 }
 
