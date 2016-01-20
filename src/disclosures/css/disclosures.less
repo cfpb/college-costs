@@ -318,6 +318,10 @@
 
     &[disabled] {
       background-color: @gray-10;
+      color: @black;
+      // Need to set -webkit-text-fill-color to make disabled input text @black in Safari/iOS
+      -webkit-text-fill-color: @black;
+      opacity: 1;
     }
   }
 
