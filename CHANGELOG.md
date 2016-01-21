@@ -4,6 +4,10 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - new url for handling querystring offer data
 - added notification functionality for disclosures
+- Added user interface for adding and removing private loans
+- Update version of student-debt-calc to support multiple private loans
+- Updated dispatchers to handle multiple private loans
+- Updated DOM and JS to display totals properly
 
 ## 1.1.0 - 2015-10-28
 
