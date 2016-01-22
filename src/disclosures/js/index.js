@@ -7,6 +7,7 @@ var metricView = require( './views/metric-view' );
 
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
+require( './utils/print-page' );
 
 var app = {
   init: function() {
