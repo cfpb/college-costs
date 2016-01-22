@@ -54,12 +54,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   //  Total cost: $36,026
   //  Remaining cost: $7,526
 
-  it( 'should properly update when the tuition is modified', function() {
+  it( 'should not let a student edit the tuition', function() {
     page.confirmVerification();
-    page.setTuitionFeesCosts( 35976 );
-    expect( page.totalCostOfAttendance.getText() ).toEqual( '40626' );
-    expect( page.studentTotalCost.getText() ).toEqual( '33026' );
-    expect( page.remainingCost.getText() ).toEqual( '9873' );
+    expect( page.tuitionFeesCosts.isEnabled() ).toEqual( false );
   } );
 
   it( 'should properly update when the housing and meals are modified', function() {

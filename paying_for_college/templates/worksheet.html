@@ -7,6 +7,12 @@
 {% block nemo_styles %}
 {% endblock %}
 {% block app_css %}
+<script>
+    /*! modernizr 3.3.1 (Custom Build) | MIT *
+    * http://modernizr.com/download/?-csspointerevents-setclasses
+    * Need to get styled <select>s working !*/
+    !function(e,n,s){function t(e,n){return typeof e===n}function o(){var e,n,s,o,a,i,f;for(var c in l)if(l.hasOwnProperty(c)){if(e=[],n=l[c],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(s=0;s<n.options.aliases.length;s++)e.push(n.options.aliases[s].toLowerCase());for(o=t(n.fn,"function")?n.fn():n.fn,a=0;a<e.length;a++)i=e[a],f=i.split("."),1===f.length?Modernizr[f[0]]=o:(!Modernizr[f[0]]||Modernizr[f[0]]instanceof Boolean||(Modernizr[f[0]]=new Boolean(Modernizr[f[0]])),Modernizr[f[0]][f[1]]=o),r.push((o?"":"no-")+f.join("-"))}}function a(e){var n=c.className,s=Modernizr._config.classPrefix||"";if(u&&(n=n.baseVal),Modernizr._config.enableJSClass){var t=new RegExp("(^|\\s)"+s+"no-js(\\s|$)");n=n.replace(t,"$1"+s+"js$2")}Modernizr._config.enableClasses&&(n+=" "+s+e.join(" "+s),u?c.className.baseVal=n:c.className=n)}function i(){return"function"!=typeof n.createElement?n.createElement(arguments[0]):u?n.createElementNS.call(n,"http://www.w3.org/2000/svg",arguments[0]):n.createElement.apply(n,arguments)}var r=[],l=[],f={_version:"3.3.1",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var s=this;setTimeout(function(){n(s[e])},0)},addTest:function(e,n,s){l.push({name:e,fn:n,options:s})},addAsyncTest:function(e){l.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=f,Modernizr=new Modernizr;var c=n.documentElement,u="svg"===c.nodeName.toLowerCase();Modernizr.addTest("csspointerevents",function(){var e=i("a").style;return e.cssText="pointer-events:auto","auto"===e.pointerEvents}),o(),a(r),delete f.addTest,delete f.addAsyncTest;for(var p=0;p<Modernizr._q.length;p++)Modernizr._q[p]();e.Modernizr=Modernizr}(window,document);
+</script>
 <!--[if lt IE 9]>
     <link rel="stylesheet" href="{% static "paying_for_college/disclosures/static/css/main.ie.css" %}">
 <![endif]-->
@@ -92,29 +98,31 @@
                                     this to help calculate your total debt
                                     after graduation.
                                 </p>
-                                <select id="estimated-years-attending">
-                                    <option>
-                                        Select an option
-                                    </option>
-                                    <option>
-                                        1
-                                    </option>
-                                    <option>
-                                        2
-                                    </option>
-                                    <option>
-                                        3
-                                    </option>
-                                    <option>
-                                        4
-                                    </option>
-                                    <option>
-                                        5
-                                    </option>
-                                    <option>
-                                        6
-                                    </option>
-                                </select>
+                                <div class="cf-select">
+                                    <select id="estimated-years-attending">
+                                        <option>
+                                            Select an option
+                                        </option>
+                                        <option>
+                                            1 year
+                                        </option>
+                                        <option>
+                                            2 years
+                                        </option>
+                                        <option>
+                                            3 years
+                                        </option>
+                                        <option>
+                                            4 years
+                                        </option>
+                                        <option>
+                                            5 years
+                                        </option>
+                                        <option>
+                                            6 years
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="verify_controls">
                                 <a href="#info-right"
@@ -221,6 +229,7 @@
                                             type="text" id="costs__tuition"
                                             name="costs__tuition"
                                             data-financial="tuitionFees"
+                                            disabled
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
@@ -487,7 +496,7 @@
                                     <p>
                                         This section includes loans that your
                                         parents have to repay, but are not
-                                        included in your personal debt or
+                                        included in <em>your</em> personal debt or
                                         student loan payments.
                                     </p>
                                 </div>
@@ -2432,7 +2441,7 @@
                             <p class="next-steps_list-intro">
                                 Review the edits you made to your offer:
                             </p>
-                            <ul>
+                            <ul class="change-list">
                                 <li>
                                    You [increased/decreased] the [field name]
                                    by [$amount].
