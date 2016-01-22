@@ -1,8 +1,7 @@
 'use strict';
 
 var settlementAidOfferPage = function() {
-    // TODO: We will need to add offer variables to the end of the following URL.
-    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&fam=4000&wkst=3000&parl=10000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55' );
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&fam=4000&wkst=3000&parl=10000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55' );
 };
 
 settlementAidOfferPage.prototype = Object.create({}, {
@@ -44,6 +43,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setTuitionFeesCosts: {
       value: function( tuition ) {
+        this.tuitionFeesCosts.clear();
         return this.tuitionFeesCosts.sendKeys( tuition );
       }
     },
@@ -54,6 +54,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setHousingMealsCosts: {
       value: function( housing ) {
+        this.housingMealsCosts.clear();
         return this.housingMealsCosts.sendKeys( housing );
       }
     },
@@ -64,6 +65,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setBooksSuppliesCosts: {
       value: function( books ) {
+        this.booksSuppliesCosts.clear();
         return this.booksSuppliesCosts.sendKeys( books );
       }
     },
@@ -74,6 +76,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setTransportationCosts: {
       value: function( transportation ) {
+        this.transportationCosts.clear();
         return this.transportationCosts.sendKeys( transportation );
       }
     },
@@ -84,6 +87,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setOtherEducationCosts: {
       value: function(othercosts) {
+        this.otherEducationCosts.clear();
         return this.otherEducationCosts.sendKeys( othercosts );
       }
     },
@@ -99,6 +103,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setFederalPellGrants: {
       value: function(pellgrant) {
+        this.federalPellGrants.clear();
         return this.federalPellGrants.sendKeys(pellgrant);
       }
     },
@@ -109,6 +114,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setSchoolScholarships: {
       value: function(schoolscholarships) {
+        this.schoolScholarships.clear();
         return this.schoolScholarships.sendKeys(schoolscholarships);
       }
     },
@@ -119,6 +125,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setStateScholarships: {
       value: function(statescholarships) {
+        this.stateScholarships.clear();
         return this.stateScholarships.sendKeys(statescholarships);
       }
     },
@@ -129,6 +136,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setOtherGrantsScholarships: {
       value: function(othergrants) {
+        this.otherGrantsScholarships.clear();
         return this.otherGrantsScholarships.sendKeys(othergrants);
       }
     },
@@ -149,6 +157,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setStudentContribution: {
       value: function(studentcontrib) {
+        this.studentContribution.clear();
         return this.studentContribution.sendKeys(studentcontrib);
       }
     },
@@ -159,6 +168,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setFamilyContribution: {
       value: function(familycontrib) {
+        this.familyContribution.clear();
         return this.familyContribution.sendKeys(familycontrib);
       }
     },
@@ -169,6 +179,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setWorkStudyContribution: {
       value: function(workstudy) {
+        this.workStudyContribution.clear();
         return this.workStudyContribution.sendKeys(workstudy);
       }
     },
@@ -184,6 +195,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setFederalPerkinsLoans: {
       value: function(perkins) {
+        this.federalPerkinsLoans.clear();
         return this.federalPerkinsLoans.sendKeys(perkins);
       }
     },
@@ -194,6 +206,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setSubsidizedLoans: {
       value: function( subsidized ) {
+        this.subsidizedLoans.clear();
         return this.subsidizedLoans.sendKeys( subsidized );
       }
     },
@@ -204,6 +217,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setUnsubsidizedLoans: {
       value: function( unsubsidized ) {
+        this.unsubsidizedLoans.clear();
         return this.unsubsidizedLoans.sendKeys( unsubsidized );
       }
     },
@@ -214,6 +228,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setDirectPLUSLoans: {
       value: function( directplus ) {
+        this.directPLUSLoans.clear();
         return this.directPLUSLoans.sendKeys( directplus );
       }
     },
@@ -230,6 +245,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setPrivateLoanAmount: {
       value: function(privateamount) {
+        this.privateLoanAmount.clear();
         return this.privateLoanAmount.sendKeys( privateamount );
       }
     },
@@ -240,6 +256,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setPrivateLoanInterestRate: {
       value: function( privateinterest ) {
+        this.privateLoanInterestRate.clear();
         return this.privateLoanInterestRate.sendKeys( privateinterest );
       }
     },
@@ -250,6 +267,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setPrivateLoanFees: {
       value: function( privatefees ) {
+        this.privateLoanFees.clear();
         return this.privateLoanFees.sendKeys(privatefees);
       }
     },
@@ -260,6 +278,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setPrivateLoanGracePeriod: {
       value: function( privategrace ) {
+        this.privateLoanGracePeriod.clear();
         return this.privateLoanGracePeriod.sendKeys(privategrace);
       }
     },
@@ -275,6 +294,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setPaymentPlanAmount: {
       value: function(paymentamount) {
+        this.paymentPlanAmount.clear();
         return this.setPaymentPlanAmount.sendKeys( paymentamount );
       }
     },
@@ -317,6 +337,87 @@ settlementAidOfferPage.prototype = Object.create({}, {
     evaluateSection: {
       get: function() {
         return element( by.css( '.evaluate' ) );
+      }
+    },
+    monthlyRent: {
+      get: function() {
+        return element( by.id( 'expenses__rent' ) );
+      }
+    },
+    setMonthlyRent: {
+      value: function( rentamount ) {
+        this.monthlyRent.clear();
+        return this.monthlyRent.sendKeys( rentamount );
+      }
+    },
+    monthlyFood: {
+      get: function() {
+        return element( by.id( 'expenses__food' ) );
+      }
+    },
+    setMonthlyFood: {
+      value: function( foodamount ) {
+        this.monthlyFood.clear();
+        return this.monthlyFood.sendKeys( foodamount );
+      }
+    },
+    monthlyTransportation: {
+      get: function() {
+        return element( by.id( 'expenses__transportation' ) );
+      }
+    },
+    setMonthlyTransportation: {
+      value: function( transportationamount ) {
+        this.monthlyTransportation.clear();
+        return this.monthlyTransportation.sendKeys( transportationamount );
+      }
+    },
+    monthlyInsurance: {
+      get: function() {
+        return element( by.id( 'expenses__insurance' ) );
+      }
+    },
+    setMonthlyInsurance: {
+      value: function( insuranceamount ) {
+        this.monthlyInsurance.clear();
+        return this.monthlyInsurance.sendKeys( insuranceamount );
+      }
+    },
+    monthlyRetirement: {
+      get: function() {
+        return element( by.id( 'expenses__retirement' ) );
+      }
+    },
+    setMonthlyRetirement: {
+      value: function( retirementamount ) {
+        this.monthlyRetirement.clear();
+        return this.monthlyRetirement.sendKeys( retirementamount );
+      }
+    },
+    monthlyOther: {
+      get: function() {
+        return element( by.id( 'expenses__other' ) );
+      }
+    },
+    setMonthlyOther: {
+      value: function( otherexpensesamount ) {
+        this.monthlyOther.clear();
+        return this.monthlyOther.sendKeys( otherexpensesamount );
+      }
+    },
+    averageMonthlySalary: {
+      get: function() {
+        return element( by.id( 'summary_monthly-salary' ) );
+      }
+    },
+    totalMonthlyExpenses: {
+      get: function() {
+        return element( by.id( 'summary_monthly-expenses' ) );
+      }
+    },
+    totalMonthlyLeftOver: {
+      get: function() {
+        return element( by.id( 'summary_monthly-left-over' ) );
       }
     },
     // Step 3: You have options / A few more things to consider
