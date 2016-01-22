@@ -47,11 +47,16 @@ describe( 'A dynamic financial aid disclosure that\'s required by settlement', f
   } );
 
   // *** Step 1: Review your offer ***
-  // TODO: After the offer URL implementation conforms to spec, 
+  // TODO: After the offer URL implementation conforms to spec,
   // we should draw values straight from the page based on URL values
   // rather than setting all of them explicitly here.
 
   // Cost of attendance
+
+  it( 'should not let a student edit the tuition', function() {
+    page.confirmVerification();
+    expect( page.tuitionFeesCosts.isEnabled() ).toEqual( false );
+  } );
 
   it( 'should properly update when the tuition is modified', function() {
     page.confirmVerification();
