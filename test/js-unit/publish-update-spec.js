@@ -17,5 +17,18 @@ describe( 'publish updates to the model', function() {
     expect( model.values.pizza ).to.equal( 'cheese' );
   });
 
+  it( 'drops private Loans from privateLoanMulti', function() {
+    model.values = {
+      privateLoanMulti: [
+        { 'loan': 1 },
+        { 'loan': 2 },
+        { 'loan': 3 }
+      ]
+    };
+
+    pub.dropPrivateLoan( 1 );
+    
+    expect( model.values.privateLoanMulti ).to.eql( [ { 'loan': 1 }, { 'loan': 3 } ] );
+  });
 
 });
