@@ -11,6 +11,8 @@ var financialView = {
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
+  keyupDelay: null,
+  currentInput: null,
 
   init: function() {
     var values = getModelValues.financial();
@@ -39,7 +41,6 @@ var financialView = {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name];
-
       if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
         $ele.val( value );
       } else {
@@ -99,19 +100,26 @@ var financialView = {
     } );
   },
 
+  inputHandler: function( element ) {
+    this.financialKey = $( element ).attr( 'data-financial' );
+    this.keyValue = stringToNum( $( element ).val() );
+    if ( typeof $( element ).attr( 'data-private-loan_key' ) !== 'undefined' ) {
+      var index = $( element ).closest( '[data-private-loan]' ).index(),
+          key = $( element ).attr( 'data-private-loan_key' );
+      publish.updatePrivateLoan( index, key, this.keyValue );
+    } else {
+      publish.financialData( this.financialKey, this.keyValue );
+    }
+    var values = getModelValues.financial();
+    financialView.updateView( values );
+  },
+
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
-      this.financialKey = $( this ).attr( 'data-financial' );
-      this.keyValue = stringToNum( $( this ).val() );
-      if ( typeof $( this ).attr( 'data-private-loan_key' ) !== 'undefined' ) {
-        var index = $( this ).closest( '[data-private-loan]' ).index(),
-            key = $( this ).attr( 'data-private-loan_key' );
-        publish.updatePrivateLoan( index, key, this.keyValue );
-      } else {
-        publish.financialData( this.financialKey, this.keyValue );
-      }
-      var values = getModelValues.financial();
-      financialView.updateView( values );
+      financialView.currentInput = this;
+      financialView.keyupDelay = setTimeout( function() {
+        financialView.inputHandler( financialView.currentInput );
+      }, 500 );
     } );
   }
 
