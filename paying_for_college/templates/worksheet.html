@@ -188,10 +188,10 @@
                                 Step 1: Review your first year offer
                             </h2>
                             <p class="step_intro">
-                                Here is your financial aid offer from [insert
-                                college name]. Please verify the amounts
-                                provided by your school below, making any
-                                necessary changes or adding missing
+                                Here is your financial aid offer from
+                                {{school.primary_alias}}. Please verify the
+                                amounts provided by your school below, making
+                                any necessary changes or adding missing
                                 information.
                             </p>
                         </div>
@@ -696,7 +696,8 @@
                                 </div>
                                 <p>
                                     This is how much you still need to pay to
-                                    attend [school name] for one year.
+                                    attend {{school.primary_alias}} for one
+                                    year.
                                 </p>
                             </div>
                         </div>
@@ -1540,8 +1541,8 @@
                                 <p>
                                     After all the grants, scholarships, loans,
                                     and personal contributions, this is how
-                                    much you still need pay to attend [name of
-                                    school] for one year.
+                                    much you still need pay to attend
+                                    {{school.primary_alias}} for one year.
                                 </p>
                             </div>
                         </div>
@@ -1560,7 +1561,8 @@
                         <div class="offer-part_form-wrapper">
                             <p>
                                 It looks like you still have a remaining cost
-                                of [$XX] to pay for the first year of school.
+                                of $<span data-financial="remainingCost">[XX]
+                                </span> to pay for the first year of school.
                                 You’ll either need to lower your cost of
                                 attendance, pay more upfront, or increase your
                                 loan amount to cover these costs.
@@ -1572,12 +1574,14 @@
                                 loan amount to cover only what you need.
                             </p>
                             <p>
-                                While the idea of [$XX] in loans sounds
-                                reasonable today, think about how it will
-                                affect your future financial situation. As you
-                                can see in the summary, the total cost of
-                                these loans after [years attending school]
-                                years after interest equals [$XX].
+                                While the idea of $<span 
+                                data-financial="borrowingTotal"></span> in
+                                loans sounds reasonable today, think about how 
+                                it will affect your future financial situation.
+                                As you can see in the summary, the total cost
+                                of these loans after [years attending school]
+                                years after interest equals $<span
+                                data-financial="totalDebt"></span>.
                             </p>
                             <p>
                                 Some students find themselves struggling to
@@ -1655,8 +1659,8 @@
                                 <p>
                                     After all the grants, scholarships, loans,
                                     and personal contributions, this is how
-                                    much you still need pay to attend [name of
-                                    school] for one year.
+                                    much you still need pay to attend
+                                    {{school.primary_alias}} for one year.
                                 </p>
                             </div>
                             <div class="aid-form_summary debt-summary
@@ -2078,9 +2082,10 @@
                                 </p>
                                 <p>
                                     Your total estimated debt, according to
-                                    the amounts entered above, is [$XX]. On
+                                    the amounts entered above, is $<span 
+                                    data-financial="totalDebt"></span>. On
                                     average, students from your school
-                                    graduate with [$XX] of debt (includes
+                                    graduate with ${{school.median_total_debt}} of debt (includes
                                     part-time, full-time, and transfer
                                     students), compared with a national
                                     average of [$XX]. The lower your total
@@ -2257,7 +2262,8 @@
                         <div class="question_wrapper">
                             <div class="question_content">
                                 <h2 class="step_heading">
-                                    Do you feel like going into [$XX,XXX] of
+                                    Do you feel like going into <span
+                                    data-financial="totalDebt"></span> of
                                     debt to attend this school is a good
                                     investment in your future?
                                 </h2>
