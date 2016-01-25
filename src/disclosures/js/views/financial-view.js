@@ -49,6 +49,7 @@ var financialView = {
     } );
     // handle private loans separately
     this.setPrivateLoans( values );
+    // console.log( values );
   },
 
   addPrivateListener: function() {
@@ -101,12 +102,18 @@ var financialView = {
   },
 
   inputHandler: function( element ) {
-    this.financialKey = $( element ).attr( 'data-financial' );
-    this.keyValue = stringToNum( $( element ).val() );
-    if ( typeof $( element ).attr( 'data-private-loan_key' ) !== 'undefined' ) {
+    var value = $( element ).val(),
+        privateLoanKey = $( element ).attr( 'data-private-loan_key' ),
+        percentage = $( element ).attr( 'data-percentage_value');
+
+    console.log( value, privateLoanKey, percentage );
+    if ( percentage === 'true' ) {
+      value = value / 100;
+    }
+    if ( typeof privateLoanKey !== 'undefined' ) {
       var index = $( element ).closest( '[data-private-loan]' ).index(),
           key = $( element ).attr( 'data-private-loan_key' );
-      publish.updatePrivateLoan( index, key, this.keyValue );
+      publish.updatePrivateLoan( index, key, value );
     } else {
       publish.financialData( this.financialKey, this.keyValue );
     }
@@ -116,10 +123,12 @@ var financialView = {
 
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
+      clearTimeout( financialView.keyupDelay );
       financialView.currentInput = this;
       financialView.keyupDelay = setTimeout( function() {
+        console.log( 'delayed!');
         financialView.inputHandler( financialView.currentInput );
-      }, 500 );
+      }, 1500 );
     } );
   }
 
