@@ -65,7 +65,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '42626' );
     expect( page.studentTotalCost.getText() ).toEqual( '31026' );
-    expect( page.remainingCost.getText() ).toEqual( '6526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '6526' );
   } );
 
   it( 'should properly update when the transportation is modified', function() {
@@ -74,7 +74,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43526' );
     expect( page.studentTotalCost.getText() ).toEqual( '35926' );
-    expect( page.remainingCost.getText() ).toEqual( '7426' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '7426' );
   } );
 
   it( 'should properly update when the books and supplies are modified', function() {
@@ -83,7 +83,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43726' );
     expect( page.studentTotalCost.getText() ).toEqual( '36126' );
-    expect( page.remainingCost.getText() ).toEqual( '7626' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '7626' );
   } );
 
   it( 'should properly update when the other education costs are modified', function() {
@@ -92,7 +92,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '44126' );
     expect( page.studentTotalCost.getText() ).toEqual( '36526' );
-    expect( page.remainingCost.getText() ).toEqual( '8026' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '8026' );
   } );
 
   //  Grants and scholarships onload: $7,600
@@ -105,7 +105,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '11600' );
     expect( page.studentTotalCost.getText() ).toEqual( '32026' );
-    expect( page.remainingCost.getText() ).toEqual( '3526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '3526' );
   } );
 
   it( 'should properly update when the Federal Pell Grants are modified above the Federal limits', function() {
@@ -116,7 +116,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // expect( EC.visibilityOf( page.pellGrantCapWarning ) );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '11830' );
     expect( page.studentTotalCost.getText() ).toEqual( '31796' );
-    expect( page.remainingCost.getText() ).toEqual( '3296' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '3296' );
   } );
 
   // TODO: Uncomment this once it's built in the JS code
@@ -131,7 +131,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( EC.visibilityOf( page.pellGrantCostWarning ) );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '4976' );
     expect( page.studentTotalCost.getText() ).toEqual( '0' );
-    expect( page.remainingCost.getText() ).toEqual( '0' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '0' );
   } );*/
 
   // TODO: Uncomment this once it's built in the JS code
@@ -146,7 +146,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setSchoolScholarships( 2000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '7000' );
     expect( page.studentTotalCost.getText() ).toEqual( '35896' );
-    expect( page.remainingCost.getText() ).toEqual( '35896' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '35896' );
   } );
 
   it( 'should properly update when the grants and scholarships from a state are modified', function() {
@@ -161,7 +161,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setStateScholarships( 2000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '9000' );
     expect( page.studentTotalCost.getText() ).toEqual( '33896' );
-    expect( page.remainingCost.getText() ).toEqual( '33896' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '33896' );
   } ); */
 
   // TODO: Figure out WHY input on this is broken now. It wasn't before!
@@ -171,7 +171,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '1600' );
     expect( page.studentTotalCost.getText() ).toEqual( '42026' );
-    expect( page.remainingCost.getText() ).toEqual( '13526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '13526' );
   } );
 
   // TODO: Uncomment this once it's built in the design, HTML, and JS code
@@ -189,7 +189,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setMilitaryAssistance( 3000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
     expect( page.studentTotalCost.getText() ).toEqual( '38526' );
-    expect( page.remainingCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '38526' );
   } );
 
   it( 'should properly update when the GI Bill assistance is modified', function() {
@@ -207,7 +207,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setGIBill( 3000 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '5100' );
     expect( page.studentTotalCost.getText() ).toEqual( '38526' );
-    expect( page.remainingCost.getText() ).toEqual( '38526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '38526' );
   } ); */
 
   // Personal and family contributions onload: $14,000
@@ -218,7 +218,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setStudentContribution( 1000 );
     expect( page.totalContributions.getText() ).toEqual( '15000' );
-    expect( page.remainingCost.getText() ).toEqual( '6526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '6526' );
   } );
 
   // TODO: Figure out WHY input on this is broken now. It wasn't before!
@@ -226,14 +226,14 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setFamilyContribution( 4000 );
     expect( page.totalContributions.getText() ).toEqual( '7000' );
-    expect( page.remainingCost.getText() ).toEqual( '14526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '14526' );
   } );
 
   it( 'should properly update when the work study earnings are modified within the allowed limit', function() {
     page.confirmVerification();
     page.setWorkStudyContribution( 2000 );
     expect( page.totalContributions.getText() ).toEqual( '13000' );
-    expect( page.remainingCost.getText() ).toEqual( '8526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '8526' );
   } );
 
   // TODO: Uncomment this once it's built in the JS code
@@ -254,7 +254,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // TODO: expect student is informed about the work study earnings cap
     // expect( EC.visibilityOf( page.workStudyCapWarning ) );
     expect(page.totalContributions.getText()).toEqual( '38526' );
-    expect(page.remainingCost.getText()).toEqual( '38526' );
+    expect(page.remainingCostFinal.getText()).toEqual( '38526' );
   } ); */
 
   // Federal loans onload: $8,500
@@ -268,7 +268,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setFederalPerkinsLoans( 2000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '7500' );
     expect( page.totalDebt.getText() ).toEqual( '13500' );
-    expect( page.remainingCost.getText() ).toEqual( '8526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '8526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -283,7 +283,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     expect( page.totalFederalLoans.getText() ).toEqual( '11000' );
     expect( page.totalDebt.getText() ).toEqual( '17000' );
-    expect( page.remainingCost.getText() ).toEqual( '5026' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '5026' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -295,7 +295,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setSubsidizedLoans( 3000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '8000' );
     expect( page.totalDebt.getText() ).toEqual( '14000' );
-    expect( page.remainingCost.getText() ).toEqual( '8026' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '8026' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -309,7 +309,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // expect( EC.visibilityOf( page.subsidizedLoanCapWarning ) );
     expect( page.totalFederalLoans.getText() ).toEqual( '8500' );
     expect( page.totalDebt.getText() ).toEqual( '14500' );
-    expect( page.remainingCost.getText() ).toEqual( '7526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '7526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -321,7 +321,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setUnsubsidizedLoans( 3000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '9500' );
     expect( page.totalDebt.getText() ).toEqual( '15500' );
-    expect( page.remainingCost.getText() ).toEqual( '6526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '6526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -335,7 +335,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // expect( EC.visibilityOf( page.unsussidizedLoanCapWarning ) );
     expect( page.totalFederalLoans.getText() ).toEqual( '12500' );
     expect( page.totalDebt.getText() ).toEqual( '18500' );
-    expect( page.remainingCost.getText() ).toEqual( '3526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '3526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -348,7 +348,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setDirectPLUSLoans( 1000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '8500' );
     expect( page.totalDebt.getText() ).toEqual( '14500' );
-    expect( page.remainingCost.getText() ).toEqual( '7526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '7526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
     // TODO: expect the estimated debt burden is recalculated
@@ -379,7 +379,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // expect( EC.visibilityOf( page.directPLUSCapWarning ) );
     expect( page.totalFederalLoans.getText() ).toEqual( '12500' );
     expect( page.totalDebt.getText() ).toEqual( '12500' );
-    expect( page.remainingCost.getText() ).toEqual( '18026' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '18026' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated
@@ -399,7 +399,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
     expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '3000' );
     expect( page.totalDebt.getText() ).toEqual( '12000' );
-    expect( page.remainingCost.getText() ).toEqual( '18526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '18526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated
@@ -438,7 +438,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
     expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '3000' );
     expect( page.totalDebt.getText() ).toEqual( '12000' );
-    expect( page.remainingCost.getText() ).toEqual( '18526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '18526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated

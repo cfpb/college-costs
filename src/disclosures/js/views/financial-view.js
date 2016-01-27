@@ -16,11 +16,11 @@ var financialView = {
 
   init: function() {
     var values = getModelValues.financial();
-    this.updateView( values );
     this.keyupListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
+    this.updateView( values );
   },
 
   setPrivateLoans: function( values ) {

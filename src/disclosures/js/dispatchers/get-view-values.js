@@ -54,6 +54,11 @@ var getViewValues = {
     if ( location.search !== '' ) {
       urlValues = queryHandler( location.search );
     }
+    urlValues.privateLoanMulti = [ {
+      amount: urlValues.privateLoan,
+      rate: urlValues.privateLoanRate,
+      deferPeriod: 0
+    } ];
     return urlValues;
   }
 

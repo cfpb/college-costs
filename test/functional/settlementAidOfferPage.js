@@ -318,9 +318,19 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'summary_total-loans' ) );
       }
     },
-    remainingCost: {
+    remainingCostContrib: {
       get: function() {
-        return element( by.id( 'summary_remaining-cost' ) );
+        return element( by.id( 'summary_remaining-cost-after-contrib' ) );
+      }
+    },
+    remainingCostLoans: {
+      get: function() {
+        return element( by.id( 'summary_remaining-cost-after-loans' ) );
+      }
+    },
+    remainingCostFinal: {
+      get: function() {
+        return element( by.id( 'summary_remaining-cost-final' ) );
       }
     },
     totalProgramDebt: {
