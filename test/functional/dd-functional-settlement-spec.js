@@ -62,14 +62,16 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the housing and meals are modified', function() {
     page.confirmVerification();
     page.setHousingMealsCosts( 2000 );
+    browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '42626' );
-    expect( page.studentTotalCost.getText() ).toEqual( '35026' );
+    expect( page.studentTotalCost.getText() ).toEqual( '31026' );
     expect( page.remainingCost.getText() ).toEqual( '6526' );
   } );
 
   it( 'should properly update when the transportation is modified', function() {
     page.confirmVerification();
     page.setTransportationCosts( 400 );
+    browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43526' );
     expect( page.studentTotalCost.getText() ).toEqual( '35926' );
     expect( page.remainingCost.getText() ).toEqual( '7426' );
@@ -78,6 +80,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the books and supplies are modified', function() {
     page.confirmVerification();
     page.setBooksSuppliesCosts( 750 );
+    browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43726' );
     expect( page.studentTotalCost.getText() ).toEqual( '36126' );
     expect( page.remainingCost.getText() ).toEqual( '7626' );
@@ -86,6 +89,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the other education costs are modified', function() {
     page.confirmVerification();
     page.setOtherEducationCosts( 1000 );
+    browser.sleep( 600 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '44126' );
     expect( page.studentTotalCost.getText() ).toEqual( '36526' );
     expect( page.remainingCost.getText() ).toEqual( '8026' );
@@ -98,6 +102,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the Federal Pell Grants are modified within the limits', function() {
     page.confirmVerification();
     page.setFederalPellGrants( 5500 );
+    browser.sleep( 600 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '11600' );
     expect( page.studentTotalCost.getText() ).toEqual( '32026' );
     expect( page.remainingCost.getText() ).toEqual( '3526' );
@@ -106,6 +111,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the Federal Pell Grants are modified above the Federal limits', function() {
     page.confirmVerification();
     page.setFederalPellGrants( 10000 );
+    browser.sleep( 600 );
     // TODO: expect student is informed about the Pell Grant cap
     // expect( EC.visibilityOf( page.pellGrantCapWarning ) );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '11830' );
@@ -162,6 +168,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the other grants and scholarships are modified', function() {
     page.confirmVerification();
     page.setOtherGrantsScholarships( 100 );
+    browser.sleep( 600 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '1600' );
     expect( page.studentTotalCost.getText() ).toEqual( '42026' );
     expect( page.remainingCost.getText() ).toEqual( '13526' );

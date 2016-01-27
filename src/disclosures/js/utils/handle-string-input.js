@@ -8,7 +8,7 @@
  * @returns {number} The assumed numeric value of numberString
  */
 function handleStringInput( numberString ) {
-  if ( typeof numberString === 'number') {
+  if ( typeof numberString === 'number' ) {
     return numberString;
   }
   var signMaker = 1,

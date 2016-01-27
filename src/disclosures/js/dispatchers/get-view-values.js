@@ -21,7 +21,7 @@ var getViewValues = {
         var key = $( this ).attr( 'data-private-loan_key' ),
             value = $( this ).val();
         if ( key === 'rate' ) {
-          value = value / 100;
+          value /= 100;
         }
         loanObject[key] = stringToNum( value );
       } );
@@ -41,7 +41,7 @@ var getViewValues = {
       var name = $( this ).attr( 'data-financial' );
       values[name] = stringToNum( $( this ).val() ) || 0;
       if ( $( this ).attr( 'data-percentage_value' ) === 'true' ) {
-        values[name] = values[name] / 100;
+        values[name] /= 100;
       }
     } );
 

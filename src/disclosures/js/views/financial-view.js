@@ -31,25 +31,31 @@ var financialView = {
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key];
+        if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
+          val *= 100;
+        }
         $( this ).val( val );
       } );
     } );
   },
 
   updateView: function( values ) {
-    this.$elements.each( function() {
+    // handle non-private-loan fields
+    this.$elements.not( '[data-private-loan_key]' ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name];
+      if ( $ele.is( '[data-percentage_value="true"]' ) ) {
+        value *= 100;
+      }
       if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
         $ele.val( value );
       } else {
         $ele.text( value );
       }
     } );
-    // handle private loans separately
+    // handle private loans
     this.setPrivateLoans( values );
-    // console.log( values );
   },
 
   addPrivateListener: function() {
@@ -102,20 +108,19 @@ var financialView = {
   },
 
   inputHandler: function( element ) {
-    var value = $( element ).val(),
+    var value = stringToNum( $( element ).val() ),
+        key = $( element ).attr( 'data-financial' ),
         privateLoanKey = $( element ).attr( 'data-private-loan_key' ),
-        percentage = $( element ).attr( 'data-percentage_value');
-
-    console.log( value, privateLoanKey, percentage );
+        percentage = $( element ).attr( 'data-percentage_value' );
     if ( percentage === 'true' ) {
-      value = value / 100;
+      value /= 100;
     }
     if ( typeof privateLoanKey !== 'undefined' ) {
       var index = $( element ).closest( '[data-private-loan]' ).index(),
-          key = $( element ).attr( 'data-private-loan_key' );
-      publish.updatePrivateLoan( index, key, value );
+          privLoanKey = $( element ).attr( 'data-private-loan_key' );
+      publish.updatePrivateLoan( index, privLoanKey, value );
     } else {
-      publish.financialData( this.financialKey, this.keyValue );
+      publish.financialData( key, value );
     }
     var values = getModelValues.financial();
     financialView.updateView( values );
@@ -126,9 +131,8 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = this;
       financialView.keyupDelay = setTimeout( function() {
-        console.log( 'delayed!');
         financialView.inputHandler( financialView.currentInput );
-      }, 1500 );
+      }, 500 );
     } );
   }
 
