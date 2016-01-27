@@ -67,7 +67,7 @@ module.exports = {
     }
   },
   images: {
-    src:  loc.src + '/static/img/**',
+    src:  loc.src + '/img/**',
     dest: loc.dist + '/static/img'
   },
   templates: {
