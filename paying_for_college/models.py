@@ -223,6 +223,7 @@ class School(models.Model):
             'tuitionUnderInDis': jdata['TUITIONUNDERINDIS'],
             'tuitionUnderInS': jdata['TUITIONUNDERINS'],
             'tuitionUnderOoss': jdata['TUITIONUNDEROSS'],
+            'url': self.url,
             'zip5': self.zip5,
         }
         for key in sorted(dict_out.keys()):
