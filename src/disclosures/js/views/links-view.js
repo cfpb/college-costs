@@ -14,7 +14,7 @@ var linksView = {
     if ( schoolURL ) {
       var $schoolLink = $( '<a>', {
         'href': schoolURL,
-        'target': 'blank',
+        'target': '_blank',
         'class': this.$schoolLinkText.attr( 'class' )
       } )
         .text( this.$schoolLinkText.text() );
