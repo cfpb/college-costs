@@ -13,9 +13,9 @@ var linksView = {
     var schoolURL = formatURL( window.schoolData.url );
     if ( schoolURL ) {
       var $schoolLink = $( '<a>', {
-        href: schoolURL,
-        target: 'blank',
-        classes: this.$schoolLinkText.attr( 'class' )
+        'href': schoolURL,
+        'target': 'blank',
+        'class': this.$schoolLinkText.attr( 'class' )
       } )
         .text( this.$schoolLinkText.text() );
       this.$schoolLinkText.replaceWith( $schoolLink );
