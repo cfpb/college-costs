@@ -26,6 +26,7 @@ from haystack.query import SearchQuerySet
 from models import School, Worksheet, Feedback, Notification
 from models import Program, ConstantCap, ConstantRate
 from validators import validate_worksheet, validate_uuid4
+from paying_for_college.disclosures.scripts import nat_stats
 
 # from models import BAHRate
 from forms import FeedbackForm, EmailForm
@@ -77,12 +78,14 @@ class OfferView(TemplateView):
                     errors += "No program could be found for program ID {0}".format(request.GET['pid'])
                     return HttpResponseBadRequest(errors)
                 else:
+                    national_stats = nat_stats.get_prepped_stats()
                     return render_to_response('worksheet.html',
                                               {'data_js': "0",
                                                'school': school,
                                                'schoolData': school.as_json(),
                                                'program': program,
                                                'programData': program.as_json(),
+                                               'nationalData': json.dumps(national_stats),
                                                'oid': request.GET['oid'],
                                                'base_template': BASE_TEMPLATE,
                                                'url_root': URL_ROOT},
