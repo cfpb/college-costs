@@ -6,10 +6,10 @@
  * @param  {string} url The raw URL
  * @returns {string} The formated URL
  */
-
 function formatSchoolURL( url ) {
-  var formattedURL;
-  if ( url && ( /^https?:\/\// ).test( url ) ) {
+  var formattedURL,
+      protocolRegex = /^https?:\/\//;
+  if ( url && protocolRegex.test( url ) ) {
     formattedURL = url;
   } else if ( url ) {
     formattedURL = 'http://' + url;
