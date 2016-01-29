@@ -3,7 +3,6 @@ import django
 import json
 
 import mock
-from mock import mock_open, patch
 from paying_for_college.disclosures.scripts import api_utils, update_colleges
 from paying_for_college.disclosures.scripts import nat_stats
 
