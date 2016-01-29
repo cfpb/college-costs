@@ -34,7 +34,7 @@ def update_national_stats_file():
     if nat_dict == {}:
         return "Could not update national stats from {0}".format(
                                 COLLEGE_CHOICE_NATIONAL_DATA_URL)
-    else:  # pragma: no-cover -- not testing os and open
+    else:  # pragma: no cover -- not testing os and open
         if os.path.isfile(NAT_DATA_FILE):
             call(["mv", NAT_DATA_FILE, BACKUP_FILE])
         with open(NAT_DATA_FILE, 'w') as f:
