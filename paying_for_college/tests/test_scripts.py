@@ -61,11 +61,9 @@ class TestUpdater(django.test.TestCase):
         mock_response.ok = False
         mock_response.reason = "Testing OK == False"
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        # print("\n after OK == False, FAILED is %s" % FAILED)
         self.assertTrue(len(FAILED) == 2)
         mock_requests.status_code = 429
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        # print("after 429 FAILED is %s" % FAILED)
         self.assertTrue(len(FAILED) == 2)
 
     @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
@@ -74,7 +72,6 @@ class TestUpdater(django.test.TestCase):
         mock_response.ok = True
         mock_response.json.return_value = {'results': []}
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        # print("after results==[], NO_DATA is %s" % FAILED)
         self.assertTrue('no data' in endmsg)
 
 
@@ -141,7 +138,6 @@ class TestScripts(unittest.TestCase):
         mock_response.ok = True
         mock_requests.return_value = mock_response
         data = nat_stats.get_stats_yaml()
-        print "returned dict from yaml is {0}".format(data)
         self.assertTrue(mock_requests.call_count == 1)
         self.assertTrue(data['completion_rate']['max'] == 1)
         mock_response.ok = False
