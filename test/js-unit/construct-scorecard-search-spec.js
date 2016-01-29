@@ -12,16 +12,18 @@ describe( 'construct-scorecard-search', function() {
     expect( searchQuery ).to.equal( 'search/?major=library&zip=20552&distance=83' );
   });
 
-  it( 'returns a program-only search', function() {
+  it( 'returns a program-only search if no ZIP is given', function() {
     var pcip = '25',
-        searchQuery = scorecardSearch( pcip );
+        zip = '',
+        searchQuery = scorecardSearch( pcip, zip );
     expect( searchQuery ).to.equal( 'search/?major=library' );
   });
 
-  it( 'returns a location-only search', function() {
-    var zip = '20552',
+  it( 'returns a location-only search if no PCIP is given', function() {
+    var pcip = '',
+        zip = '20552',
         radius = '83',
-        searchQuery = scorecardSearch( '', zip, radius );
+        searchQuery = scorecardSearch( pcip, zip, radius );
     expect( searchQuery ).to.equal( 'search/?zip=20552&distance=83' );
   });
 
