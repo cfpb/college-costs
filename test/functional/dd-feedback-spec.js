@@ -19,12 +19,18 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
   it( 'should open the feedback form in a new tab', function() {
     page.confirmVerification();
     page.followFeedbackLink();
-    browser.getAllWindowHandles().then( function ( handles ) {
-      expect( handles.length ).toBe( 2 );
-      browser.switchTo().window( handles[1] ).then( function () {
-        browser.wait( EC.visibilityOf( $( '.pfc-feedback > #id_message' ) ), 8000 )
+    browser.getAllWindowHandles()
+      .then( function ( handles ) {
+        expect( handles.length ).toBe( 2 );
+        browser.switchTo().window( handles[1] )
+          .then( function () {
+            browser.wait( EC.visibilityOf( $( '.pfc-feedback > #id_message' ) ), 8000 )
+          } )
+          .then( function () {
+            browser.close();
+            browser.switchTo().window( handles[0] );
+          } );;
       } );
-    } );
   } );
 
 } );
