@@ -1,12 +1,15 @@
 'use strict';
 
 var formatURL = require( '../utils/format-url' );
+var constructScorecardSearch = require( '../utils/construct-scorecard-search' );
 
 var linksView = {
   $schoolLinkText: $( '.school-link' ),
+  $scorecardLink: $( '.scorecard-link' ),
 
   init: function() {
     this.setSchoolLink();
+    this.setScorecardSearch();
   },
 
   setSchoolLink: function() {
@@ -20,6 +23,15 @@ var linksView = {
         .text( this.$schoolLinkText.text() );
       this.$schoolLinkText.replaceWith( $schoolLink );
     }
+  },
+
+  setScorecardSearch: function() {
+    var pcip = window.programData.cipCode.slice( 0, 2 ),
+        zip = window.schoolData.zip5,
+        radius = '50',
+        scorecardURL = this.$scorecardLink.attr( 'href' ),
+        scorecardQuery = constructScorecardSearch( pcip, zip, radius );
+    this.$scorecardLink.attr( 'href', scorecardURL + scorecardQuery );
   }
 
 };

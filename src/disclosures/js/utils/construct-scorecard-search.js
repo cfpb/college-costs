@@ -10,7 +10,7 @@
  */
 function constructScorecardSearch( pcip, zip, radius ) {
   var searchParameters = [],
-      searchRadius = radius || '25',
+      searchRadius = radius || '50',
       pcipData = {
         '01': {
           label:  'Agriculture, Agriculture Operations, and Related Sciences',
@@ -175,7 +175,7 @@ function constructScorecardSearch( pcip, zip, radius ) {
     searchParameters.push( 'zip=' + zip );
     searchParameters.push( 'distance=' + searchRadius );
   }
-  return '/search/?' + searchParameters.join( '&amp;' );
+  return 'search/?' + searchParameters.join( '&' );
 }
 
 module.exports = constructScorecardSearch;
