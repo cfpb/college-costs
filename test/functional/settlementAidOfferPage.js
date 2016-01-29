@@ -432,8 +432,8 @@ settlementAidOfferPage.prototype = Object.create({}, {
       }
     },
     followSchoolLink: {
-      value: function( otherexpensesamount ) {
-        return this.schoolLink.click();
+      value: function() {
+        this.schoolLink.click();
       }
     }
 
