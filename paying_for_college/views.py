@@ -59,39 +59,38 @@ class OfferView(TemplateView):
     # TODO log errors
 
     def get(self, request):
-        if (
-                'iped' in request.GET and
-                'pid' in request.GET and
-                'oid' in request.GET and request.GET['oid']
-           ):
-            errors = ''
+        if 'iped' in request.GET and request.GET['iped']:
             try:
                 school = School.objects.get(school_id=int(request.GET['iped']))
             except:
-                errors += "No school could be found for iped ID {0}".format(request.GET['iped'])
-                return HttpResponseBadRequest(errors)
-            else:  # get the latest program row, in case of dupes
-                try:
-                    program = Program.objects.filter(program_code=request.GET['pid'],
-                                                     institution=school).order_by('-pk')[0]
-                except:
-                    errors += "No program could be found for program ID {0}".format(request.GET['pid'])
-                    return HttpResponseBadRequest(errors)
-                else:
-                    national_stats = nat_stats.get_prepped_stats()
-                    return render_to_response('worksheet.html',
-                                              {'data_js': "0",
-                                               'school': school,
-                                               'schoolData': school.as_json(),
-                                               'program': program,
-                                               'programData': program.as_json(),
-                                               'nationalData': json.dumps(national_stats),
-                                               'oid': request.GET['oid'],
-                                               'base_template': BASE_TEMPLATE,
-                                               'url_root': URL_ROOT},
-                                              context_instance=RequestContext(request))
+                error = "No school could be found for iped ID {0}".format(request.GET['iped'])
+                return HttpResponseBadRequest(error)
+            if 'oid' in request.GET:
+                OID = request.GET['oid']
+            else:
+                OID = ''
+            program_data = json.dumps({})
+            program = ''
+            if 'pid' in request.GET and request.GET['pid']:
+                programs = Program.objects.filter(program_code=request.GET['pid'],
+                                                     institution=school).order_by('-pk')
+                if programs:
+                    program = programs[0]
+                    program_data = program.as_json()
+            national_stats = nat_stats.get_prepped_stats()
+            return render_to_response('worksheet.html',
+                                      {'data_js': "0",
+                                       'school': school,
+                                       'schoolData': school.as_json(),
+                                       'program': program,
+                                       'programData': program_data,
+                                       'nationalData': json.dumps(national_stats),
+                                       'oid': OID,
+                                       'base_template': BASE_TEMPLATE,
+                                       'url_root': URL_ROOT},
+                                      context_instance=RequestContext(request))
         else:
-            return HttpResponseBadRequest("URL doesn't contain required fields")
+            return HttpResponseBadRequest("URL doesn't contain a school ID")
 
 
 class LandingView(TemplateView):
