@@ -12,7 +12,7 @@ function queryHandler( queryString ) {
   var parameters = {};
   var numericKeys = [
     'iped', 'pid', 'oid', 'tuit', 'hous', 'book', 'tran', 'othr',
-    'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'wkst', 'parl',
+    'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'insl', 'insi', 'sav'
   ];
   var keyMaps = {
@@ -30,13 +30,14 @@ function queryHandler( queryString ) {
     othg: 'otherScholarships',
     mta:  'militaryTuitionAssistance',
     gib:  'GIBill',
+    fam:  'family',
     wkst: 'workstudy',
     parl: 'parentLoan',
     perl: 'perkins',
-    subl: 'staffSubsidized',
-    unsl: 'staffUnsubsidized',
-    ppl:  'parentplus',
-    gpl:  'gradplus',
+    subl: 'directSubsidized',
+    unsl: 'directUnsubsidized',
+    ppl:  'parentPlus',
+    gpl:  'gradPlus',
     prvl: 'privateLoan',
     prvi: 'privateLoanRate',
     insl: 'institutionalLoan',
@@ -80,6 +81,11 @@ function queryHandler( queryString ) {
 
   getPairs();
   remapKeys();
+  // add parent loan to family contributions
+  valuePairs.family += valuePairs.parentLoan;
+  // add parentPLUS to family contributions, zero parentPLUS
+  valuePairs.family += valuePairs.parentPlus;
+  valuePairs.parentPlus = 0;
   return valuePairs;
 }
 
