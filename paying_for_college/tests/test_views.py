@@ -146,21 +146,22 @@ class OfferTest(django.test.TestCase):
         no_oid = '?iped=408039&pid=981&oid='
         bad_school = '?iped=xxxxxx&pid=981&oid=f38283b5b7c939a058889f997949efa566c61'
         bad_program = '?iped=408039&pid=xxx&oid=f38283b5b7c939a058889f997949efa566c616c5'
-        missing_field = '?iped=408039&pid=981'
+        missing_oid_field = '?iped=408039&pid=981'
+        missing_school_id = '?iped='
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
-        self.assertTrue("required" in resp2.content)
-        self.assertTrue(resp2.status_code == 400)
+        self.assertTrue(resp.status_code == 200)
         resp3 = client.get(url+bad_school)
         self.assertTrue("No school" in resp3.content)
         self.assertTrue(resp3.status_code == 400)
         resp4 = client.get(url+bad_program)
-        self.assertTrue("No program" in resp4.content)
-        self.assertTrue(resp4.status_code == 400)
-        resp5 = client.get(url+missing_field)
-        self.assertTrue("required" in resp5.content)
-        self.assertTrue(resp5.status_code == 400)
+        self.assertTrue(resp.status_code == 200)
+        resp5 = client.get(url+missing_oid_field)
+        self.assertTrue(resp.status_code == 200)
+        resp6 = client.get(url+missing_school_id)
+        self.assertTrue("doesn't contain a school" in resp6.content)
+        self.assertTrue(resp3.status_code == 400)
 
 
 class APITests(django.test.TestCase):
