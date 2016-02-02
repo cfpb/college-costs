@@ -159,3 +159,7 @@ class TestScripts(unittest.TestCase):
     def test_get_prepped_stats(self):
         stats = nat_stats.get_prepped_stats()
         self.assertTrue(stats['completionRateMedian'] <= 1)
+
+    def test_get_bls_stats(self):
+        stats = nat_stats.get_bls_stats()
+        self.assertTrue(stats['Year'] >= 2014)

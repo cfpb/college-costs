@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpRequest
 from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.views import Feedback, EmailLink, school_search_api
-from paying_for_college.views import SchoolRepresentation
+from paying_for_college.views import SchoolRepresentation, get_region
 from paying_for_college.models import School
 from paying_for_college.search_indexes import SchoolIndex
 
@@ -39,6 +39,14 @@ class TestViews(django.test.TestCase):
     feedback_post_data = {'csrfmiddlewaretoken': 'abc',
                           'message': 'test'}
     # '0InrCI5HGbiBEJ1esg6IBi3ax42fwPnL'
+
+    def test_get_region(self):
+        school = School(school_id='123456', state='NE')
+        self.assertTrue(get_region(school) == 'MW')
+
+    def test_get_region_failure(self):
+        school = School(school_id='123456', state='')
+        self.assertTrue(get_region(school) == '')
 
     def test_landing_page_views(self):
         for url_name in self.landing_page_views:

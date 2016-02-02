@@ -45,6 +45,26 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 
 
+REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
+              'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
+              'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
+                     'NY', 'PA', 'RI', 'VT'],
+              'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
+                     'MS', 'NC', 'OK', 'SC', 'TN', 'TX', 'VA', 'WV'],
+              'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
+                     'OR', 'UT', 'WA', 'WY']
+              }
+
+
+def get_region(school):
+    """return a school's region based on state"""
+    for region in REGION_MAP:
+        if school.state in REGION_MAP[region]:
+            return region
+        else:
+            return ''
+
+
 class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
@@ -78,6 +98,14 @@ class OfferView(TemplateView):
                     program = programs[0]
                     program_data = program.as_json()
             national_stats = nat_stats.get_prepped_stats()
+            BLS_stats = nat_stats.get_bls_stats()
+            if get_region(school) and BLS_stats:
+                region = get_region(school)
+                national_stats['region'] = region
+                categories = BLS_stats.keys()
+                categories.remove('Year')
+                for category in categories:
+                    national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
             return render_to_response('worksheet.html',
                                       {'data_js': "0",
                                        'school': school,
