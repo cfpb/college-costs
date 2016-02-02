@@ -11,14 +11,16 @@ var financialView = {
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
+  keyupDelay: null,
+  currentInput: null,
 
   init: function() {
     var values = getModelValues.financial();
-    this.updateView( values );
     this.keyupListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
+    this.updateView( values );
   },
 
   setPrivateLoans: function( values ) {
@@ -29,25 +31,32 @@ var financialView = {
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key];
+        if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
+          val *= 100;
+        }
         $( this ).val( val );
       } );
     } );
   },
 
   updateView: function( values ) {
-    this.$elements.each( function() {
+    // handle non-private-loan fields
+    this.$elements.not( '[data-private-loan_key]' ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name];
-
+      if ( $ele.is( '[data-percentage_value="true"]' ) ) {
+        value *= 100;
+      }
       if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
         $ele.val( value );
       } else {
         $ele.text( value );
       }
     } );
-    // handle private loans separately
+    // handle private loans
     this.setPrivateLoans( values );
+    console.log( values );
   },
 
   addPrivateListener: function() {
@@ -99,19 +108,32 @@ var financialView = {
     } );
   },
 
+  inputHandler: function( element ) {
+    var value = stringToNum( $( element ).val() ),
+        key = $( element ).attr( 'data-financial' ),
+        privateLoanKey = $( element ).attr( 'data-private-loan_key' ),
+        percentage = $( element ).attr( 'data-percentage_value' );
+    if ( percentage === 'true' ) {
+      value /= 100;
+    }
+    if ( typeof privateLoanKey !== 'undefined' ) {
+      var index = $( element ).closest( '[data-private-loan]' ).index(),
+          privLoanKey = $( element ).attr( 'data-private-loan_key' );
+      publish.updatePrivateLoan( index, privLoanKey, value );
+    } else {
+      publish.financialData( key, value );
+    }
+    var values = getModelValues.financial();
+    financialView.updateView( values );
+  },
+
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
-      this.financialKey = $( this ).attr( 'data-financial' );
-      this.keyValue = stringToNum( $( this ).val() );
-      if ( typeof $( this ).attr( 'data-private-loan_key' ) !== 'undefined' ) {
-        var index = $( this ).closest( '[data-private-loan]' ).index(),
-            key = $( this ).attr( 'data-private-loan_key' );
-        publish.updatePrivateLoan( index, key, this.keyValue );
-      } else {
-        publish.financialData( this.financialKey, this.keyValue );
-      }
-      var values = getModelValues.financial();
-      financialView.updateView( values );
+      clearTimeout( financialView.keyupDelay );
+      financialView.currentInput = this;
+      financialView.keyupDelay = setTimeout( function() {
+        financialView.inputHandler( financialView.currentInput );
+      }, 500 );
     } );
   }
 
