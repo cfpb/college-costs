@@ -81,10 +81,9 @@ function queryHandler( queryString ) {
 
   getPairs();
   remapKeys();
-  // add parent loan to family contributions
-  valuePairs.family += valuePairs.parentLoan;
-  // add parentPLUS to family contributions, zero parentPLUS
-  valuePairs.family += valuePairs.parentPlus;
+  // family contributions = parent loan + parentPLUS loan
+  valuePairs.family = valuePairs.parentLoan + valuePairs.parentPlus;
+  // zero parentPlus so that student-debt-calc doesn't use it
   valuePairs.parentPlus = 0;
   return valuePairs;
 }

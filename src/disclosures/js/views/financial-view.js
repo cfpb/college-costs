@@ -56,6 +56,7 @@ var financialView = {
     } );
     // handle private loans
     this.setPrivateLoans( values );
+    console.log( values );
   },
 
   addPrivateListener: function() {

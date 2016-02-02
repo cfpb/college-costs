@@ -54,6 +54,7 @@ var getViewValues = {
     if ( location.search !== '' ) {
       urlValues = queryHandler( location.search );
     }
+    urlValues.privateLoanRate /= 100;
     urlValues.privateLoanMulti = [ {
       amount: urlValues.privateLoan,
       rate: urlValues.privateLoanRate,
