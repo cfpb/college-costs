@@ -189,7 +189,7 @@
                             </h2>
                             <p class="step_intro">
                                 Here is your financial aid offer from
-                                {{school.primary_alias}}. Please verify the
+                                <span id="intro__school-name">{{school.primary_alias}}</span>. Please verify the
                                 amounts provided by your school below, making
                                 any necessary changes or adding missing
                                 information.
@@ -1606,27 +1606,29 @@
                         <div class="offer-part_form-wrapper">
                             <p>
                                 It looks like you still have a remaining cost
-                                of $<span data-financial="remainingCost">[XX]
+                                of $<span data-financial="gap">[XX]
                                 </span> to pay for the first year of school.
                                 You’ll either need to lower your cost of
                                 attendance, pay more upfront, or increase your
                                 loan amount to cover these costs.
                             </p>
                             <p>
-                                It looks like you are borrowing [$XX] more
-                                than you need to pay for school. You can
-                                reduce your future debt by decreasing your
-                                loan amount to cover only what you need.
+                                It looks like you are borrowing
+                                $<span data-financial="gap">[XX]
+                                </span> more than you need to pay for school.
+                                You can reduce your future debt by decreasing
+                                your loan amount to cover only what you need.
                             </p>
                             <p>
                                 While the idea of $<span 
-                                data-financial="borrowingTotal"></span> in
+                                data-financial="borrowingTotal">[XX]</span> in
                                 loans sounds reasonable today, think about how 
                                 it will affect your future financial situation.
                                 As you can see in the summary, the total cost
-                                of these loans after [years attending school]
+                                of these loans after <span
+                                data-numeric="yearsAttending">[XX]</span>
                                 years after interest equals $<span
-                                data-financial="totalDebt"></span>.
+                                data-financial="totalDebt">[XX]</span>.
                             </p>
                             <p>
                                 Some students find themselves struggling to
@@ -1722,12 +1724,14 @@
                                             $
                                         </span>
                                         <span class="line-item_amount"
-                                        data-financial="loanTotal"></span>
+                                        data-financial="borrowingTotal"></span>
                                     </div>
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Loans for [X] years (program length)
+                                        Loans for <span 
+                                        data-numeric="yearsAttending">[XX]
+                                        </span> years (program length)
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1847,11 +1851,13 @@
                                 </p>
                                 <p>
                                     Keep in mind your school has a job
-                                    placement rate of [XX%] for students who
-                                    graduate and get a job in their field. In
-                                    reality, you could be making even less
-                                    than the average salaries shown here.
-                                </p>
+                                    placement rate of <span
+                                    data-financial="jobPlacementRate"
+                                    data-percentage_value="true">[X.X]</span>%
+                                    for students who graduate and get a job in
+                                    their field. In reality, you could be
+                                    making even less than the average salaries
+                                    shown here.</p>
                             </div>
                             <section class="metric average-salary column-well
                             column-well__bleed column-well__not-stacked">
@@ -1910,10 +1916,9 @@
                                         </h4>
                                         <p class="aid-form_caption">
                                             Monthly living expenses for single
-                                            person based on [regional OR
-                                            national] averages
-                                        </p>
-                                    </div>
+                                            person based on <span
+                                            id="expenses__datatype">national
+                                            </span> averages </p> </div>
                                     <div class="form-group_item">
                                         <label class="form-label__wrapped">
                                             <span
@@ -2131,14 +2136,14 @@
                                     data-financial="totalDebt"></span>. On
                                     average, students from your school
                                     graduate with 
-                                    $<span id="criteria__median-school-debt"
-                                    data-financial="medianSchoolDebt">
-                                    {{school.median_total_debt}}</span> of debt
-                                    (includes part-time, full-time, and
-                                    transfer students), compared with a
-                                    national average of [$XX]. The lower your
-                                    total debt, the lower your debt burden
-                                    will be.
+                                    $<span id="criteria__median-program-debt"
+                                    data-financial="medianStudentLoanCompleters">
+                                    {{school.median_student_loan_completers}}
+                                    </span> of debt (includes part-time,
+                                    full-time, and transfer students),
+                                    compared with a national average of $<span>[XX]</span>.
+                                    The lower your total debt, the lower your
+                                    debt burden will be.
                                 </p>
                                 <p>
                                     If your debt burden is too high, it
@@ -2312,7 +2317,7 @@
                             <div class="question_content">
                                 <h2 class="step_heading">
                                     Do you feel like going into $<span
-                                    data-financial="totalDebt"></span> of
+                                    data-financial="totalDebt">[XX]</span> of
                                     debt to attend this school is a good
                                     investment in your future?
                                 </h2>
