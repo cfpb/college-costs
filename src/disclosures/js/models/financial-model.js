@@ -19,10 +19,7 @@ var financialModel = {
     model.scholarships =
       model.schoolGrants +
       model.stateGrants +
-      model.otherScholarships +
-      // since these values aren't in the UI we optionally add them as 0
-      ( model.militaryAssistance || 0 ) +
-      ( model.giBill || 0 );
+      model.otherScholarships;
   },
 
   calc: function() {
@@ -33,6 +30,10 @@ var financialModel = {
 
   sumTotals: function() {
     var model = financialModel.values;
+
+    // Cost after grants
+
+    model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
 
     // monthly expenses
     model.totalMonthlyExpenses =

@@ -10,6 +10,7 @@ var getViewValues = {
   },
 
   getPrivateLoans: function( values ) {
+    // Note: Only run once, during init()
     var $privateLoans = $( '[data-private-loan]' );
     values.privateLoanMulti = [];
     $privateLoans.each( function() {
@@ -19,6 +20,9 @@ var getViewValues = {
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             value = $( this ).val();
+        if ( key === 'rate' ) {
+          value /= 100;
+        }
         loanObject[key] = stringToNum( value );
       } );
       loanObject.amount += loanObject.fees;
@@ -29,12 +33,16 @@ var getViewValues = {
   },
 
   inputs: function() {
+    // Note: Only run once, during init()
     var values = {};
     var $elements = $( '[data-financial]' );
 
-    $elements.each( function() {
+    $elements.not( '[data-private-loan_key]' ).each( function() {
       var name = $( this ).attr( 'data-financial' );
       values[name] = stringToNum( $( this ).val() ) || 0;
+      if ( $( this ).attr( 'data-percentage_value' ) === 'true' ) {
+        values[name] /= 100;
+      }
     } );
 
     values = this.getPrivateLoans( values );
@@ -46,6 +54,12 @@ var getViewValues = {
     if ( location.search !== '' ) {
       urlValues = queryHandler( location.search );
     }
+    urlValues.privateLoanRate /= 100;
+    urlValues.privateLoanMulti = [ {
+      amount: urlValues.privateLoan,
+      rate: urlValues.privateLoanRate,
+      deferPeriod: 0
+    } ];
     return urlValues;
   }
 
