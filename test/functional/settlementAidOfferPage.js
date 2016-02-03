@@ -436,6 +436,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.get-options' ) );
       }
     },
+    schoolLink: {
+      get: function() {
+        return element( by.css( '.school-link' ) );
+      }
+    },
+    followSchoolLink: {
+      value: function() {
+        this.schoolLink.click();
+      }
+    },
     //Feedback
     feedbackLink: {
       get: function() {
