@@ -8,6 +8,7 @@ var formatUSD = require( 'format-usd' );
 var financialView = {
   $elements: $( '[data-financial]' ),
   $review: $( '[data-section="review"]' ),
+  $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
@@ -18,7 +19,7 @@ var financialView = {
   init: function() {
     var values = getModelValues.financial();
     this.keyupListener();
-    this.focusListener();
+    this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
@@ -156,9 +157,12 @@ var financialView = {
     } );
   },
 
-  focusListener: function() {
-    this.$review.on( 'focusout', '[data-financial]', function() {
-
+  estimatedYearsListener: function() {
+    this.$programLength.on( 'change', function() {
+      var programLength = $( this ).val(),
+          values = getModelValues.financial();
+      publish.financialData( 'programLength', programLength );
+    financialView.updateView( values );
     });
   }
 
