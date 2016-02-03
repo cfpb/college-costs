@@ -54,6 +54,10 @@ REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
               'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
                      'OR', 'UT', 'WA', 'WY']
               }
+REGION_NAMES = {'MW': 'Northwest',
+                'NE': "Northeast",
+                'SO': 'South',
+                'WE': 'West'}
 
 
 def get_region(school):
@@ -99,7 +103,7 @@ class OfferView(TemplateView):  # TODO log errors
             BLS_stats = nat_stats.get_bls_stats()
             if get_region(school) and BLS_stats:
                 region = get_region(school)
-                national_stats['region'] = region
+                national_stats['region'] = REGION_NAMES[region]
                 categories = BLS_stats.keys()
                 categories.remove('Year')
                 for category in categories:
