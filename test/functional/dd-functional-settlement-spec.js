@@ -57,6 +57,11 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   //  Remaining cost (before loans): $14,026
   //  Remaining cost (after loans): -$474
 
+  it( 'should display the correct name for the college', function() {
+    page.confirmVerification();
+    expect( page.schoolName.getText() ).toEqual( 'Brown Mackie College-Fort Wayne' );
+  } );
+
   it( 'should not let a student edit the tuition', function() {
     page.confirmVerification();
     expect( page.tuitionFeesCosts.isEnabled() ).toEqual( false );
@@ -470,8 +475,38 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should properly update when a private loan is removed', function() {
   } );
-
 */
+
+  it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
+    page.confirmVerification();
+    page.setFamilyContribution( 10000 );
+    browser.sleep( 600 );
+    browser.wait( EC.visibilityOf(page.futurePositiveRemainingCost ), 8000 );
+    // TODO: Add expectation about invisibility of negative remaining cost
+    expect( page.futurePositiveRemainingCost.getText() ).toEqual( '4526' );
+    expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
+    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '63575.460432' );
+  } );
+
+  it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
+    page.confirmVerification();
+    browser.wait( EC.visibilityOf(page.futureNegativeRemainingCost ), 8000 );
+    // TODO: Add expectation about invisibility of positive remaining cost
+    expect( page.futurePositiveRemainingCost.getText() ).toEqual( '-474' );
+    expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
+    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '63575.460432' );
+  } );
+
+  it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
+    page.confirmVerification();;
+    // TODO: Add expectation about invisibility of positive remaining cost
+    // TODO: Add expectation about invisibility of negative remaining cost
+    expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
+    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '63575.460432' );
+  } );
 
   // *** Step 2: Evaluate your offer ***
   // TODO: Uncomment when API values are coming in and JS is fully hooked up
