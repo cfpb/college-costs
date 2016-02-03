@@ -30,9 +30,6 @@ Tools to help students make informed financial decisions about college.
 ### Testing dependencies
 - [mock](https://github.com/testing-cabal/mock)
 - [coverage](https://coverage.readthedocs.org/en/latest/)
-- [selenium](https://selenium-python.readthedocs.org/installation.html)
-- [behave](http://pythonhosted.org/behave/)
-- [PyHamcrest](https://pyhamcrest.readthedocs.org/en/V1.8.2/)
 
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
@@ -68,7 +65,7 @@ The last step is to rebuild the solr index:
 ./manage.py runserver
 ```
 
-The college-cost tools should show up at [http://127.0.0.1:8000/paying-for-college/](http://127.0.0.1:8000/paying-for-college/)
+The college-cost tools should show up at [http://localhost:8000/paying-for-college2/](http://127.0.0.1:8000/paying-for-college/)
 
 The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
