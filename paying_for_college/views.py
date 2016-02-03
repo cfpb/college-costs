@@ -54,7 +54,7 @@ REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
               'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
                      'OR', 'UT', 'WA', 'WY']
               }
-REGION_NAMES = {'MW': 'Northwest',
+REGION_NAMES = {'MW': 'Midwest',
                 'NE': "Northeast",
                 'SO': 'South',
                 'WE': 'West'}
