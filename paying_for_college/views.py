@@ -46,7 +46,7 @@ URL_ROOT = 'paying-for-college2'
 
 
 REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
-              'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
+                     'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
               'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
                      'NY', 'PA', 'RI', 'VT'],
               'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
@@ -74,9 +74,8 @@ class BaseTemplateView(TemplateView):
         return context
 
 
-class OfferView(TemplateView):
-    """check for reqired values in querystring and pass school/program data"""
-    # TODO log errors
+class OfferView(TemplateView):  # TODO log errors
+    """consult values in querystring and deliver school/program data"""
 
     def get(self, request):
         if 'iped' in request.GET and request.GET['iped']:
