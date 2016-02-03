@@ -405,10 +405,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // TODO: expect the est. monthly student loan expense is recalculated
   } ); */
 
-  // Private loans and payment plans onload: $8,500
-  // Total debt: $14,500
-  // Remaining cost: $7,526
-
   it( 'should properly update when a private loan is modified', function() {
     page.confirmVerification();
     page.setPrivateLoanAmount( 4000 );
@@ -420,9 +416,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setPrivateLoanGracePeriod( 6 );
     browser.sleep( 600 );
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
-    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '7000' );
-    expect( page.totalDebt.getText() ).toEqual( '15500' );
-    expect( page.remainingCostFinal.getText() ).toEqual( '-1474' );
+    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '7001' );
+    expect( page.totalDebt.getText() ).toEqual( '15501' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '-1475' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated
@@ -470,8 +466,19 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should properly update when a private loan is removed', function() {
   } );
-
 */
+
+  it( 'should display proper debt values', function() {
+    page.confirmVerification();
+    expect( page.totalProgramDebt.getText() ).toEqual( '58000' );
+    expect( page.totalRepayment.getText() ).toEqual( '63575' );
+  } );
+
+  it( 'should update total borrowing when program length is changed', function() {
+     page.confirmVerification();
+     page.setProgramLength( 2 );
+     expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+  });
 
   // *** Step 2: Evaluate your offer ***
   // TODO: Uncomment when API values are coming in and JS is fully hooked up

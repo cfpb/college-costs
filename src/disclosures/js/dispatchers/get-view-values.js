@@ -10,7 +10,6 @@ var getViewValues = {
   },
 
   getPrivateLoans: function( values ) {
-    console.log( 'called gpl')
     // Note: Only run once, during init()
     var $privateLoans = $( '[data-private-loan]' );
     values.privateLoanMulti = [];
@@ -27,7 +26,6 @@ var getViewValues = {
         loanObject[key] = stringToNum( value );
       } );
       loanObject.amount = loanObject.baseAmount + loanObject.fees;
-      console.log( loanObject );
       values.privateLoanMulti.push( loanObject );
     } );
     return values;
