@@ -66,7 +66,6 @@ var financialView = {
           name = $ele.attr( 'data-financial' ),
           value = values[name] * 100;
       financialView.updateElement( $ele, value, false );
-      console.log( 'percent updated' );
     } );
     $leftovers.each( function() {
       var $ele = $( this ),
@@ -76,25 +75,25 @@ var financialView = {
         currency = false;
       }
       financialView.updateElement( $ele, values[name], currency );
-      console.log( 'leftover updated' );
     } );
     $privateLoans.each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
-            val = values.privateLoanMulti[index][key];
+            val = values.privateLoanMulti[index][key],
+            isntCurrentInput = ( $( this ).attr( 'id' ) !== financialView.currentInput );
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
-        } else if ( $( this ).attr( 'id' ) !== financialView.currentInput ) {
+        } else if ( isntCurrentInput && key === 'amount' ) {
           $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
         } else {
           $( this ).val( val );
         }
-        console.log( 'private loan key updated' );
       } );
     } );
+    console.log( values );
   },
 
   addPrivateListener: function() {
