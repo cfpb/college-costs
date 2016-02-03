@@ -3,6 +3,7 @@
 var getModelValues = require( '../dispatchers/get-model-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
+var formatUSD = require( 'format-usd' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -17,6 +18,7 @@ var financialView = {
   init: function() {
     var values = getModelValues.financial();
     this.keyupListener();
+    this.focusListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
@@ -33,8 +35,11 @@ var financialView = {
             val = values.privateLoanMulti[index][key];
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
+          $( this ).val( val );
         }
-        $( this ).val( val );
+        if ( $( this ).attr( 'id' ) !== financialView.currentInput ) {
+          $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
+        }
       } );
     } );
   },
@@ -44,11 +49,16 @@ var financialView = {
     this.$elements.not( '[data-private-loan_key]' ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
-          value = Math.round( values[name] );
-      if ( $ele.is( '[data-percentage_value="true"]' ) ) {
+          value = Math.round( values[name] ),
+          isPercentage = $ele.is( '[data-percentage_value="true"]' ),
+          isInput = ( $ele.prop( 'tagName' ) === 'INPUT' ),
+          isCurrentInput = ( $ele.attr( 'id' ) === financialView.currentInput );
+      if ( isPercentage ) {
         value *= 100;
+      } else if ( !( isCurrentInput) && ( isInput) ) {
+        value = formatUSD( value, { decimalPlaces: 0 } );
       }
-      if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
+      if ( isInput ) {
         $ele.val( value );
       } else {
         $ele.text( value );
@@ -56,7 +66,6 @@ var financialView = {
     } );
     // handle private loans
     this.setPrivateLoans( values );
-    console.log( values );
   },
 
   addPrivateListener: function() {
@@ -108,17 +117,18 @@ var financialView = {
     } );
   },
 
-  inputHandler: function( element ) {
-    var value = stringToNum( $( element ).val() ),
-        key = $( element ).attr( 'data-financial' ),
-        privateLoanKey = $( element ).attr( 'data-private-loan_key' ),
-        percentage = $( element ).attr( 'data-percentage_value' );
+  inputHandler: function( id ) {
+    var $ele = $( '#' + id ),
+        value = stringToNum( $ele.val() ),
+        key = $ele.attr( 'data-financial' ),
+        privateLoanKey = $ele.attr( 'data-private-loan_key' ),
+        percentage = $ele.attr( 'data-percentage_value' );
     if ( percentage === 'true' ) {
       value /= 100;
     }
     if ( typeof privateLoanKey !== 'undefined' ) {
-      var index = $( element ).closest( '[data-private-loan]' ).index(),
-          privLoanKey = $( element ).attr( 'data-private-loan_key' );
+      var index = $ele.closest( '[data-private-loan]' ).index(),
+          privLoanKey = $ele.attr( 'data-private-loan_key' );
       publish.updatePrivateLoan( index, privLoanKey, value );
     } else {
       publish.financialData( key, value );
@@ -130,11 +140,17 @@ var financialView = {
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
-      financialView.currentInput = this;
+      financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
       }, 500 );
     } );
+  },
+
+  focusListener: function() {
+    this.$review.on( 'focusout', '[data-financial]', function() {
+
+    });
   }
 
 };
