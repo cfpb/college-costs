@@ -37,9 +37,11 @@ def fix_json(jstring):
 
 
 def fix_zip5(zip5):
-    """add a leading zero if it has been stripped by the scorecard db"""
+    """add leading zeros if they have been stripped by the scorecard db"""
     if len(zip5) == 4:
         return "0{0}".format(zip5)
+    if len(zip5) == 3:
+        return "00{0}".format(zip5)
     else:
         return zip5
 

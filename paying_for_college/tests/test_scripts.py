@@ -45,6 +45,8 @@ class TestUpdater(django.test.TestCase):
                  }
 
     def test_fix_zip5(self):
+        fixzip3 = update_colleges.fix_zip5('501')
+        self.assertTrue(fixzip3 == '00501')
         fixzip4 = update_colleges.fix_zip5('5501')
         self.assertTrue(fixzip4 == '05501')
         testzip5 = update_colleges.fix_zip5('55105')
