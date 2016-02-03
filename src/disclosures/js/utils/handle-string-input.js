@@ -8,6 +8,9 @@
  * @returns {number} The assumed numeric value of numberString
  */
 function handleStringInput( numberString ) {
+  if ( typeof numberString === 'number' ) {
+    return numberString;
+  }
   var signMaker = 1,
       minusPosition = numberString.indexOf( numberString.match( '-' ) ),
       digitPosition = numberString.indexOf( numberString.match( /\d/ ) );

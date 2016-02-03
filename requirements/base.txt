@@ -6,3 +6,4 @@ django-haystack==2.4.0
 pysolr==3.3.2
 ordereddict==1.1
 python-dateutil==2.2
+PyYAML==3.11

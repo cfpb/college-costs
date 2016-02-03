@@ -402,7 +402,7 @@
                                             aid-form_input__currency"
                                             type="text" id="grants__military"
                                             name="grants__military"
-                                            data-financial="militaryAssistance"
+                                            data-financial="militaryTuitionAssistance"
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
@@ -422,7 +422,7 @@
                                             type="text"
                                             id="grants__gi"
                                             name="grants__gi"
-                                            data-financial="giBill"
+                                            data-financial="GIBill"
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
@@ -461,7 +461,7 @@
                                                     $
                                                 </span>
                                                 <span class="line-item_amount"
-                                                data-financial="grantsSavingsTotal">
+                                                data-financial="grantsTotal">
                                             </span>
                                             </div>
                                         </div>
@@ -500,7 +500,7 @@
                                             $
                                         </span>
                                         <span class="line-item_amount"
-                                        data-financial="grantsSavingsTotal"
+                                        data-financial="grantsTotal"
                                         id="summary_total-grants-scholarships">
                                         </span>
                                     </div>
@@ -730,6 +730,7 @@
                                             $
                                         </span>
                                         <span class="line-item_amount"
+                                        id="summary_remaining-cost-after-contrib"
                                         data-financial="remainingCost"></span>
                                     </div>
                                 </div>
@@ -1042,6 +1043,7 @@
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
+                                                    data-percentage_value="true"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span class="aid-form_unit">
@@ -1181,6 +1183,7 @@
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
+                                                    data-percentage_value="true"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span class="aid-form_unit">
@@ -1320,6 +1323,7 @@
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
+                                                    data-percentage_value="true"
                                                     autocorrect="off"
                                                     value="0">
                                                     <span class="aid-form_unit">
@@ -1427,7 +1431,8 @@
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">
                                                 <span
-                                                data-financial="institutionalLoanRate">
+                                                data-financial="institutionalLoanRate"
+                                                data-percentage_value="true">
                                                 [X.X]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
@@ -1573,7 +1578,8 @@
                                             $
                                         </span>
                                         <span class="line-item_amount"
-                                        data-financial="remainingCost"></span>
+                                          id="summary_remaining-cost-after-loans"
+                                          data-financial="gap"></span>
                                     </div>
                                 </div>
                                 <p>
@@ -1687,8 +1693,8 @@
                                             $
                                         </span>
                                         <span class="line-item_amount"
-                                        data-financial="remainingCost"
-                                        id="summary_remaining-cost"></span>
+                                        data-financial="gap"
+                                        id="summary_remaining-cost-final"></span>
                                     </div>
                                 </div>
                                 <p>
@@ -2547,10 +2553,12 @@
                             </p>
                         </div>
                     </div>
-                    <button class="btn btn__full-small" type="button"
-                    title="Give feedback on this tool">
+                    <a class="btn btn__full-small"
+                    title="Give feedback on this tool"
+                    href="/{{url_root}}/understanding-your-financial-aid-offer/feedback"
+                    target="_blank">
                         Tell us how
-                    </button>
+                    </a>
                 </div>
             </section>
         </section>
@@ -2594,6 +2602,7 @@ src="{% static "paying_for_college/disclosures/static/js/main.js" %}">
 <script>
   var schoolData = {{schoolData|safe}};
   var programData = {{programData|safe}};
+  var nationalData = {{nationalData|safe}};
 </script>
 {% endif %}
 {% endblock %}
