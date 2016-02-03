@@ -154,22 +154,26 @@ class OfferTest(django.test.TestCase):
         no_oid = '?iped=408039&pid=981&oid='
         bad_school = '?iped=xxxxxx&pid=981&oid=f38283b5b7c939a058889f997949efa566c61'
         bad_program = '?iped=408039&pid=xxx&oid=f38283b5b7c939a058889f997949efa566c616c5'
+        puerto_rico = '?iped=243197&pid=981&oid='
         missing_oid_field = '?iped=408039&pid=981'
         missing_school_id = '?iped='
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
-        self.assertTrue(resp.status_code == 200)
+        self.assertTrue(resp2.status_code == 200)
         resp3 = client.get(url+bad_school)
         self.assertTrue("No school" in resp3.content)
         self.assertTrue(resp3.status_code == 400)
         resp4 = client.get(url+bad_program)
-        self.assertTrue(resp.status_code == 200)
+        self.assertTrue(resp4.status_code == 200)
         resp5 = client.get(url+missing_oid_field)
-        self.assertTrue(resp.status_code == 200)
+        self.assertTrue(resp5.status_code == 200)
         resp6 = client.get(url+missing_school_id)
         self.assertTrue("doesn't contain a school" in resp6.content)
-        self.assertTrue(resp3.status_code == 400)
+        self.assertTrue(resp6.status_code == 400)
+        resp7 = client.get(url+puerto_rico)
+        self.assertTrue("nationalFood" in resp7.content)
+        self.assertTrue(resp7.status_code == 200)
 
 
 class APITests(django.test.TestCase):

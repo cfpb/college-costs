@@ -101,13 +101,20 @@ class OfferView(TemplateView):  # TODO log errors
                     program_data = program.as_json()
             national_stats = nat_stats.get_prepped_stats()
             BLS_stats = nat_stats.get_bls_stats()
-            if get_region(school) and BLS_stats:
-                region = get_region(school)
-                national_stats['region'] = REGION_NAMES[region]
+            if BLS_stats:
                 categories = BLS_stats.keys()
                 categories.remove('Year')
-                for category in categories:
-                    national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+                if get_region(school):
+                    region = get_region(school)
+                    national_stats['region'] = REGION_NAMES[region]
+                    for category in categories:
+                        national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+                else:
+                    national_stats['region'] = "Not available"
+                    for category in categories:
+                        national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
+
+
             return render_to_response('worksheet.html',
                                       {'data_js': "0",
                                        'school': school,
