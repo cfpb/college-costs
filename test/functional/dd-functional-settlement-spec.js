@@ -52,7 +52,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   //  Cost of attendance: $43,626
   //  Grants and scholarships: $11,600
   //  Total Contributions: $18,000 (includes ParentPLUS loan, parent loan)
-  //  Total Borrowing: $14,500 
+  //  Total Borrowing: $14,500
   //  Total cost: $36,026
   //  Remaining cost (before loans): $14,026
   //  Remaining cost (after loans): -$474
@@ -542,6 +542,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should link to the school website in a new tab', function() {
     page.confirmVerification();
     page.followSchoolLink();
+    browser.sleep( 600 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -552,6 +553,7 @@ it( 'should properly update when more than one private loans is modified', funct
           } )
           .then( function () {
             browser.close();
+            browser.sleep( 600 );
             browser.switchTo().window( handles[0] );
           } );
       } );
@@ -560,6 +562,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
     page.followScorecardLink();
+    browser.sleep( 600 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -572,6 +575,7 @@ it( 'should properly update when more than one private loans is modified', funct
           } )
           .then( function () {
             browser.close();
+            browser.sleep( 600 );
             browser.switchTo().window( handles[0] );
           } );
       } );
