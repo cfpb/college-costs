@@ -44,7 +44,7 @@ var financialView = {
     this.$elements.not( '[data-private-loan_key]' ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
-          value = values[name];
+          value = Math.round( values[name] );
       if ( $ele.is( '[data-percentage_value="true"]' ) ) {
         value *= 100;
       }

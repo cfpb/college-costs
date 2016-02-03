@@ -35,6 +35,8 @@ var financialModel = {
 
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
 
+    model.totalProgramDebt = model.borrowingTotal * model.programLength;
+
     // monthly expenses
     model.totalMonthlyExpenses =
       model.monthlyRent + model.monthlyFood +
