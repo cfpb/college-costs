@@ -65,7 +65,7 @@ The last step is to rebuild the solr index:
 ./manage.py runserver
 ```
 
-The college-cost tools should show up at [http://localhost:8000/paying-for-college2/](http://127.0.0.1:8000/paying-for-college/)
+The college-cost tools should show up at [localhost:8000/paying-for-college2/](http://localhost:8000/paying-for-college2/)
 
 The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
