@@ -11,7 +11,7 @@ var financialView = {
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
-  privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
+  privateLoanKeys: [ 'baseAmount', 'fees', 'rate', 'deferPeriod' ],
   keyupDelay: null,
   currentInput: null,
 
@@ -23,25 +23,6 @@ var financialView = {
     this.removePrivateListener();
     this.resetPrivateLoanView();
     this.updateView( values );
-  },
-
-  setPrivateLoans: function( values ) {
-    $( '[data-private-loan]' ).each( function() {
-      var index = $( this ).index(),
-          $ele = $( this ),
-          $fields = $ele.find( '[data-private-loan_key]' );
-      $fields.each( function() {
-        var key = $( this ).attr( 'data-private-loan_key' ),
-            val = values.privateLoanMulti[index][key];
-        if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
-          val *= 100;
-          $( this ).val( val );
-        }
-        if ( $( this ).attr( 'id' ) !== financialView.currentInput ) {
-          $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
-        }
-      } );
-    } );
   },
 
   updateElement: function ( $ele, value, currency ) {
@@ -86,7 +67,7 @@ var financialView = {
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
-        } else if ( isntCurrentInput && key === 'amount' ) {
+        } else if ( isntCurrentInput && key === 'baseAmount' ) {
           $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
         } else {
           $( this ).val( val );

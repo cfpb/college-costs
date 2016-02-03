@@ -10,13 +10,14 @@ var getViewValues = {
   },
 
   getPrivateLoans: function( values ) {
+    console.log( 'called gpl')
     // Note: Only run once, during init()
     var $privateLoans = $( '[data-private-loan]' );
     values.privateLoanMulti = [];
     $privateLoans.each( function() {
       var $ele = $( this ),
           $fields = $ele.find( '[data-private-loan_key]' ),
-          loanObject = { amount: 0, rate: 0, deferPeriod: 0 };
+          loanObject = { amount: 0, baseAmount: 0, rate: 0, deferPeriod: 0 };
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             value = $( this ).val();
@@ -25,8 +26,8 @@ var getViewValues = {
         }
         loanObject[key] = stringToNum( value );
       } );
-      loanObject.amount += loanObject.fees;
-      delete loanObject.fees;
+      loanObject.amount = loanObject.baseAmount + loanObject.fees;
+      console.log( loanObject );
       values.privateLoanMulti.push( loanObject );
     } );
     return values;
@@ -57,7 +58,9 @@ var getViewValues = {
     urlValues.privateLoanRate /= 100;
     urlValues.privateLoanMulti = [ {
       amount: urlValues.privateLoan,
+      baseAmount: urlValues.privateLoan,
       rate: urlValues.privateLoanRate,
+      fees: 0,
       deferPeriod: 0
     } ];
     return urlValues;
