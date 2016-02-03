@@ -10,6 +10,7 @@
  */
 function constructScorecardSearch( pcip, zip, radius ) {
   var searchParameters = [],
+      // Use a 50-mile radius, the most common Scorecard search, as a default
       searchRadius = radius || '50',
       pcipData = {
         '01': {
