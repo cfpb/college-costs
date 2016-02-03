@@ -462,7 +462,7 @@ it( 'should properly update when more than one private loans is modified', funct
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated
     // TODO: expect the est. monthly student loan expense is recalculated
-  } ); 
+  } );
 
   it( 'should properly update when a private loan is removed', function() {
   } );
@@ -544,6 +544,24 @@ it( 'should properly update when more than one private loans is modified', funct
     // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2850' );
     // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+  } );
+
+  it( 'should link to the school website in a new tab', function() {
+    page.confirmVerification();
+    page.followSchoolLink();
+    browser.getAllWindowHandles()
+      .then( function ( handles ) {
+        expect( handles.length ).toBe( 2 );
+        browser.switchTo().window( handles[1] )
+          .then( function () {
+            browser.wait( EC.titleContains( 'Brown Mackie' ), 8000, 'Page title did not contain "Brown Mackie" within 8 seconds' );
+            expect( browser.getCurrentUrl() ).toBe( 'https://www.brownmackie.edu/' );
+          } )
+          .then( function () {
+            browser.close();
+            browser.switchTo().window( handles[0] );
+          } );
+      } );
   } );
 
 });

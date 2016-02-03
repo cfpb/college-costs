@@ -4,6 +4,7 @@ var fetch = require( './dispatchers/get-api-values' );
 var financialModel = require( './models/financial-model' );
 var financialView = require( './views/financial-view' );
 var metricView = require( './views/metric-view' );
+var linksView = require( './views/links-view' );
 
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
@@ -17,6 +18,7 @@ var app = {
       financialView.init();
       // Placeholder to set bar graphs
       metricView.demo();
+      linksView.init();
     } );
   }
 };
