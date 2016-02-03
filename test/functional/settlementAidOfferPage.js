@@ -435,6 +435,17 @@ settlementAidOfferPage.prototype = Object.create({}, {
       get: function() {
         return element( by.css( '.get-options' ) );
       }
+    },
+    //Feedback
+    feedbackLink: {
+      get: function() {
+        return element( by.css( '.feedback .btn' ) );
+      }
+    },
+    followFeedbackLink: {
+      value: function() {
+        this.feedbackLink.click();
+      }
     }
 
 } );
