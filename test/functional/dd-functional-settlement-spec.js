@@ -477,7 +477,7 @@ it( 'should properly update when more than one private loans is modified', funct
   } );
 */
 
-  fit( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
+  it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
     page.confirmVerification();
     page.setFamilyContribution( 10000 );
     browser.sleep( 600 );
@@ -489,7 +489,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futureTotalDebt.getText() ).toEqual( '63575.460432' );
   } );
 
-  fit( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
+  it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
     page.confirmVerification();
     browser.wait( EC.visibilityOf(page.futureNegativeRemainingCost ), 8000 );
     // TODO: Add expectation about invisibility of positive remaining cost
@@ -499,7 +499,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futureTotalDebt.getText() ).toEqual( '63575.460432' );
   } );
 
-  fit( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
+  it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
     page.confirmVerification();;
     // TODO: Add expectation about invisibility of positive remaining cost
     // TODO: Add expectation about invisibility of negative remaining cost
