@@ -61,8 +61,7 @@ def get_region(school):
     for region in REGION_MAP:
         if school.state in REGION_MAP[region]:
             return region
-        else:
-            return ''
+    return ''
 
 
 class BaseTemplateView(TemplateView):
