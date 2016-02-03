@@ -162,7 +162,7 @@ var financialView = {
       var programLength = $( this ).val(),
           values = getModelValues.financial();
       publish.financialData( 'programLength', programLength );
-    financialView.updateView( values );
+      financialView.updateView( values );
     });
   }
 
