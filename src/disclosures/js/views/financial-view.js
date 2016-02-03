@@ -44,28 +44,57 @@ var financialView = {
     } );
   },
 
-  updateView: function( values ) {
-    // handle non-private-loan fields
-    this.$elements.not( '[data-private-loan_key]' ).each( function() {
-      var $ele = $( this ),
-          name = $ele.attr( 'data-financial' ),
-          value = Math.round( values[name] ),
-          isPercentage = $ele.is( '[data-percentage_value="true"]' ),
-          isInput = ( $ele.prop( 'tagName' ) === 'INPUT' ),
-          isCurrentInput = ( $ele.attr( 'id' ) === financialView.currentInput );
-      if ( isPercentage ) {
-        value *= 100;
-      } else if ( !( isCurrentInput) && ( isInput) ) {
+  updateElement: function ( $ele, value, currency ) {
+    if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
+      if ( currency === true ) {
         value = formatUSD( value, { decimalPlaces: 0 } );
       }
-      if ( isInput ) {
-        $ele.val( value );
-      } else {
-        $ele.text( value );
-      }
+      $ele.val( value );
+    } else {
+      $ele.text( value );
+    }
+  },
+
+  updateView: function( values ) {
+    // handle non-private-loan fields
+    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
+        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
+        $privateLoans = $( '[data-private-loan]' );
+    $percents.each( function() {
+      var $ele = $( this ),
+          name = $ele.attr( 'data-financial' ),
+          value = values[name] * 100;
+      financialView.updateElement( $ele, value, false );
+      console.log( 'percent updated' );
     } );
-    // handle private loans
-    this.setPrivateLoans( values );
+    $leftovers.each( function() {
+      var $ele = $( this ),
+          currency = true,
+          name = $ele.attr( 'data-financial' );
+      if ( financialView.currentInput === $( this ).attr( 'id' ) ) {
+        currency = false;
+      }
+      financialView.updateElement( $ele, values[name], currency );
+      console.log( 'leftover updated' );
+    } );
+    $privateLoans.each( function() {
+      var index = $( this ).index(),
+          $fields = $( this ).find( '[data-private-loan_key]' );
+      $fields.each( function() {
+        var key = $( this ).attr( 'data-private-loan_key' ),
+            val = values.privateLoanMulti[index][key];
+        if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
+          val *= 100;
+          $( this ).val( val );
+        } else if ( $( this ).attr( 'id' ) !== financialView.currentInput ) {
+          $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
+        } else {
+          $( this ).val( val );
+        }
+        console.log( 'private loan key updated' );
+      } );
+    } );
   },
 
   addPrivateListener: function() {
