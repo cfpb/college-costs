@@ -36,6 +36,14 @@ def fix_json(jstring):
         return {}
 
 
+def fix_zip5(zip5):
+    """add a leading zero if it has been stripped by the scorecard db"""
+    if len(zip5) == 4:
+        return "0{0}".format(zip5)
+    else:
+        return zip5
+
+
 def update(exclude_ids=[], single_school=None):
     """update college-level data for current year"""
     print("This job is paced to be kind to the Ed API;\n\
@@ -99,6 +107,7 @@ def update(exclude_ids=[], single_school=None):
                     if updated is True:
                         update_count += 1
                         school.data_json = json.dumps(data_dict)
+                        school.zip5 = fix_zip5(school.zip5)
                         school.save()
                 else:
                     sys.stdout.write('-')
