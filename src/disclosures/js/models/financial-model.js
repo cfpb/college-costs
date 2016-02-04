@@ -26,6 +26,7 @@ var financialModel = {
     this.sumScholarships();
     this.values = recalculate( this.values );
     this.sumTotals();
+    this.roundValues();
   },
 
   sumTotals: function() {
@@ -35,11 +36,18 @@ var financialModel = {
 
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
 
+    model.totalProgramDebt = model.borrowingTotal * model.programLength;
+
     // monthly expenses
     model.totalMonthlyExpenses =
       model.monthlyRent + model.monthlyFood +
       model.monthlyTransportation + model.monthlyInsurance +
       model.monthlySavings + model.monthlyOther;
+  },
+
+  roundValues: function() {
+    var model = financialModel.values;
+    model.totalDebt = Math.round( model.totalDebt );
   }
 };
 module.exports = financialModel;

@@ -10,6 +10,9 @@ var publishUpdate = {
 
   updatePrivateLoan: function( index, prop, val ) {
     financialModel.values.privateLoanMulti[index][prop] = val;
+    financialModel.values.privateLoanMulti[index].amount =
+        financialModel.values.privateLoanMulti[index].baseAmount +
+        financialModel.values.privateLoanMulti[index].fees;
     financialModel.calc( financialModel.values );
   },
 
@@ -20,6 +23,7 @@ var publishUpdate = {
 
   addPrivateLoan: function() {
     var newLoanObject = { amount: 0,
+                          baseAmount: 0,
                           fees: 0,
                           rate: 0,
                           deferPeriod: 0

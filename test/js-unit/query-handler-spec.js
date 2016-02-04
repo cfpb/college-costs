@@ -5,7 +5,7 @@ var queryHandler = require( '../../src/disclosures/js/utils/query-handler.js' );
 describe( 'queryHandler...', function() {
 
   it( '...translates abbreviations into values in returned Object', function() {
-    var queryString = '?tf=100&rb=101&bk=102&tr=103&oe=104',
+    var queryString = '?tuit=100&hous=101&book=102&tran=103&othr=104',
         valuePairs = queryHandler( queryString );
     expect( valuePairs.tuitionFees ).to.equal( 100 );
     expect( valuePairs.roomBoard ).to.equal( 101 );
@@ -15,7 +15,7 @@ describe( 'queryHandler...', function() {
   });
 
   it( '...turns strings in the queryString into numbers where applicable', function() {
-    var queryString = '?tf=100&rb=101&bk=102&tr=103&oe=104',
+    var queryString = '?tuit=100&hous=101&book=102&tran=103&othr=104',
         valuePairs = queryHandler( queryString );
     expect( typeof valuePairs.tuitionFees ).to.equal( "number" );
     expect( typeof valuePairs.roomBoard ).to.equal( "number" );
@@ -25,7 +25,7 @@ describe( 'queryHandler...', function() {
   });
 
   it( '...ignores any key which does not appear in keyMaps' , function() {
-    var queryString = '?tf=100&rb=101&bk=102&tr=103&oe=104&lol=999&hack=true',
+    var queryString = '?tuit=100&hous=101&book=102&tran=103&othr=104&lol=999&hack=true',
         valuePairs = queryHandler( queryString );
     expect( valuePairs.tuitionFees ).to.equal( 100 );
     expect( valuePairs.roomBoard ).to.equal( 101 );
