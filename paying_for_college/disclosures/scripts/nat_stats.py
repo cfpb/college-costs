@@ -13,6 +13,17 @@ college-choice/dev/_data/national_stats.yaml'
 FIXTURES_DIR = Path(__file__).ancestor(3)
 NAT_DATA_FILE = '{0}/fixtures/national_stats.json'.format(FIXTURES_DIR)
 BACKUP_FILE = '{0}/fixtures/national_stats_backup.json'.format(FIXTURES_DIR)
+BLS_FILE = '{0}/fixtures/bls_data.json'.format(FIXTURES_DIR)
+
+
+def get_bls_stats():
+    """deliver BLS spending stats stored in repo"""
+    try:
+        with open(BLS_FILE, 'r') as f:
+            data = json.loads(f.read())
+    except:
+        data = {}
+    return data
 
 
 def get_stats_yaml():

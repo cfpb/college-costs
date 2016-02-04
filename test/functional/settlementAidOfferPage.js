@@ -46,6 +46,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.review' ) );
       }
     },
+    schoolName: {
+      get: function() {
+        return element( by.id( 'intro__school-name' ) );
+      }
+    },
     tuitionFeesCosts: {
       get: function() {
         return element( by.id( 'costs__tuition' ) );
@@ -351,6 +356,31 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalRepayment: {
       get: function() {
         return element( by.id( 'summary_total-repayment' ) );
+      }
+    },
+    futurePositiveRemainingCost: {
+      get: function() {
+        return element( by.id( 'future_remaining-cost-positive' ) );
+      }
+    },
+    futureNegativeRemainingCost: {
+      get: function() {
+        return element( by.id( 'future_remaining-cost-negative' ) );
+      }
+    },
+    futureTotalLoans: {
+      get: function() {
+        return element( by.id( 'future_total-loans' ) );
+      }
+    },
+    futureYearsAttending: {
+      get: function() {
+        return element( by.id( 'future_years-attending' ) );
+      }
+    },
+    futureTotalDebt: {
+      get: function() {
+        return element( by.id( 'future_total-debt' ) );
       }
     },
     // Step 2: Evaluate your offer

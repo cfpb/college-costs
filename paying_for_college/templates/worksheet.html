@@ -188,10 +188,10 @@
                                 Step 1: Review your first year offer
                             </h2>
                             <p class="step_intro">
-                                Here is your financial aid offer from [insert
-                                college name]. Please verify the amounts
-                                provided by your school below, making any
-                                necessary changes or adding missing
+                                Here is your financial aid offer from
+                                <span id="intro__school-name">{{school.primary_alias}}</span>. Please verify the
+                                amounts provided by your school below, making
+                                any necessary changes or adding missing
                                 information.
                             </p>
                         </div>
@@ -736,7 +736,8 @@
                                 </div>
                                 <p>
                                     This is how much you still need to pay to
-                                    attend [school name] for one year.
+                                    attend {{school.primary_alias}} for one
+                                    year.
                                 </p>
                             </div>
                         </div>
@@ -1585,8 +1586,8 @@
                                 <p>
                                     After all the grants, scholarships, loans,
                                     and personal contributions, this is how
-                                    much you still need pay to attend [name of
-                                    school] for one year.
+                                    much you still need pay to attend
+                                    {{school.primary_alias}} for one year.
                                 </p>
                             </div>
                         </div>
@@ -1605,24 +1606,34 @@
                         <div class="offer-part_form-wrapper">
                             <p>
                                 It looks like you still have a remaining cost
-                                of [$XX] to pay for the first year of school.
-                                You’ll either need to lower your cost of
-                                attendance, pay more upfront, or increase your
-                                loan amount to cover these costs.
+                                of $<span id="future_remaining-cost-positive"
+                                data-financial="gap">[XX]</span> to pay for
+                                the first year of school. You’ll either need
+                                to lower your cost of attendance, pay more
+                                upfront, or increase your loan amount to cover
+                                these costs.
                             </p>
                             <p>
-                                It looks like you are borrowing [$XX] more
-                                than you need to pay for school. You can
-                                reduce your future debt by decreasing your
-                                loan amount to cover only what you need.
+                                It looks like you are borrowing
+                                $<span id="future_remaining-cost-negative"
+                                data-financial="gap">[XX]</span> more than
+                                you need to pay for school. You can reduce
+                                your future debt by decreasing your loan
+                                amount to cover only what you need.
                             </p>
                             <p>
-                                While the idea of [$XX] in loans sounds
-                                reasonable today, think about how it will
-                                affect your future financial situation. As you
-                                can see in the summary, the total cost of
-                                these loans after [years attending school]
-                                years after interest equals [$XX].
+                                While the idea of $<span
+                                id="future_total-loans"
+                                data-financial="borrowingTotal">[XX]</span> in
+                                loans sounds reasonable today, think about how
+                                it will affect your future financial situation.
+                                As you can see in the summary, the total cost
+                                of these loans after <span
+                                id="future_years-attending"
+                                data-numeric="yearsAttending">[XX]</span>
+                                years after interest equals $<span
+                                id="future_total-debt"
+                                data-financial="totalDebt">[XX]</span>.
                             </p>
                             <p>
                                 Some students find themselves struggling to
@@ -1700,8 +1711,8 @@
                                 <p>
                                     After all the grants, scholarships, loans,
                                     and personal contributions, this is how
-                                    much you still need pay to attend [name of
-                                    school] for one year.
+                                    much you still need pay to attend
+                                    {{school.primary_alias}} for one year.
                                 </p>
                             </div>
                             <div class="aid-form_summary debt-summary
@@ -1723,7 +1734,9 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Loans for [X] years (program length)
+                                        Loans for <span 
+                                        data-numeric="yearsAttending">[XX]
+                                        </span> years (program length)
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1843,11 +1856,11 @@
                                 </p>
                                 <p>
                                     Keep in mind your school has a job
-                                    placement rate of [XX%] for students who
-                                    graduate and get a job in their field. In
-                                    reality, you could be making even less
-                                    than the average salaries shown here.
-                                </p>
+                                    placement rate of [X.X]%
+                                    for students who graduate and get a job in
+                                    their field. In reality, you could be
+                                    making even less than the average salaries
+                                    shown here.</p>
                             </div>
                             <section class="metric average-salary column-well
                             column-well__bleed column-well__not-stacked">
@@ -1906,10 +1919,9 @@
                                         </h4>
                                         <p class="aid-form_caption">
                                             Monthly living expenses for single
-                                            person based on [regional OR
-                                            national] averages
-                                        </p>
-                                    </div>
+                                            person based on <span
+                                            id="expenses__datatype">national
+                                            </span> averages </p> </div>
                                     <div class="form-group_item">
                                         <label class="form-label__wrapped">
                                             <span
@@ -2119,16 +2131,17 @@
                                     you shouldn’t borrow more than you will
                                     make during your first year out of college.
                                     Your student loan payment shouldn’t be
-                                    more than 14% of your total monthly income.
+                                    more than 8% of your total monthly income.
                                 </p>
                                 <p>
                                     Your total estimated debt, according to
-                                    the amounts entered above, is [$XX]. On
+                                    the amounts entered above, is $<span 
+                                    data-financial="totalDebt"></span>. On
                                     average, students from your school
-                                    graduate with [$XX] of debt (includes
+                                    graduate with $[XX] of debt (includes
                                     part-time, full-time, and transfer
                                     students), compared with a national
-                                    average of [$XX]. The lower your total
+                                    average of $[XX]. The lower your total
                                     debt, the lower your debt burden will be.
                                 </p>
                                 <p>
@@ -2219,7 +2232,7 @@
                                         cf-icon-error-round"></span>
                                         <p class="cf-notification_text">
                                             Loan payment is higher than
-                                            recommended 14% of salary
+                                            recommended 8% of salary
                                         </p>
                                     </div>
                                 </div>
@@ -2302,7 +2315,8 @@
                         <div class="question_wrapper">
                             <div class="question_content">
                                 <h2 class="step_heading">
-                                    Do you feel like going into [$XX,XXX] of
+                                    Do you feel like going into $<span
+                                    data-financial="totalDebt">[XX]</span> of
                                     debt to attend this school is a good
                                     investment in your future?
                                 </h2>
@@ -2482,24 +2496,6 @@
                         </div>
                     </div>
                     <ol class="super-numerals next-steps_list">
-                        <li class="super-numerals next-steps_list-item">
-                            <p class="next-steps_list-intro">
-                                Review the edits you made to your offer:
-                            </p>
-                            <ul class="change-list">
-                                <li>
-                                   You [increased/decreased] the [field name]
-                                   by [$amount].
-                                </li>
-                                <li>
-                                    You [increased/decreased] the [field name]
-                                    of your [loan name] by [$amount/percent].
-                                </li>
-                                <li>
-                                    You made no changes to your offer.
-                                </li>
-                            </ul>
-                        </li>
                         <li class="super-numerals next-steps_list-item">
                             <p class="next-steps_list-intro">
                                 Talk to your school if you decide to move

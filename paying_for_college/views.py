@@ -45,6 +45,29 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 
 
+REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
+                     'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
+              'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
+                     'NY', 'PA', 'RI', 'VT'],
+              'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
+                     'MS', 'NC', 'OK', 'SC', 'TN', 'TX', 'VA', 'WV'],
+              'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
+                     'OR', 'UT', 'WA', 'WY']
+              }
+REGION_NAMES = {'MW': 'Midwest',
+                'NE': "Northeast",
+                'SO': 'South',
+                'WE': 'West'}
+
+
+def get_region(school):
+    """return a school's region based on state"""
+    for region in REGION_MAP:
+        if school.state in REGION_MAP[region]:
+            return region
+    return ''
+
+
 class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
@@ -54,9 +77,8 @@ class BaseTemplateView(TemplateView):
         return context
 
 
-class OfferView(TemplateView):
-    """check for reqired values in querystring and pass school/program data"""
-    # TODO log errors
+class OfferView(TemplateView):  # TODO log errors
+    """consult values in querystring and deliver school/program data"""
 
     def get(self, request):
         if 'iped' in request.GET and request.GET['iped']:
@@ -78,6 +100,21 @@ class OfferView(TemplateView):
                     program = programs[0]
                     program_data = program.as_json()
             national_stats = nat_stats.get_prepped_stats()
+            BLS_stats = nat_stats.get_bls_stats()
+            if BLS_stats:
+                categories = BLS_stats.keys()
+                categories.remove('Year')
+                if get_region(school):
+                    region = get_region(school)
+                    national_stats['region'] = REGION_NAMES[region]
+                    for category in categories:
+                        national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+                else:
+                    national_stats['region'] = "Not available"
+                    for category in categories:
+                        national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
+
+
             return render_to_response('worksheet.html',
                                       {'data_js': "0",
                                        'school': school,
