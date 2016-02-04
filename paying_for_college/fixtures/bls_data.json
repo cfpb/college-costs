@@ -1,0 +1,57 @@
+{
+    "Retirement": {
+        "WE": 6184, 
+        "under_25": 2269, 
+        "NE": 6392, 
+        "note": "Pensions and personal insurance", 
+        "MW": 5633, 
+        "SO": 5182, 
+        "average_annual": 5726
+    }, 
+    "Transportation": {
+        "WE": 9192, 
+        "under_25": 6167, 
+        "NE": 9321, 
+        "note": "Cars, public transit, insurance", 
+        "MW": 8807, 
+        "SO": 9041, 
+        "average_annual": 9073
+    }, 
+    "Entertainment": {
+        "WE": 3034, 
+        "under_25": 1319, 
+        "NE": 2744, 
+        "note": "Events, pets, hobbies, equipment", 
+        "MW": 2760, 
+        "SO": 2516, 
+        "average_annual": 2728
+    }, 
+    "Food": {
+        "WE": 7175, 
+        "under_25": 4423, 
+        "NE": 6854, 
+        "note": "Dining out and in; all food costs", 
+        "MW": 16212, 
+        "SO": 6898, 
+        "average_annual": 6759
+    }, 
+    "Housing": {
+        "WE": 19672, 
+        "under_25": 11459, 
+        "NE": 21067, 
+        "note": "Mortgage, rent, utilities, insurance", 
+        "MW": 16212, 
+        "SO": 16030, 
+        "average_annual": 17798
+    }, 
+    "Year": 2014, 
+    "Healthcare": {
+        "WE": 4401, 
+        "under_25": 1103, 
+        "NE": 4565, 
+        "note": "Including insurance", 
+        "MW": 4398, 
+        "SO": 4024, 
+        "average_annual": 4290
+    }
+}

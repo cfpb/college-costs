@@ -69,10 +69,10 @@ class TestUpdater(django.test.TestCase):
         mock_response.ok = False
         mock_response.reason = "Testing OK == False"
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        self.assertTrue(len(FAILED) == 2)
+        self.assertTrue(len(FAILED) == 3)
         mock_requests.status_code = 429
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        self.assertTrue(len(FAILED) == 2)
+        self.assertTrue(len(FAILED) == 3)
 
     @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
     def test_update_colleges_bad_responses(self, mock_requests):
@@ -167,3 +167,7 @@ class TestScripts(unittest.TestCase):
     def test_get_prepped_stats(self):
         stats = nat_stats.get_prepped_stats()
         self.assertTrue(stats['completionRateMedian'] <= 1)
+
+    def test_get_bls_stats(self):
+        stats = nat_stats.get_bls_stats()
+        self.assertTrue(stats['Year'] >= 2014)
