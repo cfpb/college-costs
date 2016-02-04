@@ -44,6 +44,14 @@ class TestUpdater(django.test.TestCase):
                  'metadata': {'page': 0}
                  }
 
+    def test_fix_zip5(self):
+        fixzip3 = update_colleges.fix_zip5('501')
+        self.assertTrue(fixzip3 == '00501')
+        fixzip4 = update_colleges.fix_zip5('5501')
+        self.assertTrue(fixzip4 == '05501')
+        testzip5 = update_colleges.fix_zip5('55105')
+        self.assertTrue(testzip5 == '55105')
+
     @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
     def test_update_colleges(self, mock_requests):
         mock_response = mock.Mock()
