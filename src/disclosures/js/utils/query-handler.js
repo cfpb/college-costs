@@ -44,6 +44,11 @@ function queryHandler( queryString ) {
     insi: 'institutionalLoanRate'
   };
 
+  /**
+   * Helper function for checking that expected numeric values are indeed numeric
+   * @param {string} key - The key to be checked
+   * @param {string|number} value - The value of the key
+   */
   function checkValue( key, value ) {
     var newValue = value;
 
@@ -54,6 +59,10 @@ function queryHandler( queryString ) {
     return newValue;
   }
 
+  /**
+   * Helper function which decodes key-value pairs from the URL
+   * Has no parameters, but relies on the queryString passed to its parent function
+   */
   function getPairs() {
     var pair;
     var regex = /[?&]?([^=]+)=([^&]*)/g;
@@ -69,6 +78,9 @@ function queryHandler( queryString ) {
     }
   }
 
+  /**
+   * Helper function which maps the parameters object using the keyMaps
+   */
   function remapKeys() {
     for ( var key in parameters ) {
 

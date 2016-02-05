@@ -64,7 +64,7 @@ var financialView = {
   /**
    * Helper function that updates all non-percent, non-privateLoan elements in the financial view
    * @param {object} values - financial model values
-   * @param {object} $percents - jQuery object of the "leftover" elements
+   * @param {object} $leftovers - jQuery object of the "leftover" elements
    */
   updateLeftovers: function( values, $leftovers ) {
     $leftovers.each( function() {
@@ -81,7 +81,7 @@ var financialView = {
   /**
    * Helper function that updates all private loan values in the financial view
    * @param {object} values - financial model values
-   * @param {object} $percents - jQuery object of the private loan elements
+   * @param {object} $privateLoans - jQuery object of the private loan elements
    */
   updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
@@ -181,6 +181,7 @@ var financialView = {
 
   /**
    * Helper function for handling user entries in financial model INPUT fields
+   * @param {string} id - The id attribute of the element to be handled
    */
   inputHandler: function( id ) {
     var $ele = $( '#' + id ),
