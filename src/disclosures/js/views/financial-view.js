@@ -19,6 +19,7 @@ var financialView = {
   init: function() {
     var values = getModelValues.financial();
     this.keyupListener();
+    this.focusoutListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
@@ -75,7 +76,6 @@ var financialView = {
         }
       } );
     } );
-    console.log( values );
   },
 
   addPrivateListener: function() {
@@ -154,6 +154,14 @@ var financialView = {
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
       }, 500 );
+    } );
+  },
+
+  focusoutListener: function() {
+    this.$review.on( 'focusout', '[data-financial]', function() {
+      clearTimeout( financialView.keyupDelay );
+      financialView.currentInput = $( this ).attr( 'id' );
+      financialView.inputHandler( financialView.currentInput );
     } );
   },
 
