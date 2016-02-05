@@ -38,18 +38,16 @@ var financialView = {
     }
   },
 
-  updateView: function( values ) {
-    // handle non-private-loan fields
-    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
-        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
-        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
-        $privateLoans = $( '[data-private-loan]' );
+  updatePercentages: function( values, $percents ) {
     $percents.each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name] * 100;
       financialView.updateElement( $ele, value, false );
     } );
+  },
+
+  updateLeftovers: function( values, $leftovers ) {
     $leftovers.each( function() {
       var $ele = $( this ),
           currency = true,
@@ -59,13 +57,16 @@ var financialView = {
       }
       financialView.updateElement( $ele, values[name], currency );
     } );
+  },
+
+  updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
-            isntCurrentInput = ( $( this ).attr( 'id' ) !== financialView.currentInput );
+            isntCurrentInput = $( this ).attr( 'id' ) !== financialView.currentInput;
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
@@ -76,6 +77,17 @@ var financialView = {
         }
       } );
     } );
+  },
+
+  updateView: function( values ) {
+    // handle non-private-loan fields
+    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
+        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
+        $privateLoans = $( '[data-private-loan]' );
+    this.updatePercentages( values, $percents );
+    this.updateLeftovers( values, $leftovers );
+    this.updatePrivateLoans( values, $privateLoans );
   },
 
   addPrivateListener: function() {
@@ -171,7 +183,7 @@ var financialView = {
           values = getModelValues.financial();
       publish.financialData( 'programLength', programLength );
       financialView.updateView( values );
-    });
+    } );
   }
 
 };
