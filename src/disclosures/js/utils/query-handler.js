@@ -48,6 +48,7 @@ function queryHandler( queryString ) {
    * Helper function for checking that expected numeric values are indeed numeric
    * @param {string} key - The key to be checked
    * @param {string|number} value - The value of the key
+   * @returns {string|number} newValue - The corrected value of the key
    */
   function checkValue( key, value ) {
     var newValue = value;
