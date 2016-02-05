@@ -19,6 +19,7 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
   it( 'should open the feedback form in a new tab', function() {
     page.confirmVerification();
     page.followFeedbackLink();
+    browser.sleep( 600 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -28,6 +29,7 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
           } )
           .then( function () {
             browser.close();
+            browser.sleep( 600 );
             browser.switchTo().window( handles[0] );
           } );;
       } );
