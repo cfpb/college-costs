@@ -12,6 +12,11 @@
 .understanding-financial-aid-offer {
   .webfont-regular();
 
+  // Hide the clear-input "helper" in IE10+; it throws off calculations
+  input::-ms-clear {
+    display: none;
+  }
+
   input[type="text"],
   input[type="search"],
   input[type="email"],
