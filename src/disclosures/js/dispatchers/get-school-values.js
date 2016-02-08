@@ -1,7 +1,5 @@
 'use strict';
 
-var stringToNum = require( '../utils/handle-string-input' );
-
 var getSchoolValues = {
 
   var values = {};
