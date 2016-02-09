@@ -44,6 +44,12 @@ function queryHandler( queryString ) {
     insi: 'institutionalLoanRate'
   };
 
+  /**
+   * Helper function for checking that expected numeric values are indeed numeric
+   * @param {string} key - The key to be checked
+   * @param {string|number} value - The value of the key
+   * @returns {string|number} newValue - The corrected value of the key
+   */
   function checkValue( key, value ) {
     var newValue = value;
 
@@ -54,6 +60,10 @@ function queryHandler( queryString ) {
     return newValue;
   }
 
+  /**
+   * Helper function which decodes key-value pairs from the URL
+   * Has no parameters, but relies on the queryString passed to its parent function
+   */
   function getPairs() {
     var pair;
     var regex = /[?&]?([^=]+)=([^&]*)/g;
@@ -69,18 +79,28 @@ function queryHandler( queryString ) {
     }
   }
 
+  /**
+   * Helper function which maps the parameters object using the keyMaps
+   */
   function remapKeys() {
     for ( var key in parameters ) {
-
       if ( keyMaps.hasOwnProperty( key ) ) {
         var newKey = keyMaps[key];
         valuePairs[newKey] = parameters[key];
       }
     }
   }
-
   getPairs();
   remapKeys();
+  // move private loan properties to privateLoanMulti
+  valuePairs.privateLoanMulti = [
+    { amount: valuePairs.privateLoan || 0,
+      rate:   valuePairs.privateLoanRate / 100 || 0.079,
+      fees:   0,
+      deferPeriod: 6 }
+  ];
+  delete valuePairs.privateLoan;
+  delete valuePairs.privateLoanRate;
   // family contributions = parent loan + parentPLUS loan
   valuePairs.family = valuePairs.parentLoan + valuePairs.parentPlus;
   // zero parentPlus so that student-debt-calc doesn't use it

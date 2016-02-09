@@ -12,13 +12,17 @@ var financialView = {
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
-  privateLoanKeys: [ 'baseAmount', 'fees', 'rate', 'deferPeriod' ],
+  privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
   keyupDelay: null,
   currentInput: null,
 
+  /**
+   * Initiates the object
+   */
   init: function() {
     var values = getModelValues.financial();
     this.keyupListener();
+    this.focusoutListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
@@ -26,7 +30,13 @@ var financialView = {
     this.updateView( values );
   },
 
-  updateElement: function ( $ele, value, currency ) {
+  /**
+   * Helper function that updates the value or text of an element
+   * @param {object} $ele - jQuery object of the element to update
+   * @param {number|string} value - The new value
+   * @param {Boolean} currency - True if the value is to be formatted as currency
+   */
+  updateElement: function( $ele, value, currency ) {
     if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
       if ( currency === true ) {
         value = formatUSD( value, { decimalPlaces: 0 } );
@@ -37,18 +47,26 @@ var financialView = {
     }
   },
 
-  updateView: function( values ) {
-    // handle non-private-loan fields
-    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
-        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
-        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
-        $privateLoans = $( '[data-private-loan]' );
+  /**
+   * Helper function that updates all percent elements in the financial view
+   * @param {object} values - financial model values
+   * @param {object} $percents - jQuery object of the percentage elements
+   */
+  updatePercentages: function( values, $percents ) {
     $percents.each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name] * 100;
       financialView.updateElement( $ele, value, false );
     } );
+  },
+
+  /**
+   * Helper function that updates all non-percent, non-privateLoan elements in the financial view
+   * @param {object} values - financial model values
+   * @param {object} $leftovers - jQuery object of the "leftover" elements
+   */
+  updateLeftovers: function( values, $leftovers ) {
     $leftovers.each( function() {
       var $ele = $( this ),
           currency = true,
@@ -58,13 +76,21 @@ var financialView = {
       }
       financialView.updateElement( $ele, values[name], currency );
     } );
+  },
+
+  /**
+   * Helper function that updates all private loan values in the financial view
+   * @param {object} values - financial model values
+   * @param {object} $privateLoans - jQuery object of the private loan elements
+   */
+  updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
       $fields.each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
-            isntCurrentInput = ( $( this ).attr( 'id' ) !== financialView.currentInput );
+            isntCurrentInput = $( this ).attr( 'id' ) !== financialView.currentInput;
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
@@ -75,9 +101,27 @@ var financialView = {
         }
       } );
     } );
+  },
+
+  /**
+   * Function that updates the view with new values
+   * @param {object} values - financial model values
+   */
+  updateView: function( values ) {
+    // handle non-private-loan fields
+    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
+        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
+        $privateLoans = $( '[data-private-loan]' );
+    this.updatePercentages( values, $percents );
+    this.updateLeftovers( values, $leftovers );
+    this.updatePrivateLoans( values, $privateLoans );
     console.log( values );
   },
 
+  /**
+   * Listener function for the "add private loan" button
+   */
   addPrivateListener: function() {
     this.$addPrivateButton.click( function() {
       var $container = $( '.private-loans' ),
@@ -89,6 +133,9 @@ var financialView = {
     } );
   },
 
+  /**
+   * Listener function for the "remove private loan" button
+   */
   removePrivateListener: function() {
     var buttonClass = '.private-loans_remove-btn';
     this.$privateContainer.on( 'click', buttonClass, function() {
@@ -102,8 +149,11 @@ var financialView = {
     } );
   },
 
+  /**
+   * Function which removes two of the three initial private loan elements
+   * (Three exist on load for no-js scenario)
+   */
   resetPrivateLoanView: function() {
-    // remove the 2 excess private loans (3 exist initially as a NoJS fallback)
     $( '[data-private-loan]' ).each( function() {
       var index = $( this ).index();
       if ( index > 0 ) {
@@ -113,6 +163,9 @@ var financialView = {
     } );
   },
 
+  /**
+   * Helper function that renumbers the IDs of private loan elements
+   */
   enumeratePrivateLoanIDs: function() {
     // renumber private loan ids to prevent duplicate IDs
     $( '[data-private-loan' ).each( function() {
@@ -127,6 +180,10 @@ var financialView = {
     } );
   },
 
+  /**
+   * Helper function for handling user entries in financial model INPUT fields
+   * @param {string} id - The id attribute of the element to be handled
+   */
   inputHandler: function( id ) {
     var $ele = $( '#' + id ),
         value = stringToNum( $ele.val() ),
@@ -147,6 +204,9 @@ var financialView = {
     financialView.updateView( values );
   },
 
+  /**
+   * Listener function for keyup in financial model INPUT fields
+   */
   keyupListener: function() {
     this.$review.on( 'keyup', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
@@ -157,13 +217,27 @@ var financialView = {
     } );
   },
 
+  /**
+   * Listener function for focus out in financial model INPUT fields
+   */
+  focusoutListener: function() {
+    this.$review.on( 'focusout', '[data-financial]', function() {
+      clearTimeout( financialView.keyupDelay );
+      financialView.currentInput = $( this ).attr( 'id' );
+      financialView.inputHandler( financialView.currentInput );
+    } );
+  },
+
+  /**
+   * Listener function for "estimated years in program" select element
+   */
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
       var programLength = $( this ).val(),
           values = getModelValues.financial();
       publish.financialData( 'programLength', programLength );
       financialView.updateView( values );
-    });
+    } );
   }
 
 };

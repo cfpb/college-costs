@@ -6,6 +6,10 @@ var getViewValues = require( '../dispatchers/get-view-values' );
 var financialModel = {
   values: {},
 
+  /**
+   * Initiates the model
+   * @param {object} apiData - Data received from the schoolData API
+   */
   init: function( apiData ) {
     this.values = getViewValues.init( apiData );
     // we don't use directPlus in the UI
@@ -13,6 +17,9 @@ var financialModel = {
     this.calc();
   },
 
+  /**
+   * Adds various scholarships to form the 'scholarships' property
+   */
   sumScholarships: function() {
     var model = financialModel.values;
     // model.scholarships as a sum of UI inputs
@@ -22,6 +29,9 @@ var financialModel = {
       model.otherScholarships;
   },
 
+  /**
+   * Performs calculations using student-debt-calc package
+   */
   calc: function() {
     this.sumScholarships();
     this.values = recalculate( this.values );
@@ -29,13 +39,13 @@ var financialModel = {
     this.roundValues();
   },
 
+  /**
+   * Sums totals for various view elements
+   */
   sumTotals: function() {
     var model = financialModel.values;
 
-    // Cost after grants
-
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
-
     model.totalProgramDebt = model.borrowingTotal * model.programLength;
 
     // monthly expenses
@@ -45,6 +55,9 @@ var financialModel = {
       model.monthlySavings + model.monthlyOther;
   },
 
+  /**
+   * Rounds values for which we do not want to display decimals
+   */
   roundValues: function() {
     var model = financialModel.values;
     model.totalDebt = Math.round( model.totalDebt );
