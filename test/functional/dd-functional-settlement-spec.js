@@ -421,9 +421,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.setPrivateLoanGracePeriod( 6 );
     browser.sleep( 600 );
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
-    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '7001' );
-    expect( page.totalDebt.getText() ).toEqual( '15501' );
-    expect( page.remainingCostFinal.getText() ).toEqual( '-1475' );
+    expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '7040' );
+    expect( page.totalDebt.getText() ).toEqual( '15540' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '-1514' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
     // TODO: expect the estimated debt burden is recalculated

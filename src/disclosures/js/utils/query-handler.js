@@ -84,16 +84,23 @@ function queryHandler( queryString ) {
    */
   function remapKeys() {
     for ( var key in parameters ) {
-
       if ( keyMaps.hasOwnProperty( key ) ) {
         var newKey = keyMaps[key];
         valuePairs[newKey] = parameters[key];
       }
     }
   }
-
   getPairs();
   remapKeys();
+  // move private loan properties to privateLoanMulti
+  valuePairs.privateLoanMulti = [
+    { amount: valuePairs.privateLoan || 0,
+      rate:   valuePairs.privateLoanRate / 100 || 0.079,
+      fees:   0,
+      deferPeriod: 6 }
+  ];
+  delete valuePairs.privateLoan;
+  delete valuePairs.privateLoanRate;
   // family contributions = parent loan + parentPLUS loan
   valuePairs.family = valuePairs.parentLoan + valuePairs.parentPlus;
   // zero parentPlus so that student-debt-calc doesn't use it

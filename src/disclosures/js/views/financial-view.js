@@ -12,7 +12,7 @@ var financialView = {
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
-  privateLoanKeys: [ 'baseAmount', 'fees', 'rate', 'deferPeriod' ],
+  privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
   keyupDelay: null,
   currentInput: null,
 
@@ -116,6 +116,7 @@ var financialView = {
     this.updatePercentages( values, $percents );
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
+    console.log( values );
   },
 
   /**

@@ -22,10 +22,6 @@ var publishUpdate = {
    */
   updatePrivateLoan: function( index, prop, val ) {
     financialModel.values.privateLoanMulti[index][prop] = val;
-    financialModel.values.privateLoanMulti[index].amount =
-        financialModel.values.privateLoanMulti[index].baseAmount *
-        financialModel.values.privateLoanMulti[index].fees / 100;
-
     financialModel.calc( financialModel.values );
   },
 
