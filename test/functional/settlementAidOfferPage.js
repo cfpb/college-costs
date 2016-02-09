@@ -255,7 +255,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     // TODO: Refactor this here and in the HTML/CSS for multiple private loans?
     privateLoanAmount: {
       get: function() {
-        return element( by.css( '[data-private-loan] [data-private-loan_key="baseAmount"]' ) );
+        return element( by.css( '[data-private-loan] [data-private-loan_key="amount"]' ) );
       }
     },
     setPrivateLoanAmount: {
