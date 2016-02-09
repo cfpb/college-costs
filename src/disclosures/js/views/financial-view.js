@@ -21,10 +21,10 @@ var financialView = {
     var values = getModelValues.financial();
     this.keyupListener();
     this.estimatedYearsListener();
-    this.$programLength.val( getSchoolValues.getProgramLength() ).change();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
+    this.$programLength.val( getSchoolValues.getProgramLength() ).change();
     this.updateView( values );
   },
 

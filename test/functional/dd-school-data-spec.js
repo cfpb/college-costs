@@ -13,6 +13,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should automatically populate the program length if it\'s available', function() {
      browser.sleep( 600 );
      expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
+     page.confirmVerification();
      expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
   } );
 
