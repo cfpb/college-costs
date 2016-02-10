@@ -1,6 +1,7 @@
 'use strict';
 
 var getModelValues = require( '../dispatchers/get-model-values' );
+var getSchoolValues = require( '../dispatchers/get-school-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
@@ -27,6 +28,7 @@ var financialView = {
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
+    this.$programLength.val( getSchoolValues.getProgramLength() ).change();
     this.updateView( values );
   },
 
@@ -233,7 +235,7 @@ var financialView = {
    */
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
-      var programLength = $( this ).val(),
+      var programLength = Number( $( this ).val() ),
           values = getModelValues.financial();
       publish.financialData( 'programLength', programLength );
       financialView.updateView( values );
