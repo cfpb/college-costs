@@ -475,18 +475,21 @@ it( 'should properly update when more than one private loans is modified', funct
 
 
   it( 'should display proper debt values', function() {
+    browser.sleep( 1000 );
     page.confirmVerification();
-    expect( page.totalProgramDebt.getText() ).toEqual( '58000' );
-    expect( page.totalRepayment.getText() ).toEqual( '63848' );
+    expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+    expect( page.totalRepayment.getText() ).toEqual( '30989' );
   } );
 
   it( 'should update total borrowing when program length is changed', function() {
      page.confirmVerification();
-     page.setProgramLength( 2 );
-     expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+     page.setProgramLength( 4 );
+     browser.sleep( 1000 );
+     expect( page.totalProgramDebt.getText() ).toEqual( '58000' );
   });
 
   it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
+    browser.sleep( 1000 );
     page.confirmVerification();
     page.setFamilyContribution( 10000 );
     browser.sleep( 600 );
@@ -495,26 +498,30 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '4526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '63848' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
+    browser.sleep( 1000 );
     page.confirmVerification();
     browser.wait( EC.visibilityOf(page.futureNegativeRemainingCost ), 8000 );
     // TODO: Add expectation about invisibility of positive remaining cost
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '-474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '63848' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
   it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
-    page.confirmVerification();;
+    browser.sleep( 1000 );
+    page.confirmVerification();
+    page.setFamilyContribution( 14526 );
+    browser.sleep( 600 );
     // TODO: Add expectation about invisibility of positive remaining cost
     // TODO: Add expectation about invisibility of negative remaining cost
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '63848' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
   // *** Step 2: Evaluate your offer ***

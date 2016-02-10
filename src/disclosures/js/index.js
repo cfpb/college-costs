@@ -2,6 +2,7 @@
 
 var fetch = require( './dispatchers/get-api-values' );
 var financialModel = require( './models/financial-model' );
+var schoolModel = require( './models/school-model' );
 var financialView = require( './views/financial-view' );
 var metricView = require( './views/metric-view' );
 var linksView = require( './views/links-view' );
@@ -14,6 +15,7 @@ var app = {
   init: function() {
   // jquery promise to delay full model creation until ajax resolves
     $.when( fetch.constants() ).done( function( resp ) {
+      schoolModel.init();
       financialModel.init( resp );
       financialView.init();
       // Placeholder to set bar graphs
