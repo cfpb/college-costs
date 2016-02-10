@@ -16,10 +16,7 @@ DUMP = ['python',
         'dumpdata',
         '--indent',
         '4',
-        'paying_for_college',
-        '>',
-        'paying_for_college/fixtures/colleges.json']
-# DATA_ROOT = "%s/data/ipeds" % settings.PROJECT_ROOT
+        'paying_for_college']
 
 
 class Command(BaseCommand):
@@ -28,7 +25,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('dumping backup fixture before starting ...')
-        call(DUMP)
+        with open('paying_for_college/fixtures/colleges_backup.json', 'w') as f:
+            call(DUMP, stdout=f)
         # print('dump finished; now downloading IPEDS data')
         # ipeds.download_tuition(DATA_ROOT)
         # print('download finished; now prepping csv')
