@@ -32,7 +32,7 @@ def get_stats_yaml():
     try:
         nat_yaml = requests.get(COLLEGE_CHOICE_NATIONAL_DATA_URL)
         if nat_yaml.ok and nat_yaml.text:
-            nat_dict = yaml.load(nat_yaml.text)
+            nat_dict = yaml.safe_load(nat_yaml.text)
     except:
         return nat_dict
     else:
