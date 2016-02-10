@@ -6,13 +6,17 @@ from subprocess import call
 import csv
 
 from django.core.management.base import BaseCommand, CommandError
-from disclosures.models import *
-from disclosures.scripts import ipeds, prep_ipeds_csv
+from paying_for_college.models import *
+# from paying_for_college.disclosures.scripts import ipeds, prep_ipeds_csv
 from django.conf import settings
 
 
-DUMP = 'dumpdata --indent 4 disclosures > disclosures/fixtures/colleges.json'
-DATA_ROOT = "%s/data/ipeds" % settings.PROJECT_ROOT
+DUMP = ['python',
+        'manage.py',
+        'dumpdata',
+        '--indent',
+        '4',
+        'paying_for_college']
 
 
 class Command(BaseCommand):
@@ -21,12 +25,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('dumping backup fixture before starting ...')
-        call('python manage.py %s' % DUMP, shell=True)
-        print('dump finished; now downloading IPEDS data')
-        ipeds.download_tuition(DATA_ROOT)
-        print('download finished; now prepping csv')
-        csvfile = prep_ipeds_csv()
-        return "prepped %s" % csvfile
+        with open('paying_for_college/fixtures/colleges_backup.json', 'w') as f:
+            call(DUMP, stdout=f)
+        # print('dump finished; now downloading IPEDS data')
+        # ipeds.download_tuition(DATA_ROOT)
+        # print('download finished; now prepping csv')
+        # csvfile = prep_ipeds_csv()
+        # print("prepped {0}".format(csvfile))
         starter = datetime.datetime.now()
         count = 0
         newcount = 0
