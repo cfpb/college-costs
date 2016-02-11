@@ -203,6 +203,7 @@ class School(models.Model):
             'medianAnnualPay': str(self.median_annual_pay),
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
+            'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
             'offerAA': jdata['OFFERAA'],
             'offerBA': jdata['OFFERBA'],
             'offerGrad': jdata['OFFERGRAD'],
@@ -211,6 +212,7 @@ class School(models.Model):
             'otherOffCampus': jdata['OTHEROFFCAMPUS'],
             'otherOnCampus': jdata['OTHERONCAMPUS'],
             'otherWFamily': jdata['OTHERWFAMILY'],
+            'predominantDegree': self.get_predominant_degree(),
             'repay3yr': "{0}".format(self.repay_3yr),
             'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
@@ -232,6 +234,12 @@ class School(models.Model):
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
+
+    def get_predominant_degree(self):
+        predominant = ''
+        if self.degrees_predominant and self.degrees_predominant in HIGHEST_DEGREES:
+            predominant = HIGHEST_DEGREES[self.degrees_predominant]
+        return predominant
 
     def get_highest_degree(self):
         highest = ''

@@ -25,6 +25,7 @@ class SchoolModelsTest(TestCase):
                                      data_json=data_json,
                                      accreditor=accreditor,
                                      degrees_highest=degrees_highest,
+                                     degrees_predominant=degrees_highest,
                                      city=city,
                                      state=state,
                                      ope6_id=ope6,

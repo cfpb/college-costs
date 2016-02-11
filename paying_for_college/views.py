@@ -71,6 +71,8 @@ def get_region(school):
 def get_program_length(program, school):
     if program and program.level:
         LEVEL = program.level
+    elif school and school.degrees_predominant:
+        LEVEL = school.degrees_predominant
     elif school and school.degrees_highest:
         LEVEL = school.degrees_highest
     else:
