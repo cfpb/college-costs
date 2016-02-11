@@ -2,11 +2,12 @@
 
 var stringToNum = require( '../utils/handle-string-input' );
 var queryHandler = require( '../utils/query-handler' );
+var getSchoolValues = require( '../dispatchers/get-school-values' );
 
 var getViewValues = {
 
   init: function( apiValues ) {
-    return $.extend( this.inputs(), this.url(), apiValues );
+    return $.extend( this.inputs(), this.url(), this.school(), apiValues );
   },
 
   getPrivateLoans: function( values ) {
@@ -53,6 +54,11 @@ var getViewValues = {
       urlValues = queryHandler( location.search );
     }
     return urlValues;
+  },
+
+  school: function() {
+    var schoolValues;
+    return getSchoolValues.init();
   }
 
 };

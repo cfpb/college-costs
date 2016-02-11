@@ -10,6 +10,7 @@ var getSchoolValues = {
     values.medianDebt = this.getMedianDebt();
     values.defaultRate = this.getDefaultRate();
     values.medianSalary = this.getMedianSalary();
+    values.jobRate = Number( window.programData.jobRate );
 
     return values;
   },
@@ -24,18 +25,21 @@ var getSchoolValues = {
     if ( window.programData.completionRate === 'None' ) {
       schoolValues.gradRate = window.schoolData.gradRate;
     } else {
-      schoolValues.gradRate = window.programData.completionRate || window.schoolData.gradRate;
+      schoolValues.gradRate = window.programData.completionRate ||
+      window.schoolData.gradRate;
     }
 
     return schoolValues;
   },
 
   getMedianDebt: function() {
-    return window.programData.medianStudentLoanCompleters || window.schoolData.medianMonthlyDebt;
+    return window.programData.medianStudentLoanCompleters ||
+    window.schoolData.medianMonthlyDebt;
   },
 
   getDefaultRate: function() {
-    return window.programData.defaultRate / 100 || window.schoolData.defaultRate;
+    return window.programData.defaultRate / 100 ||
+    window.schoolData.defaultRate;
   },
 
   getMedianSalary: function() {
