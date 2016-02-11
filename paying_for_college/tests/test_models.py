@@ -46,7 +46,7 @@ class SchoolModelsTest(TestCase):
     def create_program(self, school):
         return Program.objects.create(institution=school,
                                       program_name='Hacking',
-                                      level='5')
+                                      level='3')
 
     def create_disclosure(self, school):
         return Disclosure.objects.create(institution=school,
