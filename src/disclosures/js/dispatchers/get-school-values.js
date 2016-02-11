@@ -7,7 +7,7 @@ var getSchoolValues = {
 
     values.programLength = this.getProgramLength();
     values = this.getGradRate( values );
-    values.medianDebt = this.getMedianDebt();
+    values.medianSchoolDebt = this.getMedianSchoolDebt();
     values.defaultRate = this.getDefaultRate();
     values.medianSalary = this.getMedianSalary();
     values.jobRate = Number( window.programData.jobRate );
@@ -32,9 +32,9 @@ var getSchoolValues = {
     return schoolValues;
   },
 
-  getMedianDebt: function() {
+  getMedianSchoolDebt: function() {
     return window.programData.medianStudentLoanCompleters ||
-    window.schoolData.medianMonthlyDebt;
+    window.schoolData.medianTotalDebt;
   },
 
   getDefaultRate: function() {
