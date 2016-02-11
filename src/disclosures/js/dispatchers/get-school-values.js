@@ -6,44 +6,112 @@ var getSchoolValues = {
     var values = {};
 
     values.programLength = this.getProgramLength();
-    values = this.getGradRate( values );
+    values.gradRate = this.getGradRate();
     values.medianSchoolDebt = this.getMedianSchoolDebt();
     values.defaultRate = this.getDefaultRate();
     values.medianSalary = this.getMedianSalary();
-    values.jobRate = Number( window.programData.jobRate );
+    values.jobRate = this.getJobRate();
 
     return values;
   },
 
   getProgramLength: function() {
-    // Rounds up to the nearest number of years.
-    // Might need to change later, to address 18 month or 30 month programs.
-    return Math.ceil( window.programData.programLength / 12 ) || '';
-  },
+    var programLength;
 
-  getGradRate: function( schoolValues ) {
-    if ( window.programData.completionRate === 'None' ) {
-      schoolValues.gradRate = window.schoolData.gradRate;
+    if ( window.hasOwnProperty( 'programData' ) ) {
+      // Rounds up to the nearest number of years.
+      // Might need to change later, to address 18 month or 30 month programs.
+      programLength = Math.ceil( window.programData.programLength / 12
+        ) || null;
     } else {
-      schoolValues.gradRate = window.programData.completionRate ||
-      window.schoolData.gradRate;
+      programLength = null;
     }
 
-    return schoolValues;
+    return programLength;
+  },
+
+  getJobRate: function() {
+    var jobRate;
+
+    if ( window.hasOwnProperty( 'programData' ) ) {
+      // Rounds up to the nearest number of years.
+      // Might need to change later, to address 18 month or 30 month programs.
+      jobRate = Number( window.programData.jobRate ) || '';
+    } else {
+      jobRate = '';
+    }
+
+    return jobRate;
+  },
+
+  getGradRate: function() {
+    var gradRate = '';
+    var schoolAndProgramData = window.hasOwnProperty( 'programData' ) &&
+      window.hasOwnProperty( 'schoolData' );
+    var schoolNotProgramData = !window.hasOwnProperty( 'programData' ) &&
+      window.hasOwnProperty( 'schoolData' );
+
+    if ( schoolAndProgramData ) {
+      if ( window.programData.completionRate === 'None' ) {
+        gradRate = window.schoolData.gradRate;
+      } else {
+        gradRate = window.programData.completionRate ||
+        window.schoolData.gradRate;
+      }
+    }
+    if ( schoolNotProgramData ) {
+      gradRate = window.schoolData.gradRate;
+    }
+
+    return gradRate;
   },
 
   getMedianSchoolDebt: function() {
-    return window.programData.medianStudentLoanCompleters ||
-    window.schoolData.medianTotalDebt;
+    var medianSchoolDebt;
+
+    if ( window.hasOwnProperty( 'programData' ) &&
+      window.hasOwnProperty( 'schoolData' ) ) {
+      medianSchoolDebt = window.programData.medianStudentLoanCompleters ||
+        window.schoolData.medianTotalDebt;
+    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+      medianSchoolDebt = window.schoolData.medianTotalDebt;
+    } else {
+      medianSchoolDebt = '';
+    }
+
+    return medianSchoolDebt;
   },
 
   getDefaultRate: function() {
-    return window.programData.defaultRate / 100 ||
-    window.schoolData.defaultRate;
+    var defaultRate;
+
+    if ( window.hasOwnProperty( 'programData' ) &&
+      window.hasOwnProperty( 'schoolData' ) ) {
+      defaultRate = window.programData.defaultRate / 100 ||
+        window.schoolData.defaultRate;
+    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+      defaultRate = window.schoolData.defaultRate;
+    } else {
+      defaultRate = '';
+    }
+
+    return defaultRate;
   },
 
   getMedianSalary: function() {
-    return window.programData.salary || window.schoolData.medianAnnualPay;
+    var medianSalary;
+
+    if ( window.hasOwnProperty( 'programData' ) &&
+      window.hasOwnProperty( 'schoolData' ) ) {
+      medianSalary = window.programData.salary ||
+        window.schoolData.medianAnnualPay;
+    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+      medianSalary = window.schoolData.medianAnnualPay;
+    } else {
+      medianSalary = '';
+    }
+
+    return medianSalary;
   }
 
 };
