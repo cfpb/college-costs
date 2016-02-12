@@ -10,7 +10,8 @@ from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.views import Feedback, EmailLink, school_search_api
 from paying_for_college.views import SchoolRepresentation, get_region
-from paying_for_college.models import School
+from paying_for_college.views import get_program_length
+from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
 
 client = Client()
@@ -39,6 +40,19 @@ class TestViews(django.test.TestCase):
     feedback_post_data = {'csrfmiddlewaretoken': 'abc',
                           'message': 'test'}
     # '0InrCI5HGbiBEJ1esg6IBi3ax42fwPnL'
+
+    def test_get_program_length(self):
+        school = School(school_id='123456', degrees_highest='2')
+        program = Program(institution=school, level='2')
+        test1 = get_program_length(program=program, school=school)
+        self.assertTrue(test1 == 2)
+        test2 = get_program_length(program='', school=school)
+        self.assertTrue(test2 == 2)
+        test3 = get_program_length(program='', school='')
+        self.assertTrue(test3 is None)
+        program.level = '3'
+        test4 = get_program_length(program=program, school='')
+        self.assertTrue(test4 == 4)
 
     def test_get_region(self):
         school = School(school_id='123456', state='NE')

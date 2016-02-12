@@ -68,6 +68,23 @@ def get_region(school):
     return ''
 
 
+def get_program_length(program, school):
+    if program and program.level:
+        LEVEL = program.level
+    elif school and school.degrees_predominant:
+        LEVEL = school.degrees_predominant
+    elif school and school.degrees_highest:
+        LEVEL = school.degrees_highest
+    else:
+        return None
+    if LEVEL in ['0', '1', '2']:
+            return 2
+    elif LEVEL in ['3', '4']:
+        return 4
+    else:
+        return None
+
+
 class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
@@ -99,7 +116,7 @@ class OfferView(TemplateView):  # TODO log errors
                 if programs:
                     program = programs[0]
                     program_data = program.as_json()
-            national_stats = nat_stats.get_prepped_stats()
+            national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
             BLS_stats = nat_stats.get_bls_stats()
             if BLS_stats:
                 categories = BLS_stats.keys()
