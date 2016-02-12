@@ -10,7 +10,7 @@ from string import Template
 import requests
 from django.core.mail import send_mail
 
-HIGHEST_DEGREES = {  # highest-awarded values from Ed API
+HIGHEST_DEGREES = {  # highest-awarded values from Ed API and our CSV spec
     '0': "Non-degree-granting",
     '1': 'Certificate degree',
     '2': "Associate degree",
@@ -31,7 +31,6 @@ LEVELS = {  # Dept. of Ed classification of post-secondary degree levels
     '18': "Doctor's degree-professional practice",
     '19': "Doctor's degree-other"
 }
-
 
 NOTIFICATION_TEMPLATE = Template("""Disclosure notification for offer ID $oid\n\
     timestamp: $time\n\
@@ -198,11 +197,13 @@ class School(models.Model):
             'control': self.control,
             'defaultRate': "{0}".format(self.default_rate),
             'gradRate': "{0}".format(self.grad_rate),
+            'highestDegree': self.get_highest_degree(),
             'indicatorGroup': jdata['INDICATORGROUP'],
             'KBYOSS': self.KBYOSS,
             'medianAnnualPay': str(self.median_annual_pay),
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
+            'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
             'offerAA': jdata['OFFERAA'],
             'offerBA': jdata['OFFERBA'],
             'offerGrad': jdata['OFFERGRAD'],
@@ -211,6 +212,7 @@ class School(models.Model):
             'otherOffCampus': jdata['OTHEROFFCAMPUS'],
             'otherOnCampus': jdata['OTHERONCAMPUS'],
             'otherWFamily': jdata['OTHERWFAMILY'],
+            'predominantDegree': self.get_predominant_degree(),
             'repay3yr': "{0}".format(self.repay_3yr),
             'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
@@ -232,6 +234,12 @@ class School(models.Model):
 
     def __unicode__(self):
         return self.primary_alias + u" (%s)" % self.school_id
+
+    def get_predominant_degree(self):
+        predominant = ''
+        if self.degrees_predominant and self.degrees_predominant in HIGHEST_DEGREES:
+            predominant = HIGHEST_DEGREES[self.degrees_predominant]
+        return predominant
 
     def get_highest_degree(self):
         highest = ''
@@ -376,8 +384,8 @@ class Program(models.Model):
 
     def get_level(self):
         level = ''
-        if self.level and self.level in LEVELS:
-            level = LEVELS[self.level]
+        if self.level and str(self.level) in HIGHEST_DEGREES:
+            level = HIGHEST_DEGREES[str(self.level)]
         return level
 
     def as_json(self):

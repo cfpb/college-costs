@@ -14,6 +14,8 @@ FIXTURES_DIR = Path(__file__).ancestor(3)
 NAT_DATA_FILE = '{0}/fixtures/national_stats.json'.format(FIXTURES_DIR)
 BACKUP_FILE = '{0}/fixtures/national_stats_backup.json'.format(FIXTURES_DIR)
 BLS_FILE = '{0}/fixtures/bls_data.json'.format(FIXTURES_DIR)
+LENGTH_MAP = {'earnings': {2: 'median_earnings_l4', 4: 'median_earnings_4'},
+              'completion': {2: 'completion_rate_l4', 4: 'completion_rate_4'}}
 
 
 def get_bls_stats():
@@ -63,7 +65,7 @@ def get_national_stats(update=False):
         return json.loads(f.read())
 
 
-def get_prepped_stats():
+def get_prepped_stats(program_length=None):
     """deliver only the national stats we need for worksheets"""
     full_data = get_national_stats()
     try:
@@ -79,4 +81,7 @@ def get_prepped_stats():
         'retentionRateMedian': full_data['retention_rate']['median'],
         'netPriceMedian': full_data['net_price']['median']
     }
+    if program_length:
+        national_stats_for_page['completionRateMedian'] = full_data[LENGTH_MAP['completion'][program_length]]['median']
+        national_stats_for_page['earningsMedian'] = full_data[LENGTH_MAP['earnings'][program_length]]['median']
     return national_stats_for_page
