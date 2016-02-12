@@ -17,34 +17,49 @@ var metricView = {
           schoolAverage = parseFloat( schoolValues[metricKey] ),
           schoolAverageFormatted = metricView.formatValue( graphFormat, schoolAverage ),
           nationalAverage = parseFloat( nationalValues[nationalKey] ),
-          nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage );
+          nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
+          $schoolPoint = $graph.find( '.bar-graph_point__you' ),
+          $nationalPoint = $graph.find( '.bar-graph_point__average' );
       metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
-      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage );
+      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
+      metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
     } );
   },
 
-  calculateBottoms: function( $graph, graphHeight, schoolValue, nationalValue, $schoolPoint, $nationalPoint ) {
+  calculateBottoms: function( $graph, graphHeight, schoolValue, nationalValue ) {
     var minValue = $graph.attr( 'data-graph-min' ),
         maxValue = $graph.attr( 'data-graph-max' ),
         bottoms = {},
         // Lines fall off the bottom of the graph if they sit right at the base
-        bottomOffset = 20,
-        schoolPointHeight = $schoolPoint.find( '.bar-graph_label' ).height(),
-        nationalPointHeight = $nationalPoint.find( '.bar-graph_label' ).height();
+        bottomOffset = 20;
     bottoms.school = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( schoolValue - minValue ) + bottomOffset;
     bottoms.national = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( nationalValue - minValue ) + bottomOffset;
-    // If the national point overlaps the school point, move the higher point up
-    // out of the way. The national point is never so high that moving the
-    // school point above it will push the school point off the graph, so no
-    // need to worry about that case.
-    if ( bottoms.national <= bottoms.school + schoolPointHeight && bottoms.national + nationalPointHeight >= bottoms.school ) {
-      if ( bottoms.school > bottoms.national ) {
-        bottoms.school = bottoms.national + nationalPointHeight;
-      } else {
-        bottoms.national = bottoms.school + schoolPointHeight;
-      }
-    }
     return bottoms;
+  },
+
+  fixOverlap: function( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint ) {
+    var schoolPointHeight = $schoolPoint.find( '.bar-graph_label' ).height(),
+        schoolPointTop = $schoolPoint.position().top,
+        nationalPointHeight = $nationalPoint.find( '.bar-graph_label' ).height(),
+        nationalPointTop = $nationalPoint.position().top,
+        $higherPoint = schoolPointTop > nationalPointTop ? $nationalPoint : $schoolPoint,
+        $higherPointLabels = $higherPoint.find( '.bar-graph_label, .bar-graph_value' ),
+        $lowerPoint = schoolPointTop > nationalPointTop ? $schoolPoint : $nationalPoint,
+        // nationalPointHeight is the smaller and gives just the right offset
+        offset = nationalPointHeight - Math.abs( schoolPointTop - nationalPointTop );
+    // If the values are equal, handle the display with CSS only
+    if ( schoolAverageFormatted === nationalAverageFormatted ) {
+      $graph.addClass( 'bar-graph__equal' );
+      return;
+    }
+    // If the points partially overlap, move the higher point's labels up
+    if ( nationalPointTop <= schoolPointTop + schoolPointHeight && nationalPointTop + nationalPointHeight >= schoolPointTop ) {
+      $higherPointLabels.css( {
+        'padding-bottom': offset,
+        'top': -offset
+      } );
+      $lowerPoint.css( 'z-index', 100 );
+    }
   },
 
   formatValue: function( valueType, rawValue ) {
@@ -63,16 +78,11 @@ var metricView = {
         $nationalPointNumber = $graph.find( '.bar-graph_point__average .bar-graph_number' );
     $schoolPointNumber.text( schoolAverageFormatted );
     $nationalPointNumber.text( nationalAverageFormatted );
-    if ( schoolAverageFormatted === nationalAverageFormatted ) {
-      $graph.addClass( 'bar-graph__equal' );
-    }
   },
 
-  setGraphPositions: function( $graph, schoolAverage, nationalAverage ) {
+  setGraphPositions: function( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint ) {
     var graphHeight = $graph.height(),
-        $schoolPoint = $graph.find( '.bar-graph_point__you' ),
-        $nationalPoint = $graph.find( '.bar-graph_point__average' ),
-        bottoms = this.calculateBottoms( $graph, graphHeight, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
+        bottoms = this.calculateBottoms( $graph, graphHeight, schoolAverage, nationalAverage );
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
     if ( bottoms.school > graphHeight ) {
@@ -87,8 +97,8 @@ var metricView = {
 module.exports = metricView;
 
 /* To do
-  - Handle identical values (i.e. fully overlapping points): hide the national average line and value, add a class to the graph that pushes the school label up
-  - Handle missing data
+  - Handle identical values: hide the national average line, change the alert
+  - Handle missing data: hide the school line, change the alert
   - metricView.setAlert (call right after setGraph in init)
   - Handle no JS?
   - Refactor all graph vars into an object: getGraphVariables?
