@@ -98,7 +98,9 @@ module.exports = metricView;
 
 /* To do
   - Handle identical values: hide the national average line, change the alert
-  - Handle missing data: hide the school line, change the alert
+  - Handle missing school data: hide the school line, change the alert
+  - Handle missing national data? Can that ever happen?
+  - Figure out salary graph scale
   - metricView.setAlert (call right after setGraph in init)
   - Handle no JS?
   - Refactor all graph vars into an object: getGraphVariables?
