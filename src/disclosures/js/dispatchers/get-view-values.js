@@ -6,6 +6,9 @@ var queryHandler = require( '../utils/query-handler' );
 var getViewValues = {
 
   init: function( apiValues ) {
+    for ( var key in apiValues ) {
+      apiValues[key] = Number( apiValues[key] );       
+    }
     return $.extend( this.inputs(), this.url(), apiValues );
   },
 

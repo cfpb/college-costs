@@ -19,15 +19,30 @@ fdescribe( 'The college costs worksheet page', function() {
   // Private Loan Interactions
 
   it( 'should add a private loan entry when the add button is clicked', function() {
+    var count;
     page.confirmVerification();
-    element.all( by.css( '.private-loans .private-loans_loan' ) ).count()
-    .then( function( total ) {
-      page.addPrivateLoanButton.click();
-      element.all( by.css( '.private-loans .private-loans_loan' ) ).count()
-      .then( function( newTotal ) {
-        expect( newTotal ).toBe( total + 1 );
-      } );
-    } );
+    page.addPrivateLoanButton.click();
+    count = element.all( by.css( '.private-loans .private-loans_loan' ) ).count();
+    expect( count ).toBe( 2 );
+  } );
+
+  it( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
+    var count;
+    page.confirmVerification();
+    element.all( by.css( '.private-loans .private-loans_loan'))
+      .last().all( by.css( '.private-loans_remove-btn' ) ).click();
+    count = element.all( by.css( '.private-loans .private-loans_loan' ) ).count();
+    expect( count ).toBe( 0 );
+  } );
+
+  it( 'should add a private loan even after the last private loan is removed', function() {
+    var count;
+    page.confirmVerification();
+    element.all( by.css( '.private-loans .private-loans_loan'))
+      .last().all( by.css( '.private-loans_remove-btn' ) ).click();
+    page.addPrivateLoanButton.click();
+    count = element.all( by.css( '.private-loans .private-loans_loan' ) ).count();
+    expect( count ).toBe( 1 );
   } );
 
 } );
