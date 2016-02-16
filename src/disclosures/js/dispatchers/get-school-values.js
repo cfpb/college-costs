@@ -39,8 +39,6 @@ var getSchoolValues = {
     var jobRate;
 
     if ( window.hasOwnProperty( 'programData' ) ) {
-      // Rounds up to the nearest number of years.
-      // Might need to change later, to address 18 month or 30 month programs.
       jobRate = Number( window.programData.jobRate ) || '';
     } else {
       jobRate = '';
@@ -51,24 +49,26 @@ var getSchoolValues = {
 
   getGradRate: function() {
     var gradRate = '';
-    var schoolAndProgramData = window.hasOwnProperty( 'programData' ) &&
-      window.hasOwnProperty( 'schoolData' );
-    var schoolNotProgramData = !window.hasOwnProperty( 'programData' ) &&
-      window.hasOwnProperty( 'schoolData' );
 
-    if ( schoolAndProgramData ) {
-      if ( window.programData.completionRate === 'None' ) {
-        gradRate = window.schoolData.gradRate;
-      } else {
-        gradRate = window.programData.completionRate ||
-        window.schoolData.gradRate;
-      }
-    }
-    if ( schoolNotProgramData ) {
-      gradRate = window.schoolData.gradRate;
+    if ( window.hasOwnProperty( 'schoolData' ) ) {
+      gradRate = window.schoolData.gradRate || '';
     }
 
     return gradRate;
+  },
+
+  getCompletionRate: function() {
+    var completionRate = '';
+
+    if ( window.hasOwnProperty( 'programData' ) ) {
+      if ( window.programData.completionRate === 'None' ) {
+        completionRate = '';
+      } else {
+        completionRate = window.programData.completionRate || '';
+      }
+    }
+
+    return completionRate;
   },
 
   getMedianSchoolDebt: function() {
