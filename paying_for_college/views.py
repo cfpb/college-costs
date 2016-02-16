@@ -1,6 +1,8 @@
 import os
 import json
 import uuid
+import re
+
 try:
     from collections import OrderedDict
 except:  # pragma: no cover
@@ -60,6 +62,18 @@ REGION_NAMES = {'MW': 'Midwest',
                 'WE': 'West'}
 
 
+def validate_oid(oid):
+    """
+    make sure an oid contains only hex values 0-9 a-f A-F
+    return True if the oid is valid
+    """
+    find_illegal = re.search('[^0-9a-fA-F]+', oid)
+    if find_illegal:
+        return False
+    else:
+        return True
+
+
 def get_region(school):
     """return a school's region based on state"""
     for region in REGION_MAP:
@@ -108,6 +122,9 @@ class OfferView(TemplateView):  # TODO log errors
                 OID = request.GET['oid']
             else:
                 OID = ''
+            if OID and validate_oid(OID) is False:
+                return HttpResponseBadRequest("Offer ID has illegal characters;\
+                    only 0-9 and a-f are allowed.")
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:

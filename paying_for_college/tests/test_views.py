@@ -10,7 +10,7 @@ from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.views import Feedback, EmailLink, school_search_api
 from paying_for_college.views import SchoolRepresentation, get_region
-from paying_for_college.views import get_program_length
+from paying_for_college.views import get_program_length, validate_oid
 from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
 
@@ -23,6 +23,16 @@ def setup_view(view, request, *args, **kwargs):
     view.args = args
     view.kwargs = kwargs
     return view
+
+
+class TestOidValidator(unittest.TestCase):
+    """check the oid validator"""
+    good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
+    bad_oid = '9e0<script>console.log("hi")</script>5d0'
+
+    def test_validate_oid(self):
+        self.assertFalse(validate_oid(self.bad_oid))
+        self.assertTrue(validate_oid(self.good_oid))
 
 
 class TestViews(django.test.TestCase):
@@ -171,6 +181,7 @@ class OfferTest(django.test.TestCase):
         puerto_rico = '?iped=243197&pid=981&oid='
         missing_oid_field = '?iped=408039&pid=981'
         missing_school_id = '?iped='
+        bad_oid = '?iped=408039&pid=981&oid=f382<script></script>f997949efa566c616c5'
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
@@ -188,6 +199,10 @@ class OfferTest(django.test.TestCase):
         resp7 = client.get(url+puerto_rico)
         self.assertTrue("nationalFood" in resp7.content)
         self.assertTrue(resp7.status_code == 200)
+        resp8 = client.get(url+bad_oid)
+        print "resp8 content is {0}".format(resp8.content)
+        self.assertTrue("illegal characters" in resp8.content)
+        self.assertTrue(resp8.status_code == 400)
 
 
 class APITests(django.test.TestCase):
