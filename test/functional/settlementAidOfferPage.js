@@ -286,17 +286,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.privateLoanFees.sendKeys(privatefees);
       }
     },
-    privateLoanGracePeriod: {
-      get: function() {
-        return element( by.css( '[data-private-loan] [data-private-loan_key="deferPeriod"]' ) );
-      }
-    },
-    setPrivateLoanGracePeriod: {
-      value: function( privategrace ) {
-        this.privateLoanGracePeriod.clear();
-        return this.privateLoanGracePeriod.sendKeys(privategrace);
-      }
-    },
     addPrivateLoanButton: {
       get: function() {
         return element( by.css( 'a[title="Add another private loan"]' ) );
