@@ -10,6 +10,7 @@ var getSchoolValues = {
     values.programLength = this.getProgramLength();
     values.yearsAttending = numberToWords.toWords( values.programLength );
     values.gradRate = this.getGradRate();
+    values.completionRate = this.getCompletionRate();
     values.medianSchoolDebt = this.getMedianSchoolDebt();
     values.defaultRate = this.getDefaultRate();
     values.medianSalary = this.getMedianSalary();
