@@ -64,6 +64,9 @@ var metricView = {
 
   formatValue: function( valueType, rawValue ) {
     var formattedValue = '';
+    if ( isNaN( rawValue ) ) {
+      return false;
+    }
     if ( valueType === 'decimal-percent' ) {
       formattedValue = Math.round( rawValue * 100 ).toString() + '%';
     }
@@ -76,8 +79,16 @@ var metricView = {
   setGraphValues: function( $graph, schoolAverageFormatted, nationalAverageFormatted ) {
     var $schoolPointNumber = $graph.find( '.bar-graph_point__you .bar-graph_number' ),
         $nationalPointNumber = $graph.find( '.bar-graph_point__average .bar-graph_number' );
-    $schoolPointNumber.text( schoolAverageFormatted );
-    $nationalPointNumber.text( nationalAverageFormatted );
+    if ( schoolAverageFormatted ) {
+      $schoolPointNumber.text( schoolAverageFormatted );
+    } else {
+      $graph.addClass( 'bar-graph__missing-you' );
+    }
+    if ( nationalAverageFormatted ) {
+      $nationalPointNumber.text( nationalAverageFormatted );
+    } else {
+      $graph.addClass( 'bar-graph__missing-average' );
+    }
   },
 
   setGraphPositions: function( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint ) {
