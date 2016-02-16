@@ -478,10 +478,11 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.totalRepayment.getText() ).toEqual( '30989' );
   } );
 
-  it( 'should update total borrowing when program length is changed', function() {
+  it( 'should update total borrowing and verbiage when program length is changed', function() {
      page.confirmVerification();
      page.setProgramLength( 4 );
      browser.sleep( 1000 );
+     expect( page.futureYearsAttending.getText() ).toEqual( 'four' );
      expect( page.totalProgramDebt.getText() ).toEqual( '58000' );
   });
 
