@@ -389,6 +389,66 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.evaluate' ) );
       }
     },
+    schoolGradRatePoint: {
+      get: function() {
+        return element( by.css( '.metric.graduation-rate .bar-graph_point__you' ) );
+      }
+    },
+    schoolGradRateValue: {
+      get: function() {
+        return element( by.css( '.metric.graduation-rate .bar-graph_point__you .bar-graph_value' ) );
+      }
+    },
+    nationalGradRatePoint: {
+      get: function() {
+        return element( by.css( '.metric.graduation-rate .bar-graph_point__average' ) );
+      }
+    },
+    nationalGradRateValue: {
+      get: function() {
+        return element( by.css( '.metric.graduation-rate .bar-graph_point__average .bar-graph_value' ) );
+      }
+    },
+    schoolSalaryPoint: {
+      get: function() {
+        return element( by.css( '.metric.average-salary .bar-graph_point__you' ) );
+      }
+    },
+    schoolSalaryValue: {
+      get: function() {
+        return element( by.css( '.metric.average-salary .bar-graph_point__you .bar-graph_value' ) );
+      }
+    },
+    nationalSalaryPoint: {
+      get: function() {
+        return element( by.css( '.metric.average-salary .bar-graph_point__average' ) );
+      }
+    },
+    nationalSalaryValue: {
+      get: function() {
+        return element( by.css( '.metric.average-salary .bar-graph_point__average .bar-graph_value' ) );
+      }
+    },
+    schoolDefaultRatePoint: {
+      get: function() {
+        return element( by.css( '.metric.loan-default-rates .bar-graph_point__you' ) );
+      }
+    },
+    schoolDefaultRateValue: {
+      get: function() {
+        return element( by.css( '.metric.loan-default-rates .bar-graph_point__you .bar-graph_value' ) );
+      }
+    },
+    nationalDefaultRatePoint: {
+      get: function() {
+        return element( by.css( '.metric.loan-default-rates .bar-graph_point__average' ) );
+      }
+    },
+    nationalDefaultRateValue: {
+      get: function() {
+        return element( by.css( '.metric.loan-default-rates .bar-graph_point__average .bar-graph_value' ) );
+      }
+    },
     monthlyRent: {
       get: function() {
         return element( by.id( 'expenses__rent' ) );
