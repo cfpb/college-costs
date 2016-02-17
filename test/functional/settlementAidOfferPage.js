@@ -291,17 +291,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.privateLoanFees.sendKeys(privatefees);
       }
     },
-    privateLoanGracePeriod: {
-      get: function() {
-        return element( by.css( '[data-private-loan] [data-private-loan_key="deferPeriod"]' ) );
-      }
-    },
-    setPrivateLoanGracePeriod: {
-      value: function( privategrace ) {
-        this.privateLoanGracePeriod.clear();
-        return this.privateLoanGracePeriod.sendKeys(privategrace);
-      }
-    },
     addPrivateLoanButton: {
       get: function() {
         return element( by.css( 'button.private-loans_add-btn' ) );
@@ -386,6 +375,22 @@ settlementAidOfferPage.prototype = Object.create({}, {
     futureTotalDebt: {
       get: function() {
         return element( by.id( 'future_total-debt' ) );
+      }
+    },
+    // Metrics
+    completionRate: {
+      get: function() {
+        return element( by.id( 'option_completion-rate' ) );
+      }
+    },
+    medianSchoolDebt: {
+      get: function() {
+        return element( by.id( 'criteria_median-school-debt' ) );
+      }
+    },
+    jobRate: {
+      get: function() {
+        return element( by.id( 'criteria_job-placement-rate' ) );
       }
     },
     // Step 2: Evaluate your offer

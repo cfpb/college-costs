@@ -2,14 +2,12 @@
 
 var stringToNum = require( '../utils/handle-string-input' );
 var queryHandler = require( '../utils/query-handler' );
+var getSchoolValues = require( '../dispatchers/get-school-values' );
 
 var getViewValues = {
 
   init: function( apiValues ) {
-    for ( var key in apiValues ) {
-      apiValues[key] = Number( apiValues[key] );       
-    }
-    return $.extend( this.inputs(), this.url(), apiValues );
+    return $.extend( this.inputs(), this.url(), getSchoolValues.init(), apiValues );
   },
 
   getPrivateLoans: function( values ) {
