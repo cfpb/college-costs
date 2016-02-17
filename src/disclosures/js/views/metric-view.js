@@ -5,6 +5,9 @@ var formatUSD = require( 'format-usd' );
 
 var metricView = {
 
+  /**
+   * Initiates the object
+   */
   init: function() {
     var $graphs = $( '.bar-graph' ),
         schoolValues = schoolModel.values,
@@ -26,6 +29,14 @@ var metricView = {
     } );
   },
 
+  /**
+   * Calculates the CSS bottom positions of each point on a bar graph
+   * @param {object} $graph jQuery object of the graph containing the points
+   * @param {number} graphHeight Height of the graph
+   * @param {number} schoolValue Value reported by the school
+   * @param {number} nationalValue Average national value
+   * @returns {object} Object with CSS bottom positions for each point
+   */
   calculateBottoms: function( $graph, graphHeight, schoolValue, nationalValue ) {
     var minValue = $graph.attr( 'data-graph-min' ),
         maxValue = $graph.attr( 'data-graph-max' ),
@@ -37,6 +48,14 @@ var metricView = {
     return bottoms;
   },
 
+  /**
+   * Fixes overlapping points on a bar graph
+   * @param {object} $graph jQuery object of the graph containing the points
+   * @param {string} schoolAverageFormatted Text of the graph's school point
+   * @param {string} nationalAverageFormatted Text of the graph's school point
+   * @param {object} $schoolPoint jQuery object of the graph's school point
+   * @param {object} $nationalPoint jQuery object of the graph's national point
+   */
   fixOverlap: function( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint ) {
     var schoolPointHeight = $schoolPoint.find( '.bar-graph_label' ).height(),
         schoolPointTop = $schoolPoint.position().top,
@@ -62,6 +81,13 @@ var metricView = {
     }
   },
 
+  /**
+   * Formats a raw number for display
+   * @param {string} valueType Type of value to format (percent or currency)
+   * @param {number|string} rawValue Value to format
+   * @returns {boolean|string} False if rawValue is not a number, a formatted
+   * string otherwise
+   */
   formatValue: function( valueType, rawValue ) {
     var formattedValue = '';
     if ( isNaN( rawValue ) ) {
@@ -76,6 +102,12 @@ var metricView = {
     return formattedValue;
   },
 
+  /**
+   * Sets text of each point on a bar graph (or a class if a point is missing)
+   * @param {object} $graph jQuery object of the graph containing the points
+   * @param {string} schoolAverageFormatted Text of the graph's school point
+   * @param {string} nationalAverageFormatted Text of the graph's school point
+   */
   setGraphValues: function( $graph, schoolAverageFormatted, nationalAverageFormatted ) {
     var $schoolPointNumber = $graph.find( '.bar-graph_point__you .bar-graph_number' ),
         $nationalPointNumber = $graph.find( '.bar-graph_point__average .bar-graph_number' );
@@ -91,6 +123,14 @@ var metricView = {
     }
   },
 
+  /**
+   * Sets the position of each point on a bar graph
+   * @param {object} $graph jQuery object of the graph containing the points
+   * @param {number} schoolAverage Value reported by the school
+   * @param {number} nationalAverage Average national value
+   * @param {object} $schoolPoint jQuery object of the graph's school point
+   * @param {object} $nationalPoint jQuery object of the graph's national point
+   */
   setGraphPositions: function( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint ) {
     var graphHeight = $graph.height(),
         bottoms = this.calculateBottoms( $graph, graphHeight, schoolAverage, nationalAverage );
@@ -106,14 +146,3 @@ var metricView = {
 };
 
 module.exports = metricView;
-
-/* To do
-  - Handle identical values: hide the national average line, change the alert
-  - Handle missing school data: hide the school line, change the alert
-  - Handle missing national data? Can that ever happen?
-  - Figure out salary graph scale
-  - metricView.setAlert (call right after setGraph in init)
-  - Handle no JS?
-  - Refactor all graph vars into an object: getGraphVariables?
-  - iped=239169 has crazy high salary and no grad rate!
-*/
