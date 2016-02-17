@@ -12,40 +12,46 @@ var metricView = {
     var $graphs = $( '.bar-graph' ),
         schoolValues = schoolModel.values,
         nationalValues = window.nationalData || {};
-    $graphs.each( function() {
-      var $graph = $( this ),
-          metricKey = $graph.attr( 'data-metric' ),
-          nationalKey = $graph.attr( 'data-national-metric' ),
-          graphFormat = $graph.attr( 'data-incoming-format' ),
-          schoolAverage = parseFloat( schoolValues[metricKey] ),
-          schoolAverageFormatted = metricView.formatValue( graphFormat, schoolAverage ),
-          nationalAverage = parseFloat( nationalValues[nationalKey] ),
-          nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
-          $schoolPoint = $graph.find( '.bar-graph_point__you' ),
-          $nationalPoint = $graph.find( '.bar-graph_point__average' );
-      metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
-      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
-      metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
-    } );
+    this.initGraphs( $graphs, schoolValues, nationalValues );
   },
 
   /**
    * Calculates the CSS bottom positions of each point on a bar graph
-   * @param {object} $graph jQuery object of the graph containing the points
+   * @param {number} minValue Bottom point of a graph
+   * @param {number} maxValue Top point of a graph
    * @param {number} graphHeight Height of the graph
    * @param {number} schoolValue Value reported by the school
    * @param {number} nationalValue Average national value
    * @returns {object} Object with CSS bottom positions for each point
    */
-  calculateBottoms: function( $graph, graphHeight, schoolValue, nationalValue ) {
-    var minValue = $graph.attr( 'data-graph-min' ),
-        maxValue = $graph.attr( 'data-graph-max' ),
-        bottoms = {},
+  calculateBottoms: function( minValue, maxValue, graphHeight, schoolValue, nationalValue ) {
+    var bottoms = {},
         // Lines fall off the bottom of the graph if they sit right at the base
         bottomOffset = 20;
     bottoms.school = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( schoolValue - minValue ) + bottomOffset;
     bottoms.national = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( nationalValue - minValue ) + bottomOffset;
     return bottoms;
+  },
+
+  /**
+   * Formats a raw number for display
+   * @param {string} valueType Type of value to format (percent or currency)
+   * @param {number|string} rawValue Value to format
+   * @returns {boolean|string} False if rawValue is not a number, a formatted
+   * string otherwise
+   */
+  formatValue: function( valueType, rawValue ) {
+    var formattedValue = rawValue;
+    if ( isNaN( rawValue ) ) {
+      return false;
+    }
+    if ( valueType === 'decimal-percent' ) {
+      formattedValue = Math.round( rawValue * 100 ).toString() + '%';
+    }
+    if ( valueType === 'currency' ) {
+      formattedValue = formatUSD( rawValue, { decimalPlaces: 0 } );
+    }
+    return formattedValue;
   },
 
   /**
@@ -82,27 +88,6 @@ var metricView = {
   },
 
   /**
-   * Formats a raw number for display
-   * @param {string} valueType Type of value to format (percent or currency)
-   * @param {number|string} rawValue Value to format
-   * @returns {boolean|string} False if rawValue is not a number, a formatted
-   * string otherwise
-   */
-  formatValue: function( valueType, rawValue ) {
-    var formattedValue = '';
-    if ( isNaN( rawValue ) ) {
-      return false;
-    }
-    if ( valueType === 'decimal-percent' ) {
-      formattedValue = Math.round( rawValue * 100 ).toString() + '%';
-    }
-    if ( valueType === 'currency' ) {
-      formattedValue = formatUSD( rawValue, { decimalPlaces: 0 } );
-    }
-    return formattedValue;
-  },
-
-  /**
    * Sets text of each point on a bar graph (or a class if a point is missing)
    * @param {object} $graph jQuery object of the graph containing the points
    * @param {string} schoolAverageFormatted Text of the graph's school point
@@ -133,7 +118,9 @@ var metricView = {
    */
   setGraphPositions: function( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint ) {
     var graphHeight = $graph.height(),
-        bottoms = this.calculateBottoms( $graph, graphHeight, schoolAverage, nationalAverage );
+        minValue = $graph.attr( 'data-graph-min' ),
+        maxValue = $graph.attr( 'data-graph-max' ),
+        bottoms = this.calculateBottoms( minValue, maxValue, graphHeight, schoolAverage, nationalAverage );
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
     if ( bottoms.school > graphHeight ) {
@@ -141,6 +128,30 @@ var metricView = {
     }
     $schoolPoint.css( 'bottom', bottoms.school );
     $nationalPoint.css( 'bottom', bottoms.national );
+  },
+
+  /**
+   * Initializes all metrics with bar graphs
+   * @param {object} $graphs jQuery object of all graphs on the page
+   * @param {object} schoolValues Values reported by the school
+   * @param {object} nationalValues National average values
+   */
+  initGraphs: function( $graphs, schoolValues, nationalValues ) {
+    $graphs.each( function() {
+      var $graph = $( this ),
+          metricKey = $graph.attr( 'data-metric' ),
+          nationalKey = $graph.attr( 'data-national-metric' ),
+          graphFormat = $graph.attr( 'data-incoming-format' ),
+          schoolAverage = parseFloat( schoolValues[metricKey] ),
+          schoolAverageFormatted = metricView.formatValue( graphFormat, schoolAverage ),
+          nationalAverage = parseFloat( nationalValues[nationalKey] ),
+          nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
+          $schoolPoint = $graph.find( '.bar-graph_point__you' ),
+          $nationalPoint = $graph.find( '.bar-graph_point__average' );
+      metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
+      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
+      metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
+    } );
   }
 
 };
