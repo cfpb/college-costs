@@ -28,9 +28,9 @@ var getSchoolValues = {
       // Rounds up to the nearest number of years.
       // Might need to change later, to address 18 month or 30 month programs.
       programLength = Math.ceil( window.programData.programLength / 12
-        ) || null;
+        ) || 0;
     } else {
-      programLength = null;
+      programLength = 0;
     }
 
     return programLength;
