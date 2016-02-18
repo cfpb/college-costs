@@ -123,8 +123,9 @@ var metricView = {
         bottoms = this.calculateBottoms( minValue, maxValue, graphHeight, schoolAverage, nationalAverage );
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
-    if ( bottoms.school > graphHeight ) {
+    if ( schoolAverage > maxValue ) {
       bottoms.school = graphHeight;
+      $graph.addClass( 'bar-graph__high-point' );
     }
     $schoolPoint.css( 'bottom', bottoms.school );
     $nationalPoint.css( 'bottom', bottoms.national );
