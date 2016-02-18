@@ -120,6 +120,7 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     console.log( values );
+    window.data = values;
   },
 
   /**
