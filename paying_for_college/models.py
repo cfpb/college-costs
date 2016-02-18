@@ -200,7 +200,7 @@ class School(models.Model):
             'highestDegree': self.get_highest_degree(),
             'indicatorGroup': jdata['INDICATORGROUP'],
             'KBYOSS': self.KBYOSS,
-            'medianAnnualPay': str(self.median_annual_pay),
+            'medianAnnualPay': self.median_annual_pay,
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
             'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
