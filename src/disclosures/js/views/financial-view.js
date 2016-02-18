@@ -5,6 +5,7 @@ var getSchoolValues = require( '../dispatchers/get-school-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
+var numberToWords = require( 'number-to-words' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -236,8 +237,10 @@ var financialView = {
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
       var programLength = Number( $( this ).val() ),
-          values = getModelValues.financial();
+          values = getModelValues.financial(),
+          yearsAttending = numberToWords.toWords( programLength );
       publish.financialData( 'programLength', programLength );
+      publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
     } );
   }

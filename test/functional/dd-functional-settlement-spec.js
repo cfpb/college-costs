@@ -418,8 +418,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.sleep( 600 );
     page.setPrivateLoanFees( 1 );
     browser.sleep( 600 );
-    page.setPrivateLoanGracePeriod( 6 );
-    browser.sleep( 600 );
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
     expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '7000' );
     expect( page.totalDebt.getText() ).toEqual( '15500' );
@@ -458,7 +456,6 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setPrivateLoanAmount( 3000 );
     page.setPrivateLoanInterestRate( 4.55 );
     page.setPrivateLoanFees( 1 );
-    page.setPrivateLoanGracePeriod( 6 );
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
     expect( page.totalPrivateLoansPaymentPlans.getText() ).toEqual( '3000' );
     expect( page.totalDebt.getText() ).toEqual( '12000' );
@@ -481,10 +478,11 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.totalRepayment.getText() ).toEqual( '30989' );
   } );
 
-  it( 'should update total borrowing when program length is changed', function() {
+  it( 'should update total borrowing and verbiage when program length is changed', function() {
      page.confirmVerification();
      page.setProgramLength( 4 );
      browser.sleep( 1000 );
+     expect( page.futureYearsAttending.getText() ).toEqual( 'four' );
      expect( page.totalProgramDebt.getText() ).toEqual( '58000' );
   });
 
@@ -497,7 +495,7 @@ it( 'should properly update when more than one private loans is modified', funct
     // TODO: Add expectation about invisibility of negative remaining cost
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '4526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
-    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
@@ -508,7 +506,7 @@ it( 'should properly update when more than one private loans is modified', funct
     // TODO: Add expectation about invisibility of positive remaining cost
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '-474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
-    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
@@ -520,74 +518,59 @@ it( 'should properly update when more than one private loans is modified', funct
     // TODO: Add expectation about invisibility of positive remaining cost
     // TODO: Add expectation about invisibility of negative remaining cost
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
-    expect( page.futureYearsAttending.getText() ).toEqual( '[XX]' );
+    expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '30989' );
   } );
 
   // *** Step 2: Evaluate your offer ***
-  // TODO: Uncomment when API values are coming in and JS is fully hooked up
+  
+  // TODO: Change monthly left over when student loan payment is added
+  it( 'should properly display estimated monthly expenses', function() {
+    page.confirmVerification();
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '3726' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1809' );
+  } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '1150' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1850' );
+    page.setMonthlyRent( 1151 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '3526' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1609' );
   } );
 
   it( 'should properly update when estimated monthly food is modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    page.setMonthlyFood( 400 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '1550' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1450' );
+    page.setMonthlyFood( 675 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '3826' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1909' );
   } );
 
   it( 'should properly update when estimated monthly transportation is modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    page.setMonthlyFood( 400 );
-    page.setMonthlyTransportation( 500 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2050' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '1350' );
+    page.setMonthlyTransportation( 634 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '3626' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1709' );
   } );
 
   it( 'should properly update when estimated monthly insurance is modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    page.setMonthlyFood( 400 );
-    page.setMonthlyTransportation( 500 );
-    page.setMonthlyInsurance( 200 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2250' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+    page.setMonthlyInsurance( 667 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '4026' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2109' );
   } );
 
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    page.setMonthlyFood( 400 );
-    page.setMonthlyTransportation( 500 );
-    page.setMonthlyInsurance( 200 );
-    page.setMonthlyRetirement( 100 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2350' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+    page.setMonthlyRetirement( 169 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '3426' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1509' );
   } );
 
   it( 'should properly update when estimated monthly other expenses are modified', function() {
     page.confirmVerification();
-    page.setMonthlyRent( 1150 );
-    page.setMonthlyFood( 400 );
-    page.setMonthlyTransportation( 500 );
-    page.setMonthlyInsurance( 200 );
-    page.setMonthlyRetirement( 100 );
-    page.setMonthlyOther( 500 );
-    // expect( page.averageMonthlySalary.getText() ).toEqual( '3200' );
-    expect( page.totalMonthlyExpenses.getText() ).toEqual( '2850' );
-    // expect( page.totalMonthlyLeftOver.getText() ).toEqual( '2100' );
+    page.setMonthlyOther( 630 );
+    expect( page.totalMonthlyExpenses.getText() ).toEqual( '4126' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2209' );
   } );
 
   it( 'should link to the school website in a new tab', function() {

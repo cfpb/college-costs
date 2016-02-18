@@ -50,9 +50,12 @@ var financialModel = {
 
     // monthly expenses
     model.totalMonthlyExpenses =
-      model.monthlyRent + model.monthlyFood +
+      Math.round( model.monthlyRent + model.monthlyFood +
       model.monthlyTransportation + model.monthlyInsurance +
-      model.monthlySavings + model.monthlyOther;
+      model.monthlySavings + model.monthlyOther ).toFixed( 0 );
+
+    model.monthlyLeftover = Math.round( model.monthlySalary -
+      model.totalMonthlyExpenses - model.monthlyLoanPayment ).toFixed( 0 );
   },
 
   /**
