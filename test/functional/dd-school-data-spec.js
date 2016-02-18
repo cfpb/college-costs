@@ -17,6 +17,30 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
      expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
   } );
 
+  it( 'should dynamically display the completion rate if it\'s available', function() {
+     browser.sleep( 600 );
+     page.confirmVerification();
+     expect( page.completionRate.getText() ).toEqual( '0' );
+  } );
+
+  it( 'should dynamically display the median school or program debt if it\'s available', function() {
+     browser.sleep( 600 );
+     page.confirmVerification();
+     expect( page.medianSchoolDebt.getText() ).toEqual( '24500' );
+  } );
+
+  it( 'should dynamically display the expected monthly salary if it\'s available', function() {
+     browser.sleep( 600 );
+     page.confirmVerification();
+     expect( page.averageMonthlySalary.getText() ).toEqual( '1917');
+  } );
+
+  it( 'should dynamically display the job rate if it\'s available', function() {
+     browser.sleep( 600 );
+     page.confirmVerification();
+     expect( page.jobRate.getText() ).toEqual( '18' );
+  } );
+
   it( 'should graph graudation rates', function() {
     page.confirmVerification();
     expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '60.7px' );

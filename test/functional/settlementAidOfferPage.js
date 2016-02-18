@@ -1,7 +1,12 @@
 'use strict';
 
-var settlementAidOfferPage = function() {
-    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55' );
+var settlementAidOfferPage = function( url ) {
+    if ( typeof url !== 'undefined' ) {
+      browser.get( url )
+    }
+    else {
+      browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55' );
+    }
 };
 
 settlementAidOfferPage.prototype = Object.create({}, {
@@ -286,20 +291,9 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.privateLoanFees.sendKeys(privatefees);
       }
     },
-    privateLoanGracePeriod: {
-      get: function() {
-        return element( by.css( '[data-private-loan] [data-private-loan_key="deferPeriod"]' ) );
-      }
-    },
-    setPrivateLoanGracePeriod: {
-      value: function( privategrace ) {
-        this.privateLoanGracePeriod.clear();
-        return this.privateLoanGracePeriod.sendKeys(privategrace);
-      }
-    },
     addPrivateLoanButton: {
       get: function() {
-        return element( by.css( 'a[title="Add another private loan"]' ) );
+        return element( by.css( 'button.private-loans_add-btn' ) );
       }
     },
     paymentPlanAmount: {
@@ -381,6 +375,22 @@ settlementAidOfferPage.prototype = Object.create({}, {
     futureTotalDebt: {
       get: function() {
         return element( by.id( 'future_total-debt' ) );
+      }
+    },
+    // Metrics
+    completionRate: {
+      get: function() {
+        return element( by.id( 'option_completion-rate' ) );
+      }
+    },
+    medianSchoolDebt: {
+      get: function() {
+        return element( by.id( 'criteria_median-school-debt' ) );
+      }
+    },
+    jobRate: {
+      get: function() {
+        return element( by.id( 'criteria_job-placement-rate' ) );
       }
     },
     // Step 2: Evaluate your offer
