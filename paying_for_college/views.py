@@ -27,7 +27,7 @@ from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback, Notification
 from models import Program, ConstantCap, ConstantRate
-from validators import validate_worksheet, validate_uuid4
+from validators import validate_uuid4  # ,validate_worksheet
 from paying_for_college.disclosures.scripts import nat_stats
 
 # from models import BAHRate
@@ -337,29 +337,29 @@ class EmailLink(View):
         return HttpResponse(json.dumps(document),
                             content_type='application/json')
 
+# # SAVING WORKSHEETS HAS BEEN REMOVED FROM PROJECT REQUIREMENTS
 
-class CreateWorksheetView(View):
-    def post(self, request):
-        worksheet_guid = str(uuid.uuid4())
-        worksheet = Worksheet(guid=worksheet_guid,
-                              saved_data=json.dumps({'id': worksheet_guid})
-                              )
-        worksheet.save()
-        response = HttpResponse(worksheet.saved_data, status=201)
-        return response
+# class CreateWorksheetView(View):
+#     def post(self, request):
+#         worksheet_guid = str(uuid.uuid4())
+#         worksheet = Worksheet(guid=worksheet_guid,
+#                               saved_data=json.dumps({'id': worksheet_guid})
+#                               )
+#         worksheet.save()
+#         response = HttpResponse(worksheet.saved_data, status=201)
+#         return response
 
 
-class DataStorageView(View):
-    def post(self, request, guid):
-        if validate_uuid4(guid) == None:  # we have a valid uuid
-            worksheet = Worksheet.objects.get(guid=guid)
-        if worksheet and request.body:
-            validated_json = validate_worksheet(request.body)
-            if validated_json:
-                worksheet.saved_data = validated_json
-                worksheet.save()
-
-        return HttpResponse(worksheet.saved_data)
+# class DataStorageView(View):
+#     def post(self, request, guid):
+#         if validate_uuid4(guid) == None:  # we have a valid uuid
+#             worksheet = Worksheet.objects.get(guid=guid)
+#         if worksheet and request.body:
+#             validated_json = validate_worksheet(request.body)
+#             if validated_json:
+#                 worksheet.saved_data = validated_json
+#                 worksheet.save()
+#         return HttpResponse(worksheet.saved_data)
 
 
 # def bah_lookup_api(request):

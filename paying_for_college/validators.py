@@ -189,31 +189,31 @@ def validate_uuid4(value):
             raise ValidationError('%s is not a valid uuid4' % value)
 
 
-def validate_worksheet(worksheet_json):
-    """
-    check worksheet data to accept only whitelisted keys,
-    enforce data types and clean strings.
-    """
-    try:
-        data = json.loads(worksheet_json)
-        for schoolkey in data:
-            school = data[schoolkey]
-            for key in school.keys():
-                if key not in WHITELIST_KEYS:
-                    del(school[key])
-            for key in school.keys():
-                if WHITELIST_KEYS[key] == 'integer':
-                    school[key] = clean_integer(school[key])
-                if WHITELIST_KEYS[key] == 'string':
-                    school[key] = clean_string(school[key])
-                if WHITELIST_KEYS[key] == 'boolean':
-                    school[key] = clean_boolean(school[key])
-                elif WHITELIST_KEYS[key] == 'yes-no':
-                    school[key] = clean_yes_no(school[key])
-                elif WHITELIST_KEYS[key] == 'float':
-                    school[key] = clean_float(school[key])
-    except ValueError:
-        # raise ValidationError("Worksheet data is invalid json")
-        raise ValidationError("Invalid json")
-    else:
-        return json.dumps(data)
+# def validate_worksheet(worksheet_json):
+#     """
+#     check worksheet data to accept only whitelisted keys,
+#     enforce data types and clean strings.
+#     """
+#     try:
+#         data = json.loads(worksheet_json)
+#         for schoolkey in data:
+#             school = data[schoolkey]
+#             for key in school.keys():
+#                 if key not in WHITELIST_KEYS:
+#                     del(school[key])
+#             for key in school.keys():
+#                 if WHITELIST_KEYS[key] == 'integer':
+#                     school[key] = clean_integer(school[key])
+#                 if WHITELIST_KEYS[key] == 'string':
+#                     school[key] = clean_string(school[key])
+#                 if WHITELIST_KEYS[key] == 'boolean':
+#                     school[key] = clean_boolean(school[key])
+#                 elif WHITELIST_KEYS[key] == 'yes-no':
+#                     school[key] = clean_yes_no(school[key])
+#                 elif WHITELIST_KEYS[key] == 'float':
+#                     school[key] = clean_float(school[key])
+#     except ValueError:
+#         # raise ValidationError("Worksheet data is invalid json")
+#         raise ValidationError("Invalid json")
+#     else:
+#         return json.dumps(data)
