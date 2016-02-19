@@ -131,6 +131,28 @@ var metricView = {
     $nationalPoint.css( 'bottom', bottoms.national );
   },
 
+  getNotificationClasses: function( schoolValue, nationalValue, sameMin, sameMax, betterDirection ) {
+    var notificationClasses = '';
+    if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
+      notificationClasses = 'metric_notification__no-data cf-notification cf-notification__warning';
+    } else if ( isNaN( schoolValue ) ) {
+      notificationClasses = 'metric_notification__no-you cf-notification cf-notification__warning';
+    } else if ( isNaN( nationalValue ) ) {
+      notificationClasses = 'metric_notification__no-average cf-notification cf-notification__warning';
+    } else if ( schoolValue >= sameMin && schoolValue <= sameMax ) {
+      notificationClasses = 'metric_notification__same';
+    } else if ( schoolValue < sameMin && betterDirection === 'lower' || schoolValue > sameMax && betterDirection === 'higher' ) {
+      notificationClasses = 'metric_notification__better';
+    } else if ( schoolValue < sameMin && betterDirection === 'higher' || schoolValue > sameMax && betterDirection === 'lower' ) {
+      notificationClasses = 'metric_notification__worse cf-notification cf-notification__error';
+    }
+    return notificationClasses;
+  },
+
+  setNotificationClasses: function( $notification, notificationClasses ) {
+    $notification.addClass( notificationClasses );
+  },
+
   /**
    * Initializes all metrics with bar graphs
    * @param {object} $graphs jQuery object of all graphs on the page
@@ -148,10 +170,16 @@ var metricView = {
           nationalAverage = parseFloat( nationalValues[nationalKey] ),
           nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
           $schoolPoint = $graph.find( '.bar-graph_point__you' ),
-          $nationalPoint = $graph.find( '.bar-graph_point__average' );
+          $nationalPoint = $graph.find( '.bar-graph_point__average' ),
+          $notification = $graph.siblings( '.metric_notification' ),
+          sameMin = nationalAverage - nationalAverage * 0.15,
+          sameMax = nationalAverage + nationalAverage * 0.15,
+          betterDirection = $notification.attr( 'data-better-direction' ),
+          notificationClasses = metricView.getNotificationClasses( schoolAverage, nationalAverage, sameMin, sameMax, betterDirection );
       metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
       metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
       metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
+      metricView.setNotificationClasses( $notification, notificationClasses );
     } );
   }
 
