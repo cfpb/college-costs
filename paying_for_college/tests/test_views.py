@@ -10,7 +10,7 @@ from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.views import Feedback, EmailLink, school_search_api
 from paying_for_college.views import SchoolRepresentation, get_region
-from paying_for_college.views import get_program_length
+from paying_for_college.views import get_program_length, validate_oid
 from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
 
@@ -23,6 +23,16 @@ def setup_view(view, request, *args, **kwargs):
     view.args = args
     view.kwargs = kwargs
     return view
+
+
+class TestOidValidator(unittest.TestCase):
+    """check the oid validator"""
+    good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
+    bad_oid = '9e0<script>console.log("hi")</script>5d0'
+
+    def test_validate_oid(self):
+        self.assertFalse(validate_oid(self.bad_oid))
+        self.assertTrue(validate_oid(self.good_oid))
 
 
 class TestViews(django.test.TestCase):
@@ -171,6 +181,7 @@ class OfferTest(django.test.TestCase):
         puerto_rico = '?iped=243197&pid=981&oid='
         missing_oid_field = '?iped=408039&pid=981'
         missing_school_id = '?iped='
+        bad_oid = '?iped=408039&pid=981&oid=f382<script></script>f997949efa566c616c5'
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
@@ -188,6 +199,10 @@ class OfferTest(django.test.TestCase):
         resp7 = client.get(url+puerto_rico)
         self.assertTrue("nationalFood" in resp7.content)
         self.assertTrue(resp7.status_code == 200)
+        resp8 = client.get(url+bad_oid)
+        print "resp8 content is {0}".format(resp8.content)
+        self.assertTrue("illegal characters" in resp8.content)
+        self.assertTrue(resp8.status_code == 400)
 
 
 class APITests(django.test.TestCase):
@@ -225,45 +240,45 @@ class APITests(django.test.TestCase):
         self.assertTrue('books' in resp.content)
 
 
-# NO-DATA WORKSHEET POST
-# /paying-for-college/understanding-financial-aid-offers/api/worksheet/
-class CreateWorksheetTest(django.test.TestCase):
+# # NO-DATA WORKSHEET POST
+# # /paying-for-college/understanding-financial-aid-offers/api/worksheet/
+# class CreateWorksheetTest(django.test.TestCase):
 
-    fixtures = ['test_fixture.json']
-    mock_worksheet_data = {'1': {'netpriceok': '12964',
-                                 'oncampusavail': 'Yes',
-                                 'badkey': 'badinfo',
-                                 'tuitiongradoss': '',
-                                 'control': 'Public',
-                                 'offerba': 'Yes',
-                                 'books': 900,
-                                 'instate': False,
-                                 'retentrate': 0.12,
-                                 'online': 'No',
-                                 'school_id': '155317',
-                                 'state': 'KS',
-                                 'school': 'University of Kansas'}}
+#     fixtures = ['test_fixture.json']
+#     mock_worksheet_data = {'1': {'netpriceok': '12964',
+#                                  'oncampusavail': 'Yes',
+#                                  'badkey': 'badinfo',
+#                                  'tuitiongradoss': '',
+#                                  'control': 'Public',
+#                                  'offerba': 'Yes',
+#                                  'books': 900,
+#                                  'instate': False,
+#                                  'retentrate': 0.12,
+#                                  'online': 'No',
+#                                  'school_id': '155317',
+#                                  'state': 'KS',
+#                                  'school': 'University of Kansas'}}
 
-    def test_create_worksheet(self):
-        """generating a worksheet ID via api."""
+#     def test_create_worksheet(self):
+#         """generating a worksheet ID via api."""
 
-        url = reverse('disclosures:create_worksheet')
-        resp = client.post(url)
-        self.assertTrue('id' in resp.content)
-        data = json.loads(resp.content)
-        self.assertTrue(len(data['id']) == 36)
+#         url = reverse('disclosures:create_worksheet')
+#         resp = client.post(url)
+#         self.assertTrue('id' in resp.content)
+#         data = json.loads(resp.content)
+#         self.assertTrue(len(data['id']) == 36)
 
-    # SAVE POST
-    # /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
-    def test_save_worksheet(self):
-        """saving a worksheet via api."""
+#     # SAVE POST
+#     # /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
+#     def test_save_worksheet(self):
+#         """saving a worksheet via api."""
 
-        url = reverse('disclosures:api-worksheet',
-                      args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
-        resp = client.post(url,
-                           data=json.dumps(self.mock_worksheet_data),
-                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
-        self.assertTrue(resp.status_code == 200)
+#         url = reverse('disclosures:api-worksheet',
+#                       args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
+#         resp = client.post(url,
+#                            data=json.dumps(self.mock_worksheet_data),
+#                            content_type="application/x-www-form-urlencoded; charset=UTF-8")
+#         self.assertTrue(resp.status_code == 200)
 
 
 class VerifyViewTest(django.test.TestCase):

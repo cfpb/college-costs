@@ -1,6 +1,8 @@
 import os
 import json
 import uuid
+import re
+
 try:
     from collections import OrderedDict
 except:  # pragma: no cover
@@ -25,7 +27,7 @@ from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback, Notification
 from models import Program, ConstantCap, ConstantRate
-from validators import validate_worksheet, validate_uuid4
+from validators import validate_uuid4  # ,validate_worksheet
 from paying_for_college.disclosures.scripts import nat_stats
 
 # from models import BAHRate
@@ -58,6 +60,18 @@ REGION_NAMES = {'MW': 'Midwest',
                 'NE': "Northeast",
                 'SO': 'South',
                 'WE': 'West'}
+
+
+def validate_oid(oid):
+    """
+    make sure an oid contains only hex values 0-9 a-f A-F
+    return True if the oid is valid
+    """
+    find_illegal = re.search('[^0-9a-fA-F]+', oid)
+    if find_illegal:
+        return False
+    else:
+        return True
 
 
 def get_region(school):
@@ -108,6 +122,9 @@ class OfferView(TemplateView):  # TODO log errors
                 OID = request.GET['oid']
             else:
                 OID = ''
+            if OID and validate_oid(OID) is False:
+                return HttpResponseBadRequest("Offer ID has illegal characters;\
+                    only 0-9 and a-f are allowed.")
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:
@@ -320,29 +337,29 @@ class EmailLink(View):
         return HttpResponse(json.dumps(document),
                             content_type='application/json')
 
+# # SAVING WORKSHEETS HAS BEEN REMOVED FROM PROJECT REQUIREMENTS
 
-class CreateWorksheetView(View):
-    def post(self, request):
-        worksheet_guid = str(uuid.uuid4())
-        worksheet = Worksheet(guid=worksheet_guid,
-                              saved_data=json.dumps({'id': worksheet_guid})
-                              )
-        worksheet.save()
-        response = HttpResponse(worksheet.saved_data, status=201)
-        return response
+# class CreateWorksheetView(View):
+#     def post(self, request):
+#         worksheet_guid = str(uuid.uuid4())
+#         worksheet = Worksheet(guid=worksheet_guid,
+#                               saved_data=json.dumps({'id': worksheet_guid})
+#                               )
+#         worksheet.save()
+#         response = HttpResponse(worksheet.saved_data, status=201)
+#         return response
 
 
-class DataStorageView(View):
-    def post(self, request, guid):
-        if validate_uuid4(guid) == None:  # we have a valid uuid
-            worksheet = Worksheet.objects.get(guid=guid)
-        if worksheet and request.body:
-            validated_json = validate_worksheet(request.body)
-            if validated_json:
-                worksheet.saved_data = validated_json
-                worksheet.save()
-
-        return HttpResponse(worksheet.saved_data)
+# class DataStorageView(View):
+#     def post(self, request, guid):
+#         if validate_uuid4(guid) == None:  # we have a valid uuid
+#             worksheet = Worksheet.objects.get(guid=guid)
+#         if worksheet and request.body:
+#             validated_json = validate_worksheet(request.body)
+#             if validated_json:
+#                 worksheet.saved_data = validated_json
+#                 worksheet.save()
+#         return HttpResponse(worksheet.saved_data)
 
 
 # def bah_lookup_api(request):
