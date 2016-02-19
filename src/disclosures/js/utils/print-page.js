@@ -10,10 +10,10 @@ function printPage() {
 
   if ( isAndroid ) {
     // https://developers.google.com/cloud-print/docs/gadget
-    /* var gadget = new cloudprint.Gadget();
+    var gadget = new cloudprint.Gadget();
     gadget.setPrintDocument( 'url', $( 'title' ).html(), window.location.href,
       'utf-8' );
-    gadget.openPrintDialog(); */
+    gadget.openPrintDialog();
   } else {
     window.print();
   }
