@@ -40,11 +40,11 @@ urlpatterns = [
         SchoolRepresentation.as_view(),
         name='school-json'),
 
-    url(r'^api/worksheet/([1-z0-9-]*).json$',
-        DataStorageView.as_view(),
-        name='api-worksheet'),
+    # url(r'^api/worksheet/([1-z0-9-]*).json$',
+    #     DataStorageView.as_view(),
+    #     name='api-worksheet'),
 
-    url(r'^api/worksheet/$',
-        CreateWorksheetView.as_view(),
-        name='create_worksheet')
+    # url(r'^api/worksheet/$',
+    #     CreateWorksheetView.as_view(),
+    #     name='create_worksheet')
 ]
