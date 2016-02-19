@@ -76,7 +76,11 @@ def get_prepped_stats(program_length=None):
     national_stats_for_page = {
         'loanDefaultRate': default_rate,
         'completionRateMedian': full_data['completion_rate']['median'],
+        'completionRateMedianLow': full_data['completion_rate']['average_range'][0],
+        'completionRateMedianHi': full_data['completion_rate']['average_range'][1],
         'earningsMedian': full_data['median_earnings']['median'],
+        'earningsMedianLow': full_data['median_earnings']['average_range'][0],
+        'earningsMedianHi': full_data['median_earnings']['average_range'][1],
         'repaymentRateMedian': full_data['repayment_rate']['median'],
         'monthlyLoanMedian': full_data['median_monthly_loan']['median'],
         'retentionRateMedian': full_data['retention_rate']['median'],
@@ -84,5 +88,9 @@ def get_prepped_stats(program_length=None):
     }
     if program_length:
         national_stats_for_page['completionRateMedian'] = full_data[LENGTH_MAP['completion'][program_length]]['median']
+        national_stats_for_page['completionRateMedianLow'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][0]
+        national_stats_for_page['completionRateMedianHi'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][1]
         national_stats_for_page['earningsMedian'] = full_data[LENGTH_MAP['earnings'][program_length]]['median']
+        national_stats_for_page['earningsMedianLow'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][0]
+        national_stats_for_page['earningsMedianHi'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][1]
     return national_stats_for_page
