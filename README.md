@@ -5,7 +5,7 @@ Tools to help students make informed financial decisions about college.
 
 ![](compare_hero.png)
 
-- **Status**:  Alpha
+- **Status**:  Beta
 - This project is under construction. Please wear a hardhat.
 
 ### Setup dependencies
