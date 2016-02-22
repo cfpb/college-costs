@@ -1,6 +1,11 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+
+### Changed
+- Use school-level graduation rate if the program-level rate is blank or missing
+
 ## 2.0.0
 ### Added/updated
 - New url for handling querystring offer data
