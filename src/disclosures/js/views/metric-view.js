@@ -20,8 +20,8 @@ var metricView = {
    * @param {number} minValue Bottom point of a graph
    * @param {number} maxValue Top point of a graph
    * @param {number} graphHeight Height of the graph
-   * @param {number} schoolValue Value reported by the school
-   * @param {number} nationalValue Average national value
+   * @param {number|NaN} schoolValue Value reported by the school
+   * @param {number|NaN} nationalValue Average national value
    * @returns {object} Object with CSS bottom positions for each point
    */
   calculateBottoms: function( minValue, maxValue, graphHeight, schoolValue, nationalValue ) {
@@ -36,7 +36,7 @@ var metricView = {
   /**
    * Formats a raw number for display
    * @param {string} valueType Type of value to format (percent or currency)
-   * @param {number|string} rawValue Value to format
+   * @param {number|NaN} rawValue Value to format
    * @returns {boolean|string} False if rawValue is not a number, a formatted
    * string otherwise
    */
@@ -111,8 +111,8 @@ var metricView = {
   /**
    * Sets the position of each point on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {number} schoolAverage Value reported by the school
-   * @param {number} nationalAverage Average national value
+   * @param {number|NaN} schoolAverage Value reported by the school
+   * @param {number|NaN} nationalAverage Average national value
    * @param {object} $schoolPoint jQuery object of the graph's school point
    * @param {object} $nationalPoint jQuery object of the graph's national point
    */
@@ -131,6 +131,18 @@ var metricView = {
     $nationalPoint.css( 'bottom', bottoms.national );
   },
 
+  /**
+   * Classifies school value in relation to the national average
+   * @param {number|NaN} schoolValue Value reported by the school
+   * @param {number|NaN} nationalValue Average national value
+   * @param {number} sameMin Lowest value considered "about the same" as the
+   * national average (from College Scorecard)
+   * @param {number} sameMax Highest value considered "about the same" as the
+   * national average (from College Scorecard)
+   * @param {string} betterDirection 'higher' or 'lower' depending on whether a
+   * school value higher or lower than the national average is more desirable
+   * @returns {string} Classes to add to the notification box
+   */
   getNotificationClasses: function( schoolValue, nationalValue, sameMin, sameMax, betterDirection ) {
     var notificationClasses = '';
     if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
@@ -149,6 +161,11 @@ var metricView = {
     return notificationClasses;
   },
 
+  /**
+   * Adds the correct classes to metric notification boxes
+   * @param {object} $notification jQuery object of the notification box
+   * @param {string} notificationClasses Classes to add to the notification
+   */
   setNotificationClasses: function( $notification, notificationClasses ) {
     $notification.addClass( notificationClasses );
   },
@@ -172,8 +189,8 @@ var metricView = {
           $schoolPoint = $graph.find( '.bar-graph_point__you' ),
           $nationalPoint = $graph.find( '.bar-graph_point__average' ),
           $notification = $graph.siblings( '.metric_notification' ),
-          sameMin = nationalAverage - nationalAverage * 0.15,
-          sameMax = nationalAverage + nationalAverage * 0.15,
+          sameMin = parseFloat( nationalValues[nationalKey + 'Low'] ),
+          sameMax = parseFloat( nationalValues[nationalKey + 'High'] ),
           betterDirection = $notification.attr( 'data-better-direction' ),
           notificationClasses = metricView.getNotificationClasses( schoolAverage, nationalAverage, sameMin, sameMax, betterDirection );
       metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );

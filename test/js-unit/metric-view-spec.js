@@ -142,4 +142,14 @@ describe( 'metric-view', function() {
     expect( notificationClasses ).to.equal( 'metric_notification__worse cf-notification cf-notification__error' );
   });
 
+  it( 'gives the proper notification classes when sameMin and sameMax values are not numbers', function() {
+    var schoolValue = parseFloat( 0.3 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = parseFloat( '' ),
+        sameMax = parseFloat( '' ),
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( '' );
+  });
+
 });
