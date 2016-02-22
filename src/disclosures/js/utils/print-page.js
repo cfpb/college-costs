@@ -1,6 +1,6 @@
 'use strict';
 
-var androidPrint = require( '../libs/google-cloud-print' );
+require( '../libs/google-cloud-print' );
 var ua = navigator.userAgent.toLowerCase(),
     isAndroid = ua.indexOf( 'android' ) > -1;
 
@@ -9,7 +9,7 @@ var ua = navigator.userAgent.toLowerCase(),
  */
 function printAndroidPage() {
   // https://developers.google.com/cloud-print/docs/gadget
-  var gadget = new androidPrint.cloudprint.Gadget();
+  var gadget = new cloudprint.Gadget();
   gadget.setPrintDocument( 'url', $( 'title' ).html(), window.location.href,
     'utf-8' );
   gadget.openPrintDialog();
