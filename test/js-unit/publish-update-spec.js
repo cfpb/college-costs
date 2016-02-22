@@ -27,7 +27,6 @@ describe( 'publish updates to the model', function() {
     };
 
     pub.dropPrivateLoan( 1 );
-    console.log( model.values.privateLoanMulti );
     expect( model.values.privateLoanMulti ).to.eql(
       [
         { 'amount': 1, 'fees': 0, 'deferPeriod': 0, 'rate': 0, 'totalDebt': 4 },
