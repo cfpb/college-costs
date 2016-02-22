@@ -1,6 +1,10 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+- Updated content to be dynamic based on remaining cost
+- Added interaction and animation for answering the question
+
 ## 2.0.0
 ### Added/updated
 - New url for handling querystring offer data
