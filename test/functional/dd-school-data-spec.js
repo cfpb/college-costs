@@ -11,16 +11,19 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   } );
 
   it( 'should automatically populate the program length if it\'s available', function() {
-     browser.sleep( 600 );
-     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
-     page.confirmVerification();
-     expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+    browser.sleep( 600 );
+    expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
+    page.confirmVerification();
+    expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {
-     browser.sleep( 600 );
-     page.confirmVerification();
-     expect( page.completionRate.getText() ).toEqual( '37' );
+    browser.sleep( 600 );
+    page.confirmVerification();
+    browser.sleep( 750 );
+    page.answerBigQuestionNo();
+    browser.sleep( 750 );
+    expect( page.completionRate.getText() ).toEqual( '37' );
   } );
 
   it( 'should dynamically display the median school or program debt if it\'s available', function() {

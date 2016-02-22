@@ -12,12 +12,16 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
 
   it( 'should contain a link to the feedback form', function() {
     page.confirmVerification();
+    page.answerBigQuestionNo();
+    browser.sleep( 750 );
     browser.wait( EC.visibilityOf( page.feedbackLink ), 8000 );
     expect( page.feedbackLink.getAttribute( 'href' ) ).toMatch( /\/paying-for-college2\/understanding-your-financial-aid-offer\/feedback$/ );
   } );
 
   it( 'should open the feedback form in a new tab', function() {
     page.confirmVerification();
+    page.answerBigQuestionNo();
+    browser.sleep( 750 );
     page.followFeedbackLink();
     browser.sleep( 600 );
     browser.getAllWindowHandles()
