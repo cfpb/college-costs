@@ -5,6 +5,7 @@ var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
 var financialView = require( './views/financial-view' );
 var metricView = require( './views/metric-view' );
+var questionView = require( './views/question-view' );
 var linksView = require( './views/links-view' );
 
 require( './utils/nemo' );
@@ -20,6 +21,7 @@ var app = {
       financialView.init();
       // Placeholder to set bar graphs
       metricView.demo();
+      questionView.init();
       linksView.init();
     } );
   }
