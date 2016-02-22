@@ -107,6 +107,23 @@ var financialView = {
   },
 
   /**
+   * Helper function that updates the conditional content in the financial view
+   * that is based on the remaining cost
+   */
+  updateRemainingCostContent: function() {
+    var finalRemainingCost = $( '#summary_remaining-cost-final' ),
+        positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
+        negativeRemainingCost = $( '.offer-part_content-negative-cost' );
+    if ( Number( finalRemainingCost.text() ) > 0 ) {
+      positiveRemainingCost.show();
+      negativeRemainingCost.hide();
+    } else if ( Number( finalRemainingCost.text() ) < 0 ) {
+      positiveRemainingCost.hide();
+      negativeRemainingCost.show();
+    }
+  },
+
+  /**
    * Function that updates the view with new values
    * @param {object} values - financial model values
    */
@@ -119,7 +136,7 @@ var financialView = {
     this.updatePercentages( values, $percents );
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
-    console.log( values );
+    this.updateRemainingCostContent();
   },
 
   /**
