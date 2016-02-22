@@ -23,9 +23,9 @@ var getApiValues = {
     return constantRequest;
   },
 
-  schoolData: function( id ) {
+  schoolData: function( iped ) {
     var url_base = $('main').attr('data-context');
-    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/school/' + id + '.json';
+    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/school/' + iped + '.json';
     var schoolDataRequest = $.ajax({
       url: url,
       dataType: 'json',
@@ -41,9 +41,9 @@ var getApiValues = {
     return schoolDataRequest;
   },
 
-  programData: function( id ) {
+  programData: function( iped, pid ) {
     var url_base = $('main').attr('data-context');
-    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/program/' + id + '/';
+    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/program/' + iped + '-' + pid + '/';
     var programDataRequest = $.ajax({
       url: url,
       dataType: 'json',

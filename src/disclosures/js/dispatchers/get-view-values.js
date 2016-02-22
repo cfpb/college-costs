@@ -6,7 +6,7 @@ var getSchoolValues = require( '../dispatchers/get-school-values' );
 var getViewValues = {
 
   init: function( apiValues ) {
-    return $.extend( this.inputs(), getSchoolValues.init(), apiValues );
+    return $.extend( this.inputs(), apiValues );
   },
 
   getPrivateLoans: function( values ) {
