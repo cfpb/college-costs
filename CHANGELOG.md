@@ -9,6 +9,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updated dispatchers to handle multiple private loans
 - Updated DOM and JS to display totals properly
 - Update content to be dynamic based on API and offer data
+- Added printing ability across devices
 
 ## 1.1.0 - 2015-10-28
 
