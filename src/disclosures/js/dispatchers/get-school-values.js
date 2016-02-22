@@ -54,7 +54,8 @@ var getSchoolValues = {
       gradRate = window.schoolData.gradRate;
     }
     if ( window.hasOwnProperty( 'programData' ) ) {
-      if ( window.programData.completionRate !== 'None' ) {
+      if ( window.programData.completionRate &&
+          window.programData.completionRate !== 'None' ) {
         gradRate = window.programData.completionRate;
       }
     }
