@@ -71,16 +71,22 @@ def get_prepped_stats(program_length=None):
     full_data = get_national_stats()
     try:
         default_rate = float(ConstantRate.objects.get(slug='nationalLoanDefaultRate').value)
+        default_rate_low = float(ConstantRate.objects.get(slug='loanDefaultRateLow').value)
+        default_rate_high = float(ConstantRate.objects.get(slug='loanDefaultRateHigh').value)
     except:
         default_rate = 0
+        default_rate_low = 0
+        default_rate_high = 0
     national_stats_for_page = {
         'loanDefaultRate': default_rate,
+        'loanDefaultRateLow': default_rate_low,
+        'loanDefaultRateHigh': default_rate_high,
         'completionRateMedian': full_data['completion_rate']['median'],
         'completionRateMedianLow': full_data['completion_rate']['average_range'][0],
-        'completionRateMedianHi': full_data['completion_rate']['average_range'][1],
+        'completionRateMedianHigh': full_data['completion_rate']['average_range'][1],
         'earningsMedian': full_data['median_earnings']['median'],
         'earningsMedianLow': full_data['median_earnings']['average_range'][0],
-        'earningsMedianHi': full_data['median_earnings']['average_range'][1],
+        'earningsMedianHigh': full_data['median_earnings']['average_range'][1],
         'repaymentRateMedian': full_data['repayment_rate']['median'],
         'monthlyLoanMedian': full_data['median_monthly_loan']['median'],
         'retentionRateMedian': full_data['retention_rate']['median'],
@@ -89,8 +95,8 @@ def get_prepped_stats(program_length=None):
     if program_length:
         national_stats_for_page['completionRateMedian'] = full_data[LENGTH_MAP['completion'][program_length]]['median']
         national_stats_for_page['completionRateMedianLow'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][0]
-        national_stats_for_page['completionRateMedianHi'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][1]
+        national_stats_for_page['completionRateMedianHigh'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][1]
         national_stats_for_page['earningsMedian'] = full_data[LENGTH_MAP['earnings'][program_length]]['median']
         national_stats_for_page['earningsMedianLow'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][0]
-        national_stats_for_page['earningsMedianHi'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][1]
+        national_stats_for_page['earningsMedianHigh'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][1]
     return national_stats_for_page
