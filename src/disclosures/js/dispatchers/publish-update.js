@@ -39,7 +39,6 @@ var publishUpdate = {
    */
   addPrivateLoan: function() {
     var newLoanObject = { amount: 0,
-                          baseAmount: 0,
                           fees: 0,
                           rate: 0,
                           deferPeriod: 0

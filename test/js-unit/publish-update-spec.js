@@ -20,15 +20,19 @@ describe( 'publish updates to the model', function() {
   it( 'drops private Loans from privateLoanMulti', function() {
     model.values = {
       privateLoanMulti: [
-        { 'loan': 1 },
-        { 'loan': 2 },
-        { 'loan': 3 }
+        { 'amount': 1, 'fees': 0, 'deferPeriod': 0, 'rate': 0 },
+        { 'amount': 2, 'fees': 0, 'deferPeriod': 0, 'rate': 0 },
+        { 'amount': 3, 'fees': 0, 'deferPeriod': 0, 'rate': 0 }
       ]
     };
 
     pub.dropPrivateLoan( 1 );
-    
-    expect( model.values.privateLoanMulti ).to.eql( [ { 'loan': 1 }, { 'loan': 3 } ] );
+    console.log( model.values.privateLoanMulti );
+    expect( model.values.privateLoanMulti ).to.eql(
+      [
+        { 'amount': 1, 'fees': 0, 'deferPeriod': 0, 'rate': 0, 'totalDebt': 4 },
+        { 'amount': 3, 'fees': 0, 'deferPeriod': 0, 'rate': 0, 'totalDebt': 12 }
+      ] );
   });
 
 });
