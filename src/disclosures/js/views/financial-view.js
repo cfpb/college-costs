@@ -136,6 +136,7 @@ var financialView = {
     this.updatePercentages( values, $percents );
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
+    this.updateRemainingCostContent();
   },
 
   /**
