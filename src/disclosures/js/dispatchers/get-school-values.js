@@ -1,136 +1,178 @@
 'use strict';
 
 var numberToWords = require( 'number-to-words' );
+var queryHandler = require( '../utils/query-handler' );
 
 var getSchoolValues = {
 
   init: function( ) {
-    var values = {};
-
-    values.programLength = this.getProgramLength();
-    values.yearsAttending = numberToWords.toWords( values.programLength );
-    values.gradRate = this.getGradRate();
-    values.completionRate = this.getCompletionRate();
-    values.medianSchoolDebt = this.getMedianSchoolDebt();
-    values.defaultRate = this.getDefaultRate();
-    values.medianSalary = this.getMedianSalary();
-    values.monthlySalary = this.setMonthlySalary( values.medianSalary );
+    var values = {},
+        offerValues;
+    // values.programLength = this.getProgramLength();
+    // values.yearsAttending = numberToWords.toWords( values.programLength );
+    // values.gradRate = this.getGradRate();
+    // values.completionRate = this.getCompletionRate();
+    // values.medianSchoolDebt = this.getMedianSchoolDebt();
+    // values.defaultRate = this.getDefaultRate();
+    // values.medianSalary = this.getMedianSalary();
+    // values.monthlySalary = this.setMonthlySalary( values.medianSalary );
     values = this.getBLSExpenses( values );
-    values.jobRate = this.getJobRate();
-
+    // values.jobRate = this.getJobRate();
+    if ( this.checkForOffer() !== false ) {
+      values = $.extend( values, this.getValuesFromURL(), this.getValuesFromWindow() );
+    }
     return values;
   },
 
-  getProgramLength: function() {
-    var programLength;
-
-    if ( window.hasOwnProperty( 'programData' ) ) {
-      // Rounds up to the nearest number of years.
-      // Might need to change later, to address 18 month or 30 month programs.
-      programLength = Math.ceil( window.programData.programLength / 12
-        ) || 0;
-    } else {
-      programLength = 0;
-    }
-
-    return programLength;
+  /**
+   * Handler to get data in offer scenario
+   */
+  checkForOffer: function() {
+    return location.search !== '';
   },
 
-  getJobRate: function() {
-    var jobRate;
-
-    if ( window.hasOwnProperty( 'programData' ) ) {
-      jobRate = Number( window.programData.jobRate ) || '';
-    } else {
-      jobRate = '';
-    }
-
-    return jobRate;
-  },
-
-  getGradRate: function() {
-    var gradRate = '';
-
-    if ( window.hasOwnProperty( 'schoolData' ) ) {
-      gradRate = window.schoolData.gradRate || '';
-    }
-
-    return gradRate;
-  },
-
-  getCompletionRate: function() {
-    var completionRate = '';
-
-    if ( window.hasOwnProperty( 'programData' ) ) {
-      if ( window.programData.completionRate === 'None' ) {
-        completionRate = '';
-      } else {
-        completionRate = window.programData.completionRate || '';
+  /**
+   * Helper function which 
+   */
+  getValuesFromWindow: function() {
+    var windowValues = {
+      'programLength': 0,
+      'jobRate': '',
+      'gradRate': '',
+      'completionRate': '',
+      'medianTotalDebt': '',
+      'defaultRate': '',
+      'medianSalary': '',
+      'monthlySalary': 0
+    };
+    for ( var key in windowValues ) {
+      if ( window.hasOwnProperty( 'programData' ) && typeof window.programData[ key ] !== 'undefined' ) {
+        windowValues[ key ] = window.programData[ key ];
       }
     }
-
-    return completionRate;
-  },
-
-  getMedianSchoolDebt: function() {
-    var medianSchoolDebt;
-
-    if ( window.hasOwnProperty( 'programData' ) &&
-      window.hasOwnProperty( 'schoolData' ) ) {
-      medianSchoolDebt = window.programData.medianStudentLoanCompleters ||
-        window.schoolData.medianTotalDebt;
-    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
-      medianSchoolDebt = window.schoolData.medianTotalDebt;
-    } else {
-      medianSchoolDebt = '';
+    windowValues.programLength = Math.ceil( windowValues.programLength / 12 );
+    if ( windowValues.completionRate === 'None') {
+      windowValues.completionRate = '';
     }
-
-    return medianSchoolDebt;
-  },
-
-  getDefaultRate: function() {
-    var defaultRate;
-
-    if ( window.hasOwnProperty( 'programData' ) &&
-      window.hasOwnProperty( 'schoolData' ) ) {
-      defaultRate = window.programData.defaultRate / 100 ||
-        window.schoolData.defaultRate;
-    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
-      defaultRate = window.schoolData.defaultRate;
-    } else {
-      defaultRate = '';
+    if ( Number( windowValues.defaultRate ) !== NaN && windowValues.defaultRate !== '' ) {
+      windowValues.defaultRate /= 100;
     }
+    windowValues.monthlySalary = Math.round( Number( windowValues.medianSalary ) / 12 ).toFixed( 0 );
 
-    return defaultRate;
+    console.log( windowValues );
+    return windowValues;
   },
 
-  getMedianSalary: function() {
-    var medianSalary;
+  // getProgramLength: function() {
+  //   var programLength;
 
-    if ( window.hasOwnProperty( 'programData' ) &&
-      window.hasOwnProperty( 'schoolData' ) ) {
-      medianSalary = window.programData.salary ||
-        window.schoolData.medianAnnualPay;
-    } else if ( window.hasOwnProperty( 'schoolData' ) ) {
-      medianSalary = window.schoolData.medianAnnualPay;
-    } else {
-      medianSalary = '';
-    }
+  //   if ( window.hasOwnProperty( 'programData' ) ) {
+  //     // Rounds up to the nearest number of years.
+  //     // Might need to change later, to address 18 month or 30 month programs.
+  //     programLength = Math.ceil( window.programData.programLength / 12
+  //       ) || 0;
+  //   } else {
+  //     programLength = 0;
+  //   }
 
-    return medianSalary;
-  },
+  //   return programLength;
+  // },
 
-  setMonthlySalary: function( medianSalary ) {
-    var monthlySalary;
+  // getJobRate: function() {
+  //   var jobRate;
 
-    if ( medianSalary === '' ) {
-      monthlySalary = 0;
-    } else {
-      monthlySalary = Math.round( Number( medianSalary ) / 12 ).toFixed( 0 );
-    }
+  //   if ( window.hasOwnProperty( 'programData' ) ) {
+  //     jobRate = Number( window.programData.jobRate ) || '';
+  //   } else {
+  //     jobRate = '';
+  //   }
 
-    return monthlySalary;
-  },
+  //   return jobRate;
+  // },
+
+  // getGradRate: function() {
+  //   var gradRate = '';
+
+  //   if ( window.hasOwnProperty( 'schoolData' ) ) {
+  //     gradRate = window.schoolData.gradRate || '';
+  //   }
+
+  //   return gradRate;
+  // },
+
+  // getCompletionRate: function() {
+  //   var completionRate = '';
+
+  //   if ( window.hasOwnProperty( 'programData' ) ) {
+  //     if ( window.programData.completionRate === 'None' ) {
+  //       completionRate = '';
+  //     } else {
+  //       completionRate = window.programData.completionRate || '';
+  //     }
+  //   }
+
+  //   return completionRate;
+  // },
+
+  // getMedianSchoolDebt: function() {
+  //   var medianSchoolDebt;
+
+  //   if ( window.hasOwnProperty( 'programData' ) &&
+  //     window.hasOwnProperty( 'schoolData' ) ) {
+  //     medianSchoolDebt = window.programData.medianStudentLoanCompleters ||
+  //       window.schoolData.medianTotalDebt;
+  //   } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+  //     medianSchoolDebt = window.schoolData.medianTotalDebt;
+  //   } else {
+  //     medianSchoolDebt = '';
+  //   }
+
+  //   return medianSchoolDebt;
+  // },
+
+  // getDefaultRate: function() {
+  //   var defaultRate;
+
+  //   if ( window.hasOwnProperty( 'programData' ) &&
+  //     window.hasOwnProperty( 'schoolData' ) ) {
+  //     defaultRate = window.programData.defaultRate / 100 ||
+  //       window.schoolData.defaultRate;
+  //   } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+  //     defaultRate = window.schoolData.defaultRate;
+  //   } else {
+  //     defaultRate = '';
+  //   }
+
+  //   return defaultRate;
+  // },
+
+  // getMedianSalary: function() {
+  //   var medianSalary;
+
+  //   if ( window.hasOwnProperty( 'programData' ) &&
+  //     window.hasOwnProperty( 'schoolData' ) ) {
+  //     medianSalary = window.programData.salary ||
+  //       window.schoolData.medianAnnualPay;
+  //   } else if ( window.hasOwnProperty( 'schoolData' ) ) {
+  //     medianSalary = window.schoolData.medianAnnualPay;
+  //   } else {
+  //     medianSalary = '';
+  //   }
+
+  //   return medianSalary;
+  // },
+
+  // setMonthlySalary: function( medianSalary ) {
+  //   var monthlySalary;
+
+  //   if ( medianSalary === '' ) {
+  //     monthlySalary = 0;
+  //   } else {
+  //     monthlySalary = Math.round( Number( medianSalary ) / 12 ).toFixed( 0 );
+  //   }
+
+  //   return monthlySalary;
+  // },
 
   getBLSExpenses: function( values ) {
 
@@ -162,6 +204,13 @@ var getSchoolValues = {
     }
 
     return values;
+  },
+
+  getValuesFromURL: function() {
+    var urlValues;
+    urlValues = queryHandler( location.search );
+    
+    return urlValues;
   }
 
 };

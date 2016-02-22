@@ -2,6 +2,7 @@
 
 var getModelValues = require( '../dispatchers/get-model-values' );
 var getSchoolValues = require( '../dispatchers/get-school-values' );
+var getViewValues = require( '../dispatchers/get-view-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
@@ -29,8 +30,23 @@ var financialView = {
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
-    this.$programLength.val( getSchoolValues.getProgramLength() ).change();
+    if ( getSchoolValues.checkForOffer() !== false ) {
+      this.updateViewFromProgram();
+    }
     this.updateView( values );
+  },
+
+
+  /**
+   * Updates view based on program data (including school data). This updates the
+   * programLength dropdown and visibility of gradPLUS loans.
+   */
+  updateViewFromProgram: function() {
+    var values = getModelValues.financial();
+    // Update program length
+    this.$programLength.val( values.programLength ).change();
+
+    // Update availability of gradPLUS loans
   },
 
   /**
