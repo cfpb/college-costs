@@ -62,8 +62,12 @@ var financialModel = {
    * Rounds values for which we do not want to display decimals
    */
   roundValues: function() {
-    var model = financialModel.values;
-    model.totalDebt = Math.round( model.totalDebt );
+    var model = financialModel.values,
+        roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime' ];
+    for (var x = 0; x < roundedKeys.length; x++ ) {
+      var key = roundedKeys[x];
+      model[key] = Math.round( model[key] );
+    }
   }
 };
 module.exports = financialModel;
