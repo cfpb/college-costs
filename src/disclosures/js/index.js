@@ -20,7 +20,7 @@ var app = {
       financialModel.init( resp );
       financialView.init();
       // Placeholder to set bar graphs
-      metricView.demo();
+      metricView.init();
       questionView.init();
       linksView.init();
     } );

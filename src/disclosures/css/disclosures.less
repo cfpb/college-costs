@@ -997,6 +997,8 @@
   @bar-graph-you-font-size:        18px;
   @bar-graph-average-font-size:    16px;
   @bar-graph-line-overhang:         6px;
+  @bar-graph-top-label-width:      70px;
+  @bar-graph-top-label-height:     20px;
   // A little cheat to make the line look vertically centered
   @bar-graph-line-top-cheat:        3px;
 
@@ -1059,6 +1061,17 @@
     });
   }
 
+  &_top-label {
+    width: @bar-graph-top-label-width;
+    margin-left: -(@bar-graph-top-label-width - @bar-graph-width) / 2 - @bar-graph-line-overhang;
+    position: absolute;
+    top: unit(-@bar-graph-top-label-height / @small-font-size-px, em);
+    left: 50%;
+    z-index: 100;
+    font-size: unit(@small-font-size-px / @base-font-size-px, em);
+    text-align: center;
+  }
+
   &_point__you {
     .webfont-medium();
     font-size: unit(@bar-graph-you-font-size / @base-font-size-px, em);
@@ -1078,6 +1091,27 @@
       border-top-style: dotted;
       top: unit( (@bar-graph-average-font-size + @bar-graph-line-top-cheat) / 2, px);
     }
+  }
+
+  &__equal &_point__average {
+    display: none;
+  }
+
+  &__missing-you &_point__you {
+    display: none;
+  }
+
+  &__missing-average &_point__average {
+    display: none;
+  }
+
+  &__high-point &_top-label {
+    display: none;
+  }
+
+  // Median salary graph needs room above it for the top-label
+  &[data-metric="medianSalary"] {
+    border-top: @bar-graph-top-label-height solid transparent;
   }
 }
 
