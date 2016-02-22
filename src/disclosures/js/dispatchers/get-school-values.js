@@ -35,16 +35,18 @@ var getSchoolValues = {
    * Helper function which 
    */
   getValuesFromWindow: function() {
-    var windowValues = {
-      'programLength': 0,
-      'jobRate': '',
-      'gradRate': '',
-      'completionRate': '',
-      'medianTotalDebt': '',
-      'defaultRate': '',
-      'medianSalary': '',
-      'monthlySalary': 0
-    };
+    var windowValues = {},
+        values = {
+          'programLength': 0,
+          'jobRate': '',
+          'gradRate': '',
+          'completionRate': '',
+          'defaultRate': '',
+          'medianSalary': '',
+          'monthlySalary': 0,
+          'medianStudentLoanCompleters': false,
+          'medianTotalDebt': false
+        };
     for ( var key in windowValues ) {
       if ( window.hasOwnProperty( 'programData' ) && typeof window.programData[ key ] !== 'undefined' ) {
         windowValues[ key ] = window.programData[ key ];
@@ -58,6 +60,8 @@ var getSchoolValues = {
       windowValues.defaultRate /= 100;
     }
     windowValues.monthlySalary = Math.round( Number( windowValues.medianSalary ) / 12 ).toFixed( 0 );
+    windowValues.getMedianSchoolDebt = window.programData.medianStudentLoanCompleters || window.schoolData.medianTotalDebt
+
 
     console.log( windowValues );
     return windowValues;

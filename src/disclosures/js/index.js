@@ -22,6 +22,13 @@ var app = {
       metricView.demo();
       linksView.init();
     } );
+
+    $.when( fetch.schoolData( '408039' ) ).done( function( resp ) {
+      console.log( 'response', resp );
+    } );
+    $.when( fetch.programData( '408039-981' ) ).done( function( resp ) {
+      console.log( 'response', resp );
+    } );
   }
 };
 
