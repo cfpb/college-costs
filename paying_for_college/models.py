@@ -200,7 +200,7 @@ class School(models.Model):
             'highestDegree': self.get_highest_degree(),
             'indicatorGroup': jdata['INDICATORGROUP'],
             'KBYOSS': self.KBYOSS,
-            'medianAnnualPay': str(self.median_annual_pay),
+            'medianAnnualPay': self.median_annual_pay,
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
             'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
@@ -354,14 +354,15 @@ class Program(models.Model):
                                        null=True,
                                        max_digits=5,
                                        decimal_places=2)
-    salary = models.IntegerField(blank=True, null=True)
+    salary = models.IntegerField(blank=True, null=True,
+                                 help_text='MEDIAN SALARY')
     program_length = models.IntegerField(blank=True,
                                          null=True,
                                          help_text="IN MONTHS")
     tuition = models.IntegerField(blank=True,
-                                       null=True)
+                                  null=True)
     fees = models.IntegerField(blank=True,
-                                       null=True)
+                               null=True)
     housing = models.IntegerField(blank=True,
                                   null=True,
                                   help_text="HOUSING & MEALS")
@@ -377,7 +378,7 @@ class Program(models.Model):
                                    decimal_places=2,
                                    help_text="COMPLETERS WHO GET RELATED JOB")
     job_note = models.TextField(blank=True,
-                                      help_text="EXPLANATION FROM SCHOOL")
+                                help_text="EXPLANATION FROM SCHOOL")
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
