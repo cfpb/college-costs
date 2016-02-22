@@ -10,7 +10,6 @@ var getSchoolValues = {
     values.programLength = this.getProgramLength();
     values.yearsAttending = numberToWords.toWords( values.programLength );
     values.gradRate = this.getGradRate();
-    values.completionRate = this.getCompletionRate();
     values.medianSchoolDebt = this.getMedianSchoolDebt();
     values.defaultRate = this.getDefaultRate();
     values.medianSalary = this.getMedianSalary();
@@ -52,24 +51,15 @@ var getSchoolValues = {
     var gradRate = '';
 
     if ( window.hasOwnProperty( 'schoolData' ) ) {
-      gradRate = window.schoolData.gradRate || '';
+      gradRate = window.schoolData.gradRate;
     }
-
-    return gradRate;
-  },
-
-  getCompletionRate: function() {
-    var completionRate = '';
-
     if ( window.hasOwnProperty( 'programData' ) ) {
-      if ( window.programData.completionRate === 'None' ) {
-        completionRate = '';
-      } else {
-        completionRate = window.programData.completionRate || '';
+      if ( window.programData.completionRate !== 'None' ) {
+        gradRate = window.programData.completionRate;
       }
     }
 
-    return completionRate;
+    return gradRate;
   },
 
   getMedianSchoolDebt: function() {

@@ -20,7 +20,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should dynamically display the completion rate if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
-     expect( page.completionRate.getText() ).toEqual( '0' );
+     expect( page.completionRate.getText() ).toEqual( '37' );
   } );
 
   it( 'should dynamically display the median school or program debt if it\'s available', function() {
