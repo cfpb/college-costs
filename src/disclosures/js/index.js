@@ -23,7 +23,7 @@ var app = {
       financialModel.init( resp );
       financialView.init();
       // Placeholder to set bar graphs
-      metricView.demo();
+      metricView.init();
       // Check for URL offer data
       if ( getViewValues.urlOfferExists() ) {
         $.when( getViewValues.urlOfferHandler() )
