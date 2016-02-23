@@ -54,6 +54,12 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.nationalGradRateValue.getText() ).toEqual( '34%' );
   } );
 
+  it( 'should display the correct graduation rate notification', function() {
+    page.confirmVerification();
+    expect( page.gradRateNotification.getText() ).toEqual( 'Higher graduation rate than national average' );
+    expect( page.gradRateNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__better' );
+  } );
+
   it( 'should graph average salary', function() {
     page.confirmVerification();
     expect( page.schoolSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '45.3px' );
@@ -62,12 +68,24 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.nationalSalaryValue.getText() ).toEqual( '$31,080' );
   } );
 
+  it( 'should display the correct average salary notification', function() {
+    page.confirmVerification();
+    expect( page.salaryNotification.getText() ).toEqual( 'Lower salary than national average' );
+    expect( page.salaryNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
+  } );
+
   it( 'should graph loan default rates', function() {
     page.confirmVerification();
     expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '80.5px' );
     expect( page.schoolDefaultRateValue.getText() ).toEqual( '55%' );
     expect( page.nationalDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '35.07px' );
     expect( page.nationalDefaultRateValue.getText() ).toEqual( '14%' );
+  } );
+
+  it( 'should display the correct loan default rate notification', function() {
+    page.confirmVerification();
+    expect( page.defaultRateNotification.getText() ).toEqual( 'Higher default rate than national average' );
+    expect( page.defaultRateNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );
 
 } );
