@@ -7,7 +7,6 @@ var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
-var queryHandler = require( '../utils/query-handler' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -126,11 +125,9 @@ var financialView = {
    * Updates view based on program data (including school data). This updates the
    * programLength dropdown and visibility of gradPLUS loans.
    */
-  updateViewFromProgram: function() {
-    var values = getModelValues.financial();
+  updateViewFromProgram: function( values ) {
     // Update program length
     this.$programLength.val( values.programLength ).change();
-    console.log( values.programLength );
     // Update availability of gradPLUS loans
   },
 
@@ -255,37 +252,6 @@ var financialView = {
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
     } );
-  },
-
-  /**
-   * Update view with URL offer data
-   */
-  urlOfferHandler: function() {
-    var urlValues = this.fromURL();
-    $.when( getSchoolValues.init( urlValues.collegeID, urlValues.programID ) )
-      .then( function( schoolData ) {
-        $.extend( urlValues, getSchoolValues.init( urlValues.collegeID, urlValues.programID ) );
-        publish.extendFinancialData( urlValues );
-        financialView.updateViewFromProgram();
-        console.log( 'UOH' )
-      } );
-  },
-
-  /**
-   * Check to see if the URL contains an offer
-   */
-  urlOfferExists: function() {
-    return location.search !== '';
-  },
-
-  /**
-   * Create object with URL offer data
-   */
-  fromURL: function() {
-    var urlValues;
-    urlValues = queryHandler( location.search );
-    
-    return urlValues;
   }
 };
 

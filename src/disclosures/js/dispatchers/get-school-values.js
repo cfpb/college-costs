@@ -5,17 +5,19 @@ var numberToWords = require( 'number-to-words' );
 
 
 var getSchoolValues = {
+  def: 0,
 
   init: function( iped, pid ) {
+    this.def = $.Deferred();
     var values = {};
     $.when( fetch.schoolData( iped ), fetch.programData( iped, pid ) )
-      .then( function( schoolData, programData ) {
+      .done( function( schoolData, programData ) {
         $.extend( values, schoolData[0], programData[0] );
         values = getSchoolValues.processAPIData( values );
         values = getSchoolValues.getBLSExpenses( values );
-        console.log( values );
-        return values;
+        getSchoolValues.def.resolve( values );
       } );
+    return this.def.promise();
   },
 
   /**

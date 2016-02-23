@@ -105,6 +105,7 @@ function queryHandler( queryString ) {
   valuePairs.family = valuePairs.parentLoan + valuePairs.parentPlus;
   // zero parentPlus so that student-debt-calc doesn't use it
   valuePairs.parentPlus = 0;
+  valuePairs.institutionalLoanRate /= 100;
   return valuePairs;
 }
 
