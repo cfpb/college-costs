@@ -7,27 +7,27 @@ var linksView = {
   $schoolLinkText: $( '.school-link' ),
   $scorecardLink: $( '.scorecard-link' ),
 
-  init: function() {
-    this.setSchoolLink();
-    this.setScorecardSearch();
+  updateLinks: function( values ) {
+    this.$schoolLinkText = $( '.school-link' );
+    this.$scorecardLink = $( '.scorecard-link' );
+    this.setSchoolLink( values );
+    this.setScorecardSearch( values );
   },
 
-  setSchoolLink: function() {
-    if ( window.hasOwnProperty( 'schoolData' ) ) {
-      var schoolURL = formatURL( window.schoolData.url );
-      if ( schoolURL ) {
-        var $schoolLink = $( '<a>', {
-          'href': schoolURL,
-          'target': '_blank',
-          'class': this.$schoolLinkText.attr( 'class' )
-        } )
-          .text( this.$schoolLinkText.text() );
-        this.$schoolLinkText.replaceWith( $schoolLink );
-      }
+  setSchoolLink: function( values ) {
+    var schoolURL = formatURL( values.url );
+    if ( schoolURL ) {
+      var $schoolLink = $( '<a>', {
+        'href': schoolURL,
+        'target': '_blank',
+        'class': this.$schoolLinkText.attr( 'class' )
+      } )
+        .text( this.$schoolLinkText.text() );
+      this.$schoolLinkText.replaceWith( $schoolLink );
     }
   },
 
-  setScorecardSearch: function() {
+  setScorecardSearch: function( values ) {
     var pcip = '',
         zip = '',
         // We're using a 50-mile radius, the most common Scorecard search
@@ -35,11 +35,11 @@ var linksView = {
         scorecardURL = this.$scorecardLink.attr( 'href' ),
         scorecardQuery;
 
-    if ( window.hasOwnProperty( 'programData' ) ) {
-      pcip = window.programData.cipCode ? window.programData.cipCode.slice( 0, 2 ) : '';
+    if ( values.hasOwnProperty( 'cipCode' ) ) {
+      pcip = values.cipCode.slice( 0, 2 ); 
     }
-    if ( window.hasOwnProperty( 'schoolData' ) ) {
-      zip = window.schoolData.zip5 || '';
+    if ( values.hasOwnProperty( 'zip5' ) ) {
+      zip = values.zip5; 
     }
     scorecardQuery = constructScorecardSearch( pcip, zip, radius );
     this.$scorecardLink.attr( 'href', scorecardURL + scorecardQuery );

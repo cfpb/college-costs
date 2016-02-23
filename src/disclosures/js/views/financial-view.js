@@ -7,6 +7,7 @@ var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
+var linksView = require( '../views/links-view' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -128,6 +129,8 @@ var financialView = {
   updateViewFromProgram: function( values ) {
     // Update program length
     this.$programLength.val( values.programLength ).change();
+    // Update links
+    linksView.updateLinks( values );
     // Update availability of gradPLUS loans
   },
 

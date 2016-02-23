@@ -475,7 +475,7 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.confirmVerification();
     expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
-    expect( page.totalRepayment.getText() ).toEqual( '38897' );
+    expect( page.totalRepayment.getText() ).toEqual( '37678' );
   } );
 
   it( 'should update total borrowing and verbiage when program length is changed', function() {
@@ -496,7 +496,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '4526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '38897' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
   } );
 
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
@@ -507,7 +507,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futurePositiveRemainingCost.getText() ).toEqual( '-474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '38897' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
   } );
 
   it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
@@ -519,7 +519,7 @@ it( 'should properly update when more than one private loans is modified', funct
     // TODO: Add expectation about invisibility of negative remaining cost
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '38897' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
   } );
 
   // *** Step 2: Evaluate your offer ***

@@ -26,8 +26,12 @@ var getSchoolValues = {
   processAPIData: function( values ) {
     values.programLength /= 12;
     values.defaultRate /= 100;
+    values.medianSalary = values.salary || values.medianAnnualPay;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 ).toFixed( 0 );
     values.getMedianSchoolDebt = values.medianStudentLoanCompleters || values.medianTotalDebt
+    if ( values.completionRate !== 'None' ) {
+      values.gradRate = values.completionRate;
+    }
 
     return values;
   },
