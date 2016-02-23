@@ -8,11 +8,6 @@ var questionView = {
   $feedback: $( '.feedback' ),
 
   init: function() {
-    this.$followupNoNotSure.hide();
-    this.$followupYes.hide();
-    this.$getOptions.hide();
-    this.$nextSteps.hide();
-    this.$feedback.hide();
     this.bigQuestionListener();
   },
 
