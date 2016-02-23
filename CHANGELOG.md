@@ -4,6 +4,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - Updated content to be dynamic based on remaining cost
 - Added interaction and animation for answering the question
+- Changed app to utilize AJAX API calls instead of expecting window objects
 
 ## 2.0.0
 ### Added/updated
