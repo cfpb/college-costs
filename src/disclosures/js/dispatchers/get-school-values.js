@@ -29,7 +29,7 @@ var getSchoolValues = {
     values.medianSalary = values.salary || values.medianAnnualPay;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 ).toFixed( 0 );
     values.getMedianSchoolDebt = values.medianStudentLoanCompleters || values.medianTotalDebt
-    if ( values.completionRate !== 'None' ) {
+    if ( values.hasOwnProperty( 'completionRate') && values.completionRate !== 'None' ) {
       values.gradRate = values.completionRate;
     }
 
