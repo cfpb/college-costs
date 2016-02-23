@@ -6,9 +6,9 @@ var getApiValues = {
 
 
   constants: function() {
-    var url_base = $('main').attr('data-context');
-    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/constants/';
-    var constantRequest = $.ajax({
+    var urlBase = $( 'main' ).attr( 'data-context' );
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/constants/';
+    var constantRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -18,15 +18,15 @@ var getApiValues = {
       error: function( req, status, err ) {
         console.log( 'something went wrong', status, err );
       }
-    });
+    } );
 
     return constantRequest;
   },
 
-  schoolData: function( iped ) {
-    var url_base = $('main').attr('data-context');
-    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/school/' + iped + '.json';
-    var schoolDataRequest = $.ajax({
+  fetchSchoolData: function( iped ) {
+    var urlBase = $( 'main' ).attr( 'data-context' );
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/school/' + iped + '.json';
+    var schoolDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -36,15 +36,15 @@ var getApiValues = {
       error: function( req, status, err ) {
         console.log( 'something went wrong', status, err );
       }
-    });
+    } );
 
     return schoolDataRequest;
   },
 
-  programData: function( iped, pid ) {
-    var url_base = $('main').attr('data-context');
-    var url = '/' + url_base + '/understanding-your-financial-aid-offer/api/program/' + iped + '-' + pid + '/';
-    var programDataRequest = $.ajax({
+  fetchProgramData: function( iped, pid ) {
+    var urlBase = $( 'main' ).attr( 'data-context' );
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/program/' + iped + '-' + pid + '/';
+    var programDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -54,10 +54,18 @@ var getApiValues = {
       error: function( req, status, err ) {
         console.log( 'something went wrong', status, err );
       }
-    });
+    } );
 
     return programDataRequest;
+  },
+
+  schoolData: function( iped, pid ) {
+    return $.when( this.fetchSchoolData( iped ), this.fetchProgramData( iped, pid ) )
+      .done( function( schoolData, programData ) {
+        return $.extend( schoolData[0], programData[0] );
+      } );
   }
+
 };
 
 module.exports = getApiValues;

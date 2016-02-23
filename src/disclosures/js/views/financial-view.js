@@ -24,14 +24,12 @@ var financialView = {
    * Initiates the object
    */
   init: function() {
-    var values = getModelValues.financial();
     this.keyupListener();
     this.focusoutListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
-    this.updateView( values );
   },
 
   /**
@@ -143,6 +141,7 @@ var financialView = {
   /**
    * Updates view based on program data (including school data). This updates the
    * programLength dropdown and visibility of gradPLUS loans.
+   * @param {object} values - An object with program values
    */
   updateViewFromProgram: function( values ) {
     // Update program length

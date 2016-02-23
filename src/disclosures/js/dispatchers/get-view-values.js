@@ -1,8 +1,6 @@
 'use strict';
 
 var stringToNum = require( '../utils/handle-string-input' );
-var getSchoolValues = require( '../dispatchers/get-school-values' );
-var queryHandler = require( '../utils/query-handler' );
 
 var getViewValues = {
   def: 0,
@@ -47,38 +45,6 @@ var getViewValues = {
 
     values = this.getPrivateLoans( values );
     return values;
-  },
-
-  /**
-   * Get values from URL Offer
-   */
-  urlOfferHandler: function() {
-    var urlValues = this.fromURL();
-    this.def = $.Deferred();
-    $.when( getSchoolValues.init( urlValues.collegeID, urlValues.programID ) )
-      .done( function( schoolValues ) {
-        var values = {};
-        $.extend( values, schoolValues, urlValues );
-        getViewValues.def.resolve( values );
-      } );
-      return this.def.promise();
-  },
-
-  /**
-   * Check to see if the URL contains an offer
-   */
-  urlOfferExists: function() {
-    return location.search !== '';
-  },
-
-  /**
-   * Create object with URL offer data
-   */
-  fromURL: function() {
-    var urlValues;
-    urlValues = queryHandler( location.search );
-    
-    return urlValues;
   }
 };
 

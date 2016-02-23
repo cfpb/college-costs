@@ -36,10 +36,10 @@ var linksView = {
         scorecardQuery;
 
     if ( values.hasOwnProperty( 'cipCode' ) ) {
-      pcip = values.cipCode.slice( 0, 2 ); 
+      pcip = values.cipCode.slice( 0, 2 );
     }
     if ( values.hasOwnProperty( 'zip5' ) ) {
-      zip = values.zip5; 
+      zip = values.zip5;
     }
     scorecardQuery = constructScorecardSearch( pcip, zip, radius );
     this.$scorecardLink.attr( 'href', scorecardURL + scorecardQuery );

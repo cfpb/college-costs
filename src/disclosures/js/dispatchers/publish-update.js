@@ -16,11 +16,10 @@ var publishUpdate = {
 
   /**
    * Function which updates financial model by extending it with an object
-   * @param {string} prop - financial model property name
-   * @param {number|string} val - new value
+   * @param {object} object - an object of financial model values
    */
   extendFinancialData: function( object ) {
-    $.extend( financialModel.values, object )
+    $.extend( financialModel.values, object );
     financialModel.calc( financialModel.values );
   },
 
