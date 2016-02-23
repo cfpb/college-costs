@@ -29,21 +29,27 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( browser.getCurrentUrl() ).toContain( 'book' );
   } );
 
-  // TODO - Add expectation that other sections are invisible
   it( 'should display the verify offer area and no other sections', function() {
-    browser.wait( EC.visibilityOf(page.verifySection ), 8000 );
+    expect( page.verifySection.isDisplayed() ).toBeTruthy();
+    expect( page.reviewSection.isDisplayed() ).toBeFalsy();
+    expect( page.evaluateSection.isDisplayed() ).toBeFalsy();
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
-  // TODO - Add expectation that verification buttons disappear, and all fields that should be prepopulated actually are, and that Step 3 is still hidden
+  // TODO - Add expectation that verification buttons disappear, and all fields that should be prepopulated actually are
   it( 'should let a student verify their information and go on to Step 1 and Step 2 of the offer', function() {
     page.confirmVerification();
-    browser.wait( EC.visibilityOf(page.reviewSection ), 8000 );
-    browser.wait( EC.visibilityOf(page.evaluateSection ), 8000 );
+    expect( page.reviewSection.isDisplayed() ).toBeTruthy();
+    expect( page.evaluateSection.isDisplayed() ).toBeTruthy();
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
-  // TODO - Add expectation that verification buttons disappear, offer sections are not visible, that next steps for incorrect info are displayed, and that the trigger to notify the school is activated
+  // TODO - Add expectation that verification buttons disappear, that next steps for incorrect info are displayed, and that the trigger to notify the school is activated
   it( 'should let a student report incorrect aid offer information', function() {
     page.denyVerification();
+    expect( page.reviewSection.isDisplayed() ).toBeFalsy();
+    expect( page.evaluateSection.isDisplayed() ).toBeFalsy();
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
   // *** Step 1: Review your offer ***
@@ -491,9 +497,9 @@ it( 'should properly update when more than one private loans is modified', funct
     page.confirmVerification();
     page.setFamilyContribution( 10000 );
     browser.sleep( 750 );
-    browser.wait( EC.visibilityOf(page.futurePositiveRemainingCost ), 8000 );
-    // TODO: Add expectation about invisibility of negative remaining cost
-    expect( page.futurePositiveRemainingCost.getText() ).toEqual( '4526' );
+    expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeTruthy();
+    expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
+    expect( page.remainingCostFinal.getText() ).toEqual( '4526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
@@ -502,9 +508,10 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
     browser.sleep( 1000 );
     page.confirmVerification();
-    browser.wait( EC.visibilityOf(page.futureNegativeRemainingCost ), 8000 );
-    // TODO: Add expectation about invisibility of positive remaining cost
-    expect( page.futurePositiveRemainingCost.getText() ).toEqual( '-474' );
+    browser.sleep( 750 );
+    expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeFalsy();
+    expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeTruthy();
+    expect( page.remainingCostFinal.getText() ).toEqual( '-474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
@@ -515,8 +522,9 @@ it( 'should properly update when more than one private loans is modified', funct
     page.confirmVerification();
     page.setFamilyContribution( 14526 );
     browser.sleep( 750 );
-    // TODO: Add expectation about invisibility of positive remaining cost
-    // TODO: Add expectation about invisibility of negative remaining cost
+    expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeFalsy();
+    expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
+    expect( page.remainingCostFinal.getText() ).toEqual( '0' );
     expect( page.futureTotalLoans.getText() ).toEqual( '14500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
     expect( page.futureTotalDebt.getText() ).toEqual( '37678' );
@@ -573,8 +581,45 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2209' );
   } );
 
+  it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
+    page.confirmVerification();
+    page.answerBigQuestionYes();
+    browser.sleep( 750 );
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
+    expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
+    expect( page.followupYesContent.isDisplayed() ).toBeTruthy();
+    expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
+    expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
+  } );
+
+  it( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
+    page.confirmVerification();
+    page.answerBigQuestionNo();
+    browser.sleep( 750 );
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
+    expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
+    expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
+    expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
+    expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
+  } );
+
+  it( 'should allow a student who is not sure that it\'s a good aid offer to go on to Step 3', function() {
+    page.confirmVerification();
+    page.answerBigQuestionNotSure();
+    browser.sleep( 750 );
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
+    expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
+    expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
+    expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
+    expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
+  } );
+
+  // *** Step 3: Consider your options / A few more things to consider ***
   it( 'should link to the school website in a new tab', function() {
     page.confirmVerification();
+    browser.sleep( 750 );
+    page.answerBigQuestionNo();
+    browser.sleep( 750 );
     page.followSchoolLink();
     browser.sleep( 750 );
     browser.getAllWindowHandles()
@@ -595,8 +640,11 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
-    page.followScorecardLink();
     browser.sleep( 750 );
+    page.answerBigQuestionNo();
+    browser.sleep( 1000 );
+    page.followScorecardLink();
+    browser.sleep( 1000 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );

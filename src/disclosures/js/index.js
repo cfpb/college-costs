@@ -8,6 +8,7 @@ var getSchoolValues = require( './dispatchers/get-school-values');
 var getViewValues = require( './dispatchers/get-view-values');
 var financialView = require( './views/financial-view' );
 var metricView = require( './views/metric-view' );
+var questionView = require( './views/question-view' );
 var linksView = require( './views/links-view' );
 var publish = require( './dispatchers/publish-update' );
 
@@ -35,6 +36,8 @@ var app = {
             financialView.updateView( values );
           } );
       }
+      questionView.init();
+      linksView.init();
     } );
   }
 };
