@@ -540,10 +540,50 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'summary_monthly-left-over' ) );
       }
     },
+    bigQuestionYesButton: {
+      get: function() {
+        return element ( by.id( 'question_answer-yes' ) );
+      }
+    },
+    bigQuestionNoButton: {
+      get: function() {
+        return element ( by.id( 'question_answer-no' ) );
+      }
+    },
+    bigQuestionNotSureButton: {
+      get: function() {
+        return element ( by.id( 'question_answer-not-sure' ) );
+      }
+    },
+    answerBigQuestionYes: {
+      value: function() {
+        this.bigQuestionYesButton.click();
+      }
+    },
+    answerBigQuestionNo: {
+      value: function() {
+        this.bigQuestionNoButton.click();
+      }
+    },
+    answerBigQuestionNotSure: {
+      value: function() {
+        this.bigQuestionNotSureButton.click();
+      }
+    },
     // Step 3: You have options / A few more things to consider
     optionsConsiderationsSection: {
       get: function() {
         return element( by.css( '.get-options' ) );
+      }
+    },
+    followupNoNotSureContent: {
+      get: function() {
+        return element( by.css( '.followup__no-not-sure' ) );
+      }
+    },
+    followupYesContent: {
+      get: function() {
+        return element( by.css( '.followup__yes' ) );
       }
     },
     schoolLink: {
@@ -566,7 +606,17 @@ settlementAidOfferPage.prototype = Object.create({}, {
         this.scorecardLink.click();
       }
     },
+    nextStepsSection: {
+      get: function() {
+        return element( by.css( '.next-steps' ) );
+      }
+    },
     //Feedback
+    feedbackSection: {
+      get: function() {
+        return element( by.css( '.feedback' ) );
+      }
+    },
     feedbackLink: {
       get: function() {
         return element( by.css( '.feedback .btn' ) );
