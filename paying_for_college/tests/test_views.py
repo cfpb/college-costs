@@ -8,9 +8,10 @@ from django.test import RequestFactory
 from django.http import HttpResponse, HttpRequest
 from django.test import Client
 from django.core.urlresolvers import reverse
-from paying_for_college.views import Feedback, EmailLink, school_search_api
-from paying_for_college.views import SchoolRepresentation, get_region
-from paying_for_college.views import get_program_length, validate_oid
+from paying_for_college.views import get_school, get_region, validate_oid
+from paying_for_college.views import get_program, get_program_length
+from paying_for_college.views import Feedback, EmailLink
+from paying_for_college.views import SchoolRepresentation, school_search_api
 from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
 
@@ -44,7 +45,7 @@ class TestViews(django.test.TestCase):
         'pfc-manage',
     ]
     POST = HttpRequest()
-    POST.POST = {'school-program': '999999',
+    POST.POST = {'school_program': '999999',
                  'ba': True,
                  'is_valid': True}
     feedback_post_data = {'csrfmiddlewaretoken': 'abc',
@@ -135,7 +136,8 @@ class EmailTest(django.test.TestCase):
 # understanding-financial-aid-offers/api/search-schools.json?q=Kansas
 class SchoolSearchTest(django.test.TestCase):
 
-    fixtures = ['test_fixture.json']
+    fixtures = ['test_fixture.json',
+                'test_program.json']
 
     class SolrSchool:
         def __init__(self):
@@ -143,6 +145,21 @@ class SchoolSearchTest(django.test.TestCase):
             self.school_id = 0
             self.city = ''
             self.state = ''
+
+    def test_get_school(self):
+        """test grabbing a school by ID"""
+        test1 = get_school('155317')
+        self.assertTrue(test1.pk == 155317)
+        test2 = get_school('xxx')
+        self.assertTrue(test2 == '')
+
+    def test_get_program(self):
+        """test grabbing a program by school/program_code"""
+        school = School.objects.get(school_id=408039)
+        test1 = get_program(school, '981')
+        self.assertTrue('Occupational' in test1.program_name)
+        test2 = get_program(school, 'xxx')
+        self.assertTrue(test2 == '')
 
     @mock.patch('paying_for_college.views.SearchQuerySet.autocomplete')
     def test_school_search_api(self, mock_sqs_autocomplete):
@@ -200,7 +217,6 @@ class OfferTest(django.test.TestCase):
         self.assertTrue("nationalFood" in resp7.content)
         self.assertTrue(resp7.status_code == 200)
         resp8 = client.get(url+bad_oid)
-        print "resp8 content is {0}".format(resp8.content)
         self.assertTrue("illegal characters" in resp8.content)
         self.assertTrue(resp8.status_code == 400)
 
@@ -229,13 +245,28 @@ class APITests(django.test.TestCase):
         self.assertTrue('institutionalLoanRate' in resp.content)
         self.assertTrue('latestYear' in resp.content)
 
+    # /paying-for-college/understanding-financial-aid-offers/api/constants/
+    def test_national_stats_json(self):
+        """api call for national statistics."""
+
+        url = reverse('disclosures:national-stats-json', args=['408039'])
+        resp = client.get(url)
+        self.assertTrue('loanDefaultRate' in resp.content)
+        self.assertTrue('retentionRateMedian' in resp.content)
+        url2 = reverse('disclosures:national-stats-json', args=['000000'])
+        resp2 = client.get(url2)
+        self.assertTrue('No school' in resp2.content)
+        self.assertTrue(resp2.status_code == 400)
+        url3 = reverse('disclosures:national-stats-json', args=['243197'])
+        resp3 = client.get(url3)
+        self.assertTrue('nationalFood' in resp3.content)
+
     # /paying-for-college/understanding-financial-aid-offers/api/program/408039-981/
     def test_program_json(self):
         """api call for program details."""
 
-        url = reverse('disclosures:program-json', args=['408039-981'])
+        url = reverse('disclosures:program-json', args=['408039_981'])
         resp = client.get(url)
-        # print("program_json response content is {0}".format(resp))
         self.assertTrue('housing' in resp.content)
         self.assertTrue('books' in resp.content)
 
