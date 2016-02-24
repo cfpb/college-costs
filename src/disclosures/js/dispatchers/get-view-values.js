@@ -1,13 +1,12 @@
 'use strict';
 
 var stringToNum = require( '../utils/handle-string-input' );
-var queryHandler = require( '../utils/query-handler' );
-var getSchoolValues = require( '../dispatchers/get-school-values' );
 
 var getViewValues = {
+  def: 0,
 
   init: function( apiValues ) {
-    return $.extend( this.inputs(), this.url(), getSchoolValues.init(), apiValues );
+    return $.extend( this.inputs(), apiValues );
   },
 
   getPrivateLoans: function( values ) {
@@ -46,16 +45,7 @@ var getViewValues = {
 
     values = this.getPrivateLoans( values );
     return values;
-  },
-
-  url: function() {
-    var urlValues;
-    if ( location.search !== '' ) {
-      urlValues = queryHandler( location.search );
-    }
-    return urlValues;
   }
-
 };
 
 module.exports = getViewValues;

@@ -2,10 +2,12 @@
 
 var getModelValues = require( '../dispatchers/get-model-values' );
 var getSchoolValues = require( '../dispatchers/get-school-values' );
+var getViewValues = require( '../dispatchers/get-view-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
+var linksView = require( '../views/links-view' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -22,15 +24,12 @@ var financialView = {
    * Initiates the object
    */
   init: function() {
-    var values = getModelValues.financial();
     this.keyupListener();
     this.focusoutListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
-    this.$programLength.val( getSchoolValues.getProgramLength() ).change();
-    this.updateView( values );
   },
 
   /**
@@ -137,6 +136,19 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
+  },
+
+  /**
+   * Updates view based on program data (including school data). This updates the
+   * programLength dropdown and visibility of gradPLUS loans.
+   * @param {object} values - An object with program values
+   */
+  updateViewFromProgram: function( values ) {
+    // Update program length
+    this.$programLength.val( values.programLength ).change();
+    // Update links
+    linksView.updateLinks( values );
+    // Update availability of gradPLUS loans
   },
 
   /**
@@ -261,7 +273,6 @@ var financialView = {
       financialView.updateView( values );
     } );
   }
-
 };
 
 module.exports = financialView;
