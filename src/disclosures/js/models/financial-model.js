@@ -72,7 +72,7 @@ var financialModel = {
 
   /**
    * Updates the financial model with values from school and program data
-   * @param { object } values - an object containing values from school and program data
+   * @param { object } schoolValues - an object containing values from school and program data
    */
   updateModelWithProgram: function( schoolValues ) {
     schoolValues.undergrad = true;
@@ -80,7 +80,7 @@ var financialModel = {
       schoolValues.undergrad = false;
     }
     $.extend( this.values, schoolValues );
-  },
+  }
 
 };
 module.exports = financialModel;
