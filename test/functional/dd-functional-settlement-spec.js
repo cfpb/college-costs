@@ -374,7 +374,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should properly hide the directPLUS loan option for undergraduate programs', function() {
     page.confirmVerification();
-    expect( $( '#contrib__direct-plus' ).isDisplayed().toBeTruthy() );
+    expect( $( '#contrib__direct-plus' ).isDisplayed() ).toBeFalsy();
   } );
 
 
