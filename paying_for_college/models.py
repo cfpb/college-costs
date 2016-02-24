@@ -121,7 +121,7 @@ class ConstantCap(models.Model):
 
 
 class Contact(models.Model):
-    """school email account to which we send confirmations"""
+    """school endpoint or email to which we send confirmations"""
     contact = models.CharField(max_length=255, help_text="EMAIL", blank=True)
     endpoint = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255, blank=True)

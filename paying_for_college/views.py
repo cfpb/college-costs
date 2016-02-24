@@ -99,6 +99,26 @@ def get_program_length(program, school):
         return None
 
 
+def get_school(schoolID):
+    """Try to get a school by ID; return either school or empty string"""
+    try:
+        school = School.objects.get(school_id=int(schoolID))
+    except:
+        return ''
+    else:
+        return school
+
+
+def get_program(school, programCode):
+    """Try to get latest program; return either program or empty string"""
+    programs = Program.objects.filter(program_code=programCode,
+                                         institution=school).order_by('-pk')
+    if programs:
+        return programs[0]
+    else:
+        return ''
+
+
 class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
@@ -113,10 +133,10 @@ class OfferView(TemplateView):  # TODO log errors
 
     def get(self, request):
         if 'iped' in request.GET and request.GET['iped']:
-            try:
-                school = School.objects.get(school_id=int(request.GET['iped']))
-            except:
-                error = "No school could be found for iped ID {0}".format(request.GET['iped'])
+            iped = request.GET['iped']
+            school = get_school(iped)
+            if not school:
+                error = "No school could be found for iped ID {0}".format(iped)
                 return HttpResponseBadRequest(error)
             if 'oid' in request.GET:
                 OID = request.GET['oid']
@@ -128,6 +148,7 @@ class OfferView(TemplateView):  # TODO log errors
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:
+                program_code = request.GET['pid']
                 programs = Program.objects.filter(program_code=request.GET['pid'],
                                                      institution=school).order_by('-pk')
                 if programs:
@@ -294,13 +315,47 @@ class SchoolRepresentation(View):
 class ProgramRepresentation(View):
 
     def get_program(self, program_code):
-        ids = program_code.split('-')
+        ids = program_code.split('_')
         return get_object_or_404(Program, institution__school_id=int(ids[0]), program_code=ids[1])
 
     def get(self, request, program_code, **kwargs):
         program = self.get_program(program_code)
         return HttpResponse(program.as_json(),
                             content_type='application/json')
+
+
+class StatsRepresentation(View):
+
+    def get_stats(self, school, programID):
+        program = get_program(school, programID)
+        national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
+        BLS_stats = nat_stats.get_bls_stats()
+        if BLS_stats:
+            categories = BLS_stats.keys()
+            categories.remove('Year')
+            if get_region(school):
+                region = get_region(school)
+                national_stats['region'] = REGION_NAMES[region]
+                for category in categories:
+                    national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+            else:
+                national_stats['region'] = "Not available"
+                for category in categories:
+                    national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
+        return json.dumps(national_stats)
+
+    def get(self, request, id_pair):
+        school_id = id_pair.split('_')[0]
+        school = get_school(school_id)
+        if not school:
+            error = "No school could be found for iped ID {0}".format(school_id)
+            return HttpResponseBadRequest(error)
+        try:
+            program_id = id_pair.split('_')[1]
+        except:
+            program_id = ''
+        stats = self.get_stats(school, program_id)
+        return HttpResponse(stats, content_type='application/json')
 
 
 class ConstantsRepresentation(View):
@@ -400,7 +455,7 @@ class VerifyView(View):
                 notification = Notification.objects.create(institution=school,
                                                            oid=data['oid'],
                                                            timestamp=timestamp,
-                                                           errors=data['errors'])
+                                                           errors=data['errors'][:255])
                 msg = notification.notify_school()
             else:
                 return HttpResponseBadRequest("No valid school ID found")

@@ -1,6 +1,10 @@
 import json
 import os
 from subprocess import call
+try:
+    from collections import OrderedDict
+except:  # pragma: no cover
+    from ordereddict import OrderedDict
 
 from unipath import Path
 import requests
@@ -77,12 +81,12 @@ def get_prepped_stats(program_length=None):
         default_rate = 0
         default_rate_low = 0
         default_rate_high = 0
-    national_stats_for_page = {
+    natstats = {
+        'completionRateMedian': full_data['completion_rate']['median'],
+        'completionRateMedianLow': full_data['completion_rate']['average_range'][0],
         'loanDefaultRate': default_rate,
         'loanDefaultRateLow': default_rate_low,
         'loanDefaultRateHigh': default_rate_high,
-        'completionRateMedian': full_data['completion_rate']['median'],
-        'completionRateMedianLow': full_data['completion_rate']['average_range'][0],
         'completionRateMedianHigh': full_data['completion_rate']['average_range'][1],
         'earningsMedian': full_data['median_earnings']['median'],
         'earningsMedianLow': full_data['median_earnings']['average_range'][0],
@@ -92,6 +96,9 @@ def get_prepped_stats(program_length=None):
         'retentionRateMedian': full_data['retention_rate']['median'],
         'netPriceMedian': full_data['net_price']['median']
     }
+    national_stats_for_page = OrderedDict()
+    for key in sorted(natstats.keys()):
+        national_stats_for_page[key] = natstats[key]
     if program_length:
         national_stats_for_page['completionRateMedian'] = full_data[LENGTH_MAP['completion'][program_length]]['median']
         national_stats_for_page['completionRateMedianLow'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][0]
