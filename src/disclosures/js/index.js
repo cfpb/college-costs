@@ -27,21 +27,14 @@ var app = {
         $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
           .done( function( data ) {
             var schoolValues = schoolModel.init( data[0] );
-            publish.extendFinancialData( $.extend( schoolValues, urlValues ) );
-            financialView.updateViewFromProgram( schoolValues );
+            financialModel.updateModelWithProgram( schoolValues );
+            financialView.updateViewWithProgram( schoolValues );
+            publish.extendFinancialData( urlValues );
             metricView.init();
+            financialView.updateView( getModelValues.financial() );
           } );
-        // $.when( getUrlValues.urlOfferHandler() )
-        //   .done( function( offerValues ) {
-        //     var values = {};
-        //     publish.extendFinancialData( offerValues );
-        //     values = getModelValues.financial();
-        //     financialView.updateViewFromProgram( values );
-        //     financialView.updateView( values );
-        //   } );
       }
       questionView.init();
-      financialView.updateView( getModelValues.financial() );
     } );
   }
 };

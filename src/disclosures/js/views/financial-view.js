@@ -144,7 +144,7 @@ var financialView = {
    * programLength dropdown and visibility of gradPLUS loans.
    * @param {object} values - An object with program values
    */
-  updateViewFromProgram: function( values ) {
+  updateViewWithProgram: function( values ) {
     // Update program length
     this.$programLength.val( values.programLength ).change();
     // Update links
