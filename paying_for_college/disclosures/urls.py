@@ -32,7 +32,7 @@ urlpatterns = [
         ConstantsRepresentation.as_view(),
         name='constants-json'),
 
-    url(r'^api/national-stats/(\d+)/$',
+    url(r'^api/national-stats/([^/]+)/$',
         StatsRepresentation.as_view(),
         name='national-stats-json'),
 
