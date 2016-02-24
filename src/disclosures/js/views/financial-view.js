@@ -14,6 +14,7 @@ var financialView = {
   $review: $( '[data-section="review"]' ),
   $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
+  $gradPlusSection: $( '[data-section="gradPlus"]'),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
@@ -149,6 +150,7 @@ var financialView = {
     // Update links
     linksView.updateLinks( values );
     // Update availability of gradPLUS loans
+    this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
   },
 
   /**
@@ -272,6 +274,14 @@ var financialView = {
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
     } );
+  },
+
+  gradPlusVisible: function( visibility ) {
+    if ( visibility === false ) {
+      this.$gradPlusSection.hide();
+    } else {
+      this.$gradPlusSection.show();
+    }
   }
 };
 
