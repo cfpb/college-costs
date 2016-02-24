@@ -3,10 +3,13 @@
 var fetch = require( './dispatchers/get-api-values' );
 var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
+var getModelValues = require( './dispatchers/get-model-values' );
+var getUrlValues = require( './dispatchers/get-url-values' );
 var financialView = require( './views/financial-view' );
 var metricView = require( './views/metric-view' );
 var questionView = require( './views/question-view' );
-var linksView = require( './views/links-view' );
+var publish = require( './dispatchers/publish-update' );
+
 
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
@@ -16,13 +19,29 @@ var app = {
   init: function() {
   // jquery promise to delay full model creation until ajax resolves
     $.when( fetch.constants() ).done( function( resp ) {
-      schoolModel.init();
       financialModel.init( resp );
       financialView.init();
-      // Placeholder to set bar graphs
-      metricView.init();
+      // Check for URL offer data
+      if ( getUrlValues.urlOfferExists() ) {
+        var urlValues = getUrlValues.urlValues();
+        $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
+          .done( function( data ) {
+            var schoolValues = schoolModel.init( data[0] );
+            publish.extendFinancialData( $.extend( schoolValues, urlValues ) );
+            financialView.updateViewFromProgram( schoolValues );
+            metricView.init();
+          } );
+        // $.when( getUrlValues.urlOfferHandler() )
+        //   .done( function( offerValues ) {
+        //     var values = {};
+        //     publish.extendFinancialData( offerValues );
+        //     values = getModelValues.financial();
+        //     financialView.updateViewFromProgram( values );
+        //     financialView.updateView( values );
+        //   } );
+      }
       questionView.init();
-      linksView.init();
+      financialView.updateView( getModelValues.financial() );
     } );
   }
 };

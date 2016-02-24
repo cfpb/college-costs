@@ -15,6 +15,15 @@ var publishUpdate = {
   },
 
   /**
+   * Function which updates financial model by extending it with an object
+   * @param {object} object - an object of financial model values
+   */
+  extendFinancialData: function( object ) {
+    $.extend( financialModel.values, object );
+    financialModel.calc( financialModel.values );
+  },
+
+  /**
    * Function which updates privateLoanMulti array in financial model with new value
    * @param {number} index - The index of the private loan being updated
    * @param {string} prop - private loan object property name
