@@ -32,6 +32,10 @@ urlpatterns = [
         ConstantsRepresentation.as_view(),
         name='constants-json'),
 
+    url(r'^api/national-stats/(\d+)/$',
+        StatsRepresentation.as_view(),
+        name='national-stats-json'),
+
     url(r'^api/verify/$',
         VerifyView.as_view(),
         name='verify'),
