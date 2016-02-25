@@ -236,7 +236,7 @@ var metricView = {
   updateDebtBurdenDisplay: function( schoolValues, nationalValues ) {
     var annualSalary = Number( schoolValues.medianSalary ) || Number( nationalValues.earningsMedian ),
         monthlySalary = this.calculateMonthlySalary( annualSalary ),
-        monthlyLoanPayment = schoolValues.loanMonthly,
+        monthlyLoanPayment = schoolValues.loanMonthly || 0,
         debtBurden = this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
         annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
         monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
