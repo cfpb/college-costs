@@ -21,9 +21,9 @@ var questionView = {
         questionView.$followupYes.hide();
       }
       // Show the rest of the page with a 600 millisecond animation.
-      questionView.$getOptions.show( 'slow' );
-      questionView.$nextSteps.show( 'slow' );
-      questionView.$feedback.show( 'slow' );
+      questionView.$getOptions.show();
+      questionView.$nextSteps.show();
+      questionView.$feedback.show();
     } );
   }
 
