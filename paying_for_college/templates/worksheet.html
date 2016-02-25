@@ -35,10 +35,8 @@
                     </h1>
                     <p class="hero_subhead">
                         This personalized summary will help you evaluate your
-                        financial aid offer from your school and better
-                        understand how student debt can impact your financial
-                        life in the future.
-                    </p>
+                        financial aid offer from your school to see how
+                        student debt will impact your future finances. </p>
                 </div>
                 <div class="hero_image"></div>
             </div>
@@ -49,8 +47,8 @@
                 <div class="verify_wrapper">
                     <div class="verify_content">
                         <h2 class="verify_prompt">
-                            Verify that the below information is correct to
-                            display the details and evaluation of your offer.
+                            Make sure that the information below is correct
+                            before reviewing your offer.
                         </h2>
                         <div class="verify_school">
                             {{school.primary_alias}}
@@ -93,11 +91,10 @@
                                 </label>
                                 <p class="verify_label-explanation">
                                     This may be shorter than program length if
-                                    you transferred in credits or longer if
-                                    you plan to attend part time. We’ll use
-                                    this to help calculate your total debt
-                                    after graduation.
-                                </p>
+                                    you transferred in with credits. It may be
+                                    longer if you plan to attend part time.
+                                    We’ll use this to help calculate your
+                                    total debt after graduation. </p>
                                 <div class="cf-select">
                                     <select id="estimated-years-attending">
                                         <option value="">
@@ -150,31 +147,36 @@
                         <div class="instructions_content
                         instructions_content__right">
                             <h2 class="step_heading">
-                                This tool helps explain a few important things
-                                about your financial aid offer:
+                                As you go through the three sections of this
+                                tool, you’ll:
                             </h2>
-                            <p>
-                                In <strong>Step 1</strong>, review your
-                                first-year financial aid offer and update any
-                                incorrect information. This helps us provide a
-                                more accurate evaluation.
-                            </p>
-                            <p>
-                                In <strong>Step 2</strong>, evaluate your
-                                offer to learn about the risks and rewards of
-                                accepting it. We include things like
-                                graduation rate, affordability, and loan
-                                default rates.
-                            </p>
-                            <p>
-                                In <strong>Step 3</strong>, learn about your
-                                options when it comes to how to reduce student
-                                debt for a more positive financial future.
-                            </p>
+                            <ol>
+                                <li>Review your first-year
+                                financial aid offer and update any incorrect
+                                information.</li>
+                                <li>Evaluate the risks and
+                                rewards of accepting your financial aid offer
+                                by reviewing graduation rate, affordability,
+                                loan default rates, and other factors specific
+                                to your school and program.</li>
+                                <li>Learn about your options
+                                to reduce student debt.</li>
+                            </ol>
                             <p class="instructions_subheading">
                                 You must review all three parts of this tool
                                 before you can enroll.
                             </p>
+                        </div>
+                        <div class="instructions_about-wrapper">
+                            <div class="instructions_about">
+                                <p>This tool uses data and financial terms that
+                                    may need additional explanation. Learn more
+                                    about the financial language, how
+                                    calculations are created, and where the
+                                    data comes from.
+                                </p>
+                                <a href="about-worksheet.html">Get details about how this tool works</a>
+                            </div>
                         </div>
                     </div>
                     <div class="content_line"></div>
@@ -189,10 +191,11 @@
                             </h2>
                             <p class="step_intro">
                                 Here is your financial aid offer from
-                                <span id="intro__school-name">{{school.primary_alias}}</span>. Please verify the
-                                amounts provided by your school below, making
-                                any necessary changes or adding missing
-                                information.
+                                <span id="intro__school-name">
+                                    {{school.primary_alias}}
+                                </span>. Please verify the amounts provided by
+                                your school below, making any necessary
+                                changes or adding missing information.
                             </p>
                         </div>
                     </div>
@@ -334,7 +337,10 @@
                                                 Federal Pell Grant
                                             </label>
                                             <p class="aid-form_definition">
-                                                Based on financial need
+                                                Based on financial need, 
+                                                <a href="https://studentaid.ed.gov/sa/types/grants-scholarships/pell"
+                                                target="_blank">see if you
+                                                qualify</a>
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -390,6 +396,27 @@
                                     <div class="form-group_item">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
+                                            for="grants__scholarships">
+                                                Other grants and scholarships
+                                            </label>
+                                            <p class="aid-form_definition">
+                                                Such as academic scholarships
+                                                or grants from a foundation
+                                            </p>
+                                        </div>
+                                        <div class="aid-form_input-wrapper">
+                                            <input class="aid-form_input
+                                            aid-form_input__currency"
+                                            type="text"
+                                            id="grants__scholarships"
+                                            name="grants__scholarships"
+                                            data-financial="otherScholarships"
+                                            autocorrect="off" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <div class="aid-form_label-wrapper">
+                                            <label class="form-label"
                                             for="grants__military">
                                                 Military tuition assistance
                                             </label>
@@ -413,7 +440,11 @@
                                                 GI Bill
                                             </label>
                                             <p class="aid-form_definition">
-                                                Money for service members or veterans that you don’t have to pay back
+                                                Money for service members or
+                                                veterans that you don’t have
+                                                to pay back, <a href="https://www.vets.gov/gi-bill-comparison-tool"
+                                                target="_blank">see if you
+                                                qualify</a>
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -423,28 +454,6 @@
                                             id="grants__gi"
                                             name="grants__gi"
                                             data-financial="GIBill"
-                                            autocorrect="off" value="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group_item">
-                                        <div class="aid-form_label-wrapper">
-                                            <label class="form-label"
-                                            for="grants__scholarships">
-                                                Other grants and scholarships
-                                            </label>
-                                            <p class="aid-form_definition">
-                                                Such as academic scholarships,
-                                                grants from a foundation, or
-                                                military tuition assistance
-                                            </p>
-                                        </div>
-                                        <div class="aid-form_input-wrapper">
-                                            <input class="aid-form_input
-                                            aid-form_input__currency"
-                                            type="text"
-                                            id="grants__scholarships"
-                                            name="grants__scholarships"
-                                            data-financial="otherScholarships"
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
@@ -535,8 +544,8 @@
                                     <p>
                                         This section includes loans that your
                                         parents have to repay, but are not
-                                        included in <em>your</em> personal debt or
-                                        student loan payments.
+                                        included in <em>your</em> personal
+                                        debt or student loan payments summary.
                                     </p>
                                 </div>
                             </div>
@@ -554,12 +563,12 @@
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__savings">
-                                                Cash you will provide
+                                                Cash you will pay
                                             </label>
                                             <p class="aid-form_definition">
                                                 Includes money that you can
-                                                pay now or will earn from a
-                                                job during the school year
+                                                pay now or will earn during
+                                                the school year
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -575,7 +584,7 @@
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__family">
-                                                Money your family will provide
+                                                Money your family will pay
                                             </label>
                                             <p class="aid-form_definition">
                                                 Includes money given to you,
@@ -600,9 +609,9 @@
                                                 Work study
                                             </label>
                                             <p class="aid-form_definition">
-                                                Money you earn per year from a
-                                                federal, state, or
-                                                institutional program, awarded
+                                                Money you earn per year from
+                                                an eligible Federal Work-Study
+                                                job while in school; awarded
                                                 based on financial need
                                             </p>
                                         </div>
@@ -693,7 +702,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Your total cost
+                                        Your out-of-pocket cost
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -793,8 +802,12 @@
                                                 [XX]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Starts accumulating after
-                                                leaving school
+                                                Available at most schools;
+                                                reserved for students most in
+                                                need; starts accumulating
+                                                after you leave school, <a href="https://studentaid.ed.gov/sa/types/loans/perkins"
+                                                target="_blank">see
+                                                if you qualify</a>
                                             </p>
                                         </div>
                                     </div>
@@ -824,18 +837,19 @@
                                             </p>
                                             <p class="aid-form_definition">
                                                 Starts accumulating 6 months
-                                                after leaving school
+                                                after you leave school
                                             </p>
                                             <p class="offer-part_term">
                                                 1.07% loan fee
                                             </p>
                                             <p class="aid-form_definition">
-                                                Added to loan total and paid
-                                                off during repayment,
-                                                disbursement amount remains
-                                                the same (for example, a $17
-                                                fee is added to a $1,000 loan
-                                                but you still receive $1,000)
+                                                Fee is added to the total loan
+                                                amount (for example if the
+                                                loan fee is 3%, then $30 would
+                                                be added to a $1,000 loan, so
+                                                you or your school receive
+                                                $1,000 but you would have to
+                                                repay $1,030)
                                             </p>
                                         </div>
                                     </div>
@@ -870,12 +884,13 @@
                                                 1.07% loan fee
                                             </p>
                                             <p class="aid-form_definition">
-                                                Added to loan total and paid
-                                                off during repayment,
-                                                disbursement amount remains
-                                                the same (for example, a $17
-                                                fee is added to a $1,000 loan
-                                                but you still receive $1,000)
+                                                Fee is added to the total loan
+                                                amount (for example if the
+                                                loan fee is 3%, then $30 would
+                                                be added to a $1,000 loan, so
+                                                you or your school receive
+                                                $1,000 but you would have to
+                                                repay $1,030)
                                             </p>
                                         </div>
                                     </div>
@@ -884,7 +899,7 @@
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__direct-plus">
-                                                Direct PLUS loan
+                                                Grad PLUS loan
                                             </label>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -911,12 +926,15 @@
                                                 4.27% loan fee
                                             </p>
                                             <p class="aid-form_definition">
-                                                Deducted immediately, lowering
-                                                the amount of money you
-                                                receive at disbursement (for
-                                                example, a $42 fee is applied
-                                                to a $1,000 loan, leaving you
-                                                with $958)
+                                                Fee is deducted immediately
+                                                from your loan amount,
+                                                lowering the total you receive
+                                                (for example, if the loan fee
+                                                is 3%, then $30 will be
+                                                subtracted from a $1,000 loan,
+                                                so you or your school will
+                                                only receive $970 but you
+                                                would have to repay $1,000)
                                             </p>
                                         </div>
                                     </div>
@@ -951,7 +969,9 @@
                                             longer loan terms mean smaller
                                             monthly payments but a higher
                                             total cost of interest over the
-                                            life of the loan.
+                                            life of the loan. May be a
+                                            variable rate and increase or
+                                            decrease in the future.
                                         </p>
                                     </div>
                                     <div class="private-loans">
@@ -1018,7 +1038,7 @@
                                                     data-private-loan_key="rate"
                                                     data-percentage_value="true"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="7.9">
                                                     <span class="aid-form_unit">
                                                         %
                                                     </span>
@@ -1033,15 +1053,15 @@
                                                     </label>
                                                     <p
                                                     class="aid-form_definition">
-                                                        Added to loan total
-                                                        and paid off during
-                                                        repayment,
-                                                        disbursement amount
-                                                        remains the same (for
-                                                        example, a $49 fee is
-                                                        added to a $1,000 loan
-                                                        but you still receive
-                                                        $1,000)
+                                                        Fee is added to the
+                                                        total loan amount (for
+                                                        example if the loan
+                                                        fee is 3%, then $30
+                                                        would be added to a
+                                                        $1,000 loan, so you or
+                                                        your school receive
+                                                        $1,000 but you would
+                                                        have to repay $1,030)
                                                     </p>
                                                 </div>
                                                 <div
@@ -1056,7 +1076,7 @@
                                                     data-percentage_value="true"
                                                     data-private-loan_key="fees"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="0.049">
                                                     <span
                                                     class="aid-form_unit">
                                                         %
@@ -1094,7 +1114,7 @@
                                                     class="aid-form_input
                                                     aid-form_input__currency"
                                                     type="text"
-                                                    id="contrib__private-loan_1"
+                                                    id="contrib__private-loan_0"
                                                     name="contrib__private-loan"
                                                     data-financial="privateLoan"
                                                     data-private-loan_key="amount"
@@ -1121,13 +1141,13 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-interest_1"
+                                                    id="contrib__private-loan-interest_0"
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
                                                     data-percentage_value="true"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="7.9">
                                                     <span class="aid-form_unit">
                                                         %
                                                     </span>
@@ -1142,15 +1162,15 @@
                                                     </label>
                                                     <p
                                                     class="aid-form_definition">
-                                                        Added to loan total
-                                                        and paid off during
-                                                        repayment,
-                                                        disbursement amount
-                                                        remains the same (for
-                                                        example, a $49 fee is
-                                                        added to a $1,000 loan
-                                                        but you still receive
-                                                        $1,000)
+                                                        Fee is added to the
+                                                        total loan amount (for
+                                                        example if the loan
+                                                        fee is 3%, then $30
+                                                        would be added to a
+                                                        $1,000 loan, so you or
+                                                        your school receive
+                                                        $1,000 but you would
+                                                        have to repay $1,030)
                                                     </p>
                                                 </div>
                                                 <div
@@ -1159,13 +1179,13 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-fees_1"
+                                                    id="contrib__private-loan-fees_0"
                                                     name="contrib__private-loan-fees"
                                                     data-financial="privateLoanFees"
                                                     data-percentage_value="true"
                                                     data-private-loan_key="fees"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="0.049">
                                                     <span
                                                     class="aid-form_unit">
                                                         %
@@ -1203,7 +1223,7 @@
                                                     class="aid-form_input
                                                     aid-form_input__currency"
                                                     type="text"
-                                                    id="contrib__private-loan_2"
+                                                    id="contrib__private-loan_0"
                                                     name="contrib__private-loan"
                                                     data-financial="privateLoan"
                                                     data-private-loan_key="amount"
@@ -1230,13 +1250,13 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-interest_2"
+                                                    id="contrib__private-loan-interest_0"
                                                     name="contrib__private-loan-interest"
                                                     data-financial="privateLoanRate"
                                                     data-private-loan_key="rate"
                                                     data-percentage_value="true"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="7.9">
                                                     <span class="aid-form_unit">
                                                         %
                                                     </span>
@@ -1251,15 +1271,15 @@
                                                     </label>
                                                     <p
                                                     class="aid-form_definition">
-                                                        Added to loan total
-                                                        and paid off during
-                                                        repayment,
-                                                        disbursement amount
-                                                        remains the same (for
-                                                        example, a $49 fee is
-                                                        added to a $1,000 loan
-                                                        but you still receive
-                                                        $1,000)
+                                                        Fee is added to the
+                                                        total loan amount (for
+                                                        example if the loan
+                                                        fee is 3%, then $30
+                                                        would be added to a
+                                                        $1,000 loan, so you or
+                                                        your school receive
+                                                        $1,000 but you would
+                                                        have to repay $1,030)
                                                     </p>
                                                 </div>
                                                 <div
@@ -1268,13 +1288,13 @@
                                                     class="aid-form_input
                                                     aid-form_input__percent"
                                                     type="text"
-                                                    id="contrib__private-loan-fees_2"
+                                                    id="contrib__private-loan-fees_0"
                                                     name="contrib__private-loan-fees"
                                                     data-financial="privateLoanFees"
                                                     data-percentage_value="true"
                                                     data-private-loan_key="fees"
                                                     autocorrect="off"
-                                                    value="0">
+                                                    value="0.049">
                                                     <span
                                                     class="aid-form_unit">
                                                         %
@@ -1298,6 +1318,11 @@
                                                 Tuition payment plan from your
                                                 school
                                             </label>
+                                            <p class="aid-form_definition">
+                                                An arrangement with your
+                                                school to pay back the loan
+                                                within a certain amount of time
+                                            </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
                                             <input class="aid-form_input
@@ -1317,7 +1342,7 @@
                                             </p>
                                             <p class="aid-form_definition">
                                                 Starts accumulating when you
-                                                sign the plan
+                                                leave or finish school
                                             </p>
                                             <p class="offer-part_term">
                                                 Must pay loan balance and
@@ -1354,7 +1379,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Total federal loans
+                                        Federal loans
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1368,7 +1393,7 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Total private loans and payment plans
+                                        Private loans and payment plans
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1387,7 +1412,7 @@
                                 </div>
                                 <div class="line-item line-item__total">
                                     <div class="line-item_title">
-                                        Total debt
+                                        Total student loan debt
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1406,7 +1431,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Your total cost
+                                        Your out-of-pocket cost
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1501,16 +1526,15 @@
                                 amount to cover only what you need.
                             </p>
                             <p>
-                                While the idea of $<span
+                                Think about how $<span
                                 id="future_total-loans"
                                 data-financial="borrowingTotal">[XX]</span> in
-                                loans sounds reasonable today, think about how
-                                it will affect your future financial situation.
-                                As you can see in the summary, the total cost
-                                of these loans after <span
+                                student debt will affect your future financial
+                                situation. As you can see in the summary, the
+                                total cost of these loans after <span
                                 id="future_years-attending"
                                 data-financial="yearsAttending">[XX]</span>
-                                years after interest equals $<span
+                                years plus interest and fees equals $<span
                                 id="future_total-debt"
                                 data-financial="loanLifetime">[XX]</span>.
                             </p>
@@ -1531,7 +1555,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Your total cost
+                                        Your out-of-pocket cost
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1629,6 +1653,12 @@
                                 <div class="line-item">
                                     <div class="line-item_title">
                                         Total cost of repayment with interest
+                                        and fees
+                                        <span class="line-item_explanation">
+                                            Assuming all interest rates and
+                                            amounts remain the same for the
+                                            entire program
+                                        </span>
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1639,6 +1669,9 @@
                                         id="summary_total-repayment"></span>
                                     </div>
                                 </div>
+                                <p>
+                                    
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1649,10 +1682,11 @@
                     <div class="evaluate_wrapper">
                         <div class="evaluate_intro">
                             <h2 class="step_heading">
-                                Step 2: Evaluate your offer
+                                Step 2: Weigh the risks and rewards of your
+                                offer
                             </h2>
                             <p class="step_intro">
-                                Ask yourself these questions to help you
+                                The questions in this section will help you
                                 understand how accepting this offer could
                                 affect your ability to pay back your student
                                 debt and impact your financial future.
@@ -1666,12 +1700,14 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Graduation is not a guarantee. And if you
-                                    don’t graduate, you’ll still have to repay
+                                    Nobody enrolls in school planning to drop
+                                    out. Remember, whether you get your
+                                    diploma or not, you’ll still have to repay
                                     federal and private loans (and possibly
-                                    even some grants), but you won’t have the
-                                    added benefit of your degree to help earn
-                                    more money.
+                                    even some grants). If you don’t graduate,
+                                    you won’t have the added benefit of your
+                                    degree to help earn more money to put
+                                    toward paying off student loans.
                                 </p>
                             </div>
                             <section class="metric graduation-rate column-well
@@ -1729,21 +1765,23 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Take into consideration how much money you
-                                    can expect to make if you graduate, and
-                                    then evaluate how much of that will go
-                                    toward living expenses and loan payments.
+                                    Think about how much money you can expect
+                                    to make if you graduate and get a job in
+                                    your field, and then evaluate how much of
+                                    that will go toward living expenses and
+                                    loan payments.
                                 </p>
-                                <p>
+                                <p id="criteria_job-placement-content">
                                     Keep in mind your school has a job
                                     placement rate of <span
                                     id="criteria_job-placement-rate"
                                     data-financial="jobRate"
                                     data-percentage_value="true">[X.X]</span>%
                                     for students who graduate and get a job in
-                                    their field. In reality, you could be
-                                    making even less than the average salaries
-                                    shown here.</p>
+                                    their field. In reality, you could end up
+                                    making more or less than the average
+                                    salaries shown here.
+                                </p>
                             </div>
                             <section class="metric average-salary column-well
                             column-well__bleed column-well__not-stacked">
@@ -1809,7 +1847,9 @@
                                             Monthly living expenses based on
                                             <span id="expenses__datatype"
                                             data-financial="BLSAverage">
-                                            national</span> averages </p>
+                                            national</span> averages from the
+                                            Bureau of Labor Statistics; adjust
+                                            as needed</p>
                                     </div>
                                     <div class="form-group_item">
                                         <label class="form-label__wrapped">
@@ -1992,6 +2032,11 @@
                                     <div class="line-item line-item__total">
                                         <div class="line-item_title">
                                             What you have left over
+                                            <span
+                                            class="line-item_explanation">
+                                                Not including taxes or other
+                                                types of debt 
+                                            </span>
                                         </div>
                                         <div class="line-item_value">
                                             <span class="line-item_currency">
@@ -2009,41 +2054,43 @@
                     </section>
                     <section class="criteria column-well_wrapper">
                         <h3 class="criteria_heading">
-                            Am I about to take out too many loans?
+                            How do I know if I’m about to take on too much
+                            debt? 
                         </h3>
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
                                     There are two factors that make up your
-                                    debt burden—your loan payment and your
-                                    salary. The general rule of thumb is that
-                                    you shouldn’t borrow more than you will
-                                    make during your first year out of college.
-                                    Your student loan payment shouldn’t be
-                                    more than 8% of your total monthly income.
+                                    debt burden&mdash;your loan payment and
+                                    your salary. The general rule of thumb is
+                                    that you shouldn’t borrow more than you
+                                    will make during your first year out of
+                                    college. Your student loan payment
+                                    shouldn’t be more than 8% of your total
+                                    monthly income.
                                 </p>
                                 <p>
                                     Your total estimated debt, according to
                                     the amounts entered above, is $<span
-                                    data-financial="totalDebt">[XX]</span>. On
-                                    average, students from your school
-                                    graduate with $<span
-                                    id="criteria_median-school-debt"
+                                    data-financial="totalDebt">[XX]</span>.
+                                    <span id="criteria_median-school-debt-content">On average, students from your
+                                    school graduate with
+                                    $<span id="criteria_median-school-debt"
                                     data-financial="medianSchoolDebt">[XX]
                                     </span> of debt (includes part-time,
-                                    full-time, and transfer students).
+                                    full-time, and transfer students).</span>
                                     The lower your total debt, the lower your
                                     debt burden will be.</p>
                                 <p>
                                     If your debt burden is too high, it
-                                    increases the chances of defaulting on
-                                    your loan or not being able to pay for
-                                    other necessities, like health insurance.
-                                    Since it’s difficult to predict or
-                                    actively increase your future salary, the
-                                    best way to lower your debt burden is to
-                                    reduce the amount of student loans you
-                                    take out.
+                                    increases the chances of not being able to
+                                    repay your loan on time and incurring late
+                                    fees and more interest, or not being able
+                                    to pay for other necessities, like rent or
+                                    groceries. Since it’s difficult to predict
+                                    your future salary, the best way to lower
+                                    your debt burden is to reduce the amount
+                                    of student loans you take out.
                                 </p>
                             </div>
                             <section class="metric debt-burden column-well
@@ -2136,12 +2183,40 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    If you stop paying your loan, you could go
-                                    into default. Defaulting on a loan can
-                                    have serious negative affects on your
-                                    financial future by lowering your credit
-                                    score and making it very difficult to get
-                                    a car or home loan.
+                                    There are several <a
+                                    href="https://studentaid.ed.gov/sa/repay-loans/understand/plans" target="_blank">
+                                    options for reducing your federal student
+                                    loan payments</a> to help make them more
+                                    affordable. Many of these alternative
+                                    repayment plans are based on income and
+                                    family size, which means the lower your
+                                    salary, the lower your student loan
+                                    payment. For instance, if you have a
+                                    family of four with an annual income of
+                                    $50,000, your monthly student loan payment
+                                    would be $114. It could be as low as $0,
+                                    depending on your income and family size.
+                                </p>
+                                <p>
+                                    These repayment plans aren’t available for
+                                    private student loans, which can be why
+                                    some students still struggle to afford
+                                    their monthly student loan payment. If
+                                    you’re still not able to make payments on
+                                    your loans, you could go into default.
+                                </p>
+                                <p>
+                                    Defaulting on a loan is when you fail to
+                                    make scheduled payments over a certain
+                                    period of time. This length of time can
+                                    vary based on the type of loan. It can
+                                    also mean added late fees and interest
+                                    because the debt isn’t paid off in time.
+                                    Defaulting on a loan can have serious
+                                    negative affects on your financial future.
+                                    It can make it difficult for you to get a
+                                    car or home loan, lower your credit score,
+                                    or result in wage garnishment. 
                                 </p>
                             </div>
                             <section class="metric loan-default-rates
@@ -2250,9 +2325,9 @@
                                 Step 3: Consider your options
                             </h2>
                             <p class="step_intro">
-                                Rest assured that there are things you can do
-                                if you are uncertain about going into this
-                                much debt. Here are some choices you can make
+                                If you are uncertain about going into this
+                                much debt, there are things you can do.
+                                Here are some choices you can make
                                 that may help you improve your financial
                                 future.
                             </p>
@@ -2279,7 +2354,7 @@
                                 Consider applying for
                                 <a href="https://studentaid.ed.gov/sa/types/grants-scholarships"
                                 target="_blank">
-                                    additional scholarships and grants
+                                additional scholarships and grants
                                 </a>, which provide money you don’t
                                 have to repay. By increasing the amount of
                                 this type of aid, you can decrease the overall
@@ -2324,11 +2399,14 @@
                                 Make sure you don’t have to take classes twice.
                             </h3>
                             <p>
-                                <a href="http://www.consumer.ftc.gov/articles/0395-choosing-college-questions-ask">Ask if credits from your school transfer
+                                <a href="http://www.consumer.ftc.gov/articles/0395-choosing-college-questions-ask" target="_blank">Ask if credits from your school transfer
                                 </a> to degrees earned at other schools.
-                                <span id="option_completion-rate" data-financial="gradRate"
+                                <span id="option_completion-rate-content">
+                                <span id="option_completion-rate"
+                                data-financial="gradRate"
                                 data-percentage_value="true">[XX]</span>% of 
                                 students who start at this school finish here.
+                                </span>
                                 In the case you decide to finish your
                                 education somewhere else, it’s important to
                                 know if the hard work you’ve put into your
@@ -2370,6 +2448,15 @@
                                         private loans to see how it affects
                                         your overall debt.
                                     </p>
+                                    <p>
+                                        Changing amounts in this tool has no
+                                        affect on what financial aid is
+                                        actually being offered. If you want to
+                                        move forward with different amounts,
+                                        you will need to contact your school’s
+                                        financial aid representative to have
+                                        your financial aid package updated.
+                                    </p>
                                 </div>
                             </div>
                         </section>
@@ -2395,9 +2482,7 @@
                     <ol class="super-numerals next-steps_list">
                         <li class="super-numerals next-steps_list-item">
                             <p class="next-steps_list-intro">
-                                Talk to your school if you decide to move
-                                forward with enrollment using your edited
-                                amounts.
+                                Review any changes you made to your offer. If you decide to move forward using any adjusted amount of aid, you need to contact your school and let them know what you’d like changed.
                             </p>
                             <p>
                                 Edits you make during this session are meant
@@ -2461,15 +2546,13 @@
                     <div class="instructions_wrapper">
                         <div class="instructions_content
                         instructions_content__wrong">
-                            <p class="instructions_subheading">
-                                If the information provided is not correct,
-                                please contact your school to have it adjusted.
-                            </p>
                             <p>
-                                Once your school provides you with an updated
-                                link to our tool, you will be able to return
-                                to the tool and complete it so you can
-                                continue with the enrollment process.
+                                If the information provided is not correct,
+                                please contact your school and ask them to fix
+                                it. Once your school provides you with an
+                                updated link, you will be able to return so
+                                you can continue reviewing the information in
+                                the tool.
                             </p>
                         </div>
                     </div>
