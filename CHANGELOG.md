@@ -10,6 +10,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added graph notifications
 - Fix for expense calculations
 - nationalData now retrieved via AJAX from API
+- Changed url for "about this tool" page to /about-this-tool/
 - Added "About this tool" section and content
 - Updated content to pre-clearance version for settlement students
 
