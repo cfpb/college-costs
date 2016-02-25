@@ -49,6 +49,7 @@ var financialModel = {
     model.totalProgramDebt = model.borrowingTotal * model.programLength;
 
     // monthly expenses
+    console.log( model );
     model.totalMonthlyExpenses =
       Math.round( model.monthlyRent + model.monthlyFood +
       model.monthlyTransportation + model.monthlyInsurance +

@@ -548,6 +548,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
     page.confirmVerification();
     page.setMonthlyRent( 1151 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3526' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1609' );
   } );
@@ -555,6 +556,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly food is modified', function() {
     page.confirmVerification();
     page.setMonthlyFood( 675 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3826' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1909' );
   } );
@@ -562,6 +564,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly transportation is modified', function() {
     page.confirmVerification();
     page.setMonthlyTransportation( 634 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3626' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1709' );
   } );
@@ -569,6 +572,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly insurance is modified', function() {
     page.confirmVerification();
     page.setMonthlyInsurance( 667 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4026' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2109' );
   } );
@@ -576,6 +580,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
     page.confirmVerification();
     page.setMonthlyRetirement( 169 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3426' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1509' );
   } );
@@ -583,6 +588,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly update when estimated monthly other expenses are modified', function() {
     page.confirmVerification();
     page.setMonthlyOther( 630 );
+    browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4126' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2209' );
   } );

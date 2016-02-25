@@ -11,7 +11,7 @@ var linksView = require( '../views/links-view' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
-  $review: $( '[data-section="review"]' ),
+  $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
   $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]'),
@@ -242,7 +242,7 @@ var financialView = {
    * Listener function for keyup in financial model INPUT fields
    */
   keyupListener: function() {
-    this.$review.on( 'keyup', '[data-financial]', function() {
+    this.$reviewAndEvaluate.on( 'keyup', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
@@ -255,7 +255,7 @@ var financialView = {
    * Listener function for focus out in financial model INPUT fields
    */
   focusoutListener: function() {
-    this.$review.on( 'focusout', '[data-financial]', function() {
+    this.$reviewAndEvaluate.on( 'focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );

@@ -9,7 +9,7 @@ var ua = navigator.userAgent.toLowerCase(),
  */
 function printAndroidPage() {
   // https://developers.google.com/cloud-print/docs/gadget
-  var gadget = new cloudprint.Gadget();
+  var gadget = new window.cloudprint.Gadget();
   gadget.setPrintDocument( 'text/html', $( 'title' ).html(),
     document.documentElement.innerHTML, 'utf-8' );
   gadget.openPrintDialog();
