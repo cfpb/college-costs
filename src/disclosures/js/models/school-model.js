@@ -1,7 +1,5 @@
 'use strict';
 
-var getSchoolValues = require( '../dispatchers/get-school-values' );
-
 
 var schoolModel = {
   values: {},
@@ -20,7 +18,6 @@ var schoolModel = {
   processAPIData: function( values ) {
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
-    values.defaultRate /= 100;
     values.medianSalary = values.salary || values.medianAnnualPay;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 ).toFixed( 0 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters || values.medianTotalDebt;
