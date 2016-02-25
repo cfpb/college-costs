@@ -372,6 +372,12 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
+  it( 'should properly hide the directPLUS loan option for undergraduate programs', function() {
+    page.confirmVerification();
+    expect( $( '#contrib__direct-plus' ).isDisplayed() ).toBeFalsy();
+  } );
+
+
   // TODO: Uncomment this once it's built in the JS code
   /* it( 'should properly update when the federal Direct PLUS loans are modified within the allowed limit', function() {
     page.confirmVerification();
@@ -531,7 +537,7 @@ it( 'should properly update when more than one private loans is modified', funct
   } );
 
   // *** Step 2: Evaluate your offer ***
-  
+
   // TODO: Change monthly left over when student loan payment is added
   it( 'should properly display estimated monthly expenses', function() {
     page.confirmVerification();
@@ -651,6 +657,7 @@ it( 'should properly update when more than one private loans is modified', funct
         browser.switchTo().window( handles[1] )
           .then( function () {
             browser.wait( EC.titleContains( 'College Scorecard' ), 8000, 'Page title did not contain "College Scorecard" within 8 seconds' );
+            browser.sleep( 750 );
             expect( element( by.id( 'major' ) ).getAttribute( 'value' ) ).toBe( 'health' );
             expect( element( by.id( 'zip-code' ) ).getAttribute( 'value' ) ).toBe( '46805' );
             expect( element( by.id( 'search-radius' ) ).getAttribute( 'value' ) ).toBe( '50' );

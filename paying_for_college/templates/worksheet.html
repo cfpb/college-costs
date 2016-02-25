@@ -896,38 +896,39 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="content_line loans_line"></div>
-                                    <div class="form-group_item">
-                                        <div class="aid-form_label-wrapper">
-                                            <label class="form-label"
-                                            for="contrib__direct-plus">
-                                                Grad PLUS loan
-                                            </label>
-                                        </div>
-                                        <div class="aid-form_input-wrapper">
-                                            <input class="aid-form_input
-                                            aid-form_input__currency"
-                                            type="text"
-                                            id="contrib__direct-plus"
-                                            name="contrib__direct-plus"
-                                            data-financial="gradplus"
-                                            autocorrect="off" value="0">
-                                        </div>
-                                        <div class="offer-part_terms">
-                                            <p class="offer-part_term">
-                                                <span
-                                                data-financial="gradplusRate"
-                                                data-percentage_value="true">
-                                                [XX]</span>% interest
-                                            </p>
-                                            <p class="aid-form_definition">
-                                                Starts accumulating when you
-                                                sign the loan
-                                            </p>
-                                            <p class="offer-part_term">
-                                                4.27% loan fee
-                                            </p>
-                                            <p class="aid-form_definition">
+                                    <div data-section="gradPlus">
+                                      <div class="content_line loans_line"></div>
+                                      <div class="form-group_item">
+                                          <div class="aid-form_label-wrapper">
+                                              <label class="form-label"
+                                              for="contrib__direct-plus">
+                                                  Grad PLUS loan
+                                              </label>
+                                          </div>
+                                          <div class="aid-form_input-wrapper">
+                                              <input class="aid-form_input
+                                              aid-form_input__currency"
+                                              type="text"
+                                              id="contrib__direct-plus"
+                                              name="contrib__direct-plus"
+                                              data-financial="gradplus"
+                                              autocorrect="off" value="0">
+                                          </div>
+                                          <div class="offer-part_terms">
+                                              <p class="offer-part_term">
+                                                  <span
+                                                  data-financial="gradplusRate"
+                                                  data-percentage_value="true">
+                                                  [XX]</span>% interest
+                                              </p>
+                                              <p class="aid-form_definition">
+                                                  Starts accumulating when you
+                                                  sign the loan
+                                              </p>
+                                              <p class="offer-part_term">
+                                                  4.27% loan fee
+                                              </p>
+                                              <p class="aid-form_definition">
                                                 Fee is deducted immediately
                                                 from your loan amount,
                                                 lowering the total you receive
@@ -937,8 +938,9 @@
                                                 so you or your school will
                                                 only receive $970 but you
                                                 would have to repay $1,000)
-                                            </p>
-                                        </div>
+                                              </p>
+                                          </div>
+                                      </div>
                                     </div>
                                     <div class="aid-form_inline-subtotal">
                                         <div class="content_line
@@ -1750,10 +1752,41 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="metric_notification
-                                    metric_notification__better">
-                                        Higher graduation rate than national
-                                        average
+                                    <div class="metric_notification"
+                                    data-better-direction="higher">
+                                        <p class="cf-notification_text
+                                        metric_notification_text__better">
+                                            Higher graduation rate than national
+                                            average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__same">
+                                            About the same graduation rate as
+                                            national average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__worse">
+                                            <span class="cf-notification_icon
+                                            cf-notification_icon__error cf-icon
+                                            cf-icon-error-round"></span>
+                                            Lower graduation rate than national
+                                            average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-you">
+                                            We currently don’t have data to
+                                            display for your school
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-average">
+                                            We currently don’t have national
+                                            average data to display
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-data">
+                                            We currently don’t have data to
+                                            display
+                                        </p>
                                     </div>
                                 </div>
                             </section>
@@ -1827,14 +1860,39 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cf-notification
-                                    metric_notification
-                                    cf-notification__error">
-                                        <span class="cf-notification_icon
-                                        cf-notification_icon__error cf-icon
-                                        cf-icon-error-round"></span>
-                                        <p class="cf-notification_text">
+                                    <div class="metric_notification"
+                                    data-better-direction="higher">
+                                        <p class="cf-notification_text
+                                        metric_notification_text__better">
+                                            Higher salary than national
+                                            average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__same">
+                                            About the same salary as
+                                            national average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__worse">
+                                            <span class="cf-notification_icon
+                                            cf-notification_icon__error cf-icon
+                                            cf-icon-error-round"></span>
                                             Lower salary than national average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-you">
+                                            We currently don’t have data to
+                                            display for your school
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-average">
+                                            We currently don’t have national
+                                            average data to display
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-data">
+                                            We currently don’t have data to
+                                            display
                                         </p>
                                     </div>
                                 </div>
@@ -2163,13 +2221,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cf-notification
-                                    metric_notification
-                                    cf-notification__error">
-                                        <span class="cf-notification_icon
-                                        cf-notification_icon__error cf-icon
-                                        cf-icon-error-round"></span>
-                                        <p class="cf-notification_text">
+                                    <div class="metric_notification"
+                                    data-better-direction="lower">
+                                        <p class="cf-notification_text
+                                        metric_notification_text__better">
+                                            Loan payment is lower than
+                                            recommended 8% of salary
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__same">
+                                            Loan payment is equal to
+                                            recommended 8% of salary
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__worse">
+                                            <span class="cf-notification_icon
+                                            cf-notification_icon__error cf-icon
+                                            cf-icon-error-round"></span>
                                             Loan payment is higher than
                                             recommended 8% of salary
                                         </p>
@@ -2260,15 +2328,40 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="cf-notification
-                                    metric_notification
-                                    cf-notification__error">
-                                        <span class="cf-notification_icon
-                                        cf-notification_icon__error cf-icon
-                                        cf-icon-error-round"></span>
-                                        <p class="cf-notification_text">
+                                    <div class="metric_notification"
+                                    data-better-direction="lower">
+                                        <p class="cf-notification_text
+                                        metric_notification_text__better">
+                                            Lower default rate than national
+                                            average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__same">
+                                            The same default rate as
+                                            national average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__worse">
+                                            <span class="cf-notification_icon
+                                            cf-notification_icon__error cf-icon
+                                            cf-icon-error-round"></span>
                                             Higher default rate than national
                                             average
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-you">
+                                            We currently don’t have data to
+                                            display for your school
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-average">
+                                            We currently don’t have national
+                                            average data to display
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-data">
+                                            We currently don’t have data to
+                                            display
                                         </p>
                                     </div>
                                 </div>
@@ -2404,9 +2497,8 @@
                                 <a href="http://www.consumer.ftc.gov/articles/0395-choosing-college-questions-ask" target="_blank">Ask if credits from your school transfer
                                 </a> to degrees earned at other schools.
                                 <span id="option_completion-rate-content">
-                                <span id="option_completion-rate"
-                                data-financial="gradRate"
-                                data-percentage_value="true">[XX]</span>% of 
+                                <span id="option_completion-rate" data-financial="gradRate"
+                                data-percentage_value="true">[XX]</span>% of
                                 students who start at this school finish here.
                                 </span>
                                 In the case you decide to finish your

@@ -5,6 +5,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updated content to be dynamic based on remaining cost
 - Added interaction and animation for answering the question
 - Changed app to utilize AJAX API calls instead of expecting window objects
+- Visibility of gradplus loan determined by program level
+- undergrad property of financial model determined by program level
+- Added graph notifications
 
 ## 2.0.0
 ### Added/updated
