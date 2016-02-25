@@ -29,7 +29,6 @@ var getSchoolValues = {
           window.nationalData.regionalEntertainment / 12;
       }
     }
-
     return values;
   }
 

@@ -68,6 +68,19 @@ var financialModel = {
       var key = roundedKeys[x];
       model[key] = Math.round( model[key] );
     }
+  },
+
+  /**
+   * Updates the financial model with values from school and program data
+   * @param { object } schoolValues - an object containing values from school and program data
+   */
+  updateModelWithProgram: function( schoolValues ) {
+    schoolValues.undergrad = true;
+    if ( schoolValues.level.indexOf( 'Graduate' ) !== -1 ) {
+      schoolValues.undergrad = false;
+    }
+    $.extend( this.values, schoolValues );
   }
+
 };
 module.exports = financialModel;

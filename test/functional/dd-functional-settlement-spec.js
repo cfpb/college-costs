@@ -372,6 +372,12 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
+  it( 'should properly hide the directPLUS loan option for undergraduate programs', function() {
+    page.confirmVerification();
+    expect( $( '#contrib__direct-plus' ).isDisplayed() ).toBeFalsy();
+  } );
+
+
   // TODO: Uncomment this once it's built in the JS code
   /* it( 'should properly update when the federal Direct PLUS loans are modified within the allowed limit', function() {
     page.confirmVerification();

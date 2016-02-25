@@ -43,7 +43,7 @@ var getApiValues = {
 
   fetchProgramData: function( iped, pid ) {
     var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/program/' + iped + '-' + pid + '/';
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/program/' + iped + '_' + pid + '/';
     var programDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
