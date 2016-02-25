@@ -1,6 +1,5 @@
 'use strict';
 
-var schoolModel = require( '../models/school-model' );
 var getModelValues = require( '../dispatchers/get-model-values' );
 var formatUSD = require( 'format-usd' );
 
@@ -11,7 +10,7 @@ var metricView = {
    */
   init: function() {
     var $graphs = $( '.bar-graph' ),
-        schoolValues = schoolModel.values,
+        schoolValues = getModelValues.financial(),
         nationalValues = window.nationalData || {};
     this.initGraphs( $graphs, schoolValues, nationalValues );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
@@ -170,7 +169,9 @@ var metricView = {
    * @param {string} notificationClasses Classes to add to the notification
    */
   setNotificationClasses: function( $notification, notificationClasses ) {
-    $notification.addClass( notificationClasses );
+    $notification
+      .attr( 'class', 'metric_notification' )
+      .addClass( notificationClasses );
   },
 
   /**
@@ -235,8 +236,7 @@ var metricView = {
   updateDebtBurdenDisplay: function( schoolValues, nationalValues ) {
     var annualSalary = Number( schoolValues.medianSalary ) || Number( nationalValues.earningsMedian ),
         monthlySalary = this.calculateMonthlySalary( annualSalary ),
-        financialValues = getModelValues.financial(),
-        monthlyLoanPayment = financialValues.loanMonthly,
+        monthlyLoanPayment = schoolValues.loanMonthly,
         debtBurden = this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
         annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
         monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
@@ -258,7 +258,6 @@ var metricView = {
     $monthlySalaryElement.text( monthlySalaryFormatted );
     $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
     $debtBurdenElement.text( debtBurdenFormatted );
-    $notification.attr( 'class', 'metric_notification' );
     this.setNotificationClasses( $notification, notificationClasses );
   }
 
