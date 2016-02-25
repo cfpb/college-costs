@@ -1,14 +1,12 @@
 'use strict';
 
-var getSchoolValues = require( '../dispatchers/get-school-values' );
-
 
 var schoolModel = {
   values: {},
 
   init: function( apiData ) {
     this.values = apiData;
-    this.values = getSchoolValues.getBLSExpenses( this.values );
+    this.values = this.processBLSExpenses( this.values );
     return this.processAPIData( this.values );
   },
 
@@ -20,7 +18,6 @@ var schoolModel = {
   processAPIData: function( values ) {
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
-    values.defaultRate /= 100;
     values.medianSalary = values.salary || values.medianAnnualPay;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 ).toFixed( 0 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters || values.medianTotalDebt;
@@ -29,7 +26,36 @@ var schoolModel = {
     }
 
     return values;
+  },
+
+  processBLSExpenses: function( values ) {
+    // BLS expense data is delivered as annual values.
+    // The tool displays monthly expenses.
+
+    if ( values.region === 'Not available' ) {
+      values.BLSAverage = 'national';
+      values.monthlyRent = Math.round( values.nationalHousing / 12 );
+      values.monthlyFood = Math.round( values.nationalFood / 12 );
+      values.monthlyTransportation =
+        Math.round( values.nationalTransportation / 12 );
+      values.monthlyInsurance = Math.round( values.nationalHealthcare / 12 );
+      values.monthlySavings = Math.round( values.nationalRetirement / 12 );
+      values.monthlyOther =
+        Math.round( values.nationalEntertainment / 12 );
+    } else {
+      values.BLSAverage = values.region + ' regional';
+      values.monthlyRent = Math.round( values.regionalHousing / 12 );
+      values.monthlyFood = Math.round( values.regionalFood / 12 );
+      values.monthlyTransportation =
+        Math.round( values.regionalTransportation / 12 );
+      values.monthlyInsurance = Math.round( values.regionalHealthcare / 12 );
+      values.monthlySavings = Math.round( values.regionalRetirement / 12 );
+      values.monthlyOther =
+        Math.round( values.regionalEntertainment / 12 );
+    }
+    return values;
   }
+
 
 };
 module.exports = schoolModel;
