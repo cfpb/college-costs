@@ -903,10 +903,34 @@
 
   &_notification {
     margin-bottom: unit(15px / @base-font-size-px, em);
-  }
 
-  &_notification__better {
-    .heading-4();
+    .cf-notification_text,
+    .cf-notification_icon {
+      display: none;
+    }
+
+    &__no-you,
+    &__no-average,
+    &__no-data {
+      padding-left: 11px;
+    }
+
+    &__better .metric_notification_text__better,
+    &__same .metric_notification_text__same,
+    &__worse .metric_notification_text__worse,
+    &__no-you .metric_notification_text__no-you,
+    &__no-average .metric_notification_text__no-average,
+    &__no-data .metric_notification_text__no-data {
+      display: block;
+    }
+
+    &.cf-notification .cf-notification_icon {
+      display: inline-block;
+    }
+
+    p + .cf-notification_text {
+      margin-top: 0;
+    }
   }
 
   &.column-well__not-stacked {

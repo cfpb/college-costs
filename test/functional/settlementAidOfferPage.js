@@ -419,6 +419,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.graduation-rate .bar-graph_point__average .bar-graph_value' ) );
       }
     },
+    gradRateNotification: {
+      get: function() {
+        return element( by.css( '.metric.graduation-rate .metric_notification' ) );
+      }
+    },
     schoolSalaryPoint: {
       get: function() {
         return element( by.css( '.metric.average-salary .bar-graph_point__you' ) );
@@ -439,6 +444,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.average-salary .bar-graph_point__average .bar-graph_value' ) );
       }
     },
+    salaryNotification: {
+      get: function() {
+        return element( by.css( '.metric.average-salary .metric_notification' ) );
+      }
+    },
     schoolDefaultRatePoint: {
       get: function() {
         return element( by.css( '.metric.loan-default-rates .bar-graph_point__you' ) );
@@ -457,6 +467,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
     nationalDefaultRateValue: {
       get: function() {
         return element( by.css( '.metric.loan-default-rates .bar-graph_point__average .bar-graph_value' ) );
+      }
+    },
+    defaultRateNotification: {
+      get: function() {
+        return element( by.css( '.metric.loan-default-rates .metric_notification' ) );
       }
     },
     monthlyRent: {
