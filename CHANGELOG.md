@@ -8,6 +8,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Visibility of gradplus loan determined by program level
 - undergrad property of financial model determined by program level
 - Added graph notifications
+- Changed url for "about this tool" page to /about-this-tool/
 
 ## 2.0.0
 ### Added/updated
