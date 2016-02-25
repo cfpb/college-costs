@@ -1,8 +1,6 @@
 'use strict';
 
 var getModelValues = require( '../dispatchers/get-model-values' );
-var getSchoolValues = require( '../dispatchers/get-school-values' );
-var getViewValues = require( '../dispatchers/get-view-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
