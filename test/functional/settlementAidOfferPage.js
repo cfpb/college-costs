@@ -449,6 +449,26 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.average-salary .metric_notification' ) );
       }
     },
+    debtBurdenPayment: {
+      get: function() {
+        return element( by.css( '.debt-equation [data-debt-burden="monthly-payment"]' ) );
+      }
+    },
+    debtBurdenSalary: {
+      get: function() {
+        return element( by.css( '.debt-equation [data-debt-burden="monthly-salary"]' ) );
+      }
+    },
+    debtBurdenPercent: {
+      get: function() {
+        return element( by.css( '.debt-equation [data-debt-burden="debt-burden"]' ) );
+      }
+    },
+    debtBurdenNotification: {
+      get: function() {
+        return element( by.css( '.metric.debt-burden .metric_notification' ) );
+      }
+    },
     schoolDefaultRatePoint: {
       get: function() {
         return element( by.css( '.metric.loan-default-rates .bar-graph_point__you' ) );
