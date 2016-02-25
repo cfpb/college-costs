@@ -62,4 +62,94 @@ describe( 'metric-view', function() {
     expect( formattedValues['undefined'] ).to.equal( false );
   });
 
+  it( 'gives the proper notification classes when no data is available', function() {
+    var schoolValue = parseFloat( 'None' ),
+        nationalValue = parseFloat( undefined ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__no-data cf-notification cf-notification__warning' );
+  });
+
+  it( 'gives the proper notification classes when school data is missing', function() {
+    var schoolValue = parseFloat( 'None' ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__no-you cf-notification cf-notification__warning' );
+  });
+
+  it( 'gives the proper notification classes when national data is missing', function() {
+    var schoolValue = parseFloat( 0.5 ),
+        nationalValue = parseFloat( undefined ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__no-average cf-notification cf-notification__warning' );
+  });
+
+  it( 'gives the proper notification classes when the school value is near the national value', function() {
+    var schoolValue = parseFloat( 0.55 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__same' );
+  });
+
+  it( 'gives the proper notification classes when the school value is higher than the national value (and that\'s a good thing)', function() {
+    var schoolValue = parseFloat( 0.7 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__better' );
+  });
+
+  it( 'gives the proper notification classes when the school value is lower than the national value (and that\'s a good thing)', function() {
+    var schoolValue = parseFloat( 0.3 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'lower',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__better' );
+  });
+
+  it( 'gives the proper notification classes when the school value is higher than the national value (and that\'s a bad thing)', function() {
+    var schoolValue = parseFloat( 0.7 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'lower',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__worse cf-notification cf-notification__error' );
+  });
+
+  it( 'gives the proper notification classes when the school value is lower than the national value (and that\'s a bad thing)', function() {
+    var schoolValue = parseFloat( 0.3 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = 0.4,
+        sameMax = 0.6,
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( 'metric_notification__worse cf-notification cf-notification__error' );
+  });
+
+  it( 'gives the proper notification classes when sameMin and sameMax values are not numbers', function() {
+    var schoolValue = parseFloat( 0.3 ),
+        nationalValue = parseFloat( 0.5 ),
+        sameMin = parseFloat( '' ),
+        sameMax = parseFloat( '' ),
+        betterDirection = 'higher',
+        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+    expect( notificationClasses ).to.equal( '' );
+  });
+
 });
