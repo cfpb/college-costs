@@ -13,6 +13,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Changed url for "about this tool" page to /about-this-tool/
 - Added "About this tool" section and content
 - Updated content to pre-clearance version for settlement students
+- Added script for sending test notifications
 
 
 ## 2.0.0
