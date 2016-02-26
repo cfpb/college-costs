@@ -11,6 +11,7 @@ var metricView = require( '../views/metric-view' );
 var financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
+  $verifyControls: $( '.verify_controls' ),
   $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]'),
@@ -26,6 +27,7 @@ var financialView = {
   init: function() {
     this.keyupListener();
     this.focusoutListener();
+    this.verificationListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
@@ -265,6 +267,23 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
+    } );
+  },
+
+  /**
+   * Listener function for "estimated years in program" select element
+   */
+  verificationListener: function() {
+    this.$verifyControls.on( 'click', '.btn', function() {
+      var schoolValues = getModelValues.financial(),
+          nationalValues = window.nationalData;
+      // Graph points need to be visible before updating their positions
+      // to get all the right CSS values, so we'll wait 100 ms
+      if ( $( this ).attr( 'href' ) === '#info-right' ) {
+        setTimeout( function() {
+          metricView.updateGraphs( schoolValues, nationalValues );
+        }, 100 );
+      }
     } );
   },
 

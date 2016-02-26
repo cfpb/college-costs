@@ -63,6 +63,8 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should graph average salary', function() {
     page.confirmVerification();
     expect( page.schoolSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '45.3px' );
+    // Checking for z-index lets us know an overlap is being handled correctly
+    expect( page.schoolSalaryPoint.getCssValue( 'z-index' ) ).toEqual( '100' );
     expect( page.schoolSalaryValue.getText() ).toEqual( '$23,000' );
     expect( page.nationalSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '54.188px' );
     expect( page.nationalSalaryValue.getText() ).toEqual( '$31,080' );
