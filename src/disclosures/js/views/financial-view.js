@@ -6,6 +6,7 @@ var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
+var metricView = require( '../views/metric-view' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -38,10 +39,13 @@ var financialView = {
    * @param {Boolean} currency - True if the value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
+    if ( currency === true ) {
+      value = formatUSD( value, { decimalPlaces: 0 } );
+    }
+    if ( $ele.attr( 'data-line-item' ) === 'true' ) {
+      value = value.replace( /\$/i, '' );
+    }
     if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
-      if ( currency === true ) {
-        value = formatUSD( value, { decimalPlaces: 0 } );
-      }
       $ele.val( value );
     } else {
       $ele.text( value );
@@ -75,6 +79,9 @@ var financialView = {
       if ( financialView.currentInput === $( this ).attr( 'id' ) ) {
         currency = false;
       }
+      if ( $ele.attr( 'data-currency' ) === 'false' ) {
+        currency = false;
+      }
       financialView.updateElement( $ele, values[name], currency );
     } );
   },
@@ -95,7 +102,7 @@ var financialView = {
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
-        } else if ( isntCurrentInput && key === 'baseAmount' ) {
+        } else if ( isntCurrentInput && key === 'amount' ) {
           $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
         } else {
           $( this ).val( val );
@@ -114,9 +121,9 @@ var financialView = {
         negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
-    if ( Number( finalRemainingCost.text() ) > 0 ) {
+    if ( stringToNum( finalRemainingCost.text() ) > 0 ) {
       positiveRemainingCost.show();
-    } else if ( Number( finalRemainingCost.text() ) < 0 ) {
+    } else if ( stringToNum( finalRemainingCost.text() ) < 0 ) {
       negativeRemainingCost.show();
     }
   },
@@ -135,6 +142,7 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
+    metricView.updateDebtBurdenDisplay( values, window.nationalData );
   },
 
   /**

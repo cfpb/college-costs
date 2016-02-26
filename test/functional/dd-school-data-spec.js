@@ -14,7 +14,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 600 );
     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
     page.confirmVerification();
-    expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+    expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {
@@ -29,13 +29,13 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should dynamically display the median school or program debt if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
-     expect( page.medianSchoolDebt.getText() ).toEqual( '24500' );
+     expect( page.medianSchoolDebt.getText() ).toEqual( '$24,500' );
   } );
 
   it( 'should dynamically display the expected monthly salary if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
-     expect( page.averageMonthlySalary.getText() ).toEqual( '1917');
+     expect( page.averageMonthlySalary.getText() ).toEqual( '1,917');
   } );
 
   it( 'should dynamically display the job rate if it\'s available', function() {
@@ -72,6 +72,19 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.confirmVerification();
     expect( page.salaryNotification.getText() ).toEqual( 'Lower salary than national average' );
     expect( page.salaryNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
+  } );
+
+  it( 'should calculate debt burden', function() {
+    page.confirmVerification();
+    expect( page.debtBurdenPayment.getText() ).toEqual( '$314' );
+    expect( page.debtBurdenSalary.getText() ).toEqual( '$1,917' );
+    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
+  } );
+
+  it( 'should display the correct debt burden notification', function() {
+    page.confirmVerification();
+    expect( page.debtBurdenNotification.getText() ).toEqual( 'Loan payment is higher than recommended 8% of salary' );
+    expect( page.debtBurdenNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );
 
   it( 'should graph loan default rates', function() {

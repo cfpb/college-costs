@@ -2,18 +2,29 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+-
+-
+-
+-
+-
+-
+-
+
+## 2.0.1
 - Updated content to be dynamic based on remaining cost
 - Added interaction and animation for answering the question
 - Changed app to utilize AJAX API calls instead of expecting window objects
 - Visibility of gradplus loan determined by program level
 - undergrad property of financial model determined by program level
+- Currency formatting for all currency values on page
 - Added graph notifications
 - Fix for expense calculations
 - nationalData now retrieved via AJAX from API
 - Changed url for "about this tool" page to /about-this-tool/
 - Added "About this tool" section and content
 - Updated content to pre-clearance version for settlement students
-
+- Added debt burden calculations and notifications
+- Added script for sending test notifications
 
 ## 2.0.0
 ### Added/updated

@@ -1,6 +1,6 @@
 'use strict';
 
-var schoolModel = require( '../models/school-model' );
+var getModelValues = require( '../dispatchers/get-model-values' );
 var formatUSD = require( 'format-usd' );
 
 var metricView = {
@@ -10,9 +10,11 @@ var metricView = {
    */
   init: function() {
     var $graphs = $( '.bar-graph' ),
-        schoolValues = schoolModel.values,
+        schoolValues = getModelValues.financial(),
         nationalValues = window.nationalData || {};
     this.initGraphs( $graphs, schoolValues, nationalValues );
+    // updateDebtBurdenDisplay is called in financialView.updateView, not here,
+    // since the debt burden needs to refresh when loan amounts are modified
   },
 
   /**
@@ -167,7 +169,9 @@ var metricView = {
    * @param {string} notificationClasses Classes to add to the notification
    */
   setNotificationClasses: function( $notification, notificationClasses ) {
-    $notification.addClass( notificationClasses );
+    $notification
+      .attr( 'class', 'metric_notification' )
+      .addClass( notificationClasses );
   },
 
   /**
@@ -198,6 +202,63 @@ var metricView = {
       metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
       metricView.setNotificationClasses( $notification, notificationClasses );
     } );
+  },
+
+  /**
+   * Calculates the student's debt burden
+   * @param {number} monthlyLoanPayment Student's monthly loan payment after
+   * graduation
+   * @param {monthlySalary} monthlySalary Student's estimated monthly salary
+   * after graduation
+   * @returns {number} Student's debt burden
+   */
+  calculateDebtBurden: function( monthlyLoanPayment, monthlySalary ) {
+    var debtBurden = monthlyLoanPayment / monthlySalary;
+    return debtBurden;
+  },
+
+  /**
+   * Calculates a monthly salary from an annual salary
+   * @param {number} annualSalary Annual salary
+   * @returns {number} Monthly salary
+   */
+  calculateMonthlySalary: function( annualSalary ) {
+    var monthlySalary = annualSalary / 12;
+    return monthlySalary;
+  },
+
+  /**
+   * Populates the debt burden numbers and shows the corresponding notification
+   * on the page
+   * @param {object} schoolValues Values reported by the school
+   * @param {object} nationalValues National average values
+   */
+  updateDebtBurdenDisplay: function( schoolValues, nationalValues ) {
+    var annualSalary = Number( schoolValues.medianSalary ) || Number( nationalValues.earningsMedian ),
+        monthlySalary = this.calculateMonthlySalary( annualSalary ),
+        monthlyLoanPayment = schoolValues.loanMonthly || 0,
+        debtBurden = this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
+        annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
+        monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
+        monthlyLoanPaymentFormatted = this.formatValue( 'currency', monthlyLoanPayment ),
+        debtBurdenFormatted = this.formatValue( 'decimal-percent', debtBurden ),
+        $annualSalaryElement = $( '[data-debt-burden="annual-salary"]' ),
+        $monthlySalaryElement = $( '[data-debt-burden="monthly-salary"]' ),
+        $monthlyPaymentElement = $( '[data-debt-burden="monthly-payment"]' ),
+        $debtBurdenElement = $( '[data-debt-burden="debt-burden"]' ),
+        $notification = $( '.debt-burden .metric_notification' ),
+        // We're using 8% or below as the recommended debt burden
+        debtBurdenLimit = 0.08,
+        // Debt burdens that round to 8% are considered "the same as" the
+        // recommendation
+        debtBurdenLow = debtBurdenLimit - 0.005,
+        debtBurdenHigh = debtBurdenLimit + 0.005,
+        notificationClasses = this.getNotificationClasses( debtBurden, debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
+    $annualSalaryElement.text( annualSalaryFormatted );
+    $monthlySalaryElement.text( monthlySalaryFormatted );
+    $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
+    $debtBurdenElement.text( debtBurdenFormatted );
+    this.setNotificationClasses( $notification, notificationClasses );
   }
 
 };
