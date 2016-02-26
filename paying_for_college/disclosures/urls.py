@@ -14,7 +14,7 @@ urlpatterns = [
         FeedbackView.as_view(),
         name='pfc-feedback'),
 
-    url(r'^technote/$',
+    url(r'^about-this-tool/$',
         BaseTemplateView.as_view(template_name="technote.html"),
         name='pfc-technote'),
 

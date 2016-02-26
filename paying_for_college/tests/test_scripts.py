@@ -3,8 +3,10 @@ import django
 import json
 
 import mock
+import requests
 from paying_for_college.disclosures.scripts import api_utils, update_colleges
 from paying_for_college.disclosures.scripts import nat_stats
+from paying_for_college.disclosures.scripts.ping_edmc import notify_edmc, EDMC_DEV, OID, ERRORS
 
 YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
@@ -90,6 +92,21 @@ class TestScripts(unittest.TestCase):
                    'key': 'value'}],
                  'metadata': {'page': 0}
                  }
+
+    @mock.patch('paying_for_college.disclosures.scripts.ping_edmc.requests.post')
+    def test_edmc_ping(self, mock_post):
+        mock_return = mock.Mock()
+        mock_return.ok = True
+        mock_return.reason = 'OK'
+        mock_return.status_code = 200
+        mock_post.return_value = mock_return
+        resp1 = notify_edmc(EDMC_DEV, OID, ERRORS)
+        self.assertTrue('OK' in resp1)
+        self.assertTrue(mock_post.call_count == 1)
+        mock_post.side_effect = requests.exceptions.ConnectTimeout
+        resp2 = notify_edmc(EDMC_DEV, OID, ERRORS)
+        self.assertTrue('timed' in resp2)
+        self.assertTrue(mock_post.call_count == 2)
 
     def test_calculate_percent(self):
         percent = api_utils.calculate_group_percent(100, 900)
