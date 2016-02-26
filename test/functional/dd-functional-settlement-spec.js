@@ -296,7 +296,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '15%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -312,7 +312,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-2974' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '19%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -325,7 +325,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '26' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -340,7 +340,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -353,7 +353,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-1474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '18%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -368,7 +368,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-4474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '21%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -436,7 +436,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-1474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
-    // TODO: expect the estimated debt burden is recalculated
+    expect( page.debtBurdenPercent.getText() ).toEqual( '18%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
