@@ -60,11 +60,12 @@ var getApiValues = {
   },
 
   fetchNationalData: function( iped, pid ) {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    if ( typeof pid !== undefined ) {
-      var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/national-stats/' + iped + '_' + pid + '/';
+    var urlBase = $( 'main' ).attr( 'data-context' ),
+        url;
+    if ( typeof pid !== 'undefined' ) {
+      url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/national-stats/' + iped + '_' + pid + '/';
     } else {
-      var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/national-stats/' + iped + '/';
+      url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/national-stats/' + iped + '/';
     }
     var nationalDataRequest = $.ajax( {
       url: url,
