@@ -2,6 +2,15 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+-
+-
+-
+-
+-
+-
+-
+
+## 2.0.1
 - Updated content to be dynamic based on remaining cost
 - Added interaction and animation for answering the question
 - Changed app to utilize AJAX API calls instead of expecting window objects
