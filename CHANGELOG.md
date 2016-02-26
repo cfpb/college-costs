@@ -14,6 +14,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added "About this tool" section and content
 - Updated content to pre-clearance version for settlement students
 - Added debt burden calculations and notifications
+- Added script for sending test notifications
 
 ## 2.0.0
 ### Added/updated
