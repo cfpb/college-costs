@@ -14,7 +14,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 600 );
     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
     page.confirmVerification();
-    expect( page.totalProgramDebt.getText() ).toEqual( '29000' );
+    expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {
@@ -29,13 +29,13 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should dynamically display the median school or program debt if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
-     expect( page.medianSchoolDebt.getText() ).toEqual( '24500' );
+     expect( page.medianSchoolDebt.getText() ).toEqual( '$24,500' );
   } );
 
   it( 'should dynamically display the expected monthly salary if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
-     expect( page.averageMonthlySalary.getText() ).toEqual( '1917');
+     expect( page.averageMonthlySalary.getText() ).toEqual( '1,917');
   } );
 
   it( 'should dynamically display the job rate if it\'s available', function() {

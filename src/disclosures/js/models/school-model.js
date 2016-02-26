@@ -19,7 +19,7 @@ var schoolModel = {
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
     values.medianSalary = values.salary || values.medianAnnualPay;
-    values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 ).toFixed( 0 );
+    values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters || values.medianTotalDebt;
     if ( values.hasOwnProperty( 'completionRate') && values.completionRate !== 'None' ) {
       values.gradRate = values.completionRate;
