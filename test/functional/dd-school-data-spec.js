@@ -74,6 +74,19 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.salaryNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );
 
+  it( 'should calculate debt burden', function() {
+    page.confirmVerification();
+    expect( page.debtBurdenPayment.getText() ).toEqual( '$314' );
+    expect( page.debtBurdenSalary.getText() ).toEqual( '$1,917' );
+    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
+  } );
+
+  it( 'should display the correct debt burden notification', function() {
+    page.confirmVerification();
+    expect( page.debtBurdenNotification.getText() ).toEqual( 'Loan payment is higher than recommended 8% of salary' );
+    expect( page.debtBurdenNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
+  } );
+
   it( 'should graph loan default rates', function() {
     page.confirmVerification();
     expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '80.5px' );

@@ -6,6 +6,7 @@ var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
+var metricView = require( '../views/metric-view' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -141,7 +142,7 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
-    console.log( values );
+    metricView.updateDebtBurdenDisplay( values, window.nationalData );
   },
 
   /**

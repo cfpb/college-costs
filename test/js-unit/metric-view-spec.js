@@ -152,4 +152,17 @@ describe( 'metric-view', function() {
     expect( notificationClasses ).to.equal( '' );
   });
 
+  it( 'calculates monthly salary', function() {
+    var annualSalary = 34300,
+        monthlySalary = metricView.calculateMonthlySalary( annualSalary );
+    expect( monthlySalary.toFixed( 4 ) ).to.equal( '2858.3333' );
+  });
+
+  it( 'calculates debt burden', function() {
+    var monthlyLoanPayment = 240,
+        monthlySalary = 2858,
+        debtBurden = metricView.calculateDebtBurden( monthlyLoanPayment, monthlySalary );
+    expect( debtBurden.toFixed( 4 ) ).to.equal( '0.0840' );
+  });
+
 });
