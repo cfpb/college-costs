@@ -271,7 +271,7 @@ var financialView = {
   },
 
   /**
-   * Listener function for "estimated years in program" select element
+   * Listener function for offer verification buttons
    */
   verificationListener: function() {
     this.$verifyControls.on( 'click', '.btn', function() {
