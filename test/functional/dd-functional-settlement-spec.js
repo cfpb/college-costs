@@ -542,7 +542,7 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should properly display estimated monthly expenses', function() {
     page.confirmVerification();
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,726' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,809' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,123' );
   } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
@@ -550,7 +550,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyRent( 1151 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,526' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,609' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,923' );
   } );
 
   it( 'should properly update when estimated monthly food is modified', function() {
@@ -558,7 +558,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyFood( 675 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,826' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,909' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,223' );
   } );
 
   it( 'should properly update when estimated monthly transportation is modified', function() {
@@ -566,7 +566,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyTransportation( 634 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,626' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,709' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,023' );
   } );
 
   it( 'should properly update when estimated monthly insurance is modified', function() {
@@ -574,7 +574,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyInsurance( 667 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4,026' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,109' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,423' );
   } );
 
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
@@ -582,7 +582,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyRetirement( 169 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,426' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,509' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,823' );
   } );
 
   it( 'should properly update when estimated monthly other expenses are modified', function() {
@@ -590,7 +590,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyOther( 630 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4,126' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,209' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,523' );
   } );
 
   it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
