@@ -8,7 +8,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 -
 -
 -
--
+- Adds avg_net_price to scorecard api updates
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost
