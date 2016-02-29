@@ -157,21 +157,21 @@ class School(models.Model):
     operating = models.BooleanField(default=True)
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
-    grad_rate_4yr = models.DecimalField(max_digits=4,
-                                        decimal_places=2,
+    grad_rate_4yr = models.DecimalField(max_digits=5,
+                                        decimal_places=3,
                                         blank=True, null=True)
-    grad_rate_lt4 = models.DecimalField(max_digits=4,
-                                        decimal_places=2,
+    grad_rate_lt4 = models.DecimalField(max_digits=5,
+                                        decimal_places=3,
                                         blank=True, null=True)
-    grad_rate = models.DecimalField(max_digits=4,
-                                    decimal_places=2,
+    grad_rate = models.DecimalField(max_digits=5,
+                                    decimal_places=3,
                                     blank=True, null=True,
                                     help_text="A 2-YEAR POOLED VALUE")
     repay_3yr = models.DecimalField(max_digits=13,
                                     decimal_places=10,
                                     blank=True, null=True,
                                     help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
-    default_rate = models.DecimalField(max_digits=4,
+    default_rate = models.DecimalField(max_digits=5,
                                        decimal_places=3,
                                        blank=True, null=True,
                                        help_text="LOAN DEFAULT RATE AT 3 YRS")
@@ -186,12 +186,20 @@ class School(models.Model):
     median_annual_pay = models.IntegerField(blank=True,
                                      null=True,
                                      help_text="MEDIAN PAY 10 YRS AFTER ENTRY")
+    avg_net_price = models.IntegerField(blank=True,
+                                        null=True,
+                                        help_text="OVERALL AVERAGE")
+    tuition_out_of_state = models.IntegerField(blank=True,
+                                               null=True)
+    tuition_in_state = models.IntegerField(blank=True,
+                                           null=True)
 
     def as_json(self):
         """delivers pertinent data points as json"""
         ordered_out = OrderedDict()
         jdata = json.loads(self.data_json)
         dict_out = {
+            'avg_net_price': self.avg_net_price,
             'books': jdata['BOOKS'],
             'city': self.city,
             'control': self.control,
@@ -223,8 +231,8 @@ class School(models.Model):
             'tuitionGradInS': jdata['TUITIONGRADINS'],
             'tuitionGradOss': jdata['TUITIONGRADOSS'],
             'tuitionUnderInDis': jdata['TUITIONUNDERINDIS'],
-            'tuitionUnderInS': jdata['TUITIONUNDERINS'],
-            'tuitionUnderOoss': jdata['TUITIONUNDEROSS'],
+            'tuitionUnderInS': self.tuition_in_state,
+            'tuitionUnderOoss': self.tuition_out_of_state,
             'url': self.url,
             'zip5': self.zip5,
         }

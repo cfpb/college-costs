@@ -61,19 +61,22 @@ MODEL_MAP = {
     'school.operating': 'operating',
     'school.under_investigation': 'under_investigation',
     'school.zip': 'zip5',
-    '{0}.completion.completion_rate_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate',
-    '{0}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate',
+    '{0}.completion.completion_rate_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate_4yr',
+    '{0}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(LATEST_YEAR): 'grad_rate_lt4',
     '{0}.repayment.repayment_cohort.3_year_declining_balance'.format(LATEST_YEAR): 'repay_3yr',  # NEW
     '{0}.repayment.3_yr_default_rate'.format(LATEST_YEAR): 'default_rate',
     '{0}.aid.median_debt_suppressed.overall'.format(LATEST_YEAR): 'median_total_debt',
     '{0}.aid.median_debt_suppressed.completers.monthly_payments'.format(LATEST_YEAR): 'median_monthly_debt',  # NEW
+    '{0}.cost.avg_net_price.overall'.format(LATEST_YEAR): 'avg_net_price',
+    '{0}.cost.tuition.out_of_state'.format(LATEST_YEAR): 'tuition_out_of_state',
+    '{0}.cost.tuition.in_state'.format(LATEST_YEAR): 'tuition_in_state',
     '{0}.earnings.10_yrs_after_entry.median'.format(LATEST_SALARY_YEAR): 'median_annual_pay',
 }
 
-JSON_MAP = {
-    # '{0}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
-    # '{0}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
-}
+# JSON_MAP = {
+#     # '{0}.student.retention_rate.four_year.full_time'.format(LATEST_YEAR): 'RETENTRATE',
+#     # '{0}.student.retention_rate.lt_four_year.full_time'.format(LATEST_YEAR): 'RETENTRATELT4',  # NEW
+# }
 
 BASE_FIELDS = [
     'id',
@@ -103,6 +106,7 @@ YEAR_FIELDS = [
     'cost.tuition.in_state',
     'cost.tuition.out_of_state',
     'cost.tuition.program_year',
+    'cost.avg_net_price.overall',
     'student.fafsa_sent.2_college_allyrs',
     'student.fafsa_sent.3_college_allyrs',
     'student.fafsa_sent.4_college_allyrs',
