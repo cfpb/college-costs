@@ -4,6 +4,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 -
 -
+- Added animation to button interactions
+- Change graphs to get all values from the financial model
 -
 -
 
