@@ -55,7 +55,7 @@ var financialModel = {
       model.monthlySavings + model.monthlyOther );
 
     model.monthlyLeftover = Math.round( model.monthlySalary -
-      model.totalMonthlyExpenses - model.monthlyLoanPayment );
+      model.totalMonthlyExpenses - model.loanMonthly );
   },
 
   /**
