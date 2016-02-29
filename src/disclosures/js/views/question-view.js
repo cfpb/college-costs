@@ -20,10 +20,13 @@ var questionView = {
         questionView.$followupNoNotSure.show();
         questionView.$followupYes.hide();
       }
-      // Show the rest of the page with a 600 millisecond animation.
+      // Show the rest of the page
       questionView.$getOptions.show();
       questionView.$nextSteps.show();
       questionView.$feedback.show();
+      $( 'html, body' ).stop().animate( {
+        scrollTop: questionView.$getOptions.offset().top - 120
+      }, 900, 'swing', function() {} );
     } );
   }
 
