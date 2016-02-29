@@ -240,8 +240,6 @@ var financialView = {
     } else {
       publish.financialData( key, value );
     }
-    var values = getModelValues.financial();
-    financialView.updateView( values );
   },
 
   /**
@@ -253,6 +251,7 @@ var financialView = {
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
+        financialView.updateView( getModelValues.financial() );
       }, 500 );
     } );
   },
@@ -265,6 +264,8 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
+      financialView.currentInput = 'none';
+      financialView.updateView( getModelValues.financial() );
     } );
   },
 
