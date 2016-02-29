@@ -9,10 +9,9 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    var $graphs = $( '.bar-graph' ),
-        schoolValues = getModelValues.financial(),
+    var schoolValues = getModelValues.financial(),
         nationalValues = window.nationalData || {};
-    this.initGraphs( $graphs, schoolValues, nationalValues );
+    this.updateGraphs( schoolValues, nationalValues );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
   },
@@ -85,6 +84,10 @@ var metricView = {
         'padding-bottom': offset,
         'top': -offset
       } );
+      // Need to reset the z-index since fixOverlap is called on page load and
+      // again when a verification button is clicked
+      $higherPoint.css( 'z-index', 'auto' );
+      $lowerPoint.css( 'z-index', 'auto' );
       $lowerPoint.css( 'z-index', 100 );
     }
   },
@@ -176,11 +179,11 @@ var metricView = {
 
   /**
    * Initializes all metrics with bar graphs
-   * @param {object} $graphs jQuery object of all graphs on the page
    * @param {object} schoolValues Values reported by the school
    * @param {object} nationalValues National average values
    */
-  initGraphs: function( $graphs, schoolValues, nationalValues ) {
+  updateGraphs: function( schoolValues, nationalValues ) {
+    var $graphs = $( '.bar-graph' );
     $graphs.each( function() {
       var $graph = $( this ),
           metricKey = $graph.attr( 'data-metric' ),
