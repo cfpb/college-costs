@@ -287,7 +287,6 @@ var financialView = {
           metricView.updateGraphs( schoolValues, nationalValues );
         }, 100 );
         financialView.$infoVerified.show();
-        financialView.$verifyControls.hide();
         $( 'html, body' ).stop().animate( {
           scrollTop: financialView.$infoVerified.offset().top - 120
         }, 900, 'swing', function() {
@@ -302,6 +301,7 @@ var financialView = {
           window.location.hash = '#info-wrong';
         } );
       }
+      financialView.$verifyControls.hide();
     } );
   },
 
