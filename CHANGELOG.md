@@ -7,7 +7,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 -
 - Fix graph point overlaps
 -
--
+- Added animation to button interactions
 -
 
 ## 2.0.1

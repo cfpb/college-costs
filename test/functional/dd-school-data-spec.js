@@ -14,15 +14,16 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 600 );
     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
     page.confirmVerification();
+    browser.sleep( 1000 );
     expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {
     browser.sleep( 600 );
     page.confirmVerification();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.completionRate.getText() ).toEqual( '37' );
   } );
 

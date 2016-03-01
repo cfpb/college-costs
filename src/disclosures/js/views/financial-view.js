@@ -12,6 +12,8 @@ var financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
   $verifyControls: $( '.verify_controls' ),
+  $infoVerified: $( '.information-right' ),
+  $infoIncorrect: $( '.information-wrong' ),
   $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]'),
@@ -274,16 +276,32 @@ var financialView = {
    * Listener function for offer verification buttons
    */
   verificationListener: function() {
-    this.$verifyControls.on( 'click', '.btn', function() {
+    this.$verifyControls.on( 'click', '.btn', function( e ) {
       var schoolValues = getModelValues.financial(),
           nationalValues = window.nationalData;
       // Graph points need to be visible before updating their positions
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
+        e.preventDefault();
         setTimeout( function() {
           metricView.updateGraphs( schoolValues, nationalValues );
         }, 100 );
+        financialView.$infoVerified.show();
+        $( 'html, body' ).stop().animate( {
+          scrollTop: financialView.$infoVerified.offset().top - 120
+        }, 900, 'swing', function() {
+          window.location.hash = '#info-right';
+        } );
+      } else {
+        e.preventDefault();
+        financialView.$infoIncorrect.show();
+        $( 'html, body' ).stop().animate( {
+          scrollTop: financialView.$infoIncorrect.offset().top - 120
+        }, 900, 'swing', function() {
+          window.location.hash = '#info-wrong';
+        } );
       }
+      financialView.$verifyControls.hide();
     } );
   },
 

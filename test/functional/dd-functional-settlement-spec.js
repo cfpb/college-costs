@@ -39,6 +39,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   // TODO - Add expectation that verification buttons disappear, and all fields that should be prepopulated actually are
   it( 'should let a student verify their information and go on to Step 1 and Step 2 of the offer', function() {
     page.confirmVerification();
+    expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
+    expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
+    expect( page.correctInfoSection.isDisplayed() ).toBeTruthy();
     expect( page.reviewSection.isDisplayed() ).toBeTruthy();
     expect( page.evaluateSection.isDisplayed() ).toBeTruthy();
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
@@ -47,6 +50,10 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   // TODO - Add expectation that verification buttons disappear, that next steps for incorrect info are displayed, and that the trigger to notify the school is activated
   it( 'should let a student report incorrect aid offer information', function() {
     page.denyVerification();
+    expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
+    expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
+    expect( page.correctInfoSection.isDisplayed() ).toBeFalsy();
+    expect( page.incorrectInfoSection.isDisplayed() ).toBeTruthy();
     expect( page.reviewSection.isDisplayed() ).toBeFalsy();
     expect( page.evaluateSection.isDisplayed() ).toBeFalsy();
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
@@ -595,8 +602,9 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.answerBigQuestionYes();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
     expect( page.followupYesContent.isDisplayed() ).toBeTruthy();
@@ -606,8 +614,9 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
@@ -617,8 +626,9 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should allow a student who is not sure that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.answerBigQuestionNotSure();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
@@ -629,11 +639,11 @@ it( 'should properly update when more than one private loans is modified', funct
   // *** Step 3: Consider your options / A few more things to consider ***
   it( 'should link to the school website in a new tab', function() {
     page.confirmVerification();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.followSchoolLink();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -652,7 +662,7 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
     page.followScorecardLink();

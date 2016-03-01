@@ -21,6 +21,7 @@ fdescribe( 'The college costs worksheet page', function() {
   it( 'should add a private loan entry when the add button is clicked', function() {
     var count;
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.addPrivateLoanButton.click();
     count = element.all( by.css( '.private-loans .private-loans_loan' ) ).count();
     expect( count ).toBe( 2 );
@@ -29,6 +30,7 @@ fdescribe( 'The college costs worksheet page', function() {
   it( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
     var count;
     page.confirmVerification();
+    browser.sleep( 1000 );
     element.all( by.css( '.private-loans .private-loans_loan'))
       .last().all( by.css( '.private-loans_remove-btn' ) ).click();
     count = element.all( by.css( '.private-loans .private-loans_loan' ) ).count();
@@ -38,6 +40,7 @@ fdescribe( 'The college costs worksheet page', function() {
   it( 'should add a private loan even after the last private loan is removed', function() {
     var count;
     page.confirmVerification();
+    browser.sleep( 1000 );
     element.all( by.css( '.private-loans .private-loans_loan'))
       .last().all( by.css( '.private-loans_remove-btn' ) ).click();
     page.addPrivateLoanButton.click();
