@@ -3,7 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 -
--
+- Add active class to selected big question button
 -
 - Fix graph point overlaps
 -

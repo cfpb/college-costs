@@ -605,6 +605,7 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.answerBigQuestionYes();
     browser.sleep( 1000 );
+    expect( page.bigQuestionYesButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
     expect( page.followupYesContent.isDisplayed() ).toBeTruthy();
@@ -617,6 +618,7 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
+    expect( page.bigQuestionNoButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-first active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
@@ -629,6 +631,7 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.answerBigQuestionNotSure();
     browser.sleep( 1000 );
+    expect( page.bigQuestionNotSureButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-last active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
