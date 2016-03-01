@@ -14,7 +14,8 @@ RBIN = "http://requestb.in/1ak4sxc1"
 # test values
 OID = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
 ERRORS = 'INVALID: test notification via Python'
-REPORT = "OK is {0}; reason is {1}; status is {2}; time sent is {3}"
+REPORT = "OK is {0}; reason is {1}; status is {2}; time sent is {3};\n\
+content is {4}"
 
 
 def notify_edmc(url, oid, errors):
@@ -30,7 +31,8 @@ def notify_edmc(url, oid, errors):
     report = REPORT.format(resp.ok,
                            resp.reason,
                            resp.status_code,
-                           payload['time'])
+                           payload['time'],
+                           resp.content)
     return report
 
 if __name__ == "__main__":

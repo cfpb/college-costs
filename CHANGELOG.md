@@ -7,6 +7,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 -
 - Fix graph point overlaps
 -
+-
+-
+- Adds avg_net_price to scorecard api updates
 - Added animation to button interactions
 -
 
