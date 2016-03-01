@@ -8,7 +8,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Fix graph point overlaps
 -
 - Added animation to button interactions
--
+- Switched to `merge=union` for CHANGELOG.md in .gitattributes
+- 
+- 
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost
