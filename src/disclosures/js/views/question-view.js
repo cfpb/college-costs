@@ -12,7 +12,10 @@ var questionView = {
   },
 
   bigQuestionListener: function() {
-    $( '.question_answers > .btn' ).on( 'click', function() {
+    var $answerButtons = $( '.question_answers > .btn' );
+    $answerButtons.on( 'click', function() {
+      $answerButtons.removeClass( 'active' );
+      $( this ).addClass( 'active' );
       if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {
         questionView.$followupYes.show();
         questionView.$followupNoNotSure.hide();
