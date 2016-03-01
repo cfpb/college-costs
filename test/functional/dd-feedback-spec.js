@@ -12,18 +12,20 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
 
   it( 'should contain a link to the feedback form', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     browser.wait( EC.visibilityOf( page.feedbackLink ), 8000 );
     expect( page.feedbackLink.getAttribute( 'href' ) ).toMatch( /\/paying-for-college2\/understanding-your-financial-aid-offer\/feedback$/ );
   } );
 
   it( 'should open the feedback form in a new tab', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.followFeedbackLink();
-    browser.sleep( 600 );
+    browser.sleep( 1000 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -33,7 +35,7 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
           } )
           .then( function () {
             browser.close();
-            browser.sleep( 600 );
+            browser.sleep( 1000 );
             browser.switchTo().window( handles[0] );
           } );;
       } );

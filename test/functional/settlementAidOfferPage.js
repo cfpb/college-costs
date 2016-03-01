@@ -35,6 +35,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
         this.incorrectInfoButton.click();
       }
     },
+    correctInfoSection: {
+      get: function() {
+        return element( by.id( 'info-right' ) );
+      }
+    },
+    incorrectInfoSection: {
+      get: function() {
+        return element( by.id( 'info-wrong' ) );
+      }
+    },
     programLengthSelect: {
       get: function() {
         return element ( by.css( '#estimated-years-attending' ) );
