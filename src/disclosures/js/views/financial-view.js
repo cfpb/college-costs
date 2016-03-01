@@ -212,7 +212,7 @@ var financialView = {
    */
   enumeratePrivateLoanIDs: function() {
     // renumber private loan ids to prevent duplicate IDs
-    $( '[data-private-loan' ).each( function() {
+    $( '[data-private-loan]' ).each( function() {
       var index = $( this ).index(),
           $ele = $( this ),
           $fields = $ele.find( '[data-private-loan_key]' );
