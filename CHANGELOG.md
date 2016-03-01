@@ -3,17 +3,16 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 -
+-
+-
+-
+
+## 2.0.2
 - Add active class to selected big question button
--
 - Fix graph point overlaps
--
--
--
 - Adds avg_net_price to scorecard api updates
 - Added animation to button interactions
 - Switched to `merge=union` for CHANGELOG.md in .gitattributes
-- 
-- 
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost
