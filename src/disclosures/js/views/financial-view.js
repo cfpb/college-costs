@@ -62,7 +62,7 @@ var financialView = {
    * @param {object} $percents - jQuery object of the percentage elements
    */
   updatePercentages: function( values, $percents ) {
-    $percents.each( function() {
+    $percents.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name] * 100;
@@ -76,7 +76,7 @@ var financialView = {
    * @param {object} $leftovers - jQuery object of the "leftover" elements
    */
   updateLeftovers: function( values, $leftovers ) {
-    $leftovers.each( function() {
+    $leftovers.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           currency = true,
           name = $ele.attr( 'data-financial' );
@@ -96,7 +96,7 @@ var financialView = {
    * @param {object} $privateLoans - jQuery object of the private loan elements
    */
   updatePrivateLoans: function( values, $privateLoans ) {
-    $privateLoans.each( function() {
+    $privateLoans.not( '#' + financialView.currentInput ).each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
       $fields.each( function() {
@@ -244,8 +244,6 @@ var financialView = {
     } else {
       publish.financialData( key, value );
     }
-    var values = getModelValues.financial();
-    financialView.updateView( values );
   },
 
   /**
@@ -257,6 +255,7 @@ var financialView = {
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
+        financialView.updateView( getModelValues.financial() );
       }, 500 );
     } );
   },
@@ -269,6 +268,8 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
+      financialView.currentInput = 'none';
+      financialView.updateView( getModelValues.financial() );
     } );
   },
 
