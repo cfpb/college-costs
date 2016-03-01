@@ -1025,7 +1025,8 @@
 .bar-graph {
   @bar-graph-container-max-width:  380px;
   @bar-graph-width:                45px;
-  @bar-graph-width-narrow:         25px;
+  @bar-graph-width-sm:             25px;
+  @bar-graph-width-xs:             17px;
   @bar-graph-height:              130px;
   @bar-graph-label-width:         135px;
   @bar-graph-value-min-width:      95px;
@@ -1090,9 +1091,22 @@
     background-color: @gray-10;
 
     .respond-to-range(@bp-graph-cols-min, @bp-med-max, {
-      width: @bar-graph-width-narrow;
-      border-right: (@bar-graph-width - @bar-graph-width-narrow) / 2 solid @gray-5;
-      border-left: (@bar-graph-width - @bar-graph-width-narrow) / 2 solid @gray-5;
+      width: @bar-graph-width-sm;
+      border-right: (@bar-graph-width - @bar-graph-width-sm) / 2 solid @gray-5;
+      border-left: (@bar-graph-width - @bar-graph-width-sm) / 2 solid @gray-5;
+    });
+
+    // Graph bars need to get really skinny at some screen sizes
+    .respond-to-range(@bp-graph-cols-min, 759px, {
+      width: @bar-graph-width-xs;
+      border-right: (@bar-graph-width - @bar-graph-width-xs) / 2 solid @gray-5;
+      border-left: (@bar-graph-width - @bar-graph-width-xs) / 2 solid @gray-5;
+    });
+
+    .respond-to-range(901px, 929px, {
+      width: @bar-graph-width-xs;
+      border-right: (@bar-graph-width - @bar-graph-width-xs) / 2 solid @gray-5;
+      border-left: (@bar-graph-width - @bar-graph-width-xs) / 2 solid @gray-5;
     });
   }
 

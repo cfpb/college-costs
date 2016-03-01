@@ -14,15 +14,16 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 600 );
     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
     page.confirmVerification();
+    browser.sleep( 1000 );
     expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {
     browser.sleep( 600 );
     page.confirmVerification();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.completionRate.getText() ).toEqual( '37' );
   } );
 
@@ -63,6 +64,8 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   it( 'should graph average salary', function() {
     page.confirmVerification();
     expect( page.schoolSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '45.3px' );
+    // Checking for z-index lets us know an overlap is being handled correctly
+    expect( page.schoolSalaryPoint.getCssValue( 'z-index' ) ).toEqual( '100' );
     expect( page.schoolSalaryValue.getText() ).toEqual( '$23,000' );
     expect( page.nationalSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '54.188px' );
     expect( page.nationalSalaryValue.getText() ).toEqual( '$31,080' );

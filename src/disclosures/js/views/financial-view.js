@@ -11,6 +11,9 @@ var metricView = require( '../views/metric-view' );
 var financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
+  $verifyControls: $( '.verify_controls' ),
+  $infoVerified: $( '.information-right' ),
+  $infoIncorrect: $( '.information-wrong' ),
   $programLength: $( '#estimated-years-attending' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]'),
@@ -26,6 +29,7 @@ var financialView = {
   init: function() {
     this.keyupListener();
     this.focusoutListener();
+    this.verificationListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
     this.removePrivateListener();
@@ -58,7 +62,7 @@ var financialView = {
    * @param {object} $percents - jQuery object of the percentage elements
    */
   updatePercentages: function( values, $percents ) {
-    $percents.each( function() {
+    $percents.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = values[name] * 100;
@@ -72,7 +76,7 @@ var financialView = {
    * @param {object} $leftovers - jQuery object of the "leftover" elements
    */
   updateLeftovers: function( values, $leftovers ) {
-    $leftovers.each( function() {
+    $leftovers.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           currency = true,
           name = $ele.attr( 'data-financial' );
@@ -92,7 +96,7 @@ var financialView = {
    * @param {object} $privateLoans - jQuery object of the private loan elements
    */
   updatePrivateLoans: function( values, $privateLoans ) {
-    $privateLoans.each( function() {
+    $privateLoans.not( '#' + financialView.currentInput ).each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
       $fields.each( function() {
@@ -240,8 +244,6 @@ var financialView = {
     } else {
       publish.financialData( key, value );
     }
-    var values = getModelValues.financial();
-    financialView.updateView( values );
   },
 
   /**
@@ -253,6 +255,7 @@ var financialView = {
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
+        financialView.updateView( getModelValues.financial() );
       }, 500 );
     } );
   },
@@ -265,6 +268,41 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
+      financialView.currentInput = 'none';
+      financialView.updateView( getModelValues.financial() );
+    } );
+  },
+
+  /**
+   * Listener function for offer verification buttons
+   */
+  verificationListener: function() {
+    this.$verifyControls.on( 'click', '.btn', function( e ) {
+      var schoolValues = getModelValues.financial(),
+          nationalValues = window.nationalData;
+      // Graph points need to be visible before updating their positions
+      // to get all the right CSS values, so we'll wait 100 ms
+      if ( $( this ).attr( 'href' ) === '#info-right' ) {
+        e.preventDefault();
+        setTimeout( function() {
+          metricView.updateGraphs( schoolValues, nationalValues );
+        }, 100 );
+        financialView.$infoVerified.show();
+        $( 'html, body' ).stop().animate( {
+          scrollTop: financialView.$infoVerified.offset().top - 120
+        }, 900, 'swing', function() {
+          window.location.hash = '#info-right';
+        } );
+      } else {
+        e.preventDefault();
+        financialView.$infoIncorrect.show();
+        $( 'html, body' ).stop().animate( {
+          scrollTop: financialView.$infoIncorrect.offset().top - 120
+        }, 900, 'swing', function() {
+          window.location.hash = '#info-wrong';
+        } );
+      }
+      financialView.$verifyControls.hide();
     } );
   },
 
