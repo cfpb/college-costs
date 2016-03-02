@@ -47,7 +47,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should graph graudation rates', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '60.7px' );
     expect( page.schoolGradRateValue.getText() ).toEqual( '37%' );
     expect( page.nationalGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '57.323px' );
@@ -58,14 +58,14 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should display the correct graduation rate notification', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.gradRateNotification.getText() ).toEqual( 'Higher graduation rate than national average' );
     expect( page.gradRateNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__better' );
   } );
 
   it( 'should graph average salary', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.schoolSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '45.3px' );
     // Checking for z-index lets us know an overlap is being handled correctly
     expect( page.schoolSalaryPoint.getCssValue( 'z-index' ) ).toEqual( '100' );
@@ -76,14 +76,14 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should display the correct average salary notification', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.salaryNotification.getText() ).toEqual( 'Lower salary than national average' );
     expect( page.salaryNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );
 
   it( 'should calculate debt burden', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.debtBurdenPayment.getText() ).toEqual( '$314' );
     expect( page.debtBurdenSalary.getText() ).toEqual( '$1,917' );
     expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
@@ -91,14 +91,14 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should display the correct debt burden notification', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.debtBurdenNotification.getText() ).toEqual( 'Loan payment is higher than recommended 8% of salary' );
     expect( page.debtBurdenNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );
 
   it( 'should graph loan default rates', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '80.5px' );
     expect( page.schoolDefaultRateValue.getText() ).toEqual( '55%' );
     expect( page.nationalDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '35.07px' );
@@ -107,7 +107,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should display the correct loan default rate notification', function() {
     page.confirmVerification();
-    browser.sleep( 200 );
+    browser.sleep( 1000 );
     expect( page.defaultRateNotification.getText() ).toEqual( 'Higher default rate than national average' );
     expect( page.defaultRateNotification.getAttribute( 'class' ) ).toEqual( 'metric_notification metric_notification__worse cf-notification cf-notification__error' );
   } );

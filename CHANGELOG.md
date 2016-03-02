@@ -2,12 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
--
--
 - Added animation to button interactions
 - Change graphs to get all values from the financial model
--
--
 
 ## 2.0.2
 - Add active class to selected big question button
@@ -16,7 +12,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added animation to button interactions
 - Switched to `merge=union` for CHANGELOG.md in .gitattributes
 - Hot fix for aligning debt values with content intent
-- 
+-
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost

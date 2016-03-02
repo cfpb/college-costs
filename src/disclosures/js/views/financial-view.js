@@ -283,13 +283,11 @@ var financialView = {
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
         e.preventDefault();
-        setTimeout( function() {
-          metricView.updateGraphs( values );
-        }, 100 );
         financialView.$infoVerified.show();
         $( 'html, body' ).stop().animate( {
           scrollTop: financialView.$infoVerified.offset().top - 120
         }, 900, 'swing', function() {
+          metricView.updateGraphs( values );
           window.location.hash = '#info-right';
         } );
       } else {
