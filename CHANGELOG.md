@@ -13,6 +13,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Adds avg_net_price to scorecard api updates
 - Added animation to button interactions
 - Switched to `merge=union` for CHANGELOG.md in .gitattributes
+- Hot fix for aligning debt values with content intent
+- 
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost
