@@ -393,11 +393,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'option_completion-rate' ) );
       }
     },
-    medianSchoolDebt: {
-      get: function() {
-        return element( by.id( 'criteria_median-school-debt' ) );
-      }
-    },
     jobRate: {
       get: function() {
         return element( by.id( 'criteria_job-placement-rate' ) );
