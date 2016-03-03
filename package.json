@@ -53,6 +53,6 @@
   "dependencies": {
     "format-usd": "^0.2.0",
     "number-to-words": "^1.2.1",
-    "student-debt-calc": "2.2.2"
+    "student-debt-calc": "2.3.0"
   }
 }

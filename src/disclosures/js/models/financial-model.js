@@ -37,6 +37,7 @@ var financialModel = {
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
+    this.reportErrors();
   },
 
   /**
@@ -80,6 +81,13 @@ var financialModel = {
       schoolValues.undergrad = false;
     }
     $.extend( this.values, schoolValues );
+  },
+
+  /**
+   * Report errors to the user
+   */
+  reportErrors: function() {
+    // console.log( this.values.errors );
   }
 
 };
