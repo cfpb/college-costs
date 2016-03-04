@@ -9,9 +9,8 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    var schoolValues = getModelValues.financial(),
-        nationalValues = window.nationalData || {};
-    this.updateGraphs( schoolValues, nationalValues );
+    var values = getModelValues.financial();
+    this.updateGraphs( values );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
   },
@@ -179,25 +178,24 @@ var metricView = {
 
   /**
    * Initializes all metrics with bar graphs
-   * @param {object} schoolValues Values reported by the school
-   * @param {object} nationalValues National average values
+   * @param {object} values Financial model values
    */
-  updateGraphs: function( schoolValues, nationalValues ) {
+  updateGraphs: function( values ) {
     var $graphs = $( '.bar-graph' );
     $graphs.each( function() {
       var $graph = $( this ),
           metricKey = $graph.attr( 'data-metric' ),
           nationalKey = $graph.attr( 'data-national-metric' ),
           graphFormat = $graph.attr( 'data-incoming-format' ),
-          schoolAverage = parseFloat( schoolValues[metricKey] ),
+          schoolAverage = parseFloat( values[metricKey] ),
           schoolAverageFormatted = metricView.formatValue( graphFormat, schoolAverage ),
-          nationalAverage = parseFloat( nationalValues[nationalKey] ),
+          nationalAverage = parseFloat( values[nationalKey] ),
           nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
           $schoolPoint = $graph.find( '.bar-graph_point__you' ),
           $nationalPoint = $graph.find( '.bar-graph_point__average' ),
           $notification = $graph.siblings( '.metric_notification' ),
-          sameMin = parseFloat( nationalValues[nationalKey + 'Low'] ),
-          sameMax = parseFloat( nationalValues[nationalKey + 'High'] ),
+          sameMin = parseFloat( values[nationalKey + 'Low'] ),
+          sameMax = parseFloat( values[nationalKey + 'High'] ),
           betterDirection = $notification.attr( 'data-better-direction' ),
           notificationClasses = metricView.getNotificationClasses( schoolAverage, nationalAverage, sameMin, sameMax, betterDirection );
       metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
@@ -233,13 +231,12 @@ var metricView = {
   /**
    * Populates the debt burden numbers and shows the corresponding notification
    * on the page
-   * @param {object} schoolValues Values reported by the school
-   * @param {object} nationalValues National average values
+   * @param {object} values Financial model values
    */
-  updateDebtBurdenDisplay: function( schoolValues, nationalValues ) {
-    var annualSalary = Number( schoolValues.medianSalary ) || Number( nationalValues.earningsMedian ),
+  updateDebtBurdenDisplay: function( values ) {
+    var annualSalary = Number( values.medianSalary ) || Number( values.earningsMedian ),
         monthlySalary = this.calculateMonthlySalary( annualSalary ),
-        monthlyLoanPayment = schoolValues.loanMonthly || 0,
+        monthlyLoanPayment = values.loanMonthly || 0,
         debtBurden = this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
         annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
         monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
