@@ -146,7 +146,7 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
-    metricView.updateDebtBurdenDisplay( values, window.nationalData );
+    metricView.updateDebtBurdenDisplay( values );
   },
 
   /**
@@ -278,19 +278,16 @@ var financialView = {
    */
   verificationListener: function() {
     this.$verifyControls.on( 'click', '.btn', function( e ) {
-      var schoolValues = getModelValues.financial(),
-          nationalValues = window.nationalData;
+      var values = getModelValues.financial();
       // Graph points need to be visible before updating their positions
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
         e.preventDefault();
-        setTimeout( function() {
-          metricView.updateGraphs( schoolValues, nationalValues );
-        }, 100 );
         financialView.$infoVerified.show();
         $( 'html, body' ).stop().animate( {
           scrollTop: financialView.$infoVerified.offset().top - 120
         }, 900, 'swing', function() {
+          metricView.updateGraphs( values );
           window.location.hash = '#info-right';
         } );
       } else {
