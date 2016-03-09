@@ -1,6 +1,7 @@
 'use strict';
 
 var fetch = require( './dispatchers/get-api-values' );
+var verifyOffer = require( './dispatchers/post-verify' );
 var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
 var getModelValues = require( './dispatchers/get-model-values' );
@@ -36,6 +37,7 @@ var app = {
       }
       questionView.init();
     } );
+    verifyOffer.init();
   }
 };
 
