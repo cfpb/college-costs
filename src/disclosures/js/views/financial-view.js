@@ -7,6 +7,7 @@ var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
+var postVerification = require( '../dispatchers/post-verify')
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -293,6 +294,7 @@ var financialView = {
       } else {
         e.preventDefault();
         financialView.$infoIncorrect.show();
+        postVerification.verify( values.offerID, values.schoolID, true );
         $( 'html, body' ).stop().animate( {
           scrollTop: financialView.$infoIncorrect.offset().top - 120
         }, 900, 'swing', function() {

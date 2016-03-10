@@ -83,6 +83,7 @@
                             </dd>
                         </dl>
                         <form class="verify_form">
+                          {% csrf_token %}
                             <div class="verify_estimate">
                                 <label for="estimated-years-attending"
                                 class="verify_label">
