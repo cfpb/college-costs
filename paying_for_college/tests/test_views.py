@@ -204,7 +204,7 @@ class OfferTest(django.test.TestCase):
         resp2 = client.get(url+no_oid)
         self.assertTrue(resp2.status_code == 200)
         resp3 = client.get(url+bad_school)
-        self.assertTrue("No school" in resp3.content)
+        self.assertTrue("No active school" in resp3.content)
         self.assertTrue(resp3.status_code == 400)
         resp4 = client.get(url+bad_program)
         self.assertTrue(resp4.status_code == 200)

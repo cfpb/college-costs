@@ -135,8 +135,8 @@ class OfferView(TemplateView):  # TODO log errors
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
             school = get_school(iped)
-            if not school:
-                error = "No school could be found for iped ID {0}".format(iped)
+            if not school or not school.operating:
+                error = "No active school could be found for iped ID {0}".format(iped)
                 return HttpResponseBadRequest(error)
             if 'oid' in request.GET:
                 OID = request.GET['oid']
