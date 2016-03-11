@@ -447,20 +447,18 @@ def school_search_api(request):
 
 class VerifyView(View):
     def post(self, request):
-        if request.body:
-            timestamp = timezone.now()
-            data = json.loads(request.body)
-            if 'iped' in data and data['iped']:
-                school = School.objects.get(school_id=int(data['iped']))
-                notification = Notification.objects.create(institution=school,
-                                                           oid=data['oid'],
-                                                           timestamp=timestamp,
-                                                           errors=data['errors'][:255])
-                msg = notification.notify_school()
-            else:
-                return HttpResponseBadRequest("No valid school ID found")
+        data = request.POST
+        timestamp = timezone.now()
+        if 'iped' in data and data['iped']:
+            school = School.objects.get(school_id=int(data['iped']))
+            notification = Notification.objects.create(institution=school,
+                                                       oid=data['oid'],
+                                                       timestamp=timestamp,
+                                                       errors=data['errors'][:255])
+            msg = notification.notify_school()
+            callback = json.dumps({'result': "verification recorded; {0}".format(msg)})
         else:
-            return HttpResponseBadRequest("No form data found")
+            return HttpResponseBadRequest("No valid school ID found; postdata is {0}".format(request.POST))
 
-        response = HttpResponse({'result': msg})
+        response = HttpResponse(callback)
         return response
