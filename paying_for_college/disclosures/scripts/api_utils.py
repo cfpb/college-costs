@@ -29,11 +29,11 @@ except:
 from paying_for_college.models import ConstantCap
 
 try:
-    LATEST_YEAR = ConstantCap.objects.get(slug='latest_year').value
+    LATEST_YEAR = ConstantCap.objects.get(slug='latestYear').value
 except:  # pragma: no cover
     LATEST_YEAR = 2013
 try:
-    LATEST_SALARY_YEAR = ConstantCap.objects.get(slug='latest_salary_year').value
+    LATEST_SALARY_YEAR = ConstantCap.objects.get(slug='latestSalaryYear').value
 except:  # pragma: no cover
     LATEST_SALARY_YEAR = 2011
 

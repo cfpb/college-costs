@@ -1,8 +1,4 @@
-"""Update college data using the Dept. of Education's collegechoice api
-
-We store broad, slow-changing values on the School model.
-More specific and changeable values are stored in the model's data_json field
-"""
+"""Update college data using the Dept. of Education's collegechoice api"""
 from __future__ import print_function
 import os
 import ast
@@ -47,11 +43,13 @@ def fix_zip5(zip5):
     else:
         return zip5
 
+STARTMSG = """Getting school data for year {0}.
+This job is paced to be kind to the Ed API, so it can take an hour to run."""
+
 
 def update(exclude_ids=[], single_school=None):
     """update college-level data for current year"""
-    print("This job is paced to be kind to the Ed API;\n\
-          it can take an hour or more to run.")
+    print(STARTMSG.format(LATEST_YEAR))
     FAILED = []  # failed to get a good API response
     NO_DATA = []  # API responded with no data
     CLOSED = 0  # schools that have closed since our last scrape
