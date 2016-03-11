@@ -7,6 +7,11 @@ var linksView = {
   $schoolLinkText: $( '.school-link' ),
   $scorecardLink: $( '.scorecard-link' ),
 
+  /**
+   * Initializes (and updates) links in Step 3 to the school's webiste and to
+   * a College Scorecard search of related schools
+   * @param {object} values Financial model values
+   */
   updateLinks: function( values ) {
     this.$schoolLinkText = $( '.school-link' );
     this.$scorecardLink = $( '.scorecard-link' );
@@ -14,6 +19,11 @@ var linksView = {
     this.setScorecardSearch( values );
   },
 
+  /**
+   * Creates a link in Step 3 to the school's website if the school has provided
+   * a URL in the College Scorecard data
+   * @param {object} values Financial model values
+   */
   setSchoolLink: function( values ) {
     var schoolURL = formatURL( values.url );
     if ( schoolURL ) {
@@ -27,6 +37,11 @@ var linksView = {
     }
   },
 
+  /**
+   * Modifies the College Scorecard link in step 3 to search for schools that
+   * offer a given program near a given ZIP if program and ZIP are specified
+   * @param {object} values Financial model values
+   */
   setScorecardSearch: function( values ) {
     var pcip = '',
         zip = '',
