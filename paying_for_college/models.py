@@ -155,6 +155,8 @@ class School(models.Model):
     main_campus = models.NullBooleanField()
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
+    under_investigation = models.BooleanField(default=False,
+                                              help_text="Heightened Cash Monitoring 2")
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     grad_rate_4yr = models.DecimalField(max_digits=5,
