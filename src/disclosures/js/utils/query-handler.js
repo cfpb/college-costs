@@ -11,7 +11,7 @@ function queryHandler( queryString ) {
   var valuePairs = {};
   var parameters = {};
   var numericKeys = [
-    'iped', 'pid', 'oid', 'tuit', 'hous', 'book', 'tran', 'othr',
+    'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'insl', 'insi', 'sav'
   ];
