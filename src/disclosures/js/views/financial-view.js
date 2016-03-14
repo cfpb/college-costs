@@ -97,10 +97,10 @@ var financialView = {
    * @param {object} $privateLoans - jQuery object of the private loan elements
    */
   updatePrivateLoans: function( values, $privateLoans ) {
-    $privateLoans.not( '#' + financialView.currentInput ).each( function() {
+    $privateLoans.each( function() {
       var index = $( this ).index(),
           $fields = $( this ).find( '[data-private-loan_key]' );
-      $fields.each( function() {
+      $fields.not( '#' + financialView.currentInput ).each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
             isntCurrentInput = $( this ).attr( 'id' ) !== financialView.currentInput;
