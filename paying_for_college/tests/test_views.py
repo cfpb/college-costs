@@ -315,29 +315,22 @@ class APITests(django.test.TestCase):
 class VerifyViewTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
-    mock_payload = {
-        'oid': 'f38283b5b7c939a058889f997949efa566c616c5',
-        'iped': '408039',
-        'errors': 'none'
-    }
+    post_data = {'oid': 'f38283b5b7c939a058889f997949efa566c616c5',
+                 'iped': '408039',
+                 'errors': 'none'}
+    url = reverse('disclosures:verify')
 
     def test_verify_view(self):
-        url = reverse('disclosures:verify')
-        resp = client.post(url,
-                           data=json.dumps(self.mock_payload),
-                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
+        resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 200)
-
-    def test_verify_view_no_data(self):
-        url = reverse('disclosures:verify')
-        resp = client.post(url,
-                           data='',
-                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
-        self.assertTrue(resp.status_code == 400)
+        self.assertTrue('verification' in resp.content)
 
     def test_verify_view_bad_id(self):
-        url = reverse('disclosures:verify')
-        resp = client.post(url,
-                           data='{"iped": ""}',
-                           content_type="application/x-www-form-urlencoded; charset=UTF-8")
+        self.post_data['iped'] = ''
+        resp = client.post(self.url, data=self.post_data)
+        self.assertTrue(resp.status_code == 400)
+
+    def test_verify_view_no_data(self):
+        self.post_data = {}
+        resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 400)
