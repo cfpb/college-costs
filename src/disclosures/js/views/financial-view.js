@@ -7,7 +7,7 @@ var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
-var postVerification = require( '../dispatchers/post-verify')
+var postVerification = require( '../dispatchers/post-verify');
 
 var financialView = {
   $elements: $( '[data-financial]' ),
