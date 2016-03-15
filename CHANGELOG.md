@@ -2,6 +2,12 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- 
+
+## 2.0.4
+- Notifications enabled
+
+## 2.0.3
 - Added animation to button interactions
 - Change graphs to get all values from the financial model
 
