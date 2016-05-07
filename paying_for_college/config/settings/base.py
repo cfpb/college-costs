@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'paying_for_college',
     'haystack',
+    'elasticsearch'
 ]
 
 HAYSTACK_CONNECTIONS = {
@@ -33,7 +34,6 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'haystack',
     },
 }
-
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
