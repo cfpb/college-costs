@@ -8,8 +8,7 @@ LOCAL_USER = getpass.getuser()
 REPOSITORY_ROOT = Path(__file__).ancestor(4)
 PROJECT_ROOT = Path(__file__).ancestor(3)
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
-                       base64.b64encode(os.urandom(64)))[:50]
+SECRET_KEY = "testonlysecretkey"
 
 DEBUG = False
 
