@@ -1,14 +1,11 @@
-import os
-import base64
 from unipath import Path
 import getpass
-import haystack
 
 LOCAL_USER = getpass.getuser()
 REPOSITORY_ROOT = Path(__file__).ancestor(4)
 PROJECT_ROOT = Path(__file__).ancestor(3)
 
-SECRET_KEY = "testonlysecretkey"
+SECRET_KEY = "forstandaloneonly"
 
 DEBUG = False
 
