@@ -22,6 +22,7 @@ Tools to help students make informed financial decisions about college.
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
 - [haystack](http://haystacksearch.org/)
+- [elasticsearch](https://www.elastic.co/products/elasticsearch)
 
 <!-- - [django-haystack](http://haystacksearch.org/) -->
 
@@ -32,6 +33,7 @@ Tools to help students make informed financial decisions about college.
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
 - Install the setup dependencies if you don't have them.
+- Elasticsearch is optional for the standalone setup
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
@@ -40,7 +42,7 @@ setvirtualenvproject
 ```
 - Set up database assets and front-end resources:
 ```bash
-./local_setup.sh
+./standalone_setup.sh
 ```
 
 - Now you should be able to fire up a local web server:
