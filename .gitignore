@@ -70,3 +70,6 @@ src/vendor/
 
 # Includes
 !src/disclosures/js/lib
+
+# NPM Security
+.snyk

@@ -17,7 +17,7 @@
     "college-costs"
   ],
   "scripts": {
-    "test": "mocha test/js-unit/"
+    "test": "snyk test && mocha test/js-unit/"
   },
   "devDependencies": {
     "browser-sync": "2.12.5",
@@ -42,7 +42,7 @@
     "gulp": "3.9.1",
     "gulp-concat": "2.6.0",
     "gulp-header": "1.7.1",
-    "gulp-less": "3.0.5",
+    "gulp-less": "3.1.0",
     "gulp-mq-remove": "0.0.2",
     "gulp-replace": "0.5.4",
     "gulp-sourcemaps": "1.6.0",
@@ -51,6 +51,7 @@
     "number-to-words": "1.2.2",
     "pretty-hrtime": "1.0.2",
     "require-dir": "0.3.0",
+    "snyk": "1.14.2",
     "student-debt-calc": "2.3.0",
     "vinyl-buffer": "1.0.0",
     "vinyl-source-stream": "1.1.0"
