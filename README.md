@@ -9,7 +9,6 @@ Tools to help students make informed financial decisions about college.
 - This project is under construction. Please wear a hardhat.
 
 ### Setup dependencies
- * [solr](http://lucene.apache.org/solr/)
  * [pip](https://pypi.python.org/pypi/pip)
  * [virtualenv](https://virtualenv.pypa.io/en/latest/)
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
@@ -23,7 +22,7 @@ Tools to help students make informed financial decisions about college.
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
 - [haystack](http://haystacksearch.org/)
-- [pysolr](https://github.com/toastdriven/pysolr)
+- [elasticsearch](https://www.elastic.co/products/elasticsearch)
 
 <!-- - [django-haystack](http://haystacksearch.org/) -->
 
@@ -34,33 +33,19 @@ Tools to help students make informed financial decisions about college.
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
 - Install the setup dependencies if you don't have them.
+- Elasticsearch is optional for the standalone setup
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
 git clone https://github.com/cfpb/college-costs.git .
 setvirtualenvproject
 ```
-- Set up front-end resources and database assets:
+- Set up database assets and front-end resources:
 ```bash
-./local_setup.sh
+./standalone_setup.sh
 ```
 
-### Prepping solr
-- If you want the college-search function to work (you know you do), you'll need to prep and fire up solr.  
-Adust the `build_solr_schema` command to match your local installation of solr and your solr version number.   
-The example is for a brew-installed solr, with brew using the user's home director as its Cellar site and solr version 4.10.2.  
-Be sure you're in the projects root directory, `/college-costs/`:  
-```bash
-./manage.py build_solr_schema > ~/homebrew/Cellar/solr/4.10.2/example/solr/collection1/conf/schema.xml
-solr start
-```
-
-The last step is to rebuild the solr index:
-```
-./manage.py rebuild_index --noinput
-```
-
-- After that finishes, fire up a local web server:
+- Now you should be able to fire up a local web server:
 ```bash
 ./manage.py runserver
 ```

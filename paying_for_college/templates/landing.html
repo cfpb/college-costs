@@ -46,16 +46,6 @@
                 </header>
                 <p>It’s more important than ever for students and former students to make smart decisions about financing their college education. Whether you’re attending college soon, are a current student, or already have student loans, we’ve put together some tools and resources to help you make the best decisions for you.</p>
             </div>
-            <div class="col last col4">
-                <div class="share-pfc">
-                    <h3 class="h4">Share this page</h3>
-                    <div class="share-links">
-                        <a href="http://www.facebook.com/sharer.php?u={% firstof share_uri request.build_absolute_uri|urlencode %}&t={{ pagetitle|default:"CFPB" }}" class="share-facebook icon-facebook-alt" ><span class="cfpb_visually_hide">Share on Facebook</span></a>
-                        <a href="http://twitter.com/share?text={% firstof tweet_text pagetitle "CFPB" %}&url={% firstof share_uri request.build_absolute_uri|urlencode %}&via=CFPB&related=CFPB" class="share-twitter icon-twitter-alt"><span class="cfpb_visually_hide">Share on Twitter</span></a>
-                        <a class="share-email addthis_button_email icon-email-social-alt" href="http://api.addthis.com/oexchange/0.8/forward/email/offer?url={% firstof share_uri request.build_absolute_uri|urlencode %}&title={% firstof email_title "CFPB" %}&pubid=ra-4da354ee346886d2"><span class="cfpb_visually_hide">Share via Email</span></a>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section id="options" class="section clearfix">
