@@ -3,6 +3,8 @@ from .dev import *
 
 STANDALONE = True
 
+SECRET_KEY = "forstandaloneonly"
+
 STATICFILES_DIRS = (
     PROJECT_ROOT.child('local_static'),
 )

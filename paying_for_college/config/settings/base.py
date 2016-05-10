@@ -1,5 +1,3 @@
-import os
-import base64
 from unipath import Path
 import getpass
 
@@ -7,8 +5,7 @@ LOCAL_USER = getpass.getuser()
 REPOSITORY_ROOT = Path(__file__).ancestor(4)
 PROJECT_ROOT = Path(__file__).ancestor(3)
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY',
-                       base64.b64encode(os.urandom(64)))[:50]
+SECRET_KEY = "forstandaloneonly"
 
 DEBUG = False
 
@@ -23,31 +20,27 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'paying_for_college',
-    'south',
     'haystack',
+    'elasticsearch'
 ]
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr',
-        'TIMEOUT': 60 * 5,
-        'INCLUDE_SPELLING': True,
-        'BATCH_SIZE': 100,
-        'EXCLUDED_INDEXES': ['thirdpartyapp.search_indexes.BarIndex'],
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
     },
 }
-
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'paying_for_college.config.urls'

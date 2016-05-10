@@ -2,7 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
-- 
+- Updated the project to Django 1.8 and removed solr dependencies
+- Update the standalone templates to use on-demand-like header/footer
 
 ## 2.0.4
 - Notifications enabled
