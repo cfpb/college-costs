@@ -35,28 +35,22 @@
     <meta name="viewport" content="width=1016">
     {% endblock %}
 
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-precomposed.png">
-    <link rel="apple-touch-icon" size="72x72" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" size="114x114" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" size="144x144" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" type="image/x-icon" href="http://www.consumerfinance.gov/favicon.ico">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://www.consumerfinance.gov/static/js/modernizr.min.js"></script>
+    <script src="http://www.consumerfinance.gov/static/js/es5-shim.js"></script>
 
-    <script src="http://www.consumerfinance.gov/static/nemo/_/js/jquery-1.9.1.min.js"></script>
     <!--[if lt IE 9]>
-    <script src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/js/html5shim.js"></script>
+    <script>
+        // If in IE8 reverse no-js/js class change made by modernizr.
+        var docElement = document.documentElement;
+        docElement.className = docElement.className.replace( /(^|\s)js(\s|$)/, '$1no-js$2' );
+    </script>
     <![endif]-->
+
+    <!--[if IE 9]><script src="http://www.consumerfinance.gov/static/js/ie/common.ie.js"></script><![endif]-->
 
     {% block nemo_styles %}
-    <!-- Styles -->
-
-    <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/c/woff.css{{ STATIC_VERSION }}">
-    <!--<![endif]-->
-    <!--[if lt IE 9]>
-    <link rel="stylesheet" href="/wp-content/themes/cfpb_nemo/_/c/eot.css">
-    <![endif]-->
-    <link rel="stylesheet" href="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/c/styles.css{{ STATIC_VERSION }}">
-
     {% endblock %}
 
     {% block app_css %}
@@ -127,9 +121,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </ul> <!-- /class=bread -->
                 {% block content %}
                 {% endblock %}
-                {% block share_box %}
-            {% include "standalone/share_box.html" %}
-                {% endblock %}
 
         </section><!--/main_content-->
         </div><!-- /wrapper -->
@@ -150,10 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 {% block nemo_js %}
-<script src="http://www.consumerfinance.gov/wp-content/themes/cfpb_nemo/_/js/functions.js?ver=all"></script>
-<script type="text/javascript" src="http://www.consumerfinance.gov/static/agreements/js/chosen.jquery.js?ver=all"></script>
 {% endblock %}
-<script src="http://www.consumerfinance.gov/static/nemo/_/js/functions.js?ver="></script>
 {% block app_js %}
 {% endblock %}
 
