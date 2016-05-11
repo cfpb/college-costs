@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Pinned and shrinkwrapped NPM dependencies
+- Added `snyk` to monitor for known NPM package vulnerabilities.
 - Updated the project to Django 1.8 and removed solr dependencies
 - Update the standalone templates to use on-demand-like header/footer
 
@@ -19,7 +21,6 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added animation to button interactions
 - Switched to `merge=union` for CHANGELOG.md in .gitattributes
 - Hot fix for aligning debt values with content intent
--
 
 ## 2.0.1
 - Updated content to be dynamic based on remaining cost
@@ -60,4 +61,3 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - new models for school program data and constants
 - extended model for schools
 - tests and test framework
-

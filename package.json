@@ -1,7 +1,7 @@
 {
   "name": "college-costs",
-  "version": "0.1.0",
-  "description": "College costs calculator",
+  "version": "2.0.4",
+  "description": "Tools to help students make informed financial decisions about college.",
   "homepage": "http://www.github.com/cfpb/college-costs/",
   "author": {
     "name": "Consumer Financial Protection Bureau",
@@ -10,49 +10,50 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cfpb/capital-framework.git"
+    "url": "https://github.com/cfpb/college-costs.git"
   },
   "license": "CC0",
   "keywords": [
     "college-costs"
   ],
   "scripts": {
-    "test": "mocha test/js-unit/"
+    "test": "snyk test && mocha test/js-unit/"
   },
   "devDependencies": {
-    "browser-sync": "^2.8.0",
-    "browserify": "^12.0.1",
-    "chai": "^3.4.1",
-    "del": "^1.2.0",
-    "fs": "0.0.2",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-changed": "^1.2.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-cssmin": "^0.1.7",
-    "gulp-eslint": "^1.0.0",
-    "gulp-header": "^1.2.2",
-    "gulp-imagemin": "^2.3.0",
-    "gulp-less": "^3.0.3",
-    "gulp-load-plugins": "^1.0.0-rc.1",
+    "browser-sync": "2.12.5",
+    "browserify": "12.0.2",
+    "chai": "3.5.0",
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "2.3.1",
+    "gulp-changed": "1.3.0",
+    "gulp-concat": "2.6.0",
+    "gulp-cssmin": "0.1.7",
+    "gulp-eslint": "1.1.1",
+    "gulp-header": "1.7.1",
+    "gulp-imagemin": "2.4.0",
+    "gulp-less": "3.0.3",
+    "gulp-load-plugins": "1.2.2",
     "gulp-mq-remove": "0.0.2",
-    "gulp-notify": "^2.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.3",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.4.1",
-    "gulp-util": "^3.0.6",
-    "jquery": "^1.11.3",
-    "mocha": "^2.3.4",
-    "pretty-hrtime": "^1.0.0",
-    "protractor": "^3.0.0",
-    "require-dir": "^0.3.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "gulp-notify": "2.2.0",
+    "gulp-rename": "1.2.2",
+    "gulp-replace": "0.5.4",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-uglify": "1.5.3",
+    "gulp-util": "3.0.7",
+    "mocha": "2.4.5",
+    "pretty-hrtime": "1.0.2",
+    "protractor": "3.3.0",
+    "vinyl-buffer": "1.0.0",
+    "vinyl-source-stream": "1.1.0"
   },
   "dependencies": {
-    "format-usd": "^0.2.0",
-    "number-to-words": "^1.2.1",
+    "del": "1.2.1",
+    "format-usd": "0.2.0",
+    "fs": "0.0.2",
+    "jquery": "1.12.3",
+    "number-to-words": "1.2.2",
+    "require-dir": "0.3.0",
+    "snyk": "1.14.2",
     "student-debt-calc": "2.3.0"
   }
 }
