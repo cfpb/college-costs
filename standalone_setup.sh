@@ -8,8 +8,6 @@ set -e
 
 init(){
   DATABASE="paying_for_college/db.sqlite3"
-
-  echo 'npm components directory:' $NODE_DIR
 }
 
 # Install project dependencies.
