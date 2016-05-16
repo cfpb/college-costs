@@ -11,6 +11,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updated all NPM packages to latest non-breaking versions
 - Revised the standalone setup build process to create a clean build on run
 - Fixed an incorrect variable in `disclosures.less`
+- Fixed a bug with the global eyebrow language list
 
 ## 2.0.4
 - Notifications enabled
