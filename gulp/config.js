@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require( 'fs' );
+var globAll = require( 'glob-all' );
 
 /**
  * Set up file paths
@@ -8,12 +8,12 @@ var fs = require( 'fs' );
 var loc = {
   src:  './src/disclosures',
   dist: './paying_for_college/static/paying_for_college/disclosures',
-  lib:  JSON.parse( fs.readFileSync( './.bowerrc' ) ).directory, // eslint-disable-line no-sync, no-inline-comments, max-len
+  modules: './node_modules',
   test: './test'
 };
 
 module.exports = {
-  pkg:    JSON.parse( fs.readFileSync( 'bower.json' ) ), // eslint-disable-line no-sync, no-inline-comments, max-len
+  pkg: require( '../package.json' ),
   banner:
       '/*!\n' +
       ' *  <%= pkg.name %> - v<%= pkg.version %>\n' +
@@ -42,19 +42,19 @@ module.exports = {
     src:      '/main.less',
     dest:     loc.dist + '/static/css',
     settings: {
-      paths: [
-        loc.lib,
-        loc.lib + '/cf-typography/src'
-      ],
+      paths:  globAll.sync( [
+        loc.modules + '/capital-framework/**'
+      ] ),
       compress: true
     }
   },
   scripts: {
     entrypoint: loc.src + '/js/index.js',
     src: [
-      loc.lib + '/jquery/dist/jquery.js',
-      loc.lib + '/jquery.easing/js/jquery.easing.js',
-      loc.lib + '/cf-*/src/js/*.js',
+      loc.modules + '/jquery/dist/jquery.js',
+      loc.modules + '/jquery.easing/js/jquery.easing.js',
+      loc.modules + '/capital-framework/**/*.js',
+      '!' + loc.modules + '/capital-framework/**/*.min.js',
       loc.src + '/js/**/*.js'
     ],
     dest: loc.dist + '/static/js/',
@@ -81,18 +81,18 @@ module.exports = {
         loc.src + '/_*/**/*',
         loc.src + '/robots.txt',
         loc.src + '/favicon.ico',
-        '!' + loc.lib + '/**/*.html'
+        '!' + loc.modules + '/**/*.html'
       ],
       dest: loc.dist
     },
     icons: {
-      src:  loc.lib + '/cf-icons/src/fonts/*',
+      src:  loc.modules + '/capital-framework/src/cf-icons/src/fonts/*',
       dest: loc.dist + '/static/fonts/'
     },
     vendorjs: {
       src: [
-        loc.lib + '/box-sizing-polyfill/boxsizing.htc',
-        loc.lib + '/html5shiv/dist/html5shiv-printshiv.min.js'
+        loc.modules + '/box-sizing-polyfill/boxsizing.htc',
+        loc.modules + '/html5shiv/dist/html5shiv-printshiv.min.js'
       ],
       dest: loc.dist + '/static/js/'
     }

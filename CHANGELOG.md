@@ -6,6 +6,12 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added `snyk` to monitor for known NPM package vulnerabilities.
 - Updated the project to Django 1.8 and removed solr dependencies
 - Update the standalone templates to use on-demand-like header/footer
+- Updated Capital Framework versions from 1.0.0 to 3.4.1
+- Removed Bower as a build process
+- Updated all NPM packages to latest non-breaking versions
+- Revised the standalone setup build process to create a clean build on run
+- Fixed an incorrect variable in `disclosures.less`
+- Fixed a bug with the global eyebrow language list
 
 ## 2.0.4
 - Notifications enabled
