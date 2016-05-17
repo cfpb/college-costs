@@ -35,7 +35,7 @@
 
   .information-right, .information-wrong,
   .offer-part_content-positive-cost, .offer-part_content-negative-cost,
-  .get-options, .followup__no-not-sure, .followup__yes,
+  .evaluate, .question, .get-options, .followup__no-not-sure, .followup__yes,
   .next-steps, .feedback {
     display: none;
   }
@@ -1287,14 +1287,14 @@
 }
 
 /* ==========================================================================
-   The big question
+   Continue to step 2, and the big question
    ========================================================================== */
 
-.question {
+.continue, .question {
   padding-top: unit(25px / @base-font-size-px, em);
   padding-bottom: unit(5px / @base-font-size-px, em);
   margin-top: unit(30px / @base-font-size-px, em);
-  background-color: @gold-20;
+  background-color: @teal-20;
 
   .respond-to-min(@bp-sm-min, {
     padding-top: unit(30px / @base-font-size-px, em);
@@ -1320,7 +1320,7 @@
     });
   }
 
-  &_answers {
+  &_answers, &_controls {
     margin-top: unit(20px / @base-font-size-px, em);
     margin-bottom: unit(20px / @base-font-size-px, em);
 
