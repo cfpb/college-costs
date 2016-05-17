@@ -36,14 +36,13 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
-  // TODO - Add expectation that verification buttons disappear, and all fields that should be prepopulated actually are
-  it( 'should let a student verify their information and go on to Step 1 and Step 2 of the offer', function() {
+  it( 'should let a student verify their information and go on to Step 1 of the offer', function() {
     page.confirmVerification();
     expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.correctInfoSection.isDisplayed() ).toBeTruthy();
     expect( page.reviewSection.isDisplayed() ).toBeTruthy();
-    expect( page.evaluateSection.isDisplayed() ).toBeTruthy();
+    expect( page.evaluateSection.isDisplayed() ).toBeFalsy();
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
@@ -303,7 +302,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '526' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '15%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -319,7 +317,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-2,974' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '19%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -332,7 +329,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '26' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -347,7 +343,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '16%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -360,7 +355,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-1,474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '18%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -375,7 +369,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-4,474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
     // expect( page.totalRepayment.getText() ).toEqual( '10000' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '21%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -443,7 +436,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '-1,474' );
     // expect( page.totalProgramDebt.getText() ).toEqual( '?' );
     // expect( page.totalRepayment.getText() ).toEqual( '?' );
-    expect( page.debtBurdenPercent.getText() ).toEqual( '18%' );
     // TODO: expect the est. monthly student loan expense is recalculated
   } );
 
@@ -543,25 +535,45 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.futureTotalDebt.getText() ).toEqual( '$37,678' );
   } );
 
+  it( 'should let a student continue on to Step 2', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    expect( page.reviewSection.isDisplayed() ).toBeTruthy();
+    expect( page.evaluateSection.isDisplayed() ).toBeTruthy();
+    expect( page.bigQuestionSection.isDisplayed() ).toBeTruthy();
+    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
+  } );
+
   // *** Step 2: Evaluate your offer ***
 
   // TODO: Change monthly left over when student loan payment is added
   it( 'should properly display estimated monthly expenses', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,726' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,123' );
   } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyRent( 1151 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,526' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,923' );
   } );
 
   it( 'should properly update when estimated monthly food is modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyFood( 675 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,826' );
@@ -570,38 +582,52 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should properly update when estimated monthly transportation is modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyTransportation( 634 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,626' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,023' );
   } );
 
   it( 'should properly update when estimated monthly insurance is modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyInsurance( 667 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4,026' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,423' );
   } );
 
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyRetirement( 169 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,426' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,823' );
   } );
 
   it( 'should properly update when estimated monthly other expenses are modified', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.setMonthlyOther( 630 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '4,126' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-2,523' );
   } );
 
   it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
     browser.sleep( 1000 );
     page.answerBigQuestionYes();
     browser.sleep( 1000 );
@@ -616,6 +642,8 @@ it( 'should properly update when more than one private loans is modified', funct
   it( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
     expect( page.bigQuestionNoButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-first active' );
@@ -628,6 +656,8 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should allow a student who is not sure that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
     browser.sleep( 1000 );
     page.answerBigQuestionNotSure();
     browser.sleep( 1000 );
@@ -642,6 +672,8 @@ it( 'should properly update when more than one private loans is modified', funct
   // *** Step 3: Consider your options / A few more things to consider ***
   it( 'should link to the school website in a new tab', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
     browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
@@ -665,6 +697,8 @@ it( 'should properly update when more than one private loans is modified', funct
 
   it( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
     browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
