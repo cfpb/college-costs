@@ -25,10 +25,13 @@ To run from the script from the Django shell:
 ```
 ./manage.py shell
 from paying_for_college.data_sources.bls_processing import *
-a = create_bls_json_file()
+create_bls_json_file()
 ```
 
+This will create a new file in `paying_for_college/fixtures/bls_data_new.json`
+
 """
+
 BASE_DIR = 'paying_for_college/data_sources'
 WE_CSVFILE = '{}/xregnw.csv'.format(BASE_DIR)
 NE_CSVFILE = '{}/xregnne.csv'.format(BASE_DIR)
