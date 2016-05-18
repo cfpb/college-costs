@@ -195,14 +195,13 @@ class School(models.Model):
                                                null=True)
     tuition_in_state = models.IntegerField(blank=True,
                                            null=True)
-    accepts_perkins = models.BooleanField(default=False)
+    offers_perkins = models.BooleanField(default=False)
 
     def as_json(self):
         """delivers pertinent data points as json"""
         ordered_out = OrderedDict()
         jdata = json.loads(self.data_json)
         dict_out = {
-            'acceptsPerkins': self.accepts_perkins,
             'avg_net_price': self.avg_net_price,
             'books': jdata['BOOKS'],
             'city': self.city,
@@ -219,6 +218,7 @@ class School(models.Model):
             'offerAA': jdata['OFFERAA'],
             'offerBA': jdata['OFFERBA'],
             'offerGrad': jdata['OFFERGRAD'],
+            'offersPerkins': self.offers_perkins,
             'onCampusAvail': jdata['ONCAMPUSAVAIL'],
             'online': self.online_only,
             'otherOffCampus': jdata['OTHEROFFCAMPUS'],

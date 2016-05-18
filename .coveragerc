@@ -9,6 +9,7 @@ omit =
     */site-packages*
     */python2.7/*
     *setup.py
+    */data_source/*
 
 [report]
 exclude_lines = 
