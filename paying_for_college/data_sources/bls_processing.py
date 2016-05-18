@@ -39,16 +39,11 @@ YEAR = 2014
 OUT_FILE = 'paying_for_college/fixtures/bls_data_new.json'
 
 
-# csv fieldnames: 'OPE ID', 'School', 'Recipients'
-def load_perkins_data(csvfile):
-    with open(csvfile, 'r') as f:
-        reader = cdr(f)
-        return [row for row in reader]
-
 def load_bls_data(csvfile):
     with open(csvfile, 'rU') as f:
         reader = cdr(f)
         return [row for row in reader]
+
 
 def add_bls_dict_with_region(base_bls_dict, region, csvfile):
     CATEGORIES_KEY_MAP = {
@@ -88,7 +83,6 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
 
 
 
-
 def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
 
     bls_dict = {
@@ -108,6 +102,7 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
     bls_dict["Year"] = YEAR
 
     return bls_dict
+
 
 def create_bls_json_file(we_csvfile=WE_CSVFILE, ne_csvfile=NE_CSVFILE, mw_csvfile=MW_CSVFILE, so_csvfile=SO_CSVFILE):
     with open(OUT_FILE, 'w') as outfile:
