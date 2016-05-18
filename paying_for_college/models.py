@@ -195,6 +195,7 @@ class School(models.Model):
                                                null=True)
     tuition_in_state = models.IntegerField(blank=True,
                                            null=True)
+    offers_perkins = models.BooleanField(default=False)
 
     def as_json(self):
         """delivers pertinent data points as json"""
@@ -217,6 +218,7 @@ class School(models.Model):
             'offerAA': jdata['OFFERAA'],
             'offerBA': jdata['OFFERBA'],
             'offerGrad': jdata['OFFERGRAD'],
+            'offersPerkins': self.offers_perkins,
             'onCampusAvail': jdata['ONCAMPUSAVAIL'],
             'online': self.online_only,
             'otherOffCampus': jdata['OTHEROFFCAMPUS'],
