@@ -16,6 +16,7 @@ var financialView = {
   $infoVerified: $( '.information-right' ),
   $infoIncorrect: $( '.information-wrong' ),
   $programLength: $( '#estimated-years-attending' ),
+  $aboutThisTool: $( '.instructions_about a' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]' ),
   $privateContainer: $( '.private-loans' ),
@@ -295,6 +296,7 @@ var financialView = {
         }, 900, 'swing', function() {
           metricView.updateGraphs( values );
           window.location.hash = '#info-right';
+          financialView.$aboutThisTool.focus();
         } );
       } else {
         e.preventDefault();
@@ -304,6 +306,7 @@ var financialView = {
           scrollTop: financialView.$infoIncorrect.offset().top - 120
         }, 900, 'swing', function() {
           window.location.hash = '#info-wrong';
+          financialView.$programLength.focus();
         } );
       }
       financialView.$verifyControls.hide();
