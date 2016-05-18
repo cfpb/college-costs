@@ -18,7 +18,7 @@ The xlsx were converted manually using the following steps:
 - convert xlsx to csv
 - delete the top 1 line, which are fake headings
 - remove newline characters on the first line (the real headings)
-*- Remove everything from the line "Addenda:" to the end
+- Remove everything from the line "Addenda:" to the end
 
 To run from the script from the Django shell:
 
