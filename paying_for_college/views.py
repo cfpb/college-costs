@@ -47,21 +47,6 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 
 
-REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
-                     'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
-              'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
-                     'NY', 'PA', 'RI', 'VT'],
-              'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
-                     'MS', 'NC', 'OK', 'SC', 'TN', 'TX', 'VA', 'WV'],
-              'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
-                     'OR', 'UT', 'WA', 'WY']
-              }
-REGION_NAMES = {'MW': 'Midwest',
-                'NE': "Northeast",
-                'SO': 'South',
-                'WE': 'West'}
-
-
 def validate_oid(oid):
     """
     make sure an oid contains only hex values 0-9 a-f A-F
@@ -72,14 +57,6 @@ def validate_oid(oid):
         return False
     else:
         return True
-
-
-def get_region(school):
-    """return a school's region based on state"""
-    for region in REGION_MAP:
-        if school.state in REGION_MAP[region]:
-            return region
-    return ''
 
 
 def get_program_length(program, school):
@@ -143,8 +120,7 @@ class OfferView(TemplateView):  # TODO log errors
             else:
                 OID = ''
             if OID and validate_oid(OID) is False:
-                return HttpResponseBadRequest("Offer ID has illegal characters;\
-                    only 0-9 and a-f are allowed.")
+                return HttpResponseBadRequest("Offer ID has illegal characters; only 0-9 and a-f are allowed.")
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:
@@ -154,20 +130,20 @@ class OfferView(TemplateView):  # TODO log errors
                 if programs:
                     program = programs[0]
                     program_data = program.as_json()
-            national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
-            BLS_stats = nat_stats.get_bls_stats()
-            if BLS_stats:
-                categories = BLS_stats.keys()
-                categories.remove('Year')
-                if get_region(school):
-                    region = get_region(school)
-                    national_stats['region'] = REGION_NAMES[region]
-                    for category in categories:
-                        national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
-                else:
-                    national_stats['region'] = "Not available"
-                    for category in categories:
-                        national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
+            # national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
+            # BLS_stats = nat_stats.get_bls_stats()
+            # if BLS_stats:
+            #     categories = BLS_stats.keys()
+            #     categories.remove('Year')
+            #     if get_region(school):
+            #         region = get_region(school)
+            #         national_stats['region'] = REGION_NAMES[region]
+            #         for category in categories:
+            #             national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+            #     else:
+            #         national_stats['region'] = "Not available"
+            #         for category in categories:
+            #             national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
 
 
             return render_to_response('worksheet.html',
@@ -176,7 +152,7 @@ class OfferView(TemplateView):  # TODO log errors
                                        'schoolData': school.as_json(),
                                        'program': program,
                                        'programData': program_data,
-                                       'nationalData': json.dumps(national_stats),
+                                       # 'nationalData': json.dumps(national_stats),
                                        'oid': OID,
                                        'base_template': BASE_TEMPLATE,
                                        'url_root': URL_ROOT},
@@ -329,19 +305,19 @@ class StatsRepresentation(View):
     def get_stats(self, school, programID):
         program = get_program(school, programID)
         national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
-        BLS_stats = nat_stats.get_bls_stats()
-        if BLS_stats:
-            categories = BLS_stats.keys()
-            categories.remove('Year')
-            if get_region(school):
-                region = get_region(school)
-                national_stats['region'] = REGION_NAMES[region]
-                for category in categories:
-                    national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
-            else:
-                national_stats['region'] = "Not available"
-                for category in categories:
-                    national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
+        # BLS_stats = nat_stats.get_bls_stats()
+        # if BLS_stats:
+        #     categories = BLS_stats.keys()
+        #     categories.remove('Year')
+        #     if get_region(school):
+        #         region = get_region(school)
+        #         national_stats['region'] = REGION_NAMES[region]
+        #         for category in categories:
+        #             national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
+        #     else:
+        #         national_stats['region'] = "Not available"
+        #         for category in categories:
+        #             national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
         return json.dumps(national_stats)
 
     def get(self, request, id_pair):

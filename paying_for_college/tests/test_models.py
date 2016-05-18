@@ -9,6 +9,18 @@ from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import Notification, print_vals
+from paying_for_college.models import get_region
+
+
+class SchoolRegionTest(TestCase):
+
+    def test_get_region(self):
+        school = School(school_id='123456', state='NE')
+        self.assertTrue(get_region(school) == 'MW')
+
+    def test_get_region_failure(self):
+        school = School(school_id='123456', state='')
+        self.assertTrue(get_region(school) == '')
 
 
 class SchoolModelsTest(TestCase):

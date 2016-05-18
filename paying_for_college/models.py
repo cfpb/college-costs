@@ -10,6 +10,20 @@ from string import Template
 import requests
 from django.core.mail import send_mail
 
+REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
+                     'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
+              'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
+                     'NY', 'PA', 'RI', 'VT'],
+              'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
+                     'MS', 'NC', 'OK', 'SC', 'TN', 'TX', 'VA', 'WV'],
+              'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
+                     'OR', 'UT', 'WA', 'WY']
+              }
+REGION_NAMES = {'MW': 'Midwest',
+                'NE': "Northeast",
+                'SO': 'South',
+                'WE': 'West'}
+
 HIGHEST_DEGREES = {  # highest-awarded values from Ed API and our CSV spec
     '0': "Non-degree-granting",
     '1': 'Certificate degree',
@@ -37,6 +51,14 @@ NOTIFICATION_TEMPLATE = Template("""Disclosure notification for offer ID $oid\n\
     errors: $errors\n\
 If errors are "none," the disclosure is confirmed.\
 """)
+
+
+def get_region(school):
+    """return a school's region based on state"""
+    for region in REGION_MAP:
+        if school.state in REGION_MAP[region]:
+            return region
+    return ''
 
 
 class ConstantRate(models.Model):
@@ -199,6 +221,7 @@ class School(models.Model):
 
     def as_json(self):
         """delivers pertinent data points as json"""
+        region = get_region(self)
         ordered_out = OrderedDict()
         jdata = json.loads(self.data_json)
         dict_out = {
@@ -225,6 +248,7 @@ class School(models.Model):
             'otherOnCampus': jdata['OTHERONCAMPUS'],
             'otherWFamily': jdata['OTHERWFAMILY'],
             'predominantDegree': self.get_predominant_degree(),
+            'region': region,
             'repay3yr': "{0}".format(self.repay_3yr),
             'roomBrdOffCampus': jdata['ROOMBRDOFFCAMPUS'],
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
