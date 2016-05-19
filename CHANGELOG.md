@@ -12,6 +12,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Revised the standalone setup build process to create a clean build on run
 - Fixed an incorrect variable in `disclosures.less`
 - Fixed a bug with the global eyebrow language list
+- Added a 'offers_perkins' field for the Student model
+- Added a 'settlement_school' field for the Student model
+
 
 ## 2.0.4
 - Notifications enabled
