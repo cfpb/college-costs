@@ -59,7 +59,16 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
         "Transportation": "Transportation",
         "Healthcare": "Healthcare",
         "Entertainment": "Entertainment",
-        "Personal insurance and pensions": "Retirement"
+        "Personal insurance and pensions": "Retirement",
+        # Other
+        "Alcoholic beverages": "Other",
+        "Apparel and services": "Other",
+        "Personal care products and services": "Other",
+        "Reading": "Other",
+        "Education": "Other",
+        "Tobacco products and smoking supplies": "Other",
+        "Miscellaneous": "Other",
+        "Cash contributions": "Other"
     }
 
     INCOME_KEY_MAP = {
@@ -81,12 +90,13 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
         if item in CATEGORIES_KEY_MAP.keys():
             print "Current processing {}.....".format(item)
             print "Will be adding {} to base_bls_dict...".format(CATEGORIES_KEY_MAP[item])
-            base_bls_dict[CATEGORIES_KEY_MAP[item]][region] = {}
+            base_bls_dict[CATEGORIES_KEY_MAP[item]].setdefault(region, {})
             for income_key, income_json_key in INCOME_KEY_MAP.items():
                 print "adding {} ...".format(income_key)
                 amount = int(row[income_key].replace(',',''))
                 print "amount: {}".format(amount)
-                base_bls_dict[CATEGORIES_KEY_MAP[item]][region][income_json_key] = amount
+                base_bls_dict[CATEGORIES_KEY_MAP[item]][region].setdefault(income_json_key, 0)
+                base_bls_dict[CATEGORIES_KEY_MAP[item]][region][income_json_key] += amount
 
 
 
@@ -99,6 +109,7 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
         "Healthcare": {"note": "Including insurance"},
         "Entertainment": {"note": "Events, pets, hobbies, equipment"},
         "Retirement": {"note": "Pensions and personal insurance"},
+        "Other": {"note": "Other expeditures"}  
     }
 
     add_bls_dict_with_region(bls_dict, "WE", WE_CSVFILE)
