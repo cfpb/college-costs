@@ -51,7 +51,7 @@
     "box-sizing-polyfill": "0.1.0",
     "capital-framework": "3.4.1",
     "del": "2.2.0",
-    "format-usd": "0.2.0",
+    "format-usd": "^1.0.0",
     "fs": "0.0.2",
     "html5shiv": "3.7.3",
     "jquery": "1.11.3",
