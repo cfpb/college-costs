@@ -20,7 +20,9 @@ The xlsx were converted manually using the following steps:
 - remove newline characters on the first line (the real headings)
 - Remove everything from the line "Addenda:" to the end
 
-To run from the script from the Django shell:
+To run from the script from the Django shell, if xlsx files are not
+in the default location provided, you can also specify them as
+arguments:
 
 ```
 ./manage.py shell
@@ -28,7 +30,7 @@ from paying_for_college.data_sources.bls_processing import *
 create_bls_json_file()
 ```
 
-This will create a new file in `paying_for_college/fixtures/bls_data_new.json`
+This will create a new file in `paying_for_college/fixtures/bls_data.json`
 
 """
 
@@ -39,16 +41,18 @@ MW_CSVFILE = '{}/xregnmw.csv'.format(BASE_DIR)
 SO_CSVFILE = '{}/xregns.csv'.format(BASE_DIR)
 YEAR = 2014
 
-OUT_FILE = 'paying_for_college/fixtures/bls_data_new.json'
+OUT_FILE = 'paying_for_college/fixtures/bls_data.json'
 
 
 def load_bls_data(csvfile):
+
     with open(csvfile, 'rU') as f:
         reader = cdr(f)
         return [row for row in reader]
 
 
 def add_bls_dict_with_region(base_bls_dict, region, csvfile):
+
     CATEGORIES_KEY_MAP = {
         "Food" : "Food",
         "Housing": "Housing",
@@ -71,7 +75,7 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
     }
 
     data = load_bls_data(csvfile)
-    print "Processing {} file...".format(region)
+    print "******Processing {} file...******".format(region)
     for row in data:
         item = row['Item'].strip()
         if item in CATEGORIES_KEY_MAP.keys():
@@ -107,7 +111,9 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
     return bls_dict
 
 
-def create_bls_json_file(we_csvfile=WE_CSVFILE, ne_csvfile=NE_CSVFILE, mw_csvfile=MW_CSVFILE, so_csvfile=SO_CSVFILE):
+def create_bls_json_file(we_csvfile=WE_CSVFILE, ne_csvfile=NE_CSVFILE, 
+        mw_csvfile=MW_CSVFILE, so_csvfile=SO_CSVFILE):
+
     with open(OUT_FILE, 'w') as outfile:
         bls_dict = bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile)
         json.dump(bls_dict, outfile)
