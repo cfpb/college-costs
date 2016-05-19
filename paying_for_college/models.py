@@ -238,6 +238,7 @@ class School(models.Model):
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
             'school': self.primary_alias,
             'schoolID': self.pk,
+            'settlementSchool': self.settlement_school,
             'state': self.state,
             'tuitionGradInDis': jdata['TUITIONGRADINDIS'],
             'tuitionGradInS': jdata['TUITIONGRADINS'],
