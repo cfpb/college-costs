@@ -5,7 +5,6 @@ var postVerify = {
 
   init: function() {
     // Alternate code. getting token from document.cookie:
-    // 
     // if ( document.cookie && document.cookie != '' ) {
     //   var cookies = document.cookie.split( ';' );
     //   for ( var x = 0; x < cookes.length; x++ ) {
@@ -22,11 +21,11 @@ var postVerify = {
   verify: function( offerID, collegeID, error ) {
     var url,
         postdata = {
-      'csrfmiddlewaretoken':  this.csrfToken,
-      'oid':                  offerID,
-      'iped':                 collegeID,
-      'errors':               'none'
-    };
+          'csrfmiddlewaretoken':  this.csrfToken,
+          'oid':                  offerID,
+          'iped':                 collegeID,
+          'errors':               'none'
+        };
     url = '/' + $( 'main' ).attr( 'data-context' ) +
       '/understanding-your-financial-aid-offer/api/verify/';
     if ( error === true ) {

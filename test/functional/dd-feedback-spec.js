@@ -13,6 +13,8 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
   it( 'should contain a link to the feedback form', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
     browser.wait( EC.visibilityOf( page.feedbackLink ), 8000 );
@@ -21,6 +23,8 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
 
   it( 'should open the feedback form in a new tab', function() {
     page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
     browser.sleep( 1000 );
     page.answerBigQuestionNo();
     browser.sleep( 1000 );

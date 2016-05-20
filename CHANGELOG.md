@@ -15,6 +15,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added a 'offers_perkins' field for the Student model
 - Added a 'settlement_school' field for the Student model
 
+- Added an interaction between Step 1 and Step 2
 
 ## 2.0.4
 - Notifications enabled

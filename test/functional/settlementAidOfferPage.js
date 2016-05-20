@@ -398,6 +398,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'criteria_job-placement-rate' ) );
       }
     },
+    continueStep2Button: {
+      get: function() {
+        return element( by.css( '.continue_controls button' ) );
+      }
+    },
+    continueStep2: {
+      value: function() {
+        this.continueStep2Button.click();
+      }
+    },
     // Step 2: Evaluate your offer
     evaluateSection: {
       get: function() {
@@ -462,11 +472,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
     debtBurdenSalary: {
       get: function() {
         return element( by.css( '.debt-equation [data-debt-burden="monthly-salary"]' ) );
-      }
-    },
-    debtBurdenPercent: {
-      get: function() {
-        return element( by.css( '.debt-equation [data-debt-burden="debt-burden"]' ) );
       }
     },
     debtBurdenNotification: {
@@ -578,6 +583,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalMonthlyLeftOver: {
       get: function() {
         return element( by.id( 'summary_monthly-left-over' ) );
+      }
+    },
+    bigQuestionSection: {
+      get: function() {
+        return element ( by.css( '.question' ) );
       }
     },
     bigQuestionYesButton: {
