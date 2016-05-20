@@ -7,7 +7,7 @@ var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
-var postVerification = require( '../dispatchers/post-verify');
+var postVerification = require( '../dispatchers/post-verify' );
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -16,11 +16,14 @@ var financialView = {
   $infoVerified: $( '.information-right' ),
   $infoIncorrect: $( '.information-wrong' ),
   $programLength: $( '#estimated-years-attending' ),
+  $aboutThisTool: $( '.instructions_about a' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
-  $gradPlusSection: $( '[data-section="gradPlus"]'),
+  $gradPlusSection: $( '[data-section="gradPlus"]' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
+  $evaluateSection: $( '.evaluate' ),
+  $bigQuestion: $( '.question' ),
   keyupDelay: null,
   currentInput: null,
 
@@ -35,13 +38,14 @@ var financialView = {
     this.addPrivateListener();
     this.removePrivateListener();
     this.resetPrivateLoanView();
+    this.continueStep2Listener();
   },
 
   /**
    * Helper function that updates the value or text of an element
    * @param {object} $ele - jQuery object of the element to update
    * @param {number|string} value - The new value
-   * @param {Boolean} currency - True if the value is to be formatted as currency
+   * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
     if ( currency === true ) {
@@ -72,7 +76,8 @@ var financialView = {
   },
 
   /**
-   * Helper function that updates all non-percent, non-privateLoan elements in the financial view
+   * Helper function that updates all non-percent, non-privateLoan elements
+   * in the financial view
    * @param {object} values - financial model values
    * @param {object} $leftovers - jQuery object of the "leftover" elements
    */
@@ -103,7 +108,8 @@ var financialView = {
       $fields.not( '#' + financialView.currentInput ).each( function() {
         var key = $( this ).attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
-            isntCurrentInput = $( this ).attr( 'id' ) !== financialView.currentInput;
+            isntCurrentInput =
+            $( this ).attr( 'id' ) !== financialView.currentInput;
         if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $( this ).val( val );
@@ -151,8 +157,8 @@ var financialView = {
   },
 
   /**
-   * Updates view based on program data (including school data). This updates the
-   * programLength dropdown and visibility of gradPLUS loans.
+   * Updates view based on program data (including school data).
+   * This updates the programLength dropdown and visibility of gradPLUS loans.
    * @param {object} values - An object with program values
    */
   updateViewWithProgram: function( values ) {
@@ -290,6 +296,7 @@ var financialView = {
         }, 900, 'swing', function() {
           metricView.updateGraphs( values );
           window.location.hash = '#info-right';
+          financialView.$aboutThisTool.focus();
         } );
       } else {
         e.preventDefault();
@@ -299,6 +306,7 @@ var financialView = {
           scrollTop: financialView.$infoIncorrect.offset().top - 120
         }, 900, 'swing', function() {
           window.location.hash = '#info-wrong';
+          financialView.$programLength.focus();
         } );
       }
       financialView.$verifyControls.hide();
@@ -325,6 +333,20 @@ var financialView = {
     } else {
       this.$gradPlusSection.show();
     }
+  },
+
+  continueStep2Listener: function() {
+    var $continueButton = $( '.continue_controls > .btn' );
+    $continueButton.on( 'click', function() {
+      // Remove continue button
+      $continueButton.hide();
+      // Show Step 2
+      financialView.$evaluateSection.show();
+      financialView.$bigQuestion.show();
+      $( 'html, body' ).stop().animate( {
+        scrollTop: financialView.$evaluateSection.offset().top - 120
+      }, 900, 'swing', function() {} );
+    } );
   }
 };
 

@@ -135,9 +135,17 @@ class School(models.Model):
     """
     Represents a school
     """
+    SETTLEMENT_CHOICES = (
+        ('edmc', 'Education Management Corporation'),
+        ('', 'Non-settlement')
+        )
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
+    settlement_school = models.CharField(max_length=100,
+                                         blank=True,
+                                         choices=SETTLEMENT_CHOICES,
+                                         default='')
     contact = models.ForeignKey(Contact, blank=True, null=True)
     data_json = models.TextField(blank=True)
     city = models.CharField(max_length=50, blank=True)
@@ -230,6 +238,7 @@ class School(models.Model):
             'roomBrdOnCampus': jdata['ROOMBRDONCAMPUS'],
             'school': self.primary_alias,
             'schoolID': self.pk,
+            'settlementSchool': self.settlement_school,
             'state': self.state,
             'tuitionGradInDis': jdata['TUITIONGRADINDIS'],
             'tuitionGradInS': jdata['TUITIONGRADINS'],
