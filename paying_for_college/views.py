@@ -45,21 +45,15 @@ else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
 URL_ROOT = 'paying-for-college2'
+EXPENSE_FILE = 'paying_for_college/fixtures/bls_data.json'
 
 
-REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
-                     'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
-              'NE': ['CT', 'ME', 'MA', 'NH', 'NJ',
-                     'NY', 'PA', 'RI', 'VT'],
-              'SO': ['AL', 'AR', 'DE', 'DC', 'FL', 'GA', 'KY', 'LA', 'MD',
-                     'MS', 'NC', 'OK', 'SC', 'TN', 'TX', 'VA', 'WV'],
-              'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
-                     'OR', 'UT', 'WA', 'WY']
-              }
-REGION_NAMES = {'MW': 'Midwest',
-                'NE': "Northeast",
-                'SO': 'South',
-                'WE': 'West'}
+def get_json_file(filename):
+    try:
+        with open(filename, 'r') as f:
+            return f.read()
+    except:
+        return ''
 
 
 def validate_oid(oid):
@@ -72,14 +66,6 @@ def validate_oid(oid):
         return False
     else:
         return True
-
-
-def get_region(school):
-    """return a school's region based on state"""
-    for region in REGION_MAP:
-        if school.state in REGION_MAP[region]:
-            return region
-    return ''
 
 
 def get_program_length(program, school):
@@ -112,7 +98,7 @@ def get_school(schoolID):
 def get_program(school, programCode):
     """Try to get latest program; return either program or empty string"""
     programs = Program.objects.filter(program_code=programCode,
-                                         institution=school).order_by('-pk')
+                                      institution=school).order_by('-pk')
     if programs:
         return programs[0]
     else:
@@ -132,51 +118,34 @@ class OfferView(TemplateView):  # TODO log errors
     """consult values in querystring and deliver school/program data"""
 
     def get(self, request):
+        no_school_error = "No active school could be found for iped ID {0}"
+        id_error = "Illegal offer ID; only characters 0-9 and a-f are allowed."
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
             school = get_school(iped)
             if not school or not school.operating:
-                error = "No active school could be found for iped ID {0}".format(iped)
-                return HttpResponseBadRequest(error)
+                return HttpResponseBadRequest(no_school_error.format(iped))
             if 'oid' in request.GET:
                 OID = request.GET['oid']
             else:
                 OID = ''
             if OID and validate_oid(OID) is False:
-                return HttpResponseBadRequest("Offer ID has illegal characters;\
-                    only 0-9 and a-f are allowed.")
+                return HttpResponseBadRequest(id_error)
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:
                 program_code = request.GET['pid']
                 programs = Program.objects.filter(program_code=request.GET['pid'],
-                                                     institution=school).order_by('-pk')
+                                                  institution=school).order_by('-pk')
                 if programs:
                     program = programs[0]
                     program_data = program.as_json()
-            national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
-            BLS_stats = nat_stats.get_bls_stats()
-            if BLS_stats:
-                categories = BLS_stats.keys()
-                categories.remove('Year')
-                if get_region(school):
-                    region = get_region(school)
-                    national_stats['region'] = REGION_NAMES[region]
-                    for category in categories:
-                        national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
-                else:
-                    national_stats['region'] = "Not available"
-                    for category in categories:
-                        national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
-
-
             return render_to_response('worksheet.html',
                                       {'data_js': "0",
                                        'school': school,
                                        'schoolData': school.as_json(),
                                        'program': program,
                                        'programData': program_data,
-                                       'nationalData': json.dumps(national_stats),
                                        'oid': OID,
                                        'base_template': BASE_TEMPLATE,
                                        'url_root': URL_ROOT},
@@ -233,74 +202,6 @@ class BuildComparisonView(View):
                                    'url_root': URL_ROOT},
                                   context_instance=RequestContext(request))
 
-    # def post(self, request):
-    #     """extract id's and in-state information"""
-    #     index = 1
-    #     schools = {}
-    #     data = {
-    #         "global": {
-    #             "aaprgmlength": 2,
-    #             "yrincollege": 1,
-    #             "gradprgmlength": 2,
-    #             "familyincome": 48,
-    #             "vet": False,
-    #             "serving": "no",
-    #             "tier": 100,
-    #             "program": request.POST.get('school-program', 'ba')
-    #             },
-    #         "schools": {}
-    #     }
-
-    #     for school_id in [value for key, value
-    #                       in request.POST.iteritems()
-    #                       if key.endswith('-unitid')] + [100000, 100001]:
-    #         if school_id:
-    #             institution = School.objects.get(pk=int(school_id))
-    #             in_state = request.POST.get('school-state-%s' % index, 'in')
-    #             field_dict = serializers.serialize(
-    #                 "python", [institution])[0]['fields']
-    #             field_dict["institutionname"] = unicode(
-    #                 institution.primary_alias)
-    #             field_dict['instate'] = True if in_state == 'in' else False
-    #             field_dict['color'] = False
-    #             field_dict['fouryruniv'] = field_dict['four_year']
-    #             field_dict.update({"color": False,
-    #                                "oncampus": True,
-    #                                "tuitionfees": 0,
-    #                                "roombrd": 0,
-    #                                "books": 0,
-    #                                "personal": 0,
-
-    #                                "pell": 0,
-    #                                "scholar": 0,
-    #                                "tuitionassist": 0,
-    #                                "gibill": 0,
-    #                                "perkins": 0,
-    #                                "staffsubsidized": 0,
-    #                                "staffunsubsidized": 0,
-    #                                "gradplus": 0,
-
-    #                                "savings": 0,
-    #                                "family": 0,
-    #                                "state529plan": 0,
-    #                                "workstudy": 0,
-
-    #                                "privateloan": 0,
-    #                                "institutionalloan": 0,
-    #                                "parentplus": 0,
-    #                                "homeequity": 0,
-    #                                "order": index - 1})
-
-    #             csrf.get_token(request)
-    #             data['schools'][str(school_id)] = field_dict
-    #             index += 1
-
-    #     data_js = json.dumps(data)
-    #     csrf.get_token(request)
-    #     return render_to_response('worksheet.html',
-    #                               locals(),
-    #                               context_instance=RequestContext(request))
-
 
 class SchoolRepresentation(View):
 
@@ -316,7 +217,9 @@ class ProgramRepresentation(View):
 
     def get_program(self, program_code):
         ids = program_code.split('_')
-        return get_object_or_404(Program, institution__school_id=int(ids[0]), program_code=ids[1])
+        return get_object_or_404(Program,
+                                 institution__school_id=int(ids[0]),
+                                 program_code=ids[1])
 
     def get(self, request, program_code, **kwargs):
         program = self.get_program(program_code)
@@ -329,19 +232,6 @@ class StatsRepresentation(View):
     def get_stats(self, school, programID):
         program = get_program(school, programID)
         national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
-        BLS_stats = nat_stats.get_bls_stats()
-        if BLS_stats:
-            categories = BLS_stats.keys()
-            categories.remove('Year')
-            if get_region(school):
-                region = get_region(school)
-                national_stats['region'] = REGION_NAMES[region]
-                for category in categories:
-                    national_stats['regional{0}'.format(category)] = BLS_stats[category][region]
-            else:
-                national_stats['region'] = "Not available"
-                for category in categories:
-                    national_stats['national{0}'.format(category)] = BLS_stats[category]["average_annual"]
         return json.dumps(national_stats)
 
     def get(self, request, id_pair):
@@ -358,7 +248,19 @@ class StatsRepresentation(View):
         return HttpResponse(stats, content_type='application/json')
 
 
+class ExpenseRepresentation(View):
+    """deliver BLS expense data in json form"""
+
+    def get(self, request):
+        expense_json = get_json_file(EXPENSE_FILE)
+        if not expense_json:
+            error = "No expense data could be found"
+            return HttpResponseBadRequest(error)
+        return HttpResponse(expense_json, content_type='application/json')
+
+
 class ConstantsRepresentation(View):
+    """deliver stored Constants in json form"""
 
     def get_constants(self):
         constants = OrderedDict()
@@ -391,42 +293,6 @@ class EmailLink(View):
         document = {'status': 'ok'}
         return HttpResponse(json.dumps(document),
                             content_type='application/json')
-
-# # SAVING WORKSHEETS HAS BEEN REMOVED FROM PROJECT REQUIREMENTS
-
-# class CreateWorksheetView(View):
-#     def post(self, request):
-#         worksheet_guid = str(uuid.uuid4())
-#         worksheet = Worksheet(guid=worksheet_guid,
-#                               saved_data=json.dumps({'id': worksheet_guid})
-#                               )
-#         worksheet.save()
-#         response = HttpResponse(worksheet.saved_data, status=201)
-#         return response
-
-
-# class DataStorageView(View):
-#     def post(self, request, guid):
-#         if validate_uuid4(guid) == None:  # we have a valid uuid
-#             worksheet = Worksheet.objects.get(guid=guid)
-#         if worksheet and request.body:
-#             validated_json = validate_worksheet(request.body)
-#             if validated_json:
-#                 worksheet.saved_data = validated_json
-#                 worksheet.save()
-#         return HttpResponse(worksheet.saved_data)
-
-
-# def bah_lookup_api(request):
-#     zip5 = request.GET.get('zip5')
-#     try:
-#         rate = BAHRate.objects.filter(zip5=zip5).get()
-#         document = {'rate': rate.value}
-#         document_as_json = json.dumps(document)
-#     except:
-#         document_as_json = json.dumps({})
-#     return HttpResponse(document_as_json,
-#                         content_type='application/javascript')
 
 
 def school_search_api(request):
