@@ -12,6 +12,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Revised the standalone setup build process to create a clean build on run
 - Fixed an incorrect variable in `disclosures.less`
 - Fixed a bug with the global eyebrow language list
+- Addded more granular BLS data and a new API endpoint to deliver it
 
 ## 2.0.4
 - Notifications enabled
