@@ -8,12 +8,18 @@ from django.test import RequestFactory
 from django.http import HttpResponse, HttpRequest
 from django.test import Client
 from django.core.urlresolvers import reverse
-from paying_for_college.views import get_school, validate_oid
-from paying_for_college.views import get_program, get_program_length
-from paying_for_college.views import Feedback, EmailLink
-from paying_for_college.views import SchoolRepresentation, school_search_api
 from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
+from paying_for_college.views import (get_school,
+                                      validate_oid,
+                                      EXPENSE_FILE,
+                                      get_json_file,
+                                      get_program,
+                                      get_program_length,
+                                      Feedback,
+                                      EmailLink,
+                                      SchoolRepresentation,
+                                      school_search_api)
 
 client = Client()
 
@@ -50,20 +56,29 @@ class TestViews(django.test.TestCase):
                  'is_valid': True}
     feedback_post_data = {'csrfmiddlewaretoken': 'abc',
                           'message': 'test'}
-    # '0InrCI5HGbiBEJ1esg6IBi3ax42fwPnL'
+
+    def test_get_json_file(self):
+        test_json = get_json_file(EXPENSE_FILE)
+        test_data = json.loads(test_json)
+        self.assertTrue('Other' in test_data.keys())
+        test_json2 = get_json_file('xxx')
+        self.assertTrue(test_json2 == '')
 
     def test_get_program_length(self):
-        school = School(school_id='123456', degrees_highest='2')
+        school = School(school_id=123456, degrees_highest='2')
         program = Program(institution=school, level='2')
+        bad_school = School(school_id=999999, degrees_highest='5')
         test1 = get_program_length(program=program, school=school)
         self.assertTrue(test1 == 2)
         test2 = get_program_length(program='', school=school)
         self.assertTrue(test2 == 2)
         test3 = get_program_length(program='', school='')
-        self.assertTrue(test3 is None)
+        self.assertIs(test3, None)
         program.level = '3'
         test4 = get_program_length(program=program, school='')
-        self.assertTrue(test4 == 4)
+        self.assertEqual(test4, 4)
+        bad_school_test = get_program_length(program='', school=bad_school)
+        self.assertIs(bad_school_test, None)
 
     def test_landing_page_views(self):
         for url_name in self.landing_page_views:
@@ -205,11 +220,8 @@ class OfferTest(django.test.TestCase):
         resp6 = client.get(url+missing_school_id)
         self.assertTrue("doesn't contain a school" in resp6.content)
         self.assertTrue(resp6.status_code == 400)
-        # resp7 = client.get(url+puerto_rico)
-        # self.assertTrue("nationalFood" in resp7.content)
-        # self.assertTrue(resp7.status_code == 200)
         resp8 = client.get(url+bad_oid)
-        self.assertTrue("illegal characters" in resp8.content)
+        self.assertTrue("Illegal offer" in resp8.content)
         self.assertTrue(resp8.status_code == 400)
 
 
@@ -249,9 +261,20 @@ class APITests(django.test.TestCase):
         resp2 = client.get(url2)
         self.assertTrue('No school' in resp2.content)
         self.assertTrue(resp2.status_code == 400)
-        # url3 = reverse('disclosures:national-stats-json', args=['243197'])
-        # resp3 = client.get(url3)
-        # self.assertTrue('nationalFood' in resp3.content)
+
+    def test_expense_json(self):
+        """api call for BLS expense data"""
+        url = reverse('disclosures:expenses-json')
+        resp = client.get(url)
+        self.assertTrue('Other' in resp.content)
+
+    @mock.patch('paying_for_college.views.get_json_file')
+    def test_expense_json_failure(self, mock_get_json):
+        """failed api call for BLS expense data"""
+        url = reverse('disclosures:expenses-json')
+        mock_get_json.return_value = ''
+        resp = client.get(url)
+        self.assertTrue('No expense' in resp.content)
 
     # /paying-for-college/understanding-financial-aid-offers/api/program/408039-981/
     def test_program_json(self):
@@ -261,47 +284,6 @@ class APITests(django.test.TestCase):
         resp = client.get(url)
         self.assertTrue('housing' in resp.content)
         self.assertTrue('books' in resp.content)
-
-
-# # NO-DATA WORKSHEET POST
-# # /paying-for-college/understanding-financial-aid-offers/api/worksheet/
-# class CreateWorksheetTest(django.test.TestCase):
-
-#     fixtures = ['test_fixture.json']
-#     mock_worksheet_data = {'1': {'netpriceok': '12964',
-#                                  'oncampusavail': 'Yes',
-#                                  'badkey': 'badinfo',
-#                                  'tuitiongradoss': '',
-#                                  'control': 'Public',
-#                                  'offerba': 'Yes',
-#                                  'books': 900,
-#                                  'instate': False,
-#                                  'retentrate': 0.12,
-#                                  'online': 'No',
-#                                  'school_id': '155317',
-#                                  'state': 'KS',
-#                                  'school': 'University of Kansas'}}
-
-#     def test_create_worksheet(self):
-#         """generating a worksheet ID via api."""
-
-#         url = reverse('disclosures:create_worksheet')
-#         resp = client.post(url)
-#         self.assertTrue('id' in resp.content)
-#         data = json.loads(resp.content)
-#         self.assertTrue(len(data['id']) == 36)
-
-#     # SAVE POST
-#     # /paying-for-college/understanding-financial-aid-offers/api/worksheet/00470019-e077-4fc3-9dbb-4a595fe976e6.json
-#     def test_save_worksheet(self):
-#         """saving a worksheet via api."""
-
-#         url = reverse('disclosures:api-worksheet',
-#                       args=['00470019-e077-4fc3-9dbb-4a595fe976e6'])
-#         resp = client.post(url,
-#                            data=json.dumps(self.mock_worksheet_data),
-#                            content_type="application/x-www-form-urlencoded; charset=UTF-8")
-#         self.assertTrue(resp.status_code == 200)
 
 
 class VerifyViewTest(django.test.TestCase):
