@@ -22,8 +22,6 @@ urlpatterns = [
         school_search_api,
         name='school_search'),
 
-    # url(r'^api/bah-lookup.json', bah_lookup_api),
-
     url(r'^api/program/([^/]+)/$',
         ProgramRepresentation.as_view(),
         name='program-json'),
@@ -36,19 +34,15 @@ urlpatterns = [
         StatsRepresentation.as_view(),
         name='national-stats-json'),
 
+    url(r'^api/expenses/$',
+        ExpenseRepresentation.as_view(),
+        name='expenses-json'),
+
     url(r'^api/verify/$',
         VerifyView.as_view(),
         name='verify'),
 
-    url(r'^api/school/(\d+).json',
+    url(r'^api/school/(\d+)/$',
         SchoolRepresentation.as_view(),
         name='school-json'),
-
-    # url(r'^api/worksheet/([1-z0-9-]*).json$',
-    #     DataStorageView.as_view(),
-    #     name='api-worksheet'),
-
-    # url(r'^api/worksheet/$',
-    #     CreateWorksheetView.as_view(),
-    #     name='create_worksheet')
 ]

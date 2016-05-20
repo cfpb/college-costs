@@ -25,7 +25,7 @@ var getApiValues = {
 
   fetchSchoolData: function( iped ) {
     var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/school/' + iped + '.json';
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/school/' + iped + '/';
     var schoolDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
