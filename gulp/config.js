@@ -1,5 +1,6 @@
 'use strict';
 
+var pkgjson = require( '../package.json' );
 var globAll = require( 'glob-all' );
 
 /**
@@ -13,7 +14,7 @@ var loc = {
 };
 
 module.exports = {
-  pkg: require( '../package.json' ),
+  pkg: pkgjson,
   banner:
       '/*!\n' +
       ' *  <%= pkg.name %> - v<%= pkg.version %>\n' +
