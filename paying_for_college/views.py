@@ -25,7 +25,7 @@ from django.conf import settings
 
 from haystack.query import SearchQuerySet
 
-from models import School, Worksheet, Feedback, Notification
+from models import School, Worksheet, Feedback, Notification, get_region
 from models import Program, ConstantCap, ConstantRate
 from validators import validate_uuid4  # ,validate_worksheet
 from paying_for_college.disclosures.scripts import nat_stats
@@ -45,7 +45,7 @@ else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
 URL_ROOT = 'paying-for-college2'
-EXPENSE_FILE = 'paying_for_college/fixtures/bls_data.json'
+EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
 
 
 def get_json_file(filename):
@@ -140,12 +140,15 @@ class OfferView(TemplateView):  # TODO log errors
                 if programs:
                     program = programs[0]
                     program_data = program.as_json()
+            national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
+            national_stats['region'] = get_region(school)
             return render_to_response('worksheet.html',
                                       {'data_js': "0",
                                        'school': school,
                                        'schoolData': school.as_json(),
                                        'program': program,
                                        'programData': program_data,
+                                       'nationalData': json.dumps(national_stats),
                                        'oid': OID,
                                        'base_template': BASE_TEMPLATE,
                                        'url_root': URL_ROOT},
