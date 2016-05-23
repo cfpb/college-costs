@@ -16,6 +16,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added a 'offers_perkins' field for the Student model
 - Added a 'settlement_school' field for the Student model
 - Removed the '.json' suffix from the API call /api/school/[SCHOOL ID]/
+- Restored `nationalData` object to offer view
 
 - Added an interaction between Step 1 and Step 2
 
