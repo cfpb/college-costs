@@ -26,9 +26,9 @@ dbsetup(){
     rm -f $DATABASE
   fi
   echo 'Applying migrations...'
-  python manage.py migrate paying_for_college
+  python manage.py migrate
   echo 'Loading college data into local test database...'
-  python manage.py loaddata collegedata.json
+  python manage.py loaddata collegedata
   # python manage.py rebuild_index
 }
 
