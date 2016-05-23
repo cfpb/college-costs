@@ -18,6 +18,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Removed the '.json' suffix from the API call /api/school/[SCHOOL ID]/
 - Removed national average graph data & explanatory boxes for settlement schools
 - Added an interaction between Step 1 and Step 2
+- Added school filtering for the Django admin
 
 ## 2.0.4
 - Notifications enabled

@@ -20,8 +20,15 @@ class ConstantCapAdmin(admin.ModelAdmin):
 
 
 class SchoolAdmin(admin.ModelAdmin):
-    list_display = ('primary_alias', 'school_id', 'city', 'state', 'KBYOSS')
-    search_fields = ['school_id', 'city']
+    list_display = ('primary_alias',
+                    'school_id',
+                    'city',
+                    'state',
+                    'settlement_school')
+    list_filter = ('settlement_school', 'state')
+    list_editable = ('settlement_school',)
+    search_fields = ['school_id', 'city', 'state']
+    ordering = ['state']
 
 
 class AliasAdmin(admin.ModelAdmin):
