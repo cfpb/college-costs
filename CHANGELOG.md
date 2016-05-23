@@ -16,6 +16,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added a 'offers_perkins' field for the Student model
 - Added a 'settlement_school' field for the Student model
 - Removed the '.json' suffix from the API call /api/school/[SCHOOL ID]/
+- Removed national average graph data & explanatory boxes for settlement schools
 - Added an interaction between Step 1 and Step 2
 - Added school filtering for the Django admin
 

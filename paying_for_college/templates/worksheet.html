@@ -2691,11 +2691,4 @@
 <script type="text/javascript"
 src="{% static "paying_for_college/disclosures/static/js/main.js" %}">
 </script>
-{% if schoolData %}
-<script>
-  var schoolData = {{schoolData|safe}};
-  var programData = {{programData|safe}};
-  var nationalData = {{nationalData|safe}};
-</script>
-{% endif %}
 {% endblock %}
