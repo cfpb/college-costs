@@ -217,6 +217,7 @@ var metricView = {
       if ( settlementStatus === false ) {
         metricView.setNotificationClasses( $notification, notificationClasses );
       } else {
+        $nationalPoint.hide();
         metricView.hideNotificationClasses( $notification );
       }
     } );
