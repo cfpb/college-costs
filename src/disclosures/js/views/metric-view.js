@@ -10,7 +10,9 @@ var metricView = {
    */
   init: function() {
     var values = getModelValues.financial();
-    this.updateGraphs( values );
+    var settlementStatus =
+      Boolean( getModelValues.school().settlementSchool ) || false;
+    this.updateGraphs( values, settlementStatus );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
   },
@@ -177,10 +179,21 @@ var metricView = {
   },
 
   /**
+   * Hides the metric notification boxes for settlement schools
+   * @param {object} $notification jQuery object of the notification box
+   */
+  hideNotificationClasses: function( $notification ) {
+    $notification
+      .attr( 'class', 'metric_notification' )
+      .hide();
+  },
+
+  /**
    * Initializes all metrics with bar graphs
    * @param {object} values Financial model values
+   * @param {boolean} settlementStatus Flag if this is a settlement school
    */
-  updateGraphs: function( values ) {
+  updateGraphs: function( values, settlementStatus ) {
     var $graphs = $( '.bar-graph' );
     $graphs.each( function() {
       var $graph = $( this ),
@@ -201,7 +214,11 @@ var metricView = {
       metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
       metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
       metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
-      metricView.setNotificationClasses( $notification, notificationClasses );
+      if ( settlementStatus === false ) {
+        metricView.setNotificationClasses( $notification, notificationClasses );
+      } else {
+        metricView.hideNotificationClasses( $notification );
+      }
     } );
   },
 
@@ -232,8 +249,9 @@ var metricView = {
    * Populates the debt burden numbers and shows the corresponding notification
    * on the page
    * @param {object} values Financial model values
+   * @param {boolean} settlementStatus Flag if this is a settlement school
    */
-  updateDebtBurdenDisplay: function( values ) {
+  updateDebtBurdenDisplay: function( values, settlementStatus ) {
     var annualSalary = Number( values.medianSalary ) || Number( values.earningsMedian ),
         monthlySalary = this.calculateMonthlySalary( annualSalary ),
         monthlyLoanPayment = values.loanMonthly || 0,
@@ -258,7 +276,11 @@ var metricView = {
     $monthlySalaryElement.text( monthlySalaryFormatted );
     $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
     $debtBurdenElement.text( debtBurdenFormatted );
-    this.setNotificationClasses( $notification, notificationClasses );
+    if ( settlementStatus === false ) {
+      this.setNotificationClasses( $notification, notificationClasses );
+    } else {
+      this.hideNotificationClasses( $notification );
+    }
   }
 
 };
