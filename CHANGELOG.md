@@ -19,6 +19,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Removed national average graph data & explanatory boxes for settlement schools
 - Added an interaction between Step 1 and Step 2
 - Added school filtering for the Django admin
+- Added anticipated total direct cost to verification section
 
 ## 2.0.4
 - Notifications enabled
