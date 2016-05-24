@@ -15,11 +15,13 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Addded more granular BLS data and a new API endpoint to deliver it
 - Added a 'offers_perkins' field for the Student model
 - Added a 'settlement_school' field for the Student model
+- Updated format-usd to 1.0.1
 - Removed the '.json' suffix from the API call /api/school/[SCHOOL ID]/
 - Removed national average graph data & explanatory boxes for settlement schools
 - Added an interaction between Step 1 and Step 2
 - Added school filtering for the Django admin
 - Added anticipated total direct cost to verification section
+- Fixed file path for BLS json import in views
 
 ## 2.0.4
 - Notifications enabled
