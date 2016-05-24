@@ -21,6 +21,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added an interaction between Step 1 and Step 2
 - Added school filtering for the Django admin
 - Fix handling of ownership and control values in update_colleges script
+- Fixed file path for BLS json import in views
 
 ## 2.0.4
 - Notifications enabled
