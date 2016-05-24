@@ -90,7 +90,8 @@ def update(exclude_ids=[], single_school=None):
                         if key in data.keys() and data[key] is not None:
                             setattr(school, MODEL_MAP[key], data[key])
                             updated = True
-                    if data['ownership']:
+                    if data['school.ownership']:
+                        school.ownership = str(data['school.ownership'])
                         school.control = CONTROL_MAP[school.ownership]
                     if school.grad_rate_4yr:
                         school.grad_rate == school.grad_rate_4yr
