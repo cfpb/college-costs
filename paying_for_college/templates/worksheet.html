@@ -588,13 +588,12 @@
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__family">
-                                                Money your family will pay
+                                                Money your family or others will pay
                                             </label>
                                             <p class="aid-form_definition">
-                                                Includes money given to you,
-                                                loans your family takes out
-                                                and has to repay (Parent PLUS
-                                                loans, home equity loans), etc.
+                                                Includes money given to you from family or
+                                                others, private loans your parents take
+                                                out, etc.
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -603,6 +602,27 @@
                                             type="text" id="contrib__family"
                                             name="contrib__family"
                                             data-financial="family"
+                                            autocorrect="off" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <div class="aid-form_label-wrapper">
+                                            <label class="form-label"
+                                            for="contrib__parent-plus">
+                                                Parent PLUS loan
+                                            </label>
+                                            <p class="aid-form_definition">
+                                                Federal loans your parents take out and repay;
+                                                does not count toward your total student loan debt
+                                                shown in this tool
+                                            </p>
+                                        </div>
+                                        <div class="aid-form_input-wrapper">
+                                            <input class="aid-form_input
+                                            aid-form_input__currency"
+                                            type="text" id="contrib__parent-plus"
+                                            name="contrib__parent-plus"
+                                            data-financial="parentPlus"
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
