@@ -51,7 +51,7 @@ var metricView = {
       formattedValue = Math.round( rawValue * 100 ).toString() + '%';
     }
     if ( valueType === 'currency' ) {
-      formattedValue = formatUSD( rawValue, { decimalPlaces: 0 } );
+      formattedValue = formatUSD( { amount: rawValue, decimalPlaces: 0 } );
     }
     return formattedValue;
   },
