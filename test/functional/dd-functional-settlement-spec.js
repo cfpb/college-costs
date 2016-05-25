@@ -254,8 +254,8 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setFamilyContribution( 4000 );
     browser.sleep( 750 );
-    expect( page.totalContributions.getText() ).toEqual( '7,000' );
-    expect( page.remainingCostFinal.getText() ).toEqual( '10,526' );
+    expect( page.totalContributions.getText() ).toEqual( '8,000' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '9,526' );
   } );
 
   it( 'should properly update when the work study earnings are modified within the allowed limit', function() {
@@ -486,7 +486,7 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.confirmVerification();
     expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
-    expect( page.totalRepayment.getText() ).toEqual( '37,678' );
+    expect( page.totalRepayment.getText() ).toEqual( '37,525' );
   } );
 
   it( 'should update total borrowing and verbiage when program length is changed', function() {
@@ -504,10 +504,10 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 750 );
     expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeTruthy();
     expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
-    expect( page.remainingCostFinal.getText() ).toEqual( '4,526' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '3,526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$14,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$37,678' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$37,525' );
   } );
 
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
@@ -519,20 +519,20 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.remainingCostFinal.getText() ).toEqual( '-474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$14,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$37,678' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$37,525' );
   } );
 
   it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
     browser.sleep( 1000 );
     page.confirmVerification();
-    page.setFamilyContribution( 14526 );
+    page.setFamilyContribution( 13526 );
     browser.sleep( 750 );
     expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.remainingCostFinal.getText() ).toEqual( '0' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$14,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$37,678' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$37,525' );
   } );
 
   it( 'should let a student continue on to Step 2', function() {
