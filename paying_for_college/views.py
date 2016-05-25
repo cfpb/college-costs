@@ -45,7 +45,7 @@ else:  # pragma: no cover
     BASE_TEMPLATE = "front/base_update.html"
 
 URL_ROOT = 'paying-for-college2'
-EXPENSE_FILE = 'paying_for_college/fixtures/bls_data.json'
+EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
 
 
 def get_json_file(filename):

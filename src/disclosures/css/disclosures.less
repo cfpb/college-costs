@@ -138,15 +138,13 @@
     margin-bottom: unit(30px / @font-size, em);
 
     .respond-to-min(@bp-lg-min, {
-      .heading-3();
-    });
-
-    .respond-to-min(@bp-lg-min, {
+      .heading-2();
       margin-bottom: unit(30px / @font-size, em);
     });
   }
 
-  &_school {
+  &_school,
+  &_location {
     .heading-3();
     margin-bottom: 0;
 
@@ -155,24 +153,18 @@
     });
   }
 
-  &_location {
-
-    .respond-to-min(@bp-sm-min, {
-      .heading-4();
-    });
-  }
-
   &_list {
     margin-top: unit(15px / @base-font-size-px, em);
-    margin-bottom: unit(30px / @base-font-size-px, em);
+    margin-bottom: unit(15px / @base-font-size-px, em);
 
     .respond-to-min(@bp-sm-min, {
       margin-top: unit(20px / @base-font-size-px, em);
     });
   }
 
-  &_heading {
-    .heading-6();
+  &_heading,
+  &_label {
+    .heading-5();
     margin-bottom: 0;
   }
 
@@ -188,22 +180,12 @@
     });
   }
 
-  &_form {
-
-    .respond-to-min(@bp-sm-min, {
-      .grid_nested-col-group();
-    });
-  }
-
   &_estimate {
 
     .respond-to-min(@bp-sm-min, {
       .grid_column(8);
+      border: none;
     });
-  }
-
-  &_label {
-    .heading-4();
   }
 
   &_label-explanation {
@@ -215,7 +197,6 @@
     text-align: center;
 
     .respond-to-min(@bp-sm-min, {
-      .grid_column(12);
       text-align: left;
     });
   }

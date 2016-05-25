@@ -18,6 +18,16 @@ var financialModel = {
   },
 
   /**
+   * Adds various academic costs to form the 'directCost' property
+   */
+  sumDirectCost: function() {
+    var model = financialModel.values;
+    // model.directCost as a sum of URL inputs
+    model.directCost =
+      ( model.tuitionFees + model.books ) * model.programLength;
+  },
+
+  /**
    * Adds various scholarships to form the 'scholarships' property
    */
   sumScholarships: function() {
@@ -38,6 +48,7 @@ var financialModel = {
     this.sumTotals();
     this.roundValues();
     this.reportErrors();
+    this.sumDirectCost();
   },
 
   /**
@@ -65,7 +76,7 @@ var financialModel = {
   roundValues: function() {
     var model = financialModel.values,
         roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime' ];
-    for (var x = 0; x < roundedKeys.length; x++ ) {
+    for ( var x = 0; x < roundedKeys.length; x++ ) {
       var key = roundedKeys[x];
       model[key] = Math.round( model[key] );
     }
@@ -73,7 +84,7 @@ var financialModel = {
 
   /**
    * Updates the financial model with values from school and program data
-   * @param { object } schoolValues - an object containing values from school and program data
+   * @param { object } schoolValues - contains school and program data values
    */
   updateModelWithProgram: function( schoolValues ) {
     schoolValues.undergrad = true;
