@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+
+## 2.1.0
 - Pinned and shrinkwrapped NPM dependencies
 - Added `snyk` to monitor for known NPM package vulnerabilities.
 - Updated the project to Django 1.8 and removed solr dependencies
