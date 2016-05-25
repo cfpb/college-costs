@@ -12,8 +12,9 @@ import datetime
 import requests
 
 from paying_for_college.disclosures.scripts import api_utils
-from paying_for_college.disclosures.scripts.api_utils import MODEL_MAP, LATEST_YEAR
-from paying_for_college.models import School
+from paying_for_college.disclosures.scripts.api_utils import (MODEL_MAP,
+                                                              LATEST_YEAR)
+from paying_for_college.models import School, CONTROL_MAP
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
 HOME = os.path.expanduser("~")
@@ -89,6 +90,9 @@ def update(exclude_ids=[], single_school=None):
                         if key in data.keys() and data[key] is not None:
                             setattr(school, MODEL_MAP[key], data[key])
                             updated = True
+                    if data['school.ownership']:
+                        school.ownership = str(data['school.ownership'])
+                        school.control = CONTROL_MAP[school.ownership]
                     if school.grad_rate_4yr:
                         school.grad_rate == school.grad_rate_4yr
                     elif school.grad_rate_lt4:
@@ -131,16 +135,16 @@ def update(exclude_ids=[], single_school=None):
                     print("request for {0} returned {1}".format(school,
                                                               resp.status_code))
                     continue
-    endmsg = "\nTried to get new data for {0} schools:\n\
+    endmsg = """\nTried to get new data for {0} schools:\n\
     updated {1} and found no data for {2}\n\
     API response failures: {3}; schools that closed since last run: {4}\n\
-    \n{5} took {6} to run".format(processed,
-                                  update_count,
-                                  len(NO_DATA),
-                                  len(FAILED),
-                                  CLOSED,
-                                  SCRIPTNAME,
-                                  (datetime.datetime.now()-starter))
+    \n{5} took {6} to run""".format(processed,
+                                    update_count,
+                                    len(NO_DATA),
+                                    len(FAILED),
+                                    CLOSED,
+                                    SCRIPTNAME,
+                                    (datetime.datetime.now()-starter))
     if NO_DATA:
         endmsg += "\nA list of schools that had no API data was saved to {0}".format(NO_DATA_FILE)
         no_data_dict = {}
