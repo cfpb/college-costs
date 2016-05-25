@@ -19,6 +19,7 @@ var financialView = {
   $aboutThisTool: $( '.instructions_about a' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $gradPlusSection: $( '[data-section="gradPlus"]' ),
+  $perkinsSection: $( '[data-section="perkins"]' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
@@ -168,6 +169,7 @@ var financialView = {
     linksView.updateLinks( values );
     // Update availability of gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
+    this.perkinsVisible( values.offersPerkins );
   },
 
   /**
@@ -330,8 +332,17 @@ var financialView = {
   gradPlusVisible: function( visibility ) {
     if ( visibility === false ) {
       this.$gradPlusSection.hide();
+      publish.financialData( 'gradPlus', 0 );
     } else {
       this.$gradPlusSection.show();
+    }
+  },
+
+  perkinsVisible: function( visibility ) {
+    if ( visibility === false ) {
+      this.$perkinsSection.hide();
+    } else {
+      this.$perkinsSection.show();
     }
   },
 
