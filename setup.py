@@ -61,7 +61,11 @@ setup(
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
     maintainer_email='tech@cfpb.gov',
-    packages=['paying_for_college', 'paying_for_college.disclosures', 'paying_for_college.data_sources', 'paying_for_college', ],
+    packages=['paying_for_college',
+              'paying_for_college.config',
+              'paying_for_college.disclosures',
+              'paying_for_college.data_sources',
+              'paying_for_college', ],
     include_package_data=True,
     description=u'College cost tools',
     classifiers=[
