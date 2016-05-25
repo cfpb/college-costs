@@ -161,10 +161,11 @@
   &_label {
     .heading-5();
     margin-bottom: 0;
+    line-height: @base-line-height;
   }
 
   &_value {
-    margin: 0;
+    margin-left: 0;
   }
 
   &_value + &_heading {
@@ -176,15 +177,10 @@
   }
 
   &_estimate {
-
     .respond-to-min(@bp-sm-min, {
       .grid_column(8);
       border: none;
     });
-  }
-
-  &_label-explanation {
-    font-size: unit(@small-font-size-px / @base-font-size-px, em)
   }
 
   &_controls {
