@@ -19,6 +19,11 @@ REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
               'WE': ['AK', 'AZ', 'CA', 'CO', 'HI', 'ID', 'MT', 'NV', 'NM',
                      'OR', 'UT', 'WA', 'WY']
               }
+
+CONTROL_MAP = {'1': 'Public',
+               '2': 'Private',
+               '3': 'For-profit'}
+
 REGION_NAMES = {'MW': 'Midwest',
                 'NE': "Northeast",
                 'SO': 'South',
@@ -26,7 +31,7 @@ REGION_NAMES = {'MW': 'Midwest',
 
 HIGHEST_DEGREES = {  # highest-awarded values from Ed API and our CSV spec
     '0': "Non-degree-granting",
-    '1': 'Certificate degree',
+    '1': 'Certificate',
     '2': "Associate degree",
     '3': "Bachelor's degree",
     '4': "Graduate degree"
@@ -178,7 +183,7 @@ class School(models.Model):
     ownership = models.CharField(max_length=255, blank=True)
     control = models.CharField(max_length=50,
                                blank=True,
-                               help_text="'Public', 'Private' or 'For Profit'")
+                               help_text="'Public', 'Private' or 'For-profit'")
     url = models.TextField(blank=True)
     degrees_predominant = models.TextField(blank=True)
     degrees_highest = models.TextField(blank=True)

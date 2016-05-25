@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+
+## 2.1.0
 - Pinned and shrinkwrapped NPM dependencies
 - Added `snyk` to monitor for known NPM package vulnerabilities.
 - Updated the project to Django 1.8 and removed solr dependencies
@@ -15,9 +17,16 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Addded more granular BLS data and a new API endpoint to deliver it
 - Added a 'offers_perkins' field for the Student model
 - Added a 'settlement_school' field for the Student model
+- Updated format-usd to 1.0.1
 - Removed the '.json' suffix from the API call /api/school/[SCHOOL ID]/
 - Added an interaction between Step 1 and Step 2
 - Added school filtering for the Django admin
+- Removed national average graph data & explanatory boxes for settlement schools
+- Added an interaction between Step 1 and Step 2
+- Added school filtering for the Django admin
+- Fix handling of ownership and control values in update_colleges script
+- Added anticipated total direct cost to verification section
+- Fixed file path for BLS json import in views
 
 ## 2.0.4
 - Notifications enabled

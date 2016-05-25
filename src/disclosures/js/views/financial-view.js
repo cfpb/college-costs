@@ -49,7 +49,7 @@ var financialView = {
    */
   updateElement: function( $ele, value, currency ) {
     if ( currency === true ) {
-      value = formatUSD( value, { decimalPlaces: 0 } );
+      value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
     if ( $ele.attr( 'data-line-item' ) === 'true' ) {
       value = value.replace( /\$/i, '' );
@@ -114,7 +114,7 @@ var financialView = {
           val *= 100;
           $( this ).val( val );
         } else if ( isntCurrentInput && key === 'amount' ) {
-          $( this ).val( formatUSD( val, { decimalPlaces: 0 } ) );
+          $( this ).val( formatUSD( { amount: val, decimalPlaces: 0 } ) );
         } else {
           $( this ).val( val );
         }

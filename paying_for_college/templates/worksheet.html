@@ -36,7 +36,7 @@
                     <p class="hero_subhead">
                         This personalized summary will help you evaluate your
                         financial aid offer from your school to see how
-                        student debt will impact your future finances. </p>
+                        student debt may impact your future finances. </p>
                 </div>
                 <div class="hero_image"></div>
             </div>
@@ -50,52 +50,54 @@
                             Make sure that the information below is correct
                             before reviewing your offer.
                         </h2>
-                        <div class="verify_school">
-                            {{school.primary_alias}}
-                        </div>
-                        <div class="verify_location">
-                            {{school.city}}, {{school.state}}
-                        </div>
-                        <dl class="verify_list">
-                            <dt class="verify_heading">
-                                School type
-                            </dt>
-                            <dd class="verify_value">
-                                {{school.control}}
-                            </dd>
-                            <dt class="verify_heading">
-                                Program
-                            </dt>
-                            <dd class="verify_value">
-                                {{program.program_name}}
-                            </dd>
-                            <dt class="verify_heading">
-                                Program type
-                            </dt>
-                            <dd class="verify_value">
-                                {{program.get_level}}
-                            </dd>
-                            <dt class="verify_heading">
-                                Offer ID
-                            </dt>
-                            <dd class="verify_value">
-                                {{ oid|slice:":7" }}
-                            </dd>
-                        </dl>
                         <form class="verify_form">
                           {% csrf_token %}
+                            <div class="verify_school">
+                                {{school.primary_alias}}
+                            </div>
+                            <div class="verify_location">
+                                {{school.city}}, {{school.state}}
+                            </div>
+                            <div class="verify_type">
+                                {{school.control}} school
+                            </div>
+                            <dl class="verify_list">
+                                <dt class="verify_heading">
+                                    Program
+                                </dt>
+                                <dd class="verify_value">
+                                    {{program.program_name}}
+                                </dd>
+                                <dt class="verify_heading">
+                                    Program type
+                                </dt>
+                                <dd class="verify_value">
+                                    {{program.get_level}}
+                                </dd>
+                                <dt class="verify_heading">
+                                    Estimated total cost of program
+                                </dt>
+                                <dd class="verify_value">
+                                    <span id="verify_directCost"
+                                    data-financial="directCost">$[XX]</span> (tuition, fees, books, and supplies)
+                                </dd>
+                            </dl>
+
                             <div class="verify_estimate">
                                 <label for="estimated-years-attending"
                                 class="verify_label">
-                                    Estimated years you plan to attend this
-                                    school
+                                    Estimated years to complete your program
                                 </label>
                                 <p class="verify_label-explanation">
-                                    This may be shorter than program length if
-                                    you transferred in with credits. It may be
-                                    longer if you plan to attend part time.
-                                    We’ll use this to help calculate your
-                                    total debt after graduation. </p>
+                                    Select how long you expect it to take to
+                                    complete this program. This may be shorter
+                                    than the program length above if you
+                                    transferred in with credits that the school
+                                    accepts. It may be longer if you plan to
+                                    attend part time or do not successfully
+                                    complete your courses. We’ll use this to
+                                    help calculate your total debt after
+                                    graduation.</p>
                                 <div class="cf-select">
                                     <select id="estimated-years-attending">
                                         <option value="">
@@ -122,6 +124,14 @@
                                     </select>
                                 </div>
                             </div>
+                            <dl class="verify_list">
+                                <dt class="verify_heading">
+                                    Offer ID
+                                </dt>
+                                <dd class="verify_value">
+                                    {{ oid|slice:":7" }}
+                                </dd>
+                            </dl>
                             <div class="verify_controls">
                                 <a href="#info-right"
                                 class="btn btn__full-small"
@@ -2691,11 +2701,4 @@
 <script type="text/javascript"
 src="{% static "paying_for_college/disclosures/static/js/main.js" %}">
 </script>
-{% if schoolData %}
-<script>
-  var schoolData = {{schoolData|safe}};
-  var programData = {{programData|safe}};
-  var nationalData = {{nationalData|safe}};
-</script>
-{% endif %}
 {% endblock %}
