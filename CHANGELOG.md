@@ -2,6 +2,7 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- fix migrations for deployment, adding 0003
 
 ## 2.1.0
 - Pinned and shrinkwrapped NPM dependencies
