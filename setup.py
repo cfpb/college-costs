@@ -64,6 +64,8 @@ setup(
     packages=find_packages(),
     package_data={'paying_for_college':
                   ['fixtures/*.json',
+                   'templates/*.html',
+                   'templates/*.txt',
                    'static/paying_for_college/disclosures/static/css/*.css',
                    'static/paying_for_college/disclosures/static/css/*.map',
                    'static/paying_for_college/disclosures/static/fonts/*.eot',

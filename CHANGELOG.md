@@ -4,7 +4,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - Parent PLUS loans separated from other family contributions
 - Fixed migrations for deployment, adding 0003
-- Adjusted setup.py to include fixtures 
+- Adjusted setup.py to include fixtures and templates
 
 ## 2.1.0
 - Pinned and shrinkwrapped NPM dependencies
