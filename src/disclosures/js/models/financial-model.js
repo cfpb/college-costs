@@ -18,6 +18,19 @@ var financialModel = {
   },
 
   /**
+   * Performs calculations using student-debt-calc package
+   */
+  calc: function() {
+    this.sumScholarships();
+    this.values = recalculate( this.values );
+    this.sumTotals();
+    this.roundValues();
+    this.reportErrors();
+    this.sumDirectCost();
+    this.sumFamilyTotal();
+  },
+
+  /**
    * Adds various academic costs to form the 'directCost' property
    */
   sumDirectCost: function() {
@@ -25,6 +38,16 @@ var financialModel = {
     // model.directCost as a sum of URL inputs
     model.directCost =
       ( model.tuitionFees + model.books ) * model.programLength;
+  },
+
+  /**
+   * Sums the total family contributions
+   */
+  sumFamilyTotal: function() {
+    var model = financialModel.values;
+    // familyTotal is family contributions + parent PLUS loan
+    model.familyTotal = model.family + model.parentPlus;
+
   },
 
   /**
@@ -37,18 +60,6 @@ var financialModel = {
       model.schoolGrants +
       model.stateGrants +
       model.otherScholarships;
-  },
-
-  /**
-   * Performs calculations using student-debt-calc package
-   */
-  calc: function() {
-    this.sumScholarships();
-    this.values = recalculate( this.values );
-    this.sumTotals();
-    this.roundValues();
-    this.reportErrors();
-    this.sumDirectCost();
   },
 
   /**

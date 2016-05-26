@@ -6240,9 +6240,8 @@
       "resolved": "https://registry.npmjs.org/strip-outer/-/strip-outer-1.0.0.tgz"
     },
     "student-debt-calc": {
-      "version": "2.3.0",
-      "from": "student-debt-calc@2.3.0",
-      "resolved": "https://registry.npmjs.org/student-debt-calc/-/student-debt-calc-2.3.0.tgz"
+      "version": "2.4.1",
+      "from": "student-debt-calc@2.4.1"
     },
     "subarg": {
       "version": "1.0.0",
