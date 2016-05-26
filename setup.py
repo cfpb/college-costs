@@ -63,7 +63,8 @@ setup(
     maintainer_email='tech@cfpb.gov',
     packages=find_packages(),
     package_data={'paying_for_college':
-                  ['static/paying_for_college/disclosures/static/css/*.css',
+                  ['fixtures/*.json',
+                   'static/paying_for_college/disclosures/static/css/*.css',
                    'static/paying_for_college/disclosures/static/css/*.map',
                    'static/paying_for_college/disclosures/static/fonts/*.eot',
                    'static/paying_for_college/disclosures/static/fonts/*.svg',
