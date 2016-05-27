@@ -15,7 +15,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
     page.confirmVerification();
     browser.sleep( 1000 );
-    expect( page.totalProgramDebt.getText() ).toEqual( '29,000' );
+    expect( page.totalProgramDebt.getText() ).toEqual( '23,000' );
   } );
 
   it( 'should dynamically display the completion rate if it\'s available', function() {

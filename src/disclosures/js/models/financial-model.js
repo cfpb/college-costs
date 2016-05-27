@@ -18,16 +18,12 @@ var financialModel = {
   },
 
   /**
-   * Performs calculations using student-debt-calc package
+   * Checks if the school offers Perkins loans, zeros value if not
    */
-  calc: function() {
-    this.sumScholarships();
-    this.values = recalculate( this.values );
-    this.sumTotals();
-    this.roundValues();
-    this.reportErrors();
-    this.sumDirectCost();
-    this.sumFamilyTotal();
+  checkPerkins: function() {
+    if ( this.values.offersPerkins === false ) {
+      this.values.perkins = 0;
+    }
   },
 
   /**
@@ -60,6 +56,19 @@ var financialModel = {
       model.schoolGrants +
       model.stateGrants +
       model.otherScholarships;
+  },
+
+  /**
+   * Performs calculations using student-debt-calc package
+   */
+  calc: function() {
+    this.sumScholarships();
+    this.checkPerkins();
+    this.values = recalculate( this.values );
+    this.sumTotals();
+    this.roundValues();
+    this.reportErrors();
+    this.sumDirectCost();
   },
 
   /**

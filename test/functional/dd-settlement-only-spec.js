@@ -53,7 +53,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.debtBurdenPayment.getText() ).toEqual( '$313' );
+    expect( page.debtBurdenPayment.getText() ).toEqual( '$249' );
     expect( page.debtBurdenSalary.getText() ).toEqual( '$1,917' );
   } );
 

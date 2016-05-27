@@ -2,7 +2,9 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
--
+- Parent PLUS loans separated from other family contributions
+- fix migrations for deployment, adding 0003
+- Perkins loans hidden for schools that do not offer them
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions
