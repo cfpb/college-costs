@@ -37,6 +37,16 @@ var financialModel = {
   },
 
   /**
+   * Sums the total family contributions
+   */
+  sumFamilyTotal: function() {
+    var model = financialModel.values;
+    // familyTotal is family contributions + parent PLUS loan
+    model.familyTotal = model.family + model.parentPlus;
+
+  },
+
+  /**
    * Adds various scholarships to form the 'scholarships' property
    */
   sumScholarships: function() {

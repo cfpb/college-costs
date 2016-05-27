@@ -101,10 +101,8 @@ function queryHandler( queryString ) {
   ];
   delete valuePairs.privateLoan;
   delete valuePairs.privateLoanRate;
-  // family contributions = parent loan + parentPLUS loan
-  valuePairs.family = valuePairs.parentLoan + valuePairs.parentPlus;
-  // zero parentPlus so that student-debt-calc doesn't use it
-  valuePairs.parentPlus = 0;
+  // family contributions = parent loan
+  valuePairs.family = valuePairs.parentLoan;
   valuePairs.institutionalLoanRate /= 100;
   return valuePairs;
 }
