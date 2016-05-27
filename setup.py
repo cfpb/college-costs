@@ -56,14 +56,17 @@ class bdist_wheel(_bdist_wheel):
 
 setup(
     name='college-costs',
-    version='2.1.0',
+    version='2.1.1',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
     maintainer_email='tech@cfpb.gov',
     packages=find_packages(),
     package_data={'paying_for_college':
-                  ['static/paying_for_college/disclosures/static/css/*.css',
+                  ['fixtures/*.json',
+                   'templates/*.html',
+                   'templates/*.txt',
+                   'static/paying_for_college/disclosures/static/css/*.css',
                    'static/paying_for_college/disclosures/static/css/*.map',
                    'static/paying_for_college/disclosures/static/fonts/*.eot',
                    'static/paying_for_college/disclosures/static/fonts/*.svg',
