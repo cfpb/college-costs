@@ -31,7 +31,7 @@ class TestUpdater(django.test.TestCase):
                    'url': '',
                    'degrees_predominant': '',
                    'degrees_highest': '',
-                   'ownership': '',
+                   'school.ownership': '',
                    'main_campus': True,
                    'online_only': False,
                    'operating': True,

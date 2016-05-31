@@ -169,7 +169,6 @@ class Migration(migrations.Migration):
                 ('avg_net_price', models.IntegerField(help_text=b'OVERALL AVERAGE', null=True, blank=True)),
                 ('tuition_out_of_state', models.IntegerField(null=True, blank=True)),
                 ('tuition_in_state', models.IntegerField(null=True, blank=True)),
-                ('offers_perkins', models.BooleanField(default=False)),
                 ('contact', models.ForeignKey(blank=True, to='paying_for_college.Contact', null=True)),
             ],
         ),

@@ -202,6 +202,17 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.familyContribution.sendKeys(familycontrib);
       }
     },
+    parentPlusContribution: {
+      get: function() {
+        return element( by.id( 'contrib__parent-plus' ) );
+      }
+    },
+    setParentPlusContribution: {
+      value: function(contrib) {
+        this.parentPlusContribution.clear();
+        return this.parentPlusContribution.sendKeys(contrib);
+      }
+    },
     workStudyContribution: {
       get: function() {
         return element( by.id( 'contrib__workstudy' ) );

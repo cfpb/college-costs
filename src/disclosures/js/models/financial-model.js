@@ -18,6 +18,15 @@ var financialModel = {
   },
 
   /**
+   * Checks if the school offers Perkins loans, zeros value if not
+   */
+  checkPerkins: function() {
+    if ( this.values.offersPerkins === false ) {
+      this.values.perkins = 0;
+    }
+  },
+
+  /**
    * Adds various academic costs to form the 'directCost' property
    */
   sumDirectCost: function() {
@@ -25,6 +34,16 @@ var financialModel = {
     // model.directCost as a sum of URL inputs
     model.directCost =
       ( model.tuitionFees + model.books ) * model.programLength;
+  },
+
+  /**
+   * Sums the total family contributions
+   */
+  sumFamilyTotal: function() {
+    var model = financialModel.values;
+    // familyTotal is family contributions + parent PLUS loan
+    model.familyTotal = model.family + model.parentPlus;
+
   },
 
   /**
@@ -44,6 +63,7 @@ var financialModel = {
    */
   calc: function() {
     this.sumScholarships();
+    this.checkPerkins();
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
