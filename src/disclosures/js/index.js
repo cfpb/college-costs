@@ -22,7 +22,6 @@ var app = {
   // jquery promise to delay full model creation until ajax resolves
     $.when( fetch.initialData() )
       .done( function( constants, expenses ) {
-        console.log( constants[0], expenses[0] );
         financialModel.init( constants[0] );
         financialView.init();
         expensesModel.init( expenses[0] );
@@ -35,6 +34,10 @@ var app = {
                 schoolValues;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( data );
+              expensesModel.resetCurrentValues(
+                schoolValues.BLSAverage.substr( 0, 2 ),
+                schoolValues.salary
+              );
               financialModel.updateModelWithProgram( schoolValues );
               financialView.updateViewWithProgram( schoolValues );
               publish.extendFinancialData( urlValues );
