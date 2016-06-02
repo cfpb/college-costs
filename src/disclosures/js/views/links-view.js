@@ -4,6 +4,7 @@ var formatURL = require( '../utils/format-url' );
 var constructScorecardSearch = require( '../utils/construct-scorecard-search' );
 
 var linksView = {
+  $gradLink: $( '.graduation-link' ),
   $schoolLinkText: $( '.school-link' ),
   $scorecardLink: $( '.scorecard-link' ),
 
@@ -13,10 +14,32 @@ var linksView = {
    * @param {object} values Financial model values
    */
   updateLinks: function( values ) {
+    this.$gradLinkText = $( '.graduation-link' );
     this.$schoolLinkText = $( '.school-link' );
     this.$scorecardLink = $( '.scorecard-link' );
+    this.setGraduationLink( values );
     this.setSchoolLink( values );
     this.setScorecardSearch( values );
+  },
+
+  /**
+   * Creates a link in Step 2 to the school's graduation metrics
+   * on the College Scorecard website
+   * @param {object} values Financial model values
+   */
+  setGraduationLink: function( values ) {
+    var formattedSchoolName = values.school.replace( /\s/g, '-' );
+    var gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
+     '-' + formattedSchoolName + '#graduation';
+    if ( gradURL ) {
+      var $gradLink = $( '<a>', {
+        'href': gradURL,
+        'target': '_blank',
+        'class': this.$gradLinkText.attr( 'class' )
+      } )
+        .text( this.$gradLinkText.text() );
+      this.$gradLinkText.replaceWith( $gradLink );
+    }
   },
 
   /**
