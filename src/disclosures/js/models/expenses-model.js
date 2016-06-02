@@ -2,7 +2,7 @@
 
 var expensesModel = {
   values: {
-    current: {}
+    stored: {}
   },
   expenseKeys: [
     'Retirement',
@@ -68,7 +68,7 @@ var expensesModel = {
           expense = key.toLowerCase(),
           salaryRange = this.getSalaryRange( salary ),
           val = this.values.stored[key][region][salaryRange];
-      this.values.current[expense] = Math.round( val/12 );
+      this.values[expense] = Math.round( val/12 );
     }
   }
 
