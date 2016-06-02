@@ -1146,8 +1146,9 @@
     display: none;
   }
 
-  // Median salary graph needs room above it for the top-label
-  &[data-metric="medianSalary"] {
+  // Median salary and loan default graphs need room above for the top-label
+  &[data-metric="medianSalary"],
+  &[data-metric="defaultRate"], {
     border-top: @bar-graph-top-label-height solid transparent;
   }
 }
