@@ -6,8 +6,11 @@ var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
 var expensesModel = require( './models/expenses-model' );
 var getModelValues = require( './dispatchers/get-model-values' );
+var getFinancial = require( './dispatchers/get-financial-values' );
+var getExpenses = require( './dispatchers/get-expenses-values' );
 var getUrlValues = require( './dispatchers/get-url-values' );
 var financialView = require( './views/financial-view' );
+var expensesView = require( './views/expenses-view' );
 var metricView = require( './views/metric-view' );
 var questionView = require( './views/question-view' );
 var publish = require( './dispatchers/publish-update' );
@@ -25,24 +28,32 @@ var app = {
         financialModel.init( constants[0] );
         financialView.init();
         expensesModel.init( expenses[0] );
+        expensesView.init();
         // Check for URL offer data
         if ( getUrlValues.urlOfferExists() ) {
           var urlValues = getUrlValues.urlValues();
           $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
             .done( function( schoolData, programData, nationalData ) {
               var data = {},
-                schoolValues;
+                schoolValues,
+                region,
+                salary;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( data );
-              expensesModel.resetCurrentValues(
-                schoolValues.BLSAverage.substr( 0, 2 ),
-                schoolValues.salary
-              );
+              // Update the financial model and view based on data
               financialModel.updateModelWithProgram( schoolValues );
               financialView.updateViewWithProgram( schoolValues );
               publish.extendFinancialData( urlValues );
+
+              // initialize metric view
               metricView.init();
               financialView.updateView( getModelValues.financial() );
+
+              // Update expenses model bases on region and salary
+              region = schoolValues.BLSAverage.substr( 0, 2 );
+              salary = schoolValues.medianSalary;
+              expensesModel.resetCurrentValues( region, salary );
+              expensesView.updateView( getExpenses.values() );
             } );
         }
         questionView.init();
