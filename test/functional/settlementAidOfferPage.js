@@ -450,29 +450,14 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.graduation-rate .metric_notification' ) );
       }
     },
-    schoolSalaryPoint: {
-      get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__you' ) );
-      }
-    },
     schoolSalaryValue: {
       get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__you .bar-graph_value' ) );
+        return element( by.css( '.salary-and-debt_projection-value [data-financial="medianSalary"]' ) );
       }
     },
-    nationalSalaryPoint: {
+    schoolDebtAtRepaymentValue: {
       get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__average' ) );
-      }
-    },
-    nationalSalaryValue: {
-      get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__average .bar-graph_value' ) );
-      }
-    },
-    salaryNotification: {
-      get: function() {
-        return element( by.css( '.metric.average-salary .metric_notification' ) );
+        return element( by.css( '.salary-and-debt_projection-value [data-financial="totalDebt"]' ) );
       }
     },
     debtBurdenPayment: {
