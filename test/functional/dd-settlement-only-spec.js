@@ -28,24 +28,13 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.gradRateNotification.isDisplayed() ).toBeFalsy();
   } );
 
-  it( 'should graph average salary without national averages', function() {
+  it( 'should display the first year salary and total debt at repayment', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolSalaryPoint.getCssValue( 'bottom' ) ).toEqual( '45.3px' );
-    // Checking for z-index lets us know an overlap is being handled correctly
-    expect( page.schoolSalaryPoint.getCssValue( 'z-index' ) ).toEqual( 'auto' );
     expect( page.schoolSalaryValue.getText() ).toEqual( '$23,000' );
-    expect( page.nationalSalaryPoint.isDisplayed() ).toBeFalsy();
-  } );
-
-  it( 'should not display the average salary notification', function() {
-    page.confirmVerification();
-    browser.sleep( 1000 );
-    page.continueStep2();
-    browser.sleep( 1000 );
-    expect( page.salaryNotification.isDisplayed() ).toBeFalsy();
+    expect( page.schoolDebtAtRepaymentValue.getText() ).toEqual( '$25,919' );
   } );
 
   it( 'should calculate debt burden', function() {
