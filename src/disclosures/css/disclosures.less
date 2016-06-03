@@ -918,6 +918,12 @@
     }
   }
 
+  &_link {
+    border-top: 1px solid @gray-40;
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+
   &.column-well__not-stacked {
 
     .respond-to-range(@bp-sm-min, @bp-graph-cols-min - 1, {
@@ -1161,8 +1167,9 @@
     display: none;
   }
 
-  // Median salary graph needs room above it for the top-label
-  &[data-metric="medianSalary"] {
+  // Median salary and loan default graphs need room above for the top-label
+  &[data-metric="medianSalary"],
+  &[data-metric="defaultRate"], {
     border-top: @bar-graph-top-label-height solid transparent;
   }
 }

@@ -4,6 +4,8 @@ var formatURL = require( '../utils/format-url' );
 var constructScorecardSearch = require( '../utils/construct-scorecard-search' );
 
 var linksView = {
+  $gradLinkText: $( '.graduation-link' ),
+  $defaultLinkText: $( '.loan-default-link' ),
   $schoolLinkText: $( '.school-link' ),
   $scorecardLink: $( '.scorecard-link' ),
 
@@ -13,10 +15,52 @@ var linksView = {
    * @param {object} values Financial model values
    */
   updateLinks: function( values ) {
+    this.$gradLinkText = $( '.graduation-link' );
+    this.$defaultLinkText = $( '.loan-default-link' );
     this.$schoolLinkText = $( '.school-link' );
     this.$scorecardLink = $( '.scorecard-link' );
+    this.setGraduationLink( values );
+    this.setLoanDefaultLink( values );
     this.setSchoolLink( values );
     this.setScorecardSearch( values );
+  },
+
+  /**
+   * Creates a link in Step 2 to the school's graduation metrics
+   * on the College Scorecard website
+   * @param {object} values Financial model values
+   */
+  setGraduationLink: function( values ) {
+    var formattedSchoolName = values.school.replace( /\s/g, '-' );
+    var gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
+     '-' + formattedSchoolName + '#graduation';
+    if ( gradURL ) {
+      var $gradLink = $( '<a>', {
+        'href': gradURL,
+        'target': '_blank',
+        'class': this.$gradLinkText.attr( 'class' )
+      } )
+        .text( this.$gradLinkText.text() );
+      this.$gradLinkText.replaceWith( $gradLink );
+    }
+  },
+
+  /**
+   * Creates a link in Step 2 to the school's loan default metrics
+   * @param {object} values Financial model values
+   */
+  setLoanDefaultLink: function( values ) {
+    var defaultURL = 'http://nces.ed.gov/collegenavigator/?id=' +
+      values.schoolID + '#fedloans';
+    if ( defaultURL ) {
+      var $defaultLink = $( '<a>', {
+        'href': defaultURL,
+        'target': '_blank',
+        'class': this.$defaultLinkText.attr( 'class' )
+      } )
+        .text( this.$defaultLinkText.text() );
+      this.$defaultLinkText.replaceWith( $defaultLink );
+    }
   },
 
   /**

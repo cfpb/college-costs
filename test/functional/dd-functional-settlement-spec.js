@@ -38,6 +38,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should let a student verify their information and go on to Step 1 of the offer', function() {
     page.confirmVerification();
+    browser.sleep( 750 );
     expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.correctInfoSection.isDisplayed() ).toBeTruthy();
@@ -46,9 +47,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
-  // TODO - Add expectation that verification buttons disappear, that next steps for incorrect info are displayed, and that the trigger to notify the school is activated
   it( 'should let a student report incorrect aid offer information', function() {
     page.denyVerification();
+    browser.sleep( 750 );
     expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.correctInfoSection.isDisplayed() ).toBeFalsy();
@@ -334,6 +335,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should properly update when the federal subsidized loans are modified within the allowed limit', function() {
     page.confirmVerification();
+    browser.sleep( 750 );
     page.setSubsidizedLoans( 3000 );
     browser.sleep( 750 );
     expect( page.totalFederalLoans.getText() ).toEqual( '5,000' );
