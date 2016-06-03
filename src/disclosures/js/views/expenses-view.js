@@ -1,6 +1,6 @@
 'use strict';
 
-var getModelValues = require( '../dispatchers/get-model-values' );
+var getExpenses = require( '../dispatchers/get-expenses-values' );
 var publish = require( '../dispatchers/publish-update' );
 var formatUSD = require( 'format-usd' );
 
@@ -69,7 +69,7 @@ var expensesView = {
       expensesView.currentInput = $( this ).attr( 'id' );
       expensesView.keyupDelay = setTimeout( function() {
         expensesView.inputHandler( expensesView.currentInput );
-        expensesView.updateView( getModelValues.expenses() );
+        expensesView.updateView( getExpense.values() );
       }, 500 );
     } );
   },

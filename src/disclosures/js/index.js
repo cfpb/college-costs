@@ -5,7 +5,6 @@ var verifyOffer = require( './dispatchers/post-verify' );
 var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
 var expensesModel = require( './models/expenses-model' );
-var getModelValues = require( './dispatchers/get-model-values' );
 var getFinancial = require( './dispatchers/get-financial-values' );
 var getExpenses = require( './dispatchers/get-expenses-values' );
 var getUrlValues = require( './dispatchers/get-url-values' );
@@ -47,7 +46,7 @@ var app = {
 
               // initialize metric view
               metricView.init();
-              financialView.updateView( getModelValues.financial() );
+              financialView.updateView( getFinancial.values() );
 
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
