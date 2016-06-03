@@ -1,6 +1,7 @@
 'use strict';
 
 var financialModel = require( '../models/financial-model' );
+var expensesModel = require( '../models/expenses-model' );
 
 var publishUpdate = {
 
@@ -12,6 +13,7 @@ var publishUpdate = {
   financialData: function( prop, val ) {
     financialModel.values[prop] = val;
     financialModel.calc( financialModel.values );
+    expensesModel.calc();
   },
 
   /**
@@ -21,6 +23,7 @@ var publishUpdate = {
   extendFinancialData: function( object ) {
     $.extend( financialModel.values, object );
     financialModel.calc( financialModel.values );
+    expensesModel.calc();
   },
 
   /**
@@ -32,6 +35,7 @@ var publishUpdate = {
   updatePrivateLoan: function( index, prop, val ) {
     financialModel.values.privateLoanMulti[index][prop] = val;
     financialModel.calc( financialModel.values );
+    expensesModel.calc();
   },
 
   /**
@@ -41,6 +45,7 @@ var publishUpdate = {
   dropPrivateLoan: function( index ) {
     financialModel.values.privateLoanMulti.splice( index, 1 );
     financialModel.calc( financialModel.values );
+    expensesModel.calc();
   },
 
   /**
@@ -54,7 +59,19 @@ var publishUpdate = {
                         };
     financialModel.values.privateLoanMulti.push( newLoanObject );
     financialModel.calc( financialModel.values );
+    expensesModel.calc();
+  },
+
+  /**
+   * Function which updates expenses model with new value
+   * @param {string} prop - expenses model property name
+   * @param {number|string} val - new value
+   */
+  expensesData: function( prop, val ) {
+    expensesModel.values[prop] = val;
+    expensesModel.calc();
   }
+
 };
 
 module.exports = publishUpdate;

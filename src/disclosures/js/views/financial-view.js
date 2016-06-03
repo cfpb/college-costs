@@ -1,6 +1,6 @@
 'use strict';
 
-var getModelValues = require( '../dispatchers/get-model-values' );
+var getFinancial = require( '../dispatchers/get-financial-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
@@ -197,7 +197,7 @@ var financialView = {
       $ele.remove();
       financialView.enumeratePrivateLoanIDs();
       publish.dropPrivateLoan( index );
-      var values = getModelValues.financial();
+      var values = getFinancial.values();
       financialView.updateView( values );
     } );
   },
@@ -264,7 +264,7 @@ var financialView = {
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
-        financialView.updateView( getModelValues.financial() );
+        financialView.updateView( getFinancial.values() );
       }, 500 );
     } );
   },
@@ -278,7 +278,7 @@ var financialView = {
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
       financialView.currentInput = 'none';
-      financialView.updateView( getModelValues.financial() );
+      financialView.updateView( getFinancial.values() );
     } );
   },
 
@@ -287,7 +287,7 @@ var financialView = {
    */
   verificationListener: function() {
     this.$verifyControls.on( 'click', '.btn', function( e ) {
-      var values = getModelValues.financial();
+      var values = getFinancial.values();
       // Graph points need to be visible before updating their positions
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
@@ -321,7 +321,7 @@ var financialView = {
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
       var programLength = Number( $( this ).val() ),
-          values = getModelValues.financial(),
+          values = getFinancial.values(),
           yearsAttending = numberToWords.toWords( programLength );
       publish.financialData( 'programLength', programLength );
       publish.financialData( 'yearsAttending', yearsAttending );

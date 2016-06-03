@@ -5,6 +5,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Parent PLUS loans separated from other family contributions
 - fix migrations for deployment, adding 0003
 - Perkins loans hidden for schools that do not offer them
+- BLS data imported from expenses API
+- BLS data set by program BLSAverage region
+- BLS data set by program expected salary
 - Added "your salary and total student debt" section in step 2
 - Added graduation rate and loan default rate external links
 - Changed the scale of the loan default rate graph to 40%
