@@ -98,15 +98,6 @@ var getApiValues = {
     return nationalDataRequest;
   },
 
-  // createInitialObject: function( constants, expenses ) {
-  //   var obj = {
-  //     expenses: expenses,
-  //     constants: constants
-  //   };
-  //   return obj;
-  //   }
-  // },
-
   schoolData: function( iped, pid ) {
     return $.when(
       this.fetchSchoolData( iped ),
