@@ -1,18 +1,35 @@
 from __future__ import print_function
 import os
-from decimal import Decimal
 
 from csvkit import CSVKitDictReader as cdr
 from rest_framework import serializers
 
 from paying_for_college.models import Program, School
 
-SRC_DIR = '/tmp/collegedata/'
+"""
+# Program Data Processing Steps
+
+This script was used to process program data from schools.
+
+It takes in a csv file with column labels as described in ProgramSerializer.
+
+To run the script, run from the Django shell as follows:
+
+```
+./manage.py shell
+from paying_for_college.disclosures.scripts.load_programs import *
+load_programs('paying_for_college/data_sources/sample_program_data.csv')
+```
+
+"""
 
 
-def check_source_directory():
-    """make sure source directory exists"""
-    return os.isdir(SRC_DIR)
+# SRC_DIR = '/tmp/collegedata/'
+
+
+# def check_source_directory():
+#     """make sure source directory exists"""
+#     return os.isdir(SRC_DIR)
 
 
 class ProgramSerializer(serializers.Serializer):
@@ -58,9 +75,14 @@ def read_in_data(filename):
         return {}
     else:
         return data
+
+
 def clean_number_as_string(string):
+    # Currently this is a list possible entries that means no data in a number field
+    # This needs to be cleaned up to None, else validation will complain
     no_data_entries = ('', 'No Grads', 'No Data')
     return string if string not in no_data_entries else None
+
 
 def clean(data):
 
@@ -68,13 +90,13 @@ def clean(data):
         'average_time_to_complete', 'books_supplies', 'completion_rate', 
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
         'median_student_loan_completers', 'total_cost', 'tuition_fees')
-    # Clean the parameters, make sure no leading or trailing spaces
+    # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
     cleaned_data = dict(map(lambda (k, v): 
         (k, v.strip() if k not in number_fields else clean_number_as_string(v.strip())), 
         data.iteritems()))
 
     # if cleaned_data['accreditor'] in ['Blank']:
-    #     cleaned_data['accreditor'] = None
+    #     cleaned_data['accreditor'] = ''
 
     return cleaned_data
 
@@ -133,7 +155,7 @@ def load_programs(filename):
 
         else: # There is error
             for key, error_list in serializer.errors.iteritems():
-                print('\n{}: '.format(key))
+                print('ERROR: {}: '.format(key))
                 for e in error_list:
                     print(e)
 
