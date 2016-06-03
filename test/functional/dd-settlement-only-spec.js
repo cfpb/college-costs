@@ -28,6 +28,38 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.gradRateNotification.isDisplayed() ).toBeFalsy();
   } );
 
+  it( 'should contain a link to the College Scorecard graduation rate comparison', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    expect( page.gradRateLink.getAttribute( 'href' ) ).toEqual( 'https://collegescorecard.ed.gov/school/?408039-Brown-Mackie-College-Fort-Wayne#graduation' );
+  } );
+
+  it( 'should open the link to the College Scorecard graduation rate comparison in a new tab with the graduation rate section open', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    page.followGradRateLink();
+    browser.sleep( 1000 );
+    browser.getAllWindowHandles()
+      .then( function ( handles ) {
+        expect( handles.length ).toBe( 2 );
+        browser.switchTo().window( handles[1] )
+          .then( function () {
+            browser.wait( EC.titleContains( 'Brown Mackie College-Fort Wayne' ), 8000, 'Page title did not contain "Brown Mackie College-Fort Wayne" within 8 seconds' );
+            browser.sleep( 750 );
+            expect( element( by.id( 'grad-meter' ) ).isDisplayed() ).toBeTruthy();
+          } )
+          .then( function () {
+            browser.close();
+            browser.sleep( 750 );
+            browser.switchTo().window( handles[0] );
+          } );
+      } );
+  } );
+
   it( 'should display the first year salary and total debt at repayment', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -59,7 +91,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '80.5px' );
+    expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '130px' );
     expect( page.schoolDefaultRateValue.getText() ).toEqual( '55%' );
     expect( page.nationalDefaultRatePoint.isDisplayed() ).toBeFalsy();
   } );
@@ -70,6 +102,39 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.continueStep2();
     browser.sleep( 1000 );
     expect( page.defaultRateNotification.isDisplayed() ).toBeFalsy();
+  } );
+
+  it( 'should contain a link to the College Navigator cohort loan default rates', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    browser.wait( EC.visibilityOf( page.defaultRateLink ), 8000 );
+    expect( page.defaultRateLink.getAttribute( 'href' ) ).toEqual( 'http://nces.ed.gov/collegenavigator/?id=408039#fedloans' );
+  } );
+
+  it( 'should open the link to the College Navigator cohort loan default rates in a new tab with the loan default rates section open', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    page.followDefaultRateLink();
+    browser.sleep( 1000 );
+    browser.getAllWindowHandles()
+      .then( function ( handles ) {
+        expect( handles.length ).toBe( 2 );
+        browser.switchTo().window( handles[1] )
+          .then( function () {
+            browser.wait( EC.titleContains( 'College Navigator' ), 8000, 'Page title did not contain "College Navigator" within 8 seconds' );
+            browser.sleep( 750 );
+            expect( element( by.id( 'divctl00_cphCollegeNavBody_ucInstitutionMain_ctl11' ) ).isDisplayed() ).toBeTruthy();
+          } )
+          .then( function () {
+            browser.close();
+            browser.sleep( 750 );
+            browser.switchTo().window( handles[0] );
+          } );
+      } );
   } );
 
 } );

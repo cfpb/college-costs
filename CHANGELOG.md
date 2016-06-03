@@ -9,6 +9,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - BLS data set by program BLSAverage region
 - BLS data set by program expected salary
 - Added "your salary and total student debt" section in step 2
+- Added graduation rate and loan default rate external links
+- Changed the scale of the loan default rate graph to 40%
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions
