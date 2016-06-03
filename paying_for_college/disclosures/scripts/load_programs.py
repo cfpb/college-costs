@@ -18,27 +18,27 @@ def check_source_directory():
 class ProgramSerializer(serializers.Serializer):
 
     ipeds_unit_id = serializers.CharField(max_length=6)  # '210960'
-    ope_id = serializers.CharField(max_length=6, allow_blank=True)  # '747000'
-    campus_name = serializers.CharField()  # 'Ai Pittsburgh'
-    program_code = serializers.CharField()  # '44'
+    ope_id = serializers.CharField(max_length=8, allow_blank=True)  # '747000'
+    campus_name = serializers.CharField(allow_blank=True)  # 'Ai Pittsburgh'
+    program_code = serializers.CharField(allow_blank=True)  # '44'
     program_name = serializers.CharField()  # 'Hotel & Restaurant Management'
-    program_level = serializers.IntegerField()  # 3
-    program_length = serializers.IntegerField()  # 24
+    program_level = serializers.IntegerField(allow_null=True)  # 3 @TODO: Should this by Char? Choice?
+    program_length = serializers.IntegerField(allow_null=True)  # 24
     accreditor = serializers.CharField(allow_blank=True)  # ''
-    median_salary = serializers.IntegerField()  # 31240
-    average_time_to_complete = serializers.IntegerField()  # 36
-    books_supplies = serializers.IntegerField()  # 2600
-    completion_rate = serializers.FloatField()  # 0.29
-    default_rate = serializers.FloatField()  # 0.23
-    job_placement_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100)  # 0.7
+    average_salary = serializers.IntegerField(allow_null=True)  # 31240
+    average_time_to_complete = serializers.IntegerField(allow_null=True)  # 36
+    books_supplies = serializers.IntegerField(allow_null=True)  # 2600
+    completion_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.29
+    default_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.23
+    job_placement_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.7
     job_placement_note = serializers.CharField(allow_blank=True)  # 'optional note'
-    mean_student_loan_completers = serializers.IntegerField()  # 34000
-    median_student_loan_completers = serializers.IntegerField(),  # 45857
-    total_cost = serializers.IntegerField()  # 91004
-    tuition_fees = serializers.IntegerField()  # 88404
-    cip_code = serializers.CharField() # '12.0504'
-    soc_codes = serializers.CharField()  # '35-1011, 35-1012'
-    
+    mean_student_loan_completers = serializers.IntegerField(allow_null=True)  # 34000
+    median_student_loan_completers = serializers.IntegerField(allow_null=True)  # 45857
+    total_cost = serializers.IntegerField(allow_null=True)  # 91004
+    tuition_fees = serializers.IntegerField(allow_null=True)  # 88404
+    cip_code = serializers.CharField(allow_blank=True) # '12.0504'
+    soc_codes = serializers.CharField(allow_blank=True)  # '35-1011, 35-1012'
+
 
 def get_school(iped):
     try:
@@ -58,6 +58,25 @@ def read_in_data(filename):
         return {}
     else:
         return data
+def clean_number_as_string(string):
+    no_data_entries = ('', 'No Grads', 'No Data')
+    return string if string not in no_data_entries else None
+
+def clean(data):
+
+    number_fields = ('program_level', 'program_length', 'average_salary', 
+        'average_time_to_complete', 'books_supplies', 'completion_rate', 
+        'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
+        'median_student_loan_completers', 'total_cost', 'tuition_fees')
+    # Clean the parameters, make sure no leading or trailing spaces
+    cleaned_data = dict(map(lambda (k, v): 
+        (k, v.strip() if k not in number_fields else clean_number_as_string(v.strip())), 
+        data.iteritems()))
+
+    # if cleaned_data['accreditor'] in ['Blank']:
+    #     cleaned_data['accreditor'] = None
+
+    return cleaned_data
 
 
 def load_programs(filename):
@@ -68,15 +87,17 @@ def load_programs(filename):
         return "ERROR: could not read data from {0}".format(filename)
 
     for row in raw_data:
-        serializer = ProgramSerializer(data=row)
+        fixed_data = clean(row)
+        serializer = ProgramSerializer(data=fixed_data)
 
-        print("******** Row ********")
-        print(row)
+        print("******** Fixed Row ********")
+        print(fixed_data)
         if serializer.is_valid():
             data = serializer.data
             (school, error) = get_school(data['ipeds_unit_id'])
             if error:
-                return error
+                print(error)
+                continue
 
             program, cr = Program.objects.get_or_create(institution=school,
                                                         program_code=data['program_code'])
@@ -102,12 +123,12 @@ def load_programs(filename):
             program.campus = data['campus_name']
             program.level = data['program_level']
             program.time_to_complete = data['average_time_to_complete']
-            program.salary = data['median_salary']
+            program.salary = data['average_salary']
             program.job_rate = data['job_placement_rate']
             program.job_note = data['job_placement_note']
             program.tuition = data['tuition_fees']
             program.books = data['books_supplies']
-            # program.save()
+            program.save()
 
 
         else: # There is error
