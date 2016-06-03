@@ -4,8 +4,8 @@ var formatURL = require( '../utils/format-url' );
 var constructScorecardSearch = require( '../utils/construct-scorecard-search' );
 
 var linksView = {
-  $gradLink: $( '.graduation-link' ),
-  $defaultLink: $( '.loan-default-link' ),
+  $gradLinkText: $( '.graduation-link' ),
+  $defaultLinkText: $( '.loan-default-link' ),
   $schoolLinkText: $( '.school-link' ),
   $scorecardLink: $( '.scorecard-link' ),
 
