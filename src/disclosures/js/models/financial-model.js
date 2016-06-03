@@ -79,15 +79,6 @@ var financialModel = {
 
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
     model.totalProgramDebt = model.borrowingTotal * model.programLength;
-
-    // monthly expenses
-    model.totalMonthlyExpenses =
-      Math.round( model.monthlyRent + model.monthlyFood +
-      model.monthlyTransportation + model.monthlyInsurance +
-      model.monthlySavings + model.monthlyOther );
-
-    model.monthlyLeftover = Math.round( model.monthlySalary -
-      model.totalMonthlyExpenses - model.loanMonthly );
   },
 
   /**

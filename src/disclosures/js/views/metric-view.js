@@ -1,6 +1,7 @@
 'use strict';
 
-var getModelValues = require( '../dispatchers/get-model-values' );
+var getFinancial = require( '../dispatchers/get-financial-values' );
+var getSchool = require( '../dispatchers/get-school-values' );
 var formatUSD = require( 'format-usd' );
 
 var metricView = {
@@ -9,9 +10,9 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    var values = getModelValues.financial();
+    var values = getFinancial.values();
     var settlementStatus =
-      Boolean( getModelValues.school().settlementSchool ) || false;
+      Boolean( getSchool.values().settlementSchool ) || false;
     this.updateGraphs( values, settlementStatus );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
