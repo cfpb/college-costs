@@ -3,6 +3,7 @@
 var getExpenses = require( '../dispatchers/get-expenses-values' );
 var publish = require( '../dispatchers/publish-update' );
 var formatUSD = require( 'format-usd' );
+var stringToNum = require( '../utils/handle-string-input' );
 
 var expensesView = {
   $elements: $( '[data-expenses]' ),
@@ -46,7 +47,6 @@ var expensesView = {
       if ( expensesView.currentInput === $( this ).attr( 'id' ) ) {
         currency = false;
       }
-      console.log( $ele.attr('data-expenses'), values[name], currency );
       expensesView.updateElement( $ele, values[name], currency );
     } );
   },
@@ -61,6 +61,17 @@ var expensesView = {
   },
 
   /**
+   * Helper function for handling user entries in expenses model INPUT fields
+   * @param {string} id - The id attribute of the element to be handled
+   */
+  inputHandler: function( id ) {
+    var $ele = $( '#' + id ),
+        value = stringToNum( $ele.val() ),
+        key = $ele.attr( 'data-expenses' );
+    publish.expensesData( key, value );
+  },
+
+  /**
    * Listener function for keyup in financial model INPUT fields
    */
   keyupListener: function() {
@@ -69,10 +80,10 @@ var expensesView = {
       expensesView.currentInput = $( this ).attr( 'id' );
       expensesView.keyupDelay = setTimeout( function() {
         expensesView.inputHandler( expensesView.currentInput );
-        expensesView.updateView( getExpense.values() );
+        expensesView.updateView( getExpenses.values() );
       }, 500 );
     } );
-  },
-}
+  }
+};
 
 module.exports = expensesView;

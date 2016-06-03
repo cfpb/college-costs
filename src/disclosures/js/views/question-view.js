@@ -1,6 +1,6 @@
 'use strict';
 var postVerification = require( '../dispatchers/post-verify');
-var getFinancial = ( '../dispatchers/get-financial-values' );
+var getFinancial = require( '../dispatchers/get-financial-values' );
 
 var questionView = {
   $getOptions: $( '.get-options' ),

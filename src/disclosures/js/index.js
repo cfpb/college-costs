@@ -14,7 +14,6 @@ var metricView = require( './views/metric-view' );
 var questionView = require( './views/question-view' );
 var publish = require( './dispatchers/publish-update' );
 
-
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
 require( './utils/print-page' );
@@ -34,9 +33,9 @@ var app = {
           $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
             .done( function( schoolData, programData, nationalData ) {
               var data = {},
-                schoolValues,
-                region,
-                salary;
+                  schoolValues,
+                  region,
+                  salary;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( data );
               // Update the financial model and view based on data

@@ -60,7 +60,18 @@ var publishUpdate = {
     financialModel.values.privateLoanMulti.push( newLoanObject );
     financialModel.calc( financialModel.values );
     expensesModel.calc();
+  },
+
+  /**
+   * Function which updates expenses model with new value
+   * @param {string} prop - expenses model property name
+   * @param {number|string} val - new value
+   */
+  expensesData: function( prop, val ) {
+    expensesModel.values[prop] = val;
+    expensesModel.calc();
   }
+
 };
 
 module.exports = publishUpdate;
