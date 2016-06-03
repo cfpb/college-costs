@@ -450,6 +450,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.graduation-rate .metric_notification' ) );
       }
     },
+    gradRateLink: {
+      get: function() {
+        return element( by.css( '.graduation-link' ) );
+      }
+    },
+    followGradRateLink: {
+      value: function() {
+        this.gradRateLink.click();
+      }
+    },
     schoolSalaryValue: {
       get: function() {
         return element( by.css( '.salary-and-debt_projection-value [data-financial="medianSalary"]' ) );
@@ -498,6 +508,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
     defaultRateNotification: {
       get: function() {
         return element( by.css( '.metric.loan-default-rates .metric_notification' ) );
+      }
+    },
+    defaultRateLink: {
+      get: function() {
+        return element( by.css( '.loan-default-link' ) );
+      }
+    },
+    followDefaultRateLink: {
+      value: function() {
+        this.defaultRateLink.click();
       }
     },
     monthlyRent: {
