@@ -49,9 +49,7 @@ var app = {
 
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
-              salary = schoolValues.medianSalary;
-              expensesModel.resetCurrentValues( region, salary );
-              expensesView.updateView( getExpenses.values() );
+              $( '#bls-region-select' ).val( region ).change();
             } );
         }
         questionView.init();

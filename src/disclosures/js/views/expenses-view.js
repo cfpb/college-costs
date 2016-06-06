@@ -1,6 +1,7 @@
 'use strict';
 
 var getExpenses = require( '../dispatchers/get-expenses-values' );
+var getFinancials = require( '../dispatchers/get-financial-values' );
 var publish = require( '../dispatchers/publish-update' );
 var formatUSD = require( 'format-usd' );
 var stringToNum = require( '../utils/handle-string-input' );
@@ -12,6 +13,7 @@ var expensesView = {
 
   init: function() {
     this.keyupListener();
+    this.regionSelectListener();
   },
 
   /**
@@ -72,7 +74,7 @@ var expensesView = {
   },
 
   /**
-   * Listener function for keyup in financial model INPUT fields
+   * Listener function for keyup in expenses INPUT fields
    */
   keyupListener: function() {
     this.$reviewAndEvaluate.on( 'keyup', '[data-expenses]', function() {
@@ -83,7 +85,20 @@ var expensesView = {
         expensesView.updateView( getExpenses.values() );
       }, 500 );
     } );
+  },
+
+  /**
+   * Listener for the BLS region SELECT
+   */
+  regionSelectListener: function() {
+    $( '#bls-region-select' ).change( function() {
+      var region = $( this ).val();
+      publish.updateRegion( region );
+      expensesView.updateView( getExpenses.values() );
+    } );
   }
+
+
 };
 
 module.exports = expensesView;

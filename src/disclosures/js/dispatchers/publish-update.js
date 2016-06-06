@@ -70,6 +70,17 @@ var publishUpdate = {
   expensesData: function( prop, val ) {
     expensesModel.values[prop] = val;
     expensesModel.calc();
+  },
+
+  /**
+   * Function which updates expenses model with a new
+   * region.
+   * @param {string} region - region code
+   */
+  updateRegion: function( region ) {
+    var salary = financialModel.values.medianSalary;
+    expensesModel.resetCurrentValues( region, salary );
+    expensesModel.calc();
   }
 
 };

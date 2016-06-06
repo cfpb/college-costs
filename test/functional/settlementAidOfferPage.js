@@ -520,6 +520,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
         this.defaultRateLink.click();
       }
     },
+    expensesRegionSelect: {
+      get: function() {
+        return element ( by.css( '#bls-region-select' ) );
+      }
+    },
+    setExpensesRegion: {
+      value: function( region ) {
+        return this.expensesRegionSelect.element( by.css( '[value="' + region + '"]') ).click();
+      }
+    },
     monthlyRent: {
       get: function() {
         return element( by.id( 'expenses__rent' ) );
