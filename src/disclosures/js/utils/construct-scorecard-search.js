@@ -34,7 +34,8 @@ function constructScorecardSearch( pcip, zip, radius ) {
           urlKey: 'communication'
         },
         '10': {
-          label:  'Communications Technologies/Technicians and Support Services',
+          label:
+          'Communications Technologies/Technicians and Support Services',
           urlKey: 'communications_technology'
         },
         '11': {
@@ -158,7 +159,8 @@ function constructScorecardSearch( pcip, zip, radius ) {
           urlKey: 'health'
         },
         '52': {
-          label:  'Business, Management, Marketing, and Related Support Services',
+          label:
+          'Business, Management, Marketing, and Related Support Services',
           urlKey: 'business_marketing'
         },
         '54': {
