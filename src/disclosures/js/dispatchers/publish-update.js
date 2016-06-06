@@ -27,7 +27,8 @@ var publishUpdate = {
   },
 
   /**
-   * Function which updates privateLoanMulti array in financial model with new value
+   * Function which updates privateLoanMulti array in financial model with new
+   * value
    * @param {number} index - The index of the private loan being updated
    * @param {string} prop - private loan object property name
    * @param {number|string} val - new value
@@ -49,7 +50,8 @@ var publishUpdate = {
   },
 
   /**
-   * Function which adds a private loan object to the privateLoanMulti array in financial model
+   * Function which adds a private loan object to the privateLoanMulti array in
+   * financial model
    */
   addPrivateLoan: function() {
     var newLoanObject = { amount: 0,
