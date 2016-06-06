@@ -1,7 +1,6 @@
 'use strict';
 
 var getExpenses = require( '../dispatchers/get-expenses-values' );
-var getFinancials = require( '../dispatchers/get-financial-values' );
 var publish = require( '../dispatchers/publish-update' );
 var formatUSD = require( 'format-usd' );
 var stringToNum = require( '../utils/handle-string-input' );

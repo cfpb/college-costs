@@ -6,7 +6,6 @@ var financialModel = require( './models/financial-model' );
 var schoolModel = require( './models/school-model' );
 var expensesModel = require( './models/expenses-model' );
 var getFinancial = require( './dispatchers/get-financial-values' );
-var getExpenses = require( './dispatchers/get-expenses-values' );
 var getUrlValues = require( './dispatchers/get-url-values' );
 var financialView = require( './views/financial-view' );
 var expensesView = require( './views/expenses-view' );
@@ -34,8 +33,7 @@ var app = {
             .done( function( schoolData, programData, nationalData ) {
               var data = {},
                   schoolValues,
-                  region,
-                  salary;
+                  region;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( data );
               // Update the financial model and view based on data
