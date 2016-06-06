@@ -45,7 +45,8 @@ function queryHandler( queryString ) {
   };
 
   /**
-   * Helper function for checking that expected numeric values are indeed numeric
+   * Helper function for checking that expected numeric values are indeed
+   * numeric
    * @param {string} key - The key to be checked
    * @param {string|number} value - The value of the key
    * @returns {string|number} newValue - The corrected value of the key
@@ -62,7 +63,8 @@ function queryHandler( queryString ) {
 
   /**
    * Helper function which decodes key-value pairs from the URL
-   * Has no parameters, but relies on the queryString passed to its parent function
+   * Has no parameters, but relies on the queryString passed to its parent
+   * function
    */
   function getPairs() {
     var pair;

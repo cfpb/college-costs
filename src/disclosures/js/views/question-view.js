@@ -1,5 +1,5 @@
 'use strict';
-var postVerification = require( '../dispatchers/post-verify');
+var postVerification = require( '../dispatchers/post-verify' );
 var getFinancial = require( '../dispatchers/get-financial-values' );
 
 var questionView = {
@@ -17,7 +17,7 @@ var questionView = {
     var $answerButtons = $( '.question_answers > .btn' );
     $answerButtons.on( 'click', function() {
       var values = getFinancial.values();
-      postVerification.verify( values.offerID, values.schoolID, false);
+      postVerification.verify( values.offerID, values.schoolID, false );
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
       if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {
