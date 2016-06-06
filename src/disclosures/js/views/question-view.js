@@ -1,6 +1,6 @@
 'use strict';
-var postVerification = require( '../dispatchers/post-verify');
-var getModelValues = require( '../dispatchers/get-model-values' );
+var postVerification = require( '../dispatchers/post-verify' );
+var getFinancial = require( '../dispatchers/get-financial-values' );
 
 var questionView = {
   $getOptions: $( '.get-options' ),
@@ -16,8 +16,8 @@ var questionView = {
   bigQuestionListener: function() {
     var $answerButtons = $( '.question_answers > .btn' );
     $answerButtons.on( 'click', function() {
-      var values = getModelValues.financial();
-      postVerification.verify( values.offerID, values.schoolID, false);
+      var values = getFinancial.values();
+      postVerification.verify( values.offerID, values.schoolID, false );
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
       if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {

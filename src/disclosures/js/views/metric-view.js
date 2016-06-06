@@ -1,6 +1,7 @@
 'use strict';
 
-var getModelValues = require( '../dispatchers/get-model-values' );
+var getFinancial = require( '../dispatchers/get-financial-values' );
+var getSchool = require( '../dispatchers/get-school-values' );
 var formatUSD = require( 'format-usd' );
 
 var metricView = {
@@ -9,9 +10,9 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    var values = getModelValues.financial();
+    var values = getFinancial.values();
     var settlementStatus =
-      Boolean( getModelValues.school().settlementSchool ) || false;
+      Boolean( getSchool.values().settlementSchool ) || false;
     this.updateGraphs( values, settlementStatus );
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
@@ -26,12 +27,15 @@ var metricView = {
    * @param {number|NaN} nationalValue Average national value
    * @returns {object} Object with CSS bottom positions for each point
    */
-  calculateBottoms: function( minValue, maxValue, graphHeight, schoolValue, nationalValue ) {
+  calculateBottoms:
+  function( minValue, maxValue, graphHeight, schoolValue, nationalValue ) {
     var bottoms = {},
         // Lines fall off the bottom of the graph if they sit right at the base
         bottomOffset = 20;
-    bottoms.school = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( schoolValue - minValue ) + bottomOffset;
-    bottoms.national = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) * ( nationalValue - minValue ) + bottomOffset;
+    bottoms.school = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) *
+      ( schoolValue - minValue ) + bottomOffset;
+    bottoms.national = ( graphHeight - bottomOffset ) /
+      ( maxValue - minValue ) * ( nationalValue - minValue ) + bottomOffset;
     return bottoms;
   },
 
@@ -64,23 +68,30 @@ var metricView = {
    * @param {object} $schoolPoint jQuery object of the graph's school point
    * @param {object} $nationalPoint jQuery object of the graph's national point
    */
-  fixOverlap: function( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint ) {
+  fixOverlap: function( $graph, schoolAverageFormatted,
+    nationalAverageFormatted, $schoolPoint, $nationalPoint ) {
     var schoolPointHeight = $schoolPoint.find( '.bar-graph_label' ).height(),
         schoolPointTop = $schoolPoint.position().top,
-        nationalPointHeight = $nationalPoint.find( '.bar-graph_label' ).height(),
+        nationalPointHeight = $nationalPoint.find(
+          '.bar-graph_label' ).height(),
         nationalPointTop = $nationalPoint.position().top,
-        $higherPoint = schoolPointTop > nationalPointTop ? $nationalPoint : $schoolPoint,
-        $higherPointLabels = $higherPoint.find( '.bar-graph_label, .bar-graph_value' ),
-        $lowerPoint = schoolPointTop > nationalPointTop ? $schoolPoint : $nationalPoint,
+        $higherPoint = schoolPointTop > nationalPointTop ?
+        $nationalPoint : $schoolPoint,
+        $higherPointLabels = $higherPoint.find(
+          '.bar-graph_label, .bar-graph_value' ),
+        $lowerPoint = schoolPointTop > nationalPointTop ?
+        $schoolPoint : $nationalPoint,
         // nationalPointHeight is the smaller and gives just the right offset
-        offset = nationalPointHeight - Math.abs( schoolPointTop - nationalPointTop );
+        offset = nationalPointHeight -
+        Math.abs( schoolPointTop - nationalPointTop );
     // If the values are equal, handle the display with CSS only
     if ( schoolAverageFormatted === nationalAverageFormatted ) {
       $graph.addClass( 'bar-graph__equal' );
       return;
     }
     // If the points partially overlap, move the higher point's labels up
-    if ( nationalPointTop <= schoolPointTop + schoolPointHeight && nationalPointTop + nationalPointHeight >= schoolPointTop ) {
+    if ( nationalPointTop <= schoolPointTop + schoolPointHeight &&
+      nationalPointTop + nationalPointHeight >= schoolPointTop ) {
       $higherPointLabels.css( {
         'padding-bottom': offset,
         'top': -offset
@@ -99,9 +110,12 @@ var metricView = {
    * @param {string} schoolAverageFormatted Text of the graph's school point
    * @param {string} nationalAverageFormatted Text of the graph's school point
    */
-  setGraphValues: function( $graph, schoolAverageFormatted, nationalAverageFormatted ) {
-    var $schoolPointNumber = $graph.find( '.bar-graph_point__you .bar-graph_number' ),
-        $nationalPointNumber = $graph.find( '.bar-graph_point__average .bar-graph_number' );
+  setGraphValues: function( $graph, schoolAverageFormatted,
+    nationalAverageFormatted ) {
+    var $schoolPointNumber =
+    $graph.find( '.bar-graph_point__you .bar-graph_number' ),
+        $nationalPointNumber =
+        $graph.find( '.bar-graph_point__average .bar-graph_number' );
     if ( schoolAverageFormatted ) {
       $schoolPointNumber.text( schoolAverageFormatted );
     } else {
@@ -122,11 +136,13 @@ var metricView = {
    * @param {object} $schoolPoint jQuery object of the graph's school point
    * @param {object} $nationalPoint jQuery object of the graph's national point
    */
-  setGraphPositions: function( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint ) {
+  setGraphPositions: function( $graph, schoolAverage, nationalAverage,
+    $schoolPoint, $nationalPoint ) {
     var graphHeight = $graph.height(),
         minValue = $graph.attr( 'data-graph-min' ),
         maxValue = $graph.attr( 'data-graph-max' ),
-        bottoms = this.calculateBottoms( minValue, maxValue, graphHeight, schoolAverage, nationalAverage );
+        bottoms = this.calculateBottoms( minValue, maxValue, graphHeight,
+          schoolAverage, nationalAverage );
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
     if ( schoolAverage > maxValue ) {
@@ -149,20 +165,26 @@ var metricView = {
    * school value higher or lower than the national average is more desirable
    * @returns {string} Classes to add to the notification box
    */
-  getNotificationClasses: function( schoolValue, nationalValue, sameMin, sameMax, betterDirection ) {
+  getNotificationClasses: function( schoolValue, nationalValue, sameMin,
+    sameMax, betterDirection ) {
     var notificationClasses = '';
     if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
-      notificationClasses = 'metric_notification__no-data cf-notification cf-notification__warning';
+      notificationClasses =
+      'metric_notification__no-data cf-notification cf-notification__warning';
     } else if ( isNaN( schoolValue ) ) {
-      notificationClasses = 'metric_notification__no-you cf-notification cf-notification__warning';
+      notificationClasses =
+      'metric_notification__no-you cf-notification cf-notification__warning';
     } else if ( isNaN( nationalValue ) ) {
       notificationClasses = 'metric_notification__no-average cf-notification cf-notification__warning';
     } else if ( schoolValue >= sameMin && schoolValue <= sameMax ) {
       notificationClasses = 'metric_notification__same';
-    } else if ( schoolValue < sameMin && betterDirection === 'lower' || schoolValue > sameMax && betterDirection === 'higher' ) {
+    } else if ( schoolValue < sameMin && betterDirection === 'lower' ||
+      schoolValue > sameMax && betterDirection === 'higher' ) {
       notificationClasses = 'metric_notification__better';
-    } else if ( schoolValue < sameMin && betterDirection === 'higher' || schoolValue > sameMax && betterDirection === 'lower' ) {
-      notificationClasses = 'metric_notification__worse cf-notification cf-notification__error';
+    } else if ( schoolValue < sameMin && betterDirection === 'higher' ||
+      schoolValue > sameMax && betterDirection === 'lower' ) {
+      notificationClasses =
+      'metric_notification__worse cf-notification cf-notification__error';
     }
     return notificationClasses;
   },
@@ -201,19 +223,26 @@ var metricView = {
           nationalKey = $graph.attr( 'data-national-metric' ),
           graphFormat = $graph.attr( 'data-incoming-format' ),
           schoolAverage = parseFloat( values[metricKey] ),
-          schoolAverageFormatted = metricView.formatValue( graphFormat, schoolAverage ),
+          schoolAverageFormatted =
+            metricView.formatValue( graphFormat, schoolAverage ),
           nationalAverage = parseFloat( values[nationalKey] ),
-          nationalAverageFormatted = metricView.formatValue( graphFormat, nationalAverage ),
+          nationalAverageFormatted =
+            metricView.formatValue( graphFormat, nationalAverage ),
           $schoolPoint = $graph.find( '.bar-graph_point__you' ),
           $nationalPoint = $graph.find( '.bar-graph_point__average' ),
           $notification = $graph.siblings( '.metric_notification' ),
           sameMin = parseFloat( values[nationalKey + 'Low'] ),
           sameMax = parseFloat( values[nationalKey + 'High'] ),
           betterDirection = $notification.attr( 'data-better-direction' ),
-          notificationClasses = metricView.getNotificationClasses( schoolAverage, nationalAverage, sameMin, sameMax, betterDirection );
-      metricView.setGraphValues( $graph, schoolAverageFormatted, nationalAverageFormatted );
-      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage, $schoolPoint, $nationalPoint );
-      metricView.fixOverlap( $graph, schoolAverageFormatted, nationalAverageFormatted, $schoolPoint, $nationalPoint );
+          notificationClasses =
+            metricView.getNotificationClasses( schoolAverage, nationalAverage,
+            sameMin, sameMax, betterDirection );
+      metricView.setGraphValues( $graph, schoolAverageFormatted,
+        nationalAverageFormatted );
+      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage,
+        $schoolPoint, $nationalPoint );
+      metricView.fixOverlap( $graph, schoolAverageFormatted,
+        nationalAverageFormatted, $schoolPoint, $nationalPoint );
       if ( settlementStatus === false ) {
         metricView.setNotificationClasses( $notification, notificationClasses );
       } else {
@@ -253,13 +282,16 @@ var metricView = {
    * @param {boolean} settlementStatus Flag if this is a settlement school
    */
   updateDebtBurdenDisplay: function( values, settlementStatus ) {
-    var annualSalary = Number( values.medianSalary ) || Number( values.earningsMedian ),
+    var annualSalary = Number( values.medianSalary ) ||
+      Number( values.earningsMedian ),
         monthlySalary = this.calculateMonthlySalary( annualSalary ),
         monthlyLoanPayment = values.loanMonthly || 0,
-        debtBurden = this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
+        debtBurden =
+          this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
         annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
         monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
-        monthlyLoanPaymentFormatted = this.formatValue( 'currency', monthlyLoanPayment ),
+        monthlyLoanPaymentFormatted =
+          this.formatValue( 'currency', monthlyLoanPayment ),
         debtBurdenFormatted = this.formatValue( 'decimal-percent', debtBurden ),
         $annualSalaryElement = $( '[data-debt-burden="annual-salary"]' ),
         $monthlySalaryElement = $( '[data-debt-burden="monthly-salary"]' ),
@@ -272,7 +304,8 @@ var metricView = {
         // recommendation
         debtBurdenLow = debtBurdenLimit - 0.005,
         debtBurdenHigh = debtBurdenLimit + 0.005,
-        notificationClasses = this.getNotificationClasses( debtBurden, debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
+        notificationClasses = this.getNotificationClasses( debtBurden,
+          debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
     $annualSalaryElement.text( annualSalaryFormatted );
     $monthlySalaryElement.text( monthlySalaryFormatted );
     $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
