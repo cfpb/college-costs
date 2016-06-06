@@ -45,10 +45,9 @@ var expensesView = {
       var $ele = $( this ),
           name = $ele.attr( 'data-expenses' ),
           currency = true;
-      if ( expensesView.currentInput === $( this ).attr( 'id' ) ) {
-        currency = false;
+      if ( expensesView.currentInput !== $ele.attr( 'id' ) ) {
+        expensesView.updateElement( $ele, values[name], currency );
       }
-      expensesView.updateElement( $ele, values[name], currency );
     } );
   },
 
