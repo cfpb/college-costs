@@ -81,50 +81,49 @@
                                     <span id="verify_directCost"
                                     data-financial="directCost">$[XX]</span> (tuition, fees, books, and supplies)
                                 </dd>
-                            </dl>
-
-                            <div class="verify_estimate">
-                                <label for="estimated-years-attending"
-                                class="verify_label">
+                                <dt class="verify_heading verify_label
+                                verify_estimate"
+                                for="estimated-years-attending">
                                     Estimated years to complete your program
-                                </label>
-                                <p class="verify_label-explanation">
-                                    Select how long you expect it to take to
-                                    complete this program. This may be shorter
-                                    than the program length above if you
-                                    transferred in with credits that the school
-                                    accepts. It may be longer if you plan to
-                                    attend part time or do not successfully
-                                    complete your courses. We’ll use this to
-                                    help calculate your total debt after
-                                    graduation.</p>
-                                <div class="cf-select">
-                                    <select id="estimated-years-attending">
-                                        <option value="">
-                                            Select an option
-                                        </option>
-                                        <option value="1">
-                                            1 year
-                                        </option>
-                                        <option value="2">
-                                            2 years
-                                        </option>
-                                        <option value="3">
-                                            3 years
-                                        </option>
-                                        <option value="4">
-                                            4 years
-                                        </option>
-                                        <option value="5">
-                                            5 years
-                                        </option>
-                                        <option value="6">
-                                            6 years
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <dl class="verify_list">
+                                </dt>
+                                <dd class="verify_value verify_estimate">
+                                    <p class="verify_label-explanation">
+                                        Select how long you expect it to take to
+                                        complete this program. This may be shorter
+                                        than the program length above if you
+                                        transferred in with credits that the school
+                                        accepts. It may be longer if you plan to
+                                        attend part time or do not successfully
+                                        complete your courses. We’ll use this to
+                                        help calculate your total debt after
+                                        graduation.
+                                    </p>
+                                    <div class="cf-select">
+                                        <select id="estimated-years-attending">
+                                            <option value="">
+                                                Select an option
+                                            </option>
+                                            <option value="1">
+                                                1 year
+                                            </option>
+                                            <option value="2">
+                                                2 years
+                                            </option>
+                                            <option value="3">
+                                                3 years
+                                            </option>
+                                            <option value="4">
+                                                4 years
+                                            </option>
+                                            <option value="5">
+                                                5 years
+                                            </option>
+                                            <option value="6">
+                                                6 years
+                                            </option>
+                                        </select>
+                                    </div>
+                                </dd>
                                 <dt class="verify_heading">
                                     Offer ID
                                 </dt>
@@ -1745,11 +1744,10 @@
                     <div class="evaluate_wrapper">
                         <div class="evaluate_intro">
                             <h2 class="step_heading">
-                                Step 2: Weigh the risks and rewards of your
-                                offer
+                                Step 2: Weigh the financial impact of your offer
                             </h2>
                             <p class="step_intro">
-                                The questions in this section will help you
+                                The information in this section will help you
                                 understand how accepting this offer could
                                 affect your ability to pay back your student
                                 debt and impact your financial future.
@@ -1758,13 +1756,18 @@
                     </div>
                     <section class="criteria column-well_wrapper">
                         <h3 class="criteria_heading">
-                            Will I graduate?
+                            How many students graduate?
                         </h3>
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Nobody enrolls in school planning to drop
-                                    out. Remember, whether you get your
+                                    For first-time students enrolled full-time
+                                    in {{program.program_name}} at
+                                    {{school.primary_alias}}, X out of X
+                                    graduated.
+                                </p>
+                                <p>
+                                    Remember, whether you get your
                                     diploma or not, you’ll still have to repay
                                     federal and private loans (and possibly
                                     even some grants). If you don’t graduate,
@@ -1780,8 +1783,9 @@
                                         Graduation rate
                                     </h4>
                                     <p class="metric_explanation">
-                                        Percentage of full-time students who
-                                        graduate from a college or university
+                                        Percentage of first-time, full-time
+                                        undergraduate students who graduate from
+                                        your program at this school
                                     </p>
                                     <div class="bar-graph"
                                     data-metric="gradRate"
@@ -1810,6 +1814,17 @@
                                                 <div class="bar-graph_number"></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="metric_link">
+                                        <p>
+                                            Curious about the graduation rate
+                                            for the entire school? <a
+                                            href="https://collegescorecard.ed.gov/"
+                                            class="graduation-link"
+                                            target="_blank">See how this
+                                            school’s graduation rate compares
+                                            to the national average</a>
+                                        </p>
                                     </div>
                                     <div class="metric_notification"
                                     data-better-direction="higher">
@@ -1851,6 +1866,112 @@
                             </section>
                         </div>
                     </section>
+                    <section class="criteria column-well_wrapper">
+                        <h3 class="criteria_heading">
+                            How do I know if I'm about to take on too much debt?
+                        </h3>
+                        <div class="criteria_wrapper">
+                            <div class="criteria_intro">
+                                <p>
+                                    According to your school, the average
+                                    salary for students graduating from your
+                                    program is <span
+                                    id="criteria_median-salary"
+                                    data-financial="medianSalary">[XX]</span>
+                                    per year. In reality, you could end up
+                                    making more or less than the average salary
+                                    shown here.
+                                </p>
+                                <p>
+                                    If your total debt is too high, it
+                                    increases the chances of not being able to
+                                    repay your loan on time and incurring late
+                                    fees and more interest, or not being able
+                                    to pay for other necessities, like rent or
+                                    groceries. Since it’s difficult to predict
+                                    your future salary, one way to lower your
+                                    debt is to reduce the amount of student
+                                    loans you take out.
+                                </p>
+                            </div>
+                            <section class="metric salary-and-debt
+                            column-well column-well__bleed
+                            column-well__not-stacked">
+                                <div class="column-well_content">
+                                    <h4 class="metric_heading">
+                                        Your salary and total student debt
+                                    </h4>
+                                    <p>
+                                        A general rule of thumb for
+                                        undergraduates is that you should not
+                                        borrow more than you’ll earn your first
+                                        year out of school.
+                                    </p>
+                                    <div class="salary-and-debt_projection">
+                                        <div
+                                        class="salary-and-debt_projection-name">
+                                          Projected first-year salary
+                                          for this program
+                                        </div>
+                                        <div
+                                        class="salary-and-debt_projection-value">
+                                            <span
+                                            data-financial="medianSalary">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="salary-and-debt_projection">
+                                        <div
+                                        class="salary-and-debt_projection-name">
+                                          Estimated debt when
+                                          repayment begins
+                                          <span class="salary-and-debt_explanation">
+                                              Includes interest and fees
+                                              accrued while in school
+                                          </span>
+                                        </div>
+                                        <div
+                                        class="salary-and-debt_projection-value">
+                                            <span
+                                            data-financial="totalDebt">
+                                            </span>
+                                      </div>
+                                    </div>
+                                    <div class="metric_notification"
+                                    data-better-direction="higher">
+                                        <p class="cf-notification_text
+                                        metric_notification_text__better">
+                                            Projected first-year salary is
+                                            higher than total student debt
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__same">
+                                            Projected first-year salary is
+                                            about the same as total student debt
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__worse">
+                                            <span class="cf-notification_icon
+                                            cf-notification_icon__error cf-icon
+                                            cf-icon-error-round"></span>
+                                            Projected first-year salary is
+                                            lower than total student debt
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-you">
+                                            We currently don’t have data to
+                                            display for your school
+                                        </p>
+                                        <p class="cf-notification_text
+                                        metric_notification_text__no-data">
+                                            We currently don’t have data to
+                                            display
+                                        </p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
                     <section class="criteria
                     column-well_wrapper__overflow-small">
                         <h3 class="criteria_heading">
@@ -1877,85 +1998,100 @@
                                     salaries shown here.
                                 </p>
                             </div>
-                            <section class="metric average-salary column-well
-                            column-well__bleed column-well__not-stacked">
-                                <div class="column-well_content">
-                                    <h4 class="metric_heading">
-                                        Average salary
-                                    </h4>
-                                    <p class="metric_explanation">
-                                        Expected first-year salary (before
-                                        taxes) after graduating from your
-                                        program
-                                    </p>
-                                    <div class="bar-graph"
-                                    data-metric="medianSalary"
-                                    data-national-metric="earningsMedian"
-                                    data-incoming-format="currency"
-                                    data-graph-min="0"
-                                    data-graph-max="100000">
-                                        <div class="bar-graph_top-label">
-                                            $100,000
-                                        </div>
-                                        <div class="bar-graph_bar"></div>
-                                        <div class="bar-graph_point
-                                        bar-graph_point__you u-clearfix">
-                                            <div class="bar-graph_label">
-                                                This school
-                                            </div>
-                                            <div class="bar-graph_line"></div>
-                                            <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
-                                            </div>
-                                        </div>
-                                        <div class="bar-graph_point
-                                        bar-graph_point__average u-clearfix">
-                                            <div class="bar-graph_label">
-                                                National average
-                                            </div>
-                                            <div class="bar-graph_line"></div>
-                                            <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="metric_notification"
-                                    data-better-direction="higher">
-                                        <p class="cf-notification_text
-                                        metric_notification_text__better">
-                                            Higher salary than national
-                                            average
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__same">
-                                            About the same salary as
-                                            national average
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__worse">
-                                            <span class="cf-notification_icon
-                                            cf-notification_icon__error cf-icon
-                                            cf-icon-error-round"></span>
-                                            Lower salary than national average
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__no-you">
-                                            We currently don’t have data to
-                                            display for your school
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__no-average">
-                                            We currently don’t have national
-                                            average data to display
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__no-data">
-                                            We currently don’t have data to
-                                            display
-                                        </p>
-                                    </div>
-                                </div>
-                            </section>
+                            <section class="metric debt-burden column-well
+                              column-well__bleed column-well__not-stacked">
+                                  <div class="column-well_content">
+                                      <h4 class="metric_heading">
+                                          Your estimated debt burden
+                                      </h4>
+                                      <p class="metric_explanation">
+                                          We calculate your debt burden by
+                                          dividing your monthly loan payment by
+                                          the average salary for students who
+                                          attended your school.
+                                      </p>
+                                      <div class="debt-burden_projection">
+                                          <div
+                                          class="debt-burden_projection-name">
+                                              Projected salary
+                                          </div>
+                                          <div
+                                          class="debt-burden_projection-value">
+                                              <span data-debt-burden="annual-salary"></span>
+                                              / yr.<br>
+                                              <span data-debt-burden="monthly-salary"></span>
+                                              / mo.
+                                          </div>
+                                      </div>
+                                      <div class="debt-burden_projection">
+                                          <div
+                                          class="debt-burden_projection-name">
+                                              Your projected loan payment
+                                          </div>
+                                          <div
+                                          class="debt-burden_projection-value">
+                                              <span data-debt-burden="monthly-payment"></span>
+                                              / mo.
+                                          </div>
+                                      </div>
+                                      <div class="debt-equation u-clearfix">
+                                          <div class="debt-equation_part
+                                          debt-equation_part__loan">
+                                              <div class="debt-equation_number">
+                                                  <span data-debt-burden="monthly-payment"></span>
+                                              </div>
+                                              <div class="debt-equation_label">
+                                                  loan payment
+                                              </div>
+                                          </div>
+                                          <div class="debt-equation_symbol">
+                                              /
+                                          </div>
+                                          <div class="debt-equation_part
+                                          debt-equation_part__income">
+                                              <div class="debt-equation_number">
+                                                  <span data-debt-burden="monthly-salary"></span>
+                                              </div>
+                                              <div class="debt-equation_label">
+                                                  monthly salary
+                                              </div>
+                                          </div>
+                                          <div class="debt-equation_symbol">
+                                              =
+                                          </div>
+                                          <div class="debt-equation_part
+                                          debt-equation_part__percent">
+                                              <div class="debt-equation_number">
+                                                  <span data-debt-burden="debt-burden"></span>
+                                              </div>
+                                              <div class="debt-equation_label">
+                                                  of your income
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="metric_notification"
+                                      data-better-direction="lower">
+                                          <p class="cf-notification_text
+                                          metric_notification_text__better">
+                                              Loan payment is lower than
+                                              recommended 8% of salary
+                                          </p>
+                                          <p class="cf-notification_text
+                                          metric_notification_text__same">
+                                              Loan payment is equal to
+                                              recommended 8% of salary
+                                          </p>
+                                          <p class="cf-notification_text
+                                          metric_notification_text__worse">
+                                              <span class="cf-notification_icon
+                                              cf-notification_icon__error cf-icon
+                                              cf-icon-error-round"></span>
+                                              Loan payment is higher than
+                                              recommended 8% of salary
+                                          </p>
+                                      </div>
+                                  </div>
+                              </section>
                             <section class="estimated-expenses">
                                 <form class="aid-form" action="#">
                                     <div class="aid-form_heading">
@@ -1983,7 +2119,7 @@
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__rent"
                                                 name="expenses__rent"
-                                                data-financial="monthlyRent"
+                                                data-expenses="housing"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2000,7 +2136,7 @@
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__food"
                                                 name="expenses__food"
-                                                data-financial="monthlyFood"
+                                                data-expenses="food"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2018,7 +2154,7 @@
                                                 type="text"
                                                 id="expenses__transportation"
                                                 name="expenses__transportation"
-                                                data-financial="monthlyTransportation"
+                                                data-expenses="transportation"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2036,7 +2172,25 @@
                                                 type="text"
                                                 id="expenses__insurance"
                                                 name="expenses__insurance"
-                                                data-financial="monthlyInsurance"
+                                                data-expenses="healthcare"
+                                                autocorrect="off" value="0">
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <label class="form-label__wrapped">
+                                            <span
+                                            class="form-label_text-wrapper">
+                                                Entertainment
+                                            </span>
+                                            <span
+                                            class="aid-form_input-wrapper">
+                                                <input class="aid-form_input
+                                                aid-form_input__currency"
+                                                type="text"
+                                                id="expenses__entertainment"
+                                                name="expenses__entertainment"
+                                                data-expenses="entertainment"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2054,7 +2208,7 @@
                                                 type="text"
                                                 id="expenses__retirement"
                                                 name="expenses__retirement"
-                                                data-financial="monthlySavings"
+                                                data-expenses="retirement"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2073,7 +2227,7 @@
                                                 type="text"
                                                 id="expenses__other"
                                                 name="expenses__other"
-                                                data-financial="monthlyOther"
+                                                data-expenses="other"
                                                 autocorrect="off" value="0">
                                             </span>
                                         </label>
@@ -2089,7 +2243,7 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount" data-line-item="true"
-                                            data-financial="totalMonthlyExpenses"></span>
+                                            data-expenses="totalMonthlyExpenses"></span>
                                         </div>
                                     </div>
                                 </form>
@@ -2127,7 +2281,7 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount" data-line-item="true"
-                                            data-financial="totalMonthlyExpenses"
+                                            data-expenses="totalMonthlyExpenses"
                                             id="summary_monthly-expenses">
                                             </span>
                                         </div>
@@ -2163,138 +2317,10 @@
                                                 $
                                             </span>
                                             <span class="line-item_amount" data-line-item="true"
-                                            data-financial="monthlyLeftover"
+                                            data-expenses="monthlyLeftover"
                                             id="summary_monthly-left-over">
                                             </span>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </section>
-                    <section class="criteria column-well_wrapper">
-                        <h3 class="criteria_heading">
-                            How do I know if I’m about to take on too much
-                            debt?
-                        </h3>
-                        <div class="criteria_wrapper">
-                            <div class="criteria_intro">
-                                <p>
-                                    There are two factors that make up your
-                                    debt burden&mdash;your loan payment and
-                                    your salary. The general rule of thumb is
-                                    that you shouldn’t borrow more than you
-                                    will make during your first year out of
-                                    college.
-                                </p>
-                                <p>
-                                    Your student loan payment shouldn’t be
-                                    more than 8% of your total monthly income.
-                                    The lower your total debt, the lower your
-                                    debt burden will be.</p>
-                                <p>
-                                    If your debt burden is too high, it
-                                    increases the chances of not being able to
-                                    repay your loan on time and incurring late
-                                    fees and more interest, or not being able
-                                    to pay for other necessities, like rent or
-                                    groceries. Since it’s difficult to predict
-                                    your future salary, the best way to lower
-                                    your debt burden is to reduce the amount
-                                    of student loans you take out.
-                                </p>
-                            </div>
-                            <section class="metric debt-burden column-well
-                            column-well__bleed column-well__not-stacked">
-                                <div class="column-well_content">
-                                    <h4 class="metric_heading">
-                                        Your estimated debt burden
-                                    </h4>
-                                    <p class="metric_explanation">
-                                        We calculate your debt burden by
-                                        dividing your monthly loan payment by
-                                        the average salary for students who
-                                        attended your school.
-                                    </p>
-                                    <div class="debt-burden_projection">
-                                        <div
-                                        class="debt-burden_projection-name">
-                                            Projected salary
-                                        </div>
-                                        <div
-                                        class="debt-burden_projection-value">
-                                            <span data-debt-burden="annual-salary"></span>
-                                            / yr.<br>
-                                            <span data-debt-burden="monthly-salary"></span>
-                                            / mo.
-                                        </div>
-                                    </div>
-                                    <div class="debt-burden_projection">
-                                        <div
-                                        class="debt-burden_projection-name">
-                                            Your projected loan payment
-                                        </div>
-                                        <div
-                                        class="debt-burden_projection-value">
-                                            <span data-debt-burden="monthly-payment"></span>
-                                            / mo.
-                                        </div>
-                                    </div>
-                                    <div class="debt-equation u-clearfix">
-                                        <div class="debt-equation_part
-                                        debt-equation_part__loan">
-                                            <div class="debt-equation_number">
-                                                <span data-debt-burden="monthly-payment"></span>
-                                            </div>
-                                            <div class="debt-equation_label">
-                                                loan payment
-                                            </div>
-                                        </div>
-                                        <div class="debt-equation_symbol">
-                                            /
-                                        </div>
-                                        <div class="debt-equation_part
-                                        debt-equation_part__income">
-                                            <div class="debt-equation_number">
-                                                <span data-debt-burden="monthly-salary"></span>
-                                            </div>
-                                            <div class="debt-equation_label">
-                                                monthly salary
-                                            </div>
-                                        </div>
-                                        <div class="debt-equation_symbol">
-                                            =
-                                        </div>
-                                        <div class="debt-equation_part
-                                        debt-equation_part__percent">
-                                            <div class="debt-equation_number">
-                                                <span data-debt-burden="debt-burden"></span>
-                                            </div>
-                                            <div class="debt-equation_label">
-                                                of your income
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="metric_notification"
-                                    data-better-direction="lower">
-                                        <p class="cf-notification_text
-                                        metric_notification_text__better">
-                                            Loan payment is lower than
-                                            recommended 8% of salary
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__same">
-                                            Loan payment is equal to
-                                            recommended 8% of salary
-                                        </p>
-                                        <p class="cf-notification_text
-                                        metric_notification_text__worse">
-                                            <span class="cf-notification_icon
-                                            cf-notification_icon__error cf-icon
-                                            cf-icon-error-round"></span>
-                                            Loan payment is higher than
-                                            recommended 8% of salary
-                                        </p>
                                     </div>
                                 </div>
                             </section>
@@ -2307,40 +2333,18 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    There are several <a
-                                    href="https://studentaid.ed.gov/sa/repay-loans/understand/plans" target="_blank">
-                                    options for reducing your federal student
-                                    loan payments</a> to help make them more
-                                    affordable. Many of these alternative
-                                    repayment plans are based on income and
-                                    family size, which means the lower your
-                                    salary, the lower your student loan
-                                    payment. For instance, if you have a
-                                    family of four with an annual income of
-                                    $50,000, your monthly student loan payment
-                                    would be $114. It could be as low as $0,
-                                    depending on your income and family size.
-                                </p>
-                                <p>
-                                    These repayment plans aren’t available for
-                                    private student loans, which can be why
-                                    some students still struggle to afford
-                                    their monthly student loan payment. If
-                                    you’re still not able to make payments on
-                                    your loans, you could go into default.
-                                </p>
-                                <p>
                                     Defaulting on a loan is when you fail to
                                     make scheduled payments over a certain
                                     period of time. This length of time can
                                     vary based on the type of loan. It can
-                                    also mean added late fees and interest
+                                    also mean added fees and interest
                                     because the debt isn’t paid off in time.
-                                    Defaulting on a loan can have serious
-                                    negative affects on your financial future.
-                                    It can make it difficult for you to get a
-                                    car or home loan, lower your credit score,
-                                    or result in wage garnishment.
+                                    Defaulting on a loan can negatively impact
+                                    your credit rating, which could make it
+                                    more difficult in the future to borrow
+                                    money to purchase a care or a home.
+                                    Defaulting could also result in wage
+                                    garnishment.
                                 </p>
                             </div>
                             <section class="metric loan-default-rates
@@ -2351,15 +2355,19 @@
                                         Loan default rates
                                     </h4>
                                     <p class="metric_explanation">
-                                        Percentage of students who default on
-                                        loans after entering repayment
+                                        Percentage of students from this
+                                        program who default on loans after
+                                        entering repayment
                                     </p>
                                     <div class="bar-graph"
                                     data-metric="defaultRate"
                                     data-national-metric="loanDefaultRate"
                                     data-incoming-format="decimal-percent"
                                     data-graph-min="0"
-                                    data-graph-max="1">
+                                    data-graph-max="0.4">
+                                        <div class="bar-graph_top-label">
+                                            40%
+                                        </div>
                                         <div class="bar-graph_bar"></div>
                                         <div class="bar-graph_point
                                         bar-graph_point__you u-clearfix">
@@ -2381,6 +2389,15 @@
                                                 <div class="bar-graph_number"></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="metric_link">
+                                        <p>
+                                            <a
+                                            href="http://nces.ed.gov/collegenavigator/"
+                                            class="loan-default-link"
+                                            target="_blank">See the loan default rates for the entire school
+</a>
+                                        </p>
                                     </div>
                                     <div class="metric_notification"
                                     data-better-direction="lower">

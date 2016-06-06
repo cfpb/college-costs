@@ -8,7 +8,7 @@ var getApiValues = {
   constants: function() {
     var urlBase = $( 'main' ).attr( 'data-context' );
     var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/constants/';
-    var constantRequest = $.ajax( {
+    var constantsRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -19,8 +19,24 @@ var getApiValues = {
         console.log( 'something went wrong', status, err );
       }
     } );
+    return constantsRequest;
+  },
 
-    return constantRequest;
+  expenses: function() {
+    var urlBase = $( 'main' ).attr( 'data-context' );
+    var url = '/' + urlBase + '/understanding-your-financial-aid-offer/api/expenses/';
+    var expensesRequest = $.ajax( {
+      url: url,
+      dataType: 'json',
+      success: function( resp ) {
+        return resp;
+      },
+      // TODO: the user should be notified of errors
+      error: function( req, status, err ) {
+        console.log( 'something went wrong', status, err );
+      }
+    } );
+    return expensesRequest;
   },
 
   fetchSchoolData: function( iped ) {
@@ -83,10 +99,15 @@ var getApiValues = {
   },
 
   schoolData: function( iped, pid ) {
-    return $.when( this.fetchSchoolData( iped ), this.fetchProgramData( iped, pid ), this.fetchNationalData( iped, pid ) )
-      .done( function( schoolData, programData, nationalData ) {
-        return $.extend( schoolData[0], programData[0], nationalData[0] );
-      } );
+    return $.when(
+      this.fetchSchoolData( iped ),
+      this.fetchProgramData( iped, pid ),
+      this.fetchNationalData( iped, pid )
+    );
+  },
+
+  initialData: function() {
+    return $.when( this.constants(), this.expenses() );
   }
 
 };

@@ -450,29 +450,24 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.metric.graduation-rate .metric_notification' ) );
       }
     },
-    schoolSalaryPoint: {
+    gradRateLink: {
       get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__you' ) );
+        return element( by.css( '.graduation-link' ) );
+      }
+    },
+    followGradRateLink: {
+      value: function() {
+        this.gradRateLink.click();
       }
     },
     schoolSalaryValue: {
       get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__you .bar-graph_value' ) );
+        return element( by.css( '.salary-and-debt_projection-value [data-financial="medianSalary"]' ) );
       }
     },
-    nationalSalaryPoint: {
+    schoolDebtAtRepaymentValue: {
       get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__average' ) );
-      }
-    },
-    nationalSalaryValue: {
-      get: function() {
-        return element( by.css( '.metric.average-salary .bar-graph_point__average .bar-graph_value' ) );
-      }
-    },
-    salaryNotification: {
-      get: function() {
-        return element( by.css( '.metric.average-salary .metric_notification' ) );
+        return element( by.css( '.salary-and-debt_projection-value [data-financial="totalDebt"]' ) );
       }
     },
     debtBurdenPayment: {
@@ -513,6 +508,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
     defaultRateNotification: {
       get: function() {
         return element( by.css( '.metric.loan-default-rates .metric_notification' ) );
+      }
+    },
+    defaultRateLink: {
+      get: function() {
+        return element( by.css( '.loan-default-link' ) );
+      }
+    },
+    followDefaultRateLink: {
+      value: function() {
+        this.defaultRateLink.click();
       }
     },
     monthlyRent: {
