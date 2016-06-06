@@ -5,6 +5,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Parent PLUS loans separated from other family contributions
 - fix migrations for deployment, adding 0003
 - Perkins loans hidden for schools that do not offer them
+- Added a manage.py command for updating college data
 - BLS data imported from expenses API
 - BLS data set by program BLSAverage region
 - BLS data set by program expected salary
