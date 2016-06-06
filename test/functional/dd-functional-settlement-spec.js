@@ -577,8 +577,8 @@ it( 'should properly update when more than one private loans is modified', funct
     page.continueStep2();
     browser.sleep( 1000 );
     page.setExpensesRegion( 'SO' );
-    browser.sleep( 250 );
-    expect( page.monthlyRent.getText() ).toEqual( '$912')
+    browser.sleep( 500 );
+    expect( page.monthlyRent.getAttribute('value') ).toEqual( '$912')
   } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
