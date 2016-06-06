@@ -16,7 +16,8 @@ function handleStringInput( numberString ) {
       digitPosition = numberString.indexOf( numberString.match( /\d/ ) );
 
   // If a '-' appears before the first digit, we assume numberString is negative
-  if ( numberString.indexOf( numberString.match( '-' ) ) !== -1 && minusPosition < digitPosition ) {
+  if ( numberString.indexOf( numberString.match( '-' ) ) !== -1 &&
+    minusPosition < digitPosition ) {
     signMaker = -1;
   }
 
