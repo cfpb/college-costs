@@ -67,6 +67,13 @@ var expensesModel = {
     return false;
   },
 
+  /**
+   * Changes the various expenses values based on the region
+   * and salary parameters. Uses the 'stored' Object in this
+   * model to find correct values.
+   * @param {string} region - BLS region code
+   * @param {number} salary - Annual salary
+   */
   resetCurrentValues: function( region, salary ) {
     for ( var x = 0; x < this.expenseKeys.length; x++ ) {
       var key = this.expenseKeys[x],
