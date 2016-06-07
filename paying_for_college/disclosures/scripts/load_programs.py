@@ -31,6 +31,7 @@ load_programs('paying_for_college/data_sources/sample_program_data.csv')
 #     """make sure source directory exists"""
 #     return os.isdir(SRC_DIR)
 
+NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data')
 
 class ProgramSerializer(serializers.Serializer):
 
@@ -78,11 +79,13 @@ def read_in_data(filename):
 
 
 def clean_number_as_string(string):
-    # Currently this is a list possible entries that means no data in a number field
     # This needs to be cleaned up to None, else validation will complain
-    no_data_entries = ('', 'No Grads', 'No Data')
-    return string if string not in no_data_entries else None
+    clean_str = string.strip()
+    return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else None
 
+def clean_string_as_string(string):
+    clean_str = string.strip()
+    return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else ''
 
 def clean(data):
 
@@ -92,11 +95,8 @@ def clean(data):
         'median_student_loan_completers', 'total_cost', 'tuition_fees')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
     cleaned_data = dict(map(lambda (k, v): 
-        (k, v.strip() if k not in number_fields else clean_number_as_string(v.strip())), 
+        (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
         data.iteritems()))
-
-    # if cleaned_data['accreditor'] in ['Blank']:
-    #     cleaned_data['accreditor'] = ''
 
     return cleaned_data
 
@@ -112,8 +112,6 @@ def load_programs(filename):
         fixed_data = clean(row)
         serializer = ProgramSerializer(data=fixed_data)
 
-        print("******** Fixed Row ********")
-        print(fixed_data)
         if serializer.is_valid():
             data = serializer.data
             (school, error) = get_school(data['ipeds_unit_id'])
@@ -128,8 +126,6 @@ def load_programs(filename):
             else:
                 updated_programs += 1
 
-            print("******** cleaned data *******")
-            print(data)
             program.accreditor = data['accreditor']
             program.cip_code = data['cip_code']
             program.completion_rate = data['completion_rate']
@@ -151,7 +147,6 @@ def load_programs(filename):
             program.tuition = data['tuition_fees']
             program.books = data['books_supplies']
             program.save()
-
 
         else: # There is error
             for key, error_list in serializer.errors.iteritems():
