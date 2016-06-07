@@ -9,6 +9,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - BLS data imported from expenses API
 - BLS data set by program BLSAverage region
 - BLS data set by program expected salary
+- Expenses section BLS region selecter added
 - Added "your salary and total student debt" section in step 2
 - Added graduation rate and loan default rate external links
 - Changed the scale of the loan default rate graph to 40%

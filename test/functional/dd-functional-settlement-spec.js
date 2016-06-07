@@ -562,8 +562,6 @@ it( 'should properly update when more than one private loans is modified', funct
   } );
 
   // *** Step 2: Evaluate your offer ***
-
-  // TODO: Change monthly left over when student loan payment is added
   it( 'should properly display estimated monthly expenses', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -571,6 +569,16 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,611' );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-943' );
+  } );
+
+  it( 'should properly change expenses when region is selected', function() {
+    page.confirmVerification();
+    browser.sleep( 1000 );
+    page.continueStep2();
+    browser.sleep( 1000 );
+    page.setExpensesRegion( 'SO' );
+    browser.sleep( 500 );
+    expect( page.monthlyRent.getAttribute('value') ).toEqual( '$912')
   } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
