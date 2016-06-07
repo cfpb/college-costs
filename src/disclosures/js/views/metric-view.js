@@ -14,6 +14,8 @@ var metricView = {
     var settlementStatus =
       Boolean( getSchool.values().settlementSchool ) || false;
     this.updateGraphs( values, settlementStatus );
+    this.toggleListener();
+    this.updateMonthlyPayment();
     // updateDebtBurdenDisplay is called in financialView.updateView, not here,
     // since the debt burden needs to refresh when loan amounts are modified
   },
@@ -60,6 +62,23 @@ var metricView = {
   },
 
   /**
+   * Helper function that updates the value or text of an element
+   * @param {object} $ele - jQuery object of the element to update
+   * @param {number|string} value - The new value
+   * @param {Boolean} type - Type of number, for formatting
+   */
+  updateText: function( $ele, value, type ) {
+    if ( type === 'currency' ) {
+      value = formatUSD( { amount: value, decimalPlaces: 0 } );
+    }
+    if ( type === 'decimal-percent' ) {
+      value = Math.round( value * 100 ).toString() + '%';
+    }
+    $ele.text( value );
+  },
+
+
+  /**
    * Fixes overlapping points on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
    * @param {string} schoolText Text of the graph's school point
@@ -70,15 +89,15 @@ var metricView = {
   fixOverlap: function( $graph, schoolText, nationalText, $school, $national ) {
     var schoolPointHeight = $school.find( '.bar-graph_label' ).height(),
         schoolPointTop = $school.position().top,
-        nationalPointHeight = $nationalPoint.find(
+        nationalPointHeight = $national.find(
           '.bar-graph_label' ).height(),
-        nationalPointTop = $nationalPoint.position().top,
+        nationalPointTop = $national.position().top,
         $higherPoint = schoolPointTop > nationalPointTop ?
         $national : $school,
         $higherPointLabels = $higherPoint.find(
           '.bar-graph_label, .bar-graph_value' ),
         $lowerPoint = schoolPointTop > nationalPointTop ?
-        $school : $nationalPoint,
+        $school : $national,
         // nationalPointHeight is the smaller and gives just the right offset
         offset = nationalPointHeight -
         Math.abs( schoolPointTop - nationalPointTop );
@@ -277,40 +296,100 @@ var metricView = {
    * @param {object} values Financial model values
    * @param {boolean} settlementStatus Flag if this is a settlement school
    */
-  updateDebtBurdenDisplay: function( values, settlementStatus ) {
-    var annualSalary = Number( values.medianSalary ) ||
-      Number( values.earningsMedian ),
-        monthlySalary = this.calculateMonthlySalary( annualSalary ),
-        monthlyLoanPayment = values.loanMonthly || 0,
-        debtBurden =
-          this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
-        annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
-        monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
-        monthlyLoanPaymentFormatted =
-          this.formatValue( 'currency', monthlyLoanPayment ),
-        debtBurdenFormatted = this.formatValue( 'decimal-percent', debtBurden ),
-        $annualSalaryElement = $( '[data-debt-burden="annual-salary"]' ),
-        $monthlySalaryElement = $( '[data-debt-burden="monthly-salary"]' ),
-        $monthlyPaymentElement = $( '[data-debt-burden="monthly-payment"]' ),
-        $debtBurdenElement = $( '[data-debt-burden="debt-burden"]' ),
+  updateDebtBurden: function() {
+    // var annualSalary = Number( values.medianSalary ) ||
+    //   Number( values.earningsMedian ),
+    //     monthlySalary = this.calculateMonthlySalary( annualSalary ),
+    //     monthlyLoanPayment = values.loanMonthly || 0,
+    //     debtBurden =
+    //       this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
+    //     annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
+    //     monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
+    //     monthlyLoanPaymentFormatted =
+    //       this.formatValue( 'currency', monthlyLoanPayment ),
+    //     debtBurdenFormatted = this.formatValue( 'decimal-percent', debtBurden ),
+    //     $annualSalaryElement = $( '[data-debt-burden="annual-salary"]' ),
+    //     $monthlySalaryElement = $( '[data-debt-burden="monthly-salary"]' ),
+    //     $monthlyPaymentElement = $( '[data-debt-burden="monthly-payment"]' ),
+    //     $debtBurdenElement = $( '[data-debt-burden="debt-burden"]' ),
+    //     $notification = $( '.debt-burden .metric_notification' ),
+    //     // We're using 8% or below as the recommended debt burden
+    //     debtBurdenLimit = 0.08,
+    //     // Debt burdens that round to 8% are considered "the same as" the
+    //     // recommendation
+    //     debtBurdenLow = debtBurdenLimit - 0.005,
+    //     debtBurdenHigh = debtBurdenLimit + 0.005,
+    //     notificationClasses = this.getNotificationClasses( debtBurden,
+    //       debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
+    // $annualSalaryElement.text( annualSalaryFormatted );
+    // $monthlySalaryElement.text( monthlySalaryFormatted );
+    // $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
+    // $debtBurdenElement.text( debtBurdenFormatted );
+
+    var $section = $( '[data-repayment-section="debt-burden"]' ),
+        $elements = $section.find( '[data-debt-burden]' ),
+        term = $section.find( 'input:checked' ).val(),
+        key = term + 'Year',
+        financials = getFinancial.values(),
+        values = financials[key],
         $notification = $( '.debt-burden .metric_notification' ),
-        // We're using 8% or below as the recommended debt burden
         debtBurdenLimit = 0.08,
-        // Debt burdens that round to 8% are considered "the same as" the
-        // recommendation
         debtBurdenLow = debtBurdenLimit - 0.005,
-        debtBurdenHigh = debtBurdenLimit + 0.005,
-        notificationClasses = this.getNotificationClasses( debtBurden,
-          debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
-    $annualSalaryElement.text( annualSalaryFormatted );
-    $monthlySalaryElement.text( monthlySalaryFormatted );
-    $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
-    $debtBurdenElement.text( debtBurdenFormatted );
-    if ( settlementStatus === false ) {
-      this.setNotificationClasses( $notification, notificationClasses );
-    } else {
-      this.hideNotificationClasses( $notification );
-    }
+        debtBurdenHigh = debtBurdenLimit + 0.005
+        notificationClasses;
+
+    // Calculate values
+    values.annualSalary = financials.medianSalary;
+    values.monthlySalary = values.annualSalary / 12;
+    values.debtBurden = values.loanMonthly / values.monthlySalary;
+
+    // Update debt burden elements
+    $elements.each( function() {
+      var $ele = $( this ),
+          prop = $ele.attr( 'data-debt-burden' ),
+          type = 'currency';
+      if ( prop === 'debtBurden' ) {
+        type = 'decimal-percent';
+      }
+      metricView.updateText( $ele, values[prop], type );
+    } );
+
+    // if ( settlementStatus === false ) {
+    //   this.setNotificationClasses( $notification, notificationClasses );
+    // } else {
+    //   this.hideNotificationClasses( $notification );
+    // }
+  },
+
+  updateMonthlyPayment: function() {
+    var $section = $( '[data-repayment-section="monthly-payment"]' ),
+        term = $section.find( 'input:checked' ).val(),
+        key = term + 'Year',
+        values = getFinancial.values()[key];
+    $section.find( '[data-repayment]' ).each( function() {
+      var prop = $( this ).attr( 'data-repayment' ),
+          val = values[prop];
+      val = formatUSD( { amount: val, decimalPlaces: 0 } );
+      $( this ).text( val );
+    } );
+  },
+
+  /**
+   * Listener for clicks on the repayment toggles
+   */
+  toggleListener: function() {
+    $( '[data-repayment-section] input' ).click( function() {
+      var $ele = $( this ),
+          $parent = $ele.closest( '[data-repayment-section' ),
+          section = $parent.attr( 'data-repayment-section' ),
+          term = $ele.val();
+      if ( section === 'monthly-payment' ) {
+        metricView.updateMonthlyPayment( term );
+      }
+      if ( section === 'estimated-debt-burden' ) {
+        metricView.updateDebtBurden( term );
+      }
+    } );
   }
 
 };

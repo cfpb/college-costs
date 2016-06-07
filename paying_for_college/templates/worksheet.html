@@ -2020,7 +2020,8 @@
                             </div>
                             <section class="metric salary-and-debt
                             column-well column-well__bleed
-                            column-well__not-stacked">
+                            column-well__not-stacked"
+                             data-repayment-section="monthly-payment">
                                 <div class="column-well_content">
                                     <h4 class="metric_heading">
                                         Calculate your monthly payment
@@ -2059,12 +2060,12 @@
                                       <p>
                                         See how loan length affects your payments
                                       </p>
-                                      <div id="monthly-payment_term" data-repayment-section="monthly-payment">
+                                      <div id="monthly-payment_term">
                                         <label for="monthly-payment_term_10">
-                                          <input id="monthly-payment_term_10" type="radio" name="monthly-payment_term"  value="10" checked> 10 years
+                                          <input id="monthly-payment_term_10" type="radio" name="monthly-payment_term"  value="ten" checked> 10 years
                                         </label>
                                         <label>
-                                          <input id="monthly-payment_term_25" type="radio" name="monthly-payment_term" value="25">
+                                          <input id="monthly-payment_term_25" type="radio" name="monthly-payment_term" value="twentyFive">
                                           25 years
                                         </label>
                                       </div>
@@ -2105,7 +2106,8 @@
                                 </p>
                             </div>
                             <section class="metric debt-burden column-well
-                              column-well__bleed column-well__not-stacked">
+                              column-well__bleed column-well__not-stacked"
+                              data-repayment-section="debt-burden">
                                   <div class="column-well_content">
                                       <h4 class="metric_heading">
                                           Your estimated debt burden
@@ -2123,9 +2125,9 @@
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="annual-salary"></span>
+                                              <span data-debt-burden="annualSalary"></span>
                                               / yr.<br>
-                                              <span data-debt-burden="monthly-salary"></span>
+                                              <span data-debt-burden="monthlySalary"></span>
                                               / mo.
                                           </div>
                                       </div>
@@ -2136,7 +2138,7 @@
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="monthly-payment"></span>
+                                              <span data-debt-burden="loanMonthly"></span>
                                               / mo.
                                           </div>
                                       </div>
@@ -2144,7 +2146,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__loan">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="monthly-payment"></span>
+                                                  <span data-debt-burden="loanMonthly"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   loan payment
@@ -2156,7 +2158,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__income">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="monthly-salary"></span>
+                                                  <span data-debt-burden="monthlySalary"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   monthly salary
@@ -2168,7 +2170,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__percent">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="debt-burden"></span>
+                                                  <span data-debt-burden="debtBurden"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   of your income
@@ -2198,10 +2200,10 @@
                                       </div>
                                       <div id="estimated-debt-burden_term"  data-repayment-section="estimated-debt-burden">
                                         <label for="estimated-debt-burden_term_10">
-                                          <input id="estimated-debt-burden_term_10" type="radio" name="estimated-debt-burden_term"  value="10" checked> 10 years
+                                          <input id="estimated-debt-burden_term_10" type="radio" name="estimated-debt-burden_term"  value="ten" checked> 10 years
                                         </label>
                                         <label>
-                                          <input id="estimated-debt-burden_term_25" type="radio" name="estimated-debt-burden_term" value="25">
+                                          <input id="estimated-debt-burden_term_25" type="radio" name="estimated-debt-burden_term" value="twentyFive">
                                           25 years
                                         </label>
                                       </div>

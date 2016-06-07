@@ -18,7 +18,8 @@ var schoolModel = {
   processAPIData: function( values ) {
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
-    values.medianSalary = values.salary || values.medianAnnualPay;
+    values.medianSalary = values.salary || values.medianAnnualPay
+      || values.earningsMedian;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters ||
       values.medianTotalDebt;
