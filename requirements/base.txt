@@ -5,3 +5,4 @@ django-haystack==2.4.1
 python-dateutil==2.2
 PyYAML==3.11
 elasticsearch==2.3.0
+csvkit==0.9.1
