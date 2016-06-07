@@ -20,22 +20,21 @@ var metricView = {
 
   /**
    * Calculates the CSS bottom positions of each point on a bar graph
-   * @param {number} minValue Bottom point of a graph
-   * @param {number} maxValue Top point of a graph
-   * @param {number} graphHeight Height of the graph
+   * @param {number} min Bottom point of a graph
+   * @param {number} max Top point of a graph
+   * @param {number} height Height of the graph
    * @param {number|NaN} schoolValue Value reported by the school
    * @param {number|NaN} nationalValue Average national value
    * @returns {object} Object with CSS bottom positions for each point
    */
-  calculateBottoms:
-  function( minValue, maxValue, graphHeight, schoolValue, nationalValue ) {
+  calculateBottoms: function( min, max, height, schoolValue, nationalValue ) {
     var bottoms = {},
         // Lines fall off the bottom of the graph if they sit right at the base
         bottomOffset = 20;
-    bottoms.school = ( graphHeight - bottomOffset ) / ( maxValue - minValue ) *
-      ( schoolValue - minValue ) + bottomOffset;
-    bottoms.national = ( graphHeight - bottomOffset ) /
-      ( maxValue - minValue ) * ( nationalValue - minValue ) + bottomOffset;
+    bottoms.school = ( height - bottomOffset ) / ( max - min ) *
+      ( schoolValue - min ) + bottomOffset;
+    bottoms.national = ( height - bottomOffset ) /
+      ( max - min ) * ( nationalValue - min ) + bottomOffset;
     return bottoms;
   },
 
@@ -63,29 +62,28 @@ var metricView = {
   /**
    * Fixes overlapping points on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {string} schoolAverageFormatted Text of the graph's school point
-   * @param {string} nationalAverageFormatted Text of the graph's school point
-   * @param {object} $schoolPoint jQuery object of the graph's school point
-   * @param {object} $nationalPoint jQuery object of the graph's national point
+   * @param {string} schoolText Text of the graph's school point
+   * @param {string} nationalText Text of the graph's school point
+   * @param {object} $school jQuery object of the graph's school point
+   * @param {object} $national jQuery object of the graph's national point
    */
-  fixOverlap: function( $graph, schoolAverageFormatted,
-    nationalAverageFormatted, $schoolPoint, $nationalPoint ) {
-    var schoolPointHeight = $schoolPoint.find( '.bar-graph_label' ).height(),
-        schoolPointTop = $schoolPoint.position().top,
+  fixOverlap: function( $graph, schoolText, nationalText, $school, $national ) {
+    var schoolPointHeight = $school.find( '.bar-graph_label' ).height(),
+        schoolPointTop = $school.position().top,
         nationalPointHeight = $nationalPoint.find(
           '.bar-graph_label' ).height(),
         nationalPointTop = $nationalPoint.position().top,
         $higherPoint = schoolPointTop > nationalPointTop ?
-        $nationalPoint : $schoolPoint,
+        $national : $school,
         $higherPointLabels = $higherPoint.find(
           '.bar-graph_label, .bar-graph_value' ),
         $lowerPoint = schoolPointTop > nationalPointTop ?
-        $schoolPoint : $nationalPoint,
+        $school : $nationalPoint,
         // nationalPointHeight is the smaller and gives just the right offset
         offset = nationalPointHeight -
         Math.abs( schoolPointTop - nationalPointTop );
     // If the values are equal, handle the display with CSS only
-    if ( schoolAverageFormatted === nationalAverageFormatted ) {
+    if ( schoolText === nationalText ) {
       $graph.addClass( 'bar-graph__equal' );
       return;
     }
@@ -107,22 +105,21 @@ var metricView = {
   /**
    * Sets text of each point on a bar graph (or a class if a point is missing)
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {string} schoolAverageFormatted Text of the graph's school point
-   * @param {string} nationalAverageFormatted Text of the graph's school point
+   * @param {string} schoolText Text of the graph's school point
+   * @param {string} nationalText Text of the graph's school point
    */
-  setGraphValues: function( $graph, schoolAverageFormatted,
-    nationalAverageFormatted ) {
+  setGraphValues: function( $graph, schoolText, nationalText ) {
     var $schoolPointNumber =
     $graph.find( '.bar-graph_point__you .bar-graph_number' ),
         $nationalPointNumber =
         $graph.find( '.bar-graph_point__average .bar-graph_number' );
-    if ( schoolAverageFormatted ) {
-      $schoolPointNumber.text( schoolAverageFormatted );
+    if ( schoolText ) {
+      $schoolPointNumber.text( schoolText );
     } else {
       $graph.addClass( 'bar-graph__missing-you' );
     }
-    if ( nationalAverageFormatted ) {
-      $nationalPointNumber.text( nationalAverageFormatted );
+    if ( nationalText ) {
+      $nationalPointNumber.text( nationalText );
     } else {
       $graph.addClass( 'bar-graph__missing-average' );
     }
@@ -131,26 +128,25 @@ var metricView = {
   /**
    * Sets the position of each point on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {number|NaN} schoolAverage Value reported by the school
-   * @param {number|NaN} nationalAverage Average national value
-   * @param {object} $schoolPoint jQuery object of the graph's school point
-   * @param {object} $nationalPoint jQuery object of the graph's national point
+   * @param {number|NaN} schoolValue Value reported by the school
+   * @param {number|NaN} nationalValue Average national value
+   * @param {object} $school jQuery object of the graph's school point
+   * @param {object} $national jQuery object of the graph's national point
    */
-  setGraphPositions: function( $graph, schoolAverage, nationalAverage,
-    $schoolPoint, $nationalPoint ) {
+  setGraphPositions: function( $graph, schoolValue, nationalValue, $school, $national ) {
     var graphHeight = $graph.height(),
         minValue = $graph.attr( 'data-graph-min' ),
         maxValue = $graph.attr( 'data-graph-max' ),
         bottoms = this.calculateBottoms( minValue, maxValue, graphHeight,
-          schoolAverage, nationalAverage );
+          schoolValue, nationalValue );
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
-    if ( schoolAverage > maxValue ) {
+    if ( schoolValue > maxValue ) {
       bottoms.school = graphHeight;
       $graph.addClass( 'bar-graph__high-point' );
     }
-    $schoolPoint.css( 'bottom', bottoms.school );
-    $nationalPoint.css( 'bottom', bottoms.national );
+    $school.css( 'bottom', bottoms.school );
+    $national.css( 'bottom', bottoms.national );
   },
 
   /**
