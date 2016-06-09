@@ -35,7 +35,6 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    var values = getFinancial.values();
     this.settlementStatus =
       Boolean( getSchool.values().settlementSchool ) || false;
     this.setMetrics();
@@ -86,13 +85,12 @@ var metricView = {
     var $school = $graph.find( '[data-bar-graph_number="you"]' ),
         $national = $graph.find( '[data-bar-graph_number="average"]' ),
         metricKey = $graph.attr( 'data-metric' ),
-        metrics = metricView.metrics[ metricKey ],
+        metrics = metricView.metrics[metricKey],
         schoolHeight = $school.find( '.bar-graph_label' ).height(),
         schoolTop = $school.position().top,
         nationalHeight = $national.find( '.bar-graph_label' ).height(),
         nationalTop = $national.position().top,
         $higherPoint = $national,
-        hpselecter = '.bar-graph_label, .bar-graph_value',
         $higherLabels,
         $lowerPoint = $school,
         // nationalPointHeight is the smaller and gives just the right offset
@@ -103,7 +101,7 @@ var metricView = {
       $higherPoint = $school;
       $lowerPoint = $national;
     }
-    $higherLabels = $higherPoint.find(  '.bar-graph_label, .bar-graph_value' );
+    $higherLabels = $higherPoint.find( '.bar-graph_label, .bar-graph_value' );
 
     // If the values are equal, handle the display with CSS only
     if ( metrics.school === metrics.national ) {
@@ -135,7 +133,7 @@ var metricView = {
     var $school = $graph.find( '[data-bar-graph_number="you"]' ),
         $national = $graph.find( '[data-bar-graph_number="average"]' ),
         metricKey = $graph.attr( 'data-metric' ),
-        metrics = metricView.metrics[ metricKey ];
+        metrics = metricView.metrics[metricKey];
     if ( isNaN( metrics.school ) ) {
       $graph.addClass( 'bar-graph__missing-you' );
     } else {
@@ -157,7 +155,7 @@ var metricView = {
    * @param {object} $national jQuery object of the graph's national point
    */
   setGraphPositions: function( $graph ) {
-    //, schoolValue, nationalValue, $school, $national
+    // schoolValue, nationalValue, $school, $national
     var graphHeight = $graph.height(),
         metricKey = $graph.attr( 'data-metric' ),
         nationalValue = metricView.metrics[metricKey].national,
@@ -186,13 +184,11 @@ var metricView = {
 
   /**
    * Classifies school value in relation to the national average
-   * @param {number|NaN} schoolValue - Value reported by the school
-   * @param {string} metric - Metric for notifications
+   * @param {number|NaN} metricKey - metric to be checked
    * @returns {string} Classes to add to the notification box
    */
   getNotifications: function( metricKey ) {
-    var values = getFinancial.values(),
-        classes = 'cf-notification ',
+    var classes = 'cf-notification ',
         metrics = metricView.metrics[metricKey],
         schoolValue = metrics.school,
         nationalValue = metrics.national,
@@ -202,7 +198,6 @@ var metricView = {
         aboveMax = schoolValue > metrics.max,
         lowerIsBetter = metrics.better === 'lower',
         higherIsBetter = metrics.better === 'higher';
-    console.log( schoolValue, nationalValue )
     if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
       classes += 'metric_notification__no-data cf-notification__warning';
     } else if ( isNaN( schoolValue ) ) {
@@ -248,13 +243,11 @@ var metricView = {
    * @param {boolean} settlementStatus Flag if this is a settlement school
    */
   updateGraphs: function() {
-    var $graphs = $( '.bar-graph' ),
-        financials = getFinancial.values();
+    var $graphs = $( '.bar-graph' );
     $graphs.each( function() {
       var $graph = $( this ),
           metricKey = $graph.attr( 'data-metric' ),
           notificationClasses = metricView.getNotifications( metricKey ),
-          metrics = metricView.metrics[metricKey],
           $notification = $graph.siblings( '.metric_notification' );
 
       metricView.setGraphValues( $graph );
