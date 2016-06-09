@@ -5,73 +5,73 @@ var getSchool = require( '../dispatchers/get-school-values' );
 var formatUSD = require( 'format-usd' );
 
 var metricView = {
+  metrics: {
+    debtBurden: {
+      school: NaN,
+      national: 0.08,
+      low: 0.075,
+      high: 0.085,
+      better: 'lower'
+    },
+    gradRate: {
+      school: NaN,
+      national: NaN,
+      nationalKey: 'completionRateMedian',
+      better: 'higher',
+      format: 'decimal-percent'
+    },
+    defaultRate: {
+      school: NaN,
+      national: NaN,
+      nationalKey: 'defaultRate',
+      better: 'lower',
+      format: 'decimal-percent'
+    }
+  },
+
+  settlementStatus: false,
 
   /**
    * Initiates the object
    */
   init: function() {
     var values = getFinancial.values();
-    var settlementStatus =
+    this.settlementStatus =
       Boolean( getSchool.values().settlementSchool ) || false;
-    this.updateGraphs( values, settlementStatus );
+    this.setMetrics();
+    this.updateGraphs();
     this.toggleListener();
     this.updateMonthlyPayment();
-    // updateDebtBurdenDisplay is called in financialView.updateView, not here,
-    // since the debt burden needs to refresh when loan amounts are modified
   },
 
   /**
-   * Calculates the CSS bottom positions of each point on a bar graph
-   * @param {number} min Bottom point of a graph
-   * @param {number} max Top point of a graph
-   * @param {number} height Height of the graph
-   * @param {number|NaN} schoolValue Value reported by the school
-   * @param {number|NaN} nationalValue Average national value
-   * @returns {object} Object with CSS bottom positions for each point
+   * Helper function which adds data to the metrics object for use by
+   * graphs, etc.
    */
-  calculateBottoms: function( min, max, height, schoolValue, nationalValue ) {
-    var bottoms = {},
-        // Lines fall off the bottom of the graph if they sit right at the base
-        bottomOffset = 20;
-    bottoms.school = ( height - bottomOffset ) / ( max - min ) *
-      ( schoolValue - min ) + bottomOffset;
-    bottoms.national = ( height - bottomOffset ) /
-      ( max - min ) * ( nationalValue - min ) + bottomOffset;
-    return bottoms;
-  },
-
-  /**
-   * Formats a raw number for display
-   * @param {string} valueType Type of value to format (percent or currency)
-   * @param {number|NaN} rawValue Value to format
-   * @returns {boolean|string} False if rawValue is not a number, a formatted
-   * string otherwise
-   */
-  formatValue: function( valueType, rawValue ) {
-    var formattedValue = rawValue;
-    if ( isNaN( rawValue ) ) {
-      return false;
+  setMetrics: function() {
+    var graphKeys = [ 'gradRate', 'defaultRate' ],
+        financials = getFinancial.values();
+    for ( var x = 0; x < graphKeys.length; x++ ) {
+      var key = graphKeys[x],
+          nationalKey = metricView.metrics[key].nationalKey;
+      metricView.metrics[key].school = financials[key];
+      metricView.metrics[key].national = financials[nationalKey];
+      metricView.metrics[key].min = financials[nationalKey + 'Low'];
+      metricView.metrics[key].max = financials[nationalKey + 'High'];
     }
-    if ( valueType === 'decimal-percent' ) {
-      formattedValue = Math.round( rawValue * 100 ).toString() + '%';
-    }
-    if ( valueType === 'currency' ) {
-      formattedValue = formatUSD( { amount: rawValue, decimalPlaces: 0 } );
-    }
-    return formattedValue;
   },
 
   /**
    * Helper function that updates the value or text of an element
    * @param {object} $ele - jQuery object of the element to update
    * @param {number|string} value - The new value
-   * @param {Boolean} type - Type of number, for formatting
+   * @param {Boolean} format - Type of number, for formatting
    */
-  updateText: function( $ele, value, type ) {
-    if ( type === 'currency' ) {
+  updateText: function( $ele, value, format ) {
+    if ( format === 'currency' ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
-    if ( type === 'decimal-percent' ) {
+    if ( format === 'decimal-percent' ) {
       value = Math.round( value * 100 ).toString() + '%';
     }
     $ele.text( value );
@@ -81,35 +81,39 @@ var metricView = {
   /**
    * Fixes overlapping points on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {string} schoolText Text of the graph's school point
-   * @param {string} nationalText Text of the graph's school point
-   * @param {object} $school jQuery object of the graph's school point
-   * @param {object} $national jQuery object of the graph's national point
    */
-  fixOverlap: function( $graph, schoolText, nationalText, $school, $national ) {
-    var schoolPointHeight = $school.find( '.bar-graph_label' ).height(),
-        schoolPointTop = $school.position().top,
-        nationalPointHeight = $national.find(
-          '.bar-graph_label' ).height(),
-        nationalPointTop = $national.position().top,
-        $higherPoint = schoolPointTop > nationalPointTop ?
-        $national : $school,
-        $higherPointLabels = $higherPoint.find(
-          '.bar-graph_label, .bar-graph_value' ),
-        $lowerPoint = schoolPointTop > nationalPointTop ?
-        $school : $national,
+  fixOverlap: function( $graph ) {
+    var $school = $graph.find( '[data-bar-graph_number="you"]' ),
+        $national = $graph.find( '[data-bar-graph_number="average"]' ),
+        metricKey = $graph.attr( 'data-metric' ),
+        metrics = metricView.metrics[ metricKey ],
+        schoolHeight = $school.find( '.bar-graph_label' ).height(),
+        schoolTop = $school.position().top,
+        nationalHeight = $national.find( '.bar-graph_label' ).height(),
+        nationalTop = $national.position().top,
+        $higherPoint = $national,
+        hpselecter = '.bar-graph_label, .bar-graph_value',
+        $higherLabels,
+        $lowerPoint = $school,
         // nationalPointHeight is the smaller and gives just the right offset
-        offset = nationalPointHeight -
-        Math.abs( schoolPointTop - nationalPointTop );
+        offset = nationalHeight - Math.abs( schoolTop - nationalTop );
+
+    // Check $higherPoint
+    if ( schoolTop > nationalTop ) {
+      $higherPoint = $school;
+      $lowerPoint = $national;
+    }
+    $higherLabels = $higherPoint.find(  '.bar-graph_label, .bar-graph_value' );
+
     // If the values are equal, handle the display with CSS only
-    if ( schoolText === nationalText ) {
+    if ( metrics.school === metrics.national ) {
       $graph.addClass( 'bar-graph__equal' );
       return;
     }
     // If the points partially overlap, move the higher point's labels up
-    if ( nationalPointTop <= schoolPointTop + schoolPointHeight &&
-      nationalPointTop + nationalPointHeight >= schoolPointTop ) {
-      $higherPointLabels.css( {
+    if ( nationalTop <= schoolTop + schoolHeight &&
+      nationalTop + nationalHeight >= schoolTop ) {
+      $higherLabels.css( {
         'padding-bottom': offset,
         'top': -offset
       } );
@@ -127,20 +131,20 @@ var metricView = {
    * @param {string} schoolText Text of the graph's school point
    * @param {string} nationalText Text of the graph's school point
    */
-  setGraphValues: function( $graph, schoolText, nationalText ) {
-    var $schoolPointNumber =
-    $graph.find( '.bar-graph_point__you .bar-graph_number' ),
-        $nationalPointNumber =
-        $graph.find( '.bar-graph_point__average .bar-graph_number' );
-    if ( schoolText ) {
-      $schoolPointNumber.text( schoolText );
-    } else {
+  setGraphValues: function( $graph ) {
+    var $school = $graph.find( '[data-bar-graph_number="you"]' ),
+        $national = $graph.find( '[data-bar-graph_number="average"]' ),
+        metricKey = $graph.attr( 'data-metric' ),
+        metrics = metricView.metrics[ metricKey ];
+    if ( isNaN( metrics.school ) ) {
       $graph.addClass( 'bar-graph__missing-you' );
-    }
-    if ( nationalText ) {
-      $nationalPointNumber.text( nationalText );
     } else {
+      this.updateText( $school, metrics.school, metrics.format );
+    }
+    if ( isNaN( metrics.national ) ) {
       $graph.addClass( 'bar-graph__missing-average' );
+    } else {
+      this.updateText( $national, metrics.national, metrics.format );
     }
   },
 
@@ -152,15 +156,27 @@ var metricView = {
    * @param {object} $school jQuery object of the graph's school point
    * @param {object} $national jQuery object of the graph's national point
    */
-  setGraphPositions: function( $graph, schoolValue, nationalValue, $school, $national ) {
+  setGraphPositions: function( $graph ) {
+    //, schoolValue, nationalValue, $school, $national
     var graphHeight = $graph.height(),
-        minValue = $graph.attr( 'data-graph-min' ),
-        maxValue = $graph.attr( 'data-graph-max' ),
-        bottoms = this.calculateBottoms( minValue, maxValue, graphHeight,
-          schoolValue, nationalValue );
+        metricKey = $graph.attr( 'data-metric' ),
+        nationalValue = metricView.metrics[metricKey].national,
+        schoolValue = metricView.metrics[metricKey].school,
+        min = $graph.attr( 'data-graph-min' ),
+        max = $graph.attr( 'data-graph-max' ),
+        $school = $graph.find( '.bar-graph_point__you' ),
+        $national = $graph.find( 'bar-graph_point__average' ),
+        bottoms = {},
+        bottomOffset = 20;
+
+    bottoms.school = ( graphHeight - bottomOffset ) / ( max - min ) *
+      ( schoolValue - min ) + bottomOffset;
+    bottoms.national = ( graphHeight - bottomOffset ) /
+      ( max - min ) * ( nationalValue - min ) + bottomOffset;
+
     // A few outlier schools have very high average salaries, so we need to
     // prevent those values from falling off the top of the graph
-    if ( schoolValue > maxValue ) {
+    if ( schoolValue > max ) {
       bottoms.school = graphHeight;
       $graph.addClass( 'bar-graph__high-point' );
     }
@@ -170,38 +186,39 @@ var metricView = {
 
   /**
    * Classifies school value in relation to the national average
-   * @param {number|NaN} schoolValue Value reported by the school
-   * @param {number|NaN} nationalValue Average national value
-   * @param {number} sameMin Lowest value considered "about the same" as the
-   * national average (from College Scorecard)
-   * @param {number} sameMax Highest value considered "about the same" as the
-   * national average (from College Scorecard)
-   * @param {string} betterDirection 'higher' or 'lower' depending on whether a
-   * school value higher or lower than the national average is more desirable
+   * @param {number|NaN} schoolValue - Value reported by the school
+   * @param {string} metric - Metric for notifications
    * @returns {string} Classes to add to the notification box
    */
-  getNotificationClasses: function( schoolValue, nationalValue, sameMin,
-    sameMax, betterDirection ) {
-    var notificationClasses = '';
+  getNotifications: function( metricKey ) {
+    var values = getFinancial.values(),
+        classes = 'cf-notification ',
+        metrics = metricView.metrics[metricKey],
+        schoolValue = metrics.school,
+        nationalValue = metrics.national,
+        min = metrics.min,
+        max = metrics.max,
+        belowMin = schoolValue < metrics.min,
+        aboveMax = schoolValue > metrics.max,
+        lowerIsBetter = metrics.better === 'lower',
+        higherIsBetter = metrics.better === 'higher';
+    console.log( schoolValue, nationalValue )
     if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
-      notificationClasses =
-      'metric_notification__no-data cf-notification cf-notification__warning';
+      classes += 'metric_notification__no-data cf-notification__warning';
     } else if ( isNaN( schoolValue ) ) {
-      notificationClasses =
-      'metric_notification__no-you cf-notification cf-notification__warning';
+      classes += 'metric_notification__no-you cf-notification__warning';
     } else if ( isNaN( nationalValue ) ) {
-      notificationClasses = 'metric_notification__no-average cf-notification cf-notification__warning';
-    } else if ( schoolValue >= sameMin && schoolValue <= sameMax ) {
-      notificationClasses = 'metric_notification__same';
-    } else if ( schoolValue < sameMin && betterDirection === 'lower' ||
-      schoolValue > sameMax && betterDirection === 'higher' ) {
-      notificationClasses = 'metric_notification__better';
-    } else if ( schoolValue < sameMin && betterDirection === 'higher' ||
-      schoolValue > sameMax && betterDirection === 'lower' ) {
-      notificationClasses =
-      'metric_notification__worse cf-notification cf-notification__error';
+      classes += 'metric_notification__no-average cf-notification__warning';
+    } else if ( schoolValue >= min && schoolValue <= max ) {
+      classes = 'metric_notification__same';
+    } else if ( belowMin && lowerIsBetter || aboveMax && higherIsBetter ) {
+      classes = 'metric_notification__better';
+    } else if ( belowMin && higherIsBetter || aboveMax && lowerIsBetter ) {
+      classes += 'metric_notification__worse cf-notification__error';
+    } else if ( isNaN( min ) || isNaN( max ) ) {
+      classes = '';
     }
-    return notificationClasses;
+    return classes;
   },
 
   /**
@@ -230,38 +247,23 @@ var metricView = {
    * @param {object} values Financial model values
    * @param {boolean} settlementStatus Flag if this is a settlement school
    */
-  updateGraphs: function( values, settlementStatus ) {
-    var $graphs = $( '.bar-graph' );
+  updateGraphs: function() {
+    var $graphs = $( '.bar-graph' ),
+        financials = getFinancial.values();
     $graphs.each( function() {
       var $graph = $( this ),
           metricKey = $graph.attr( 'data-metric' ),
-          nationalKey = $graph.attr( 'data-national-metric' ),
-          graphFormat = $graph.attr( 'data-incoming-format' ),
-          schoolAverage = parseFloat( values[metricKey] ),
-          schoolAverageFormatted =
-            metricView.formatValue( graphFormat, schoolAverage ),
-          nationalAverage = parseFloat( values[nationalKey] ),
-          nationalAverageFormatted =
-            metricView.formatValue( graphFormat, nationalAverage ),
-          $schoolPoint = $graph.find( '.bar-graph_point__you' ),
-          $nationalPoint = $graph.find( '.bar-graph_point__average' ),
-          $notification = $graph.siblings( '.metric_notification' ),
-          sameMin = parseFloat( values[nationalKey + 'Low'] ),
-          sameMax = parseFloat( values[nationalKey + 'High'] ),
-          betterDirection = $notification.attr( 'data-better-direction' ),
-          notificationClasses =
-            metricView.getNotificationClasses( schoolAverage, nationalAverage,
-            sameMin, sameMax, betterDirection );
-      metricView.setGraphValues( $graph, schoolAverageFormatted,
-        nationalAverageFormatted );
-      metricView.setGraphPositions( $graph, schoolAverage, nationalAverage,
-        $schoolPoint, $nationalPoint );
-      metricView.fixOverlap( $graph, schoolAverageFormatted,
-        nationalAverageFormatted, $schoolPoint, $nationalPoint );
-      if ( settlementStatus === false ) {
+          notificationClasses = metricView.getNotifications( metricKey ),
+          metrics = metricView.metrics[metricKey],
+          $notification = $graph.siblings( '.metric_notification' );
+
+      metricView.setGraphValues( $graph );
+      metricView.setGraphPositions( $graph );
+      metricView.fixOverlap( $graph );
+      if ( this.settlementStatus === false ) {
         metricView.setNotificationClasses( $notification, notificationClasses );
       } else {
-        $nationalPoint.hide();
+        $graph.find( '.bar-graph_point__average ' ).hide();
         metricView.hideNotificationClasses( $notification );
       }
     } );
@@ -297,35 +299,6 @@ var metricView = {
    * @param {boolean} settlementStatus Flag if this is a settlement school
    */
   updateDebtBurden: function() {
-    // var annualSalary = Number( values.medianSalary ) ||
-    //   Number( values.earningsMedian ),
-    //     monthlySalary = this.calculateMonthlySalary( annualSalary ),
-    //     monthlyLoanPayment = values.loanMonthly || 0,
-    //     debtBurden =
-    //       this.calculateDebtBurden( monthlyLoanPayment, monthlySalary ),
-    //     annualSalaryFormatted = this.formatValue( 'currency', annualSalary ),
-    //     monthlySalaryFormatted = this.formatValue( 'currency', monthlySalary ),
-    //     monthlyLoanPaymentFormatted =
-    //       this.formatValue( 'currency', monthlyLoanPayment ),
-    //     debtBurdenFormatted = this.formatValue( 'decimal-percent', debtBurden ),
-    //     $annualSalaryElement = $( '[data-debt-burden="annual-salary"]' ),
-    //     $monthlySalaryElement = $( '[data-debt-burden="monthly-salary"]' ),
-    //     $monthlyPaymentElement = $( '[data-debt-burden="monthly-payment"]' ),
-    //     $debtBurdenElement = $( '[data-debt-burden="debt-burden"]' ),
-    //     $notification = $( '.debt-burden .metric_notification' ),
-    //     // We're using 8% or below as the recommended debt burden
-    //     debtBurdenLimit = 0.08,
-    //     // Debt burdens that round to 8% are considered "the same as" the
-    //     // recommendation
-    //     debtBurdenLow = debtBurdenLimit - 0.005,
-    //     debtBurdenHigh = debtBurdenLimit + 0.005,
-    //     notificationClasses = this.getNotificationClasses( debtBurden,
-    //       debtBurdenLimit, debtBurdenLow, debtBurdenHigh, 'lower' );
-    // $annualSalaryElement.text( annualSalaryFormatted );
-    // $monthlySalaryElement.text( monthlySalaryFormatted );
-    // $monthlyPaymentElement.text( monthlyLoanPaymentFormatted );
-    // $debtBurdenElement.text( debtBurdenFormatted );
-
     var $section = $( '[data-repayment-section="debt-burden"]' ),
         $elements = $section.find( '[data-debt-burden]' ),
         term = $section.find( 'input:checked' ).val(),
@@ -333,10 +306,7 @@ var metricView = {
         financials = getFinancial.values(),
         values = financials[key],
         $notification = $( '.debt-burden .metric_notification' ),
-        debtBurdenLimit = 0.08,
-        debtBurdenLow = debtBurdenLimit - 0.005,
-        debtBurdenHigh = debtBurdenLimit + 0.005
-        notificationClasses;
+        selecter;
 
     // Calculate values
     values.annualSalary = financials.medianSalary;
@@ -347,18 +317,20 @@ var metricView = {
     $elements.each( function() {
       var $ele = $( this ),
           prop = $ele.attr( 'data-debt-burden' ),
-          type = 'currency';
+          format = 'currency';
       if ( prop === 'debtBurden' ) {
-        type = 'decimal-percent';
+        format = 'decimal-percent';
       }
-      metricView.updateText( $ele, values[prop], type );
+      metricView.updateText( $ele, values[prop], format );
     } );
 
-    // if ( settlementStatus === false ) {
-    //   this.setNotificationClasses( $notification, notificationClasses );
-    // } else {
-    //   this.hideNotificationClasses( $notification );
-    // }
+    selecter = this.getNotifications( 'debtBurden' );
+
+    if ( this.settlementStatus === false ) {
+      this.setNotificationClasses( $notification, selecter );
+    } else {
+      this.hideNotificationClasses( $notification );
+    }
   },
 
   updateMonthlyPayment: function() {
