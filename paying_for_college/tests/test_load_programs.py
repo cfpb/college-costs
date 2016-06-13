@@ -5,7 +5,7 @@ import mock
 from decimal import *
 
 from paying_for_college.models import Program, School
-from paying_for_college.disclosures.scripts.load_programs import get_school, read_in_data, clean_number_as_string, clean_string_as_string, clean, load_programs
+from paying_for_college.disclosures.scripts.load_programs import get_school, read_in_data, clean_number_as_string, clean_string_as_string, clean, load
 
 class TestLoadPrograms(django.test.TestCase):
     fixtures = ['test_program.json']
@@ -92,7 +92,7 @@ class TestLoadPrograms(django.test.TestCase):
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.read_in_data')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.clean')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.Program.objects.get_or_create')
-    def test_load_programs(self, mock_program, mock_clean, mock_read_in):
+    def test_load(self, mock_program, mock_clean, mock_read_in):
         mock_read_in.return_value = [
             {"ipeds_unit_id": "408039", "ope_id": "", "campus_name": "Ft Wayne - Test", 
                 "program_code": "981 - Test", "program_name": "Occupational Therapy Assistant - 981 - Test", 
@@ -118,7 +118,7 @@ class TestLoadPrograms(django.test.TestCase):
         program = Program.objects.first()
         mock_program.return_value = (program, False)
 
-        load_programs("filename")
+        load("filename")
         self.assertEqual(mock_read_in.call_count, 1)
         self.assertEqual(mock_clean.call_count, 1)
         self.assertEqual(mock_program.call_count, 1)

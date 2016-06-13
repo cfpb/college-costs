@@ -18,7 +18,7 @@ To run the script, run from the Django shell as follows:
 ```
 ./manage.py shell
 from paying_for_college.disclosures.scripts.load_programs import *
-load_programs('paying_for_college/data_sources/sample_program_data.csv')
+load('paying_for_college/data_sources/sample_program_data.csv')
 ```
 
 """
@@ -101,12 +101,13 @@ def clean(data):
     return cleaned_data
 
 
-def load_programs(filename):
+def load(filename):
     new_programs = 0
     updated_programs = 0
+    FAILED = [] # failed messages
     raw_data = read_in_data(filename)
     if not raw_data:
-        return "ERROR: could not read data from {0}".format(filename)
+        return (["ERROR: could not read data from {0}".format(filename)], "")
 
     for row in raw_data:
         fixed_data = clean(row)
@@ -150,10 +151,14 @@ def load_programs(filename):
 
         else: # There is error
             for key, error_list in serializer.errors.iteritems():
-                print('ERROR: {}: '.format(key))
-                for e in error_list:
-                    print(e)
 
-    print('{} programs created. {} programs updated.'.format(new_programs, updated_programs))
+                fail_msg = 'ERROR on row {}: {}: '.format(raw_data.index(row) + 1, key)
+                for e in error_list:
+                    fail_msg = '{} {},'.format(fail_msg, e)
+                FAILED.append(fail_msg)
+
+    endmsg = ('{} programs created. {} programs updated.'.format(new_programs, updated_programs))
+
+    return (FAILED, endmsg)
 
 
