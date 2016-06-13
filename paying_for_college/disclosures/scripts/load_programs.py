@@ -23,14 +23,6 @@ load('paying_for_college/data_sources/sample_program_data.csv')
 
 """
 
-
-# SRC_DIR = '/tmp/collegedata/'
-
-
-# def check_source_directory():
-#     """make sure source directory exists"""
-#     return os.isdir(SRC_DIR)
-
 NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data')
 
 class ProgramSerializer(serializers.Serializer):

@@ -1,6 +1,3 @@
-from glob import glob
-import datetime
-
 from django.core.management.base import BaseCommand, CommandError
 from paying_for_college.disclosures.scripts import load_programs
 
@@ -16,7 +13,7 @@ class Command(BaseCommand):
         parser.add_argument('filename', nargs='+', type=str)
 
     def handle(self, *args, **options):
-        # filename = 'paying_for_college/data_sources/sample_program_data.csv'
+        # i.e. filename = 'paying_for_college/data_sources/sample_program_data.csv'
         for filename in options['filename']:
 
             try:
