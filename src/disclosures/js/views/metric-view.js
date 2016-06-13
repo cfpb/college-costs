@@ -161,8 +161,6 @@ var metricView = {
   /**
    * Sets text of each point on a bar graph (or a class if a point is missing)
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {string} schoolText Text of the graph's school point
-   * @param {string} nationalText Text of the graph's school point
    */
   setGraphValues: function( $graph ) {
     var $school = $graph.find( '[data-bar-graph_number="you"]' ),
@@ -184,10 +182,6 @@ var metricView = {
   /**
    * Sets the position of each point on a bar graph
    * @param {object} $graph jQuery object of the graph containing the points
-   * @param {number|NaN} schoolValue Value reported by the school
-   * @param {number|NaN} nationalValue Average national value
-   * @param {object} $school jQuery object of the graph's school point
-   * @param {object} $national jQuery object of the graph's national point
    */
   setGraphPositions: function( $graph ) {
     // schoolValue, nationalValue, $school, $national
