@@ -9,11 +9,14 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - BLS data imported from expenses API
 - BLS data set by program BLSAverage region
 - BLS data set by program expected salary
+- Expenses section BLS region selecter added
 - Added "your salary and total student debt" section in step 2
 - Added graduation rate and loan default rate external links
 - Changed the scale of the loan default rate graph to 40%
 - General code housekeeping (GitHub templates, linting improvements)
 - Added load programs script
+- metric-view refactored
+- 10/25 loan term toggles added to metrics section
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions

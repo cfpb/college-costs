@@ -12,6 +12,7 @@ var expensesView = {
 
   init: function() {
     this.keyupListener();
+    this.regionSelectListener();
   },
 
   /**
@@ -44,10 +45,9 @@ var expensesView = {
       var $ele = $( this ),
           name = $ele.attr( 'data-expenses' ),
           currency = true;
-      if ( expensesView.currentInput === $( this ).attr( 'id' ) ) {
-        currency = false;
+      if ( expensesView.currentInput !== $ele.attr( 'id' ) ) {
+        expensesView.updateElement( $ele, values[name], currency );
       }
-      expensesView.updateElement( $ele, values[name], currency );
     } );
   },
 
@@ -72,7 +72,7 @@ var expensesView = {
   },
 
   /**
-   * Listener function for keyup in financial model INPUT fields
+   * Listener function for keyup in expenses INPUT fields
    */
   keyupListener: function() {
     this.$reviewAndEvaluate.on( 'keyup', '[data-expenses]', function() {
@@ -83,7 +83,20 @@ var expensesView = {
         expensesView.updateView( getExpenses.values() );
       }, 500 );
     } );
+  },
+
+  /**
+   * Listener for the BLS region SELECT
+   */
+  regionSelectListener: function() {
+    $( '#bls-region-select' ).change( function() {
+      var region = $( this ).val();
+      publish.updateRegion( region );
+      expensesView.updateView( getExpenses.values() );
+    } );
   }
+
+
 };
 
 module.exports = expensesView;

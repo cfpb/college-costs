@@ -472,12 +472,12 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     debtBurdenPayment: {
       get: function() {
-        return element( by.css( '.debt-equation [data-debt-burden="monthly-payment"]' ) );
+        return element( by.css( '.debt-equation [data-debt-burden="loanMonthly"]' ) );
       }
     },
     debtBurdenSalary: {
       get: function() {
-        return element( by.css( '.debt-equation [data-debt-burden="monthly-salary"]' ) );
+        return element( by.css( '.debt-equation [data-debt-burden="monthlySalary"]' ) );
       }
     },
     debtBurdenNotification: {
@@ -518,6 +518,16 @@ settlementAidOfferPage.prototype = Object.create({}, {
     followDefaultRateLink: {
       value: function() {
         this.defaultRateLink.click();
+      }
+    },
+    expensesRegionSelect: {
+      get: function() {
+        return element ( by.css( '#bls-region-select' ) );
+      }
+    },
+    setExpensesRegion: {
+      value: function( region ) {
+        return this.expensesRegionSelect.element( by.css( '[value="' + region + '"]') ).click();
       }
     },
     monthlyRent: {
