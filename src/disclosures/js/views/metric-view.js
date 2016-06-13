@@ -11,21 +11,24 @@ var metricView = {
       national: 0.08,
       low: 0.075,
       high: 0.085,
-      better: 'lower'
+      better: 'lower',
+      standing: ''
     },
     gradRate: {
       school: NaN,
       national: NaN,
       nationalKey: 'completionRateMedian',
       better: 'higher',
-      format: 'decimal-percent'
+      format: 'decimal-percent',
+      standing: ''
     },
     defaultRate: {
       school: NaN,
       national: NaN,
-      nationalKey: 'defaultRate',
+      nationalKey: 'loanDefaultRate',
       better: 'lower',
-      format: 'decimal-percent'
+      format: 'decimal-percent',
+      standing: ''
     }
   },
 
@@ -37,27 +40,59 @@ var metricView = {
   init: function() {
     this.settlementStatus =
       Boolean( getSchool.values().settlementSchool ) || false;
-    this.setMetrics();
+    this.setMetrics( this.metrics );
     this.updateGraphs();
     this.toggleListener();
     this.updateMonthlyPayment();
   },
 
   /**
-   * Helper function which adds data to the metrics object for use by
-   * graphs, etc.
+   * Helper function which sets up metrics data
+   * @param {object} metrics - An object of metrics
+   * @returns {object} metrics with additional values added
    */
-  setMetrics: function() {
+  setMetrics: function( metrics ) {
     var graphKeys = [ 'gradRate', 'defaultRate' ],
         financials = getFinancial.values();
     for ( var x = 0; x < graphKeys.length; x++ ) {
       var key = graphKeys[x],
           nationalKey = metricView.metrics[key].nationalKey;
-      metricView.metrics[key].school = financials[key];
-      metricView.metrics[key].national = financials[nationalKey];
-      metricView.metrics[key].min = financials[nationalKey + 'Low'];
-      metricView.metrics[key].max = financials[nationalKey + 'High'];
+
+      metrics[key].school = financials[key];
+      metrics[key].national = financials[nationalKey];
+      metrics[key].low = financials[nationalKey + 'Low'];
+      metrics[key].high = financials[nationalKey + 'High'];
+      metrics[key] = metricView.checkMetrics( metrics[key] );
     }
+    return metrics;
+  },
+
+  /**
+   * Helper function that checks metric object to determine if they
+   * are better or worse than the national metric
+   * @param {Object} metrics - the metrics object
+   * @returns {string} the result of the check
+   */
+  checkMetrics: function( metrics ) {
+    var sign = 1,
+        high,
+        low,
+        school;
+
+    if ( metrics.better === 'lower' ) {
+      sign = -1;
+    }
+    high = metrics.high * sign;
+    low = metrics.low * sign;
+    school = Number( metrics.school ) * sign;
+    if ( high < school ) {
+      metrics.standing = 'better';
+    } else if ( low > school ) {
+      metrics.standing = 'worse';
+    } else {
+      metrics.standing = 'same';
+    }
+    return metrics;
   },
 
   /**
@@ -189,31 +224,49 @@ var metricView = {
    */
   getNotifications: function( metricKey ) {
     var classes = 'cf-notification ',
+        standingClasses = {
+          same: 'metric_notification__same',
+          better: 'metric_notification__better',
+          worse: 'cf-notification metric_notification__worse ' +
+            'cf-notification__error'
+        },
         metrics = metricView.metrics[metricKey],
-        schoolValue = metrics.school,
-        nationalValue = metrics.national,
-        min = metrics.min,
-        max = metrics.max,
-        belowMin = schoolValue < metrics.min,
-        aboveMax = schoolValue > metrics.max,
-        lowerIsBetter = metrics.better === 'lower',
-        higherIsBetter = metrics.better === 'higher';
-    if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
-      classes += 'metric_notification__no-data cf-notification__warning';
-    } else if ( isNaN( schoolValue ) ) {
-      classes += 'metric_notification__no-you cf-notification__warning';
-    } else if ( isNaN( nationalValue ) ) {
-      classes += 'metric_notification__no-average cf-notification__warning';
-    } else if ( schoolValue >= min && schoolValue <= max ) {
-      classes = 'metric_notification__same';
-    } else if ( belowMin && lowerIsBetter || aboveMax && higherIsBetter ) {
-      classes = 'metric_notification__better';
-    } else if ( belowMin && higherIsBetter || aboveMax && lowerIsBetter ) {
-      classes += 'metric_notification__worse cf-notification__error';
-    } else if ( isNaN( min ) || isNaN( max ) ) {
+        low = metrics.low,
+        high = metrics.high,
+        warnings;
+
+    // Check if there are warnings, if the school metric is about the
+    // same, better, or worse than the national metric, and if there
+    // is an error.
+    warnings = this.checkWarnings( metrics.school, metrics.national );
+    classes = standingClasses[metrics.standing];
+
+    if ( isNaN( low ) || isNaN( high ) ) {
       classes = '';
     }
-    return classes;
+    // if either warnings (if not false) or classes
+    return warnings || classes;
+  },
+
+  /**
+   * @param {number} schoolValue - metric value of school
+   * @param {number} nationalValue - metric national average
+   * @returns {string} Warning classes based on values
+   */
+  checkWarnings: function( schoolValue, nationalValue ) {
+    var classes = 'cf-notification ';
+    if ( isNaN( schoolValue ) && isNaN( nationalValue ) ) {
+      classes += 'metric_notification__no-data cf-notification__warning';
+      return classes;
+    } else if ( isNaN( schoolValue ) ) {
+      classes += 'metric_notification__no-you cf-notification__warning';
+      return classes;
+    } else if ( isNaN( nationalValue ) ) {
+      classes += 'metric_notification__no-average cf-notification__warning';
+      return classes;
+    }
+
+    return false;
   },
 
   /**
@@ -326,6 +379,9 @@ var metricView = {
     }
   },
 
+  /**
+   * Function that updates monthly payment section values
+   */
   updateMonthlyPayment: function() {
     var $section = $( '[data-repayment-section="monthly-payment"]' ),
         term = $section.find( 'input:checked' ).val(),
