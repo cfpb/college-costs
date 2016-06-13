@@ -1,167 +1,155 @@
 var chai = require( 'chai' );
 var expect = chai.expect;
-var metricView = require( '../../src/disclosures/js/views/metric-view' );
+var view = require( '../../src/disclosures/js/views/metric-view' );
 
 describe( 'metric-view', function() {
 
-  it( 'calculates graph point bottom positions for percent data', function() {
-    var minValue = 0,
-        maxValue = 1,
-        graphHeight = 130,
-        schoolValue = 0.55,
-        nationalValue = 0.137,
-        bottoms = metricView.calculateBottoms( minValue, maxValue, graphHeight, schoolValue, nationalValue );
-    expect( bottoms.school ).to.equal( 80.5 );
-    expect( bottoms.national ).to.equal( 35.07 );
-  });
-
-  it( 'calculates graph point bottom positions for salary data', function() {
-    var minValue = 0,
-        maxValue = 100000,
-        graphHeight = 130,
-        schoolValue = 23000,
-        nationalValue = 31080,
-        bottoms = metricView.calculateBottoms( minValue, maxValue, graphHeight, schoolValue, nationalValue );
-    expect( bottoms.school ).to.equal( 45.3 );
-    expect( bottoms.national ).to.equal( 54.188 );
-  });
-
-  it( 'formats percents', function() {
-    var valueType = 'decimal-percent',
-        rawValue = 0.137,
-        formattedValue = metricView.formatValue( valueType, rawValue );
-    expect( formattedValue ).to.equal( '14%' );
-  });
-
-  it( 'formats currencies', function() {
-    var valueType = 'currency',
-        rawValue = 31080,
-        formattedValue = metricView.formatValue( valueType, rawValue );
-    expect( formattedValue ).to.equal( '$31,080' );
-  });
-
-  it( 'does not try to format values that cannot be parsed into numbers', function() {
-    var valueType = 'decimal-percent',
-        rawValues = {
-          'string': 'None',
-          'empty': '',
-          'space': ' ',
-          'null': null,
-          'undefined': undefined
-        },
-        formattedValues = {};
-    for ( var valueType in rawValues ) {
-      var rawValue = rawValues[valueType],
-          parsedValue = parseFloat( rawValue );
-      formattedValues[valueType] = metricView.formatValue( valueType, parsedValue )
+  beforeEach( function() {
+    view.metrics.defaultRate = {
+      school: 0.45,
+      national: 0.5,
+      low: 0.4,
+      high: 0.6,
+      better: 'higher'
     }
-    expect( formattedValues['string'] ).to.equal( false );
-    expect( formattedValues['empty'] ).to.equal( false );
-    expect( formattedValues['space'] ).to.equal( false );
-    expect( formattedValues['null'] ).to.equal( false );
-    expect( formattedValues['undefined'] ).to.equal( false );
+  } );
+
+  it( 'sets standing=same if school is about the same', function() {
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    expect( view.metrics.defaultRate.standing ).to.equal( 'same' );
+  });
+
+  it( 'sets standing=better if school is higher and higher is better', function() {
+    view.metrics.defaultRate.school = 0.75;
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    expect( view.metrics.defaultRate.standing ).to.equal( 'better' );
+  });
+
+  it( 'sets standing=worse if school is lower and higher is better', function() {
+    view.metrics.defaultRate.school = 0.15;
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    expect( view.metrics.defaultRate.standing ).to.equal( 'worse' );
+  });
+
+  it( 'sets standing=better if school is lower and lower is better', function() {
+    view.metrics.defaultRate.school = 0.15;
+    view.metrics.defaultRate.better = 'lower';
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    expect( view.metrics.defaultRate.standing ).to.equal( 'better' );
+  });
+
+  it( 'sets standing=worse if school is higher and lower is better', function() {
+    view.metrics.defaultRate.school = 0.75;
+    view.metrics.defaultRate.better = 'lower';
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    expect( view.metrics.defaultRate.standing ).to.equal( 'worse' );
   });
 
   it( 'gives the proper notification classes when no data is available', function() {
-    var schoolValue = parseFloat( 'None' ),
-        nationalValue = parseFloat( undefined ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
-    expect( notificationClasses ).to.equal( 'metric_notification__no-data cf-notification cf-notification__warning' );
+    view.metrics.defaultRate.school = 'None';
+    view.metrics.defaultRate.national = undefined;
+    var notificationClasses = view.getNotifications( 'defaultRate' );
+    expect( notificationClasses ).to.equal(
+      'cf-notification metric_notification__no-data cf-notification__warning'
+      );
   });
 
   it( 'gives the proper notification classes when school data is missing', function() {
-    var schoolValue = parseFloat( 'None' ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
-    expect( notificationClasses ).to.equal( 'metric_notification__no-you cf-notification cf-notification__warning' );
+    view.metrics.defaultRate.school = 'None';
+    var notificationClasses = view.getNotifications( 'defaultRate' );
+    expect( notificationClasses ).to.equal(
+      'cf-notification metric_notification__no-you cf-notification__warning'
+    );
   });
 
   it( 'gives the proper notification classes when national data is missing', function() {
-    var schoolValue = parseFloat( 0.5 ),
-        nationalValue = parseFloat( undefined ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
-    expect( notificationClasses ).to.equal( 'metric_notification__no-average cf-notification cf-notification__warning' );
+    view.metrics.defaultRate.national = undefined;
+    view.metrics.defaultRate.school = 0.5;
+    var notificationClasses = view.getNotifications( 'defaultRate' );
+    expect( notificationClasses ).to.equal(
+      'cf-notification metric_notification__no-average cf-notification__warning'
+    );
   });
 
-  it( 'gives the proper notification classes when the school value is near the national value', function() {
-    var schoolValue = parseFloat( 0.55 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+  it( 'gives the proper notification classes when the school value ' +
+       'is near the national value', function() {
+    view.metrics.defaultRate.school = 0.55;
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
     expect( notificationClasses ).to.equal( 'metric_notification__same' );
   });
 
-  it( 'gives the proper notification classes when the school value is higher than the national value (and that\'s a good thing)', function() {
-    var schoolValue = parseFloat( 0.7 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+  it( 'gives the proper notification classes when the school value ' +
+       'is higher than the national value (and that\'s a good thing)', function() {
+    view.metrics.defaultRate.school = 0.7;
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
     expect( notificationClasses ).to.equal( 'metric_notification__better' );
   });
 
-  it( 'gives the proper notification classes when the school value is lower than the national value (and that\'s a good thing)', function() {
-    var schoolValue = parseFloat( 0.3 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'lower',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+  it( 'gives the proper notification classes when the school value ' +
+       'is lower than the national value (and that\'s a good thing)', function() {
+    view.metrics.defaultRate.school = 0.2;
+    view.metrics.defaultRate.better = 'lower';
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
     expect( notificationClasses ).to.equal( 'metric_notification__better' );
   });
 
-  it( 'gives the proper notification classes when the school value is higher than the national value (and that\'s a bad thing)', function() {
-    var schoolValue = parseFloat( 0.7 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'lower',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
-    expect( notificationClasses ).to.equal( 'metric_notification__worse cf-notification cf-notification__error' );
+  it( 'gives the proper notification classes when the school value is ' +
+       'higher than the national value (and that\'s a bad thing)', function() {
+    view.metrics.defaultRate.school = 0.7;
+    view.metrics.defaultRate.better = 'lower';
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
+    expect( notificationClasses ).to.equal(
+      'cf-notification metric_notification__worse cf-notification__error'
+      );
   });
 
-  it( 'gives the proper notification classes when the school value is lower than the national value (and that\'s a bad thing)', function() {
-    var schoolValue = parseFloat( 0.3 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = 0.4,
-        sameMax = 0.6,
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
-    expect( notificationClasses ).to.equal( 'metric_notification__worse cf-notification cf-notification__error' );
+  it( 'gives the proper notification classes when the school value is ' +
+       'lower than the national value (and that\'s a bad thing)', function() {
+    view.metrics.defaultRate.national = 0.5;
+    view.metrics.defaultRate.school = 0.3;
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
+    expect( notificationClasses ).to.equal(
+      'cf-notification metric_notification__worse cf-notification__error'
+    );
   });
 
-  it( 'gives the proper notification classes when sameMin and sameMax values are not numbers', function() {
-    var schoolValue = parseFloat( 0.3 ),
-        nationalValue = parseFloat( 0.5 ),
-        sameMin = parseFloat( '' ),
-        sameMax = parseFloat( '' ),
-        betterDirection = 'higher',
-        notificationClasses = metricView.getNotificationClasses( schoolValue, nationalValue, sameMin, sameMax, betterDirection );
+  it( 'gives the proper notification classes when low and high ' +
+       'values are not numbers', function() {
+    view.metrics.defaultRate.national = 0.5;
+    view.metrics.defaultRate.school = 0.5;
+    view.metrics.defaultRate.low = undefined;
+    view.metrics.defaultRate.high = 'I like turtles';
+    view.metrics.defaultRate =
+      view.checkMetrics( view.metrics.defaultRate );
+    var notificationClasses = view.getNotifications( 'defaultRate' );
     expect( notificationClasses ).to.equal( '' );
   });
 
   it( 'calculates monthly salary', function() {
     var annualSalary = 34300,
-        monthlySalary = metricView.calculateMonthlySalary( annualSalary );
+        monthlySalary = view.calculateMonthlySalary( annualSalary );
     expect( monthlySalary.toFixed( 4 ) ).to.equal( '2858.3333' );
   });
 
   it( 'calculates debt burden', function() {
     var monthlyLoanPayment = 240,
         monthlySalary = 2858,
-        debtBurden = metricView.calculateDebtBurden( monthlyLoanPayment, monthlySalary );
+        debtBurden = view.calculateDebtBurden( monthlyLoanPayment, monthlySalary );
     expect( debtBurden.toFixed( 4 ) ).to.equal( '0.0840' );
   });
 
