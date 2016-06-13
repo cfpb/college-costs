@@ -255,7 +255,6 @@ class APITests(django.test.TestCase):
 
         url = reverse('disclosures:national-stats-json', args=['408039'])
         resp = client.get(url)
-        self.assertTrue('loanDefaultRate' in resp.content)
         self.assertTrue('retentionRateMedian' in resp.content)
         url2 = reverse('disclosures:national-stats-json', args=['000000'])
         resp2 = client.get(url2)

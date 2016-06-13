@@ -11,9 +11,9 @@ import requests
 import yaml
 from paying_for_college.models import ConstantRate
 
-COLLEGE_CHOICE_NATIONAL_DATA_URL = '\
+COLLEGE_CHOICE_NATIONAL_DATA_URL = """\
 https://raw.githubusercontent.com/18F/\
-college-choice/dev/_data/national_stats.yaml'
+college-choice/dev/_data/national_stats.yaml"""
 FIXTURES_DIR = Path(__file__).ancestor(3)
 NAT_DATA_FILE = '{0}/fixtures/national_stats.json'.format(FIXTURES_DIR)
 BACKUP_FILE = '{0}/fixtures/national_stats_backup.json'.format(FIXTURES_DIR)
@@ -73,20 +73,9 @@ def get_national_stats(update=False):
 def get_prepped_stats(program_length=None):
     """deliver only the national stats we need for worksheets"""
     full_data = get_national_stats()
-    try:
-        default_rate = float(ConstantRate.objects.get(slug='nationalLoanDefaultRate').value)
-        default_rate_low = float(ConstantRate.objects.get(slug='loanDefaultRateLow').value)
-        default_rate_high = float(ConstantRate.objects.get(slug='loanDefaultRateHigh').value)
-    except:
-        default_rate = 0
-        default_rate_low = 0
-        default_rate_high = 0
     natstats = {
         'completionRateMedian': full_data['completion_rate']['median'],
         'completionRateMedianLow': full_data['completion_rate']['average_range'][0],
-        'loanDefaultRate': default_rate,
-        'loanDefaultRateLow': default_rate_low,
-        'loanDefaultRateHigh': default_rate_high,
         'completionRateMedianHigh': full_data['completion_rate']['average_range'][1],
         'earningsMedian': full_data['median_earnings']['median'],
         'earningsMedianLow': full_data['median_earnings']['average_range'][0],
