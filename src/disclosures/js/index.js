@@ -44,13 +44,13 @@ var app = {
               // initialize metric view
               metricView.init();
               financialView.updateView( getFinancial.values() );
+              questionView.init();
 
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
               $( '#bls-region-select' ).val( region ).change();
             } );
         }
-        questionView.init();
       } );
     verifyOffer.init();
   }

@@ -1388,10 +1388,21 @@
       display: block;
     });
   }
+
+  &__settlement {
+    .grid_column(8);
+
+  }
+
+  &__sidebar {
+    .grid_column(4);
+
+    margin-top: unit(60px / @base-font-size-px, em);
+    background-color: @gray-5;
+  }
 }
 
 .option {
-  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(6);
@@ -1400,12 +1411,27 @@
 
   .respond-to-min(@bp-med-min, {
     .grid_column(4);
+    margin-top: unit(45px / @base-font-size-px, em);
   });
+
+  &__settlement {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+      margin-top: unit(45px / @base-font-size-px, em);
+    });
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(1, 2);
+      margin-top: unit(45px / @base-font-size-px, em);
+    });
+  }
 
   &__maximize-grants,
   &__reduce-costs,
   &__different-program,
   &__transfer-credits,
+  &__work-while-studying,
   &__explore-schools {
     background-position: center 15px;
     background-size: 150px;
@@ -1432,6 +1458,10 @@
     background-image: url('../img/explore-schools_150.png');
   }
 
+  &__work-while-studying {
+    background-image: url('../img/work-while-studying_150.png');
+  }
+
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 
     &__maximize-grants {
@@ -1452,6 +1482,10 @@
 
     &__explore-schools {
       background-image: url('../img/explore-schools_300.png');
+    }
+
+    &__work-while-studying {
+      background-image: url('../img/work-while-studying_300.png');
     }
   }
 
