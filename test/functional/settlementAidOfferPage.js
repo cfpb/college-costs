@@ -472,12 +472,12 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     debtBurdenPayment: {
       get: function() {
-        return element( by.css( '.debt-equation [data-debt-burden="monthly-payment"]' ) );
+        return element( by.css( '.debt-equation [data-debt-burden="loanMonthly"]' ) );
       }
     },
     debtBurdenSalary: {
       get: function() {
-        return element( by.css( '.debt-equation [data-debt-burden="monthly-salary"]' ) );
+        return element( by.css( '.debt-equation [data-debt-burden="monthlySalary"]' ) );
       }
     },
     debtBurdenNotification: {

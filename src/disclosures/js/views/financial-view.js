@@ -167,7 +167,8 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
-    metricView.updateDebtBurdenDisplay( values );
+    metricView.updateDebtBurden( values );
+    metricView.updateMonthlyPayment();
   },
 
   /**
