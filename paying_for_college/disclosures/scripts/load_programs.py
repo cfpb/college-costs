@@ -1,7 +1,7 @@
 from __future__ import print_function
 import os
 
-from csvkit import CSVKitDictReader as cdr
+from csv import DictReader as cdr
 from rest_framework import serializers
 
 from paying_for_college.models import Program, School
