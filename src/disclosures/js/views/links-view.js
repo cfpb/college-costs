@@ -33,7 +33,7 @@ var linksView = {
   setGraduationLink: function( values ) {
     var formattedSchoolName = values.school.replace( /\s/g, '-' );
     var gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
-     '-' + formattedSchoolName + '#graduation';
+    '#graduation';
     if ( gradURL ) {
       var $gradLink = $( '<a>', {
         'href': gradURL,
