@@ -338,6 +338,9 @@ var financialView = {
       var programLength = Number( $( this ).val() ),
           values = getFinancial.values(),
           yearsAttending = numberToWords.toWords( programLength );
+      if( programLength % 1 != 0 ) {
+        yearsAttending = yearsAttending + ' and a half';
+      }
       publish.financialData( 'programLength', programLength );
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
