@@ -1801,7 +1801,7 @@
                                             </div>
                                             <div class="bar-graph_line"></div>
                                             <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
+                                                <div data-bar-graph_number="you" class="bar-graph_number"></div>
                                             </div>
                                         </div>
                                         <div class="bar-graph_point
@@ -1811,7 +1811,7 @@
                                             </div>
                                             <div class="bar-graph_line"></div>
                                             <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
+                                                <div data-bar-graph_number="average" class="bar-graph_number"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1972,6 +1972,113 @@
                             </section>
                         </div>
                     </section>
+                    <section class="criteria column-well_wrapper">
+                        <h3 class="criteria_heading">
+                            How much will I pay per month for all of my student loans?
+                        </h3>
+                        <div class="criteria_wrapper">
+                            <div class="criteria_intro">
+                                <p>
+                                  Currently, your projected monthly student
+                                  loan payment is
+                                  <span id="criteria_loan-monthly"
+                                  data-financial="loanMonthly">
+                                  [XXXX]</span>, based on standard
+                                  loan terms of 10 years. Once you leave
+                                  school, you have several different repayment
+                                  options for your federal loans that may help
+                                  reduce your monthly student loan payment.
+                                  You may also be eligible for a federal tax
+                                  credit or deduction.
+                                </p>
+                                <p>
+                                  Many of these alternative repayment plans
+                                  are based on income and family size, which
+                                  means the lower your salary, the lower your
+                                  student loan payment. For instance, if you
+                                  have a family of four with an annual income
+                                  of $50,000, your monthly student loan
+                                  payment would be $114. It could be as low as
+                                  $0, depending on your income and family
+                                  size. If you select one of these income-
+                                  based repayment plans you may be paying off
+                                  your loans for upwards of 20 to 25 years.
+                                </p>
+                                <p>
+                                  Another payment option extends your
+                                  repayment over 25 years, which means you
+                                  would have a lower monthly student loan
+                                  payment but a higher total cost of interest
+                                  over the life of the loan.
+                                </p>
+                                <p>
+                                  These repayment plans typically aren’t
+                                  available for private student loans. If
+                                  you’re still not able to make payments on
+                                  your loans, you could go into default.
+                                </p>
+                            </div>
+                            <section class="metric salary-and-debt
+                            column-well column-well__bleed
+                            column-well__not-stacked"
+                             data-repayment-section="monthly-payment">
+                                <div class="column-well_content">
+                                    <h4 class="metric_heading">
+                                        Calculate your monthly payment
+                                    </h4>
+                                    <p>
+                                        Once you leave school, you can choose
+                                        one of several available repayment
+                                        options.
+                                    </p>
+                                    <div class="salary-and-debt_projection">
+                                        <div
+                                        class="salary-and-debt_projection-name">
+                                         Your projected loan payment
+                                        </div>
+                                        <div
+                                        class="salary-and-debt_projection-value">
+                                            <span
+                                            data-repayment="loanMonthly">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="salary-and-debt_projection">
+                                        <div
+                                        class="salary-and-debt_projection-name">
+                                          Total cost of repayment with interest
+                                          and fees
+                                        </div>
+                                        <div
+                                        class="salary-and-debt_projection-value">
+                                            <span
+                                            data-repayment="loanLifetime">
+                                            </span>
+                                      </div>
+                                    </div>
+                                    <div>
+                                      <p>
+                                        See how loan length affects your payments
+                                      </p>
+                                      <div id="monthly-payment_term">
+                                        <label for="monthly-payment_term_10">
+                                          <input id="monthly-payment_term_10" type="radio" name="monthly-payment_term"  value="ten" checked> 10 years
+                                        </label>
+                                        <label>
+                                          <input id="monthly-payment_term_25" type="radio" name="monthly-payment_term" value="twentyFive">
+                                          25 years
+                                        </label>
+                                      </div>
+                                      <p>
+                                        <a href="?">
+                                          Learn about other repayment options
+                                        </a>
+                                      </p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
                     <section class="criteria
                     column-well_wrapper__overflow-small">
                         <h3 class="criteria_heading">
@@ -1999,7 +2106,8 @@
                                 </p>
                             </div>
                             <section class="metric debt-burden column-well
-                              column-well__bleed column-well__not-stacked">
+                              column-well__bleed column-well__not-stacked"
+                              data-repayment-section="debt-burden">
                                   <div class="column-well_content">
                                       <h4 class="metric_heading">
                                           Your estimated debt burden
@@ -2017,9 +2125,9 @@
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="annual-salary"></span>
+                                              <span data-debt-burden="annualSalary"></span>
                                               / yr.<br>
-                                              <span data-debt-burden="monthly-salary"></span>
+                                              <span data-debt-burden="monthlySalary"></span>
                                               / mo.
                                           </div>
                                       </div>
@@ -2030,7 +2138,7 @@
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="monthly-payment"></span>
+                                              <span data-debt-burden="loanMonthly"></span>
                                               / mo.
                                           </div>
                                       </div>
@@ -2038,7 +2146,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__loan">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="monthly-payment"></span>
+                                                  <span data-debt-burden="loanMonthly"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   loan payment
@@ -2050,7 +2158,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__income">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="monthly-salary"></span>
+                                                  <span data-debt-burden="monthlySalary"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   monthly salary
@@ -2062,7 +2170,7 @@
                                           <div class="debt-equation_part
                                           debt-equation_part__percent">
                                               <div class="debt-equation_number">
-                                                  <span data-debt-burden="debt-burden"></span>
+                                                  <span data-debt-burden="debtBurden"></span>
                                               </div>
                                               <div class="debt-equation_label">
                                                   of your income
@@ -2089,6 +2197,18 @@
                                               Loan payment is higher than
                                               recommended 8% of salary
                                           </p>
+                                      </div>
+                                      <div id="estimated-debt-burden_term"  data-repayment-section="estimated-debt-burden">
+                                      <p>
+                                        See how loan length affects your debt burden
+                                      </p>
+                                        <label for="estimated-debt-burden_term_10">
+                                          <input id="estimated-debt-burden_term_10" type="radio" name="estimated-debt-burden_term"  value="ten" checked> 10 years
+                                        </label>
+                                        <label>
+                                          <input id="estimated-debt-burden_term_25" type="radio" name="estimated-debt-burden_term" value="twentyFive">
+                                          25 years
+                                        </label>
                                       </div>
                                   </div>
                               </section>
@@ -2384,7 +2504,7 @@
                                             </div>
                                             <div class="bar-graph_line"></div>
                                             <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
+                                                <div data-bar-graph_number="you" class="bar-graph_number"></div>
                                             </div>
                                         </div>
                                         <div class="bar-graph_point
@@ -2394,7 +2514,7 @@
                                             </div>
                                             <div class="bar-graph_line"></div>
                                             <div class="bar-graph_value">
-                                                <div class="bar-graph_number"></div>
+                                                <div data-bar-graph_number="average" class="bar-graph_number"></div>
                                             </div>
                                         </div>
                                     </div>

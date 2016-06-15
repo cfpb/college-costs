@@ -14,6 +14,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added graduation rate and loan default rate external links
 - Changed the scale of the loan default rate graph to 40%
 - General code housekeeping (GitHub templates, linting improvements)
+- loanDefaultRate values (three of them) removed from national-stats API calls
+- metric-view refactored
+- 10/25 loan term toggles added to metrics section
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions
