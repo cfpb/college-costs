@@ -46,6 +46,7 @@ var financialView = {
    * A better rounding function
    * @param {number} n - Number to be rounded
    * @param {number} decimals - Number of decimal places
+   * @returns {number} rounded value
    */
   round: function( n, decimals ) {
     var number = n + 'e' + decimals;
