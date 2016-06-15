@@ -22,10 +22,11 @@ class ConstantCapAdmin(admin.ModelAdmin):
 class SchoolAdmin(admin.ModelAdmin):
     list_display = ('primary_alias',
                     'school_id',
+                    'operating',
                     'city',
                     'state',
                     'settlement_school')
-    list_filter = ('settlement_school', 'state')
+    list_filter = ('settlement_school', 'operating', 'state')
     list_editable = ('settlement_school',)
     search_fields = ['school_id', 'city', 'state']
     ordering = ['state']
