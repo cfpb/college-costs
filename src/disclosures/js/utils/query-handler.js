@@ -1,6 +1,7 @@
 'use strict';
 
 var stringToNum = require( './handle-string-input.js' );
+var getFinancial = require( '../dispatchers/get-financial-values.js' );
 
 /**
  * Handles URL questy string to turn key-value pairs into an object.
@@ -10,10 +11,12 @@ var stringToNum = require( './handle-string-input.js' );
 function queryHandler( queryString ) {
   var valuePairs = {};
   var parameters = {};
+  var directFee = getFinancial.values().DLOriginationFee - 1;
   var numericKeys = [
     'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
-    'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'insl', 'insi', 'sav'
+    'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'prvf', 'insl',
+    'insi', 'sav'
   ];
   var keyMaps = {
     iped: 'collegeID',
@@ -40,6 +43,7 @@ function queryHandler( queryString ) {
     gpl:  'gradPlus',
     prvl: 'privateLoan',
     prvi: 'privateLoanRate',
+    prvf: 'privateLoanFee',
     insl: 'institutionalLoan',
     insi: 'institutionalLoanRate'
   };
@@ -92,20 +96,25 @@ function queryHandler( queryString ) {
       }
     }
   }
+
   getPairs();
   remapKeys();
+
   // move private loan properties to privateLoanMulti
   valuePairs.privateLoanMulti = [
     { amount: valuePairs.privateLoan || 0,
       rate:   valuePairs.privateLoanRate / 100 || 0.079,
-      fees:   0,
+      fees:   valuePairs.privateLoanFee / 100 || directFee || 0,
       deferPeriod: 6 }
   ];
   delete valuePairs.privateLoan;
   delete valuePairs.privateLoanRate;
+  delete valuePairs.privateLoanFee;
+
   // family contributions = parent loan
   valuePairs.family = valuePairs.parentLoan;
   valuePairs.institutionalLoanRate /= 100;
+
   return valuePairs;
 }
 
