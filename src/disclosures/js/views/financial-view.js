@@ -43,6 +43,17 @@ var financialView = {
   },
 
   /**
+   * A better rounding function
+   * @param {number} n - Number to be rounded
+   * @param {number} decimals - Number of decimal places
+   * @returns {number} rounded value
+   */
+  round: function( n, decimals ) {
+    var number = n + 'e' + decimals;
+    return Number( Math.round( number )+ 'e-' + decimals );
+  },
+
+  /**
    * Helper function that updates the value or text of an element
    * @param {object} $ele - jQuery object of the element to update
    * @param {number|string} value - The new value
@@ -71,7 +82,7 @@ var financialView = {
     $percents.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
-          value = values[name] * 100;
+          value = financialView.round( values[name] * 100, 2 );
       financialView.updateElement( $ele, value, false );
     } );
   },
@@ -104,20 +115,23 @@ var financialView = {
    */
   updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
-      var index = $( this ).index(),
-          $fields = $( this ).find( '[data-private-loan_key]' );
+      var $loanElements = $( this ),
+          index = $loanElements.index(),
+          $fields = $loanElements.find( '[data-private-loan_key]' );
       $fields.not( '#' + financialView.currentInput ).each( function() {
-        var key = $( this ).attr( 'data-private-loan_key' ),
+        var $ele = $( this ),
+            key = $ele.attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
-            isntCurrentInput =
-            $( this ).attr( 'id' ) !== financialView.currentInput;
-        if ( $( this ).is( '[data-percentage_value="true"]' ) ) {
+            id = $ele.attr( 'id' ),
+            isntCurrentInput = id !== financialView.currentInput,
+            len;
+        if ( $ele.is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
-          $( this ).val( val );
+          $ele.val( financialView.round( val, 3 ) );
         } else if ( isntCurrentInput && key === 'amount' ) {
-          $( this ).val( formatUSD( { amount: val, decimalPlaces: 0 } ) );
+          $ele.val( formatUSD( { amount: val, decimalPlaces: 0 } ) );
         } else {
-          $( this ).val( val );
+          $ele.val( val );
         }
       } );
     } );
