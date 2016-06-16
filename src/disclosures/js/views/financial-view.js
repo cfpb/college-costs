@@ -47,7 +47,32 @@ var financialView = {
    * @param {object} financials - the financials model
    */
   setCaps: function( financials ) {
-    
+    var capMap = {
+          pell: 'pellCap',
+          pellGrad: 'pellCap',
+          perkins: 'perkinsUnderCap',
+          perkinsGrad: 'perkinsGradCap',
+          militaryTuitionAssistance: 'militaryAssistanceCap',
+          militaryTuitionGrad: 'militaryAssistanceCap',
+          directSubsidized: 'subsidizedCapYearOne',
+          directSubsidizedGrad: 'subsidizedCapYearOne',
+          directUnsubsidized: 'unsubsidizedCapYearOne',
+          directUnsubsidizedGrad: 'unsubsidizedCapIndepYearOne'
+        },
+        $elems = $( '[data-cap]' );
+
+    $elems.each( function() {
+      var $cap = $( this ),
+          prop = $cap.attr( 'data-cap' ),
+          capKey = capMap[prop],
+          text;
+      if ( financials.undergrad === false ) {
+        capKey += 'Grad';
+      }
+      console.log( capKey, financials[capKey] );
+      text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
+      $cap.text( text );
+    } );
   },
 
   /**
