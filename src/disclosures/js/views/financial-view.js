@@ -82,7 +82,7 @@ var financialView = {
     $percents.not( '#' + financialView.currentInput ).each( function() {
       var $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
-          value = financialView.round( values[name] * 100, 2 );
+          value = financialView.round( values[name] * 100, 3 );
       financialView.updateElement( $ele, value, false );
     } );
   },
