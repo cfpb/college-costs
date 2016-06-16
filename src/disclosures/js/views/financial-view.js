@@ -50,7 +50,7 @@ var financialView = {
    */
   round: function( n, decimals ) {
     var number = n + 'e' + decimals;
-    return Number( Math.round( number )+ 'e-' + decimals );
+    return Number( Math.round( number ) + 'e-' + decimals );
   },
 
   /**
@@ -123,8 +123,7 @@ var financialView = {
             key = $ele.attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
             id = $ele.attr( 'id' ),
-            isntCurrentInput = id !== financialView.currentInput,
-            len;
+            isntCurrentInput = id !== financialView.currentInput;
         if ( $ele.is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $ele.val( financialView.round( val, 3 ) );
@@ -338,8 +337,8 @@ var financialView = {
       var programLength = Number( $( this ).val() ),
           values = getFinancial.values(),
           yearsAttending = numberToWords.toWords( programLength );
-      if( programLength % 1 != 0 ) {
-        yearsAttending = yearsAttending + ' and a half';
+      if ( programLength % 1 !== 0 ) {
+        yearsAttending += ' and a half';
       }
       publish.financialData( 'programLength', programLength );
       publish.financialData( 'yearsAttending', yearsAttending );
