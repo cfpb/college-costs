@@ -1390,28 +1390,26 @@
   }
 
   &__settlement {
-    .grid_column(8);
 
+    .respond-to-min(@bp-med-min, {
+      .grid_column(8);
+    });
   }
 
   &__sidebar {
-    .grid_column(4);
-
     margin-top: unit(60px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(4);
+    });
   }
 }
 
 .option {
-  margin-top: unit(30px / @base-font-size-px, em);
-
-  .respond-to-min(@bp-sm-min, {
-    .grid_column(6);
-    margin-top: unit(45px / @base-font-size-px, em);
-  });
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .respond-to-min(@bp-med-min, {
     .grid_column(4);
-    margin-top: unit(45px / @base-font-size-px, em);
   });
 
   &__maximize-grants,
@@ -1420,9 +1418,13 @@
   &__transfer-credits,
   &__work-while-studying,
   &__explore-schools {
-    background-position: center 15px;
+    background-position: center 30px;
     background-size: 150px;
     background-repeat: no-repeat;
+
+    .respond-to-min(@bp-med-min, {
+      background-position: center 60px;
+    });
   }
 
   &__maximize-grants {
@@ -1477,8 +1479,12 @@
   }
 
   &_heading {
-    padding-top: unit(195px / @font-size, em);
+    padding-top: unit(225px / @font-size, em);
     .heading-4();
+
+    .respond-to-min(@bp-med-min, {
+      padding-top: unit(255px / @font-size, em);
+    });
   }
 
   &__take-action-header {
