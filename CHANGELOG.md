@@ -22,6 +22,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Shift line item dollar signs over to accommodate six figure values
 - add `operating` field to admin
 - added a check to fetchProgramData() for offers with no pid
+- added capture of bad URS in the API program view
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions
