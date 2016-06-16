@@ -43,6 +43,14 @@ var financialView = {
   },
 
   /**
+   * Sets all the values for caps in the errors notifications
+   * @param {object} financials - the financials model
+   */
+  setCaps: function( financials ) {
+    
+  },
+
+  /**
    * A better rounding function
    * @param {number} n - Number to be rounded
    * @param {number} decimals - Number of decimal places
@@ -338,6 +346,9 @@ var financialView = {
       var programLength = Number( $( this ).val() ),
           values = getFinancial.values(),
           yearsAttending = numberToWords.toWords( programLength );
+      if( programLength % 1 != 0 ) {
+        yearsAttending = yearsAttending + ' and a half';
+      }
       publish.financialData( 'programLength', programLength );
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );

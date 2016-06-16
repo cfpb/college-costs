@@ -18,6 +18,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - loanDefaultRate values (three of them) removed from national-stats API calls
 - metric-view refactored
 - 10/25 loan term toggles added to metrics section
+- Include half year options for program length
+- Shift line item dollar signs over to accommodate six figure values
 - add `operating` field to admin
 
 ## 2.1.1

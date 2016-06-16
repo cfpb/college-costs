@@ -89,14 +89,14 @@
                                 <dd class="verify_value verify_estimate">
                                     <p class="verify_label-explanation">
                                         Select how long you expect it to take to
-                                        complete this program. This may be shorter
-                                        than the program length above if you
-                                        transferred in with credits that the school
-                                        accepts. It may be longer if you plan to
-                                        attend part time or do not successfully
-                                        complete your courses. We’ll use this to
-                                        help calculate your total debt after
-                                        graduation.
+                                        complete this program. This may be
+                                        shorter than the program length above if
+                                        you transferred in with credits that the
+                                        school accepts. It may be longer if you
+                                        plan to attend part time or do not
+                                        successfully complete your courses.
+                                        We’ll use this to help calculate your
+                                        total debt after graduation.
                                     </p>
                                     <div class="cf-select">
                                         <select id="estimated-years-attending">
@@ -106,20 +106,38 @@
                                             <option value="1">
                                                 1 year
                                             </option>
+                                            <option value="1.5">
+                                                1.5 years
+                                            </option>
                                             <option value="2">
                                                 2 years
+                                            </option>
+                                            <option value="2.5">
+                                                2.5 years
                                             </option>
                                             <option value="3">
                                                 3 years
                                             </option>
+                                            <option value="3.5">
+                                                3.5 years
+                                            </option>
                                             <option value="4">
                                                 4 years
+                                            </option>
+                                            <option value="4.5">
+                                                4.5 years
                                             </option>
                                             <option value="5">
                                                 5 years
                                             </option>
+                                            <option value="5.5">
+                                                5.5 years
+                                            </option>
                                             <option value="6">
                                                 6 years
+                                            </option>
+                                            <option value="6.5">
+                                                6.5 years
                                             </option>
                                         </select>
                                     </div>
@@ -358,11 +376,19 @@
                                         </div>
                                         <div class="aid-form_input-wrapper">
                                             <input class="aid-form_input
-                                            aid-form_input__currency"
+                                            aid-form_input__currency
+                                            aid-form_input__error"
                                             type="text" id="grants__pell"
                                             name="grants__pell"
                                             data-financial="pell"
                                             autocorrect="off" value="0">
+                                            <div data-calc-error="pell">
+                                                <span class="cf-icon cf-icon-error-round"></span> The maximum that can be awarded per year is <span data-cap="pell">$0</span>
+                                            </div>
+                                            <div data-calc-error="overBorrowing">
+                                                <span class="cf-icon cf-icon-error-round"></span>
+                                                The total of your federal aid can't be more than the total cost of attendance
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group_item">
@@ -444,6 +470,10 @@
                                             name="grants__military"
                                             data-financial="militaryTuitionAssistance"
                                             autocorrect="off" value="0">
+                                            <div data-calc-error="militaryTuitionAssistance">
+                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is 
+                                                <span data-cap="militaryTuitionAssistance">$0</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group_item">
@@ -826,6 +856,10 @@
                                             name="contrib__perkins"
                                             data-financial="perkins"
                                             autocorrect="off" value="0">
+                                            <div data-calc-error="perkins">
+                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is 
+                                                <span data-cap="perkins">$0</span>
+                                            </div>
                                         </div>
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">
@@ -860,6 +894,10 @@
                                             name="contrib__subsidized"
                                             data-financial="directSubsidized"
                                             autocorrect="off" value="0">
+                                            <div data-calc-error="directSubsidized">
+                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is 
+                                                <span data-cap="directSubsidized">$0</span>
+                                            </div>
                                         </div>
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">
@@ -902,6 +940,10 @@
                                             name="contrib__unsubsidized"
                                             data-financial="directUnsubsidized"
                                             autocorrect="off" value="0">
+                                            <div data-calc-error="directUnsubsidized">
+                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is 
+                                                <span data-cap="directUnsubsidized">$0</span>
+                                            </div>
                                         </div>
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">

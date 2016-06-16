@@ -69,6 +69,7 @@ var financialModel = {
     this.roundValues();
     this.reportErrors();
     this.sumDirectCost();
+    console.log( this.values );
   },
 
   /**

@@ -503,12 +503,20 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.totalRepayment.getText() ).toEqual( '29,889' );
   } );
 
-  it( 'should update total borrowing and verbiage when program length is changed', function() {
+  it( 'should update total borrowing and verbiage when program length is changed to a whole year number', function() {
      page.confirmVerification();
      page.setProgramLength( 4 );
      browser.sleep( 1000 );
      expect( page.futureYearsAttending.getText() ).toEqual( 'four' );
      expect( page.totalProgramDebt.getText() ).toEqual( '46,000' );
+  });
+
+  it( 'should update total borrowing and verbiage when program length is changed to a partial year number', function() {
+     page.confirmVerification();
+     page.setProgramLength( 4.5 );
+     browser.sleep( 1000 );
+     expect( page.futureYearsAttending.getText() ).toEqual( 'four and a half' );
+     expect( page.totalProgramDebt.getText() ).toEqual( '51,750' );
   });
 
   it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {

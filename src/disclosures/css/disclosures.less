@@ -331,6 +331,19 @@
       -webkit-text-fill-color: @black;
       opacity: 1;
     }
+
+    &&__error {
+     border-color: @red-80;
+     border-width: unit( 2px / @base-font-size-px, em );
+    }
+  }
+
+  [data-calc-error] {
+    font-size: unit(@small-font-size-px / @base-font-size-px, em);
+    
+    & > .cf-icon-error-round {
+      color: @red-80;
+    }
   }
 
   &_unit {
@@ -455,7 +468,7 @@
 
   &_currency {
     position: absolute;
-    right: unit(77px / @font-size, em);
+    right: unit(88px / @font-size, em);
   }
 
   &_explanation {
@@ -1605,4 +1618,5 @@
       .grid_column(6);
     });
   }
+
 }
