@@ -35,7 +35,7 @@ var questionView = {
   displayOptions: function( settlementStatus ) {
     if ( settlementStatus === true ) {
       questionView.$optionsWrapper.addClass(
-        'get-options__settlement content-l_col content-l_col-2-3' );
+        'get-options__settlement content_main' );
       questionView.$transferCredits.remove();
       questionView.$exploreSchools.remove();
       questionView.$takeAction.remove();

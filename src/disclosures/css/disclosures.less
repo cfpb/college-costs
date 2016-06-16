@@ -1398,11 +1398,11 @@
     .grid_column(4);
 
     margin-top: unit(60px / @base-font-size-px, em);
-    background-color: @gray-5;
   }
 }
 
 .option {
+  margin-top: unit(30px / @base-font-size-px, em);
 
   .respond-to-min(@bp-sm-min, {
     .grid_column(6);
@@ -1413,19 +1413,6 @@
     .grid_column(4);
     margin-top: unit(45px / @base-font-size-px, em);
   });
-
-  &__settlement {
-
-    .respond-to-min(@bp-sm-min, {
-      .grid_column(12);
-      margin-top: unit(45px / @base-font-size-px, em);
-    });
-
-    .respond-to-min(@bp-med-min, {
-      .grid_column(1, 2);
-      margin-top: unit(45px / @base-font-size-px, em);
-    });
-  }
 
   &__maximize-grants,
   &__reduce-costs,
@@ -1523,6 +1510,44 @@
     .respond-to-min(@bp-med-min, {
       border-top: 1px solid @gray-40;
     });
+  }
+
+  // Settlement school modifications
+  &__settlement {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(12);
+      margin-top: unit(45px / @base-font-size-px, em);
+    });
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(1, 2);
+      margin-top: unit(45px / @base-font-size-px, em);
+    });
+
+    // Top borders on all but the first option on small screens and only the second row of options on larger screens
+    & + & .option_heading {
+      border-top: 1px solid @gray-40;
+
+      .respond-to-min(@bp-med-min, {
+        border-top: none;
+      });
+    }
+
+    & + & + & .option_heading {
+
+      .respond-to-min(@bp-sm-min, {
+        border-top: 1px solid @gray-40;
+      });
+
+    }
+
+    & + & + & + & .option_heading {
+
+      .respond-to-min(@bp-med-min, {
+        border-top: 1px solid @gray-40;
+      });
+    }
   }
 }
 
