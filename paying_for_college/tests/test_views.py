@@ -275,7 +275,7 @@ class APITests(django.test.TestCase):
         resp = client.get(url)
         self.assertTrue('No expense' in resp.content)
 
-    # /paying-for-college/understanding-financial-aid-offers/api/program/408039-981/
+    # /paying-for-college/understanding-financial-aid-offers/api/program/408039_981/
     def test_program_json(self):
         """api call for program details."""
 
@@ -283,6 +283,10 @@ class APITests(django.test.TestCase):
         resp = client.get(url)
         self.assertTrue('housing' in resp.content)
         self.assertTrue('books' in resp.content)
+        bad_url = reverse('disclosures:program-json', args=['408039'])
+        resp2 = client.get(bad_url)
+        self.assertTrue(resp2.status_code == 400)
+        self.assertTrue('Error' in resp2.content)
 
 
 class VerifyViewTest(django.test.TestCase):
