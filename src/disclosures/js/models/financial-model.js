@@ -67,9 +67,7 @@ var financialModel = {
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
-    this.reportErrors();
     this.sumDirectCost();
-    console.log( this.values );
   },
 
   /**
@@ -104,15 +102,6 @@ var financialModel = {
       schoolValues.undergrad = false;
     }
     $.extend( this.values, schoolValues );
-  },
-
-  /**
-   * Report errors to the user
-   */
-  reportErrors: function() {
-    // This is something of a placeholder for future code.
-    // For now, feel free to uncomment the following and view the errors object.
-    // console.log( this.values.errors );
   }
 
 };
