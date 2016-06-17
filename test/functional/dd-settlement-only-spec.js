@@ -33,7 +33,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.gradRateLink.getAttribute( 'href' ) ).toEqual( 'https://collegescorecard.ed.gov/school/?408039-Brown-Mackie-College-Fort-Wayne#graduation' );
+    expect( page.gradRateLink.getAttribute( 'href' ) ).toEqual( 'https://collegescorecard.ed.gov/school/?408039#graduation' );
   } );
 
   it( 'should open the link to the College Scorecard graduation rate comparison in a new tab with the graduation rate section open', function() {
