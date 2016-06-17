@@ -54,6 +54,9 @@ var app = {
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
               $( '#bls-region-select' ).val( region ).change();
+
+              // set financial caps based on data
+              financialView.setCaps( getFinancial.values() );
             } );
         }
         questionView.init();

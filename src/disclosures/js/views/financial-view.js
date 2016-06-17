@@ -43,6 +43,38 @@ var financialView = {
   },
 
   /**
+   * Sets all the values for caps in the errors notifications
+   * @param {object} financials - the financials model
+   */
+  setCaps: function( financials ) {
+    var capMap = {
+          pell: 'pellCap',
+          pellGrad: 'pellCap',
+          perkins: 'perkinsUnderCap',
+          perkinsGrad: 'perkinsGradCap',
+          militaryTuitionAssistance: 'militaryAssistanceCap',
+          militaryTuitionGrad: 'militaryAssistanceCap',
+          directSubsidized: 'subsidizedCapYearOne',
+          directSubsidizedGrad: 'subsidizedCapYearOne',
+          directUnsubsidized: 'directUnsubsidizedIndepMax',
+          directUnsubsidizedGrad: 'directUnsubsidizedIndepMax'
+        },
+        $elems = $( '[data-cap]' );
+
+    $elems.each( function() {
+      var $cap = $( this ),
+          prop = $cap.attr( 'data-cap' ),
+          capKey = capMap[prop],
+          text;
+      if ( financials.undergrad === false ) {
+        capKey += 'Grad';
+      }
+      text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
+      $cap.text( text );
+    } );
+  },
+
+  /**
    * A better rounding function
    * @param {number} n - Number to be rounded
    * @param {number} decimals - Number of decimal places
@@ -51,6 +83,25 @@ var financialView = {
   round: function( n, decimals ) {
     var number = n + 'e' + decimals;
     return Number( Math.round( number ) + 'e-' + decimals );
+  },
+
+  /**
+   * Function that updates the view with new values
+   * @param {object} values - financial model values
+   */
+  updateView: function( values ) {
+    // handle non-private-loan fields
+    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
+        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
+        $privateLoans = $( '[data-private-loan]' );
+    this.updatePercentages( values, $percents );
+    this.updateLeftovers( values, $leftovers );
+    this.updatePrivateLoans( values, $privateLoans );
+    this.updateRemainingCostContent();
+    metricView.updateDebtBurden( values );
+    metricView.updateMonthlyPayment();
+    this.updateCalculationErrors( values );
   },
 
   /**
@@ -154,24 +205,6 @@ var financialView = {
   },
 
   /**
-   * Function that updates the view with new values
-   * @param {object} values - financial model values
-   */
-  updateView: function( values ) {
-    // handle non-private-loan fields
-    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
-        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
-        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
-        $privateLoans = $( '[data-private-loan]' );
-    this.updatePercentages( values, $percents );
-    this.updateLeftovers( values, $leftovers );
-    this.updatePrivateLoans( values, $privateLoans );
-    this.updateRemainingCostContent();
-    metricView.updateDebtBurden( values );
-    metricView.updateMonthlyPayment();
-  },
-
-  /**
    * Updates view based on program data (including school data).
    * This updates the programLength dropdown and visibility of gradPLUS loans.
    * @param {object} values - An object with program values
@@ -184,6 +217,67 @@ var financialView = {
     // Update availability of gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
     this.perkinsVisible( values.offersPerkins );
+  },
+
+  /**
+   * Update the view with calculation errors
+   * @param {object} values - financial model values object
+   */
+  updateCalculationErrors: function( values ) {
+    var errors = values.errors;
+
+    // hide errors
+    $( '[data-calc-error]' ).hide();
+
+    this.checkOverCapErrors( errors );
+    this.checkOverBorrowingErrors( errors );
+  },
+
+  /**
+   * Checks and shows OverCap errors
+   * @param {object} errors - Errors object
+   */
+  checkOverCapErrors: function( errors ) {
+    var errorMap = {
+      subsidizedOverCap: 'directSubsidized',
+      unsubsidizedOverCap: 'directUnsubsidized',
+      perkinsOverCap: 'perkins',
+      pellOverCap: 'pellOverCap',
+      mtaOverCap: 'militaryTuitionAssistance'
+    };
+
+    // check errors for overCap errors
+    for ( var error in errors ) {
+      if ( errors.hasOwnProperty( error ) ) {
+        var key = errorMap[error],
+            selector = '[data-calc-error="' + key + '"]';
+        $( selector ).show();
+      }
+    }
+  },
+
+  /**
+   * Checks and shows over-borrowing errors
+   * @param {object} errors - Errors object
+   */
+  checkOverBorrowingErrors: function( errors ) {
+    var overBorrowingErrors = [
+          'perkinsOverCost', 'subsidizedOverCost',
+          'unsubsidizedOverCost'
+        ],
+        showOverBorrowing = false,
+        $over = $( '[data-calc-error="overBorrowing"]' );
+
+    // check for over-borrowing
+    for ( var i = 0; i < overBorrowingErrors.length; i++ ) {
+      if ( errors.hasOwnProperty( overBorrowingErrors[i] ) ) {
+        showOverBorrowing = true;
+      }
+    }
+    if ( showOverBorrowing ) {
+      var $current = $( '#' + financialView.currentInput );
+      $over.appendTo( $current.parent() ).show();
+    }
   },
 
   /**
