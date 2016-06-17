@@ -61,23 +61,30 @@ var getApiValues = {
   },
 
   fetchProgramData: function( iped, pid ) {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
-      '/understanding-your-financial-aid-offer/api/program/' + iped + '_' +
-      pid + '/';
-    var programDataRequest = $.ajax( {
-      url: url,
-      dataType: 'json',
-      success: function( resp ) {
-        return resp;
-      },
-      // TODO: the user should be notified of errors
-      error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
-      }
-    } );
+    if ( !pid ) {
+      return [{
+        'pidNotFound': 'An invalid program ID was passed to the ' +
+        'fetchProgramData request.'
+      }];
+    } else {
+      var urlBase = $( 'main' ).attr( 'data-context' );
+      var url = '/' + urlBase +
+        '/understanding-your-financial-aid-offer/api/program/' + iped + '_' +
+        pid + '/';
+      var programDataRequest = $.ajax( {
+        url: url,
+        dataType: 'json',
+        success: function( resp ) {
+          return resp;
+        },
+        // TODO: the user should be notified of errors
+        error: function( req, status, err ) {
+          console.log( 'something went wrong', status, err );
+        }
+      } );
 
-    return programDataRequest;
+      return programDataRequest;
+    }
   },
 
   fetchNationalData: function( iped, pid ) {

@@ -36,9 +36,15 @@ var app = {
                   region;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( data );
-              // Update the financial model and view based on data
-              financialModel.updateModelWithProgram( schoolValues );
-              financialView.updateViewWithProgram( schoolValues );
+
+              // If PID exists, update the financial model and view based
+              // on program data
+              if ( !data.hasOwnProperty( 'pidNotFound' ) ) {
+                financialModel.updateModelWithProgram( schoolValues );
+                financialView.updateViewWithProgram( schoolValues );
+              }
+
+              // Add url values to the financial model
               publish.extendFinancialData( urlValues );
 
               // initialize metric view

@@ -500,15 +500,23 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.confirmVerification();
     expect( page.totalProgramDebt.getText() ).toEqual( '23,000' );
-    expect( page.totalRepayment.getText() ).toEqual( '29,889' );
+    expect( page.totalRepayment.getText() ).toEqual( '29,971' );
   } );
 
-  it( 'should update total borrowing and verbiage when program length is changed', function() {
+  it( 'should update total borrowing and verbiage when program length is changed to a whole year number', function() {
      page.confirmVerification();
      page.setProgramLength( 4 );
      browser.sleep( 1000 );
      expect( page.futureYearsAttending.getText() ).toEqual( 'four' );
      expect( page.totalProgramDebt.getText() ).toEqual( '46,000' );
+  });
+
+  it( 'should update total borrowing and verbiage when program length is changed to a partial year number', function() {
+     page.confirmVerification();
+     page.setProgramLength( 4.5 );
+     browser.sleep( 1000 );
+     expect( page.futureYearsAttending.getText() ).toEqual( 'four and a half' );
+     expect( page.totalProgramDebt.getText() ).toEqual( '51,750' );
   });
 
   it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
@@ -521,7 +529,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.remainingCostFinal.getText() ).toEqual( '6,526' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$11,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$29,889' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$29,971' );
   } );
 
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
@@ -534,7 +542,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.remainingCostFinal.getText() ).toEqual( '-8,474' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$11,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$29,889' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$29,971' );
   } );
 
   it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
@@ -547,7 +555,7 @@ it( 'should properly update when more than one private loans is modified', funct
     expect( page.remainingCostFinal.getText() ).toEqual( '0' );
     expect( page.futureTotalLoans.getText() ).toEqual( '$11,500' );
     expect( page.futureYearsAttending.getText() ).toEqual( 'two' );
-    expect( page.futureTotalDebt.getText() ).toEqual( '$29,889' );
+    expect( page.futureTotalDebt.getText() ).toEqual( '$29,971' );
   } );
 
   it( 'should let a student continue on to Step 2', function() {
@@ -568,7 +576,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.continueStep2();
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,611' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-943' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-944' );
   } );
 
   it( 'should properly change expenses when region is selected', function() {
@@ -589,7 +597,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyRent( 1151 );
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,853' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,185' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,186' );
   } );
 
   it( 'should properly update when estimated monthly food is modified', function() {
@@ -600,7 +608,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyFood( 675 );
     browser.sleep( 750 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,916' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,248' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,249' );
   } );
 
   it( 'should properly update when estimated monthly transportation is modified', function() {
@@ -611,7 +619,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyTransportation( 634 );
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,736' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,068' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,069' );
   } );
 
   it( 'should properly update when estimated monthly insurance is modified', function() {
@@ -622,7 +630,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyInsurance( 667 );
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '3,011' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,343' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,344' );
   } );
 
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
@@ -633,7 +641,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyRetirement( 169 );
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,674' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,006' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,007' );
   } );
 
   it( 'should properly update when estimated monthly other expenses are modified', function() {
@@ -644,7 +652,7 @@ it( 'should properly update when more than one private loans is modified', funct
     page.setMonthlyOther( 630 );
     browser.sleep( 1000 );
     expect( page.totalMonthlyExpenses.getText() ).toEqual( '2,897' );
-    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,229' );
+    expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-1,230' );
   } );
 
   it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
