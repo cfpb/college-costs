@@ -104,7 +104,7 @@ function queryHandler( queryString ) {
   valuePairs.privateLoanMulti = [
     { amount: valuePairs.privateLoan || 0,
       rate:   valuePairs.privateLoanRate / 100 || 0.079,
-      fees:   valuePairs.privateLoanFee / 100 || directFee || 0,
+      fees:   valuePairs.privateLoanFee / 100 || 0,
       deferPeriod: 6 }
   ];
   delete valuePairs.privateLoan;
