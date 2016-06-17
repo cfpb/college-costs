@@ -1,4 +1,4 @@
-import os
+import os 
 import json
 import uuid
 import re
@@ -222,6 +222,12 @@ class ProgramRepresentation(View):
                                  program_code=ids[1])
 
     def get(self, request, program_code, **kwargs):
+        ids = program_code.split('_')
+        if len(ids) != 2:
+            error = ('Error: Programs must be specified in this way: '
+                     '"/program/SCHOOLID_PROGRAMID/" -- but this '
+                     'is what was received: /program/{}/'.format(program_code))
+            return HttpResponseBadRequest(error)
         program = self.get_program(program_code)
         return HttpResponse(program.as_json(),
                             content_type='application/json')
@@ -238,7 +244,8 @@ class StatsRepresentation(View):
         school_id = id_pair.split('_')[0]
         school = get_school(school_id)
         if not school:
-            error = "No school could be found for iped ID {0}".format(school_id)
+            error = ("No school could be found "
+                     "for iped ID {0}".format(school_id))
             return HttpResponseBadRequest(error)
         try:
             program_id = id_pair.split('_')[1]
