@@ -1,7 +1,6 @@
 'use strict';
 
 var stringToNum = require( './handle-string-input.js' );
-var getFinancial = require( '../dispatchers/get-financial-values.js' );
 
 /**
  * Handles URL questy string to turn key-value pairs into an object.
@@ -11,7 +10,6 @@ var getFinancial = require( '../dispatchers/get-financial-values.js' );
 function queryHandler( queryString ) {
   var valuePairs = {};
   var parameters = {};
-  var directFee = getFinancial.values().DLOriginationFee - 1;
   var numericKeys = [
     'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
