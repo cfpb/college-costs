@@ -727,7 +727,7 @@ it( 'should properly update when more than one private loans is modified', funct
   } );
 
   /* Note: this item was removed from the settlement version of the code */
-  /* it( 'should link to the correct College Scorecard search in a new tab', function() {
+  xit( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     page.continueStep2();
@@ -753,6 +753,6 @@ it( 'should properly update when more than one private loans is modified', funct
             browser.switchTo().window( handles[0] );
           } );
       } );
-  } );*/
+  } );
 
 });

@@ -19,7 +19,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   } );
 
   /* Note: this item was removed from the settlement version of the code */
-  /* it( 'should dynamically display the completion rate if it\'s available', function() {
+  xit( 'should dynamically display the completion rate if it\'s available', function() {
     browser.sleep( 600 );
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -28,7 +28,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.answerBigQuestionNo();
     browser.sleep( 1000 );
     expect( page.completionRate.getText() ).toEqual( '37' );
-  } ); */
+  } );
 
   it( 'should dynamically display the expected monthly salary if it\'s available', function() {
      browser.sleep( 600 );
