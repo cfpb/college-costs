@@ -30,10 +30,10 @@ var questionView = {
 
   /**
    * Show the appropriate content in Step 3 for settlement schools
-   * @param {boolean} settlementStatus Flag if this is a settlement school
+   * @param {boolean} isSettlementStatus Flag if this is a settlement school
    */
-  displayOptions: function( settlementStatus ) {
-    if ( settlementStatus === true ) {
+  displayOptions: function( isSettlementStatus ) {
+    if ( isSettlementStatus === true ) {
       questionView.$optionsWrapper.addClass(
         'get-options__settlement content_main' );
       questionView.$transferCredits.remove();
@@ -50,13 +50,13 @@ var questionView = {
 
   /**
    * Listener function for the "big question"/"moment of pause" buttons
-   * @param {boolean} settlementStatus Flag if this is a settlement school
+   * @param {boolean} isSettlementStatus Flag if this is a settlement school
    */
-  bigQuestionListener: function( settlementStatus ) {
+  bigQuestionListener: function( isSettlementStatus ) {
     var $answerButtons = $( '.question_answers > .btn' );
     $answerButtons.on( 'click', function() {
       var values = getFinancial.values();
-      if ( settlementStatus === true ) {
+      if ( isSettlementStatus === true ) {
         postVerification.verify( values.offerID, values.schoolID, false );
       }
       $answerButtons.removeClass( 'active' );
