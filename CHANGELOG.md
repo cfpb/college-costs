@@ -24,6 +24,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - added a check to fetchProgramData() for offers with no pid
 - added capture of bad URS in the API program view
 - Modified Step 3 design and content
+- added error notifications for calculation errors
 
 ## 2.1.1
 - Parent PLUS loans separated from other family contributions
