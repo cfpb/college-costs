@@ -343,7 +343,7 @@
     line-height: 1.5;
     margin-top: unit( 5px / @base-font-size-px, em );
     display: none;
-    
+
     & > .cf-icon-error-round {
       color: @red-80;
       margin-right: unit( 5px / @base-font-size-px, em );
@@ -1390,7 +1390,7 @@
     });
 
     .respond-to-min(@bp-xl-min, {
-      .grid_column(7);
+      .grid_column(8);
     });
   }
 
@@ -1427,6 +1427,10 @@
     .respond-to-min(@bp-med-min, {
       .grid_column(4);
     });
+
+    .header-slug {
+      margin-top: unit(45px / @base-font-size-px, em);
+    }
   }
 }
 
@@ -1503,12 +1507,15 @@
     }
   }
 
+  // Add padding on top of the heading for the 150px illustration
+  // X-small and small screens: 150px + 30px padding above and below the image
+  // Meidum and larger screens: 150px + 60px padding above and below the image
   &_heading {
-    padding-top: unit(225px / @font-size, em);
+    padding-top: unit(210px / @font-size, em);
     .heading-4();
 
     .respond-to-min(@bp-med-min, {
-      padding-top: unit(255px / @font-size, em);
+      padding-top: unit(270px / @font-size, em);
     });
   }
 

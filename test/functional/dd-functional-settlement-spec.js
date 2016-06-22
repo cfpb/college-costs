@@ -335,9 +335,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should properly update when the federal subsidized loans are modified within the allowed limit', function() {
     page.confirmVerification();
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     page.setSubsidizedLoans( 3000 );
-    browser.sleep( 750 );
+    browser.sleep( 1000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '5,000' );
     expect( page.totalDebt.getText() ).toEqual( '11,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '3,026' );
