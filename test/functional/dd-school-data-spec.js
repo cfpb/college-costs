@@ -18,7 +18,8 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.totalProgramDebt.getText() ).toEqual( '23,000' );
   } );
 
-  it( 'should dynamically display the completion rate if it\'s available', function() {
+  /* Note: this item was removed from the settlement version of the code */
+  xit( 'should dynamically display the completion rate if it\'s available', function() {
     browser.sleep( 600 );
     page.confirmVerification();
     browser.sleep( 1000 );

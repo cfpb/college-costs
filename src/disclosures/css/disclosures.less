@@ -343,7 +343,7 @@
     line-height: 1.5;
     margin-top: unit( 5px / @base-font-size-px, em );
     display: none;
-    
+
     & > .cf-icon-error-round {
       color: @red-80;
       margin-right: unit( 5px / @base-font-size-px, em );
@@ -1390,7 +1390,7 @@
     });
 
     .respond-to-min(@bp-xl-min, {
-      .grid_column(7);
+      .grid_column(8);
     });
   }
 
@@ -1405,15 +1405,37 @@
       display: block;
     });
   }
+
+  &__settlement {
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(8);
+    });
+  }
+
+  &__sidebar {
+    margin-top: unit(60px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+    });
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(4);
+    });
+
+    .header-slug {
+      margin-top: unit(45px / @base-font-size-px, em);
+    }
+  }
 }
 
 .option {
-  margin-top: unit(30px / @base-font-size-px, em);
-
-  .respond-to-min(@bp-sm-min, {
-    .grid_column(6);
-    margin-top: unit(45px / @base-font-size-px, em);
-  });
+  margin-top: unit(45px / @base-font-size-px, em);
 
   .respond-to-min(@bp-med-min, {
     .grid_column(4);
@@ -1423,10 +1445,15 @@
   &__reduce-costs,
   &__different-program,
   &__transfer-credits,
+  &__work-while-studying,
   &__explore-schools {
-    background-position: center 15px;
+    background-position: center 30px;
     background-size: 150px;
     background-repeat: no-repeat;
+
+    .respond-to-min(@bp-med-min, {
+      background-position: center 60px;
+    });
   }
 
   &__maximize-grants {
@@ -1447,6 +1474,10 @@
 
   &__explore-schools {
     background-image: url('../img/explore-schools_150.png');
+  }
+
+  &__work-while-studying {
+    background-image: url('../img/work-while-studying_150.png');
   }
 
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
@@ -1470,11 +1501,22 @@
     &__explore-schools {
       background-image: url('../img/explore-schools_300.png');
     }
+
+    &__work-while-studying {
+      background-image: url('../img/work-while-studying_300.png');
+    }
   }
 
+  // Add padding on top of the heading for the 150px illustration
+  // X-small and small screens: 150px + 30px padding above and below the image
+  // Meidum and larger screens: 150px + 60px padding above and below the image
   &_heading {
-    padding-top: unit(195px / @font-size, em);
+    padding-top: unit(210px / @font-size, em);
     .heading-4();
+
+    .respond-to-min(@bp-med-min, {
+      padding-top: unit(270px / @font-size, em);
+    });
   }
 
   &__take-action-header {
@@ -1506,6 +1548,38 @@
     .respond-to-min(@bp-med-min, {
       border-top: 1px solid @gray-40;
     });
+  }
+
+  // Settlement school modifications
+  &__settlement {
+
+    .respond-to-min(@bp-med-min, {
+      .grid_column(1, 2);
+    });
+
+    // Top borders on all but the first option on small screens and only the second row of options on larger screens
+    & + & .option_heading {
+      border-top: 1px solid @gray-40;
+
+      .respond-to-min(@bp-med-min, {
+        border-top: none;
+      });
+    }
+
+    & + & + & .option_heading {
+
+      .respond-to-min(@bp-sm-min, {
+        border-top: 1px solid @gray-40;
+      });
+
+    }
+
+    & + & + & + & .option_heading {
+
+      .respond-to-min(@bp-med-min, {
+        border-top: 1px solid @gray-40;
+      });
+    }
   }
 }
 

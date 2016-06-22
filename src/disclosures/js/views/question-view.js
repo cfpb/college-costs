@@ -1,23 +1,64 @@
 'use strict';
 var postVerification = require( '../dispatchers/post-verify' );
 var getFinancial = require( '../dispatchers/get-financial-values' );
+var getSchool = require( '../dispatchers/get-school-values' );
 
 var questionView = {
   $getOptions: $( '.get-options' ),
   $followupNoNotSure: $( '.followup__no-not-sure' ),
   $followupYes: $( '.followup__yes' ),
+  $optionsWrapper: $( '.get-options__dynamic' ),
+  $options: $( '.option' ),
+  $optionsSidebar: $( '.get-options_sidebar' ),
+  $transferCredits: $( '.option__transfer-credits' ),
+  $exploreSchools: $( '.option__explore-schools' ),
+  $workWhileStudying: $( '.option__work-while-studying' ),
+  $takeAction: $( '.option__take-action' ),
   $nextSteps: $( '.next-steps' ),
   $feedback: $( '.feedback' ),
 
+  /**
+   * Initiates the object
+   */
   init: function() {
-    this.bigQuestionListener();
+    var settlementStatus =
+      getSchool.values().settlementSchool || false;
+
+    this.bigQuestionListener( settlementStatus );
+    this.displayOptions( settlementStatus );
   },
 
-  bigQuestionListener: function() {
+  /**
+   * Show the appropriate content in Step 3 for settlement schools
+   * @param {boolean} isSettlementStatus Flag if this is a settlement school
+   */
+  displayOptions: function( isSettlementStatus ) {
+    if ( isSettlementStatus === true ) {
+      questionView.$optionsWrapper.addClass(
+        'get-options__settlement content_main' );
+      questionView.$transferCredits.remove();
+      questionView.$exploreSchools.remove();
+      questionView.$takeAction.remove();
+      questionView.$options.addClass( 'option__settlement' );
+      questionView.$optionsSidebar.show();
+      questionView.$optionsWrapper.removeClass( 'get-options__dynamic' );
+    } else {
+      questionView.$workWhileStudying.remove();
+      questionView.$optionsSidebar.remove();
+    }
+  },
+
+  /**
+   * Listener function for the "big question"/"moment of pause" buttons
+   * @param {boolean} isSettlementStatus Flag if this is a settlement school
+   */
+  bigQuestionListener: function( isSettlementStatus ) {
     var $answerButtons = $( '.question_answers > .btn' );
     $answerButtons.on( 'click', function() {
       var values = getFinancial.values();
-      postVerification.verify( values.offerID, values.schoolID, false );
+      if ( isSettlementStatus === true ) {
+        postVerification.verify( values.offerID, values.schoolID, false );
+      }
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
       if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {

@@ -16,6 +16,7 @@ var schoolModel = {
    * @returns {object} object with reformatted values
    */
   processAPIData: function( values ) {
+    values.settlementSchool = Boolean( values.settlementSchool );
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
     values.medianSalary = values.salary || values.medianAnnualPay ||

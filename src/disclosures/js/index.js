@@ -50,6 +50,7 @@ var app = {
               // initialize metric view
               metricView.init();
               financialView.updateView( getFinancial.values() );
+              questionView.init();
 
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
@@ -59,7 +60,6 @@ var app = {
               financialView.setCaps( getFinancial.values() );
             } );
         }
-        questionView.init();
       } );
     verifyOffer.init();
   }

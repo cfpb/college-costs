@@ -38,8 +38,7 @@ var metricView = {
    * Initiates the object
    */
   init: function() {
-    this.settlementStatus =
-      Boolean( getSchool.values().settlementSchool ) || false;
+    this.settlementStatus = getSchool.values().settlementSchool || false;
     this.setMetrics( this.metrics );
     this.updateGraphs();
     this.toggleListener();

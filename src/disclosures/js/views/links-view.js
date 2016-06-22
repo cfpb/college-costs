@@ -10,7 +10,7 @@ var linksView = {
   $scorecardLink: $( '.scorecard-link' ),
 
   /**
-   * Initializes (and updates) links in Step 3 to the school's webiste and to
+   * Initializes (and updates) links in Step 3 to the school's website and to
    * a College Scorecard search of related schools
    * @param {object} values Financial model values
    */
@@ -19,10 +19,31 @@ var linksView = {
     this.$defaultLinkText = $( '.loan-default-link' );
     this.$schoolLinkText = $( '.school-link' );
     this.$scorecardLink = $( '.scorecard-link' );
+    this.$scorecardSchoolLink = $( '.scorecard-school' );
     this.setGraduationLink( values );
     this.setLoanDefaultLink( values );
     this.setSchoolLink( values );
     this.setScorecardSearch( values );
+    this.setCollegeScorecardLink( values );
+  },
+
+  /**
+   * Creates a link in Step 2 to the school on the College Scorecard website
+   * @param {object} values Financial model values
+   */
+  setCollegeScorecardLink: function( values ) {
+    var scorecardURL = 'https://collegescorecard.ed.gov/school/?' +
+      values.schoolID;
+    if ( scorecardURL ) {
+      var $scorecardSchool = $( '<a>', {
+        'href': scorecardURL,
+        'target': '_blank',
+        'rel': 'noopener',
+        'class': this.$scorecardSchoolLink.attr( 'class' )
+      } )
+        .text( this.$scorecardSchoolLink.text() );
+      this.$scorecardSchoolLink.replaceWith( $scorecardSchool );
+    }
   },
 
   /**
@@ -31,13 +52,13 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setGraduationLink: function( values ) {
-    var formattedSchoolName = values.school.replace( /\s/g, '-' );
     var gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
-     '-' + formattedSchoolName + '#graduation';
+    '#graduation';
     if ( gradURL ) {
       var $gradLink = $( '<a>', {
         'href': gradURL,
         'target': '_blank',
+        'rel': 'noopener',
         'class': this.$gradLinkText.attr( 'class' )
       } )
         .text( this.$gradLinkText.text() );
@@ -56,6 +77,7 @@ var linksView = {
       var $defaultLink = $( '<a>', {
         'href': defaultURL,
         'target': '_blank',
+        'rel': 'noopener',
         'class': this.$defaultLinkText.attr( 'class' )
       } )
         .text( this.$defaultLinkText.text() );
@@ -74,6 +96,7 @@ var linksView = {
       var $schoolLink = $( '<a>', {
         'href': schoolURL,
         'target': '_blank',
+        'rel': 'noopener',
         'class': this.$schoolLinkText.attr( 'class' )
       } )
         .text( this.$schoolLinkText.text() );
