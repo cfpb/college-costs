@@ -462,8 +462,7 @@ var financialView = {
     var fedTotal;
 
     fedTotal = values.perkinsDebt + values.directSubsidizedDebt;
-    fedTotal += values.directUnsubsidizedDebt;
-    // fedTotal += values.gradPlusDebt
+    fedTotal += values.directUnsubsidizedDebt + values.gradPlusDebt;
 
     // If federal loan debt at graduation exceeds $30,000, then
     // the 25-year repayment term is an option
