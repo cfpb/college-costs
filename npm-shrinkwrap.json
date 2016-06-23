@@ -1,6 +1,6 @@
 {
   "name": "college-costs",
-  "version": "2.0.4",
+  "version": "2.1.2",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",

@@ -40,6 +40,7 @@ var financialView = {
     this.removePrivateListener();
     this.resetPrivateLoanView();
     this.continueStep2Listener();
+    this.termToggleListener();
   },
 
   /**
@@ -99,8 +100,7 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
-    metricView.updateDebtBurden( values );
-    metricView.updateMonthlyPayment();
+    metricView.updateDebtBurden();
     this.updateCalculationErrors( values );
   },
 
@@ -468,6 +468,22 @@ var financialView = {
       $( 'html, body' ).stop().animate( {
         scrollTop: financialView.$evaluateSection.offset().top - 120
       }, 900, 'swing', function() {} );
+    } );
+  },
+
+
+  /**
+   * Listener for clicks on the repayment toggles
+   */
+  termToggleListener: function() {
+    $( '[data-repayment-section] input' ).click( function() {
+      var $ele = $( this ),
+          $toggles = $( '[data-repayment-section] input' ),
+          term = $ele.val();
+      publish.financialData( 'repaymentTerm', term );
+      $toggles.prop( 'checked', false );
+      $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
+      financialView.updateView( getFinancial.values() );
     } );
   }
 };
