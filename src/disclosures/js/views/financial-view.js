@@ -102,6 +102,7 @@ var financialView = {
     this.updateRemainingCostContent();
     metricView.updateDebtBurden();
     this.updateCalculationErrors( values );
+    this.termToggleVisibile( values );
   },
 
   /**
@@ -454,6 +455,26 @@ var financialView = {
       this.$perkinsSection.hide();
     } else {
       this.$perkinsSection.show();
+    }
+  },
+
+  termToggleVisibile: function( values ) {
+    var fedTotal;
+
+    fedTotal = values.perkinsDebt + values.directSubsidizedDebt;
+    fedTotal += values.directUnsubsidizedDebt;
+    // fedTotal += values.gradPlusDebt
+
+    // If federal loan debt at graduation exceeds $30,000, then
+    // the 25-year repayment term is an option
+    if ( fedTotal > 30000 ) {
+      $( '[data-term-toggle]' ).show();
+    } else {
+      $( '[data-term-toggle]' ).hide();
+      if ( values.repaymentTerm !== 10 ) {
+        publish.financialData( 'repaymentTerm', 10 );
+        financialView.updateView( getFinancial.values() );
+      }
     }
   },
 

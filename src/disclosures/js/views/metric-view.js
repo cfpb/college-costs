@@ -41,7 +41,7 @@ var metricView = {
     this.settlementStatus = getSchool.values().settlementSchool || false;
     this.setMetrics( this.metrics );
     this.updateGraphs();
-    this.updateMonthlyPayment();
+    this.updateDebtBurden();
   },
 
   /**
