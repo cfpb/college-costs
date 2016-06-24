@@ -217,9 +217,8 @@ class ProgramRepresentation(View):
 
     def get_program(self, program_code):
         ids = program_code.split('_')
-        return get_object_or_404(Program,
-                                 institution__school_id=int(ids[0]),
-                                 program_code=ids[1])
+        return Program.objects.filter(institution__school_id=int(ids[0]),
+                                      program_code=ids[1]).first()
 
     def get(self, request, program_code, **kwargs):
         ids = program_code.split('_')
@@ -229,6 +228,9 @@ class ProgramRepresentation(View):
                      'is what was received: /program/{}/'.format(program_code))
             return HttpResponseBadRequest(error)
         program = self.get_program(program_code)
+        if not program:
+            p_error = "Error: No program found for code {}".format(program_code)
+            return HttpResponseBadRequest(p_error)
         return HttpResponse(program.as_json(),
                             content_type='application/json')
 

@@ -287,6 +287,10 @@ class APITests(django.test.TestCase):
         resp2 = client.get(bad_url)
         self.assertTrue(resp2.status_code == 400)
         self.assertTrue('Error' in resp2.content)
+        url3 = reverse('disclosures:program-json', args=['408039_xyz'])
+        resp3 = client.get(url3)
+        self.assertTrue(resp3.status_code == 400)
+        self.assertTrue('Error' in resp3.content)
 
 
 class VerifyViewTest(django.test.TestCase):
