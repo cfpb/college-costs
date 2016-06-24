@@ -56,11 +56,14 @@ The app is set up to run as a component of CFPB's website, [consumerfinance.gov]
 
 
 ### Running tests
+
+#### Python Tests
 You can run python tests from the project root with this command:
 ```bash
 ./pytest.sh
 ```
 
+#### Javascript Tests
 To run JavaScript unit tests:
 
 ```bash
@@ -86,6 +89,23 @@ python manage.py runserver
 # and in a third tab:
 protractor test/functional/conf.js
 ```
+
+##### Load Tests
+Before you run load tests, you will first need to download and unzip [JMeter 3.0](http://jmeter.apache.org/download_jmeter.cgi).
+
+In terminal, execute JMeter and run the following command to open JMeter GUI:
+
+```shell
+[Path to JMeter Folder]/bin/jmeter.sh -t [Path to this repository]/college-costs/test/load_testing/Offer.jmx -Jserver_url [parent domain to test] -Jthreads [number of users hitting the site, default: 1] -Jrampup [adding 1 user per specified second, default 5]
+```
+
+As an example to if I am in a folder where JMeter and this repository were in, and I am testing it locally on port 8000 with 8 users and add 1 user per 3 seconds:
+
+```shell
+apache-jmeter-3.0/bin/jmeter.sh -t college-costs/test/load_testing/Offer.jmx -Jserver_url localhost:8000 -Jthreads 8 -Jrampup 3
+```
+
+The corresponding `Offer.csv` in `test/load_testing` specified the parameters being used for testing.  The order and name of each column is specified in the JMX file under CSV Offer.
 
 <!-- INCLUDE IN setup.sh
 - Build the front-end requirements and the JavaScript files.
