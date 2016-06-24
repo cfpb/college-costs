@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Error checking added to program view
+- Error checking added to verification view
 - removed 6 unneeded fields from school json payload
 
 ## 2.1.2
