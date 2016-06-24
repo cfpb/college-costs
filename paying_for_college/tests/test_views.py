@@ -305,6 +305,9 @@ class VerifyViewTest(django.test.TestCase):
         resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 200)
         self.assertTrue('verification' in resp.content)
+        resp2 = client.post(self.url, data=self.post_data)
+        self.assertTrue(resp2.status_code == 400)
+        self.assertTrue('already' in resp2.content)
 
     def test_verify_view_bad_id(self):
         self.post_data['iped'] = ''

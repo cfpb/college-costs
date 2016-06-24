@@ -3,6 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Error checking added to program view
+- Error checking added to verification view
 
 ## 2.1.2
 - Parent PLUS loans separated from other family contributions

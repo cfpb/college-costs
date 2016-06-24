@@ -326,14 +326,20 @@ class VerifyView(View):
         timestamp = timezone.now()
         if 'iped' in data and data['iped']:
             school = School.objects.get(school_id=int(data['iped']))
-            notification = Notification.objects.create(institution=school,
-                                                       oid=data['oid'],
-                                                       timestamp=timestamp,
-                                                       errors=data['errors'][:255])
+            if Notification.objects.filter(oid=data['oid']):
+                errmsg = "Error: OfferID has already generated a notification."
+                return HttpResponseBadRequest(errmsg)
+            notification = Notification(institution=school,
+                                        oid=data['oid'],
+                                        timestamp=timestamp,
+                                        errors=data['errors'][:255])
+            notification.save()
             msg = notification.notify_school()
             callback = json.dumps({'result': "verification recorded; {0}".format(msg)})
         else:
-            return HttpResponseBadRequest("No valid school ID found; postdata is {0}".format(request.POST))
+            errmsg = ("Error: No valid school ID found; "
+                      "postdata was {0}".format(request.POST))
+            return HttpResponseBadRequest(errmsg)
 
         response = HttpResponse(callback)
         return response
