@@ -238,22 +238,16 @@ class School(models.Model):
         ordered_out = OrderedDict()
         jdata = json.loads(self.data_json)
         dict_out = {
-            'avg_net_price': self.avg_net_price,
             'books': jdata['BOOKS'],
             'city': self.city,
             'control': self.control,
             'defaultRate': "{0}".format(self.default_rate),
             'gradRate': "{0}".format(self.grad_rate),
             'highestDegree': self.get_highest_degree(),
-            'indicatorGroup': jdata['INDICATORGROUP'],
-            'KBYOSS': self.KBYOSS,
             'medianAnnualPay': self.median_annual_pay,
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
             'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
-            'offerAA': jdata['OFFERAA'],
-            'offerBA': jdata['OFFERBA'],
-            'offerGrad': jdata['OFFERGRAD'],
             'offersPerkins': self.offers_perkins,
             'onCampusAvail': jdata['ONCAMPUSAVAIL'],
             'online': self.online_only,

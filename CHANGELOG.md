@@ -3,6 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Added load tests
+- removed 6 unneeded fields from school json payload
 
 ## 2.1.2
 - Parent PLUS loans separated from other family contributions
