@@ -2,6 +2,7 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Added load tests
 
 ## 2.1.2
 - Parent PLUS loans separated from other family contributions
