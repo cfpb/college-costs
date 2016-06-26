@@ -27,14 +27,6 @@ FIELDS = sorted(MODEL_MAP.keys())
 FIELDSTRING = ",".join(FIELDS)
 
 
-def fix_json(jstring):
-    """attempt to fix a misquoted data_json string"""
-    try:
-        return ast.literal_eval(jstring)
-    except:
-        return {}
-
-
 def fix_zip5(zip5):
     """add leading zeros if they have been stripped by the scorecard db"""
     if len(zip5) == 4:
@@ -114,12 +106,13 @@ def update(exclude_ids=[], single_school=None):
                 print("request not OK, returned {0}".format(resp.reason))
                 FAILED.append(school)
                 if resp.status_code == 429:
-                    print("API limit reached")
+                    endmsg = "API limit reached"
+                    print(endmsg)
                     print(resp.content)
-                    break
+                    return (FAILED, NO_DATA, endmsg)
                 else:
-                    print("request for {0} returned {1}".format(school,
-                                                              resp.status_code))
+                    print("request for {0} "
+                          "returned {1}".format(school, resp.status_code))
                     continue
     endmsg = """\nTried to get new data for {0} school(s):\n\
     updated {1} and found no data for {2}\n\
