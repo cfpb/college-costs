@@ -15,6 +15,9 @@ class CommandTests(unittest.TestCase):
         self.assertTrue(mock_update.call_count == 1)
         call_command('update_via_api', '--school_id', '99999')
         self.assertTrue(mock_update.call_count == 2)
+        mock_update.side_effect = IndexError("no such school ID")
+        call_command('update_via_api', '--school_id', '99999')
+        self.assertTrue(mock_update.call_count == 3)
 
     @mock.patch('paying_for_college.management.commands.load_programs.load_programs.load')
     def test_load_programs(self, mock_load):
