@@ -634,6 +634,12 @@
     .respond-to-min(@bp-med-min, {
       .grid_column(4);
       .grid_push(1);
+
+      &.is_stuck {
+        .grid_column(4);
+        .grid_push(7);
+      }
+
     });
 
     .line-item {

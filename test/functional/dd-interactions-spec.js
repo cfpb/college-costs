@@ -16,6 +16,35 @@ fdescribe( 'The college costs worksheet page', function() {
     });
   } );
 
+  // Sticky summary interactions
+
+  fit( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
+    browser.driver.manage().window().setSize(700, 800);
+    page.confirmVerification();
+    browser.actions().mouseMove(page.GIBill).perform();
+    page.costSummary.getLocation().then( function( costSummaryLocation ) {
+        expect( costSummaryLocation.y ).toBe( 0 );
+    } );
+  } );
+
+  fit( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
+    browser.driver.manage().window().setSize(700, 800);
+    page.confirmVerification();
+    browser.actions().mouseMove(page.unsubsidizedLoans).perform();
+    page.loansSummary.getLocation().then( function(loansSummaryLocation) {
+        expect( loansSummaryLocation.y ).toBe( 0 );
+    } );
+  } );
+
+  fit( 'should not pin an offer summary on x-small screens', function() {
+    browser.driver.manage().window().setSize(500, 800);
+    page.confirmVerification();
+    browser.actions().mouseMove(page.GIBill).perform();
+    page.costSummary.getLocation().then( function(costSummaryLocation) {
+        expect( costSummaryLocation.y ).not.toBe( 0 );
+    } );
+  } );
+
   // Private Loan Interactions
 
   it( 'should add a private loan entry when the add button is clicked', function() {

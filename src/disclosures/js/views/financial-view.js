@@ -9,6 +9,8 @@ var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
 var postVerification = require( '../dispatchers/post-verify' );
 
+require( '../libs/sticky-kit' );
+
 var financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
@@ -40,6 +42,7 @@ var financialView = {
     this.removePrivateListener();
     this.resetPrivateLoanView();
     this.continueStep2Listener();
+    this.stickySummariesListener();
   },
 
   /**
@@ -469,6 +472,19 @@ var financialView = {
         scrollTop: financialView.$evaluateSection.offset().top - 120
       }, 900, 'swing', function() {} );
     } );
+  },
+
+  /**
+   * Stick the sidebar aid offer summaries to the viewport top
+   * if the summaries are in the inline-block sidebar column
+   */
+  stickySummariesListener: function() {
+    var $stickyOffers = $( '.offer-part_summary-wrapper' );
+
+    $stickyOffers.stick_in_parent( { spacer: false } )
+      .on( 'sticky_kit:unstick', function( e ) {
+        e.target.trigger( 'sticky_kit:detach' );
+      } );
   }
 };
 
