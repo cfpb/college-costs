@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 try:
     from collections import OrderedDict
@@ -6,6 +7,7 @@ except:  # pragma: no cover
 import uuid
 import json
 from string import Template
+import smtplib
 
 import requests
 from django.core.mail import send_mail
@@ -100,7 +102,7 @@ class ConstantCap(models.Model):
         ordering = ['slug']
 
 
-# data_json fields:
+# original data_json fields:
 # ALIAS -- not needed, DELETE
 # AVGMONTHLYPAY
 # AVGSTULOANDEBT
@@ -155,7 +157,8 @@ class Contact(models.Model):
     internal_note = models.TextField(blank=True)
 
     def __unicode__(self):
-        return u", ".join([bit for bit in [self.contact, self.endpoint] if bit])
+        return u", ".join([bit for bit in [self.contact,
+                                           self.endpoint] if bit])
 
 
 class School(models.Model):
@@ -191,7 +194,8 @@ class School(models.Model):
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
     under_investigation = models.BooleanField(default=False,
-                                              help_text="Heightened Cash Monitoring 2")
+                                              help_text=("Heightened Cash "
+                                                         "Monitoring 2"))
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
 
     grad_rate_4yr = models.DecimalField(max_digits=5,
@@ -207,22 +211,25 @@ class School(models.Model):
     repay_3yr = models.DecimalField(max_digits=13,
                                     decimal_places=10,
                                     blank=True, null=True,
-                                    help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
+                                    help_text=("GRADS WITH A DECLINING BALANCE"
+                                               " AFTER 3 YRS"))
     default_rate = models.DecimalField(max_digits=5,
                                        decimal_places=3,
                                        blank=True, null=True,
                                        help_text="LOAN DEFAULT RATE AT 3 YRS")
     median_total_debt = models.DecimalField(max_digits=7,
-                                       decimal_places=1,
-                                       blank=True, null=True,
-                                       help_text="MEDIAN STUDENT DEBT")
+                                            decimal_places=1,
+                                            blank=True, null=True,
+                                            help_text="MEDIAN STUDENT DEBT")
     median_monthly_debt = models.DecimalField(max_digits=14,
-                                       decimal_places=9,
-                                       blank=True, null=True,
-                                       help_text="MEDIAN STUDENT MONTHLY DEBT")
+                                              decimal_places=9,
+                                              blank=True, null=True,
+                                              help_text=("MEDIAN STUDENT "
+                                                         "MONTHLY DEBT"))
     median_annual_pay = models.IntegerField(blank=True,
-                                     null=True,
-                                     help_text="MEDIAN PAY 10 YRS AFTER ENTRY")
+                                            null=True,
+                                            help_text=("MEDIAN PAY "
+                                                       "10 YRS AFTER ENTRY"))
     avg_net_price = models.IntegerField(blank=True,
                                         null=True,
                                         help_text="OVERALL AVERAGE")
@@ -247,7 +254,8 @@ class School(models.Model):
             'medianAnnualPay': self.median_annual_pay,
             'medianMonthlyDebt': "{0}".format(self.median_monthly_debt),
             'medianTotalDebt': "{0}".format(self.median_total_debt),
-            'nicknames': ", ".join([nick.nickname for nick in self.nickname_set.all()]),
+            'nicknames': ", ".join([nick.nickname for nick
+                                    in self.nickname_set.all()]),
             'offersPerkins': self.offers_perkins,
             'onCampusAvail': jdata['ONCAMPUSAVAIL'],
             'online': self.online_only,
@@ -281,13 +289,15 @@ class School(models.Model):
 
     def get_predominant_degree(self):
         predominant = ''
-        if self.degrees_predominant and self.degrees_predominant in HIGHEST_DEGREES:
+        if (self.degrees_predominant and
+           self.degrees_predominant in HIGHEST_DEGREES):
             predominant = HIGHEST_DEGREES[self.degrees_predominant]
         return predominant
 
     def get_highest_degree(self):
         highest = ''
-        if self.degrees_highest and self.degrees_highest in HIGHEST_DEGREES:
+        if (self.degrees_highest and
+           self.degrees_highest in HIGHEST_DEGREES):
             highest = HIGHEST_DEGREES[self.degrees_highest]
         return highest
 
@@ -326,32 +336,96 @@ class Notification(models.Model):
     timestamp = models.DateTimeField()
     errors = models.CharField(max_length=255)
     email = models.CharField(max_length=255, blank=True)
+    sent = models.BooleanField(default=False)
+    log = models.TextField(blank=True)
 
     def __unicode__(self):
-        return "{0} {1}".format(self.oid, self.institution.primary_alias)
+        return "{0} {1} ({2})".format(self.oid,
+                                      self.institution.primary_alias,
+                                      self.institution.pk)
 
     def notify_school(self):
         payload = {
-            'oid': self.oid,
-            'time': self.timestamp.isoformat(),
+            'oid':    self.oid,
+            'time':   self.timestamp.isoformat(),
             'errors': self.errors
         }
+        now = datetime.datetime.now()
         school = self.institution
+        no_contact_msg = ("School notification failed: "
+                          "No endpoint or email info {}".format(now))
         # we prefer to use endpount notification, so use it first if existing
         if school.contact:
             if school.contact.endpoint:
-                requests.post(school.contact.endpoint, data=payload)
-                return "school notified via endpoint"
+                endpoint = school.contact.endpoint
+                if type(endpoint) == unicode:
+                    endpoint = endpoint.encode('utf-8')
+                try:
+                    resp = requests.post(endpoint, data=payload, timeout=10)
+                except requests.exceptions.ConnectionError as e:
+                    exmsg = ("Error: connection error at school "
+                             "{} {}\n".format(now, e))
+                    self.log = self.log + exmsg
+                    self.save()
+                    return exmsg
+                except requests.exceptions.Timeout:
+                    exmsg = ("Error: connection with school "
+                             "timed out {}\n".format(now))
+                    self.log = self.log + exmsg
+                    self.save()
+                    return exmsg
+                except requests.exceptions.RequestException as e:
+                    exmsg = ("Error: request error at school: "
+                             "{} {}\n".format(now, e))
+                    self.log = self.log + exmsg
+                    self.save()
+                    return exmsg
+                else:
+                    if resp.ok:
+                        self.sent = True
+                        self.log = ("School notified "
+                                    "via endpoint {}".format(now))
+                        self.save()
+                        return self.log
+                    else:
+                        msg = ("Send attempted: {}\nURL: {}\n"
+                               "response reason: {}\nstatus_code: {}\n"
+                               "content: {}\n\n".format(now,
+                                                        endpoint,
+                                                        resp.reason,
+                                                        resp.status_code,
+                                                        resp.content))
+                        self.log = self.log + msg
+                        self.save()
+                        return "Notification failed: {}".format(msg)
             elif school.contact.contact:
-                send_mail("CFPB disclosure notification",
-                          NOTIFICATION_TEMPLATE.substitute(payload),
-                          "no-reply@cfpb.gov",
-                          [school.contact.contact])
-                return "school notified via email"
+                try:
+                    send_mail("CFPB disclosure notification",
+                              NOTIFICATION_TEMPLATE.substitute(payload),
+                              "no-reply@cfpb.gov",
+                              [school.contact.contact],
+                              fail_silently=False)
+                    self.sent = True
+                    self.email = school.contact.contact
+                    self.log = ("School notified via email "
+                                "at {}".format(self.email))
+                    self.save()
+                    return self.log
+                except smtplib.SMTPException as e:
+                    email_fail_msg = ("School email notification "
+                                      "failed on {}\n"
+                                      "Error: {}".format(now, e))
+                    self.log = self.log + email_fail_msg
+                    self.save()
+                    return email_fail_msg
             else:
-                return "school notification failed: no endpoint or email info"
+                self.log = self.log + no_contact_msg
+                self.save()
+                return no_contact_msg
         else:
-            return "school notification failed: no school contact found"
+            self.log = self.log + no_contact_msg
+            self.save()
+            return no_contact_msg
 
 
 class Disclosure(models.Model):
@@ -368,6 +442,7 @@ class Program(models.Model):
     """
     Cost and outcome info for an individual course of study at a school
     """
+    DEBT_NOTE = "TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT"
     institution = models.ForeignKey(School)
     program_name = models.CharField(max_length=255)
     accreditor = models.CharField(max_length=255, blank=True)
@@ -389,11 +464,11 @@ class Program(models.Model):
     private_debt = models.IntegerField(blank=True, null=True)
     institutional_debt = models.IntegerField(blank=True, null=True)
     mean_student_loan_completers = models.IntegerField(blank=True,
-                                                         null=True,
-                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
+                                                       null=True,
+                                                       help_text=DEBT_NOTE)
     median_student_loan_completers = models.IntegerField(blank=True,
                                                          null=True,
-                                                         help_text="TITLEIV_DEBT + PRIVATE_DEBT + INSTITUTIONAL_DEBT")
+                                                         help_text=DEBT_NOTE)
     default_rate = models.DecimalField(blank=True,
                                        null=True,
                                        max_digits=5,

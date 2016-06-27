@@ -1,4 +1,4 @@
-import os 
+import os
 import json
 import uuid
 import re
@@ -324,22 +324,29 @@ class VerifyView(View):
     def post(self, request):
         data = request.POST
         timestamp = timezone.now()
+        if 'oid' in data and data['oid']:
+            OID = data['oid']
+        else:
+            return HttpResponseBadRequest('No OID provided')
         if 'iped' in data and data['iped']:
             school = School.objects.get(school_id=int(data['iped']))
-            if Notification.objects.filter(oid=data['oid']):
+            if Notification.objects.filter(institution=school, oid=OID):
                 errmsg = "Error: OfferID has already generated a notification."
                 return HttpResponseBadRequest(errmsg)
+            if not validate_oid(OID):
+                oid_msg = '{} is an invalid OID'.format(OID)
+                return HttpResponseBadRequest(oid_msg)
             notification = Notification(institution=school,
-                                        oid=data['oid'],
+                                        oid=OID,
                                         timestamp=timestamp,
                                         errors=data['errors'][:255])
             notification.save()
             msg = notification.notify_school()
-            callback = json.dumps({'result': "verification recorded; {0}".format(msg)})
+            callback = json.dumps({'result':
+                                   'Verification recorded; {0}'.format(msg)})
+            response = HttpResponse(callback)
+            return response
         else:
-            errmsg = ("Error: No valid school ID found; "
+            errmsg = ("Error: No school ID found received; "
                       "postdata was {0}".format(request.POST))
             return HttpResponseBadRequest(errmsg)
-
-        response = HttpResponse(callback)
-        return response

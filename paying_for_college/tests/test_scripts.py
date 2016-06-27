@@ -1,12 +1,18 @@
 import unittest
 import django
 import json
+import datetime
 
 import mock
 import requests
-from paying_for_college.disclosures.scripts import api_utils, update_colleges
-from paying_for_college.disclosures.scripts import nat_stats
-from paying_for_college.disclosures.scripts.ping_edmc import notify_edmc, EDMC_DEV, OID, ERRORS
+from django.utils import timezone
+
+from paying_for_college.models import School, Notification
+from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
+                                                    nat_stats, notifications)
+from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
+                                                              EDMC_DEV,
+                                                              OID, ERRORS)
 
 YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
@@ -18,7 +24,7 @@ completion_rate:\n\
 """
 
 
-class TestUpdater(django.test.TestCase):
+class TestScripts(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
 
@@ -31,7 +37,8 @@ class TestUpdater(django.test.TestCase):
                    'url': '',
                    'degrees_predominant': '',
                    'degrees_highest': '',
-                   'school.ownership': '',
+                   'school.ownership': 2,
+                   'school.grad_rate_lt4': 0.25,
                    'main_campus': True,
                    'online_only': False,
                    'operating': True,
@@ -45,6 +52,12 @@ class TestUpdater(django.test.TestCase):
                    'city': 'Lawrence'}],
                  'metadata': {'page': 0}
                  }
+    no_data_dict = {'results': None}
+    mock_dict2 = {'results':
+                  [{'id': 123456,
+                    'key': 'value'}],
+                  'metadata': {'page': 0}
+                  }
 
     def test_fix_zip5(self):
         fixzip3 = update_colleges.fix_zip5('501')
@@ -54,7 +67,8 @@ class TestUpdater(django.test.TestCase):
         testzip5 = update_colleges.fix_zip5('55105')
         self.assertTrue(testzip5 == '55105')
 
-    @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_colleges.requests.get')
     def test_update_colleges(self, mock_requests):
         mock_response = mock.Mock()
         mock_response.json.return_value = self.mock_dict
@@ -64,19 +78,47 @@ class TestUpdater(django.test.TestCase):
         self.assertTrue(len(NO_DATA) == 0)
         self.assertTrue(len(FAILED) == 0)
         self.assertTrue('updated' in endmsg)
+        mock_response.json.return_value = self.no_data_dict
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
+        self.assertFalse(len(NO_DATA) == 0)
 
-    @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_colleges.requests.get')
+    def test_update_colleges_single_school(self, mock_requests):
+        mock_response = mock.Mock()
+        mock_response.json.return_value = self.mock_dict
+        mock_response.ok = True
+        mock_requests.return_value = mock_response
+        (FAILED, NODATA, endmsg) = update_colleges.update(single_school=243197)
+        self.assertTrue(len(NODATA) == 0)
+        self.assertTrue(len(FAILED) == 0)
+        self.assertTrue('updated' in endmsg)
+        (FAILED, N0DATA, endmsg) = update_colleges.update(exclude_ids=[999999])
+        self.assertTrue(len(NODATA) == 0)
+        self.assertTrue(len(FAILED) == 0)
+        self.assertTrue('updated' in endmsg)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_colleges.requests.get')
     def test_update_colleges_not_OK(self, mock_requests):
         mock_response = mock.Mock()
         mock_response.ok = False
         mock_response.reason = "Testing OK == False"
+        mock_response.status_code = 429
+        mock_requests.return_value = mock_response
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        self.assertTrue(len(FAILED) == 3)
-        mock_requests.status_code = 429
+        self.assertTrue('limit' in endmsg)
+        mock_response = mock.Mock()
+        mock_response.ok = False
+        mock_response.reason = "Testing OK == False"
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
-        self.assertTrue(len(FAILED) == 3)
+        self.assertFalse(len(FAILED) == 0)
+        mock_requests.side_effect = requests.exceptions.ConnectTimeout
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
+        self.assertFalse(len(FAILED) == 0)
 
-    @mock.patch('paying_for_college.disclosures.scripts.update_colleges.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_colleges.requests.get')
     def test_update_colleges_bad_responses(self, mock_requests):
         mock_response = mock.Mock()
         mock_response.ok = True
@@ -84,16 +126,28 @@ class TestUpdater(django.test.TestCase):
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         self.assertTrue('no data' in endmsg)
 
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'notifications.send_mail')
+    def test_send_stale_notifications(self, mock_mail):
+        notifications.send_stale_notifications()
+        self.assertTrue(mock_mail.call_count == 1)
+        notifications.send_stale_notifications(add_email=['abc@def.com',
+                                                           'ghi@jkl.com'])
+        self.assertTrue(mock_mail.call_count == 2)
 
-class TestScripts(unittest.TestCase):
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'notifications.Notification.notify_school')
+    def test_retry_notifications(self, mock_notify):
+        day_old = timezone.now() - datetime.timedelta(days=1)
+        mock_notify.return_value = 'notified'
+        n = Notification.objects.first()
+        n.timestamp = timezone.now()
+        n.save()
+        msg = notifications.retry_notifications()
+        self.assertTrue(mock_notify.call_count == 1)
 
-    mock_dict = {'results':
-                 [{'id': 123456,
-                   'key': 'value'}],
-                 'metadata': {'page': 0}
-                 }
-
-    @mock.patch('paying_for_college.disclosures.scripts.ping_edmc.requests.post')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'ping_edmc.requests.post')
     def test_edmc_ping(self, mock_post):
         mock_return = mock.Mock()
         mock_return.ok = True
@@ -114,7 +168,8 @@ class TestScripts(unittest.TestCase):
         percent = api_utils.calculate_group_percent(0, 0)
         self.assertTrue(percent == 0)
 
-    @mock.patch('paying_for_college.disclosures.scripts.api_utils.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'api_utils.requests.get')
     def test_get_repayment_data(self, mock_requests):
         mock_response = mock.Mock()
         expected_dict = {'results':
@@ -125,38 +180,22 @@ class TestScripts(unittest.TestCase):
         data = api_utils.get_repayment_data(123456, YEAR)
         self.assertTrue(data['completer_repayment_rate_after_5_yrs'] == 10.0)
 
-    @mock.patch('paying_for_college.disclosures.scripts.api_utils.requests.get')
-    def test_export_spreadsheet_no_data(self, mock_requests):
-        mock_response = mock.Mock()
-        expected_dict = {}
-        mock_response.json.return_value = expected_dict
-        mock_requests.return_value = mock_response
-        data = api_utils.export_spreadsheet(YEAR)
-        self.assertTrue(data == expected_dict)
-
-    @mock.patch('paying_for_college.disclosures.scripts.api_utils.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'api_utils.requests.get')
     def test_search_by_school_name(self, mock_requests):
         mock_response = mock.Mock()
-        mock_response.json.return_value = self.mock_dict
+        mock_response.json.return_value = self.mock_dict2
         mock_requests.return_value = mock_response
         data = api_utils.search_by_school_name('mockname')
-        self.assertTrue(data == self.mock_dict['results'])
-
-    @mock.patch('paying_for_college.disclosures.scripts.api_utils.requests.get')
-    def test_export_spreadsheet(self, mock_requests):
-        mock_response = mock.Mock()
-        mock_response.text = json.dumps({'results': []})
-        mock_response.json.return_value = self.mock_dict
-        mock_requests.return_value = mock_response
-        data = api_utils.export_spreadsheet(YEAR)
-        self.assertTrue(data == self.mock_dict)
+        self.assertTrue(data == self.mock_dict2['results'])
 
     def test_build_field_string(self):
         fstring = api_utils.build_field_string(YEAR)
         self.assertTrue(fstring.startswith('id'))
         self.assertTrue(fstring.endswith('25000'))
 
-    @mock.patch('paying_for_college.disclosures.scripts.nat_stats.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'nat_stats.requests.get')
     def test_get_stats_yaml(self, mock_requests):
         mock_response = mock.Mock()
         mock_response.text = MOCK_YAML
@@ -170,8 +209,19 @@ class TestScripts(unittest.TestCase):
         data = nat_stats.get_stats_yaml()
         self.assertTrue(mock_requests.call_count == 2)
         self.assertTrue(data == {})
+        mock_requests.side_effect = requests.exceptions.ConnectTimeout
+        data = nat_stats.get_stats_yaml()
+        self.assertTrue(data == {})
 
-    @mock.patch('paying_for_college.disclosures.scripts.nat_stats.update_national_stats_file')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'nat_stats.get_stats_yaml')
+    def test_update_national_stats_file(self, mock_get_yaml):
+        mock_get_yaml.return_value = {}
+        update_try = nat_stats.update_national_stats_file()
+        self.assertTrue('Could not' in update_try)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'nat_stats.update_national_stats_file')
     def test_get_national_stats(self, mock_update):
         mock_update.return_value = 'OK'
         data = nat_stats.get_national_stats()
@@ -180,6 +230,9 @@ class TestScripts(unittest.TestCase):
         data2 = nat_stats.get_national_stats(update=True)
         self.assertTrue(mock_update.call_count == 1)
         self.assertTrue(data2['completion_rate']['max'] == 1)
+        mock_update.return_value = 'Could not'
+        data = nat_stats.get_national_stats(update=True)
+        self.assertTrue("retention_rate_4" in data)
 
     def test_get_prepped_stats(self):
         stats = nat_stats.get_prepped_stats()
@@ -188,3 +241,10 @@ class TestScripts(unittest.TestCase):
     def test_get_bls_stats(self):
         stats = nat_stats.get_bls_stats()
         self.assertTrue(stats['Year'] >= 2014)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'nat_stats.BLS_FILE')
+    def test_get_bls_stats_failure(self, mock_file):
+        mock_file = '/xxx/xxx.json'
+        stats = nat_stats.get_bls_stats()
+        self.assertTrue(stats == {})
