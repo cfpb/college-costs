@@ -14,8 +14,8 @@ RBIN = "http://requestb.in/1ak4sxc1"
 # test values
 OID = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
 ERRORS = 'INVALID: test notification via Python'
-REPORT = "OK is {0}; reason is {1}; status is {2}; time sent is {3};\n\
-content is {4}"
+REPORT = ('URL is {}; OK is {}; reason is {}; '
+          'status is {}; time sent is {};\n content is {}\n')
 
 
 def notify_edmc(url, oid, errors):
@@ -28,7 +28,8 @@ def notify_edmc(url, oid, errors):
         resp = requests.post(url, data=payload, timeout=10)
     except requests.exceptions.ConnectTimeout:
         return "post to {0} timed out".format(url)
-    report = REPORT.format(resp.ok,
+    report = REPORT.format(url,
+                           resp.ok,
                            resp.reason,
                            resp.status_code,
                            payload['time'],
