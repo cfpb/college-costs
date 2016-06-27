@@ -217,9 +217,8 @@ class ProgramRepresentation(View):
 
     def get_program(self, program_code):
         ids = program_code.split('_')
-        return get_object_or_404(Program,
-                                 institution__school_id=int(ids[0]),
-                                 program_code=ids[1])
+        return Program.objects.filter(institution__school_id=int(ids[0]),
+                                      program_code=ids[1]).first()
 
     def get(self, request, program_code, **kwargs):
         ids = program_code.split('_')
@@ -229,6 +228,9 @@ class ProgramRepresentation(View):
                      'is what was received: /program/{}/'.format(program_code))
             return HttpResponseBadRequest(error)
         program = self.get_program(program_code)
+        if not program:
+            p_error = "Error: No program found for code {}".format(program_code)
+            return HttpResponseBadRequest(p_error)
         return HttpResponse(program.as_json(),
                             content_type='application/json')
 
@@ -324,14 +326,20 @@ class VerifyView(View):
         timestamp = timezone.now()
         if 'iped' in data and data['iped']:
             school = School.objects.get(school_id=int(data['iped']))
-            notification = Notification.objects.create(institution=school,
-                                                       oid=data['oid'],
-                                                       timestamp=timestamp,
-                                                       errors=data['errors'][:255])
+            if Notification.objects.filter(oid=data['oid']):
+                errmsg = "Error: OfferID has already generated a notification."
+                return HttpResponseBadRequest(errmsg)
+            notification = Notification(institution=school,
+                                        oid=data['oid'],
+                                        timestamp=timestamp,
+                                        errors=data['errors'][:255])
+            notification.save()
             msg = notification.notify_school()
             callback = json.dumps({'result': "verification recorded; {0}".format(msg)})
         else:
-            return HttpResponseBadRequest("No valid school ID found; postdata is {0}".format(request.POST))
+            errmsg = ("Error: No valid school ID found; "
+                      "postdata was {0}".format(request.POST))
+            return HttpResponseBadRequest(errmsg)
 
         response = HttpResponse(callback)
         return response

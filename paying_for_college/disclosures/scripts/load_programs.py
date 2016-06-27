@@ -30,8 +30,8 @@ class ProgramSerializer(serializers.Serializer):
     ipeds_unit_id = serializers.CharField(max_length=6)  # '210960'
     ope_id = serializers.CharField(max_length=8, allow_blank=True)  # '747000'
     campus_name = serializers.CharField(allow_blank=True)  # 'Ai Pittsburgh'
-    program_code = serializers.CharField(allow_blank=True)  # '44'
-    program_name = serializers.CharField()  # 'Hotel & Restaurant Management'
+    program_code = serializers.CharField()  # '44'
+    program_name = serializers.CharField(allow_blank=True)  # 'Hotel & Restaurant Management'
     program_level = serializers.IntegerField(allow_null=True)  # 3 @TODO: Should this by Char? Choice?
     program_length = serializers.IntegerField(allow_null=True)  # 24
     accreditor = serializers.CharField(allow_blank=True)  # ''
