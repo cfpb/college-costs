@@ -18,6 +18,7 @@ var financialView = {
   $programLength: $( '#estimated-years-attending' ),
   $aboutThisTool: $( '.instructions_about a' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
+  $totalDirectCostSection: $( '.verify_direct-cost' ),
   $gradPlusSection: $( '[data-section="gradPlus"]' ),
   $perkinsSection: $( '[data-section="perkins"]' ),
   $privateContainer: $( '.private-loans' ),
@@ -217,6 +218,7 @@ var financialView = {
     // Update availability of gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
     this.perkinsVisible( values.offersPerkins );
+    this.totalDirectCostVisible( values.totalCost !== null );
   },
 
   /**
@@ -438,6 +440,19 @@ var financialView = {
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
     } );
+  },
+
+  /**
+   * Sets visibility of anticipated total direct cost section
+   * Dependent on `totl` value being passed in URL
+   * @param {boolean} visibility - Whether or not `values.totalCost` exists
+   */
+  totalDirectCostVisible: function( visibility ) {
+    if ( visibility === false ) {
+      this.$totalDirectCostSection.hide();
+    } else {
+      this.$totalDirectCostSection.show();
+    }
   },
 
   gradPlusVisible: function( visibility ) {
