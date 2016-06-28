@@ -504,7 +504,6 @@ var financialView = {
       publish.financialData( 'repaymentTerm', term );
       $toggles.prop( 'checked', false );
       $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
-      $ele.focus();
       financialView.updateView( getFinancial.values() );
     } );
   }

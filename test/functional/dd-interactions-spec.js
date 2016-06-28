@@ -94,7 +94,7 @@ fdescribe( 'The college costs worksheet page', function() {
     page.toggleMonthlyPaymentLoanLengthTo25Yrs();
     browser.actions().mouseMove( page.debtBurdenLoan25YrsToggle ).perform();
     browser.sleep( 2000 );
-    expect( page.debtBurdenLoan25YrsToggle.isSelected() ).toBeTruthy();
+    expect( page.debtBurdenLoan25YrsToggle.getAttribute( 'checked' ).length > 0 );
   } );
 
 } );
