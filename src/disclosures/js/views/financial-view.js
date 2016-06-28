@@ -102,7 +102,7 @@ var financialView = {
     this.updateRemainingCostContent();
     metricView.updateDebtBurden();
     this.updateCalculationErrors( values );
-    this.termToggleVisibile( values );
+    this.termToggleVisible( values );
   },
 
   /**
@@ -458,7 +458,7 @@ var financialView = {
     }
   },
 
-  termToggleVisibile: function( values ) {
+  termToggleVisible: function( values ) {
     var fedTotal;
 
     fedTotal = values.perkinsDebt + values.directSubsidizedDebt;
@@ -468,6 +468,7 @@ var financialView = {
     // the 25-year repayment term is an option
     if ( fedTotal > 30000 ) {
       $( '[data-term-toggle]' ).show();
+      $( '.repaymentContent' ).hide();
     } else {
       $( '[data-term-toggle]' ).hide();
       if ( values.repaymentTerm !== 10 ) {
@@ -503,6 +504,7 @@ var financialView = {
       publish.financialData( 'repaymentTerm', term );
       $toggles.prop( 'checked', false );
       $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
+      $ele.focus();
       financialView.updateView( getFinancial.values() );
     } );
   }
