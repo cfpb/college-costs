@@ -42,7 +42,6 @@ var financialView = {
     this.removePrivateListener();
     this.resetPrivateLoanView();
     this.continueStep2Listener();
-    this.stickySummariesListener();
   },
 
   /**
@@ -410,6 +409,7 @@ var financialView = {
           metricView.updateGraphs( values );
           window.location.hash = '#info-right';
           financialView.$aboutThisTool.focus();
+          financialView.stickySummariesListener();
         } );
       } else {
         e.preventDefault();
@@ -480,10 +480,12 @@ var financialView = {
    */
   stickySummariesListener: function() {
     var $stickyOffers = $( '.offer-part_summary-wrapper' );
-
-    $stickyOffers.stick_in_parent( { spacer: false } )
-      .on( 'sticky_kit:unstick', function( e ) {
-        e.target.trigger( 'sticky_kit:detach' );
+    $stickyOffers.stick_in_parent()
+      .on( 'sticky_kit:bottom', function( e ) {
+        $( e.target ).addClass( 'is_bottomed' );
+      } )
+      .on( 'sticky_kit:unbottom', function( e ) {
+        $( e.target ).removeClass( 'is_bottomed' );
       } );
   }
 };

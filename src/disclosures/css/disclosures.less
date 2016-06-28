@@ -575,7 +575,11 @@
 }
 
 .offer-part {
-  margin-top: unit(45px / @base-font-size-px, em);
+  /* padding-top, z-index, and background color need to be set here to make
+     sticky sidebars work correctly */
+  padding-top: unit(45px / @base-font-size-px, em);
+  z-index: 200;
+  background-color: #fff;
 
   .respond-to-min(@bp-sm-min, {
     .grid_nested-col-group();
@@ -638,6 +642,11 @@
       &.is_stuck {
         .grid_column(4);
         .grid_push(7);
+        margin-left: -20px;
+      }
+
+      &.is_stuck.is_bottomed {
+        margin-left: 0;
       }
 
     });
