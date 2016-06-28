@@ -2,8 +2,10 @@
 # -*- coding: utf8 -*-
 import json
 import dateutil.parser
+import smtplib
 
 import mock
+import requests
 
 from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
@@ -49,8 +51,9 @@ class SchoolModelsTest(TestCase):
                                     institution=school)
 
     def create_contact(self):
-        return Contact.objects.create(contact='hackey@school.edu',
-                                      name='Hackey Sack')
+        return Contact.objects.create(contact='hack@hackey.edu',
+                                      name='Hackey Sack',
+                                      endpoint=u'endpoint.hackey.edu')
 
     def create_nickname(self, school):
         return Nickname.objects.create(institution=school,
@@ -130,27 +133,38 @@ class SchoolModelsTest(TestCase):
         msg = noti.notify_school()
         self.assertTrue('failed' in msg)
         contact = self.create_contact()
+        contact.endpoint = ''
+        contact.save()
         skul.contact = contact
         skul.save()
         noti2 = self.create_notification(skul)
         msg1 = noti2.notify_school()
         self.assertTrue(mock_mail.call_count == 1)
         self.assertTrue('email' in msg1)
+        noti3 = self.create_notification(skul)
+        mock_mail.side_effect = smtplib.SMTPException('fail')
+        msg = noti3.notify_school()
+        self.assertTrue(mock_mail.call_count == 2)
 
     @mock.patch('paying_for_college.models.requests.post')
     def test_endpoint_notification(self, mock_post):
         skul = self.create_school()
         contact = self.create_contact()
-        contact.endpoint = 'fake-api.fakeschool.edu'
+        contact.endpoint = u'fake-api.fakeschool.edu'
         contact.save()
         skul.contact = contact
         skul.save()
         noti = self.create_notification(skul)
         msg = noti.notify_school()
-        # print("notification mock_post.call_count is {0}".format(mock_post.call_count))
-        # print("endpoint notification msg is {0}".format(msg))
         self.assertTrue(mock_post.call_count == 1)
         self.assertTrue('endpoint' in msg)
+        mock_return = mock.Mock()
+        mock_return.ok = False
+        mock_post.return_value = mock_return
+        fail_msg = noti.notify_school()
+        # print("notification mock_post.call_count is {0}".format(mock_post.call_count))
+        # print("fail msg is {0}\n\n\n".format(fail_msg))
+        self.assertTrue('fail' in fail_msg)
 
     def test_endpoint_notification_blank_contact(self):
         skul = self.create_school()
@@ -163,3 +177,20 @@ class SchoolModelsTest(TestCase):
         noti = self.create_notification(skul)
         msg = noti.notify_school()
         self.assertTrue('failed' in msg)
+
+    @mock.patch('paying_for_college.models.requests.post')
+    def test_notification_request_errors(self, mock_post):
+        skul = self.create_school()
+        contact = self.create_contact()
+        skul.contact = contact
+        skul.save()
+        noti = self.create_notification(skul)
+        mock_post.side_effect = requests.exceptions.ConnectionError
+        msg = noti.notify_school()
+        self.assertTrue('Error' in msg)
+        mock_post.side_effect = requests.exceptions.Timeout
+        msg = noti.notify_school()
+        self.assertTrue('Error' in msg)
+        mock_post.side_effect = requests.exceptions.RequestException
+        msg = noti.notify_school()
+        self.assertTrue('Error' in msg)
