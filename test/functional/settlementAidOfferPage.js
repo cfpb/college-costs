@@ -517,12 +517,12 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     debtBurdenLoan10YrsToggle: {
       get: function() {
-        return element( by.id( 'monthly-payment_term_10' ) );
+        return element( by.id( 'estimated-debt-burden_term_10' ) );
       }
     },
     debtBurdenLoan25YrsToggle: {
       get: function() {
-        return element( by.id( 'monthly-payment_term_25' ) );
+        return element( by.id( 'estimated-debt-burden_term_25' ) );
       }
     },
     toggleDebtBurdenLoanLengthTo10Yrs: {
