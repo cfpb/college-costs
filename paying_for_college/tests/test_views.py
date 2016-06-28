@@ -304,13 +304,19 @@ class VerifyViewTest(django.test.TestCase):
     def test_verify_view(self):
         resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 200)
-        self.assertTrue('verification' in resp.content)
+        self.assertTrue('Verification' in resp.content)
         resp2 = client.post(self.url, data=self.post_data)
         self.assertTrue(resp2.status_code == 400)
         self.assertTrue('already' in resp2.content)
 
     def test_verify_view_bad_id(self):
         self.post_data['iped'] = ''
+        resp = client.post(self.url, data=self.post_data)
+        self.assertTrue(resp.status_code == 400)
+
+    def test_verify_view_bad_oid(self):
+        self.post_data['iped'] = '408039'
+        self.post_data['oid'] = 'f38283b5b7c939a058889f997949efa566script'
         resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 400)
 

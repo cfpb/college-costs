@@ -21,10 +21,6 @@ from copy import copy
 from decimal import Decimal
 
 import requests
-try:
-    from csvkit import CSVKitWriter as cwriter
-except:
-    from csv import writer as cwriter
 
 from paying_for_college.models import ConstantCap
 
@@ -170,7 +166,7 @@ YEAR_FIELDS = [
 
 
 def build_field_string(YEAR=LATEST_YEAR):
-    """assemble fields for an api query for an analysis csv"""
+    """assemble fields for an api query"""
     fields = BASE_FIELDS + ['{0}.{1}'.format(YEAR, field)
                             for field in YEAR_FIELDS]
     field_string = ",".join([field for field in fields])
@@ -211,79 +207,6 @@ def search_by_school_name(name):
 #             collector[entry['id']] = entry['school.name']
 #     with open('school_ids.json', 'w') as f:
 #         f.write(json.dumps(collector))
-
-
-def export_spreadsheet(year):
-    """traverse pages to build and export an analysis csv for a given year"""
-    starter = datetime.datetime.now()
-    fields = build_field_string(year)
-    headings = fields.replace('.', '_').split(',')
-    collector = {}
-    container = {}
-    for key in headings:
-        container[key] = ''
-    url = '{0}?api_key={1}&per_page={2}&fields={3}'.format(SCHOOLS_ROOT,
-                                                           API_KEY,
-                                                           PAGE_MAX,
-                                                           fields)
-    data = requests.get(url).json()
-    #  initial pass
-    if 'results' not in data:
-        print('no results')
-        return data
-    for school in data['results']:
-        collector[school['id']] = copy(container)
-        for key, value in school.iteritems():
-            collector[school['id']][key.replace('.', '_')] = value
-    next_page = data['metadata']['page'] + 1
-    more_data = True
-    #  harvest rest of pages
-    while more_data:
-        print("getting page {0}".format(next_page))
-        next_url = "{0}&page={1}".format(url, next_page)
-        try:
-            nextdata = json.loads(requests.get(next_url).text)
-        except:
-            nextdata = {'results': []}
-        if len(nextdata['results']) == 0:
-            more_data = False
-            print("no more pages; exporting ...")
-        else:
-            for school in nextdata['results']:
-                collector[school['id']] = copy(container)
-                for key, value in school.iteritems():
-                    collector[school['id']][key.replace('.', '_')] = value
-            next_page = nextdata['metadata']['page'] + 1
-    try:
-        with open('schools_{0}.csv'.format(year), 'w') as f:
-            writer = cwriter(f)
-            writer.writerow(headings)
-            for school_id in collector:
-                writer.writerow([
-                                 collector[school_id][field]
-                                 for field in headings
-                                 ])
-    except:
-        return collector
-    print("export_spreadsheet took {0} to process schools\
-    for the year {1}".format((datetime.datetime.now()-starter), year))
-    return data
-
-if __name__ == '__main__':  # pragma: no cover
-    try:
-        param = sys.argv[1]
-    except:
-        print("please provide a 4-digit year")
-    else:
-        if len(param) == 4:
-            try:
-                year = int(param)
-            except:
-                print("please provide a valid year")
-            else:
-                export_spreadsheet(year)
-        else:
-            print("please provide a valid 4-digit year")
 
 
 # def unpack_alias(alist, school):
@@ -334,9 +257,9 @@ def get_repayment_data(school_id, year):
         '{0}.repayment.7_yr_repayment.noncompleters']
     fields = ",".join([entry.format(year) for entry in entrylist])
     url = "{0}?id={1}&api_key={2}&fields={3}".format(SCHOOLS_ROOT,
-                                             school_id,
-                                             API_KEY,
-                                             fields)
+                                                     school_id,
+                                                     API_KEY,
+                                                     fields)
     data = requests.get(url).json()['results'][0]
     repay_completers = data['{0}.repayment.5_yr_repayment.completers'.format(year)]
     repay_non = data['{0}.repayment.5_yr_repayment.noncompleters'.format(year)]
