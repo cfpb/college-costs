@@ -9,6 +9,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added notifications script and 2 fields to Notification model for errors
 - Made program code required/program name not required in load programs script
 - Made school name bold
+- Use total direct cost value from offer URL
 
 ## 2.1.2
 - Parent PLUS loans separated from other family contributions
