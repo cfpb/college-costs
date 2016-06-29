@@ -15,6 +15,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.verify_wrapper' ) );
       }
     },
+    totalDirectCost: {
+      get: function() {
+        return element( by.id( 'verify_totalDirectCost' ) );
+      }
+    },
     correctInfoButton: {
       get: function() {
         return element ( by.css( 'a[title="Yes, this information is correct"]' ) );

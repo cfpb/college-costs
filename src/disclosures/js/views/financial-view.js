@@ -218,7 +218,15 @@ var financialView = {
     // Update availability of gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
     this.perkinsVisible( values.offersPerkins );
-    this.totalDirectCostVisible( values.totalCost !== null );
+  },
+
+  /**
+   * Updates view based on URL values.
+   * Currently updates the visibility of the anticipated total direct cost.
+   * @param {object} values - An object with URL values
+   */
+  updateViewWithURL: function( values ) {
+    this.totalDirectCostVisible( values.totalCost !== undefined );
   },
 
   /**
@@ -445,7 +453,7 @@ var financialView = {
   /**
    * Sets visibility of anticipated total direct cost section
    * Dependent on `totl` value being passed in URL
-   * @param {boolean} visibility - Whether or not `values.totalCost` exists
+   * @param {boolean} visibility - Whether or not `values.totalCost` is not null
    */
   totalDirectCostVisible: function( visibility ) {
     if ( visibility === false ) {
