@@ -14,7 +14,7 @@ function queryHandler( queryString ) {
     'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'prvf', 'insl',
-    'insi', 'sav'
+    'insi', 'sav', 'totl'
   ];
   var keyMaps = {
     iped: 'collegeID',
@@ -43,7 +43,8 @@ function queryHandler( queryString ) {
     prvi: 'privateLoanRate',
     prvf: 'privateLoanFee',
     insl: 'institutionalLoan',
-    insi: 'institutionalLoanRate'
+    insi: 'institutionalLoanRate',
+    totl: 'totalCost'
   };
 
   /**

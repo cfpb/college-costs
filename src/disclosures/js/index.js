@@ -46,6 +46,10 @@ var app = {
 
               // Add url values to the financial model
               publish.extendFinancialData( urlValues );
+              if ( urlValues.totalCost === undefined ) {
+                publish.financialData( 'totalCost', null );
+              }
+              financialView.updateViewWithURL( urlValues );
 
               // initialize metric view
               metricView.init();

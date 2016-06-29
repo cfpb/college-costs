@@ -74,12 +74,12 @@
                                 <dd class="verify_value">
                                     {{program.get_level}}
                                 </dd>
-                                <dt class="verify_heading">
+                                <dt class="verify_heading verify_direct-cost">
                                     Estimated total cost of program
                                 </dt>
-                                <dd class="verify_value">
-                                    <span id="verify_directCost"
-                                    data-financial="directCost">$[XX]</span> (tuition, fees, books, and supplies)
+                                <dd class="verify_value verify_direct-cost">
+                                    <span id="verify_totalDirectCost"
+                                    data-financial="totalCost">$[XX]</span> (tuition, fees, books, and supplies)
                                 </dd>
                                 <dt class="verify_heading verify_label
                                 verify_estimate"
@@ -2029,12 +2029,19 @@
                                   <span id="criteria_loan-monthly"
                                   data-financial="loanMonthly">
                                   [XXXX]</span>, based on standard
-                                  loan terms of 10 years. Once you leave
-                                  school, you have several different repayment
-                                  options for your federal loans that may help
-                                  reduce your monthly student loan payment.
-                                  You may also be eligible for a federal tax
-                                  credit or deduction.
+                                  loan terms of <span
+                                  data-financial="repaymentTerm"
+                                  data-currency="false">
+                                  [XX]</span> years. Once you leave
+                                  school, you have <a
+                                  href="https://studentaid.ed.gov/sa/repay-loans/understand/plans"
+                                  target="_blank" rel="noopener">several
+                                  different repayment options</a> for your
+                                  federal loans that may help reduce your
+                                  monthly student loan payment. You may also be
+                                  eligible for a <a href="https://www.irs.gov/uac/tax-benefits-for-education-information-center"
+                                  target="_blank" rel="noopener">federal tax
+                                  credit or deduction</a>.
                                 </p>
                                 <p>
                                   Many of these alternative repayment plans
@@ -2049,7 +2056,7 @@
                                   based repayment plans you may be paying off
                                   your loans for upwards of 20 to 25 years.
                                 </p>
-                                <p>
+                                <p data-term-toggle="repaymentContent_30KFederalLoans">
                                   Another payment option extends your
                                   repayment over 25 years, which means you
                                   would have a lower monthly student loan
@@ -2068,10 +2075,19 @@
                             column-well__not-stacked"
                              data-repayment-section="monthly-payment">
                                 <div class="column-well_content">
-                                    <h4 class="metric_heading">
+                                    <h4 class="metric_heading repaymentContent">
+                                        Your estimated monthly payment
+                                    </h4>
+                                    <p class="metric_explanation
+                                    repaymentContent">
+                                        Based on a standard loan term of 10
+                                        years
+                                    </p>
+                                    <h4 class="metric_heading"
+                                    data-term-toggle="repaymentContent_30KFederalLoans">
                                         Calculate your monthly payment
                                     </h4>
-                                    <p>
+                                    <p data-term-toggle="repaymentContent_30KFederalLoans">
                                         Once you leave school, you can choose
                                         one of several available repayment
                                         options.
@@ -2084,7 +2100,7 @@
                                         <div
                                         class="salary-and-debt_projection-value">
                                             <span
-                                            data-repayment="loanMonthly">
+                                            data-financial="loanMonthly">
                                             </span>
                                         </div>
                                     </div>
@@ -2097,28 +2113,39 @@
                                         <div
                                         class="salary-and-debt_projection-value">
                                             <span
-                                            data-repayment="loanLifetime">
+                                            data-financial="loanLifetime">
                                             </span>
                                       </div>
                                     </div>
-                                    <div>
+                                    <div data-term-toggle="debtBurden">
                                       <p>
-                                        See how loan length affects your payments
+                                        See how loan length affects your
+                                        payments
                                       </p>
-                                      <div id="monthly-payment_term">
+                                      <div class="salary-and-debt_payment-term"
+                                      id="monthly-payment_term">
                                         <label for="monthly-payment_term_10">
-                                          <input id="monthly-payment_term_10" type="radio" name="monthly-payment_term"  value="ten" checked> 10 years
+                                          <input id="monthly-payment_term_10"
+                                          type="radio"
+                                          name="monthly-payment_term"
+                                          value="10" checked> 10 years
                                         </label>
-                                        <label>
-                                          <input id="monthly-payment_term_25" type="radio" name="monthly-payment_term" value="twentyFive">
+                                        <label for="monthly-payment_term_25">
+                                          <input id="monthly-payment_term_25"
+                                          type="radio"
+                                          name="monthly-payment_term"
+                                          value="25">
                                           25 years
                                         </label>
                                       </div>
-                                      <p>
-                                        <a href="?">
-                                          Learn about other repayment options
-                                        </a>
-                                      </p>
+                                    </div>
+                                    <div>
+                                        <p>
+                                          <a href="https://studentaid.ed.gov/sa/repay-loans/understand/plans"
+                                          target="_blank" rel="noopener">
+                                            Learn about other repayment options
+                                          </a>
+                                        </p>
                                     </div>
                                 </div>
                             </section>
@@ -2237,21 +2264,36 @@
                                           <p class="cf-notification_text
                                           metric_notification_text__worse">
                                               <span class="cf-notification_icon
-                                              cf-notification_icon__error cf-icon
+                                              cf-notification_icon__error
+                                              cf-icon
                                               cf-icon-error-round"></span>
                                               Loan payment is higher than
                                               recommended 8% of salary
                                           </p>
                                       </div>
-                                      <div id="estimated-debt-burden_term"  data-repayment-section="estimated-debt-burden">
+                                      <div class="debt-burden_payment-term"
+                                      id="estimated-debt-burden_term"
+                                      data-repayment-section="estimated-debt-burden"
+                                      data-term-toggle="debtBurden">
                                       <p>
-                                        See how loan length affects your debt burden
+                                        See how loan length affects your debt
+                                        burden
                                       </p>
-                                        <label for="estimated-debt-burden_term_10">
-                                          <input id="estimated-debt-burden_term_10" type="radio" name="estimated-debt-burden_term"  value="ten" checked> 10 years
+                                        <label
+                                        for="estimated-debt-burden_term_10">
+                                          <input
+                                          id="estimated-debt-burden_term_10"
+                                          type="radio"
+                                          name="estimated-debt-burden_term"
+                                          value="10" checked> 10 years
                                         </label>
-                                        <label>
-                                          <input id="estimated-debt-burden_term_25" type="radio" name="estimated-debt-burden_term" value="twentyFive">
+                                        <label
+                                        for="estimated-debt-burden_term_25">
+                                          <input
+                                          id="estimated-debt-burden_term_25"
+                                          type="radio"
+                                          name="estimated-debt-burden_term"
+                                          value="25">
                                           25 years
                                         </label>
                                       </div>
