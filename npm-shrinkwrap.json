@@ -28,9 +28,9 @@
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.11.2.tgz"
         },
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -326,9 +326,9 @@
       "resolved": "https://registry.npmjs.org/bin-wrapper/-/bin-wrapper-3.0.2.tgz"
     },
     "binary-extensions": {
-      "version": "1.4.1",
+      "version": "1.5.0",
       "from": "binary-extensions@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.4.1.tgz"
+      "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.5.0.tgz"
     },
     "binaryextensions": {
       "version": "1.0.1",
@@ -1603,7 +1603,7 @@
         "mkdirp": {
           "version": "0.3.0",
           "from": "mkdirp@0.3.0",
-          "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
+          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
         },
         "qs": {
           "version": "0.4.2",
@@ -1745,9 +1745,9 @@
       "resolved": "https://registry.npmjs.org/fobject/-/fobject-0.0.4.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -3148,7 +3148,7 @@
         "mkdirp": {
           "version": "0.3.0",
           "from": "mkdirp@0.3.0",
-          "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
+          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
         }
       }
     },
@@ -3872,9 +3872,9 @@
           "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
         },
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -5345,9 +5345,9 @@
       "resolved": "https://registry.npmjs.org/package-json/-/package-json-2.3.2.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -5662,6 +5662,11 @@
       "from": "rechoir@>=0.6.2 <0.7.0",
       "resolved": "https://registry.npmjs.org/rechoir/-/rechoir-0.6.2.tgz"
     },
+    "recursive-readdir": {
+      "version": "2.0.0",
+      "from": "git+https://github.com/Snyk/recursive-readdir.git",
+      "resolved": "git+https://github.com/Snyk/recursive-readdir.git#25cead958075cd44955018e8cad38a7c4d4d9095"
+    },
     "redent": {
       "version": "1.0.0",
       "from": "redent@>=1.0.0 <2.0.0",
@@ -5853,9 +5858,9 @@
       "resolved": "https://registry.npmjs.org/semver-diff/-/semver-diff-2.1.0.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.0.3 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -5870,9 +5875,9 @@
       "resolved": "https://registry.npmjs.org/semver-truncate/-/semver-truncate-1.1.0.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.0.3 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -5974,14 +5979,14 @@
       "resolved": "https://registry.npmjs.org/sntp/-/sntp-1.0.9.tgz"
     },
     "snyk": {
-      "version": "1.16.0",
-      "from": "snyk@1.16.0",
-      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.16.0.tgz",
+      "version": "1.15.2",
+      "from": "snyk@1.15.2",
+      "resolved": "https://registry.npmjs.org/snyk/-/snyk-1.15.2.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -6001,16 +6006,11 @@
       "resolved": "https://registry.npmjs.org/snyk-policy/-/snyk-policy-1.5.0.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
-    },
-    "snyk-recursive-readdir": {
-      "version": "2.0.0",
-      "from": "snyk-recursive-readdir@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/snyk-recursive-readdir/-/snyk-recursive-readdir-2.0.0.tgz"
     },
     "snyk-resolve": {
       "version": "1.0.0",
@@ -6033,9 +6033,9 @@
           "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
         },
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.1.0 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
@@ -6113,9 +6113,9 @@
       "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz"
     },
     "source-map-support": {
-      "version": "0.4.0",
+      "version": "0.4.1",
       "from": "source-map-support@>=0.4.0 <0.5.0",
-      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.0.tgz",
+      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.1.tgz",
       "dependencies": {
         "source-map": {
           "version": "0.1.32",
@@ -6790,9 +6790,9 @@
       "resolved": "https://registry.npmjs.org/win-release/-/win-release-1.1.1.tgz",
       "dependencies": {
         "semver": {
-          "version": "5.1.1",
+          "version": "5.2.0",
           "from": "semver@>=5.0.1 <6.0.0",
-          "resolved": "https://registry.npmjs.org/semver/-/semver-5.1.1.tgz"
+          "resolved": "https://registry.npmjs.org/semver/-/semver-5.2.0.tgz"
         }
       }
     },
