@@ -9,6 +9,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added notifications script and 2 fields to Notification model for errors
 - Made program code required/program name not required in load programs script
 - Made school name bold
+- Use total direct cost value from offer URL
+- Update toggle functionality, interactions, and dynamic content
+- Addressed security vulnerability report in NPM dependencies
 - Used total direct cost value from offer URL
 - Updated toggle functionality, interactions, and dynamic content
 - Fixed `median_salary` reference in load_programs and added test data
