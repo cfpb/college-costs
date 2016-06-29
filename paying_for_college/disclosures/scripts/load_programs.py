@@ -1,7 +1,10 @@
 from __future__ import print_function
 import os
 
-from csv import DictReader as cdr
+try:
+    from csvkit import CSVKitDictReader as cdr
+except:
+    from csv import DictReader as cdr
 from rest_framework import serializers
 
 from paying_for_college.models import Program, School
@@ -35,7 +38,7 @@ class ProgramSerializer(serializers.Serializer):
     program_level = serializers.IntegerField(allow_null=True)  # 3 @TODO: Should this by Char? Choice?
     program_length = serializers.IntegerField(allow_null=True)  # 24
     accreditor = serializers.CharField(allow_blank=True)  # ''
-    average_salary = serializers.IntegerField(allow_null=True)  # 31240
+    median_salary = serializers.IntegerField(allow_null=True)  # 31240
     average_time_to_complete = serializers.IntegerField(allow_null=True)  # 36
     books_supplies = serializers.IntegerField(allow_null=True)  # 2600
     completion_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.29
@@ -81,8 +84,8 @@ def clean_string_as_string(string):
 
 def clean(data):
 
-    number_fields = ('program_level', 'program_length', 'average_salary', 
-        'average_time_to_complete', 'books_supplies', 'completion_rate', 
+    number_fields = ('program_level', 'program_length', 'median_salary',
+        'average_time_to_complete', 'books_supplies', 'completion_rate',
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
         'median_student_loan_completers', 'total_cost', 'tuition_fees')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
@@ -134,7 +137,7 @@ def load(filename):
             program.campus = data['campus_name']
             program.level = data['program_level']
             program.time_to_complete = data['average_time_to_complete']
-            program.salary = data['average_salary']
+            program.salary = data['median_salary']
             program.job_rate = data['job_placement_rate']
             program.job_note = data['job_placement_note']
             program.tuition = data['tuition_fees']
