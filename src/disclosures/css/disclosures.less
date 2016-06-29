@@ -148,7 +148,6 @@
   }
   &_school {
     margin-bottom: 0;
-    font-weight: bold;
   }
 
   &_list {
@@ -992,6 +991,26 @@
     .webfont-regular();
     font-size: unit(14px / @salary-and-debt-font-size, em);
   }
+
+  &_payment-term {
+    margin-bottom: unit(30px / @base-font-size-px, em);
+
+    label {
+      // Bug in Chrome and Safari
+      // Radio button w/ margin-left: 0 in an overflow: hidden container
+      // has clipping on the left side. Fix: set a tiny margin-left value.
+      margin-left: 1px;
+      line-height: 2;
+
+      .respond-to-min(@bp-med-min, {
+        margin-left: 0;
+      });
+
+      .respond-to-min(@bp-lg-min, {
+        line-height: normal;
+      });
+    }
+  }
 }
 
 .debt-burden {
@@ -1009,6 +1028,26 @@
   &_projection-value {
     .grid_column(5);
     text-align: right;
+  }
+
+  &_payment-term {
+    margin-bottom: unit(30px / @base-font-size-px, em);
+
+    label {
+      // Bug in Chrome and Safari
+      // Radio button w/ margin-left: 0 in an overflow: hidden container
+      // has clipping on the left side. Fix: set a tiny margin-left value.
+      margin-left: 1px;
+      line-height: 2;
+
+      .respond-to-min(@bp-med-min, {
+        margin-left: 0;
+      });
+
+      .respond-to-min(@bp-lg-min, {
+        line-height: normal;
+      });
+    }
   }
 }
 

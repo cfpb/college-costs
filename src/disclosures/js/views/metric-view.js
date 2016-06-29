@@ -41,8 +41,7 @@ var metricView = {
     this.settlementStatus = getSchool.values().settlementSchool || false;
     this.setMetrics( this.metrics );
     this.updateGraphs();
-    this.toggleListener();
-    this.updateMonthlyPayment();
+    this.updateDebtBurden();
   },
 
   /**
@@ -340,14 +339,13 @@ var metricView = {
   updateDebtBurden: function() {
     var $section = $( '[data-repayment-section="debt-burden"]' ),
         $elements = $section.find( '[data-debt-burden]' ),
-        term = $section.find( 'input:checked' ).val(),
-        key = term + 'Year',
         financials = getFinancial.values(),
-        values = financials[key],
+        values = {},
         $notification = $( '.debt-burden .metric_notification' ),
         selecter;
 
     // Calculate values
+    values.loanMonthly = financials.loanMonthly;
     values.annualSalary = financials.medianSalary;
     values.monthlySalary = values.annualSalary / 12;
     values.debtBurden = values.loanMonthly / values.monthlySalary;
@@ -370,40 +368,6 @@ var metricView = {
     } else {
       this.hideNotificationClasses( $notification );
     }
-  },
-
-  /**
-   * Function that updates monthly payment section values
-   */
-  updateMonthlyPayment: function() {
-    var $section = $( '[data-repayment-section="monthly-payment"]' ),
-        term = $section.find( 'input:checked' ).val(),
-        key = term + 'Year',
-        values = getFinancial.values()[key];
-    $section.find( '[data-repayment]' ).each( function() {
-      var prop = $( this ).attr( 'data-repayment' ),
-          val = values[prop];
-      val = formatUSD( { amount: val, decimalPlaces: 0 } );
-      $( this ).text( val );
-    } );
-  },
-
-  /**
-   * Listener for clicks on the repayment toggles
-   */
-  toggleListener: function() {
-    $( '[data-repayment-section] input' ).click( function() {
-      var $ele = $( this ),
-          $parent = $ele.closest( '[data-repayment-section' ),
-          section = $parent.attr( 'data-repayment-section' ),
-          term = $ele.val();
-      if ( section === 'monthly-payment' ) {
-        metricView.updateMonthlyPayment( term );
-      }
-      if ( section === 'estimated-debt-burden' ) {
-        metricView.updateDebtBurden( term );
-      }
-    } );
   }
 
 };
