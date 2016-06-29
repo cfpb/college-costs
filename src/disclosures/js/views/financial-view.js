@@ -40,6 +40,7 @@ var financialView = {
     this.removePrivateListener();
     this.resetPrivateLoanView();
     this.continueStep2Listener();
+    this.termToggleListener();
   },
 
   /**
@@ -99,9 +100,9 @@ var financialView = {
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
     this.updateRemainingCostContent();
-    metricView.updateDebtBurden( values );
-    metricView.updateMonthlyPayment();
+    metricView.updateDebtBurden();
     this.updateCalculationErrors( values );
+    this.termToggleVisible( values );
   },
 
   /**
@@ -457,6 +458,26 @@ var financialView = {
     }
   },
 
+  termToggleVisible: function( values ) {
+    var fedTotal;
+
+    fedTotal = values.perkinsDebt + values.directSubsidizedDebt;
+    fedTotal += values.directUnsubsidizedDebt + values.gradPlusDebt;
+
+    // If federal loan debt at graduation exceeds $30,000, then
+    // the 25-year repayment term is an option
+    if ( fedTotal > 30000 ) {
+      $( '[data-term-toggle]' ).show();
+      $( '.repaymentContent' ).hide();
+    } else {
+      $( '[data-term-toggle]' ).hide();
+      if ( values.repaymentTerm !== 10 ) {
+        publish.financialData( 'repaymentTerm', 10 );
+        financialView.updateView( getFinancial.values() );
+      }
+    }
+  },
+
   continueStep2Listener: function() {
     var $continueButton = $( '.continue_controls > .btn' );
     $continueButton.on( 'click', function() {
@@ -468,6 +489,22 @@ var financialView = {
       $( 'html, body' ).stop().animate( {
         scrollTop: financialView.$evaluateSection.offset().top - 120
       }, 900, 'swing', function() {} );
+    } );
+  },
+
+
+  /**
+   * Listener for clicks on the repayment toggles
+   */
+  termToggleListener: function() {
+    $( '[data-repayment-section] input' ).click( function() {
+      var $ele = $( this ),
+          $toggles = $( '[data-repayment-section] input' ),
+          term = $ele.val();
+      publish.financialData( 'repaymentTerm', term );
+      $toggles.prop( 'checked', false );
+      $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
+      financialView.updateView( getFinancial.values() );
     } );
   }
 };
