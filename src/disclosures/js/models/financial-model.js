@@ -27,16 +27,6 @@ var financialModel = {
   },
 
   /**
-   * Adds various academic costs to form the 'directCost' property
-   */
-  sumDirectCost: function() {
-    var model = financialModel.values;
-    // model.directCost as a sum of URL inputs
-    model.directCost =
-      ( model.tuitionFees + model.books ) * model.programLength;
-  },
-
-  /**
    * Sums the total family contributions
    */
   sumFamilyTotal: function() {
@@ -67,7 +57,6 @@ var financialModel = {
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
-    this.sumDirectCost();
   },
 
   /**

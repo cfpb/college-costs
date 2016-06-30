@@ -15,6 +15,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.verify_wrapper' ) );
       }
     },
+    totalDirectCost: {
+      get: function() {
+        return element( by.id( 'verify_totalDirectCost' ) );
+      }
+    },
     correctInfoButton: {
       get: function() {
         return element ( by.css( 'a[title="Yes, this information is correct"]' ) );
@@ -452,7 +457,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     continueStep2: {
       value: function() {
-        this.continueStep2Button.click();
+        browser.actions().mouseMove(this.continueStep2Button).click().perform();
       }
     },
     // Step 2: Evaluate your offer
@@ -511,6 +516,31 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.debt-equation [data-debt-burden="loanMonthly"]' ) );
       }
     },
+    monthlyPaymentLoanLengthToggles: {
+      get: function() {
+        return element( by.css( '.salary-and-debt [data-term-toggle="debtBurden"]' ) );
+      }
+    },
+    monthlyPaymentLoan10YrsToggle: {
+      get: function() {
+        return element( by.id( 'monthly-payment_term_10' ) );
+      }
+    },
+    monthlyPaymentLoan25YrsToggle: {
+      get: function() {
+        return element( by.id( 'monthly-payment_term_25' ) );
+      }
+    },
+    toggleMonthlyPaymentLoanLengthTo10Yrs: {
+      value: function() {
+        browser.actions().mouseMove( this.monthlyPaymentLoan10YrsToggle ).click().perform();
+      }
+    },
+    toggleMonthlyPaymentLoanLengthTo25Yrs: {
+      value: function() {
+        browser.actions().mouseMove( this.monthlyPaymentLoan25YrsToggle ).click().perform();
+      }
+    },
     debtBurdenSalary: {
       get: function() {
         return element( by.css( '.debt-equation [data-debt-burden="monthlySalary"]' ) );
@@ -519,6 +549,32 @@ settlementAidOfferPage.prototype = Object.create({}, {
     debtBurdenNotification: {
       get: function() {
         return element( by.css( '.metric.debt-burden .metric_notification' ) );
+      }
+    },
+    debtBurdenLoanLengthToggles: {
+      get: function() {
+        return element( by.css( '.debt-burden [data-term-toggle="debtBurden"]' ) );
+      }
+    },
+    debtBurdenLoan10YrsToggle: {
+      get: function() {
+        return element( by.id( 'estimated-debt-burden_term_10' ) );
+      }
+    },
+    debtBurdenLoan25YrsToggle: {
+      get: function() {
+        return element( by.id( 'estimated-debt-burden_term_25' ) );
+      }
+    },
+    toggleDebtBurdenLoanLengthTo10Yrs: {
+      value: function() {
+        browser.actions().mouseMove(this.debtBurdenLoan10YrsToggle).click().perform();
+
+      }
+    },
+    toggleDebtBurdenLoanLengthTo25Yrs: {
+      value: function() {
+        browser.actions().mouseMove(this.debtBurdenLoan25YrsToggle).click().perform();
       }
     },
     schoolDefaultRatePoint: {
