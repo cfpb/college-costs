@@ -1,5 +1,9 @@
 version: v1.5.0
-ignore: {}
+ignore:
+  'npm:minimatch:20160620':
+    - capital-framework > npmi > npm > node-gyp > minimatch:
+        reason: None given
+        expires: '2016-07-30T14:12:17.870Z'
 patch:
   'npm:minimatch:20160620':
     - capital-framework > npmi > npm > glob > minimatch:
