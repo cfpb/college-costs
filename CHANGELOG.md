@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+
+## 2.1.3
 - Added load tests
 - Error checking added to program view
 - Error checking added to verification view
@@ -15,6 +17,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Used total direct cost value from offer URL
 - Updated toggle functionality, interactions, and dynamic content
 - Fixed `median_salary` reference in load_programs and added test data
+- Added management commands for notifications
 - Make Step 1 summaries sticky if scrolling out of section to be edited
 
 ## 2.1.2

@@ -129,10 +129,17 @@ class TestScripts(django.test.TestCase):
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'notifications.send_mail')
     def test_send_stale_notifications(self, mock_mail):
-        notifications.send_stale_notifications()
+        msg = notifications.send_stale_notifications()
         self.assertTrue(mock_mail.call_count == 1)
-        notifications.send_stale_notifications(add_email=['abc@def.com',
+        self.assertTrue('Found' in msg)
+        msg = notifications.send_stale_notifications(add_email=['abc@def.com',
                                                            'ghi@jkl.com'])
+        self.assertTrue(mock_mail.call_count == 2)
+        self.assertTrue('Found' in msg)
+        n = Notification.objects.first()
+        n.timestamp = timezone.now()
+        n.save()
+        notifications.send_stale_notifications()
         self.assertTrue(mock_mail.call_count == 2)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
@@ -145,6 +152,10 @@ class TestScripts(django.test.TestCase):
         n.save()
         msg = notifications.retry_notifications()
         self.assertTrue(mock_notify.call_count == 1)
+        n.timestamp = n.timestamp - datetime.timedelta(days=4)
+        n.save()
+        msg = notifications.retry_notifications()
+        self.assertTrue('found' in msg)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'ping_edmc.requests.post')
