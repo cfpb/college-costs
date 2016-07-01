@@ -21,6 +21,7 @@ var financialView = {
   $aboutThisTool: $( '.instructions_about a' ),
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $totalDirectCostSection: $( '.verify_direct-cost' ),
+  $pellGrantSection: $( '[data-section="pellgrant"]' ),
   $gradPlusSection: $( '[data-section="gradPlus"]' ),
   $perkinsSection: $( '[data-section="perkins"]' ),
   $privateContainer: $( '.private-loans' ),
@@ -218,9 +219,10 @@ var financialView = {
     this.$programLength.val( values.programLength ).change();
     // Update links
     linksView.updateLinks( values );
-    // Update availability of gradPLUS loans
+    // Update availability of Pell grants, Perkins loans, and gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
     this.perkinsVisible( values.offersPerkins );
+    this.pellGrantsVisible( values.level.indexOf( 'Graduate' ) == -1 );
   },
 
   /**
@@ -255,7 +257,7 @@ var financialView = {
       subsidizedOverCap: 'directSubsidized',
       unsubsidizedOverCap: 'directUnsubsidized',
       perkinsOverCap: 'perkins',
-      pellOverCap: 'pellOverCap',
+      pellOverCap: 'pell',
       mtaOverCap: 'militaryTuitionAssistance'
     };
 
@@ -467,6 +469,10 @@ var financialView = {
     }
   },
 
+  /**
+   * Sets visibility of Grad Plus loan section (hidden if not graduate program)
+   * @param {boolean} visibility - Whether or not `values.level` is 'Graduate'
+   */
   gradPlusVisible: function( visibility ) {
     if ( visibility === false ) {
       this.$gradPlusSection.hide();
@@ -476,11 +482,28 @@ var financialView = {
     }
   },
 
+  /**
+   * Sets visibility of Perkins section (hidden if school does not offer it)
+   * @param {boolean} visibility - Value of `values.offerPerkins`
+   */
   perkinsVisible: function( visibility ) {
     if ( visibility === false ) {
       this.$perkinsSection.hide();
     } else {
       this.$perkinsSection.show();
+    }
+  },
+
+  /**
+   * Sets visibility of Pell Grant section (hidden for graduate programs)
+   * @param {boolean} visibility - Is `values.level` not 'Graduate'?
+   */
+  pellGrantsVisible: function( visibility ) {
+    if ( visibility === false ) {
+      this.$pellGrantSection.hide();
+      publish.financialData( 'pell', 0 );
+    } else {
+      this.$pellGrantSection.show();
     }
   },
 

@@ -141,6 +141,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setFederalPellGrants( 5500 );
     browser.sleep( 750 );
+    expect( page.pellGrantCapWarning.isDisplayed() ).toBeFalsy;
     expect( page.totalGrantsScholarships.getText() ).toEqual( '15,600' );
     expect( page.studentTotalCost.getText() ).toEqual( '28,026' );
     expect( page.remainingCostFinal.getText() ).toEqual( '-1,474' );
@@ -150,8 +151,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setFederalPellGrants( 10000 );
     browser.sleep( 750 );
-    // TODO: expect student is informed about the Pell Grant cap
-    // expect( EC.visibilityOf( page.pellGrantCapWarning ) );
+    expect( page.pellGrantCapWarning.isDisplayed() ).toBeTruthy;
     expect( page.totalGrantsScholarships.getText() ).toEqual( '15,915' );
     expect( page.studentTotalCost.getText() ).toEqual( '27,711' );
     expect( page.remainingCostFinal.getText() ).toEqual( '-1,789' );
