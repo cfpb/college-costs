@@ -16,6 +16,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updated toggle functionality, interactions, and dynamic content
 - Fixed `median_salary` reference in load_programs and added test data
 - Added management commands for notifications
+- Make Step 1 summaries sticky if scrolling out of section to be edited
 
 ## 2.1.2
 - Parent PLUS loans separated from other family contributions

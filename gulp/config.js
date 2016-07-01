@@ -24,7 +24,9 @@ module.exports = {
   lint: {
     src: [
       loc.src + '/js/**/*.js',
-      '!' + loc.src + '/js/utils/nemo.js'
+      '!' + loc.src + '/js/utils/nemo.js',
+      '!' + loc.src + '/js/libs/google-cloud-print.js',
+      '!' + loc.src + '/js/libs/sticky-kit.js'
     ],
     gulp: [
       'gulpfile.js',
@@ -89,6 +91,10 @@ module.exports = {
     icons: {
       src:  loc.modules + '/capital-framework/src/cf-icons/src/fonts/*',
       dest: loc.dist + '/static/fonts/'
+    },
+    libjs: {
+      src: loc.modules + '/sticky-kit/dist/sticky-kit.js',
+      dest: 'src/disclosures/js/libs/'
     },
     vendorjs: {
       src: [

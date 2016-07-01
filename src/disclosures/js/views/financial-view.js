@@ -9,6 +9,8 @@ var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
 var postVerification = require( '../dispatchers/post-verify' );
 
+require( '../libs/sticky-kit' );
+
 var financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
@@ -418,6 +420,7 @@ var financialView = {
           metricView.updateGraphs( values );
           window.location.hash = '#info-right';
           financialView.$aboutThisTool.focus();
+          financialView.stickySummariesListener();
         } );
       } else {
         e.preventDefault();
@@ -515,6 +518,20 @@ var financialView = {
     } );
   },
 
+  /**
+   * Stick the sidebar aid offer summaries to the viewport top
+   * if the summaries are in the inline-block sidebar column
+   */
+  stickySummariesListener: function() {
+    var $stickyOffers = $( '.offer-part_summary-wrapper' );
+    $stickyOffers.stick_in_parent()
+      .on( 'sticky_kit:bottom', function( e ) {
+        $( e.target ).addClass( 'is_bottomed' );
+      } )
+      .on( 'sticky_kit:unbottom', function( e ) {
+        $( e.target ).removeClass( 'is_bottomed' );
+      } );
+  },
 
   /**
    * Listener for clicks on the repayment toggles
