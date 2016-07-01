@@ -229,7 +229,7 @@ var financialView = {
    * @param {object} values - An object with URL values
    */
   updateViewWithURL: function( values ) {
-    this.totalDirectCostVisible( values.totalCost !== undefined );
+    this.totalDirectCostVisible( typeof values.totalCost !== 'undefined' );
   },
 
   /**
