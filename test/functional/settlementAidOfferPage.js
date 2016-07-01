@@ -131,6 +131,13 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'summary_cost-of-attendance' ) );
       }
     },
+    costSummary: {
+      get: function() {
+        return element( by.css(
+            '.offer-part.cost-to-attend .offer-part_summary-wrapper'
+        ) );
+      }
+    },
     federalPellGrants: {
       get: function() {
         return element( by.id( 'grants__pell' ) );
@@ -173,6 +180,28 @@ settlementAidOfferPage.prototype = Object.create({}, {
       value: function(othergrants) {
         this.otherGrantsScholarships.clear();
         return this.otherGrantsScholarships.sendKeys(othergrants);
+      }
+    },
+    militaryTuitionAssistance: {
+      get: function() {
+        return element( by.id( 'grants__military' ) );
+      }
+    },
+    setmilitaryTuitionAssistance: {
+      value: function(military) {
+        this.militaryTuitionAssistance.clear();
+        return this.militaryTuitionAssistance.sendKeys(military);
+      }
+    },
+    GIBill: {
+      get: function() {
+        return element( by.id( 'grants__gi' ) );
+      }
+    },
+    setGIBill: {
+      value: function(gibill) {
+        this.benefitsGIBill.clear();
+        return this.benefitsGIBill.sendKeys(gibill);
       }
     },
     totalGrantsScholarships: {
@@ -346,6 +375,13 @@ settlementAidOfferPage.prototype = Object.create({}, {
     totalPrivateLoansPaymentPlans: {
       get: function() {
         return element( by.id( 'summary_total-private-loans' ) );
+      }
+    },
+    loansSummary: {
+      get: function() {
+        return element( by.css(
+            '.offer-part.loans .offer-part_summary-wrapper'
+        ) );
       }
     },
     totalDebt: {
