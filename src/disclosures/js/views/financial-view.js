@@ -222,7 +222,7 @@ var financialView = {
     // Update availability of Pell grants, Perkins loans, and gradPLUS loans
     this.gradPlusVisible( values.level.indexOf( 'Graduate' ) !== -1 );
     this.perkinsVisible( values.offersPerkins );
-    this.pellGrantsVisible( values.level.indexOf( 'Graduate' ) == -1 );
+    this.pellGrantsVisible( values.level.indexOf( 'Graduate' ) === -1 );
   },
 
   /**

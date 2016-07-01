@@ -272,6 +272,15 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.remainingCostFinal.getText() ).toEqual( '1,526' );
   } );
 
+  it( 'should properly update when both the Parent PLUS loan and the cash a student\'s family will provide are modified', function() {
+    page.confirmVerification();
+    page.setFamilyContribution( 4000 );
+    page.setParentPlusContribution( 2000 );
+    browser.sleep( 750 );
+    expect( page.totalContributions.getText() ).toEqual( '9,000' );
+    expect( page.remainingCostFinal.getText() ).toEqual( '11,526' );
+  } );
+
   it( 'should properly update when the work study earnings are modified within the allowed limit', function() {
     page.confirmVerification();
     page.setWorkStudyContribution( 2000 );
