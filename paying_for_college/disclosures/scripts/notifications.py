@@ -15,15 +15,18 @@ NOTE_TEMPLATE = Template(('Offer ID $oid:\n'
                           '    send log: $log\n\n'))
 
 
-def retry_notifications():
+def retry_notifications(days=1):
     """attempt to resend recent notifications that failed"""
-    pass
 
-    day_old = timezone.now() - datetime.timedelta(days=1)
+    endmsg = ""
+    days_old = timezone.now() - datetime.timedelta(days=int(days))
     failed_notifications = Notification.objects.filter(sent=False,
-                                                       timestamp__gt=day_old)
+                                                       timestamp__gt=days_old)
     for each in failed_notifications:
-        each.notify_school()
+        endmsg += "{}\n".format(each.notify_school())
+    if not endmsg:
+        endmsg = "No failed notifications found"
+    return endmsg
 
 
 def send_stale_notifications(add_email=[]):
@@ -32,6 +35,8 @@ def send_stale_notifications(add_email=[]):
     stale_date = timezone.now() - datetime.timedelta(days=1)
     stale_notifications = Notification.objects.filter(sent=False,
                                                       timestamp__lt=stale_date)
+    if not stale_notifications:
+        return "No stale notifications found"
     contacts = {notification.institution.contact: [] for notification
                 in stale_notifications if notification.institution.contact}
     for noti in stale_notifications:
@@ -53,3 +58,5 @@ def send_stale_notifications(add_email=[]):
                   "no-reply@cfpb.gov",
                   recipients,
                   fail_silently=False)
+        return "Found {} stale notifications; "
+        "emails sent to {}".format(stale_notifications.count(), recipients)
