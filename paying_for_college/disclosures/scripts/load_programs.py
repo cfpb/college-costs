@@ -8,6 +8,7 @@ except:
 from rest_framework import serializers
 
 from paying_for_college.models import Program, School
+from paying_for_college.views import validate_pid
 
 """
 # Program Data Processing Steps
@@ -27,6 +28,7 @@ load('paying_for_college/data_sources/sample_program_data.csv')
 """
 
 NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data')
+
 
 class ProgramSerializer(serializers.Serializer):
 
@@ -78,9 +80,11 @@ def clean_number_as_string(string):
     clean_str = string.strip()
     return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else None
 
+
 def clean_string_as_string(string):
     clean_str = string.strip()
     return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else ''
+
 
 def clean(data):
 
@@ -89,7 +93,7 @@ def clean(data):
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
         'median_student_loan_completers', 'total_cost', 'tuition_fees')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
-    cleaned_data = dict(map(lambda (k, v): 
+    cleaned_data = dict(map(lambda (k, v):
         (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
         data.iteritems()))
 
@@ -99,7 +103,7 @@ def clean(data):
 def load(filename):
     new_programs = 0
     updated_programs = 0
-    FAILED = [] # failed messages
+    FAILED = []  # failed messages
     raw_data = read_in_data(filename)
     if not raw_data:
         return (["ERROR: could not read data from {0}".format(filename)], "")
@@ -110,6 +114,9 @@ def load(filename):
 
         if serializer.is_valid():
             data = serializer.data
+            if not validate_pid(data['program_code']):
+                print("invalid program code: {}".format(data['program_code']))
+                continue
             (school, error) = get_school(data['ipeds_unit_id'])
             if error:
                 print(error)
@@ -155,5 +162,3 @@ def load(filename):
     endmsg = ('{} programs created. {} programs updated.'.format(new_programs, updated_programs))
 
     return (FAILED, endmsg)
-
-
