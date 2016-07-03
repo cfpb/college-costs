@@ -2,6 +2,7 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Refine input of Pell Grants and family contributions
 
 ## 2.1.3
 - Added load tests

@@ -149,6 +149,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.federalPellGrants.sendKeys(pellgrant);
       }
     },
+    pellGrantCapWarning: {
+      get: function() {
+        return element( by.css( '[data-calc-error="pell"]' ) );
+      }
+    },
     schoolScholarships: {
       get: function() {
         return element( by.id( 'grants__school' ) );
