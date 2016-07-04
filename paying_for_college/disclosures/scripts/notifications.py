@@ -58,6 +58,5 @@ def send_stale_notifications(add_email=[]):
                   "no-reply@cfpb.gov",
                   recipients,
                   fail_silently=False)
-        return ("Found {} stale notifications; "
-                "emails sent to {}".format(stale_notifications.count(),
-                                           recipients))
+        return ("Found {} stale notifications; emails sent to "
+                "{}".format(stale_notifications.count(), recipients))
