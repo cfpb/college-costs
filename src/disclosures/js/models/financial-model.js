@@ -54,6 +54,7 @@ var financialModel = {
   calc: function() {
     this.sumScholarships();
     this.checkPerkins();
+    this.sumFamilyTotal();
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
