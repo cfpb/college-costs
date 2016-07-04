@@ -12,7 +12,7 @@ INTRO = ('Notification failures \n'
 NOTE_TEMPLATE = Template(('Offer ID $oid:\n'
                           '    timestamp: $time\n'
                           '    app errors: $errors\n'
-                          '    send log: $log\n\n'))
+                          'SEND LOG:\n$log\n'))
 
 
 def retry_notifications(days=1):
