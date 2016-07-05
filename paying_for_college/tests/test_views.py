@@ -12,6 +12,7 @@ from paying_for_college.models import School, Program
 from paying_for_college.search_indexes import SchoolIndex
 from paying_for_college.views import (get_school,
                                       validate_oid,
+                                      validate_pid,
                                       EXPENSE_FILE,
                                       get_json_file,
                                       get_program,
@@ -32,7 +33,7 @@ def setup_view(view, request, *args, **kwargs):
     return view
 
 
-class TestOidValidator(unittest.TestCase):
+class Validators(unittest.TestCase):
     """check the oid validator"""
     good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
     bad_oid = '9e0<script>console.log("hi")</script>5d0'
@@ -40,6 +41,13 @@ class TestOidValidator(unittest.TestCase):
     def test_validate_oid(self):
         self.assertFalse(validate_oid(self.bad_oid))
         self.assertTrue(validate_oid(self.good_oid))
+
+    def test_validate_pid(self):
+        # bad_chars = [';', '<', '>', '{', '}']
+        self.assertFalse(validate_pid('490<script>'))
+        self.assertFalse(validate_pid('{value}'))
+        self.assertFalse(validate_pid('DROP TABLE;'))
+        self.assertTrue(validate_pid('108b'))
 
 
 class TestViews(django.test.TestCase):
@@ -167,6 +175,8 @@ class SchoolSearchTest(django.test.TestCase):
         self.assertTrue('Occupational' in test1.program_name)
         test2 = get_program(school, 'xxx')
         self.assertTrue(test2 == '')
+        test3 = get_program(school, '<program>')
+        self.assertTrue(test3 == '')
 
     @mock.patch('paying_for_college.views.SearchQuerySet.autocomplete')
     def test_school_search_api(self, mock_sqs_autocomplete):
@@ -198,14 +208,25 @@ class OfferTest(django.test.TestCase):
         """request for offer disclosure."""
 
         url = reverse('disclosures:offer')
-        qstring = '?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=10000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&insl=3000&insi=4.55'
+        qstring = ('?iped=408039&pid=981&'
+                   'oid=f38283b5b7c939a058889f997949efa566c616c5&'
+                   'tuit=38976&hous=3000&book=650&tran=500&othr=500&'
+                   'pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&'
+                   'mta=3000&gib=3000&wkst=3000&parl=10000&perl=3000&'
+                   'subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&'
+                   'prvi=4.55&insl=3000&insi=4.55')
         no_oid = '?iped=408039&pid=981&oid='
-        bad_school = '?iped=xxxxxx&pid=981&oid=f38283b5b7c939a058889f997949efa566c61'
-        bad_program = '?iped=408039&pid=xxx&oid=f38283b5b7c939a058889f997949efa566c616c5'
+        bad_school = ('?iped=xxxxxx&pid=981&'
+                      'oid=f38283b5b7c939a058889f997949efa566c61')
+        bad_program = ('?iped=408039&pid=xxx&'
+                       'oid=f38283b5b7c939a058889f997949efa566c616c5')
         puerto_rico = '?iped=243197&pid=981&oid='
         missing_oid_field = '?iped=408039&pid=981'
         missing_school_id = '?iped='
-        bad_oid = '?iped=408039&pid=981&oid=f382<script></script>f997949efa566c616c5'
+        bad_oid = ('?iped=408039&pid=981&oid=f382'
+                   '<script></script>f997949efa566c616c5')
+        illegal_program = ('?iped=408039&pid=<981>&oid=f38283b'
+                           '5b7c939a058889f997949efa566c616c5')
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
@@ -222,6 +243,9 @@ class OfferTest(django.test.TestCase):
         self.assertTrue(resp6.status_code == 400)
         resp8 = client.get(url+bad_oid)
         self.assertTrue("Illegal offer" in resp8.content)
+        self.assertTrue(resp8.status_code == 400)
+        resp9 = client.get(url+illegal_program)
+        self.assertTrue("Illegal characters" in resp9.content)
         self.assertTrue(resp8.status_code == 400)
 
 
@@ -291,6 +315,10 @@ class APITests(django.test.TestCase):
         resp3 = client.get(url3)
         self.assertTrue(resp3.status_code == 400)
         self.assertTrue('Error' in resp3.content)
+        url4 = reverse('disclosures:program-json', args=['408039_<script>'])
+        resp4 = client.get(url4)
+        self.assertTrue(resp4.status_code == 400)
+        self.assertTrue('Error' in resp4.content)
 
 
 class VerifyViewTest(django.test.TestCase):
