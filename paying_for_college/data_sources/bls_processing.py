@@ -60,9 +60,10 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
         "Healthcare": "Healthcare",
         "Entertainment": "Entertainment",
         "Personal insurance and pensions": "Retirement",
+        "Apparel and services": "Clothing",
+        "Personal taxes (contains some imputed values)": "Taxes (federal, state, local)",
         # Other
         "Alcoholic beverages": "Other",
-        "Apparel and services": "Other",
         "Personal care products and services": "Other",
         "Reading": "Other",
         "Education": "Other",
@@ -109,6 +110,8 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
         "Healthcare": {"note": "Including insurance"},
         "Entertainment": {"note": "Events, pets, hobbies, equipment"},
         "Retirement": {"note": "Pensions and personal insurance"},
+        "Clothing": {"note": "Apparel and services"},
+        "Taxes (federal, state, local)": {"note": "Personal taxes (contains some imputed values)"},
         "Other": {"note": "Other expeditures"}  
     }
 
