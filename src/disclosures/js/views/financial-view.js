@@ -116,11 +116,16 @@ var financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
+    var originalValue = $ele.val(),
+        isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
-    if ( $ele.attr( 'data-line-item' ) === 'true' ) {
+    if ( isSummaryLineItem ) {
       value = value.replace( /\$/i, '' );
+    }
+    if ( isSummaryLineItem && originalValue !== value ) {
+      financialView.indicateSummaryRecalculationSuccess( $ele );
     }
     if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
       $ele.val( value );
@@ -386,6 +391,7 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
+        financialView.removeRecalculationSuccess();
         financialView.inputHandler( financialView.currentInput );
         financialView.updateView( getFinancial.values() );
       }, 500 );
@@ -398,11 +404,32 @@ var financialView = {
   focusoutListener: function() {
     this.$reviewAndEvaluate.on( 'focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
+      financialView.removeRecalculationSuccess();
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
       financialView.currentInput = 'none';
       financialView.updateView( getFinancial.values() );
     } );
+  },
+
+  /**
+   * Helper function to indicate that a offer summary line item has
+   * successfully recalculated
+   * @param {object} element - jQuery object of the recalculated summary element
+   */
+  indicateSummaryRecalculationSuccess: function( element ) {
+    element.addClass( 'success' );
+    element.after(
+      '<span class="cf-form_input-icon cf-icon cf-icon-approved-round recalculated__summary"></span>'
+    );
+  },
+
+  /**
+   * Helper function to remove all indicators that data has recalculated
+   */
+  removeRecalculationSuccess: function() {
+    $( '.aid-form_summary' ).removeClass( 'success' );
+    $( '.recalculated__summary' ).remove();
   },
 
   /**
