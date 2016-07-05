@@ -115,7 +115,8 @@ def load(filename):
         if serializer.is_valid():
             data = serializer.data
             if not validate_pid(data['program_code']):
-                print("invalid program code: {}".format(data['program_code']))
+                print("ERROR: invalid program code: "
+                      "{}".format(data['program_code']))
                 continue
             (school, error) = get_school(data['ipeds_unit_id'])
             if error:
