@@ -3,7 +3,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Added string checking for program codes
-- Refine input of Pell Grants and family contributions
+- Refined input of Pell Grants and family contributions
+- Added a test so that notifications can't be sent to non-settlement schools
 
 ## 2.1.3
 - Added load tests
