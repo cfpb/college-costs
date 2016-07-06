@@ -46,6 +46,9 @@ else:  # pragma: no cover
 
 URL_ROOT = 'paying-for-college2'
 EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
+NO_SCHOOL_ERROR = "No active school could be found for iped ID {0}"
+ID_ERROR = "Illegal offer ID; only characters 0-9 and a-f are allowed."
+PID_ERROR = "Error: Illegal characters in program code '{}'"
 
 
 def get_json_file(filename):
@@ -66,6 +69,13 @@ def validate_oid(oid):
         return False
     else:
         return True
+
+
+def validate_pid(pid):
+    for char in [';', '<', '>', '{', '}']:
+        if char in pid:
+            return False
+    return True
 
 
 def get_program_length(program, school):
@@ -97,6 +107,8 @@ def get_school(schoolID):
 
 def get_program(school, programCode):
     """Try to get latest program; return either program or empty string"""
+    if not validate_pid(programCode):
+        return ''
     programs = Program.objects.filter(program_code=programCode,
                                       institution=school).order_by('-pk')
     if programs:
@@ -118,24 +130,24 @@ class OfferView(TemplateView):  # TODO log errors
     """consult values in querystring and deliver school/program data"""
 
     def get(self, request):
-        no_school_error = "No active school could be found for iped ID {0}"
-        id_error = "Illegal offer ID; only characters 0-9 and a-f are allowed."
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
             school = get_school(iped)
             if not school or not school.operating:
-                return HttpResponseBadRequest(no_school_error.format(iped))
+                return HttpResponseBadRequest(NO_SCHOOL_ERROR.format(iped))
             if 'oid' in request.GET:
                 OID = request.GET['oid']
             else:
                 OID = ''
             if OID and validate_oid(OID) is False:
-                return HttpResponseBadRequest(id_error)
+                return HttpResponseBadRequest(ID_ERROR)
             program_data = json.dumps({})
             program = ''
             if 'pid' in request.GET and request.GET['pid']:
-                program_code = request.GET['pid']
-                programs = Program.objects.filter(program_code=request.GET['pid'],
+                PID = request.GET['pid']
+                if not validate_pid(PID):
+                    return HttpResponseBadRequest(PID_ERROR.format(PID))
+                programs = Program.objects.filter(program_code=PID,
                                                   institution=school).order_by('-pk')
                 if programs:
                     program = programs[0]
@@ -223,13 +235,18 @@ class ProgramRepresentation(View):
     def get(self, request, program_code, **kwargs):
         ids = program_code.split('_')
         if len(ids) != 2:
-            error = ('Error: Programs must be specified in this way: '
-                     '"/program/SCHOOLID_PROGRAMID/" -- but this '
-                     'is what was received: /program/{}/'.format(program_code))
-            return HttpResponseBadRequest(error)
+            format_error = ('Error: Programs must be specified in this way: '
+                            '"/program/SCHOOLID_PROGRAMID/" -- '
+                            'but this is what was received: '
+                            '/program/{}/'.format(program_code))
+            return HttpResponseBadRequest(format_error)
+        PID = ids[1]
+        if not validate_pid(PID):
+            return HttpResponseBadRequest(PID_ERROR.format(PID))
         program = self.get_program(program_code)
         if not program:
-            p_error = "Error: No program found for code {}".format(program_code)
+            p_error = ("Error: No program was found "
+                       "for code {}".format(program_code))
             return HttpResponseBadRequest(p_error)
         return HttpResponse(program.as_json(),
                             content_type='application/json')

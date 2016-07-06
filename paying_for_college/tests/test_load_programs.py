@@ -7,6 +7,7 @@ from decimal import *
 from paying_for_college.models import Program, School
 from paying_for_college.disclosures.scripts.load_programs import get_school, read_in_data, clean_number_as_string, clean_string_as_string, clean, load
 
+
 class TestLoadPrograms(django.test.TestCase):
     fixtures = ['test_program.json']
 
@@ -141,9 +142,7 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertEqual(program.job_note, "The rate reflects employment status as of November 1, 2014 - Test")
         self.assertEqual(program.tuition, 40000)
         self.assertEqual(program.books, 1000)
-
-
-
-
-
-
+        mock_clean.return_value['program_code'] = '<904>'
+        load('filename')
+        self.assertEqual(mock_read_in.call_count, 2)
+        self.assertEqual(mock_program.call_count, 1)  # loader bails before creating program
