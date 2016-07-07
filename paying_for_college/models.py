@@ -345,13 +345,16 @@ class Notification(models.Model):
                                       self.institution.pk)
 
     def notify_school(self):
+        school = self.institution
+        if not school.settlement_school:
+            nonmsg = "No notification required; {} is not a settlement school"
+            return nonmsg.format(school.primary_alias)
         payload = {
             'oid':    self.oid,
             'time':   self.timestamp.isoformat(),
             'errors': self.errors
         }
         now = datetime.datetime.now()
-        school = self.institution
         no_contact_msg = ("School notification failed: "
                           "No endpoint or email info {}".format(now))
         # we prefer to use endpount notification, so use it first if existing

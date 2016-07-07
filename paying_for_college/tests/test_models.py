@@ -129,6 +129,7 @@ class SchoolModelsTest(TestCase):
     @mock.patch('paying_for_college.models.send_mail')
     def test_email_notification(self, mock_mail):
         skul = self.create_school()
+        skul.settlement_school = 'edmc'
         noti = self.create_notification(skul)
         msg = noti.notify_school()
         self.assertTrue('failed' in msg)
@@ -149,6 +150,7 @@ class SchoolModelsTest(TestCase):
     @mock.patch('paying_for_college.models.requests.post')
     def test_endpoint_notification(self, mock_post):
         skul = self.create_school()
+        skul.settlement_school = 'edmc'
         contact = self.create_contact()
         contact.endpoint = u'fake-api.fakeschool.edu'
         contact.save()
@@ -168,6 +170,7 @@ class SchoolModelsTest(TestCase):
 
     def test_endpoint_notification_blank_contact(self):
         skul = self.create_school()
+        skul.settlement_school = 'edmc'
         contact = self.create_contact()
         contact.contact = ''
         contact.endpoint = ''
@@ -181,6 +184,7 @@ class SchoolModelsTest(TestCase):
     @mock.patch('paying_for_college.models.requests.post')
     def test_notification_request_errors(self, mock_post):
         skul = self.create_school()
+        skul.settlement_school = 'edmc'
         contact = self.create_contact()
         skul.contact = contact
         skul.save()
@@ -194,3 +198,25 @@ class SchoolModelsTest(TestCase):
         mock_post.side_effect = requests.exceptions.RequestException
         msg = noti.notify_school()
         self.assertTrue('Error' in msg)
+
+
+class NonSettlementNotificaion(TestCase):
+    fixtures = ['test_fixture.json']
+
+    def create_notification(self,
+                            school,
+                            oid='f38283b5b7c939a058889f997949efa566c616c5',
+                            time='2016-01-13T20:06:18.913112+00:00'):
+        return Notification.objects.create(institution=school,
+                                           oid=oid,
+                                           timestamp=dateutil.parser.parse(time),
+                                           errors='none')
+
+    def test_nonsettlement_notification(self):
+        skul = School.objects.get(pk=155317)  # a non-settlement school
+        notification = self.create_notification(skul)
+        non_msg = notification.notify_school()
+        print ("\n\n\n*** school is {}\nsettlement_school value is {}\n"
+               "non_msg is {}***\n\n\n".format(skul, skul.settlement_school, non_msg))
+
+        self.assertTrue('No notification required' in non_msg)
