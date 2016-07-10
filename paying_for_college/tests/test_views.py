@@ -154,12 +154,13 @@ class SchoolSearchTest(django.test.TestCase):
     fixtures = ['test_fixture.json',
                 'test_program.json']
 
-    class SolrSchool:
+    class ElasticSchool:
         def __init__(self):
             self.text = ''
             self.school_id = 0
             self.city = ''
             self.state = ''
+            self.nicknames = ''
 
     def test_get_school(self):
         """test grabbing a school by ID"""
@@ -183,12 +184,13 @@ class SchoolSearchTest(django.test.TestCase):
         """school_search_api should return json."""
 
         mock_school = School.objects.get(pk=155317)
-        # mock the solr returned value
-        solr_school = self.SolrSchool()
+        # mock the search returned value
+        solr_school = self.ElasticSchool()
         solr_school.text = mock_school.primary_alias
         solr_school.school_id = mock_school.school_id
         solr_school.city = mock_school.city
         solr_school.state = mock_school.state
+        solr_school.nicknames = 'Jayhawks'
         solr_queryset = [solr_school]
         mock_sqs_autocomplete.return_value = solr_queryset
         url = "%s?q=Kansas" % reverse('disclosures:school_search')
@@ -196,6 +198,7 @@ class SchoolSearchTest(django.test.TestCase):
         resp = school_search_api(request)
         self.assertTrue('Kansas' in resp.content)
         self.assertTrue('155317' in resp.content)
+        self.assertTrue('Jayhawks' in resp.content)
 
 
 class OfferTest(django.test.TestCase):

@@ -96,6 +96,7 @@ class SchoolModelsTest(TestCase):
         n = self.create_nickname(s)
         self.assertTrue(isinstance(n, Nickname))
         self.assertTrue(n.nickname in n.__unicode__())
+        self.assertTrue(n.nickname in s.nicknames)
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
         self.assertTrue(p.program_name in p.__unicode__())

@@ -328,6 +328,10 @@ class School(models.Model):
         else:
             return 'Not Available'
 
+    @property
+    def nicknames(self):
+        return ", ".join([nick.nickname for nick in self.nickname_set.all()])
+
 
 class Notification(models.Model):
     """record of a disclosure verification"""

@@ -5,6 +5,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added string checking for program codes
 - Refined input of Pell Grants and family contributions
 - Added a test so that notifications can't be sent to non-settlement schools
+- Updated standalone search configs for running Elasticsearch locally
 
 ## 2.1.3
 - Added load tests

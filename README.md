@@ -21,8 +21,8 @@ Tools to help students make informed financial decisions about college.
 - [Django](https://www.djangoproject.com/)
 - [requests](http://docs.python-requests.org/en/latest/)
 - [Unipath](https://github.com/mikeorr/Unipath)
-- [haystack](http://haystacksearch.org/)
-- [elasticsearch](https://www.elastic.co/products/elasticsearch)
+- [Haystack](http://haystacksearch.org/)
+- [Elasticsearch](https://www.elastic.co/products/elasticsearch)
 
 <!-- - [django-haystack](http://haystacksearch.org/) -->
 
@@ -33,7 +33,6 @@ Tools to help students make informed financial decisions about college.
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
 - Install the setup dependencies if you don't have them.
-- Elasticsearch is optional for the standalone setup
 - Go to the local directory where you want the project to be created, make a virtual environment, clone this repository (or your own fork of it).
 ```bash
 mkvirtualenv college-costs
@@ -54,6 +53,34 @@ The college-cost tools should show up at [localhost:8000/paying-for-college2/](h
 
 The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
+### Search
+The app has a simple API for searching schools by name or nickname. The endpoint, to which you can append a querystring, is:
+```
+/understanding-your-financial-aid-offer/api/search-schools.json
+```
+
+Elasticsearch needs to be running locally for search to work.  
+Your launch command will vary depending on which version of Elasticsearch is installed.
+
+For 2.x versions installed on a mac with homebrew, this is an example command:
+
+```
+elasticsearch --path.conf=/Users/[MAC USERNAME]/homebrew/opt/elasticsearch/config/elasticsearch.yml
+```
+
+1.x versions use a `--config` param instead of `path.conf`:
+
+
+With elasticsearch running, you can now build an index of college data:
+
+
+```
+./manage.py rebuild_index
+```
+
+Now you should get a json response when hitting the search API. You can search by school name or nickname, such as:
+
+http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/api/search-schools.json?q=jayhawks
 
 ### Running tests
 
