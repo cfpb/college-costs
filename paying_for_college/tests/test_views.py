@@ -185,13 +185,13 @@ class SchoolSearchTest(django.test.TestCase):
 
         mock_school = School.objects.get(pk=155317)
         # mock the search returned value
-        solr_school = self.ElasticSchool()
-        solr_school.text = mock_school.primary_alias
-        solr_school.school_id = mock_school.school_id
-        solr_school.city = mock_school.city
-        solr_school.state = mock_school.state
-        solr_school.nicknames = 'Jayhawks'
-        solr_queryset = [solr_school]
+        elastic_school = self.ElasticSchool()
+        elastic_school.text = mock_school.primary_alias
+        elastic_school.school_id = mock_school.school_id
+        elastic_school.city = mock_school.city
+        elastic_school.state = mock_school.state
+        elastic_school.nicknames = 'Jayhawks'
+        solr_queryset = [elastic_school]
         mock_sqs_autocomplete.return_value = solr_queryset
         url = "%s?q=Kansas" % reverse('disclosures:school_search')
         request = RequestFactory().get(url)
