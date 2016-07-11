@@ -4,13 +4,26 @@ import unittest
 from django.core.management.base import CommandError
 from django.core.management import call_command
 
-from paying_for_college.management.commands import (update_via_api,
+from paying_for_college.management.commands import (update_ipeds,
+                                                    update_via_api,
                                                     load_programs,
                                                     retry_notifications,
                                                     send_stale_notifications)
 
 
 class CommandTests(unittest.TestCase):
+
+    @mock.patch('paying_for_college.management.commands.'
+                'update_ipeds.load_values')
+    def test_update_ipeds(self, mock_load):
+        mock_load.return_value = 'DRY RUN'
+        call_command('update_ipeds')
+        self.assertEqual(mock_load.call_count, 1)
+        call_command('update_ipeds', '--dry-run', 'false')
+        self.assertEqual(mock_load.call_count, 2)
+        call_command('update_ipeds', '--dry-run', 'jabberwocky')
+        self.assertEqual(mock_load.call_count, 2)
+
     @mock.patch('paying_for_college.management.commands.'
                 'update_via_api.update_colleges.update')
     def test_api_update(self, mock_update):
