@@ -68,7 +68,7 @@ For 2.x versions installed on a mac with homebrew, this is an example command:
 elasticsearch --path.conf=/Users/[MAC USERNAME]/homebrew/opt/elasticsearch/config/elasticsearch.yml
 ```
 
-1.x versions use a `--config` param instead of `path.conf`:
+1.x versions use a `--config=` param instead of `path.conf=`
 
 
 With elasticsearch running, you can now build an index of college data:
