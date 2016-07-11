@@ -1961,7 +1961,7 @@
                                         <div
                                         class="salary-and-debt_projection-value">
                                             <span
-                                            data-financial="medianSalary">
+                                            data-financial="medianSalary">[XX]
                                             </span>
                                         </div>
                                     </div>
@@ -2159,22 +2159,23 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Think about how much money you can expect
-                                    to make if you graduate and get a job in
-                                    your field, and then evaluate how much of
-                                    that will go toward living expenses and
-                                    loan payments.
+                                    Think about how much money you can expect to
+                                    make if you graduate and get a job in your
+                                    field, and then evaluate how much of that
+                                    will go toward living expenses and loan
+                                    payments. In reality, you could end up
+                                    making more or less than the average
+                                    salaries shown here.
                                 </p>
                                 <p id="criteria_job-placement-content">
-                                    Keep in mind your school has a job
-                                    placement rate of <span
+                                    Keep in mind your school has a job placement
+                                    rate of <span
                                     id="criteria_job-placement-rate"
                                     data-financial="jobRate"
                                     data-percentage_value="true">[X.X]</span>%
                                     for students who graduate and get a job in
-                                    their field. In reality, you could end up
-                                    making more or less than the average
-                                    salaries shown here.
+                                    their field of study within six months of
+                                    graduating.
                                 </p>
                             </div>
                             <section class="metric debt-burden column-well
@@ -2303,33 +2304,86 @@
                                 <form class="aid-form" action="#">
                                     <div class="aid-form_heading">
                                         <h4 class="aid-form_title">
-                                            Estimated expenses
+                                            Estimated budget after you leave
+                                            school (adjust as needed)
                                         </h4>
-                                        <p class="aid-form_caption">
-                                            Monthly living expenses based on
-                                            <span id="expenses__datatype"
-                                            data-financial="BLSAverage"
-                                            data-currency="false">
-                                            national</span> averages from the
-                                            Bureau of Labor Statistics; adjust
-                                            as needed</p>
+                                        <p>
+                                            Average monthly living expenses for
+                                            someone making <span
+                                            data-financial="medianSalary">[$XX]
+                                            </span>/year in the region you plan
+                                            to live (Source: <a
+                                            href="http://www.bls.gov/cex/"
+                                            target="_blank"
+                                            rel="noopener">Bureau of Labor
+                                            Statistics</a>). Your expenses may
+                                            be higher or lower.
+                                        </p>
                                         <div class="cf-select">
                                           <select id="bls-region-select">
-                                            <option value="WE">West Region</option>
-                                            <option value="SO">South Region</option>
-                                            <option value="NE">Northeast Region</option>
-                                            <option value="MW">Midwest Region</option>
+                                            <option value="WE">West region</option>
+                                            <option value="SO">South region</option>
+                                            <option value="NE">Northeast region</option>
+                                            <option value="MW">Midwest region</option>
                                           </select>
+                                        </div>
+                                    </div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Average monthly salary
+                                            <span
+                                            class="line-item_explanation">
+                                                Before taxes
+                                            </span>
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount"
+                                            data-line-item="true"
+                                            data-financial="monthlySalary"
+                                            id="summary_monthly-salary">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Monthly student loan payment
+                                            <span
+                                            class="line-item_explanation">
+                                                Based on <span
+                                                data-financial="repaymentTerm"
+                                                data-currency="false">
+                                                </span>-year repayment plan
+                                            </span>
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-line-item="true"
+                                            data-financial="loanMonthly"></span>
                                         </div>
                                     </div>
                                     <div class="form-group_item">
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
-                                                Mortgage or rent
+                                                Housing
+                                                <span class="line-item_explanation">
+                                                    Includes utilities, cell
+                                                    phone
+                                                </span>
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__rent"
@@ -2347,6 +2401,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__food"
@@ -2360,10 +2417,34 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
+                                                Clothing
+                                            </span>
+                                            <span
+                                            class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
+                                                <input class="aid-form_input
+                                                aid-form_input__currency"
+                                                type="text"
+                                                id="expenses__clothing"
+                                                name="expenses__clothing"
+                                                data-expenses="clothing"
+                                                autocorrect="off" value="0">
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <label class="form-label__wrapped">
+                                            <span
+                                            class="form-label_text-wrapper">
                                                 Transportation
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2378,15 +2459,18 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
-                                                Insurance (health, car, etc.)
+                                                Healthcare
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
-                                                id="expenses__insurance"
-                                                name="expenses__insurance"
+                                                id="expenses__healthcare"
+                                                name="expenses__healthcare"
                                                 data-expenses="healthcare"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -2400,6 +2484,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2418,6 +2505,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2432,10 +2522,37 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
+                                                Taxes
+                                                <span class="line-item_explanation">
+                                                    Federal, state, local
+                                                </span>
+                                            </span>
+                                            <span
+                                            class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
+                                                <input class="aid-form_input
+                                                aid-form_input__currency"
+                                                type="text"
+                                                id="expenses__healthcare"
+                                                name="expenses__healthcare"
+                                                data-expenses="healthcare"
+                                                autocorrect="off" value="0">
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <label class="form-label__wrapped">
+                                            <span
+                                            class="form-label_text-wrapper">
                                                 Other
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="line-item_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input
                                                 class="aid-form_input
                                                 aid-form_input__currency"
@@ -2447,95 +2564,25 @@
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="content_line
-                                    aid-form_equals-line"></div>
-                                    <div class="line-item aid-form_subtotal">
-                                        <div class="line-item_title">
-                                            Total monthly expenses
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-expenses="totalMonthlyExpenses"></span>
-                                        </div>
-                                    </div>
                                 </form>
                                 <div class="aid-form_summary">
-                                    <h5 class="aid-form_summary-heading">
-                                        Grand total
-                                    </h5>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Average monthly salary
-                                            <span
-                                            class="line-item_explanation">
-                                                Before taxes
-                                            </span>
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-financial="monthlySalary"
-                                            id="summary_monthly-salary">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Total monthly expenses
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                <span class="line-item_sign">
-                                                    ( &minus; )
-                                                </span>
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-expenses="totalMonthlyExpenses"
-                                            id="summary_monthly-expenses">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Student loans
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                <span class="line-item_sign">
-                                                    ( &minus; )
-                                                </span>
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-financial="loanMonthly"></span>
-                                        </div>
-                                    </div>
                                     <div class="content_line
                                     aid-form_equals-line"></div>
                                     <div class="line-item line-item__total">
                                         <div class="line-item_title">
-                                            What you have left over
-                                            <span
-                                            class="line-item_explanation">
-                                                Not including taxes or other
-                                                types of debt
-                                            </span>
+                                            Total left at the end of the month
                                         </div>
                                         <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
+                                            <span class="line-item_amount"
+                                            data-line-item="true"
                                             data-expenses="monthlyLeftover"
                                             id="summary_monthly-left-over">
                                             </span>
                                         </div>
+                                    </div>
+                                    <div class="aid-form_higher-expenses">
+                                        Your total expenses are higher than your
+                                        estimated monthly salary
                                     </div>
                                 </div>
                             </section>
