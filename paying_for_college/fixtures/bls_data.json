@@ -376,8 +376,8 @@
          "30000_to_39999":1845
       }
    },
-   "Taxes (federal, state, local)":{
-      "note":"Personal taxes (contains some imputed values)",
+   "Taxes":{
+      "note":"Personal federal, state, andlocal taxes; contains some imputed values",
       "MW":{
          "less_than_5000":-415,
          "50000_to_69999":5027,
