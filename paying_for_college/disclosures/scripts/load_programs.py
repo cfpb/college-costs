@@ -53,6 +53,8 @@ class ProgramSerializer(serializers.Serializer):
     tuition_fees = serializers.IntegerField(allow_null=True)  # 88404
     cip_code = serializers.CharField(allow_blank=True) # '12.0504'
     soc_codes = serializers.CharField(allow_blank=True)  # '35-1011, 35-1012'
+    completers = serializers.IntegerField(allow_null=True)
+    completion_cohorts = serializers.IntegerField(allow_null=True)
 
 
 def get_school(iped):
@@ -91,7 +93,8 @@ def clean(data):
     number_fields = ('program_level', 'program_length', 'median_salary',
         'average_time_to_complete', 'books_supplies', 'completion_rate',
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
-        'median_student_loan_completers', 'total_cost', 'tuition_fees')
+        'median_student_loan_completers', 'total_cost', 'tuition_fees', 
+        'completers', 'completion_cohorts')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
     cleaned_data = dict(map(lambda (k, v):
         (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
@@ -150,6 +153,8 @@ def load(filename):
             program.job_note = data['job_placement_note']
             program.tuition = data['tuition_fees']
             program.books = data['books_supplies']
+            program.completers = data['completers']
+            program.completion_cohorts = data['completion_cohorts']
             program.save()
 
         else: # There is error

@@ -328,6 +328,10 @@ class School(models.Model):
         else:
             return 'Not Available'
 
+    @property
+    def nicknames(self):
+        return ", ".join([nick.nickname for nick in self.nickname_set.all()])
+
 
 class Notification(models.Model):
     """record of a disclosure verification"""
@@ -501,6 +505,14 @@ class Program(models.Model):
                                    help_text="COMPLETERS WHO GET RELATED JOB")
     job_note = models.TextField(blank=True,
                                 help_text="EXPLANATION FROM SCHOOL")
+
+    completers = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="COMPLETERS OF THE PROGRAM")
+
+    completion_cohorts = models.IntegerField(blank=True,
+                                             null=True,
+                                             help_text="COMPLETION COHORTS")
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))

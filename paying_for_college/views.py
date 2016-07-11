@@ -328,6 +328,7 @@ def school_search_api(request):
     document = [{'schoolname': school.text,
                  'id': school.school_id,
                  'city': school.city,
+                 'nicknames': school.nicknames,
                  'state': school.state,
                  'url': reverse('disclosures:school-json',
                                 args=[school.school_id])}
