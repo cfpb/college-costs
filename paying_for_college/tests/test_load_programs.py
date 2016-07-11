@@ -73,7 +73,8 @@ class TestLoadPrograms(django.test.TestCase):
         u'program_code': u'1509', u'books_supplies': 'No Data', u'campus_name': u'SU Savannah', 
         u'cip_code': u'11.0401', u'ope_id': u'1303900', u'completion_rate': u'0.23', 
         u'program_level': u'2', u'tuition_fees': u'44565', u'program_name': u'Information Technology', 
-        u'median_student_loan_completers': u'28852', u'soc_codes': u'11-3021', u'program_length': u'24'}
+        u'median_student_loan_completers': u'28852', u'soc_codes': u'11-3021', u'program_length': u'24',
+        u'completers': u'0', u'completion_cohorts': u'0'}
 
         expected_dict = {u'job_placement_rate': 'NUMBER', u'default_rate': 'NUMBER', 
         u'job_placement_note': 'STRING', u'mean_student_loan_completers': 'NUMBER', 
@@ -82,9 +83,10 @@ class TestLoadPrograms(django.test.TestCase):
         u'program_code': 'STRING', u'books_supplies': 'NUMBER', u'campus_name': 'STRING', 
         u'cip_code': 'STRING', u'ope_id': 'STRING', u'completion_rate': 'NUMBER', 
         u'program_level': 'NUMBER', u'tuition_fees': 'NUMBER', u'program_name': 'STRING', 
-        u'median_student_loan_completers': 'NUMBER', u'soc_codes': 'STRING', u'program_length': 'NUMBER'}
+        u'median_student_loan_completers': 'NUMBER', u'soc_codes': 'STRING', u'program_length': 'NUMBER',
+        u'completers': 'NUMBER', u'completion_cohorts': 'NUMBER'}
         result = clean(input_dict)
-        self.assertEqual(mock_number.call_count, 12)
+        self.assertEqual(mock_number.call_count, 14)
         self.assertEqual(mock_string.call_count, 9)
         print(result)
         print(expected_dict)
@@ -104,7 +106,7 @@ class TestLoadPrograms(django.test.TestCase):
                 "job_placement_note": "The rate reflects employment status as of November 1, 2014 - Test", 
                 "mean_student_loan_completers": "30000", "median_student_loan_completers": "30500", 
                 "total_cost": "50000", "tuition_fees": "40000", "cip_code": "51.0803 - Test", 
-                "soc_codes": "31-2011.00 - Test"}
+                "soc_codes": "31-2011.00 - Test", "completers": "0", "completion_cohorts": "0"}
         ]
         mock_clean.return_value = {"ipeds_unit_id": "408039", "ope_id": "", "campus_name": "Ft Wayne - Test", 
                 "program_code": "981 - Test", "program_name": "Occupational Therapy Assistant - 981 - Test", 
@@ -115,7 +117,7 @@ class TestLoadPrograms(django.test.TestCase):
                 "job_placement_note": "The rate reflects employment status as of November 1, 2014 - Test", 
                 "mean_student_loan_completers": 30000, "median_student_loan_completers": 30500, 
                 "total_cost": 50000, "tuition_fees": 40000, "cip_code": "51.0803 - Test", 
-                "soc_codes": "31-2011.00 - Test"}
+                "soc_codes": "31-2011.00 - Test", "completers": 0, "completion_cohorts": 0}
         program = Program.objects.first()
         mock_program.return_value = (program, False)
 
@@ -142,6 +144,8 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertEqual(program.job_note, "The rate reflects employment status as of November 1, 2014 - Test")
         self.assertEqual(program.tuition, 40000)
         self.assertEqual(program.books, 1000)
+        self.assertEqual(program.completers, 0)
+        self.assertEqual(program.completion_cohorts, 0)
         mock_clean.return_value['program_code'] = '<904>'
         load('filename')
         self.assertEqual(mock_read_in.call_count, 2)
