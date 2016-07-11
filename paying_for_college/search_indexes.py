@@ -5,6 +5,7 @@ from models import School
 class SchoolIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, model_attr='primary_alias')
     school_id = indexes.IntegerField(model_attr='school_id')
+    nicknames = indexes.CharField(model_attr='nicknames')
     city = indexes.CharField(model_attr='city')
     state = indexes.CharField(model_attr='state')
     autocomplete = indexes.EdgeNgramField()
