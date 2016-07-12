@@ -7,6 +7,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added a test so that notifications can't be sent to non-settlement schools
 - Updated standalone search configs for running Elasticsearch locally
 - Changed BLS json keyword for tax expenses to single word: "Taxes"
+- Added an 'update_ipeds' script and manage.py command for annual updates
+- Updated standalone requirements to Django==1.8.13 to match our servers
 - Added 2 new fields, 'completion_cohort' and 'completers' to Program object
 
 ## 2.1.3

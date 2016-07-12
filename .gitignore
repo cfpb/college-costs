@@ -47,6 +47,9 @@ coverage.xml
 *,cover
 *.csv
 !2015_perkins.csv
+!paying_for_college/data_sources/ipeds/*.csv
+!paying_for_college/data_sources/ipeds/*.txt
+!paying_for_college/data_sources/ipeds/*.zip
 
 # Django stuff:
 *.log
