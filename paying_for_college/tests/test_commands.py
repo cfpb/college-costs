@@ -43,6 +43,14 @@ class CommandTests(unittest.TestCase):
         call_command('load_programs', 'filename')
         self.assertEqual(mock_load.call_count, 1)
         mock_load.assert_called_once_with('filename')
+        mock_load.return_value = (['failure'], 'not OK')
+        call_command('load_programs', 'filename')
+        self.assertEqual(mock_load.call_count, 2)
+        mock_error = mock.Mock()
+        mock_error.side_effect = Exception('Mock Error!')
+        mock_load.return_value = mock_error
+        error_state = call_command('load_programs', 'filename')
+        self.assertTrue(error_state is None)
 
     @mock.patch('paying_for_college.management.commands.'
                 'load_programs.load_programs.load')

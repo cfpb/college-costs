@@ -467,6 +467,12 @@ class Program(models.Model):
                                           null=True,
                                           max_digits=5,
                                           decimal_places=2)
+    completion_cohort = models.IntegerField(blank=True,
+                                            null=True,
+                                            help_text="COMPLETION COHORT")
+    completers = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="COMPLETERS OF THE PROGRAM")
     titleiv_debt = models.IntegerField(blank=True, null=True)
     private_debt = models.IntegerField(blank=True, null=True)
     institutional_debt = models.IntegerField(blank=True, null=True)
@@ -506,14 +512,6 @@ class Program(models.Model):
     job_note = models.TextField(blank=True,
                                 help_text="EXPLANATION FROM SCHOOL")
 
-    completers = models.IntegerField(blank=True,
-                                     null=True,
-                                     help_text="COMPLETERS OF THE PROGRAM")
-
-    completion_cohorts = models.IntegerField(blank=True,
-                                             null=True,
-                                             help_text="COMPLETION COHORTS")
-
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
 
@@ -531,6 +529,8 @@ class Program(models.Model):
             'campus': self.campus,
             'cipCode': self.cip_code,
             'completionRate': "{0}".format(self.completion_rate),
+            'completionCohort': self.completion_cohort,
+            'completers': self.completers,
             'defaultRate': "{0}".format(self.default_rate),
             'fees': self.fees,
             'housing': self.housing,
