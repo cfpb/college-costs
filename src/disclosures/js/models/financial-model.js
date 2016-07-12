@@ -27,16 +27,6 @@ var financialModel = {
   },
 
   /**
-   * Sums the total family contributions
-   */
-  sumFamilyTotal: function() {
-    var model = financialModel.values;
-    // familyTotal is family contributions + parent PLUS loan
-    model.familyTotal = model.family + model.parentPlus;
-
-  },
-
-  /**
    * Adds various scholarships to form the 'scholarships' property
    */
   sumScholarships: function() {
@@ -54,7 +44,6 @@ var financialModel = {
   calc: function() {
     this.sumScholarships();
     this.checkPerkins();
-    this.sumFamilyTotal();
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
