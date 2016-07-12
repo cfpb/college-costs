@@ -178,17 +178,20 @@ class TestScripts(django.test.TestCase):
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'update_ipeds.process_datafiles')
     def test_load_values(self, mock_process):
-        mock_process.return_value = {'999999': {'onCampusAvail': 2}}
+        mock_process.return_value = {'999999': {'onCampusAvail': '2'}}
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
         self.assertTrue(mock_process.call_count == 1)
-        mock_process.return_value = {'243197': {'onCampusAvail': 2}}
+        mock_process.return_value = {'243197': {'onCampusAvail': '2'}}
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
         self.assertTrue(mock_process.call_count == 2)
         msg = update_ipeds.load_values(dry_run=False)
         self.assertFalse('DRY' in msg)
         self.assertTrue(mock_process.call_count == 3)
+        mock_process.return_value = {'243197': {'onCampusAvail': '1'}}
+        msg = update_ipeds.load_values()
+        self.assertTrue('DRY' in msg)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'notifications.send_mail')

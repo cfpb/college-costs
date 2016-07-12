@@ -18,7 +18,7 @@ except:  # pragma: no cover
 
 from paying_for_college.views import get_school
 
-SCRIPT = os.path.basename(__file__)[:-3]
+SCRIPT = os.path.basename(__file__).replace('.py', '')
 PFC_ROOT = Path(__file__).ancestor(3)
 # LATEST_YEAR specifies first year of academic-year data
 # So 2014 would fetch data for 2014-2015 cycle
@@ -138,10 +138,17 @@ def load_values(dry_run=True):
     updated = 0
     missed = 0
     points = 0
+    oncampus = 0
     missing = []
     source_dict = process_datafiles()
     for ID in source_dict:
         new_data = source_dict[ID]
+        if 'onCampusAvail' in new_data:
+            if new_data['onCampusAvail'] == '1':
+                new_data['onCampusAvail'] = 'Yes'
+                oncampus += 1
+            else:
+                new_data['onCampusAvail'] = 'No'
         school = get_school(ID)
         if school:
             school_data = json.loads(school.data_json)
@@ -157,11 +164,13 @@ def load_values(dry_run=True):
             missing.append(ID)
     if dry_run:
         msg = ("DRY RUN:\n"
-               "{} would have updated {} data points "
-               " for {} schools;\n"
-               "{} schools could not be found".format(SCRIPT,
+               "- {} would have updated {} data points "
+               "for {} schools\n"
+               "- {} schools found with on-campus housing\n"
+               "- {} schools could not be found".format(SCRIPT,
                                                       points,
                                                       updated,
+                                                      oncampus,
                                                       missed))
     else:
         msg = ("{} updated {} data points "
