@@ -4,6 +4,8 @@ import json
 import datetime
 import string
 
+from django.conf import settings
+PFC_ROOT = settings.REPOSITORY_ROOT
 import mock
 import requests
 from django.utils import timezone
@@ -15,6 +17,7 @@ from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
 from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
                                                               EDMC_DEV,
                                                               OID, ERRORS)
+PFC_ROOT = settings.REPOSITORY_ROOT
 
 YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
@@ -132,8 +135,8 @@ class TestScripts(django.test.TestCase):
         self.assertTrue(update_ipeds.clean_csv_headings())
 
     def test_unzip_file(self):
-        test_zip = ('/Users/higginsw/Projects/PFC-standalone/college-costs/'
-                    'paying_for_college/data_sources/ipeds/test.txt.zip')
+        test_zip = ('{}/paying_for_college/data_sources/ipeds/'
+                    'test.txt.zip'.format(PFC_ROOT))
         self.assertTrue(update_ipeds.unzip_file(test_zip))
 
     @mock.patch('paying_for_college.disclosures.scripts.'
