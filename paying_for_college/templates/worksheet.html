@@ -1902,7 +1902,7 @@
                                     in {{program.program_name}} at
                                     {{school.primary_alias}},
                                     {{program.completers}} out of
-                                    {{program.completion_cohorts}}
+                                    {{program.completion_cohort}}
                                     graduated.
                                 </p>
                                 <p>
@@ -2275,7 +2275,8 @@
                                     making more or less than the average
                                     salaries shown here.
                                 </p>
-                                <p id="criteria_job-placement-content">
+                                <p class="content_job-placement"
+                                id="criteria_job-placement-content">
                                     Keep in mind your school has a <a
                                     href="/{{url_root}}/understanding-your-financial-aid-offer/about-this-tool/#job-placement-rate" target="_blank" rel="noopener">job
                                     placement rate</a> of <span
@@ -2314,7 +2315,7 @@
                                       <div class="debt-burden_projection">
                                           <div
                                           class="debt-burden_projection-name">
-                                              Projected salary
+                                              Average salary
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
@@ -2818,11 +2819,21 @@
                     <div class="content_main">
                         <div class="question_wrapper">
                             <div class="question_content">
-                                <h2 class="step_heading">
+                                <h2 class="step_heading step_settlement">
+                                    It's estimated you'll owe <span
+                                    data-financial="loanLifetime">[XX]</span>
+                                    to earn a <span data-section="degreeType"
+                                    data-currency="false">[degree/certificate]</span> in {{program.program_name}} at
+                                    {{school.primary_alias}}. Do you better
+                                    understand how this may impact your future
+                                    finances?
+                                </h2>
+                                <h2 class="step_heading step_nonsettlement">
                                     Do you feel like going into <span
                                     data-financial="loanLifetime">[XX]</span>
                                     of debt to attend this school is a good
-                                    investment in your future? </h2>
+                                    investment in your future?
+                                </h2>
                                 <div class="question_answers">
                                     <button class="btn btn__grouped-first"
                                     id="question_answer-no"
@@ -2844,9 +2855,10 @@
                                     </button>
                                 </div>
                                 <p>
-                                    Your response does not affect your ability
-                                    to accept or reject the actual offer from
-                                    your school.
+                                    Your response will not be shared with your
+                                    school and does not affect your ability to
+                                    accept or reject the actual offer from your
+                                    school.
                                 </p>
                             </div>
                         </div>
@@ -2878,6 +2890,19 @@
                                 some additional choices you can make that may
                                 help you improve your financial future even
                                 more.
+                            </p>
+                        </div>
+                        <div class="get-options_intro step_settlement">
+                            <h2 class="step_heading">
+                                Step 3: Consider your options
+                            </h2>
+                            <p class="step_intro">
+                                If you are interested in lowering your amount of
+                                debt, there are things you can do.
+                            </p>
+                            <p class="step_intro">
+                                Here are some choices you can make that may help
+                                you improve your financial future.
                             </p>
                         </div>
                     </div>

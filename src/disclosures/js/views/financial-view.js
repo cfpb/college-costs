@@ -35,7 +35,9 @@ var financialView = {
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
   $evaluateSection: $( '.evaluate' ),
+  $jobPlacementContent: $( '.content_job-placement' ),
   $bigQuestion: $( '.question' ),
+  $degreeType: $( '.question [data-section="degreeType"]' ),
   keyupDelay: null,
   currentInput: null,
 
@@ -241,6 +243,12 @@ var financialView = {
     } else {
       $( '.content_graduate-program' ).hide();
       this.gradPlusVisible( false );
+    }
+    this.jobPlacementVisible( values.jobRate !== '' );
+    if ( values.level.indexOf( 'Certificate' ) === 1 ) {
+      this.$degreeType.text( 'certificate' );
+    } else {
+      this.$degreeType.text( 'degree' );
     }
   },
 
@@ -655,6 +663,18 @@ var financialView = {
       publish.financialData( 'institutionalLoanRate', 0 );
     } else {
       this.$tuitionPaymentPlanSection.show();
+    }
+  },
+
+  /**
+   * Sets visibility of job placement values. Hidden if not available
+   * @param {boolean} visibility - Whether or not we have a job placement rate
+   */
+  jobPlacementVisible: function( visibility ) {
+    if ( visibility === false ) {
+      this.$jobPlacementContent.hide();
+    } else {
+      this.$jobPlacementContent.show();
     }
   },
 
