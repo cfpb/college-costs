@@ -328,6 +328,10 @@ class School(models.Model):
         else:
             return 'Not Available'
 
+    @property
+    def nicknames(self):
+        return ", ".join([nick.nickname for nick in self.nickname_set.all()])
+
 
 class Notification(models.Model):
     """record of a disclosure verification"""
@@ -345,13 +349,16 @@ class Notification(models.Model):
                                       self.institution.pk)
 
     def notify_school(self):
+        school = self.institution
+        if not school.settlement_school:
+            nonmsg = "No notification required; {} is not a settlement school"
+            return nonmsg.format(school.primary_alias)
         payload = {
             'oid':    self.oid,
             'time':   self.timestamp.isoformat(),
             'errors': self.errors
         }
         now = datetime.datetime.now()
-        school = self.institution
         no_contact_msg = ("School notification failed: "
                           "No endpoint or email info {}".format(now))
         # we prefer to use endpount notification, so use it first if existing
@@ -460,6 +467,12 @@ class Program(models.Model):
                                           null=True,
                                           max_digits=5,
                                           decimal_places=2)
+    completion_cohort = models.IntegerField(blank=True,
+                                            null=True,
+                                            help_text="COMPLETION COHORT")
+    completers = models.IntegerField(blank=True,
+                                     null=True,
+                                     help_text="COMPLETERS OF THE PROGRAM")
     titleiv_debt = models.IntegerField(blank=True, null=True)
     private_debt = models.IntegerField(blank=True, null=True)
     institutional_debt = models.IntegerField(blank=True, null=True)
@@ -516,6 +529,8 @@ class Program(models.Model):
             'campus': self.campus,
             'cipCode': self.cip_code,
             'completionRate': "{0}".format(self.completion_rate),
+            'completionCohort': self.completion_cohort,
+            'completers': self.completers,
             'defaultRate': "{0}".format(self.default_rate),
             'fees': self.fees,
             'housing': self.housing,

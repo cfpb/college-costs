@@ -54,14 +54,14 @@ def load_bls_data(csvfile):
 def add_bls_dict_with_region(base_bls_dict, region, csvfile):
 
     CATEGORIES_KEY_MAP = {
-        "Food" : "Food",
+        "Food": "Food",
         "Housing": "Housing",
         "Transportation": "Transportation",
         "Healthcare": "Healthcare",
         "Entertainment": "Entertainment",
         "Personal insurance and pensions": "Retirement",
         "Apparel and services": "Clothing",
-        "Personal taxes (contains some imputed values)": "Taxes (federal, state, local)",
+        "Personal taxes (contains some imputed values)": "Taxes",
         # Other
         "Alcoholic beverages": "Other",
         "Personal care products and services": "Other",
@@ -111,8 +111,9 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
         "Entertainment": {"note": "Events, pets, hobbies, equipment"},
         "Retirement": {"note": "Pensions and personal insurance"},
         "Clothing": {"note": "Apparel and services"},
-        "Taxes (federal, state, local)": {"note": "Personal taxes (contains some imputed values)"},
-        "Other": {"note": "Other expeditures"}  
+        "Taxes": {"note": ("Personal federal, state, and local taxes; "
+                           "contains some imputed values")},
+        "Other": {"note": "Other expeditures"}
     }
 
     add_bls_dict_with_region(bls_dict, "WE", WE_CSVFILE)
@@ -125,8 +126,8 @@ def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
     return bls_dict
 
 
-def create_bls_json_file(we_csvfile=WE_CSVFILE, ne_csvfile=NE_CSVFILE, 
-        mw_csvfile=MW_CSVFILE, so_csvfile=SO_CSVFILE):
+def create_bls_json_file(we_csvfile=WE_CSVFILE, ne_csvfile=NE_CSVFILE,
+                         mw_csvfile=MW_CSVFILE, so_csvfile=SO_CSVFILE):
 
     with open(OUT_FILE, 'w') as outfile:
         bls_dict = bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile)
