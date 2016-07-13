@@ -1103,11 +1103,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group
-                                private-loans-payment-plans">
+                                <div class="form-group private-loans-group">
                                     <div class="aid-form_group-header">
                                         <label class="form-label-header">
-                                            Private loans and payment plans
+                                            Private loans
                                         </label>
                                         <p class="aid-form_definition">
                                             Money from banks, schools, or others
@@ -1451,19 +1450,47 @@
                                             Add another private loan
                                         </button>
                                     </div>
-                                    <div class="form-group_item"
-                                    data-section="tuitionpaymentplan">
+                                    <div class="aid-form_inline-subtotal">
+                                        <div class="content_line
+                                        aid-form_equals-line"></div>
+                                        <div class="line-item">
+                                            <div class="line-item_title">
+                                                Total private loans
+                                            </div>
+                                            <div class="line-item_value">
+                                                <span
+                                                class="line-item_currency">
+                                                    $
+                                                </span>
+                                                <span class="line-item_amount"
+                                                data-line-item="true"
+                                                data-financial="???"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group tuition-payment-plan"
+                                data-section="tuitionpaymentplan">
+                                    <div class="aid-form_group-header">
+                                        <label class="form-label-header">
+                                            Tuition payment plan from your
+                                            school
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            A loan arrangement with your school
+                                            that you pay back within a certain
+                                            amount of time. The amount of the
+                                            tuition payment plan shown here is
+                                            the total awarded for the length of
+                                            your entire program, not per year.
+                                        </p>
+                                    </div>
+                                    <div class="form-group_item">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__payment-plan">
-                                                Tuition payment plan from your
-                                                school
+                                                Loan amount for entire program
                                             </label>
-                                            <p class="aid-form_definition">
-                                                An arrangement with your
-                                                school to pay back the loan
-                                                within a certain amount of time
-                                            </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
                                             <input class="aid-form_input
@@ -1474,6 +1501,31 @@
                                             data-financial="institutionalLoan"
                                             autocorrect="off" value="0">
                                         </div>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <div class="aid-form_label-wrapper">
+                                            <label class="form-label"
+                                            for="contrib__payment-plan">
+                                                Loan amount for one year
+                                            </label>
+                                            <p class="aid-form_definition">
+                                                Full tuition payment plan amount
+                                                divided by the estimated years
+                                                to complete your program
+                                            </p>
+                                        </div>
+                                        <div class="aid-form_input-wrapper">
+                                            <input class="aid-form_input
+                                            aid-form_input__currency"
+                                            type="text"
+                                            id="contrib__payment-plan"
+                                            name="contrib__payment-plan"
+                                            data-financial="institutionalLoan"
+                                            disabled
+                                            autocorrect="off" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group_item">
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">
                                                 <span
@@ -1482,12 +1534,16 @@
                                                 [X.X]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Starts accumulating when you
-                                                leave or finish school
+                                                Interest starts accumulating
+                                                when you leave or finish school
                                             </p>
                                             <p class="offer-part_term">
-                                                Must pay loan balance and
-                                                interest by [date]
+                                                Payments start while you are in
+                                                school and the loan must be paid
+                                                back within <span
+                                                data-financial="institutionalLoanTerm"
+                                                data-currency="false">
+                                                [X]</span> months
                                             </p>
                                         </div>
                                     </div>
@@ -1496,8 +1552,7 @@
                                         aid-form_equals-line"></div>
                                         <div class="line-item">
                                             <div class="line-item_title">
-                                                Total private loans and
-                                                payment plans
+                                                Total payment plans
                                             </div>
                                             <div class="line-item_value">
                                                 <span
@@ -1506,7 +1561,7 @@
                                                 </span>
                                                 <span class="line-item_amount"
                                                 data-line-item="true"
-                                                data-financial="privateInstitutionalTotal"></span>
+                                                data-financial="???"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -1537,7 +1592,7 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Private loans and payment plans
+                                        Private loans
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1548,8 +1603,26 @@
                                         </span>
                                         <span class="line-item_amount"
                                         data-line-item="true"
-                                        data-financial="privateInstitutionalTotal"
+                                        data-financial="???"
                                         id="summary_total-private-loans">
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="line-item">
+                                    <div class="line-item_title">
+                                        Tuition payment plan for one year
+                                    </div>
+                                    <div class="line-item_value">
+                                        <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
+                                            $
+                                        </span>
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
+                                        data-financial="???"
+                                        id="summary_total-payment-plans">
                                     </span>
                                     </div>
                                 </div>
@@ -1683,7 +1756,6 @@
                                 year will affect your future finances. As you
                                 can see in the summary, the
                                 total cost of these loans after <span
-                                id="future_years-attending"
                                 data-currency="false"
                                 data-financial="yearsAttending">[XX]</span>
                                 years plus interest and fees equals <span
@@ -1797,6 +1869,7 @@
                                 <div class="line-item">
                                     <div class="line-item_title">
                                         Loans for <span
+                                        id="future_years-attending"
                                         data-financial="yearsAttending"
                                         data-currency="false"
                                         >[XX]

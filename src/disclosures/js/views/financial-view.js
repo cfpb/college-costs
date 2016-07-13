@@ -661,6 +661,7 @@ var financialView = {
       this.$tuitionPaymentPlanSection.hide();
       publish.financialData( 'institutionalLoan', 0 );
       publish.financialData( 'institutionalLoanRate', 0 );
+      publish.financialData( 'institutionalLoanTerm', 0 );
     } else {
       this.$tuitionPaymentPlanSection.show();
     }
