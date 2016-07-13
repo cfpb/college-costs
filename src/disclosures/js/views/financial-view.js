@@ -208,17 +208,13 @@ var financialView = {
   updateRemainingCostContent: function() {
     var finalRemainingCost = $( '#summary_remaining-cost-final' ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
-        negativeRemainingCost = $( '.offer-part_content-negative-cost' ),
-        equalRemainingCost = $( '.offer-part_content-equal-cost' );
+        negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
-    equalRemainingCost.hide();
     if ( stringToNum( finalRemainingCost.text() ) > 0 ) {
       positiveRemainingCost.show();
     } else if ( stringToNum( finalRemainingCost.text() ) < 0 ) {
       negativeRemainingCost.show();
-    } else {
-      equalRemainingCost.show();
     }
   },
 
