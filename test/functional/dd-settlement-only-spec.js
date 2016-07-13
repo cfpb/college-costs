@@ -16,7 +16,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.continueStep2();
     browser.sleep( 1000 );
     expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '60.7px' );
-    expect( page.schoolGradRateValue.getText() ).toEqual( '37%' );
+    expect( page.schoolGradRateValue.getText() ).toEqual( '18%' );
     expect( page.nationalGradRatePoint.isDisplayed() ).toBeFalsy();
   } );
 
