@@ -64,6 +64,10 @@ DATA_POINTS = {
 }
 
 
+def icomma(value):
+    return intcomma(value, use_l10n=False)
+
+
 def unzip_file(filepath):
     """Unzip a .zip file and store contents in the ipeds directory"""
     zip_ref = zipfile.ZipFile(filepath, 'r')
@@ -175,16 +179,16 @@ def load_values(dry_run=True):
                "- {} schools found with on-campus housing\n"
                "- {} schools could not be found "
                "in our database".format(SCRIPT,
-                                        intcomma(points, use_l10n=False),
-                                        intcomma(updated, use_l10n=False),
-                                        intcomma(oncampus, use_l10n=False),
+                                        icomma(points),
+                                        icomma(updated),
+                                        icomma(oncampus),
                                         missed))
     else:
         msg = ("{} updated {} data points for {} schools;\n"
                "{} schools could not be found "
                "in our database".format(SCRIPT,
-                                        intcomma(points, use_l10n=False),
-                                        intcomma(updated, use_l10n=False),
+                                        icomma(points),
+                                        icomma(updated),
                                         missed))
     return msg
     # return missing
