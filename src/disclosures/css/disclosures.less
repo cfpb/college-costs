@@ -1279,6 +1279,15 @@
     margin-bottom: unit(45px / @base-font-size-px, em);
   });
 
+  &_region {
+    margin-bottom: unit(20px / @base-font-size-px, em);
+
+    .respond-to-min(@bp-sm-min, {
+      .grid_column(6);
+      border-width: 0;
+    });
+  }
+
   .aid-form {
     margin-top: 0;
 
@@ -1289,15 +1298,58 @@
       });
     }
 
+    .form-label_text-wrapper {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(12);
+      });
+
+      .respond-to-min(@bp-med-min, {
+        .grid_column(12,24);
+      });
+
+    }
+
+    &_input-wrapper {
+
+      .respond-to-min(@bp-sm-min, {
+        .grid_column(12);
+      });
+
+      .respond-to-min(@bp-med-min, {
+        .grid_column(12,24);
+      });
+    }
+
+    &_sign {
+      .grid_column(3,24);
+      border-width: 0px;
+
+      .respond-to-min(@bp-med-min, {
+        .grid_column(3);
+        border-width: 0px;
+      });
+    }
+
     &_input {
       max-width: none;
+      width: 80%;
+
+      .respond-to-min(@bp-sm-min, {
+        width: 85%;
+      });
+
+      .respond-to-min(@bp-med-min, {
+        width: 75%;
+      });
+
     }
 
     &_summary {
 
       .respond-to-min(@bp-sm-min, {
         padding-left: 0;
-        margin-top: unit(45px / @base-font-size-px, em);
+        margin-top: unit(30px / @base-font-size-px, em);
         margin-left: 0;
         background-color: transparent;
       });
@@ -1317,10 +1369,6 @@
       text-transform: none;
     }
 
-    .cf-select {
-      margin-bottom: unit(20px / @base-font-size-px, em);
-    }
-
   }
 
   .line-item {
@@ -1328,31 +1376,21 @@
     &_title {
 
       .respond-to-min(@bp-sm-min, {
-        .grid_column(7);
-      });
-
-      .respond-to-min(@bp-med-min, {
         .grid_column(8);
       });
 
-      .respond-to-min(@bp-xl-min, {
-        .grid_column(9);
-      });
     }
 
     &_value {
 
       .respond-to-min(@bp-sm-min, {
-        .grid_column(5);
-      });
-
-      .respond-to-min(@bp-med-min, {
         .grid_column(4);
       });
+    }
 
-      .respond-to-min(@bp-xl-min, {
-        .grid_column(3);
-      });
+    &_sign {
+      position: absolute;
+      right: unit(100px / @base-font-size-px, em);
     }
   }
 }

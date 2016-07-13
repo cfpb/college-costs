@@ -229,8 +229,7 @@
                             <p class="step_intro">
                                 Here is your financial aid offer from
                                 <span
-                                id="intro__school-name">{{school.primary_alias}}
-                                </span>. Please review the amounts provided by
+                                id="intro__school-name">{{school.primary_alias}}</span>. Please review the amounts provided by
                                 your school below and make any necessary changes
                                 or add any missing information.  Please note any
                                 changes you make here will not change your
@@ -2429,13 +2428,15 @@
                                             Statistics</a>). Your expenses may
                                             be higher or lower.
                                         </p>
-                                        <div class="cf-select">
-                                          <select id="bls-region-select">
-                                            <option value="WE">West region</option>
-                                            <option value="SO">South region</option>
-                                            <option value="NE">Northeast region</option>
-                                            <option value="MW">Midwest region</option>
-                                          </select>
+                                        <div class="estimated-expenses_region">
+                                            <div class="cf-select">
+                                              <select id="bls-region-select">
+                                                <option value="WE">West region</option>
+                                                <option value="SO">South region</option>
+                                                <option value="NE">Northeast region</option>
+                                                <option value="MW">Midwest region</option>
+                                              </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="line-item">
@@ -2469,10 +2470,10 @@
                                             </span>
                                         </div>
                                         <div class="line-item_value">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
                                             <span class="line-item_currency">
-                                                <span class="line-item_sign">
-                                                    ( &minus; )
-                                                </span>
                                                 $
                                             </span>
                                             <span class="line-item_amount" data-line-item="true"
@@ -2491,7 +2492,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2511,7 +2512,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2531,7 +2532,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2552,7 +2553,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2573,7 +2574,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2594,7 +2595,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2615,7 +2616,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2639,7 +2640,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input class="aid-form_input
@@ -2660,7 +2661,7 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
-                                                <span class="line-item_sign">
+                                                <span class="aid-form_sign">
                                                     ( &minus; )
                                                 </span>
                                                 <input
