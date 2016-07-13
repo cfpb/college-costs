@@ -17,8 +17,9 @@ except:  # pragma: no cover
     from csv import writer as cwriter
 
 from paying_for_college.views import get_school
+from django.contrib.humanize.templatetags.humanize import intcomma
 
-SCRIPT = os.path.basename(__file__).replace('.py', '')
+SCRIPT = os.path.basename(__file__).partition('.')[0]
 PFC_ROOT = Path(__file__).ancestor(3)
 # LATEST_YEAR specifies first year of academic-year data
 # So 2014 would fetch data for 2014-2015 cycle
@@ -63,6 +64,10 @@ DATA_POINTS = {
 }
 
 
+def icomma(value):
+    return intcomma(value, use_l10n=False)
+
+
 def unzip_file(filepath):
     """Unzip a .zip file and store contents in the ipeds directory"""
     zip_ref = zipfile.ZipFile(filepath, 'r')
@@ -86,21 +91,29 @@ def download_zip_file(url, zip_file):
         return False
 
 
+def read_csv(fpath):
+    with open(fpath, 'r') as f:
+        reader = cdr(f)
+        data = [row for row in reader]
+    return reader.fieldnames, data
+
+
+def write_clean_csv(fpath, fieldnames, clean_headings, data):
+    with open(fpath, 'w') as f:
+        writer = cwriter(f)
+        writer.writerow(clean_headings)
+        for row in data:
+            writer.writerow([row[name] for name in fieldnames])
+
+
 def clean_csv_headings():
     """Strip nasty leading or trailing spaces from column headings"""
     for slug in ['data', 'services']:
         original_file = DATA_VARS['{}_csv'.format(slug)]
         cleaned_file = DATA_VARS['{}_cleaned'.format(slug)]
-        with open(original_file, 'r') as f:
-            reader = cdr(f)
-            good_headings = [heading.strip() for heading in reader.fieldnames]
-            with open(cleaned_file, 'w') as f2:
-                writer = cwriter(f2)
-                writer.writerow(good_headings)
-                for row in reader:
-                    writer.writerow([row[heading]
-                                     for heading in reader.fieldnames])
-    return True
+        fieldnames, data = read_csv(original_file)
+        clean_headings = [name.strip() for name in fieldnames]
+        write_clean_csv(cleaned_file, fieldnames, clean_headings, data)
 
 
 def download_files():
@@ -122,15 +135,13 @@ def download_files():
 def process_datafiles():
     """Collect data points from 2 IPEDS csvs and deliver them as a dict"""
     collector = {}
-    with open(DATA_VARS['services_cleaned'], 'r') as f:
-        reader = cdr(f)
-        for row in reader:
-            collector[row['UNITID']] = {'onCampusAvail': row['ROOM']}
-    with open(DATA_VARS['data_cleaned'], 'r') as f:
-        reader = cdr(f)
-        for row in reader:
-            for key in DATA_POINTS:
-                collector[row['UNITID']][key] = row[DATA_POINTS[key]]
+    snames, service_data = read_csv(DATA_VARS['services_cleaned'])
+    for row in service_data:
+        collector[row['UNITID']] = {'onCampusAvail': row['ROOM']}
+    dnames, data = read_csv(DATA_VARS['data_cleaned'])
+    for row in data:
+        for key in DATA_POINTS:
+            collector[row['UNITID']][key] = row[DATA_POINTS[key]]
     return collector
 
 
@@ -164,20 +175,20 @@ def load_values(dry_run=True):
             missing.append(ID)
     if dry_run:
         msg = ("DRY RUN:\n"
-               "- {} would have updated {} data points "
-               "for {} schools\n"
+               "- {} would have updated {} data points for {} schools\n"
                "- {} schools found with on-campus housing\n"
-               "- {} schools could not be found".format(SCRIPT,
-                                                      points,
-                                                      updated,
-                                                      oncampus,
-                                                      missed))
+               "- {} schools could not be found "
+               "in our database".format(SCRIPT,
+                                        icomma(points),
+                                        icomma(updated),
+                                        icomma(oncampus),
+                                        missed))
     else:
-        msg = ("{} updated {} data points "
-               "for {} schools;\n"
-               "{} schools could not be found".format(SCRIPT,
-                                                      points,
-                                                      updated,
-                                                      missed))
+        msg = ("{} updated {} data points for {} schools;\n"
+               "{} schools could not be found "
+               "in our database".format(SCRIPT,
+                                        icomma(points),
+                                        icomma(updated),
+                                        missed))
     return msg
     # return missing
