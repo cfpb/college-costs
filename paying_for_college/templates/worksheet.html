@@ -89,55 +89,56 @@
                                 <dd class="verify_value verify_estimate">
                                     <p class="verify_label-explanation">
                                         Select how long you expect it to take to
-                                        complete this program. This may be
+                                        complete your program. This may be
                                         shorter than the program length above if
                                         you transferred in with credits that the
-                                        school accepts. It may be longer if you
-                                        plan to attend part time or do not
-                                        successfully complete your courses.
-                                        We’ll use this to help calculate your
-                                        total debt after graduation.
+                                        school accepts. For example, it may be
+                                        longer if you plan to attend part time
+                                        or do not successfully complete your
+                                        courses. We’ll use this to help
+                                        calculate your total debt after
+                                        graduation.
                                     </p>
                                     <div class="cf-select">
                                         <select id="estimated-years-attending">
                                             <option value="">
                                                 Select an option
                                             </option>
+                                            <option value="0.5">
+                                                6 months
+                                            </option>
                                             <option value="1">
                                                 1 year
                                             </option>
                                             <option value="1.5">
-                                                1.5 years
+                                                1 &frac12; years
                                             </option>
                                             <option value="2">
                                                 2 years
                                             </option>
                                             <option value="2.5">
-                                                2.5 years
+                                                2 &frac12; years
                                             </option>
                                             <option value="3">
                                                 3 years
                                             </option>
                                             <option value="3.5">
-                                                3.5 years
+                                                3 &frac12; years
                                             </option>
                                             <option value="4">
                                                 4 years
                                             </option>
                                             <option value="4.5">
-                                                4.5 years
+                                                4 &frac12; years
                                             </option>
                                             <option value="5">
                                                 5 years
                                             </option>
                                             <option value="5.5">
-                                                5.5 years
+                                                5 &frac12; years
                                             </option>
                                             <option value="6">
                                                 6 years
-                                            </option>
-                                            <option value="6.5">
-                                                6.5 years
                                             </option>
                                         </select>
                                     </div>
@@ -179,19 +180,19 @@
                                 tool, you’ll:
                             </h2>
                             <ol>
-                                <li>Review your first-year
-                                financial aid offer and update any incorrect
-                                information.</li>
-                                <li>Evaluate the risks and
-                                rewards of accepting your financial aid offer
-                                by reviewing graduation rate, affordability,
-                                loan default rates, and other factors specific
-                                to your school and program.</li>
+                                <li>Review your first-year financial aid
+                                    offer,</li>
+                                <li>Evaluate the financial impact of accepting
+                                    your financial aid offer by reviewing
+                                    graduation rates, expected salaries,
+                                    affordability, the program’s loan default
+                                    rates, and other factors specific to your
+                                    school and program, and</li>
                                 <li>Learn about your options
                                 to reduce student debt.</li>
                             </ol>
                             <p class="instructions_subheading">
-                                You must review all three parts of this tool
+                                You must complete steps 1 and 2 of this tool
                                 before you can enroll.
                             </p>
                         </div>
@@ -200,16 +201,17 @@
                                 About this tool
                             </h2>
                             <div class="instructions_about">
-                                <p>This tool uses data and financial terms that
-                                    may need additional explanation. Learn more
-                                    about the financial language, how
-                                    calculations are created, and where the
-                                    data comes from.
+                                <p>This tool uses data, financial terms and
+                                    estimations that may need additional
+                                    explanation. Learn more about the financial
+                                    language, how calculations are created, and
+                                    where the data comes from.
                                 </p>
                                 <a
                                 href="/{{url_root}}/understanding-your-financial-aid-offer/about-this-tool/"
-                                target="_blank">Get details about how this
-                                tool works</a> </div>
+                                target="_blank" rel="noopener">Get details about
+                                how this tool works</a>
+                            </div>
                         </div>
                     </div>
                     <div class="content_line"></div>
@@ -224,10 +226,15 @@
                             </h2>
                             <p class="step_intro">
                                 Here is your financial aid offer from
-                                <span id="intro__school-name">{{school.primary_alias}}</span>. Please verify the
-                                amounts provided by
-                                your school below, making any necessary
-                                changes or adding missing information.
+                                <span
+                                id="intro__school-name">{{school.primary_alias}}</span>. Please review the amounts provided by
+                                your school below and make any necessary changes
+                                or add any missing information.  Please note any
+                                changes you make here will not change your
+                                financial aid offer or your eligibility for
+                                grants or loans. You will need to contact your
+                                school’s financial aid representative and work
+                                with them to update your financial aid package.
                             </p>
                         </div>
                     </div>
@@ -250,6 +257,15 @@
                                         <label class="form-label-header">
                                             Cost of attendance
                                         </label>
+                                        <p class="aid-form_definition">
+                                            Includes the cost of the program
+                                            (tuition, fees, book, and supplies)
+                                            as well as ordinary living expenses
+                                            that may be incurred regardless of
+                                            enrollment (housing, meals,
+                                            transportation, and other personal
+                                            expenses)
+                                        </p>
                                     </div>
                                     <div class="form-group_item">
                                         <div class="aid-form_label-wrapper">
@@ -323,6 +339,11 @@
                                             for="costs__other">
                                                 Other education costs
                                             </label>
+                                            <p class="aid-form_definition">
+                                                Personal expenses like
+                                                computers, daycare,
+                                                entertainment, laundry, etc.
+                                            </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
                                             <input class="aid-form_input
@@ -361,7 +382,8 @@
                                             Money you don’t have to pay back
                                         </p>
                                     </div>
-                                    <div class="form-group_item" data-section="pellgrant">
+                                    <div class="form-group_item"
+                                    data-section="pellgrant">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="grants__pell">
@@ -369,9 +391,10 @@
                                             </label>
                                             <p class="aid-form_definition">
                                                 Based on financial need,
-                                                <a href="https://studentaid.ed.gov/sa/types/grants-scholarships/pell"
+                                                <a
+                                                href="https://studentaid.ed.gov/sa/types/grants-scholarships/pell"
                                                 target="_blank"
-                                                rel="noopener">see if you
+                                                rel="noopener">see how you
                                                 qualify</a>
                                             </p>
                                         </div>
@@ -453,14 +476,17 @@
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
-                                    <div class="form-group_item">
+                                    <div class="form-group_item"
+                                    data-section="military">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="grants__military">
                                                 Military tuition assistance
                                             </label>
                                             <p class="aid-form_definition">
-                                                Money for active or reserve service members that you don’t have to pay back
+                                                Money for active or reserve
+                                                servicemembers that you don’t
+                                                have to pay back
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -470,13 +496,18 @@
                                             name="grants__military"
                                             data-financial="militaryTuitionAssistance"
                                             autocorrect="off" value="0">
-                                            <div class="aid-form_calc-error" data-calc-error="militaryTuitionAssistance">
-                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is
-                                                <span data-cap="militaryTuitionAssistance">$0</span>
+                                            <div class="aid-form_calc-error"
+                                            data-calc-error="militaryTuitionAssistance">
+                                                <span class="cf-icon
+                                                cf-icon-error-round"></span>The
+                                                maximum that can be borrowed per
+                                                year is <span
+                                                data-cap="militaryTuitionAssistance">$0</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group_item">
+                                    <div class="form-group_item"
+                                    data-section="gibill">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="grants__gi">
@@ -485,10 +516,10 @@
                                             <p class="aid-form_definition">
                                                 Money for service members or
                                                 veterans that you don’t have
-                                                to pay back, <a href="https://www.vets.gov/gi-bill-comparison-tool"
+                                                to pay back; <a href="https://www.vets.gov/gi-bill-comparison-tool"
                                                 target="_blank"
-                                                rel="noopener">see if you
-                                                qualify</a>
+                                                rel="noopener">see how much the
+                                                GI Bill pays</a>
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -530,7 +561,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Total cost of attendance
+                                        Cost of attendance
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -543,7 +574,7 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Total grants and scholarships
+                                        Grants and scholarships
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -562,7 +593,7 @@
                                 </div>
                                 <div class="line-item line-item__total">
                                     <div class="line-item_title">
-                                        Your total cost
+                                        Your out-of-pocket cost
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -587,8 +618,8 @@
                                     </h3>
                                     <p>
                                         This section includes loans that your
-                                        parents have to repay, but are not
-                                        included in <em>your</em> personal
+                                        family has to repay, but those loans are
+                                        not included in <em>your</em> personal
                                         debt or student loan payments summary.
                                     </p>
                                 </div>
@@ -600,7 +631,7 @@
                                 personal-family-contributions">
                                     <div class="aid-form_group-header">
                                         <label class="form-label-header">
-                                            Personal and family contributions
+                                            Personal and family/others contributions
                                         </label>
                                     </div>
                                     <div class="form-group_item">
@@ -631,9 +662,9 @@
                                                 Money your family or others will pay
                                             </label>
                                             <p class="aid-form_definition">
-                                                Includes money given to you from family or
-                                                others, private loans your parents take
-                                                out, etc.
+                                                Includes money given to you from
+                                                family or others, private loans
+                                                your parents take out, etc.
                                             </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
@@ -666,11 +697,12 @@
                                             autocorrect="off" value="0">
                                         </div>
                                     </div>
-                                    <div class="form-group_item">
+                                    <div class="form-group_item"
+                                    data-section="workstudy">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__workstudy">
-                                                Work study
+                                                Federal Work-Study
                                             </label>
                                             <p class="aid-form_definition">
                                                 Money you earn per year from
@@ -699,7 +731,7 @@
                                 </h4>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Cash you will provide
+                                        Cash you will pay
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -711,10 +743,7 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Money your family will provide
-                                        <span class="line-item_explanation">
-                                            And may have to pay back
-                                        </span>
+                                        Money your family/others will pay
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -724,12 +753,28 @@
                                             $
                                         </span>
                                         <span class="line-item_amount" data-line-item="true"
-                                        data-financial="familyTotal"></span>
+                                        data-financial="family"></span>
                                     </div>
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Work study
+                                        Parent PLUS loans
+                                    </div>
+                                    <div class="line-item_value">
+                                        <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
+                                            $
+                                        </span>
+                                        <span class="line-item_amount" data-line-item="true"
+                                        data-financial="parentPlus"></span>
+                                    </div>
+                                </div>
+                                <div class="line-item"
+                                data-section="workstudy">
+                                    <div class="line-item_title">
+                                        Federal Work-Study
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -746,7 +791,8 @@
                                 </div>
                                 <div class="line-item line-item__total">
                                     <div class="line-item_title">
-                                        Your contributions
+                                        Your personal and family/others
+                                        contributions
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -808,9 +854,9 @@
                                     </div>
                                 </div>
                                 <p>
-                                    This is how much you still need to pay to
-                                    attend {{school.primary_alias}} for one
-                                    year.
+                                    This is an estimate of the remaining costs
+                                    of studying your program at
+                                    {{school.primary_alias}} for one year.
                                 </p>
                             </div>
                         </div>
@@ -829,18 +875,24 @@
                         </div>
                         <div class="offer-part_form-wrapper">
                             <form class="aid-form" action="#">
-                                <div class="form-group federal-loans">
+                                <div class="form-group federal-loans"
+                                data-section="federalLoans">
                                     <div class="aid-form_group-header">
                                         <label class="form-label-header">
                                             Federal loans
                                         </label>
                                         <p class="aid-form_definition">
-                                            Money you have to pay back,
-                                            assuming a 10-year loan term;
-                                            longer loan terms mean smaller
-                                            monthly payments but a higher
-                                            total cost of interest over the
-                                            life of the loan.
+                                            Money you borrow from the federal
+                                            government and have to pay back over
+                                            time.
+                                        </p>
+                                        <p class="aid-form_definition">
+                                            Interest rates and loan fees on
+                                            future federal loans may increase or
+                                            decrease year to year. Interest paid
+                                            on federal loans may reduce your
+                                            federal tax burden. Please consult
+                                            with your tax advisor.
                                         </p>
                                     </div>
                                     <div class="form-group_item" data-section="perkins">
@@ -870,18 +922,20 @@
                                                 [XX]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Available at most schools;
-                                                reserved for students most in
-                                                need; starts accumulating
-                                                after you leave school, <a href="https://studentaid.ed.gov/sa/types/loans/perkins"
+                                                Reserved for students most in
+                                                need; interest starts
+                                                accumulating 9 months after you
+                                                leave school; <a
+                                                href="https://studentaid.ed.gov/sa/types/loans/perkins"
                                                 target="_blank"
                                                 rel="noopener">see
-                                                if you qualify</a>
+                                                how you qualify</a>
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="content_line loans_line"></div>
-                                    <div class="form-group_item">
+                                    <div class="content_line loans_line" data-section="perkins"></div>
+                                    <div class="form-group_item"
+                                    data-section="subsidized">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__subsidized">
@@ -909,25 +963,28 @@
                                                 [XX]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Starts accumulating 6 months
-                                                after you leave school
+                                                Interest starts accumulating 6
+                                                months after you leave school
                                             </p>
                                             <p class="offer-part_term">
                                                 1.07% loan fee
                                             </p>
                                             <p class="aid-form_definition">
-                                                Fee is added to the total loan
-                                                amount (for example if the
-                                                loan fee is 3%, then $30 would
-                                                be added to a $1,000 loan, so
-                                                you or your school receive
-                                                $1,000 but you would have to
-                                                repay $1,030)
+                                                Fee is deducted immediately from
+                                                your loan amount, lowering the
+                                                total you receive (for example,
+                                                if the loan fee is 1%, then $10
+                                                will be subtracted from a $1,000
+                                                loan, so you or your school will
+                                                only receive $990 but you would
+                                                have to repay $1,000)
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="content_line loans_line"></div>
-                                    <div class="form-group_item">
+                                    <div class="content_line loans_line"
+                                    data-section="subsidized"></div>
+                                    <div class="form-group_item"
+                                    data-section="unsubsidized">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__unsubsidized">
@@ -954,20 +1011,22 @@
                                                 [XX]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Starts accumulating when you
-                                                sign the loan
+                                                Interest starts accumulating
+                                                when the money is sent to your
+                                                school
                                             </p>
                                             <p class="offer-part_term">
                                                 1.07% loan fee
                                             </p>
                                             <p class="aid-form_definition">
-                                                Fee is added to the total loan
-                                                amount (for example if the
-                                                loan fee is 3%, then $30 would
-                                                be added to a $1,000 loan, so
-                                                you or your school receive
-                                                $1,000 but you would have to
-                                                repay $1,030)
+                                                Fee is deducted immediately from
+                                                your loan amount, lowering the
+                                                total you receive (for example,
+                                                if the loan fee is 1%, then $10
+                                                will be subtracted from a $1,000
+                                                loan, so you or your school will
+                                                only receive $990 but you would
+                                                have to repay $1,000)
                                             </p>
                                         </div>
                                     </div>
@@ -997,27 +1056,28 @@
                                                   [XX]</span>% interest
                                               </p>
                                               <p class="aid-form_definition">
-                                                  Starts accumulating when you
-                                                  sign the loan
+                                                  Interest starts accumulating
+                                                  when the money is sent to your
+                                                  school
                                               </p>
                                               <p class="offer-part_term">
                                                   4.27% loan fee
                                               </p>
                                               <p class="aid-form_definition">
-                                                Fee is deducted immediately
-                                                from your loan amount,
-                                                lowering the total you receive
-                                                (for example, if the loan fee
-                                                is 3%, then $30 will be
-                                                subtracted from a $1,000 loan,
-                                                so you or your school will
-                                                only receive $970 but you
-                                                would have to repay $1,000)
+                                                Fee is deducted immediately from
+                                                your loan amount, lowering the
+                                                total you receive (for example,
+                                                if the loan fee is 4%, then $40
+                                                will be subtracted from a $1,000
+                                                loan, so you or your school will
+                                                only receive $960 but you would
+                                                have to repay $1,000)
                                               </p>
                                           </div>
                                       </div>
                                     </div>
-                                    <div class="aid-form_inline-subtotal">
+                                    <div class="aid-form_inline-subtotal"
+                                    data-section="federalLoans">
                                         <div class="content_line
                                         aid-form_equals-line"></div>
                                         <div class="line-item">
@@ -1036,21 +1096,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group
-                                private-loans-payment-plans">
+                                <div class="form-group private-loans-group">
                                     <div class="aid-form_group-header">
                                         <label class="form-label-header">
-                                            Private loans and payment plans
+                                            Private loans
                                         </label>
                                         <p class="aid-form_definition">
-                                            Money you have to pay back,
-                                            assuming a 10-year loan term;
-                                            longer loan terms mean smaller
-                                            monthly payments but a higher
-                                            total cost of interest over the
-                                            life of the loan. May be a
-                                            variable rate and increase or
-                                            decrease in the future.
+                                            Money from banks, schools, or others
+                                            you have to pay back
                                         </p>
                                     </div>
                                     <div class="private-loans">
@@ -1101,8 +1154,12 @@
                                                     </label>
                                                     <p
                                                     class="aid-form_definition">
-                                                        Starts accumulating
-                                                        when you sign the loan
+                                                        Interest starts
+                                                        accumulating when you
+                                                        sign the loan; may be a
+                                                        variable rate and
+                                                        increase or decrease in
+                                                        the future
                                                     </p>
                                                 </div>
                                                 <div
@@ -1390,18 +1447,47 @@
                                             Add another private loan
                                         </button>
                                     </div>
+                                    <div class="aid-form_inline-subtotal">
+                                        <div class="content_line
+                                        aid-form_equals-line"></div>
+                                        <div class="line-item">
+                                            <div class="line-item_title">
+                                                Total private loans
+                                            </div>
+                                            <div class="line-item_value">
+                                                <span
+                                                class="line-item_currency">
+                                                    $
+                                                </span>
+                                                <span class="line-item_amount"
+                                                data-line-item="true"
+                                                data-financial="???"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group tuition-payment-plan"
+                                data-section="tuitionpaymentplan">
+                                    <div class="aid-form_group-header">
+                                        <label class="form-label-header">
+                                            Tuition payment plan from your
+                                            school
+                                        </label>
+                                        <p class="aid-form_definition">
+                                            A loan arrangement with your school
+                                            that you pay back within a certain
+                                            amount of time. The amount of the
+                                            tuition payment plan shown here is
+                                            the total awarded for the length of
+                                            your entire program, not per year.
+                                        </p>
+                                    </div>
                                     <div class="form-group_item">
                                         <div class="aid-form_label-wrapper">
                                             <label class="form-label"
                                             for="contrib__payment-plan">
-                                                Tuition payment plan from your
-                                                school
+                                                Loan amount for entire program
                                             </label>
-                                            <p class="aid-form_definition">
-                                                An arrangement with your
-                                                school to pay back the loan
-                                                within a certain amount of time
-                                            </p>
                                         </div>
                                         <div class="aid-form_input-wrapper">
                                             <input class="aid-form_input
@@ -1412,6 +1498,31 @@
                                             data-financial="institutionalLoan"
                                             autocorrect="off" value="0">
                                         </div>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <div class="aid-form_label-wrapper">
+                                            <label class="form-label"
+                                            for="contrib__payment-plan">
+                                                Loan amount for one year
+                                            </label>
+                                            <p class="aid-form_definition">
+                                                Full tuition payment plan amount
+                                                divided by the estimated years
+                                                to complete your program
+                                            </p>
+                                        </div>
+                                        <div class="aid-form_input-wrapper">
+                                            <input class="aid-form_input
+                                            aid-form_input__currency"
+                                            type="text"
+                                            id="contrib__payment-plan"
+                                            name="contrib__payment-plan"
+                                            data-financial="institutionalLoan"
+                                            disabled
+                                            autocorrect="off" value="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group_item">
                                         <div class="offer-part_terms">
                                             <p class="offer-part_term">
                                                 <span
@@ -1420,12 +1531,16 @@
                                                 [X.X]</span>% interest
                                             </p>
                                             <p class="aid-form_definition">
-                                                Starts accumulating when you
-                                                leave or finish school
+                                                Interest starts accumulating
+                                                when you leave or finish school
                                             </p>
                                             <p class="offer-part_term">
-                                                Must pay loan balance and
-                                                interest by [date]
+                                                Payments start while you are in
+                                                school and the loan must be paid
+                                                back within <span
+                                                data-financial="institutionalLoanTerm"
+                                                data-currency="false">
+                                                [X]</span> months
                                             </p>
                                         </div>
                                     </div>
@@ -1434,16 +1549,16 @@
                                         aid-form_equals-line"></div>
                                         <div class="line-item">
                                             <div class="line-item_title">
-                                                Total private loans and
-                                                payment plans
+                                                Total payment plans
                                             </div>
                                             <div class="line-item_value">
                                                 <span
                                                 class="line-item_currency">
                                                     $
                                                 </span>
-                                                <span class="line-item_amount" data-line-item="true"
-                                                data-financial="privateInstitutionalTotal"></span>
+                                                <span class="line-item_amount"
+                                                data-line-item="true"
+                                                data-financial="???"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -1456,7 +1571,8 @@
                                 <h4 class="aid-form_summary-heading">
                                     Loans summary
                                 </h4>
-                                <div class="line-item">
+                                <div class="line-item"
+                                data-section="federalLoans">
                                     <div class="line-item_title">
                                         Federal loans
                                     </div>
@@ -1464,7 +1580,8 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="federalTotal"
                                         id="summary_total-federal-loans">
                                     </span>
@@ -1472,7 +1589,7 @@
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
-                                        Private loans and payment plans
+                                        Private loans
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
@@ -1481,9 +1598,28 @@
                                             </span>
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
-                                        data-financial="privateInstitutionalTotal"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
+                                        data-financial="???"
                                         id="summary_total-private-loans">
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="line-item">
+                                    <div class="line-item_title">
+                                        Tuition payment plan for one year
+                                    </div>
+                                    <div class="line-item_value">
+                                        <span class="line-item_currency">
+                                            <span class="line-item_sign">
+                                                ( + )
+                                            </span>
+                                            $
+                                        </span>
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
+                                        data-financial="???"
+                                        id="summary_total-payment-plans">
                                     </span>
                                     </div>
                                 </div>
@@ -1497,7 +1633,8 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="borrowingTotal"
                                         id="summary_total-loans"></span>
                                     </div>
@@ -1516,8 +1653,10 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
-                                        data-financial="firstYearNetCost"></span>
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
+                                        data-financial="firstYearNetCost">
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="line-item">
@@ -1531,7 +1670,8 @@
                                             </span>
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="savingsTotal">
                                     </span>
                                     </div>
@@ -1547,7 +1687,8 @@
                                             </span>
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="borrowingTotal"></span>
                                     </div>
                                 </div>
@@ -1561,16 +1702,17 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                           id="summary_remaining-cost-after-loans"
                                           data-financial="gap"></span>
                                     </div>
                                 </div>
                                 <p>
-                                    After all the grants, scholarships, loans,
-                                    and personal contributions, this is how
-                                    much you still need pay to attend
-                                    {{school.primary_alias}} for one year.
+                                    This is an estimate of the remaining costs
+                                    of studying your program at
+                                    {{school.primary_alias}} for one year based
+                                    on your inputs above.
                                 </p>
                             </div>
                         </div>
@@ -1607,11 +1749,11 @@
                             <p>
                                 Think about how <span
                                 id="future_total-loans"
-                                data-financial="borrowingTotal">[XX]</span> in
-                                student debt will affect your future financial
-                                situation. As you can see in the summary, the
+                                data-financial="borrowingTotal">[XX]</span> this
+                                year will affect your future finances. As you
+                                can see in the summary, the
                                 total cost of these loans after <span
-                                id="future_years-attending" data-currency="false"
+                                data-currency="false"
                                 data-financial="yearsAttending">[XX]</span>
                                 years plus interest and fees equals <span
                                 id="future_total-debt"
@@ -1619,10 +1761,10 @@
                             </p>
                             <p>
                                 Some students find themselves struggling to
-                                repay student debt once they finish school. In
-                                Step 2, learn how factors like graduation
-                                rates and expected salary can affect your
-                                ability to repay your student debt.
+                                repay student debt once they leave school. In
+                                Step 2, learn how factors like graduation rates
+                                and expected salary can affect your ability to
+                                repay your student debt.
                             </p>
                         </div>
                         <div class="offer-part_summary-wrapper column-well
@@ -1640,8 +1782,10 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
-                                        data-financial="firstYearNetCost"></span>
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
+                                        data-financial="firstYearNetCost">
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="line-item">
@@ -1655,7 +1799,8 @@
                                             </span>
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="savingsTotal">
                                         </span>
                                     </div>
@@ -1671,7 +1816,8 @@
                                             </span>
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="borrowingTotal"></span>
                                     </div>
                                 </div>
@@ -1685,15 +1831,17 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="gap"
-                                        id="summary_remaining-cost-final"></span>
+                                        id="summary_remaining-cost-final">
+                                        </span>
                                     </div>
                                 </div>
-                                <p>
+                                <p class="offer-part_content-positive-cost">
                                     After all the grants, scholarships, loans,
                                     and personal contributions, this is how
-                                    much you still need pay to attend
+                                    much you still need to pay to attend
                                     {{school.primary_alias}} for one year.
                                 </p>
                             </div>
@@ -1710,13 +1858,15 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="borrowingTotal"></span>
                                     </div>
                                 </div>
                                 <div class="line-item">
                                     <div class="line-item_title">
                                         Loans for <span
+                                        id="future_years-attending"
                                         data-financial="yearsAttending"
                                         data-currency="false"
                                         >[XX]
@@ -1726,7 +1876,8 @@
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="totalProgramDebt"
                                         id="summary_total-program-debt"></span>
                                     </div>
@@ -1736,20 +1887,28 @@
                                         Total cost of repayment with interest
                                         and fees
                                         <span class="line-item_explanation">
-                                            Assuming all interest rates and
+                                            Assuming all interest rates and loan
                                             amounts remain the same for the
-                                            entire program
+                                            entire program and a standard
+                                            10-year repayment plan
                                         </span>
                                     </div>
                                     <div class="line-item_value">
                                         <span class="line-item_currency">
                                             $
                                         </span>
-                                        <span class="line-item_amount" data-line-item="true"
+                                        <span class="line-item_amount"
+                                        data-line-item="true"
                                         data-financial="loanLifetime"
                                         id="summary_total-repayment"></span>
                                     </div>
                                 </div>
+                                <p>
+                                    You may be eligible for a
+                                    repayment plan that allows you to pay your
+                                    loans over a period greater than 10
+                                    years.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1767,10 +1926,12 @@
                                 </h2>
                                 <p>
                                     Editing amounts does not change your offer
-                                    or your eligibility for grants or loans. You
-                                    will need to contact your school’s financial
-                                    aid representative and work with them to
-                                    update your financial aid package.
+                                    or your eligibility for grants or loans. If
+                                    you want to change your financial aid
+                                    package, you will need to contact your
+                                    school’s financial aid representative and
+                                    work with them to determine your
+                                    eligibility.
                                 </p>
                                 <div class="continue_controls">
                                     <button class="btn btn__full-small"
@@ -1783,7 +1944,8 @@
                     </div>
                 </div>
             </section>
-            <section class="evaluate step content_wrapper" data-section="evaluate">
+            <section class="evaluate step content_wrapper"
+            data-section="evaluate">
                 <div class="content_main">
                     <div class="evaluate_wrapper">
                         <div class="evaluate_intro">
@@ -1807,7 +1969,9 @@
                                 <p>
                                     For first-time students enrolled full-time
                                     in {{program.program_name}} at
-                                    {{school.primary_alias}}, X out of X
+                                    {{school.primary_alias}},
+                                    {{program.completers}} out of
+                                    {{program.completion_cohort}}
                                     graduated.
                                 </p>
                                 <p>
@@ -1828,7 +1992,7 @@
                                     </h4>
                                     <p class="metric_explanation">
                                         Percentage of first-time, full-time
-                                        undergraduate students who graduate from
+                                        students who graduate from
                                         your program at this school
                                     </p>
                                     <div class="bar-graph"
@@ -1918,8 +2082,8 @@
                             <div class="criteria_intro">
                                 <p>
                                     According to your school, the average
-                                    salary for students graduating from your
-                                    program is <span
+                                    first-year salary for students graduating
+                                    from your program is <span
                                     id="criteria_median-salary"
                                     data-financial="medianSalary">[XX]</span>
                                     per year. In reality, you could end up
@@ -1946,29 +2110,35 @@
                                         Your salary and total student debt
                                     </h4>
                                     <p>
-                                        A general rule of thumb for
-                                        undergraduates is that you should not
-                                        borrow more than you’ll earn your first
-                                        year out of school.
+                                        A general rule of thumb <span
+                                        class="content_graduate-program">for
+                                        undergraduates</span> is that you should
+                                        avoid borrowing more for school than
+                                        you’ll earn your first year out of
+                                        school.
+                                    </p>
+                                    <p class="content_graduate-program">
+                                        For graduate students, especially in
+                                        medical residency programs, this rule of
+                                        thumb may not apply.
                                     </p>
                                     <div class="salary-and-debt_projection">
                                         <div
                                         class="salary-and-debt_projection-name">
-                                          Projected first-year salary
+                                          Average first-year salary
                                           for this program
                                         </div>
                                         <div
                                         class="salary-and-debt_projection-value">
                                             <span
-                                            data-financial="medianSalary">
+                                            data-financial="medianSalary">[XX]
                                             </span>
                                         </div>
                                     </div>
                                     <div class="salary-and-debt_projection">
                                         <div
                                         class="salary-and-debt_projection-name">
-                                          Estimated debt when
-                                          repayment begins
+                                          Estimated debt when repayment begins
                                           <span class="salary-and-debt_explanation">
                                               Includes interest and fees
                                               accrued while in school
@@ -2023,37 +2193,44 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                  Currently, your projected monthly student
-                                  loan payment is
-                                  <span id="criteria_loan-monthly"
-                                  data-financial="loanMonthly">
-                                  [XXXX]</span>, based on standard
-                                  loan terms of <span
+                                  Currently, your projected monthly student loan
+                                  payment is <span id="criteria_loan-monthly"
+                                  data-financial="loanMonthly">[$XX]</span>,
+                                  based on standard loan terms of <span
                                   data-financial="repaymentTerm"
-                                  data-currency="false">
-                                  [XX]</span> years. Once you leave
-                                  school, you have <a
+                                  data-currency="false">[XX]</span> years. Once
+                                  you leave school, you are able to choose one
+                                  of <a
                                   href="https://studentaid.ed.gov/sa/repay-loans/understand/plans"
                                   target="_blank" rel="noopener">several
-                                  different repayment options</a> for your
-                                  federal loans that may help reduce your
-                                  monthly student loan payment. You may also be
-                                  eligible for a <a href="https://www.irs.gov/uac/tax-benefits-for-education-information-center"
-                                  target="_blank" rel="noopener">federal tax
-                                  credit or deduction</a>.
+                                  different repayment options for your federal
+                                  loans</a> that may help reduce your monthly
+                                  student loan payment.
                                 </p>
                                 <p>
-                                  Many of these alternative repayment plans
-                                  are based on income and family size, which
-                                  means the lower your salary, the lower your
-                                  student loan payment. For instance, if you
-                                  have a family of four with an annual income
-                                  of $50,000, your monthly student loan
-                                  payment would be $114. It could be as low as
-                                  $0, depending on your income and family
-                                  size. If you select one of these income-
-                                  based repayment plans you may be paying off
-                                  your loans for upwards of 20 to 25 years.
+                                    Tuition, certain other educational expenses,
+                                    and interest paid on federal loans may
+                                    qualify for a federal tax credit or
+                                    deduction. As a result, when you start
+                                    repaying your loans, you may be able to
+                                    <a
+                                    href="https://www.irs.gov/uac/tax-benefits-for-education-information-center"
+                                    target="_blank" rel="noopener">reduce your
+                                    federal tax burden</a>. Please consult with
+                                    your tax advisor.
+                                </p>
+                                <p>
+                                  Many of these alternative repayment plans are
+                                  based on income and family size, which means
+                                  the lower your salary, the lower your student
+                                  loan payment. For instance, if you have a
+                                  family of four with an annual income of
+                                  $50,000, a monthly student loan payment would
+                                  be capped at $114. Depending on your income
+                                  and family size it could be as low as $0. If
+                                  you select one of these income based repayment
+                                  plans you may be paying off your loans for up
+                                  to of 20 to 25 years.
                                 </p>
                                 <p data-term-toggle="repaymentContent_30KFederalLoans">
                                   Another payment option extends your
@@ -2158,22 +2335,25 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Think about how much money you can expect
-                                    to make if you graduate and get a job in
-                                    your field, and then evaluate how much of
-                                    that will go toward living expenses and
-                                    loan payments.
+                                    Think about how much money you can expect to
+                                    make if you graduate and get a job in your
+                                    field, and then evaluate how much of that
+                                    will go toward living expenses and loan
+                                    payments. In reality, you could end up
+                                    making more or less than the average
+                                    salaries shown here.
                                 </p>
-                                <p id="criteria_job-placement-content">
-                                    Keep in mind your school has a job
-                                    placement rate of <span
+                                <p class="content_job-placement"
+                                id="criteria_job-placement-content">
+                                    Keep in mind your school has a <a
+                                    href="/{{url_root}}/understanding-your-financial-aid-offer/about-this-tool/#job-placement-rate" target="_blank" rel="noopener">job
+                                    placement rate</a> of <span
                                     id="criteria_job-placement-rate"
                                     data-financial="jobRate"
                                     data-percentage_value="true">[X.X]</span>%
                                     for students who graduate and get a job in
-                                    their field. In reality, you could end up
-                                    making more or less than the average
-                                    salaries shown here.
+                                    their field of study within six months of
+                                    graduating.
                                 </p>
                             </div>
                             <section class="metric debt-burden column-well
@@ -2192,24 +2372,24 @@
                                       <div class="debt-burden_projection">
                                           <div
                                           class="debt-burden_projection-name">
-                                              Projected salary
+                                              Your projected loan payment
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="annualSalary"></span>
-                                              / yr.<br>
-                                              <span data-debt-burden="monthlySalary"></span>
+                                              <span data-debt-burden="loanMonthly"></span>
                                               / mo.
                                           </div>
                                       </div>
                                       <div class="debt-burden_projection">
                                           <div
                                           class="debt-burden_projection-name">
-                                              Your projected loan payment
+                                              Average salary
                                           </div>
                                           <div
                                           class="debt-burden_projection-value">
-                                              <span data-debt-burden="loanMonthly"></span>
+                                              <span data-debt-burden="annualSalary"></span>
+                                              / yr.<br>
+                                              <span data-debt-burden="monthlySalary"></span>
                                               / mo.
                                           </div>
                                       </div>
@@ -2302,33 +2482,88 @@
                                 <form class="aid-form" action="#">
                                     <div class="aid-form_heading">
                                         <h4 class="aid-form_title">
-                                            Estimated expenses
+                                            Estimated budget after you leave
+                                            school (adjust as needed)
                                         </h4>
-                                        <p class="aid-form_caption">
-                                            Monthly living expenses based on
-                                            <span id="expenses__datatype"
-                                            data-financial="BLSAverage"
-                                            data-currency="false">
-                                            national</span> averages from the
-                                            Bureau of Labor Statistics; adjust
-                                            as needed</p>
-                                        <div class="cf-select">
-                                          <select id="bls-region-select">
-                                            <option value="WE">West Region</option>
-                                            <option value="SO">South Region</option>
-                                            <option value="NE">Northeast Region</option>
-                                            <option value="MW">Midwest Region</option>
-                                          </select>
+                                        <p>
+                                            Average monthly living expenses for
+                                            someone and their family making
+                                            <span data-financial="medianSalary">[$XX]
+                                            </span>/year in the region you plan
+                                            to live (Source: <a
+                                            href="http://www.bls.gov/cex/"
+                                            target="_blank"
+                                            rel="noopener">Bureau of Labor
+                                            Statistics</a>). Your expenses may
+                                            be higher or lower.
+                                        </p>
+                                        <div class="estimated-expenses_region">
+                                            <div class="cf-select">
+                                              <select id="bls-region-select">
+                                                <option value="WE">West region</option>
+                                                <option value="SO">South region</option>
+                                                <option value="NE">Northeast region</option>
+                                                <option value="MW">Midwest region</option>
+                                              </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Average monthly salary
+                                            <span
+                                            class="line-item_explanation">
+                                                Before taxes
+                                            </span>
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount"
+                                            data-line-item="true"
+                                            data-financial="monthlySalary"
+                                            id="summary_monthly-salary">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="line-item">
+                                        <div class="line-item_title">
+                                            Monthly student loan payment
+                                            <span
+                                            class="line-item_explanation">
+                                                Based on <span
+                                                data-financial="repaymentTerm"
+                                                data-currency="false">
+                                                </span>-year repayment plan
+                                            </span>
+                                        </div>
+                                        <div class="line-item_value">
+                                            <span class="line-item_sign">
+                                                ( &minus; )
+                                            </span>
+                                            <span class="line-item_currency">
+                                                $
+                                            </span>
+                                            <span class="line-item_amount" data-line-item="true"
+                                            data-financial="loanMonthly"></span>
                                         </div>
                                     </div>
                                     <div class="form-group_item">
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
-                                                Mortgage or rent
+                                                Housing
+                                                <span class="line-item_explanation">
+                                                    Includes utilities, cell
+                                                    phone
+                                                </span>
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__rent"
@@ -2346,6 +2581,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text" id="expenses__food"
@@ -2359,10 +2597,34 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
+                                                Clothing
+                                            </span>
+                                            <span
+                                            class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
+                                                <input class="aid-form_input
+                                                aid-form_input__currency"
+                                                type="text"
+                                                id="expenses__clothing"
+                                                name="expenses__clothing"
+                                                data-expenses="clothing"
+                                                autocorrect="off" value="0">
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <label class="form-label__wrapped">
+                                            <span
+                                            class="form-label_text-wrapper">
                                                 Transportation
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2377,15 +2639,18 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
-                                                Insurance (health, car, etc.)
+                                                Healthcare
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
-                                                id="expenses__insurance"
-                                                name="expenses__insurance"
+                                                id="expenses__healthcare"
+                                                name="expenses__healthcare"
                                                 data-expenses="healthcare"
                                                 autocorrect="off" value="0">
                                             </span>
@@ -2399,6 +2664,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2417,6 +2685,9 @@
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input class="aid-form_input
                                                 aid-form_input__currency"
                                                 type="text"
@@ -2431,10 +2702,37 @@
                                         <label class="form-label__wrapped">
                                             <span
                                             class="form-label_text-wrapper">
+                                                Taxes
+                                                <span class="line-item_explanation">
+                                                    Federal, state, local
+                                                </span>
+                                            </span>
+                                            <span
+                                            class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
+                                                <input class="aid-form_input
+                                                aid-form_input__currency"
+                                                type="text"
+                                                id="expenses__taxes"
+                                                name="expenses__taxes"
+                                                data-expenses="taxes"
+                                                autocorrect="off" value="0">
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group_item">
+                                        <label class="form-label__wrapped">
+                                            <span
+                                            class="form-label_text-wrapper">
                                                 Other
                                             </span>
                                             <span
                                             class="aid-form_input-wrapper">
+                                                <span class="aid-form_sign">
+                                                    ( &minus; )
+                                                </span>
                                                 <input
                                                 class="aid-form_input
                                                 aid-form_input__currency"
@@ -2446,95 +2744,25 @@
                                             </span>
                                         </label>
                                     </div>
-                                    <div class="content_line
-                                    aid-form_equals-line"></div>
-                                    <div class="line-item aid-form_subtotal">
-                                        <div class="line-item_title">
-                                            Total monthly expenses
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-expenses="totalMonthlyExpenses"></span>
-                                        </div>
-                                    </div>
                                 </form>
                                 <div class="aid-form_summary">
-                                    <h5 class="aid-form_summary-heading">
-                                        Grand total
-                                    </h5>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Average monthly salary
-                                            <span
-                                            class="line-item_explanation">
-                                                Before taxes
-                                            </span>
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-financial="monthlySalary"
-                                            id="summary_monthly-salary">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Total monthly expenses
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                <span class="line-item_sign">
-                                                    ( &minus; )
-                                                </span>
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-expenses="totalMonthlyExpenses"
-                                            id="summary_monthly-expenses">
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="line-item">
-                                        <div class="line-item_title">
-                                            Student loans
-                                        </div>
-                                        <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                <span class="line-item_sign">
-                                                    ( &minus; )
-                                                </span>
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
-                                            data-financial="loanMonthly"></span>
-                                        </div>
-                                    </div>
                                     <div class="content_line
                                     aid-form_equals-line"></div>
                                     <div class="line-item line-item__total">
                                         <div class="line-item_title">
-                                            What you have left over
-                                            <span
-                                            class="line-item_explanation">
-                                                Not including taxes or other
-                                                types of debt
-                                            </span>
+                                            Total left at the end of the month
                                         </div>
                                         <div class="line-item_value">
-                                            <span class="line-item_currency">
-                                                $
-                                            </span>
-                                            <span class="line-item_amount" data-line-item="true"
+                                            <span class="line-item_amount"
+                                            data-currency="true"
                                             data-expenses="monthlyLeftover"
                                             id="summary_monthly-left-over">
                                             </span>
                                         </div>
+                                    </div>
+                                    <div class="aid-form_higher-expenses">
+                                        Your total expenses are higher than your
+                                        estimated monthly salary
                                     </div>
                                 </div>
                             </section>
@@ -2547,18 +2775,17 @@
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
                                 <p>
-                                    Defaulting on a loan is when you fail to
-                                    make scheduled payments over a certain
-                                    period of time. This length of time can
-                                    vary based on the type of loan. It can
-                                    also mean added fees and interest
-                                    because the debt isn’t paid off in time.
-                                    Defaulting on a loan can negatively impact
-                                    your credit rating, which could make it
-                                    more difficult in the future to borrow
-                                    money to purchase a care or a home.
-                                    Defaulting could also result in wage
-                                    garnishment.
+                                    Defaulting on a loan can happen when you
+                                    fail to make scheduled payments over a
+                                    certain period of time. This length of time
+                                    can vary based on the type of loan. It can
+                                    also mean added fees and interest because
+                                    the debt isn’t paid off in time. Defaulting
+                                    on a loan can negatively impact your credit
+                                    rating, which could make it more difficult
+                                    in the future to borrow money to purchase a
+                                    car or a home Defaulting could also result
+                                    in wage garnishment.
                                 </p>
                             </div>
                             <section class="metric loan-default-rates
@@ -2661,11 +2888,21 @@
                     <div class="content_main">
                         <div class="question_wrapper">
                             <div class="question_content">
-                                <h2 class="step_heading">
+                                <h2 class="step_heading step_settlement">
+                                    It's estimated you'll owe <span
+                                    data-financial="loanLifetime">[XX]</span>
+                                    to earn a <span data-section="degreeType"
+                                    data-currency="false">[degree/certificate]</span> in {{program.program_name}} at
+                                    {{school.primary_alias}}. Do you better
+                                    understand how this may impact your future
+                                    finances?
+                                </h2>
+                                <h2 class="step_heading step_nonsettlement">
                                     Do you feel like going into <span
                                     data-financial="loanLifetime">[XX]</span>
                                     of debt to attend this school is a good
-                                    investment in your future? </h2>
+                                    investment in your future?
+                                </h2>
                                 <div class="question_answers">
                                     <button class="btn btn__grouped-first"
                                     id="question_answer-no"
@@ -2687,9 +2924,10 @@
                                     </button>
                                 </div>
                                 <p>
-                                    Your response does not affect your ability
-                                    to accept or reject the actual offer from
-                                    your school.
+                                    Your response will not be shared with your
+                                    school and does not affect your ability to
+                                    accept or reject the actual offer from your
+                                    school.
                                 </p>
                             </div>
                         </div>
@@ -2723,6 +2961,20 @@
                                 more.
                             </p>
                         </div>
+                        <div class="get-options_intro followup__settlement
+                        step_settlement">
+                            <h2 class="step_heading">
+                                Step 3: Consider your options
+                            </h2>
+                            <p class="step_intro">
+                                If you are interested in lowering your amount of
+                                debt, there are things you can do.
+                            </p>
+                            <p class="step_intro">
+                                Here are some choices you can make that may help
+                                you improve your financial future.
+                            </p>
+                        </div>
                     </div>
                     <div class="get-options_wrapper">
                         <div class="get-options__dynamic">
@@ -2731,9 +2983,9 @@
                                     Maximize all available grants and scholarships.
                                 </h3>
                                 <p>
-                                    Consider <a href="https://studentaid.ed.gov/sa/types/grants-scholarships"
-                                    target="_blank" rel="noopener"> applying for
-                                    additional scholarships and grants</a>,
+                                    Consider applying for <a href="https://studentaid.ed.gov/sa/types/grants-scholarships"
+                                    target="_blank" rel="noopener">additional
+                                    scholarships and grants</a>,
                                     which provide money you don’t have to repay.
                                     By increasing the amount of this type of
                                     aid, you can decrease the overall amount of
@@ -2766,10 +3018,11 @@
                                     the job placement rate seems low, you might
                                     consider a different program with a higher
                                     projected earning potential. Ask your
-                                    admission counselor or search for “gainful
-                                    employment” on your
-                                    <span class="school-link">school’s website</span>
-                                    to learn more about your projected salary.
+                                    admission representative or search for
+                                    gainful employment information on your <span
+                                    class="school-link">school’s website</span>
+                                    to learn more about job placement rates and
+                                    the average salaries of graduates.
                                 </p>
                             </section>
                             <section class="option option__transfer-credits">
@@ -2817,8 +3070,8 @@
                                 <p>
                                     Nearly two-thirds of college students work
                                     while they are enrolled in school. While not
-                                    for everyone, earning money from a job (even
-                                    if it’s not related to your field of study)
+                                    for everyone, earning money from a job, even
+                                    if it’s not related to your field of study,
                                     can help reduce the amount of money you need
                                     to borrow to pay for school, resulting in
                                     long-term benefits of reducing overall debt.
@@ -2839,17 +3092,17 @@
                                         What you can do
                                     </h3>
                                     <p>
-                                        Using some of the strategies outlined
-                                        in the above evaluation, you can
-                                        adjust some of the offer amounts in
-                                        the tool. For instance, you can try
-                                        reducing the amount of federal or
-                                        private loans to see how it affects
-                                        your overall debt.
+                                        You can adjust some of the offer amounts
+                                        in the tool using some of the strategies
+                                        outlined above. For instance, you can
+                                        try reducing the amount of federal or
+                                        private loans to see how it affects your
+                                        overall debt and you can try reducing
+                                        your out-of-school expenses.
                                     </p>
                                     <p>
                                         Changing amounts in this tool has no
-                                        affect on what financial aid is
+                                        effect on what financial aid is
                                         actually being offered. If you want to
                                         move forward with different amounts,
                                         you will need to contact your school’s
@@ -2915,21 +3168,24 @@
                             <p class="step_intro">
                                 We have notified your school that you have
                                 reviewed your personalized offer. You can now
-                                choose to move forward in the enrollment
-                                process.
+                                move forward in the enrollment process.
                             </p>
                         </div>
                     </div>
                     <ol class="super-numerals next-steps_list">
                         <li class="super-numerals next-steps_list-item">
                             <p class="next-steps_list-intro">
-                                Review any changes you made to your offer. If you decide to move forward using any adjusted amount of aid, you need to contact your school and let them know what you’d like changed.
+                                Review any changes you made to your offer. If
+                                you decide to move forward using any adjusted
+                                amount of aid, you need to contact your
+                                financial aid representative and work with them
+                                to update your financial aid plan.
                             </p>
                             <p>
-                                Changes you make during this session are meant
-                                for your guidance only. They are not sent to
-                                your school and have no affect on your actual
-                                financial aid offer.
+                                Changes you make using this tool are meant for
+                                your guidance only. They are not sent to your
+                                school and do not affect your actual financial
+                                aid offer.
                             </p>
                             <p>
                                 If you want to change your offer in any way,
@@ -2940,7 +3196,8 @@
                         </li>
                         <li class="super-numerals next-steps_list-item">
                             <p class="next-steps_list-intro">
-                                Keep a copy of this personalized offer.
+                                Keep a copy of this personalized aid
+                                information.
                             </p>
                             <p>
                                 You can print a summary of the aid information
@@ -2992,9 +3249,9 @@
                                 If the information provided is not correct,
                                 please contact your school and ask them to fix
                                 it. Once your school provides you with an
-                                updated link, you will be able to return so
-                                you can continue reviewing the information in
-                                the tool.
+                                updated link, you will be able to return so you
+                                can continue reviewing the information in the
+                                tool.
                             </p>
                         </div>
                     </div>
