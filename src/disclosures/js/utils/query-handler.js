@@ -44,6 +44,7 @@ function queryHandler( queryString ) {
     prvf: 'privateLoanFee',
     insl: 'institutionalLoan',
     insi: 'institutionalLoanRate',
+    inst: 'institutionalLoanTerm',
     totl: 'totalCost'
   };
 

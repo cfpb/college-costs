@@ -5,7 +5,7 @@ var settlementAidOfferPage = function( url ) {
       browser.get( url )
     }
     else {
-      browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55' );
+      browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&totl=45000&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
     }
 };
 
@@ -649,6 +649,17 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.monthlyFood.sendKeys( foodamount );
       }
     },
+    monthlyClothing: {
+      get: function() {
+        return element( by.id( 'expenses__clothing' ) );
+      }
+    },
+    setMonthlyClothing: {
+      value: function( clothingamount ) {
+        this.monthlyClothing.clear();
+        return this.monthlyClothing.sendKeys( clothingamount );
+      }
+    },
     monthlyTransportation: {
       get: function() {
         return element( by.id( 'expenses__transportation' ) );
@@ -660,15 +671,26 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.monthlyTransportation.sendKeys( transportationamount );
       }
     },
-    monthlyInsurance: {
+    monthlyHealthcare: {
       get: function() {
-        return element( by.id( 'expenses__insurance' ) );
+        return element( by.id( 'expenses__healthcare' ) );
       }
     },
-    setMonthlyInsurance: {
-      value: function( insuranceamount ) {
-        this.monthlyInsurance.clear();
-        return this.monthlyInsurance.sendKeys( insuranceamount );
+    setMonthlyHealthcare: {
+      value: function( healthcareamount ) {
+        this.monthlyHealthcare.clear();
+        return this.monthlyHealthcare.sendKeys( healthcareamount );
+      }
+    },
+    monthlyEntertainment: {
+      get: function() {
+        return element( by.id( 'expenses__entertainment' ) );
+      }
+    },
+    setMonthlyEntertainment: {
+      value: function( entertainmentamount ) {
+        this.monthlyEntertainment.clear();
+        return this.monthlyEntertainment.sendKeys( entertainmentamount );
       }
     },
     monthlyRetirement: {
@@ -680,6 +702,17 @@ settlementAidOfferPage.prototype = Object.create({}, {
       value: function( retirementamount ) {
         this.monthlyRetirement.clear();
         return this.monthlyRetirement.sendKeys( retirementamount );
+      }
+    },
+    monthlyTaxes: {
+      get: function() {
+        return element( by.id( 'expenses__taxes' ) );
+      }
+    },
+    setMonthlyTaxes: {
+      value: function( taxesamount ) {
+        this.monthlyTaxes.clear();
+        return this.monthlyTaxes.sendKeys( taxesamount );
       }
     },
     monthlyOther: {
@@ -696,11 +729,6 @@ settlementAidOfferPage.prototype = Object.create({}, {
     averageMonthlySalary: {
       get: function() {
         return element( by.id( 'summary_monthly-salary' ) );
-      }
-    },
-    totalMonthlyExpenses: {
-      get: function() {
-        return element( by.id( 'summary_monthly-expenses' ) );
       }
     },
     totalMonthlyLeftOver: {
@@ -747,6 +775,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
     optionsConsiderationsSection: {
       get: function() {
         return element( by.css( '.get-options' ) );
+      }
+    },
+    followupSettlementContent: {
+      get: function() {
+        return element( by.css( '.followup__settlement' ) );
       }
     },
     followupNoNotSureContent: {

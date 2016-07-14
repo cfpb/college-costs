@@ -11,7 +11,9 @@ var expensesModel = {
     'Food',
     'Housing',
     'Other',
-    'Healthcare'
+    'Healthcare',
+    'Clothing',
+    'Taxes'
   ],
 
   /**
@@ -32,7 +34,8 @@ var expensesModel = {
     model.totalMonthlyExpenses =
       Math.round( model.housing + model.food +
       model.transportation + model.healthcare +
-      model.retirement + model.other + model.entertainment );
+      model.retirement + model.other + model.entertainment +
+      model.clothing + model.taxes );
 
     model.monthlyLeftover = Math.round( financialValues.monthlySalary -
       model.totalMonthlyExpenses - financialValues.loanMonthly );
