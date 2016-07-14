@@ -116,7 +116,7 @@ var financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    var originalValue = $ele.val(),
+    var originalValue = $ele.val() || $ele.text(),
         isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
@@ -124,11 +124,13 @@ var financialView = {
     if ( isSummaryLineItem ) {
       value = value.replace( /\$/i, '' );
     }
-    if ( isSummaryLineItem && originalValue !== value ) {
-      financialView.indicateSummaryRecalculationSuccess( $ele );
-    }
     if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
       $ele.val( value );
+    } else if ( isSummaryLineItem && originalValue !== value ) {
+      setTimeout( function() {
+        financialView.removeRecalculationMessage( $ele, value );
+      }, 2000 );
+      financialView.addSummaryRecalculationMessage( $ele );
     } else {
       $ele.text( value );
     }
@@ -391,7 +393,6 @@ var financialView = {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.keyupDelay = setTimeout( function() {
-        financialView.removeRecalculationSuccess();
         financialView.inputHandler( financialView.currentInput );
         financialView.updateView( getFinancial.values() );
       }, 500 );
@@ -404,7 +405,6 @@ var financialView = {
   focusoutListener: function() {
     this.$reviewAndEvaluate.on( 'focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
-      financialView.removeRecalculationSuccess();
       financialView.currentInput = $( this ).attr( 'id' );
       financialView.inputHandler( financialView.currentInput );
       financialView.currentInput = 'none';
@@ -417,19 +417,19 @@ var financialView = {
    * successfully recalculated
    * @param {object} element - jQuery object of the recalculated summary element
    */
-  indicateSummaryRecalculationSuccess: function( element ) {
-    element.addClass( 'success' );
-    element.after(
-      '<span class="cf-form_input-icon cf-icon cf-icon-approved-round recalculated__summary"></span>'
-    );
+  addSummaryRecalculationMessage: function( element ) {
+    element.siblings().hide();
+    element.text( 'Updating...' );
   },
 
   /**
    * Helper function to remove all indicators that data has recalculated
+   * @param {object} element - jQuery object of the recalculated summary element
+   * @param {string} value - the recalculated value of the element
    */
-  removeRecalculationSuccess: function() {
-    $( '.aid-form_summary' ).removeClass( 'success' );
-    $( '.recalculated__summary' ).remove();
+  removeRecalculationMessage: function( element, value ) {
+    element.text( value );
+    element.siblings().show();
   },
 
   /**
