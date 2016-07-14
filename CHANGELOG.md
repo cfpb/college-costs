@@ -16,6 +16,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Show and hide content or offer sections depending on the program values and passed URL values
 - Update Step 3 illustration for "think about working while you study"
 - Make the tuition and fees field editable
+- Adjust load_programs to fix rates > 1
 
 ## 2.1.3
 - Added load tests

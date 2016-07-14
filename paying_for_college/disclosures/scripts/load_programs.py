@@ -73,7 +73,7 @@ def read_in_data(filename):
             reader = cdr(f)
             data = [row for row in reader]
     except:
-        return {}
+        return [{}]
     else:
         return data
 
@@ -89,17 +89,32 @@ def clean_string_as_string(string):
     return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else ''
 
 
+def standardize_rate(rate):
+    if rate and float(rate) > 1:
+        return unicode(float(rate)/100)
+    else:
+        return rate
+
+
+def strip_control_chars(ustring):
+    return ustring.replace(u'\x97', u'-').replace(u'\x96', u'-')
+
+
 def clean(data):
 
     number_fields = ('program_level', 'program_length', 'median_salary',
         'average_time_to_complete', 'books_supplies', 'completion_rate',
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
-        'median_student_loan_completers', 'total_cost', 'tuition_fees', 
+        'median_student_loan_completers', 'total_cost', 'tuition_fees',
         'completers', 'completion_cohort')
+    rate_fields = ('completion_rate', 'default_rate', 'job_placement_rate')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
     cleaned_data = dict(map(lambda (k, v):
         (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
         data.iteritems()))
+
+    for rate in rate_fields:
+        cleaned_data[rate] = standardize_rate(cleaned_data[rate])
 
     return cleaned_data
 
@@ -141,12 +156,12 @@ def load(filename):
             program.mean_student_loan_completers = data['mean_student_loan_completers']
             program.median_student_loan_completers = data['median_student_loan_completers']
             program.program_code = data['program_code']
-            program.program_name = data['program_name']
+            program.program_name = strip_control_chars(data['program_name'])
             program.program_length = data['program_length']
             # program.soc_codes = data['soc_codes']
             program.total_cost = data['total_cost']
 
-            program.campus = data['campus_name']
+            program.campus = strip_control_chars(data['campus_name'])
             program.level = data['program_level']
             program.time_to_complete = data['average_time_to_complete']
             program.salary = data['median_salary']
@@ -158,14 +173,16 @@ def load(filename):
             program.completion_cohort = data['completion_cohort']
             program.save()
 
-        else: # There is error
+        else:  # There is error
             for key, error_list in serializer.errors.iteritems():
 
-                fail_msg = 'ERROR on row {}: {}: '.format(raw_data.index(row) + 1, key)
+                fail_msg = ('ERROR on row {}: '
+                            '{}: '.format(raw_data.index(row) + 1, key))
                 for e in error_list:
                     fail_msg = '{} {},'.format(fail_msg, e)
                 FAILED.append(fail_msg)
 
-    endmsg = ('{} programs created. {} programs updated.'.format(new_programs, updated_programs))
+    endmsg = ('{} programs created. '
+              '{} programs updated.'.format(new_programs, updated_programs))
 
     return (FAILED, endmsg)
