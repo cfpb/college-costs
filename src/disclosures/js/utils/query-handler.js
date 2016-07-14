@@ -8,7 +8,13 @@ var stringToNum = require( './handle-string-input.js' );
  * @returns {object} - An object containing key-value pairs from the query
  */
 function queryHandler( queryString ) {
-  var valuePairs = {};
+  var valuePairs = {
+    'tuitionFees': 0,
+    'roomBoard': 0,
+    'books': 0,
+    'transportation': 0,
+    'otherExpenses': 0
+  };
   var parameters = {};
   var numericKeys = [
     'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
