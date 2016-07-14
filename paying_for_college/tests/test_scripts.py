@@ -2,18 +2,23 @@ import unittest
 import django
 import json
 import datetime
+import string
 
 import mock
+from mock import mock_open, patch
 import requests
 from django.utils import timezone
 
 from paying_for_college.models import School, Notification
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
-                                                    nat_stats, notifications)
+                                                    nat_stats, notifications,
+                                                    update_ipeds)
 from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
                                                               EDMC_DEV,
                                                               OID, ERRORS)
+from django.conf import settings
 
+PFC_ROOT = settings.REPOSITORY_ROOT
 YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
 completion_rate:\n\
@@ -58,6 +63,10 @@ class TestScripts(django.test.TestCase):
                     'key': 'value'}],
                   'metadata': {'page': 0}
                   }
+
+    def test_icomma(self):
+        icomma_test = update_ipeds.icomma(445999)
+        self.assertTrue(icomma_test == '445,999')
 
     def test_fix_zip5(self):
         fixzip3 = update_colleges.fix_zip5('501')
@@ -126,6 +135,104 @@ class TestScripts(django.test.TestCase):
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         self.assertTrue('no data' in endmsg)
 
+    def test_write_clean_csv(self):
+        m = mock_open()
+        with patch("__builtin__.open", m, create=True):
+            update_ipeds.write_clean_csv('mockfile.csv',
+                                         ['a ', ' b', ' c '],
+                                         ['a', 'b', 'c'],
+                                         [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
+        self.assertTrue(m.call_count == 1)
+
+    def test_read_csv(self):
+        m = mock_open(read_data='a , b, c \nd,e,f')
+        with patch("__builtin__.open", m, create=True):
+            fieldnames, data = update_ipeds.read_csv('mockfile.csv')
+        self.assertTrue(m.call_count == 1)
+        self.assertTrue(fieldnames == ['a ', ' b', ' c '])
+        self.assertTrue(data == [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
+
+    @mock.patch('paying_for_college.disclosures.scripts.update_ipeds.read_csv')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.write_clean_csv')
+    def test_clean_csv_headings(self, mock_write, mock_read):
+        mock_read.return_value = (['UNITID', 'PEO1ISTR'],
+                                  {'UNITID': '100654', 'PEO1ISTR': '0'})
+        update_ipeds.clean_csv_headings()
+        self.assertTrue(mock_read.call_count == 2)
+        self.assertTrue(mock_write.call_count == 2)
+
+    def test_unzip_file(self):
+        test_zip = ('{}/paying_for_college/data_sources/ipeds/'
+                    'test.txt.zip'.format(PFC_ROOT))
+        self.assertTrue(update_ipeds.unzip_file(test_zip))
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.unzip_file')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.call')
+    def test_download_zip_file(self, mock_call, mock_unzip, mock_requests):
+        mock_response = mock.Mock()
+        mock_response.ok = False
+        mock_requests.return_value = mock_response
+        down1 = update_ipeds.download_zip_file('fake.zip', '/tmp/fakefile.zip')
+        self.assertFalse(down1)
+        mock_response2 = mock.MagicMock()
+        mock_response2.iter_content(chunk_size=None).return_value = ['a', 'b']
+        mock_response2.ok = True
+        mock_requests.return_value = mock_response2
+        down2 = update_ipeds.download_zip_file('fake.zip', '/tmp/fakefile.zip')
+        self.assertTrue(mock_unzip.call_count == 1)
+        self.assertTrue(mock_call.call_count == 1)
+        self.assertTrue(down2)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.download_zip_file')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.clean_csv_headings')
+    def test_download_files(self, mock_clean, mock_download_zip):
+        mock_download_zip.return_value = True
+        update_ipeds.download_files()
+        self.assertTrue(mock_download_zip.call_count == 3)
+        self.assertTrue(mock_clean.call_count == 1)
+        mock_download_zip.return_value = False
+        update_ipeds.download_files()
+        self.assertTrue(mock_download_zip.call_count == 6)
+        self.assertTrue(mock_clean.call_count == 2)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.read_csv')
+    def test_process_datafiles(self, mock_read):
+        points = update_ipeds.DATA_POINTS
+        mock_return_dict = {points[key]: 'x' for key in points}
+        mock_return_dict['UNITID'] = '999999'
+        mock_return_dict['ROOM'] = '1'
+        mock_fieldnames = ['UNITID', 'ROOM'] + points.keys()
+        mock_read.return_value = (mock_fieldnames, [mock_return_dict])
+        mock_dict = update_ipeds.process_datafiles()
+        self.assertTrue(mock_read.call_count == 2)
+        self.assertTrue('999999' in mock_dict.keys())
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.process_datafiles')
+    def test_load_values(self, mock_process):
+        mock_process.return_value = {'999999': {'onCampusAvail': '2'}}
+        msg = update_ipeds.load_values()
+        self.assertTrue('DRY' in msg)
+        self.assertTrue(mock_process.call_count == 1)
+        mock_process.return_value = {'243197': {'onCampusAvail': '2'}}
+        msg = update_ipeds.load_values()
+        self.assertTrue('DRY' in msg)
+        self.assertTrue(mock_process.call_count == 2)
+        msg = update_ipeds.load_values(dry_run=False)
+        self.assertFalse('DRY' in msg)
+        self.assertTrue(mock_process.call_count == 3)
+        mock_process.return_value = {'243197': {'onCampusAvail': '1'}}
+        msg = update_ipeds.load_values()
+        self.assertTrue('DRY' in msg)
+
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'notifications.send_mail')
     def test_send_stale_notifications(self, mock_mail):
@@ -133,7 +240,7 @@ class TestScripts(django.test.TestCase):
         self.assertTrue(mock_mail.call_count == 1)
         self.assertTrue('Found' in msg)
         msg = notifications.send_stale_notifications(add_email=['abc@def.com',
-                                                           'ghi@jkl.com'])
+                                                                'ghi@jkl.com'])
         self.assertTrue(mock_mail.call_count == 2)
         self.assertTrue('Found' in msg)
         n = Notification.objects.first()

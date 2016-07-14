@@ -5,6 +5,7 @@ try:
     from csvkit import CSVKitDictReader as cdr
 except:
     from csv import DictReader as cdr
+# from csv import DictReader as cdr
 from rest_framework import serializers
 
 from paying_for_college.models import Program, School
@@ -27,7 +28,7 @@ load('paying_for_college/data_sources/sample_program_data.csv')
 
 """
 
-NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data')
+NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
 
 
 class ProgramSerializer(serializers.Serializer):
@@ -43,16 +44,18 @@ class ProgramSerializer(serializers.Serializer):
     median_salary = serializers.IntegerField(allow_null=True)  # 31240
     average_time_to_complete = serializers.IntegerField(allow_null=True)  # 36
     books_supplies = serializers.IntegerField(allow_null=True)  # 2600
-    completion_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.29
-    default_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.23
-    job_placement_rate = serializers.DecimalField(max_digits=5, decimal_places=2, max_value=100, allow_null=True)  # 0.7
+    completion_rate = serializers.FloatField(allow_null=True)  # 0.29
+    default_rate = serializers.FloatField(allow_null=True)  # 0.23
+    job_placement_rate = serializers.FloatField(allow_null=True)  # 0.7
     job_placement_note = serializers.CharField(allow_blank=True)  # 'optional note'
     mean_student_loan_completers = serializers.IntegerField(allow_null=True)  # 34000
     median_student_loan_completers = serializers.IntegerField(allow_null=True)  # 45857
     total_cost = serializers.IntegerField(allow_null=True)  # 91004
     tuition_fees = serializers.IntegerField(allow_null=True)  # 88404
     cip_code = serializers.CharField(allow_blank=True) # '12.0504'
-    soc_codes = serializers.CharField(allow_blank=True)  # '35-1011, 35-1012'
+    # soc_codes = serializers.CharField(allow_blank=True)  # '35-1011, 35-1012'
+    completers = serializers.IntegerField(allow_null=True)
+    completion_cohort = serializers.IntegerField(allow_null=True)
 
 
 def get_school(iped):
@@ -91,7 +94,8 @@ def clean(data):
     number_fields = ('program_level', 'program_length', 'median_salary',
         'average_time_to_complete', 'books_supplies', 'completion_rate',
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
-        'median_student_loan_completers', 'total_cost', 'tuition_fees')
+        'median_student_loan_completers', 'total_cost', 'tuition_fees', 
+        'completers', 'completion_cohort')
     # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
     cleaned_data = dict(map(lambda (k, v):
         (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
@@ -139,7 +143,7 @@ def load(filename):
             program.program_code = data['program_code']
             program.program_name = data['program_name']
             program.program_length = data['program_length']
-            program.soc_codes = data['soc_codes']
+            # program.soc_codes = data['soc_codes']
             program.total_cost = data['total_cost']
 
             program.campus = data['campus_name']
@@ -150,6 +154,8 @@ def load(filename):
             program.job_note = data['job_placement_note']
             program.tuition = data['tuition_fees']
             program.books = data['books_supplies']
+            program.completers = data['completers']
+            program.completion_cohort = data['completion_cohort']
             program.save()
 
         else: # There is error
