@@ -42,9 +42,9 @@ function queryHandler( queryString ) {
     prvl: 'privateLoan',
     prvi: 'privateLoanRate',
     prvf: 'privateLoanFee',
-    insl: 'institutionalLoan',
-    insi: 'institutionalLoanRate',
-    inst: 'institutionalLoanTerm',
+    insl: 'tuitionRepay',
+    insi: 'tuitionRepayRate',
+    inst: 'tuitionRepayTerm',
     totl: 'totalCost'
   };
 
@@ -113,7 +113,7 @@ function queryHandler( queryString ) {
 
   // family contributions = parent loan
   valuePairs.family = valuePairs.parentLoan;
-  valuePairs.institutionalLoanRate /= 100;
+  valuePairs.tuitionRepayRate /= 100;
 
   return valuePairs;
 }
