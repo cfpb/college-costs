@@ -10,6 +10,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added an 'update_ipeds' script and manage.py command for annual updates
 - Updated standalone requirements to Django==1.8.13 to match our servers
 - Added 2 new fields, 'completion_cohort' and 'completers' to Program object
+- Make the tuition and fees field editable
 
 ## 2.1.3
 - Added load tests
