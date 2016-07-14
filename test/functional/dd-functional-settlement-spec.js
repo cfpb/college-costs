@@ -85,9 +85,9 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.schoolName.getText() ).toEqual( 'Brown Mackie College-Fort Wayne' );
   } );
 
-  it( 'should not let a student edit the tuition', function() {
+  it( 'should let a student edit the tuition and fees', function() {
     page.confirmVerification();
-    expect( page.tuitionFeesCosts.isEnabled() ).toEqual( false );
+    expect( page.tuitionFeesCosts.isEnabled() ).toEqual( true );
   } );
 
   it( 'should show correct totals on load', function() {
@@ -95,6 +95,20 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43,626' );
     expect( page.studentTotalCost.getText() ).toEqual( '32,026' );
     expect( page.remainingCostFinal.getText() ).toEqual( '2,526' );
+  } );
+
+  it( 'should properly update when the tuition and fees are modified', function() {
+    page.confirmVerification();
+    browser.wait(
+      page.setTuitionFeesCosts( 48976 ).then(
+        function() {
+          browser.sleep(500);
+          expect( page.totalCostOfAttendance.getText() ).toEqual( '53,626' );
+          expect( page.studentTotalCost.getText() ).toEqual( '42,026' );
+          expect( page.remainingCostFinal.getText() ).toEqual( '12,526' );
+        }
+      ), 10000
+    );
   } );
 
   it( 'should properly update when the housing and meals are modified', function() {

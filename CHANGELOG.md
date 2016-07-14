@@ -15,6 +15,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Reorder and fix styles in the budget worksheet
 - Show and hide content or offer sections depending on the program values and passed URL values
 - Update Step 3 illustration for "think about working while you study"
+- Make the tuition and fees field editable
 
 ## 2.1.3
 - Added load tests
