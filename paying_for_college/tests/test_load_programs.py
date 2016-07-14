@@ -73,7 +73,7 @@ class TestLoadPrograms(django.test.TestCase):
         u'program_code': u'1509', u'books_supplies': 'No Data', u'campus_name': u'SU Savannah', 
         u'cip_code': u'11.0401', u'ope_id': u'1303900', u'completion_rate': u'0.23', 
         u'program_level': u'2', u'tuition_fees': u'44565', u'program_name': u'Information Technology', 
-        u'median_student_loan_completers': u'28852', u'soc_codes': u'11-3021', u'program_length': u'24',
+        u'median_student_loan_completers': u'28852', u'program_length': u'24',
         u'completers': u'0', u'completion_cohort': u'0'}
 
         expected_dict = {u'job_placement_rate': 'NUMBER', u'default_rate': 'NUMBER', 
@@ -83,11 +83,11 @@ class TestLoadPrograms(django.test.TestCase):
         u'program_code': 'STRING', u'books_supplies': 'NUMBER', u'campus_name': 'STRING', 
         u'cip_code': 'STRING', u'ope_id': 'STRING', u'completion_rate': 'NUMBER', 
         u'program_level': 'NUMBER', u'tuition_fees': 'NUMBER', u'program_name': 'STRING', 
-        u'median_student_loan_completers': 'NUMBER', u'soc_codes': 'STRING', u'program_length': 'NUMBER',
+        u'median_student_loan_completers': 'NUMBER', u'program_length': 'NUMBER',
         u'completers': 'NUMBER', u'completion_cohort': 'NUMBER'}
         result = clean(input_dict)
         self.assertEqual(mock_number.call_count, 14)
-        self.assertEqual(mock_string.call_count, 9)
+        self.assertEqual(mock_string.call_count, 8)
         print(result)
         print(expected_dict)
         self.assertDictEqual(result, expected_dict)
@@ -106,18 +106,18 @@ class TestLoadPrograms(django.test.TestCase):
                 "job_placement_note": "The rate reflects employment status as of November 1, 2014 - Test", 
                 "mean_student_loan_completers": "30000", "median_student_loan_completers": "30500", 
                 "total_cost": "50000", "tuition_fees": "40000", "cip_code": "51.0803 - Test", 
-                "soc_codes": "31-2011.00 - Test", "completers": "0", "completion_cohort": "0"}
+                "completers": "0", "completion_cohort": "0"}
         ]
         mock_clean.return_value = {"ipeds_unit_id": "408039", "ope_id": "", "campus_name": "Ft Wayne - Test", 
                 "program_code": "981 - Test", "program_name": "Occupational Therapy Assistant - 981 - Test", 
                 "program_level": 4, "program_length": 25, 
                 "accreditor": "Accrediting Council for Independent Colleges and Schools (ACICS) - Test", 
                 "median_salary": 24000, "average_time_to_complete": 35, "books_supplies": 1000, 
-                "completion_rate": Decimal(13), "default_rate": Decimal(50), "job_placement_rate": 0.20, 
+                "completion_rate": 13, "default_rate": 50, "job_placement_rate": 0.20, 
                 "job_placement_note": "The rate reflects employment status as of November 1, 2014 - Test", 
                 "mean_student_loan_completers": 30000, "median_student_loan_completers": 30500, 
                 "total_cost": 50000, "tuition_fees": 40000, "cip_code": "51.0803 - Test", 
-                "soc_codes": "31-2011.00 - Test", "completers": 0, "completion_cohort": 0}
+                "completers": 0, "completion_cohort": 0}
         program = Program.objects.first()
         mock_program.return_value = (program, False)
 
@@ -127,20 +127,19 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertEqual(mock_program.call_count, 1)
         self.assertEqual(program.accreditor, "Accrediting Council for Independent Colleges and Schools (ACICS) - Test")
         self.assertEqual(program.cip_code, "51.0803 - Test")
-        self.assertEqual(program.completion_rate, u'13.00') # This is converted to unicode probably bc how decimialfield was handled
-        self.assertEqual(program.default_rate, u'50.00') # This is converted to unicode probably bc how decimialfield was handled
+        self.assertEqual(program.completion_rate, 13.00) # This is converted to unicode probably bc how decimialfield was handled
+        self.assertEqual(program.default_rate, 50.00) # This is converted to unicode probably bc how decimialfield was handled
         self.assertEqual(program.mean_student_loan_completers, 30000)
         self.assertEqual(program.median_student_loan_completers, 30500)
         self.assertEqual(program.program_code, "981 - Test")
         self.assertEqual(program.program_name, "Occupational Therapy Assistant - 981 - Test")
         self.assertEqual(program.program_length, 25)
-        self.assertEqual(program.soc_codes, "31-2011.00 - Test")
         self.assertEqual(program.total_cost, 50000)
         self.assertEqual(program.campus, "Ft Wayne - Test")
         self.assertEqual(program.level, 4)
         self.assertEqual(program.time_to_complete, 35)
         self.assertEqual(program.salary, 24000)
-        self.assertEqual(program.job_rate, u'0.20') # This is converted to unicode probably bc how decimialfield was handled
+        self.assertEqual(program.job_rate, 0.20) # This is converted to unicode probably bc how decimialfield was handled
         self.assertEqual(program.job_note, "The rate reflects employment status as of November 1, 2014 - Test")
         self.assertEqual(program.tuition, 40000)
         self.assertEqual(program.books, 1000)
