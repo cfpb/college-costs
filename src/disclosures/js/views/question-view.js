@@ -4,6 +4,8 @@ var getFinancial = require( '../dispatchers/get-financial-values' );
 var getSchool = require( '../dispatchers/get-school-values' );
 
 var questionView = {
+  $settlementBigQuestion: $( '.step_settlement' ),
+  $nonsettlementBigQuestion: $( '.step_nonsettlement' ),
   $getOptions: $( '.get-options' ),
   $followupNoNotSure: $( '.followup__no-not-sure' ),
   $followupYes: $( '.followup__yes' ),
@@ -24,8 +26,8 @@ var questionView = {
     var settlementStatus =
       getSchool.values().settlementSchool || false;
 
-    this.bigQuestionListener( settlementStatus );
     this.displayOptions( settlementStatus );
+    this.bigQuestionListener( settlementStatus );
   },
 
   /**
@@ -34,6 +36,13 @@ var questionView = {
    */
   displayOptions: function( isSettlementStatus ) {
     if ( isSettlementStatus === true ) {
+      questionView.$settlementBigQuestion.show();
+      questionView.$nonsettlementBigQuestion.hide();
+      $( '#question_answer-no' ).hide();
+      $( '#question_answer-yes' ).removeClass( 'btn__grouped' );
+      $( '#question_answer-yes' ).addClass( 'btn__grouped-first' );
+      questionView.$optionsWrapper.addClass(
+        'get-options__settlement content_main' );
       questionView.$optionsWrapper.addClass(
         'get-options__settlement content_main' );
       questionView.$transferCredits.remove();
@@ -43,6 +52,8 @@ var questionView = {
       questionView.$optionsSidebar.show();
       questionView.$optionsWrapper.removeClass( 'get-options__dynamic' );
     } else {
+      questionView.$settlementBigQuestion.hide();
+      questionView.$nonsettlementBigQuestion.show();
       questionView.$workWhileStudying.remove();
       questionView.$optionsSidebar.remove();
     }
@@ -61,7 +72,10 @@ var questionView = {
       }
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
-      if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {
+      if ( isSettlementStatus === true ) {
+        questionView.$followupYes.hide();
+        questionView.$followupNoNotSure.hide();
+      } else if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {
         questionView.$followupYes.show();
         questionView.$followupNoNotSure.hide();
       } else {

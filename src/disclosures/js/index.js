@@ -49,7 +49,7 @@ var app = {
               if ( typeof urlValues.totalCost === 'undefined' ) {
                 publish.financialData( 'totalCost', null );
               }
-              financialView.updateViewWithURL( urlValues );
+              financialView.updateViewWithURL( schoolValues, urlValues );
 
               // initialize metric view
               metricView.init();

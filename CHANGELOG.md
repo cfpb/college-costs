@@ -7,7 +7,15 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added a test so that notifications can't be sent to non-settlement schools
 - Updated standalone search configs for running Elasticsearch locally
 - Changed BLS json keyword for tax expenses to single word: "Taxes"
+- Added an 'update_ipeds' script and manage.py command for annual updates
+- Updated standalone requirements to Django==1.8.13 to match our servers
 - Added 2 new fields, 'completion_cohort' and 'completers' to Program object
+- Separate out private loans and tuition payment plans in the HTML/CSS
+- Remove JS functions for combining family contributions with Parent PLUS loans
+- Reorder and fix styles in the budget worksheet
+- Show and hide content or offer sections depending on the program values and passed URL values
+- Update Step 3 illustration for "think about working while you study"
+- Make the tuition and fees field editable
 
 ## 2.1.3
 - Added load tests

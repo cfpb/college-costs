@@ -217,7 +217,4 @@ class NonSettlementNotificaion(TestCase):
         skul = School.objects.get(pk=155317)  # a non-settlement school
         notification = self.create_notification(skul)
         non_msg = notification.notify_school()
-        print ("\n\n\n*** school is {}\nsettlement_school value is {}\n"
-               "non_msg is {}***\n\n\n".format(skul, skul.settlement_school, non_msg))
-
         self.assertTrue('No notification required' in non_msg)
