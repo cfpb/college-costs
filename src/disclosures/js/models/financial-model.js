@@ -57,7 +57,7 @@ var financialModel = {
 
     model.privateLoanTotal = 0;
 
-    for (var x = 0; x < model.privateLoanMulti.length; x++ ) {
+    for ( var x = 0; x < model.privateLoanMulti.length; x++ ) {
       model.privateLoanTotal += model.privateLoanMulti[x].amount;
     }
 

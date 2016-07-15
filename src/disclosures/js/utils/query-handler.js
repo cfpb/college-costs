@@ -9,11 +9,11 @@ var stringToNum = require( './handle-string-input.js' );
  */
 function queryHandler( queryString ) {
   var valuePairs = {
-    'tuitionFees': 0,
-    'roomBoard': 0,
-    'books': 0,
-    'transportation': 0,
-    'otherExpenses': 0
+    tuitionFees: 0,
+    roomBoard: 0,
+    books: 0,
+    transportation: 0,
+    otherExpenses: 0
   };
   var parameters = {};
   var numericKeys = [
