@@ -22,14 +22,9 @@ var financialView = {
   $addPrivateButton: $( '.private-loans_add-btn' ),
   $totalDirectCostSection: $( '.verify_direct-cost' ),
   $pellGrantSection: $( '[data-section="pellgrant"]' ),
-  $militarySection: $( '[data-section="military"]' ),
-  $GIBillSection: $( '[data-section="gibill"]' ),
-  $workstudySection: $( '[data-section="workstudy"]' ),
-  $federalLoansSection: $( '[data-section="federalLoans"]' ),
   $gradPlusSection: $( '[data-section="gradPlus"]' ),
   $perkinsSection: $( '[data-section="perkins"]' ),
   $subsidizedSection: $( '[data-section="subsidized"]' ),
-  $unsubsidizedSection: $( '[data-section="unsubsidized"]' ),
   $tuitionPaymentPlanSection: $( '[data-section="tuitionpaymentplan"]' ),
   $privateContainer: $( '.private-loans' ),
   $privateLoanClone: $( '[data-private-loan]:first' ).clone(),
@@ -258,22 +253,11 @@ var financialView = {
    * @param {object} urlvalues - An object with URL values
    */
   updateViewWithURL: function( values, urlvalues ) {
-    this.totalDirectCostVisible( typeof urlvalues.totalCost !== 'undefined' );
-    this.militaryVisible(
-      typeof urlvalues.militaryTuitionAssistance !== 'undefined'
-    );
-    this.giBillVisible( typeof urlvalues.GIBill !== 'undefined' );
-    this.workstudyVisible(
-      typeof urlvalues.workstudy !== 'undefined'
-    );
-    this.perkinsVisible(
-      values.offersPerkins || typeof urlvalues.perkins !== 'undefined'
-    );
-    this.unsubsidizedVisible(
-      typeof urlvalues.directUnsubsidized !== 'undefined'
-    );
+    this.totalDirectCostVisible(
+      typeof urlvalues.totalCost !== 'undefined' || urlvalues.totalCost === 0 );
     this.tuitionPaymentPlanVisible(
-      typeof urlvalues.tuitionRepay !== 'undefined'
+      typeof urlvalues.tuitionRepay !== 'undefined' ||
+      urlvalues.tuitionRepay === 0
     );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
     if ( values.level.indexOf( 'Graduate' ) === 1 ) {
@@ -283,13 +267,6 @@ var financialView = {
       this.subsidizedVisible(
         typeof urlvalues.directSubsidized !== 'undefined'
       );
-    }
-    // If all federal loans are hidden, hide the "Federal Loans" header
-    if ( this.$perkinsSection.is( ':hidden' ) &&
-         this.$subsidizedSection.is( ':hidden' ) &&
-         this.$unsubsidizedSection.is( ':hidden' ) &&
-         this.$gradPlusSection.is( ':hidden' ) ) {
-      this.$federalLoansSection.hide();
     }
   },
 
@@ -572,21 +549,6 @@ var financialView = {
   },
 
   /**
-   * Sets visibility of Federal Work-study section. Hidden if
-   * it wasn't passed in the URL
-   * @param {boolean} visibility - Whether or not workstudy was passed
-   *                               in the URL
-   */
-  workstudyVisible: function( visibility ) {
-    if ( visibility === false ) {
-      this.$workstudySection.hide();
-      publish.financialData( 'workstudy', 0 );
-    } else {
-      this.$workstudySection.show();
-    }
-  },
-
-  /**
    * Sets visibility of Direct subsidized loan section. Hidden if graduate
    * program or it wasn't passed in the URL
    * @param {boolean} visibility - If `values.level.Graduate` is defined or
@@ -599,50 +561,6 @@ var financialView = {
       publish.financialData( 'directSubsidized', 0 );
     } else {
       this.$subsidizedSection.show();
-    }
-  },
-
-  /**
-   * Sets visibility of Direct unsubsidized loan section. Hidden if it wasn't
-   * passed in the URL
-   * @param {boolean} visibility - Whether or not directUnsubsidized was passed
-   *                               in the URL
-   */
-  unsubsidizedVisible: function( visibility ) {
-    if ( visibility === false ) {
-      this.$unsubsidizedSection.hide();
-      publish.financialData( 'directUnsubsidized', 0 );
-    } else {
-      this.$unsubsidizedSection.show();
-    }
-  },
-
-  /**
-   * Sets visibility of military tuition assistance section. Hidden if it wasn't
-   * passed in the URL
-   * @param {boolean} visibility - Whether or not militaryTuitionAssistance was
-   *                               passed in the URL
-   */
-  militaryVisible: function( visibility ) {
-    if ( visibility === false ) {
-      this.$militarySection.hide();
-      publish.financialData( 'militaryTuitionAssistance', 0 );
-    } else {
-      this.$militarySection.show();
-    }
-  },
-
-  /**
-   * Sets visibility of GI Bill section. Hidden if it wasn't passed in the URL
-   * @param {boolean} visibility - Whether or not GIBill was
-   *                               passed in the URL
-   */
-  giBillVisible: function( visibility ) {
-    if ( visibility === false ) {
-      this.$GIBillSection.hide();
-      publish.financialData( 'GIBill', 0 );
-    } else {
-      this.$pellGrantSection.show();
     }
   },
 
