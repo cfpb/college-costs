@@ -377,9 +377,14 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'contrib__payment-plan-due-date' ) );
       }
     },
-    totalPrivateLoansPaymentPlans: {
+    totalPrivateLoans: {
       get: function() {
         return element( by.id( 'summary_total-private-loans' ) );
+      }
+    },
+    totalPaymentPlans: {
+      get: function() {
+        return element( by.id( 'summary_total-payment-plans' ) );
       }
     },
     loansSummary: {

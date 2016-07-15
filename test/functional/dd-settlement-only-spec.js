@@ -15,7 +15,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '60.7px' );
+    expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '39.8px' );
     expect( page.schoolGradRateValue.getText() ).toEqual( '18%' );
     expect( page.nationalGradRatePoint.isDisplayed() ).toBeFalsy();
   } );
@@ -66,7 +66,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.continueStep2();
     browser.sleep( 1000 );
     expect( page.schoolSalaryValue.getText() ).toEqual( '$23,000' );
-    expect( page.schoolDebtAtRepaymentValue.getText() ).toEqual( '$25,985' );
+    expect( page.schoolDebtAtRepaymentValue.getText() ).toEqual( '$23,985' );
   } );
 
   it( 'should calculate debt burden', function() {

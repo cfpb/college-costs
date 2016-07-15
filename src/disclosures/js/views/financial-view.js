@@ -254,10 +254,10 @@ var financialView = {
    */
   updateViewWithURL: function( values, urlvalues ) {
     this.totalDirectCostVisible(
-      typeof urlvalues.totalCost !== 'undefined' || urlvalues.totalCost === 0 );
+      typeof urlvalues.totalCost !== 'undefined' && urlvalues.totalCost !== 0 );
     this.tuitionPaymentPlanVisible(
-      typeof urlvalues.tuitionRepay !== 'undefined' ||
-      urlvalues.tuitionRepay === 0
+      typeof urlvalues.tuitionRepay !== 'undefined' &&
+      urlvalues.tuitionRepay !== 0
     );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
     if ( values.level.indexOf( 'Graduate' ) === 1 ) {
