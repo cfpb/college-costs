@@ -273,7 +273,7 @@ var financialView = {
       typeof urlvalues.directUnsubsidized !== 'undefined'
     );
     this.tuitionPaymentPlanVisible(
-      typeof urlvalues.institutionalLoan !== 'undefined'
+      typeof urlvalues.tuitionRepay !== 'undefined'
     );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
     if ( values.level.indexOf( 'Graduate' ) === 1 ) {
@@ -649,15 +649,15 @@ var financialView = {
   /**
    * Sets visibility of tuition payment plan section. Hidden if it wasn't
    * passed in the URL
-   * @param {boolean} visibility - Whether or not institutionalLoan was
+   * @param {boolean} visibility - Whether or not tuitionRepay was
    *                               passed in the URL
    */
   tuitionPaymentPlanVisible: function( visibility ) {
     if ( visibility === false ) {
       this.$tuitionPaymentPlanSection.hide();
-      publish.financialData( 'institutionalLoan', 0 );
-      publish.financialData( 'institutionalLoanRate', 0 );
-      publish.financialData( 'institutionalLoanTerm', 0 );
+      publish.financialData( 'tuitionRepay', 0 );
+      publish.financialData( 'tuitionRepayRate', 0 );
+      publish.financialData( 'tuitionRepayTerm', 0 );
     } else {
       this.$tuitionPaymentPlanSection.show();
     }
