@@ -16,6 +16,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Show and hide content or offer sections depending on the program values and passed URL values
 - Update Step 3 illustration for "think about working while you study"
 - Make the tuition and fees field editable
+- Update NPM packages and security policy
+- Only hide total direct cost and tuition payment plans if the URL value is $0 or missing
 - Tuition repayment plan calculations integrated into front-end
 
 ## 2.1.3
