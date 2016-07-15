@@ -55,8 +55,21 @@ var financialModel = {
   sumTotals: function() {
     var model = financialModel.values;
 
+    model.privateLoanTotal = 0;
+
+    for ( var x = 0; x < model.privateLoanMulti.length; x++ ) {
+      model.privateLoanTotal += model.privateLoanMulti[x].amount;
+    }
+
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
     model.totalProgramDebt = model.borrowingTotal * model.programLength;
+
+    // Modify values using tuition repayment plan values
+    model.tuitionRepayYearly = model.tuitionRepay / model.programLength;
+    model.borrowingTotal += model.tuitionRepayYearly;
+    model.gap -= model.tuitionRepayYearly;
+    model.totalDebt += model.tuitionRepayDebt;
+    model.loanLifetime += model.tuitionRepayMonthly * model.tuitionRepayTerm;
   },
 
   /**
@@ -64,7 +77,8 @@ var financialModel = {
    */
   roundValues: function() {
     var model = financialModel.values,
-        roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime' ];
+        roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime',
+          'tuitionRepayYearly' ];
     for ( var x = 0; x < roundedKeys.length; x++ ) {
       var key = roundedKeys[x];
       model[key] = Math.round( model[key] );
