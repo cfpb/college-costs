@@ -36,7 +36,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeFalsy();
   } );
 
-  fit( 'should display the anticipated total direct cost section if passed in the URL', function() {
+  it( 'should display the anticipated total direct cost section if passed in the URL', function() {
     browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
@@ -44,7 +44,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.totalDirectCost.isDisplayed() ).toBeTruthy();
   } );
 
-  fit( 'should hide the anticipated total direct cost section if not passed in the URL', function() {
+  it( 'should hide the anticipated total direct cost section if not passed in the URL', function() {
     browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&tran=500&tuit=38976&unsl=2000&wkst=3000' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
@@ -52,7 +52,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     expect( page.totalDirectCost.isDisplayed() ).toBeFalsy();
   } );
 
-  fit( 'should hide the anticipated total direct cost section if the passed URL value is 0', function() {
+  it( 'should hide the anticipated total direct cost section if the passed URL value is 0', function() {
     browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&totl=0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&tran=500&tuit=38976&unsl=2000&wkst=3000' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
@@ -542,7 +542,7 @@ it( 'should properly update when more than one private loans is modified', funct
   } );
 */
 
-fit( 'should display the tuition payment plan section if passed in the URL', function() {
+it( 'should display the tuition payment plan section if passed in the URL', function() {
   browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000' );
   page.confirmVerification();
   browser.wait(
@@ -552,7 +552,7 @@ fit( 'should display the tuition payment plan section if passed in the URL', fun
   expect( page.totalPaymentPlans.isDisplayed() ).toBeTruthy();
 } );
 
-fit( 'should hide the tuition payment plan section if not passed in the URL', function() {
+it( 'should hide the tuition payment plan section if not passed in the URL', function() {
   browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000' );
   page.confirmVerification();
   browser.wait(
@@ -562,7 +562,7 @@ fit( 'should hide the tuition payment plan section if not passed in the URL', fu
   expect( page.totalPaymentPlans.isDisplayed() ).toBeFalsy();
 } );
 
-fit( 'should hide the tuition payment plan section if the passed URL value is 0', function() {
+it( 'should hide the tuition payment plan section if the passed URL value is 0', function() {
   browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=0&insl=0&inst=0&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000' );
   page.confirmVerification();
   browser.wait(
