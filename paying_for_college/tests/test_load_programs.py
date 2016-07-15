@@ -1,15 +1,25 @@
-import django
-
-import mock
-
 from decimal import *
 
+import django
+import mock
+from mock import mock_open, patch
+
 from paying_for_college.models import Program, School
-from paying_for_college.disclosures.scripts.load_programs import get_school, read_in_data, clean_number_as_string, clean_string_as_string, clean, load
+from paying_for_college.disclosures.scripts.load_programs import (get_school,
+                                                                  read_in_data,
+                                                                  clean_number_as_string,
+                                                                  clean_string_as_string,
+                                                                  clean, load,
+                                                                  standardize_rate,
+                                                                  strip_control_chars)
 
 
 class TestLoadPrograms(django.test.TestCase):
     fixtures = ['test_program.json']
+
+    def test_standardize_rate(self):
+        self.assertTrue(standardize_rate(u'1.7') == u'0.017')
+        self.assertTrue(standardize_rate(u'0.017') == u'0.017')
 
     def test_get_school_valid(self):
         result_school, result_err = get_school("408039")
@@ -61,35 +71,49 @@ class TestLoadPrograms(django.test.TestCase):
         result = clean_string_as_string("  No Data ")
         self.assertEqual(result, '')
 
+    def test_read_in_data(self):
+        m = mock_open(read_data='a , b, c \nd,e,f')
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_data('mockfile.csv')
+        self.assertTrue(m.call_count == 1)
+        self.assertTrue(data == [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
+        m.side_effect = Exception("OPEN ERROR")
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_data('mockfile.csv')
+        self.assertTrue(m.call_count == 2)
+        self.assertTrue(data == [{}])
+
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.clean_number_as_string')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.clean_string_as_string')
-    def test_clean(self, mock_string, mock_number):
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.standardize_rate')
+    def test_clean(self, mock_standardize, mock_string, mock_number):
         mock_number.return_value = 'NUMBER'
         mock_string.return_value = 'STRING'
-        input_dict = {u'job_placement_rate': u'80', u'default_rate': u'0.29', 
-        u'job_placement_note': '', u'mean_student_loan_completers': 'Blank', 
-        u'average_time_to_complete': '', u'accreditor': '', 
-        u'total_cost': u'44565', u'ipeds_unit_id': u'139579', u'median_salary': u'45586', 
-        u'program_code': u'1509', u'books_supplies': 'No Data', u'campus_name': u'SU Savannah', 
-        u'cip_code': u'11.0401', u'ope_id': u'1303900', u'completion_rate': u'0.23', 
-        u'program_level': u'2', u'tuition_fees': u'44565', u'program_name': u'Information Technology', 
+        mock_standardize.return_value = 'NUMBER'
+        input_dict = {u'job_placement_rate': u'80', u'default_rate': u'0.29',
+        u'job_placement_note': '', u'mean_student_loan_completers': 'Blank',
+        u'average_time_to_complete': '', u'accreditor': '',
+        u'total_cost': u'44565', u'ipeds_unit_id': u'139579', u'median_salary': u'45586',
+        u'program_code': u'1509', u'books_supplies': 'No Data', u'campus_name': u'SU Savannah',
+        u'cip_code': u'11.0401', u'ope_id': u'1303900', u'completion_rate': u'0.23',
+        u'program_level': u'2', u'tuition_fees': u'44565', u'program_name': u'Information Technology',
         u'median_student_loan_completers': u'28852', u'program_length': u'24',
         u'completers': u'0', u'completion_cohort': u'0'}
 
-        expected_dict = {u'job_placement_rate': 'NUMBER', u'default_rate': 'NUMBER', 
-        u'job_placement_note': 'STRING', u'mean_student_loan_completers': 'NUMBER', 
-        u'average_time_to_complete': 'NUMBER', u'accreditor': 'STRING', 
-        u'total_cost': 'NUMBER', u'ipeds_unit_id': 'STRING', u'median_salary': 'NUMBER', 
-        u'program_code': 'STRING', u'books_supplies': 'NUMBER', u'campus_name': 'STRING', 
-        u'cip_code': 'STRING', u'ope_id': 'STRING', u'completion_rate': 'NUMBER', 
-        u'program_level': 'NUMBER', u'tuition_fees': 'NUMBER', u'program_name': 'STRING', 
+        expected_dict = {u'job_placement_rate': 'NUMBER', u'default_rate': 'NUMBER',
+        u'job_placement_note': 'STRING', u'mean_student_loan_completers': 'NUMBER',
+        u'average_time_to_complete': 'NUMBER', u'accreditor': 'STRING',
+        u'total_cost': 'NUMBER', u'ipeds_unit_id': 'STRING', u'median_salary': 'NUMBER',
+        u'program_code': 'STRING', u'books_supplies': 'NUMBER', u'campus_name': 'STRING',
+        u'cip_code': 'STRING', u'ope_id': 'STRING', u'completion_rate': 'NUMBER',
+        u'program_level': 'NUMBER', u'tuition_fees': 'NUMBER', u'program_name': 'STRING',
         u'median_student_loan_completers': 'NUMBER', u'program_length': 'NUMBER',
         u'completers': 'NUMBER', u'completion_cohort': 'NUMBER'}
         result = clean(input_dict)
         self.assertEqual(mock_number.call_count, 14)
         self.assertEqual(mock_string.call_count, 8)
-        print(result)
-        print(expected_dict)
+        # print(result)
+        # print(expected_dict)
         self.assertDictEqual(result, expected_dict)
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.read_in_data')
