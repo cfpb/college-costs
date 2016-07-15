@@ -1824,8 +1824,7 @@
     },
     "format-usd": {
       "version": "1.0.1",
-      "from": "format-usd@1.0.1",
-      "resolved": "https://registry.npmjs.org/format-usd/-/format-usd-1.0.1.tgz"
+      "from": "format-usd@1.0.1"
     },
     "formidable": {
       "version": "1.0.17",

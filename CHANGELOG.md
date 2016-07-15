@@ -17,6 +17,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Update Step 3 illustration for "think about working while you study"
 - Make the tuition and fees field editable
 - Update NPM packages and security policy
+- Tuition repayment plan calculations integrated into front-end
 
 ## 2.1.3
 - Added load tests
