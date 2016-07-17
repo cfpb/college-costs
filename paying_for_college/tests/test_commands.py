@@ -8,10 +8,24 @@ from paying_for_college.management.commands import (update_ipeds,
                                                     update_via_api,
                                                     load_programs,
                                                     retry_notifications,
-                                                    send_stale_notifications)
+                                                    send_stale_notifications,
+                                                    purge)
 
 
 class CommandTests(unittest.TestCase):
+
+    @mock.patch('paying_for_college.management.commands.'
+                'purge.purge')
+    def test_purges(self, mock_purge):
+        mock_purge.return_value = 'Aye Aye'
+        call_command('purge', 'notifications')
+        self.assertEqual(mock_purge.call_count, 1)
+        call_command('purge', 'programs')
+        self.assertEqual(mock_purge.call_count, 2)
+        call_command('purge', '')
+        self.assertEqual(mock_purge.call_count, 3)
+        call_command('purge', 'schools')
+        self.assertEqual(mock_purge.call_count, 4)
 
     @mock.patch('paying_for_college.management.commands.'
                 'update_ipeds.load_values')

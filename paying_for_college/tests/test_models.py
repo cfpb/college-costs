@@ -11,7 +11,18 @@ from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import Notification, print_vals
-from paying_for_college.models import get_region
+from paying_for_college.models import get_region, make_even
+
+
+class MakeEvenTest(TestCase):
+
+    def test_make_even(self):
+        test_value = ''
+        self.assertTrue(make_even(test_value) == test_value)
+        test_value = 0
+        self.assertTrue(make_even(test_value) == test_value)
+        test_value = 3
+        self.assertTrue(make_even(test_value) == 4)
 
 
 class SchoolRegionTest(TestCase):
