@@ -226,7 +226,6 @@ var financialView = {
    * graduate program only content, Pell grants, subsidized loans, and
    * Grad PLUS loans.
    * @param {object} values - An object with program values
-   * @param {object} urlvalues - values passed through the URL
    */
   updateViewWithProgram: function( values ) {
     // Update program length
@@ -234,13 +233,13 @@ var financialView = {
     // Update links
     linksView.updateLinks( values );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
-    if ( values.level.indexOf( 'Graduate' ) === 1 ) {
+    if ( values.undergrad === false ) {
       $( '.content_graduate-program' ).show();
-      this.pellGrantsVisible( false );
-      this.subsidizedVisible( false );
+      financialView.pellGrantsVisible( false );
+      financialView.subsidizedVisible( false );
     } else {
       $( '.content_graduate-program' ).hide();
-      this.gradPlusVisible( false );
+      financialView.gradPlusVisible( false );
     }
     this.jobPlacementVisible( values.jobRate !== '' );
     if ( values.level.indexOf( 'Certificate' ) === 1 ) {
@@ -265,7 +264,7 @@ var financialView = {
       urlvalues.tuitionRepay !== 0
     );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
-    if ( values.level.indexOf( 'Graduate' ) === 1 ) {
+    if ( values.undergrad === false ) {
       this.gradPlusVisible( typeof urlvalues.gradPlus !== 'undefined' );
       this.pellGrantsVisible( false );
       this.subsidizedVisible( false );
