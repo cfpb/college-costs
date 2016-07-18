@@ -253,9 +253,7 @@ var financialView = {
   /**
    * Updates view based on URL values.
    * Updates the visibility of the anticipated total direct cost, Pell grants,
-   * Federal Work-Study, military tuition assistance, GI bill, Perkins loans,
-   * subsidized loans, unsubsidized loans, Grad PLUS loans, and
-   * tuition payment plans.
+   * subsidized loans, Grad PLUS loans, and tuition payment plans.
    * @param {object} values - An object with program values
    * @param {object} urlvalues - An object with URL values
    */
@@ -269,7 +267,10 @@ var financialView = {
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
     if ( values.level.indexOf( 'Graduate' ) === 1 ) {
       this.gradPlusVisible( typeof urlvalues.gradPlus !== 'undefined' );
+      this.pellGrantsVisible( false );
+      this.subsidizedVisible( false );
     } else {
+      this.gradPlusVisible( false );
       this.pellGrantsVisible( typeof urlvalues.pell !== 'undefined' );
       this.subsidizedVisible(
         typeof urlvalues.directSubsidized !== 'undefined'
