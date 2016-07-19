@@ -1,6 +1,7 @@
 from paying_for_college.models import Notification, Program
 
-error_msg = "Only Notification and Program objects may be purged"
+error_msg = ("The only purge arguments that can be passed "
+             "are 'notifications' and 'programs.'")
 no_args_msg = ("You must supply an object type to purge, "
                "either notifications or programs")
 object_map = {
