@@ -120,14 +120,21 @@ var financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
+    var originalValue = $ele.val() || $ele.text(),
+        isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
-    if ( $ele.attr( 'data-line-item' ) === 'true' ) {
+    if ( isSummaryLineItem ) {
       value = value.replace( /\$/i, '' );
     }
     if ( $ele.prop( 'tagName' ) === 'INPUT' ) {
       $ele.val( value );
+    } else if ( isSummaryLineItem && originalValue !== value ) {
+      setTimeout( function() {
+        financialView.removeRecalculationMessage( $ele, value );
+      }, 2000 );
+      financialView.addSummaryRecalculationMessage( $ele );
     } else {
       $ele.text( value );
     }
@@ -219,7 +226,6 @@ var financialView = {
    * graduate program only content, Pell grants, subsidized loans, and
    * Grad PLUS loans.
    * @param {object} values - An object with program values
-   * @param {object} urlvalues - values passed through the URL
    */
   updateViewWithProgram: function( values ) {
     // Update program length
@@ -227,13 +233,13 @@ var financialView = {
     // Update links
     linksView.updateLinks( values );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
-    if ( values.level.indexOf( 'Graduate' ) === 1 ) {
+    if ( values.undergrad === false ) {
       $( '.content_graduate-program' ).show();
-      this.pellGrantsVisible( false );
-      this.subsidizedVisible( false );
+      financialView.pellGrantsVisible( false );
+      financialView.subsidizedVisible( false );
     } else {
       $( '.content_graduate-program' ).hide();
-      this.gradPlusVisible( false );
+      financialView.gradPlusVisible( false );
     }
     this.jobPlacementVisible( values.jobRate !== '' );
     if ( values.level.indexOf( 'Certificate' ) === 1 ) {
@@ -246,9 +252,7 @@ var financialView = {
   /**
    * Updates view based on URL values.
    * Updates the visibility of the anticipated total direct cost, Pell grants,
-   * Federal Work-Study, military tuition assistance, GI bill, Perkins loans,
-   * subsidized loans, unsubsidized loans, Grad PLUS loans, and
-   * tuition payment plans.
+   * subsidized loans, Grad PLUS loans, and tuition payment plans.
    * @param {object} values - An object with program values
    * @param {object} urlvalues - An object with URL values
    */
@@ -260,9 +264,12 @@ var financialView = {
       urlvalues.tuitionRepay !== 0
     );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans
-    if ( values.level.indexOf( 'Graduate' ) === 1 ) {
+    if ( values.undergrad === false ) {
       this.gradPlusVisible( typeof urlvalues.gradPlus !== 'undefined' );
+      this.pellGrantsVisible( false );
+      this.subsidizedVisible( false );
     } else {
+      this.gradPlusVisible( false );
       this.pellGrantsVisible( typeof urlvalues.pell !== 'undefined' );
       this.subsidizedVisible(
         typeof urlvalues.directSubsidized !== 'undefined'
@@ -439,6 +446,26 @@ var financialView = {
       financialView.currentInput = 'none';
       financialView.updateView( getFinancial.values() );
     } );
+  },
+
+  /**
+   * Helper function to indicate that a offer summary line item has
+   * successfully recalculated
+   * @param {object} element - jQuery object of the recalculated summary element
+   */
+  addSummaryRecalculationMessage: function( element ) {
+    element.siblings().hide();
+    element.text( 'Updating...' );
+  },
+
+  /**
+   * Helper function to remove all indicators that data has recalculated
+   * @param {object} element - jQuery object of the recalculated summary element
+   * @param {string} value - the recalculated value of the element
+   */
+  removeRecalculationMessage: function( element, value ) {
+    element.text( value );
+    element.siblings().show();
   },
 
   /**

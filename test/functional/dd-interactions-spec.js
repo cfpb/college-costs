@@ -162,4 +162,35 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.debtBurdenLoan25YrsToggle.getAttribute( 'checked' ).length > 0 );
   } );
 
+  // Recalcuated summary interactions
+
+  fit( 'should indicate that an update to a summary has successfully been made', function() {
+    page.confirmVerification();
+    browser.wait(
+      browser.actions().mouseMove(page.housingMealsCosts).perform().then(
+        function() {
+          page.setHousingMealsCosts( 3100 );
+        }
+      ), 10000
+    );
+    expect(
+      page.totalCostOfAttendance.getAttribute( 'class' )
+    ).toMatch(/\bsuccess\b/);
+    expect(
+      page.totalGrantsScholarships.getAttribute( 'class' )
+    ).not.toMatch(/\bsuccess\b/);
+    expect(
+      page.studentTotalCost.getAttribute( 'class' )
+    ).toMatch(/\bsuccess\b/);
+    expect(
+      page.totalContributions.getAttribute( 'class' )
+    ).not.toMatch(/\bsuccess\b/);
+    expect(
+      page.totalDebt.getAttribute( 'class' )
+    ).not.toMatch(/\bsuccess\b/);
+    expect(
+      page.remainingCostFinal.getAttribute( 'class' )
+    ).toMatch(/\bsuccess\b/);
+  } );
+
 } );
