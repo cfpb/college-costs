@@ -20,6 +20,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Update NPM packages and security policy
 - Only hide total direct cost and tuition payment plans if the URL value is $0 or missing
 - Tuition repayment plan calculations integrated into front-end
+- Show recalculation updates on non-mobile screens
 
 ## 2.1.3
 - Added load tests
