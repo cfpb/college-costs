@@ -12,7 +12,8 @@ from django.utils import timezone
 from paying_for_college.models import School, Notification
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
                                                     nat_stats, notifications,
-                                                    update_ipeds)
+                                                    update_ipeds,
+                                                    purge_objects)
 from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
                                                               EDMC_DEV,
                                                               OID, ERRORS)
@@ -27,6 +28,22 @@ completion_rate:\n\
   median: 0.4379\n\
   average_range: [.3180, .5236]\n
 """
+
+
+class PurgeTests(django.test.TestCase):
+
+    fixtures = ['test_fixture.json', 'test_program.json']
+
+    def test_purges(self):
+        self.assertTrue(purge_objects.purge('schools') ==
+                        purge_objects.error_msg)
+        self.assertTrue(purge_objects.purge('') ==
+                        purge_objects.no_args_msg)
+        self.assertTrue("Purging" in purge_objects.purge('programs'))
+        self.assertTrue("programs" in purge_objects.purge('programs'))
+        self.assertTrue("Purging" in purge_objects.purge('notifications'))
+        self.assertTrue("notifications" in
+                        purge_objects.purge('notifications'))
 
 
 class TestScripts(django.test.TestCase):

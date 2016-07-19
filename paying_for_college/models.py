@@ -68,6 +68,14 @@ def get_region(school):
     return ''
 
 
+def make_even(value):
+    """Makes sure a value, such as program_length, is even"""
+    if not value or value % 2 == 0:
+        return value
+    else:
+        return value + 1
+
+
 class ConstantRate(models.Model):
     """Rate values that generally only change annually"""
     name = models.CharField(max_length=255)
@@ -543,7 +551,7 @@ class Program(models.Model):
             'meanStudentLoanCompleters': self.mean_student_loan_completers,
             'privateDebt': self.private_debt,
             'programCode': self.program_code,
-            'programLength': self.program_length,
+            'programLength': make_even(self.program_length),
             'programName': self.program_name,
             'salary': self.salary,
             'schoolID': self.institution.school_id,
