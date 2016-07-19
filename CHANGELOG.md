@@ -2,6 +2,9 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+-
+
+## 2.1.4
 - Added string checking for program codes
 - Refined input of Pell Grants and family contributions
 - Added a test so that notifications can't be sent to non-settlement schools
@@ -22,6 +25,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Tuition repayment plan calculations integrated into front-end
 - Added purge functions for notifications and programs
 - Added function to deliver program_length as even value
+- Updated constant rates and caps with 2016 values
 
 ## 2.1.3
 - Added load tests
