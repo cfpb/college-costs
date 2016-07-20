@@ -454,6 +454,10 @@ var financialView = {
    * @param {object} element - jQuery object of the recalculated summary element
    */
   addSummaryRecalculationMessage: function( element ) {
+    setTimeout( function() {
+      $( '.recalculating-mobile' ).text( 'Updating...' );
+    }, 2000 );
+    $( '.recalculating-mobile' ).show();
     element.siblings().hide();
     element.text( 'Updating...' );
   },
@@ -466,6 +470,7 @@ var financialView = {
   removeRecalculationMessage: function( element, value ) {
     element.text( value );
     element.siblings().show();
+    $( '.recalculating-mobile' ).hide();
   },
 
   /**

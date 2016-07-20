@@ -1395,6 +1395,22 @@
   }
 }
 
+.recalculating-mobile {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background-color: @gold-20;
+  font-size: unit(14px / @base-font-size-px, em);
+
+  .respond-to-min(@bp-med-min, {
+    top: -100em;
+  });
+
+}
+
 .lt-ie9 {
 
   .estimated-expenses .line-item_title {
