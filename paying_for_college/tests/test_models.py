@@ -11,18 +11,22 @@ from django.test import TestCase
 from paying_for_college.models import School, Contact, Program, Alias, Nickname
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import Notification, print_vals
-from paying_for_college.models import get_region, make_even
+from paying_for_college.models import get_region, make_divisible_by_6
 
 
-class MakeEvenTest(TestCase):
+class MakeDivisibleTest(TestCase):
 
-    def test_make_even(self):
+    def test_make_divisible(self):
         test_value = ''
-        self.assertTrue(make_even(test_value) == test_value)
+        self.assertTrue(make_divisible_by_6(test_value) == test_value)
         test_value = 0
-        self.assertTrue(make_even(test_value) == test_value)
+        self.assertTrue(make_divisible_by_6(test_value) == test_value)
+        test_value = 1
+        self.assertTrue(make_divisible_by_6(test_value) == 6)
         test_value = 3
-        self.assertTrue(make_even(test_value) == 4)
+        self.assertTrue(make_divisible_by_6(test_value) == 6)
+        test_value = 45
+        self.assertTrue(make_divisible_by_6(test_value) == 48)
 
 
 class SchoolRegionTest(TestCase):
