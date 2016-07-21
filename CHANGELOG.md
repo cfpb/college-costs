@@ -3,6 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Show recalculation updates on mobile screens
+- Altered the Program model to return only program lengths that are divisible by 6
 
 ## 2.1.4
 - Added string checking for program codes
