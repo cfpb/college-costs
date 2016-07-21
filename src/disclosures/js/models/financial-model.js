@@ -61,15 +61,17 @@ var financialModel = {
       model.privateLoanTotal += model.privateLoanMulti[x].amount;
     }
 
-    model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
-    model.totalProgramDebt = model.borrowingTotal * model.programLength;
-
     // Modify values using tuition repayment plan values
     model.tuitionRepayYearly = model.tuitionRepay / model.programLength;
     model.borrowingTotal += model.tuitionRepayYearly;
     model.gap -= model.tuitionRepayYearly;
     model.totalDebt += model.tuitionRepayDebt;
     model.loanLifetime += model.tuitionRepayMonthly * model.tuitionRepayTerm;
+    model.loanMonthly += model.tuitionRepayMonthly;
+
+    // Calculate totals
+    model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
+    model.totalProgramDebt = model.borrowingTotal * model.programLength;
   },
 
   /**
