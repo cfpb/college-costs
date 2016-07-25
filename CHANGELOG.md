@@ -3,6 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Show recalculation updates on mobile screens
+- Added a file-exists check to update_ipeds script
 
 ## 2.1.4
 - Added string checking for program codes
