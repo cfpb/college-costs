@@ -3,6 +3,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Show recalculation updates on mobile screens
+- Fixed errors in the static content and error messaging
+- Adjusted dynamic showing/hiding for job placement rate content
+- Adjusted dynamic showing/hiding for program type content
 
 ## 2.1.4
 - Added string checking for program codes
