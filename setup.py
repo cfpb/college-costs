@@ -63,9 +63,10 @@ setup(
     maintainer_email='tech@cfpb.gov',
     packages=find_packages(),
     package_data={'paying_for_college':
-                  ['fixtures/*.json',
-                   'templates/*.html',
+                  ['data_sources/ipeds/*cleaned.csv',
+                   'fixtures/*.json',
                    'templates/*.txt',
+                   'templates/*.html',
                    'static/paying_for_college/disclosures/static/css/*.css',
                    'static/paying_for_college/disclosures/static/css/*.map',
                    'static/paying_for_college/disclosures/static/fonts/*.eot',
@@ -77,7 +78,7 @@ setup(
                    'static/paying_for_college/disclosures/static/js/*.map',
                    'static/paying_for_college/disclosures/static/img/*.png',
                    ],
-    },
+                  },
     include_package_data=True,
     description=u'College cost tools',
     classifiers=[

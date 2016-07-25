@@ -91,13 +91,6 @@ def download_zip_file(url, zip_file):
         return False
 
 
-def read_csv(fpath):
-    with open(fpath, 'r') as f:
-        reader = cdr(f)
-        data = [row for row in reader]
-    return reader.fieldnames, data
-
-
 def write_clean_csv(fpath, fieldnames, clean_headings, data):
     with open(fpath, 'w') as f:
         writer = cwriter(f)
@@ -132,9 +125,17 @@ def download_files():
     clean_csv_headings()
 
 
+def read_csv(fpath):
+    if not os.path.isfile(fpath):
+        download_files()
+    with open(fpath, 'r') as f:
+        reader = cdr(f)
+        data = [row for row in reader]
+        return reader.fieldnames, data
+
+
 def process_datafiles():
     """Collect data points from 2 IPEDS csvs and deliver them as a dict"""
-    download_files()
     collector = {}
     snames, service_data = read_csv(DATA_VARS['services_cleaned'])
     for row in service_data:
