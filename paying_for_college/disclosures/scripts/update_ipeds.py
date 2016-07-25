@@ -134,6 +134,7 @@ def download_files():
 
 def process_datafiles():
     """Collect data points from 2 IPEDS csvs and deliver them as a dict"""
+    download_files()
     collector = {}
     snames, service_data = read_csv(DATA_VARS['services_cleaned'])
     for row in service_data:
