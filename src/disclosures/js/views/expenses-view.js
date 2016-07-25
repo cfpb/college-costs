@@ -33,7 +33,7 @@ var expensesView = {
       setTimeout( function() {
         expensesView.removeRecalculationMessage( $ele, value );
       }, 2000 );
-      expensesView.addSummaryRecalculationMessage( $ele );      
+      expensesView.addSummaryRecalculationMessage( $ele );
     } else {
       $ele.text( value );
     }
