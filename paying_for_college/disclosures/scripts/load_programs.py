@@ -18,12 +18,10 @@ This script was used to process program data from schools.
 
 It takes in a csv file with column labels as described in ProgramSerializer.
 
-To run the script, run from the Django shell as follows:
+To run the script, use this manage.py command:
 
 ```
-./manage.py shell
-from paying_for_college.disclosures.scripts.load_programs import *
-load('paying_for_college/data_sources/sample_program_data.csv')
+./manage.py load_programs [PATH TO CSV]
 ```
 
 """
@@ -108,10 +106,10 @@ def clean(data):
         'median_student_loan_completers', 'total_cost', 'tuition_fees',
         'completers', 'completion_cohort')
     rate_fields = ('completion_rate', 'default_rate', 'job_placement_rate')
-    # Clean the parameters, make sure no leading or trailing spaces, and clean number with another function
+    # Clean string and numeric parameters
     cleaned_data = dict(map(lambda (k, v):
-        (k, clean_number_as_string(v) if k in number_fields else clean_string_as_string(v)), 
-        data.iteritems()))
+                        (k, clean_number_as_string(v) if k in number_fields
+                         else clean_string_as_string(v)), data.iteritems()))
 
     for rate in rate_fields:
         cleaned_data[rate] = standardize_rate(cleaned_data[rate])
@@ -124,7 +122,7 @@ def load(filename):
     updated_programs = 0
     FAILED = []  # failed messages
     raw_data = read_in_data(filename)
-    if not raw_data:
+    if not raw_data[0]:
         return (["ERROR: could not read data from {0}".format(filename)], "")
 
     for row in raw_data:
