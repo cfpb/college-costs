@@ -241,7 +241,10 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
-    this.jobPlacementVisible( values.jobRate !== '' );
+    this.jobPlacementVisible(
+      values.jobRate !== 'None' && values.jobRate !== '' &&
+       typeof values.jobRate !== 'undefined'
+    );
     if ( values.level.indexOf( 'degree' ) !== -1 ) {
       this.$degreeType.text( 'degree' );
     } else {
