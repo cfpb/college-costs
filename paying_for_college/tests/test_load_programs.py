@@ -169,7 +169,28 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertEqual(program.books, 1000)
         self.assertEqual(program.completers, 0)
         self.assertEqual(program.completion_cohort, 0)
-        mock_clean.return_value['program_code'] = '<904>'
+        mock_clean.return_value['ipeds_unit_id'] = '9'
         load('filename')
         self.assertEqual(mock_read_in.call_count, 2)
+        self.assertEqual(mock_program.call_count, 1)
+        mock_clean.return_value['program_code'] = '<904>'
+        load('filename')
+        self.assertEqual(mock_read_in.call_count, 3)
         self.assertEqual(mock_program.call_count, 1)  # loader bails before creating program
+
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'clean')
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'read_in_data')
+    def test_load_error(self, mock_read_in, mock_clean):
+        mock_read_in.return_value = [{}]
+        (FAILED, endmsg) = load("filename")
+        self.assertEqual(mock_read_in.call_count, 1)
+        self.assertEqual(mock_clean.call_count, 0)  # bailed before cleaning
+        self.assertTrue('ERROR' in " ".join(FAILED))
+        mock_read_in.return_value = [{'raw_data': 'raw stuff'}]
+        mock_clean.return_value = {'cleaned_data': 'clean stuff'}
+        (FAILED, endmsg) = load("filename")
+        self.assertEqual(mock_read_in.call_count, 2)
+        self.assertEqual(mock_clean.call_count, 1)
+        self.assertTrue('ERROR' in " ".join(FAILED))

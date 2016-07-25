@@ -243,11 +243,14 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
-    this.jobPlacementVisible( values.jobRate !== '' );
-    if ( values.level.indexOf( 'Certificate' ) === 1 ) {
-      this.$degreeType.text( 'certificate' );
-    } else {
+    this.jobPlacementVisible(
+      typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
+      values.jobRate !== ''
+    );
+    if ( values.level.indexOf( 'degree' ) !== -1 ) {
       this.$degreeType.text( 'degree' );
+    } else {
+      this.$degreeType.text( 'certificate' );
     }
   },
 
@@ -456,6 +459,8 @@ var financialView = {
    * @param {object} element - jQuery object of the recalculated summary element
    */
   addSummaryRecalculationMessage: function( element ) {
+    $( '.recalculating-mobile' ).text( 'Updating...' );
+    $( '.recalculating-mobile' ).show();
     element.siblings().hide();
     element.text( 'Updating...' );
   },
@@ -468,6 +473,7 @@ var financialView = {
   removeRecalculationMessage: function( element, value ) {
     element.text( value );
     element.siblings().show();
+    $( '.recalculating-mobile' ).hide();
   },
 
   /**
