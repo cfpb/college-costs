@@ -155,16 +155,19 @@ class TestScripts(django.test.TestCase):
     def test_write_clean_csv(self):
         m = mock_open()
         with patch("__builtin__.open", m, create=True):
-            update_ipeds.write_clean_csv('mockfile.csv',
+            update_ipeds.write_clean_csv('/tmp/mockfile.csv',
                                          ['a ', ' b', ' c '],
                                          ['a', 'b', 'c'],
                                          [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
         self.assertTrue(m.call_count == 1)
 
-    def test_read_csv(self):
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.download_files')
+    def test_read_csv(self, mock_download):
         m = mock_open(read_data='a , b, c \nd,e,f')
         with patch("__builtin__.open", m, create=True):
             fieldnames, data = update_ipeds.read_csv('mockfile.csv')
+        self.assertTrue(mock_download.call_count == 1)
         self.assertTrue(m.call_count == 1)
         self.assertTrue(fieldnames == ['a ', ' b', ' c '])
         self.assertTrue(data == [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
