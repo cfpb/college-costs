@@ -242,10 +242,10 @@ var financialView = {
       financialView.gradPlusVisible( false );
     }
     this.jobPlacementVisible( values.jobRate !== '' );
-    if ( values.level.indexOf( 'Certificate' ) === 1 ) {
-      this.$degreeType.text( 'certificate' );
-    } else {
+    if ( values.level.indexOf( 'degree' ) !== -1 ) {
       this.$degreeType.text( 'degree' );
+    } else {
+      this.$degreeType.text( 'certificate' );
     }
   },
 
