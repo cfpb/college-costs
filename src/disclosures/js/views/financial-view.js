@@ -1,12 +1,14 @@
 'use strict';
 
 var getFinancial = require( '../dispatchers/get-financial-values' );
+var getExpenses = require( '../dispatchers/get-expenses-values' );
 var publish = require( '../dispatchers/publish-update' );
 var stringToNum = require( '../utils/handle-string-input' );
 var formatUSD = require( 'format-usd' );
 var numberToWords = require( 'number-to-words' );
 var linksView = require( '../views/links-view' );
 var metricView = require( '../views/metric-view' );
+var expensesView = require( '../views/expenses-view' );
 var postVerification = require( '../dispatchers/post-verify' );
 
 require( '../libs/sticky-kit' );
@@ -681,6 +683,7 @@ var financialView = {
       $toggles.prop( 'checked', false );
       $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
       financialView.updateView( getFinancial.values() );
+      expensesView.updateView( getExpenses.values() );
     } );
   }
 };
