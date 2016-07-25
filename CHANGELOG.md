@@ -4,6 +4,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - Show recalculation updates on mobile screens
 - Added a file-exists check to update_ipeds script
+- Fixed errors in the static content and error messaging
+- Adjusted dynamic showing/hiding for job placement rate content
+- Adjusted dynamic showing/hiding for program type content
 - Altered the Program model to return only program lengths that are divisible by 6
 
 ## 2.1.4

@@ -241,11 +241,14 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
-    this.jobPlacementVisible( values.jobRate !== '' );
-    if ( values.level.indexOf( 'Certificate' ) === 1 ) {
-      this.$degreeType.text( 'certificate' );
-    } else {
+    this.jobPlacementVisible(
+      typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
+      values.jobRate !== ''
+    );
+    if ( values.level.indexOf( 'degree' ) !== -1 ) {
       this.$degreeType.text( 'degree' );
+    } else {
+      this.$degreeType.text( 'certificate' );
     }
   },
 
