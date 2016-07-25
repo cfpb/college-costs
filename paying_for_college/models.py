@@ -68,12 +68,12 @@ def get_region(school):
     return ''
 
 
-def make_even(value):
-    """Makes sure a value, such as program_length, is even"""
-    if not value or value % 2 == 0:
+def make_divisible_by_6(value):
+    """Makes sure a value, such as program_length, is divisible by 6"""
+    if not value or value % 6 == 0:
         return value
     else:
-        return value + 1
+        return value + (6 - (value % 6))
 
 
 class ConstantRate(models.Model):
@@ -551,7 +551,7 @@ class Program(models.Model):
             'meanStudentLoanCompleters': self.mean_student_loan_completers,
             'privateDebt': self.private_debt,
             'programCode': self.program_code,
-            'programLength': make_even(self.program_length),
+            'programLength': make_divisible_by_6(self.program_length),
             'programName': self.program_name,
             'salary': self.salary,
             'schoolID': self.institution.school_id,
