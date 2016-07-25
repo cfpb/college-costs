@@ -242,8 +242,8 @@ var financialView = {
       financialView.gradPlusVisible( false );
     }
     this.jobPlacementVisible(
-      values.jobRate !== 'None' && values.jobRate !== '' &&
-       typeof values.jobRate !== 'undefined'
+      typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
+      values.jobRate !== ''
     );
     if ( values.level.indexOf( 'degree' ) !== -1 ) {
       this.$degreeType.text( 'degree' );
