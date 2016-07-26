@@ -72,6 +72,7 @@ var financialModel = {
     // Calculate totals
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
     model.totalProgramDebt = model.borrowingTotal * model.programLength;
+
   },
 
   /**

@@ -72,8 +72,6 @@ var financialView = {
         },
         $elems = $( '[data-cap]' );
 
-    console.log( financials );
-
     $elems.each( function() {
       var $cap = $( this ),
           prop = $cap.attr( 'data-cap' ),
@@ -246,6 +244,7 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
+    this.perkinsVisible( values.offersPerkins );
     this.jobPlacementVisible(
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
       values.jobRate !== ''
