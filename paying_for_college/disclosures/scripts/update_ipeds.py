@@ -91,13 +91,6 @@ def download_zip_file(url, zip_file):
         return False
 
 
-def read_csv(fpath):
-    with open(fpath, 'r') as f:
-        reader = cdr(f)
-        data = [row for row in reader]
-    return reader.fieldnames, data
-
-
 def write_clean_csv(fpath, fieldnames, clean_headings, data):
     with open(fpath, 'w') as f:
         writer = cwriter(f)
@@ -130,6 +123,15 @@ def download_files():
         else:
             print "failed to download {}".format(target_slug)
     clean_csv_headings()
+
+
+def read_csv(fpath):
+    if not os.path.isfile(fpath):
+        download_files()
+    with open(fpath, 'r') as f:
+        reader = cdr(f)
+        data = [row for row in reader]
+        return reader.fieldnames, data
 
 
 def process_datafiles():
