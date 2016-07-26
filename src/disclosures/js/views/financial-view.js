@@ -64,7 +64,7 @@ var financialView = {
           perkins: 'perkinsUnderCap',
           perkinsGrad: 'perkinsGradCap',
           militaryTuitionAssistance: 'militaryAssistanceCap',
-          militaryTuitionGrad: 'militaryAssistanceCap',
+          militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
           directSubsidized: 'subsidizedCapYearOne',
           directSubsidizedGrad: 'subsidizedCapYearOne',
           directUnsubsidized: 'directUnsubsidizedIndepMax',
@@ -72,13 +72,16 @@ var financialView = {
         },
         $elems = $( '[data-cap]' );
 
+    console.log( financials );
+
     $elems.each( function() {
       var $cap = $( this ),
           prop = $cap.attr( 'data-cap' ),
           capKey = capMap[prop],
           text;
       if ( financials.undergrad === false ) {
-        capKey += 'Grad';
+        prop += 'Grad';
+        capKey = capMap[prop];
       }
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
