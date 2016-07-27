@@ -13,6 +13,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Fixes for gradPlus fields, tuition payment plans, and the expenses section
 - Fixes for 0% interest rates, perkins visibility, and grad overcap messages
 - Updated collegedata fixture to make sure all EDMC schools are marked as non-Perkins
+- Update debt summary text for program durations less than one year.
 
 ## 2.1.4
 - Added string checking for program codes
