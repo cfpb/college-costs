@@ -159,13 +159,13 @@ class ConstantCap(models.Model):
 
 class Contact(models.Model):
     """school endpoint or email to which we send confirmations"""
-    contact = models.CharField(max_length=255, help_text="EMAIL", blank=True)
+    contacts = models.TextField(help_text="COMMA-SEPARATED LIST OF EMAILS", blank=True)
     endpoint = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255, blank=True)
     internal_note = models.TextField(blank=True)
 
     def __unicode__(self):
-        return u", ".join([bit for bit in [self.contact,
+        return u", ".join([bit for bit in [self.contacts,
                                            self.endpoint] if bit])
 
 
@@ -347,7 +347,8 @@ class Notification(models.Model):
     oid = models.CharField(max_length=40)
     timestamp = models.DateTimeField()
     errors = models.CharField(max_length=255)
-    email = models.CharField(max_length=255, blank=True)
+    emails = models.TextField(blank=True,
+                              help_text="COMMA-SEPARATED STRING OF EMAILS")
     sent = models.BooleanField(default=False)
     log = models.TextField(blank=True)
 
@@ -413,17 +414,17 @@ class Notification(models.Model):
                         self.log = self.log + msg
                         self.save()
                         return "Notification failed: {}".format(msg)
-            elif school.contact.contact:
+            elif school.contact.contacts:
                 try:
                     send_mail("CFPB disclosure notification",
                               NOTIFICATION_TEMPLATE.substitute(payload),
                               "no-reply@cfpb.gov",
-                              [school.contact.contact],
+                              [email for email in school.contact.contacts.split(',')],
                               fail_silently=False)
                     self.sent = True
-                    self.email = school.contact.contact
+                    self.emails = school.contact.contacts
                     self.log = ("School notified via email "
-                                "at {}".format(self.email))
+                                "at {}".format(self.emails))
                     self.save()
                     return self.log
                 except smtplib.SMTPException as e:
