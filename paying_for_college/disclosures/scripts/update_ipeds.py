@@ -67,6 +67,10 @@ DATA_POINTS = {
     'tuitionUnderInDis': 'TUITION1'
 }
 
+STARTER_DICT = {key.upper(): None for key in DATA_POINTS}
+STARTER_DICT['ROOM'] = None
+STARTER_DATA_JSON = json.dumps(STARTER_DICT)
+
 NEW_SCHOOL_DATA_POINTS = {
     "alias": "INSTNM",
     "city": "CITY",
@@ -189,7 +193,7 @@ def create_alias(alias, school):
 
 
 def create_school(id, data):
-    school = School(school_id=id, data_json=json.dumps({}))
+    school = School(school_id=id, data_json=STARTER_DATA_JSON)
     for field in data:
         if field == 'alias':
             ALIAS = data['alias']
@@ -233,7 +237,10 @@ def load_values(dry_run=True):
         if school:
             school_data = json.loads(school.data_json)
             for data_key in new_data:
-                school_data[data_key.upper()] = new_data[data_key]
+                val = new_data[data_key]
+                if val == '.':
+                    val = None
+                school_data[data_key.upper()] = val
                 points += 1
             school.data_json = json.dumps(school_data)
             if not dry_run:
