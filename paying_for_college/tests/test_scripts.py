@@ -284,7 +284,8 @@ class TestScripts(django.test.TestCase):
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
         self.assertTrue(mock_process.call_count == 1)
-        mock_process.return_value = {'243197': {'onCampusAvail': '2'}}
+        mock_process.return_value = {'243197': {'onCampusAvail': '2',
+                                                'books': '.'}}
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
         self.assertTrue(mock_process.call_count == 2)
