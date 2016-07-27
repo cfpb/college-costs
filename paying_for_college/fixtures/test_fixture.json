@@ -1,9 +1,9 @@
 [
 {
     "fields": {
-        "contact": "wwen@edmc.edu",
-        "endpoint": "https://exml.edmc.edu/cfpb",
-        "name": "EDMC",
+        "contacts": "aa@school.edu,bb@school.edu",
+        "endpoint": "https://exml.school.edu/cfpb",
+        "name": "SCHOOL",
         "internal_note": ""
     },
     "model": "paying_for_college.contact",
@@ -243,7 +243,7 @@
         "log": "",
         "timestamp": "2016-05-26T01:53:04.082Z",
         "oid": "fa8283b5b7c939a058889f997949efa566c616c6",
-        "email": "",
+        "emails": "",
         "institution": 243197,
         "sent": false
     },

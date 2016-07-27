@@ -52,7 +52,7 @@ def send_stale_notifications(add_email=[]):
         msg = INTRO
         for msgdict in contacts[contact]:
             msg += NOTE_TEMPLATE.substitute(msgdict)
-        recipients = [contact.contact] + add_email
+        recipients = contact.contacts.split(',') + add_email
         send_mail("CFPB notification failures",
                   msg,
                   "no-reply@cfpb.gov",

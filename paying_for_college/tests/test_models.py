@@ -66,7 +66,7 @@ class SchoolModelsTest(TestCase):
                                     institution=school)
 
     def create_contact(self):
-        return Contact.objects.create(contact='hack@hackey.edu',
+        return Contact.objects.create(contacts='hack@hackey.edu',
                                       name='Hackey Sack',
                                       endpoint=u'endpoint.hackey.edu')
 
@@ -107,7 +107,7 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(s.__unicode__(), a.alias + u" (%s)" % s.school_id)
         c = self.create_contact()
         self.assertTrue(isinstance(c, Contact))
-        self.assertTrue(c.contact in c.__unicode__())
+        self.assertTrue(c.contacts in c.__unicode__())
         n = self.create_nickname(s)
         self.assertTrue(isinstance(n, Nickname))
         self.assertTrue(n.nickname in n.__unicode__())
@@ -188,7 +188,7 @@ class SchoolModelsTest(TestCase):
         skul = self.create_school()
         skul.settlement_school = 'edmc'
         contact = self.create_contact()
-        contact.contact = ''
+        contact.contacts = ''
         contact.endpoint = ''
         contact.save()
         skul.contact = contact
