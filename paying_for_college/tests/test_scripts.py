@@ -9,7 +9,7 @@ from mock import mock_open, patch
 import requests
 from django.utils import timezone
 
-from paying_for_college.models import School, Notification
+from paying_for_college.models import School, Notification, Alias
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
                                                     nat_stats, notifications,
                                                     update_ipeds,
@@ -152,6 +152,39 @@ class TestScripts(django.test.TestCase):
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         self.assertTrue('no data' in endmsg)
 
+    def test_create_alias(self):
+        update_ipeds.create_alias('xyz', School.objects.first())
+        self.assertTrue(Alias.objects.get(alias='xyz'))
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.create_alias')
+    def test_create_school(self, mock_create_alias):
+        update_ipeds.create_school('999998', {'alias': 'xyzz', 'city': 'Oz'})
+        self.assertTrue(mock_create_alias.call_count == 1)
+        self.assertTrue(School.objects.get(school_id=999998))
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.process_datafiles')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.dump_csv')
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.create_school')
+    def test_process_missing(self, mock_create_school, mock_dump, mock_process_datafiles):
+        mock_process_datafiles.return_value = {'999998': {'onCampusAvail':
+                                                          'yes'}}
+        update_ipeds.process_missing(['999998'])
+        self.assertTrue(mock_dump.call_count == 1)
+        self.assertTrue(mock_create_school.call_count == 1)
+        self.assertTrue(mock_process_datafiles.call_count == 1)
+
+    def test_dump_csv(self):
+        m = mock_open()
+        with patch("__builtin__.open", m, create=True):
+            update_ipeds.dump_csv('/tmp/mockfile.csv',
+                                  ['a', 'b', 'c'],
+                                  [{'a': 'd', 'b': 'e', 'c': 'f'}])
+        self.assertTrue(m.call_count == 1)
+
     def test_write_clean_csv(self):
         m = mock_open()
         with patch("__builtin__.open", m, create=True):
@@ -179,8 +212,8 @@ class TestScripts(django.test.TestCase):
         mock_read.return_value = (['UNITID', 'PEO1ISTR'],
                                   {'UNITID': '100654', 'PEO1ISTR': '0'})
         update_ipeds.clean_csv_headings()
-        self.assertTrue(mock_read.call_count == 2)
-        self.assertTrue(mock_write.call_count == 2)
+        self.assertTrue(mock_read.call_count == 3)
+        self.assertTrue(mock_write.call_count == 3)
 
     def test_unzip_file(self):
         test_zip = ('{}/paying_for_college/data_sources/ipeds/'
@@ -226,6 +259,7 @@ class TestScripts(django.test.TestCase):
                 'update_ipeds.read_csv')
     def test_process_datafiles(self, mock_read):
         points = update_ipeds.DATA_POINTS
+        school_points = update_ipeds.NEW_SCHOOL_DATA_POINTS
         mock_return_dict = {points[key]: 'x' for key in points}
         mock_return_dict['UNITID'] = '999999'
         mock_return_dict['ROOM'] = '1'
@@ -234,10 +268,18 @@ class TestScripts(django.test.TestCase):
         mock_dict = update_ipeds.process_datafiles()
         self.assertTrue(mock_read.call_count == 2)
         self.assertTrue('999999' in mock_dict.keys())
+        mock_fieldnames = ['UNITID'] + school_points.keys()
+        mock_return_dict = {school_points[key]: 'x' for key in school_points}
+        mock_return_dict['UNITID'] = '999999'
+        mock_read.return_value = (mock_fieldnames, [mock_return_dict])
+        mock_dict = update_ipeds.process_datafiles(add_schools=['999999'])
+        self.assertTrue(mock_read.call_count == 3)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'update_ipeds.process_datafiles')
-    def test_load_values(self, mock_process):
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'update_ipeds.process_missing')
+    def test_load_values(self, mock_process_missing, mock_process):
         mock_process.return_value = {'999999': {'onCampusAvail': '2'}}
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
@@ -252,6 +294,15 @@ class TestScripts(django.test.TestCase):
         mock_process.return_value = {'243197': {'onCampusAvail': '1'}}
         msg = update_ipeds.load_values()
         self.assertTrue('DRY' in msg)
+        self.assertTrue(mock_process.call_count == 4)
+        mock_process.return_value = {'999998': {'onCampusAvail': '2'}}
+        msg = update_ipeds.load_values(dry_run=False)
+        self.assertFalse('DRY' in msg)
+        self.assertTrue(mock_process.call_count == 5)
+        self.assertTrue(mock_process_missing.call_count == 1)
+
+
+
 
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'notifications.send_mail')
