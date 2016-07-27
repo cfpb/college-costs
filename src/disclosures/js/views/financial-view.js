@@ -64,7 +64,7 @@ var financialView = {
           perkins: 'perkinsUnderCap',
           perkinsGrad: 'perkinsGradCap',
           militaryTuitionAssistance: 'militaryAssistanceCap',
-          militaryTuitionGrad: 'militaryAssistanceCap',
+          militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
           directSubsidized: 'subsidizedCapYearOne',
           directSubsidizedGrad: 'subsidizedCapYearOne',
           directUnsubsidized: 'directUnsubsidizedIndepMax',
@@ -78,7 +78,8 @@ var financialView = {
           capKey = capMap[prop],
           text;
       if ( financials.undergrad === false ) {
-        capKey += 'Grad';
+        prop += 'Grad';
+        capKey = capMap[prop];
       }
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
@@ -243,6 +244,7 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
+    this.perkinsVisible( values.offersPerkins );
     this.jobPlacementVisible(
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
       values.jobRate !== ''

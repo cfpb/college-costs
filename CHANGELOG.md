@@ -10,6 +10,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Altered the Program model to return only program lengths that are divisible by 6
 - Added functions to update_ipeds to create new school entries from IPEDS data
 - Changed the Contact model's 'contact' field to a 'contacts' field to allow multiple school contacts
+- Fixes for gradPlus fields, tuition payment plans, and the expenses section
+- Fixes for 0% interest rates, perkins visibility, and grad overcap messages
 
 ## 2.1.4
 - Added string checking for program codes
