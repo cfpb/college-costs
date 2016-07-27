@@ -517,12 +517,23 @@ var financialView = {
    */
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
-      var programLength = Number( $( this ).val() ),
-          values = getFinancial.values(),
-          yearsAttending = numberToWords.toWords( programLength );
-      if ( programLength % 1 !== 0 ) {
+      var programLength = Number( $( this ).val() );
+      var values = getFinancial.values();
+      var yearsAttending = numberToWords.toWords( programLength );
+
+      // Formats summary text, such as "half a year" or "one and a half years."
+      if ( programLength === 0.5 ) {
+        yearsAttending = 'half a';
+      } else if ( programLength % 1 !== 0 ) {
         yearsAttending += ' and a half';
       }
+
+      if ( programLength > 1 ) {
+        yearsAttending += ' years';
+      } else {
+        yearsAttending += ' year';
+      }
+
       publish.financialData( 'programLength', programLength );
       publish.financialData( 'yearsAttending', yearsAttending );
       financialView.updateView( values );
