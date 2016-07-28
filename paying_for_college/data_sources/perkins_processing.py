@@ -1,5 +1,4 @@
-from csv import DictReader as cdr
-
+from paying_for_college.csvkit.csvkit import DictReader as cdr
 from paying_for_college.models import School
 
 """
