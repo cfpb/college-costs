@@ -8,6 +8,7 @@ omit =
     */python2.7/*
     *setup.py
     */data_sources/*
+    */csvkit/*
 
 [report]
 exclude_lines = 
