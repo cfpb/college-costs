@@ -245,7 +245,7 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
-    this.graduationCohortVisible(
+    this.setGraduationCohortVisibility(
       typeof values.completionCohort !== 'undefined' &&
       values.completionCohort !== null
     );
@@ -636,14 +636,14 @@ var financialView = {
 
   /**
    * Sets visibility of graduation cohort content. Hidden if not available.
-   * @param {boolean} visibility - Whether or not a graduation cohort
+   * @param {boolean} isVisible - Whether or not a graduation cohort
    * was provided
    */
-  graduationCohortVisible: function( visibility ) {
-    if ( visibility === false ) {
-      this.$graduationCohortContent.hide();
-    } else {
+  setGraduationCohortVisibility: function( isVisible ) {
+    if ( isVisible ) {
       this.$graduationCohortContent.show();
+    } else {
+      this.$graduationCohortContent.hide();
     }
   },
 
