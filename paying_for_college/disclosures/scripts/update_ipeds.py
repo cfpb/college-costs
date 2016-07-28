@@ -7,15 +7,18 @@ from subprocess import call
 
 import requests
 from unipath import Path
-try:
-    from csvkit import CSVKitDictReader as cdr
-except:  # pragma: no cover
-    from csv import DictReader as cdr
-try:
-    from csvkit import CSVKitWriter as cwriter
-except:  # pragma: no cover
-    from csv import writer as cwriter
 
+# try:
+#     from csvkit import CSVKitDictReader as cdr
+# except:  # pragma: no cover
+#     from csv import DictReader as cdr
+# try:
+#     from csvkit import CSVKitWriter as cwriter
+# except:  # pragma: no cover
+#     from csv import writer as cwriter
+
+from paying_for_college.csvkit.csvkit import DictReader as cdr
+from paying_for_college.csvkit.csvkit import Writer as cwriter
 from paying_for_college.views import get_school
 from paying_for_college.models import School, Alias
 from django.contrib.humanize.templatetags.humanize import intcomma
