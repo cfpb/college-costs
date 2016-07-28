@@ -8,6 +8,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Adjusted dynamic showing/hiding for job placement rate content
 - Adjusted dynamic showing/hiding for program type content
 - Altered the Program model to return only program lengths that are divisible by 6
+- Hide the graduation rate cohort paragraph if that data isn't available
 - Added functions to update_ipeds to create new school entries from IPEDS data
 - Changed the Contact model's 'contact' field to a 'contacts' field to allow multiple school contacts
 - Fixes for gradPlus fields, tuition payment plans, and the expenses section

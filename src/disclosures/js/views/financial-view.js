@@ -33,6 +33,7 @@ var financialView = {
   privateLoanKeys: [ 'amount', 'fees', 'rate', 'deferPeriod' ],
   $evaluateSection: $( '.evaluate' ),
   $jobPlacementContent: $( '.content_job-placement' ),
+  $graduationCohortContent: $( '.content_grad-cohort' ),
   $bigQuestion: $( '.question' ),
   $degreeType: $( '.question [data-section="degreeType"]' ),
   keyupDelay: null,
@@ -244,6 +245,10 @@ var financialView = {
       $( '.content_graduate-program' ).hide();
       financialView.gradPlusVisible( false );
     }
+    this.setGraduationCohortVisibility(
+      typeof values.completionCohort !== 'undefined' &&
+      values.completionCohort !== null
+    );
     this.perkinsVisible( values.offersPerkins );
     this.jobPlacementVisible(
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
@@ -626,6 +631,19 @@ var financialView = {
       publish.financialData( 'tuitionRepayTerm', 0 );
     } else {
       this.$tuitionPaymentPlanSection.show();
+    }
+  },
+
+  /**
+   * Sets visibility of graduation cohort content. Hidden if not available.
+   * @param {boolean} isVisible - Whether or not a graduation cohort
+   * was provided
+   */
+  setGraduationCohortVisibility: function( isVisible ) {
+    if ( isVisible ) {
+      this.$graduationCohortContent.show();
+    } else {
+      this.$graduationCohortContent.hide();
     }
   },
 
