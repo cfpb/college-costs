@@ -82,7 +82,7 @@ function queryHandler( queryString ) {
 
     queryString.split( '+' ).join( ' ' );
 
-    while ( pair = regex.exec( queryString ) ) {
+    while ( pair = regex.exec( queryString ) ) { // eslint-disable-line no-cond-assign
       var key = decodeURIComponent( pair[1] );
       var value = decodeURIComponent( pair[2] );
 

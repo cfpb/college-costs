@@ -16,8 +16,8 @@ function printAndroidPage() {
 }
 
 $( document ).ready( function() {
-  $( '.next-steps_controls > .btn' ).on( 'click', function( e ) {
-    e.preventDefault();
+  $( '.next-steps_controls > .btn' ).on( 'click', function( evt ) {
+    evt.preventDefault();
     if ( isAndroid ) {
       printAndroidPage();
     } else {

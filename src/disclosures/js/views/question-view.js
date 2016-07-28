@@ -88,7 +88,9 @@ var questionView = {
       questionView.$feedback.show();
       $( 'html, body' ).stop().animate( {
         scrollTop: questionView.$getOptions.offset().top - 120
-      }, 900, 'swing', function() {} );
+      }, 900, 'swing', function() {
+        // Noop function.
+      } );
     } );
   }
 

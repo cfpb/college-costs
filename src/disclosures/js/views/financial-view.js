@@ -254,10 +254,11 @@ var financialView = {
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
       values.jobRate !== ''
     );
-    if ( values.level.indexOf( 'degree' ) !== -1 ) {
-      this.$degreeType.text( 'degree' );
-    } else {
+
+    if ( values.level.indexOf( 'degree' ) === -1 ) {
       this.$degreeType.text( 'certificate' );
+    } else {
+      this.$degreeType.text( 'degree' );
     }
   },
 
@@ -416,20 +417,22 @@ var financialView = {
    * @param {string} id - The id attribute of the element to be handled
    */
   inputHandler: function( id ) {
-    var $ele = $( '#' + id ),
-        value = stringToNum( $ele.val() ),
-        key = $ele.attr( 'data-financial' ),
-        privateLoanKey = $ele.attr( 'data-private-loan_key' ),
-        percentage = $ele.attr( 'data-percentage_value' );
+    var $ele = $( '#' + id );
+    var value = stringToNum( $ele.val() );
+    var key = $ele.attr( 'data-financial' );
+    var privateLoanKey = $ele.attr( 'data-private-loan_key' );
+    var percentage = $ele.attr( 'data-percentage_value' );
+
     if ( percentage === 'true' ) {
       value /= 100;
     }
-    if ( typeof privateLoanKey !== 'undefined' ) {
-      var index = $ele.closest( '[data-private-loan]' ).index(),
-          privLoanKey = $ele.attr( 'data-private-loan_key' );
-      publish.updatePrivateLoan( index, privLoanKey, value );
-    } else {
+
+    if ( typeof privateLoanKey === 'undefined' ) {
       publish.financialData( key, value );
+    } else {
+      var index = $ele.closest( '[data-private-loan]' ).index();
+      var privLoanKey = $ele.attr( 'data-private-loan_key' );
+      publish.updatePrivateLoan( index, privLoanKey, value );
     }
   },
 
@@ -487,12 +490,12 @@ var financialView = {
    * Listener function for offer verification buttons
    */
   verificationListener: function() {
-    this.$verifyControls.on( 'click', '.btn', function( e ) {
+    this.$verifyControls.on( 'click', '.btn', function( evt ) {
       var values = getFinancial.values();
       // Graph points need to be visible before updating their positions
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
-        e.preventDefault();
+        evt.preventDefault();
         financialView.$infoVerified.show();
         $( 'html, body' ).stop().animate( {
           scrollTop: financialView.$infoVerified.offset().top - 120
@@ -503,7 +506,7 @@ var financialView = {
           financialView.stickySummariesListener();
         } );
       } else {
-        e.preventDefault();
+        evt.preventDefault();
         financialView.$infoIncorrect.show();
         postVerification.verify( values.offerID, values.schoolID, true );
         $( 'html, body' ).stop().animate( {
@@ -689,7 +692,9 @@ var financialView = {
       financialView.$bigQuestion.show();
       $( 'html, body' ).stop().animate( {
         scrollTop: financialView.$evaluateSection.offset().top - 120
-      }, 900, 'swing', function() {} );
+      }, 900, 'swing', function() {
+        // Noop function.
+      } );
     } );
   },
 
@@ -700,11 +705,11 @@ var financialView = {
   stickySummariesListener: function() {
     var $stickyOffers = $( '.offer-part_summary-wrapper' );
     $stickyOffers.stick_in_parent()
-      .on( 'sticky_kit:bottom', function( e ) {
-        $( e.target ).addClass( 'is_bottomed' );
+      .on( 'sticky_kit:bottom', function( evt ) {
+        $( evt.target ).addClass( 'is_bottomed' );
       } )
-      .on( 'sticky_kit:unbottom', function( e ) {
-        $( e.target ).removeClass( 'is_bottomed' );
+      .on( 'sticky_kit:unbottom', function( evt ) {
+        $( evt.target ).removeClass( 'is_bottomed' );
       } );
   },
 
