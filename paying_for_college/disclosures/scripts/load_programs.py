@@ -1,13 +1,9 @@
 from __future__ import print_function
 import os
 
-try:
-    from csvkit import CSVKitDictReader as cdr
-except:
-    from csv import DictReader as cdr
-# from csv import DictReader as cdr
 from rest_framework import serializers
 
+from paying_for_college.csvkit.csvkit import DictReader as cdr
 from paying_for_college.models import Program, School
 from paying_for_college.views import validate_pid
 

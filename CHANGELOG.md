@@ -15,6 +15,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updated collegedata fixture to make sure all EDMC schools are marked as non-Perkins
 - Update debt summary text for program durations less than one year.
 - Added privateLoanFee constant to the database
+- Added unicode-aware csv module
 
 ## 2.1.4
 - Added string checking for program codes

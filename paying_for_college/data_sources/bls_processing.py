@@ -1,6 +1,6 @@
 import json
-from csv import DictReader as cdr
 
+from paying_for_college.csvkit.csvkit import DictReader as cdr
 from paying_for_college.models import School
 
 """
@@ -98,7 +98,6 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
                 print "amount: {}".format(amount)
                 base_bls_dict[CATEGORIES_KEY_MAP[item]][region].setdefault(income_json_key, 0)
                 base_bls_dict[CATEGORIES_KEY_MAP[item]][region][income_json_key] += amount
-
 
 
 def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):
