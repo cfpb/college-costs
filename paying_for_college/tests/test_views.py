@@ -164,10 +164,14 @@ class SchoolSearchTest(django.test.TestCase):
 
     def test_get_school(self):
         """test grabbing a school by ID"""
+        closed_school = School(pk=999999, operating=False)
+        closed_school.save()
         test1 = get_school('155317')
         self.assertTrue(test1.pk == 155317)
         test2 = get_school('xxx')
-        self.assertTrue(test2 == '')
+        self.assertTrue(test2 is None)
+        test3 = get_school('999999')
+        self.assertTrue(test3 is None)
 
     def test_get_program(self):
         """test grabbing a program by school/program_code"""
@@ -234,22 +238,25 @@ class OfferTest(django.test.TestCase):
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
         self.assertTrue(resp2.status_code == 200)
+        self.assertTrue("Warning" in resp2.context['warning'])
         resp3 = client.get(url+bad_school)
-        self.assertTrue("No active school" in resp3.content)
-        self.assertTrue(resp3.status_code == 400)
+        self.assertTrue("Warning" in resp3.context['warning'])
+        self.assertTrue(resp3.status_code == 200)
         resp4 = client.get(url+bad_program)
         self.assertTrue(resp4.status_code == 200)
+        self.assertTrue("Warning" in resp4.context['warning'])
         resp5 = client.get(url+missing_oid_field)
         self.assertTrue(resp5.status_code == 200)
+        self.assertTrue("Warning" in resp5.context['warning'])
         resp6 = client.get(url+missing_school_id)
-        self.assertTrue("doesn't contain a school" in resp6.content)
-        self.assertTrue(resp6.status_code == 400)
-        resp8 = client.get(url+bad_oid)
-        self.assertTrue("Illegal offer" in resp8.content)
-        self.assertTrue(resp8.status_code == 400)
-        resp9 = client.get(url+illegal_program)
-        self.assertTrue("Illegal characters" in resp9.content)
-        self.assertTrue(resp8.status_code == 400)
+        self.assertTrue("Warning" in resp6.context['warning'])
+        self.assertTrue(resp6.status_code == 200)
+        resp7 = client.get(url+bad_oid)
+        self.assertTrue("Error" in resp7.context['warning'])
+        self.assertTrue(resp7.status_code == 200)
+        resp8 = client.get(url+illegal_program)
+        self.assertTrue("Error" in resp8.context['warning'])
+        self.assertTrue(resp8.status_code == 200)
 
 
 class APITests(django.test.TestCase):

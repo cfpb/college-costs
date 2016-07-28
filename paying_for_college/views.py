@@ -47,8 +47,10 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
 NO_SCHOOL_ERROR = "No active school could be found for iped ID {0}"
-ID_ERROR = "Illegal offer ID; only characters 0-9 and a-f are allowed."
-PID_ERROR = "Error: Illegal characters in program code '{}'"
+OID_WARNING = "Error: Illegal characters in offer ID '{}'"
+# only characters 0-9 and a-f are allowed in offer IDs
+PID_WARNING = "Error: Illegal characters in program code '{}'"
+# Illegal program code characters: ; < > { }
 
 
 def get_json_file(filename):
@@ -100,9 +102,12 @@ def get_school(schoolID):
     try:
         school = School.objects.get(school_id=int(schoolID))
     except:
-        return ''
+        return None
     else:
-        return school
+        if school.operating is False:
+            return None
+        else:
+            return school
 
 
 def get_program(school, programCode):
@@ -126,44 +131,57 @@ class BaseTemplateView(TemplateView):
         return context
 
 
-class OfferView(TemplateView):  # TODO log errors
+class OfferView(TemplateView):
     """consult values in querystring and deliver school/program data"""
 
     def get(self, request):
+        school = None
+        program = None
+        program_data = 'null'
+        school_data = 'null'
+        warning = ''
+        OID = ''
+        if 'oid' in request.GET and request.GET['oid']:
+            OID = request.GET['oid']
+        else:
+            warning = "Warning: URL doesn't contain an offer ID"
+        if OID and validate_oid(OID) is False:
+            warning = OID_WARNING.format(OID)
+            OID = ''
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
             school = get_school(iped)
-            if not school or not school.operating:
-                return HttpResponseBadRequest(NO_SCHOOL_ERROR.format(iped))
-            if 'oid' in request.GET:
-                OID = request.GET['oid']
+            if school:
+                school_data = school.as_json()
+                if 'pid' in request.GET and request.GET['pid']:
+                    PID = request.GET['pid']
+                    if not validate_pid(PID):
+                        warning = PID_WARNING.format(PID)
+                        PID = ''
+                    if PID:
+                        programs = Program.objects.filter(program_code=PID,
+                                                          institution=school).order_by('-pk')
+                        if programs:
+                            program = programs[0]
+                            program_data = program.as_json()
+                        else:
+                            warning = ("Warning: No program could be found "
+                                       "for program_code '{}'".format(PID))
             else:
-                OID = ''
-            if OID and validate_oid(OID) is False:
-                return HttpResponseBadRequest(ID_ERROR)
-            program_data = json.dumps({})
-            program = ''
-            if 'pid' in request.GET and request.GET['pid']:
-                PID = request.GET['pid']
-                if not validate_pid(PID):
-                    return HttpResponseBadRequest(PID_ERROR.format(PID))
-                programs = Program.objects.filter(program_code=PID,
-                                                  institution=school).order_by('-pk')
-                if programs:
-                    program = programs[0]
-                    program_data = program.as_json()
-            return render_to_response('worksheet.html',
-                                      {'data_js': "0",
-                                       'school': school,
-                                       'schoolData': school.as_json(),
-                                       'program': program,
-                                       'programData': program_data,
-                                       'oid': OID,
-                                       'base_template': BASE_TEMPLATE,
-                                       'url_root': URL_ROOT},
-                                      context_instance=RequestContext(request))
+                warning = "Warning: No active school found for ID {}".format(iped)
         else:
-            return HttpResponseBadRequest("URL doesn't contain a school ID")
+                warning = "Warning: URL doesn't contain a school ID"
+        return render_to_response('worksheet.html',
+                                  {'data_js': "0",
+                                   'school': school,
+                                   'schoolData': school_data,
+                                   'program': program,
+                                   'programData': program_data,
+                                   'oid': OID,
+                                   'base_template': BASE_TEMPLATE,
+                                   'warning': warning,
+                                   'url_root': URL_ROOT},
+                                  context_instance=RequestContext(request))
 
 
 class LandingView(TemplateView):
@@ -242,7 +260,7 @@ class ProgramRepresentation(View):
             return HttpResponseBadRequest(format_error)
         PID = ids[1]
         if not validate_pid(PID):
-            return HttpResponseBadRequest(PID_ERROR.format(PID))
+            return HttpResponseBadRequest(PID_WARNING.format(PID))
         program = self.get_program(program_code)
         if not program:
             p_error = ("Error: No program was found "
