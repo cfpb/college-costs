@@ -35,7 +35,7 @@ var app = {
                   schoolValues,
                   region;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
-              schoolValues = schoolModel.init( data );
+              schoolValues = schoolModel.init( nationalData[0], schoolData[0], programData[0] );
 
               // If PID exists, update the financial model and view based
               // on program data

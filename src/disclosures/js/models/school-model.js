@@ -1,11 +1,13 @@
 'use strict';
 
-
 var schoolModel = {
   values: {},
 
-  init: function( apiData ) {
-    this.values = apiData;
+  init: function( nationalData, schoolData, programData ) {
+    $.extend( this.values, schoolData, programData, nationalData );
+    if ( programData.defaultRate === "None" ) {
+      this.values.defaultRate = schoolData.defaultRate;
+    }
     this.values = this.processBLSExpenses( this.values );
     return this.processAPIData( this.values );
   },
