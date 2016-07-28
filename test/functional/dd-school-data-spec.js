@@ -55,7 +55,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
      browser.sleep( 1000 );
      page.continueStep2();
      browser.sleep( 1000 );
-     expect( page.graduationCohortContent.isDisplayed() ).toBeTruthy();
+     expect( page.graduationCohortContent.isDisplayed() ).toBe( true );
   } );
 
   it( 'should dynamically hide the graduation cohort content if it\'s not available', function() {
@@ -65,7 +65,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
      browser.sleep( 1000 );
      page.continueStep2();
      browser.sleep( 1000 );
-     expect( page.graduationCohortContent.isDisplayed() ).toBeFalsy();
+     expect( page.graduationCohortContent.isDisplayed() ).toBe( false );
   } );
 
 } );
