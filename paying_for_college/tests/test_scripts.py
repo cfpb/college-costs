@@ -60,11 +60,38 @@ class TestScripts(django.test.TestCase):
                    'degrees_predominant': '',
                    'degrees_highest': '',
                    'school.ownership': 2,
-                   'school.grad_rate_lt4': 0.25,
-                   'main_campus': True,
-                   'online_only': False,
-                   'operating': True,
-                   'under_investigation': False,
+                   '2013.completion.completion_rate_4yr_150nt_pooled': 0.45,
+                   '2013.completion.completion_rate_less_than_4yr_150nt_pooled': None,
+                   'school.main_campus': True,
+                   'school.online_only': False,
+                   'school.operating': True,
+                   'school.under_investigation': False,
+                   'RETENTRATE': '',
+                   'RETENTRATELT4': '',  # NEW
+                   'REPAY3YR': '',  # NEW
+                   'DEFAULTRATE': '',
+                   'AVGSTULOANDEBT': '',
+                   'MEDIANDEBTCOMPLETER': '',  # NEW
+                   'city': 'Lawrence'}],
+                 'metadata': {'page': 0}
+                 }
+
+    mock_lt_4 = {'results':
+                 [{'id': 155317,
+                   'ope6_id': 5555,
+                   'ope8_id': 55500,
+                   'enrollment': 10000,
+                   'accreditor': "Santa",
+                   'url': '',
+                   'degrees_predominant': '',
+                   'degrees_highest': '',
+                   'school.ownership': 2,
+                   '2013.completion.completion_rate_4yr_150nt_pooled': 0,
+                   '2013.completion.completion_rate_less_than_4yr_150nt_pooled': 0.25,
+                   'school.main_campus': True,
+                   'school.online_only': False,
+                   'school.operating': False,
+                   'school.under_investigation': False,
                    'RETENTRATE': '',
                    'RETENTRATELT4': '',  # NEW
                    'REPAY3YR': '',  # NEW
@@ -107,6 +134,9 @@ class TestScripts(django.test.TestCase):
         mock_response.json.return_value = self.no_data_dict
         (FAILED, NO_DATA, endmsg) = update_colleges.update()
         self.assertFalse(len(NO_DATA) == 0)
+        mock_response.json.return_value = self.mock_lt_4
+        (FAILED, NO_DATA, endmsg) = update_colleges.update()
+        self.assertTrue(len(NO_DATA) == 0)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
                 'update_colleges.requests.get')
