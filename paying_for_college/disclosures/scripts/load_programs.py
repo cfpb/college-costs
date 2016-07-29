@@ -62,12 +62,12 @@ def get_school(iped):
 
 
 def read_in_latin_1(filename):
-    with open(filename, 'r') as f:
-        try:
+    try:
+        with open(filename, 'r') as f:
             reader = cdr(f, encoding='latin-1')
             data = [row for row in reader]
-        except:
-            data = [{}]
+    except:
+        data = [{}]
     return data
 
 
