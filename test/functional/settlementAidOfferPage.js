@@ -476,6 +476,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '.evaluate' ) );
       }
     },
+    graduationCohortContent: {
+      get: function() {
+        return element( by.css( '.content_grad-cohort' ) );
+      }
+    },
     schoolGradRatePoint: {
       get: function() {
         return element( by.css( '.metric.graduation-rate .bar-graph_point__you' ) );
