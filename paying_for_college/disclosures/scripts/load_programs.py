@@ -61,15 +61,29 @@ def get_school(iped):
         return (school, '')
 
 
-def read_in_data(filename):
+def read_in_latin_1(filename):
     try:
         with open(filename, 'r') as f:
-            reader = cdr(f)
+            reader = cdr(f, encoding='latin-1')
             data = [row for row in reader]
     except:
-        return [{}]
-    else:
-        return data
+        data = [{}]
+    return data
+
+
+def read_in_data(filename):
+    try_latin = False
+    with open(filename, 'r') as f:
+        try:
+            reader = cdr(f)
+            data = [row for row in reader]
+        except UnicodeDecodeError:
+            try_latin = True
+        except:
+            data = [{}]
+    if try_latin:
+        data = read_in_latin_1(filename)
+    return data
 
 
 def clean_number_as_string(string):
