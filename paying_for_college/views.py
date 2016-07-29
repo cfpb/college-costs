@@ -167,6 +167,8 @@ class OfferView(TemplateView):
                         else:
                             warning = ("Warning: No program could be found "
                                        "for program_code '{}'".format(PID))
+                else:
+                    warning = "Warning: URL doesn't contain a program ID"
             else:
                 warning = "Warning: No active school found for ID {}".format(iped)
         else:
