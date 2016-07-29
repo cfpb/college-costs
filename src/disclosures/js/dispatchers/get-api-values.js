@@ -4,11 +4,10 @@ var getApiValues = {
 
   values: {},
 
-
   constants: function() {
     var urlBase = $( 'main' ).attr( 'data-context' );
     var url = '/' + urlBase +
-      '/understanding-your-financial-aid-offer/api/constants/';
+              '/understanding-your-financial-aid-offer/api/constants/';
     var constantsRequest = $.ajax( {
       url: url,
       dataType: 'json',
@@ -26,7 +25,7 @@ var getApiValues = {
   expenses: function() {
     var urlBase = $( 'main' ).attr( 'data-context' );
     var url = '/' + urlBase +
-      '/understanding-your-financial-aid-offer/api/expenses/';
+              '/understanding-your-financial-aid-offer/api/expenses/';
     var expensesRequest = $.ajax( {
       url: url,
       dataType: 'json',
@@ -44,7 +43,8 @@ var getApiValues = {
   fetchSchoolData: function( iped ) {
     var urlBase = $( 'main' ).attr( 'data-context' );
     var url = '/' + urlBase +
-      '/understanding-your-financial-aid-offer/api/school/' + iped + '/';
+              '/understanding-your-financial-aid-offer/api/school/' +
+              iped + '/';
     var schoolDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
@@ -70,8 +70,8 @@ var getApiValues = {
 
     var urlBase = $( 'main' ).attr( 'data-context' );
     var url = '/' + urlBase +
-      '/understanding-your-financial-aid-offer/api/program/' + iped + '_' +
-      pid + '/';
+              '/understanding-your-financial-aid-offer/api/program/' +
+              iped + '_' + pid + '/';
     var programDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
@@ -88,17 +88,17 @@ var getApiValues = {
   },
 
   fetchNationalData: function( iped, pid ) {
-    var urlBase = $( 'main' ).attr( 'data-context' ),
-        url;
-    if ( typeof pid !== 'undefined' ) {
-      url = '/' + urlBase +
-        '/understanding-your-financial-aid-offer/api/national-stats/' + iped +
-        '_' + pid + '/';
+    var urlBase = $( 'main' ).attr( 'data-context' );
+    var url = '/' + urlBase +
+              '/understanding-your-financial-aid-offer/api/national-stats/' +
+              iped;
+
+    if ( typeof pid === 'undefined' ) {
+      url += '/';
     } else {
-      url = '/' + urlBase +
-        '/understanding-your-financial-aid-offer/api/national-stats/' + iped +
-        '/';
+      url += '_' + pid + '/';
     }
+
     var nationalDataRequest = $.ajax( {
       url: url,
       dataType: 'json',

@@ -18,6 +18,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added privateLoanFee constant to the database
 - Added unicode-aware csv module
 - Refactored the offer view to allow bad school, program and offer IDs
+- Set total program debt multiplier minimum to 1.
 
 ## 2.1.4
 - Added string checking for program codes

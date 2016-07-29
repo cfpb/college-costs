@@ -64,6 +64,7 @@ var financialModel = {
     // Modify values using tuition repayment plan values
     model.tuitionRepayYearly = model.tuitionRepay / model.programLength;
     model.borrowingTotal += model.tuitionRepayYearly;
+
     model.gap -= model.tuitionRepayYearly;
     model.totalDebt += model.tuitionRepayDebt;
     model.loanLifetime += model.tuitionRepayMonthly * model.tuitionRepayTerm;
@@ -71,8 +72,7 @@ var financialModel = {
 
     // Calculate totals
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
-    model.totalProgramDebt = model.borrowingTotal * model.programLength;
-
+    model.totalProgramDebt = model.borrowingTotal * Math.max( model.programLength, 1 );
   },
 
   /**
@@ -89,8 +89,8 @@ var financialModel = {
   },
 
   /**
-   * Updates the financial model with values from school and program data
-   * @param { object } schoolValues - contains school and program data values
+   * Updates the financial model with values from school and program data.
+   * @param { object } schoolValues - contains school and program data values.
    */
   updateModelWithProgram: function( schoolValues ) {
     schoolValues.undergrad = true;
@@ -101,4 +101,5 @@ var financialModel = {
   }
 
 };
+
 module.exports = financialModel;

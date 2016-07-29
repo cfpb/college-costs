@@ -61,12 +61,20 @@ var expensesModel = {
       '50000_to_69999': [ 50000, 69999 ],
       '70000_or_more':  [ 70000, Infinity ]
     };
+
+    var arr;
     for ( var key in rangeFinder ) {
-      var arr = rangeFinder[key];
-      if ( salary >= arr[0] && salary <= arr[1] ) {
-        return key;
+      if ( rangeFinder.hasOwnProperty( key ) ) {
+        arr = rangeFinder[key];
+        if ( salary >= arr[0] && salary <= arr[1] ) {
+          return key;
+        }
       }
     }
+
+    // TODO: Update to a string and check that nothing breaks.
+    //       Docs specify `getSalaryRange` returns a string,
+    //       but it returns a boolean here.
     return false;
   },
 
