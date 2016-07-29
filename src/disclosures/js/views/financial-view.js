@@ -362,6 +362,7 @@ var financialView = {
       financialView.enumeratePrivateLoanIDs();
       $container.find( '[data-private-loan]:last .aid-form_input' ).val( '0' );
       publish.addPrivateLoan();
+      financialView.updateView( getFinancial.values() );
     } );
   },
 
@@ -376,8 +377,7 @@ var financialView = {
       $ele.remove();
       financialView.enumeratePrivateLoanIDs();
       publish.dropPrivateLoan( index );
-      var values = getFinancial.values();
-      financialView.updateView( values );
+      financialView.updateView( getFinancial.values() );
     } );
   },
 

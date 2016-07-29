@@ -56,7 +56,7 @@ var publishUpdate = {
   addPrivateLoan: function() {
     var newLoanObject = { amount: 0,
                           fees: 0,
-                          rate: 0,
+                          rate: .079,
                           deferPeriod: 0
                         };
     financialModel.values.privateLoanMulti.push( newLoanObject );
