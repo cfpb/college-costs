@@ -4,10 +4,18 @@ var schoolModel = {
   values: {},
 
   init: function( nationalData, schoolData, programData ) {
+    var salary;
+
     $.extend( this.values, schoolData, programData, nationalData );
-    if ( programData.defaultRate === "None" ) {
+    if ( programData.defaultRate === 'None' ) {
       this.values.defaultRate = schoolData.defaultRate;
     }
+
+    salary = programData.salary || programData.medianSalary;
+    if ( salary === null || typeof salary === 'null' ) {
+      salary = schoolData.salary || schoolData.medianSalary;
+    }
+    this.values.salary = salary;
     this.values = this.processBLSExpenses( this.values );
     return this.processAPIData( this.values );
   },
