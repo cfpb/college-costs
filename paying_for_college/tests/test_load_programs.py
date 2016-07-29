@@ -177,6 +177,11 @@ class TestLoadPrograms(django.test.TestCase):
         load('filename')
         self.assertEqual(mock_read_in.call_count, 3)
         self.assertEqual(mock_program.call_count, 1)  # loader bails before creating program
+        mock_clean.return_value['ipeds_unit_id'] = "408039"
+        mock_clean.return_value['program_code'] = "99982"
+        mock_program.return_value = (program, True)
+        load('filename')
+        self.assertEqual(mock_read_in.call_count, 4)
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'clean')

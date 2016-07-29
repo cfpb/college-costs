@@ -37,9 +37,11 @@ class Validators(unittest.TestCase):
     """check the oid validator"""
     good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
     bad_oid = '9e0<script>console.log("hi")</script>5d0'
+    short_oid = '9e45a3e7'
 
     def test_validate_oid(self):
         self.assertFalse(validate_oid(self.bad_oid))
+        self.assertFalse(validate_oid(self.short_oid))
         self.assertTrue(validate_oid(self.good_oid))
 
     def test_validate_pid(self):
@@ -234,6 +236,8 @@ class OfferTest(django.test.TestCase):
                    '<script></script>f997949efa566c616c5')
         illegal_program = ('?iped=408039&pid=<981>&oid=f38283b'
                            '5b7c939a058889f997949efa566c616c5')
+        no_program = ('?iped=408039&pid=&oid=f38283b'
+                      '5b7c939a058889f997949efa566c616c5')
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
         resp2 = client.get(url+no_oid)
@@ -257,6 +261,9 @@ class OfferTest(django.test.TestCase):
         resp8 = client.get(url+illegal_program)
         self.assertTrue("Error" in resp8.context['warning'])
         self.assertTrue(resp8.status_code == 200)
+        resp9 = client.get(url+no_program)
+        self.assertTrue("Warning" in resp9.context['warning'])
+        self.assertTrue(resp9.status_code == 200)
 
 
 class APITests(django.test.TestCase):

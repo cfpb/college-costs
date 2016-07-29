@@ -47,9 +47,9 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
 NO_SCHOOL_ERROR = "No active school could be found for iped ID {0}"
-OID_WARNING = "Error: Illegal characters in offer ID '{}'"
+OID_WARNING = "Error: Illegal offer ID '{}'"
 # only characters 0-9 and a-f are allowed in offer IDs
-PID_WARNING = "Error: Illegal characters in program code '{}'"
+PID_WARNING = "Error: Illegal program code '{}'"
 # Illegal program code characters: ; < > { }
 
 
@@ -63,14 +63,17 @@ def get_json_file(filename):
 
 def validate_oid(oid):
     """
-    make sure an oid contains only hex values 0-9 a-f A-F
+    make sure an oid contains only hex values 0-9 a-f A-F and is 40 characters
     return True if the oid is valid
     """
     find_illegal = re.search('[^0-9a-fA-F]+', oid)
     if find_illegal:
         return False
     else:
-        return True
+        if len(oid) == 40:
+            return True
+        else:
+            return False
 
 
 def validate_pid(pid):
@@ -168,9 +171,10 @@ class OfferView(TemplateView):
                             warning = ("Warning: No program could be found "
                                        "for program_code '{}'".format(PID))
                 else:
-                    warning = "Warning: URL doesn't contain a program ID"
+                    warning = "Warning: URL doesn't contain a program code"
             else:
-                warning = "Warning: No active school found for ID {}".format(iped)
+                warning = ("Warning: No active school found "
+                           "for ID {}".format(iped))
         else:
                 warning = "Warning: URL doesn't contain a school ID"
         return render_to_response('worksheet.html',
