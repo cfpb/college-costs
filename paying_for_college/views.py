@@ -47,10 +47,10 @@ else:  # pragma: no cover
 URL_ROOT = 'paying-for-college2'
 EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
 NO_SCHOOL_ERROR = "No active school could be found for iped ID {0}"
-OID_WARNING = "Error: Illegal offer ID '{}'"
+OID_WARNING = "Error: Illegal offer ID"
 # only characters 0-9 and a-f are allowed in offer IDs
-PID_WARNING = "Error: Illegal program code '{}'"
-# Illegal program code characters: ; < > { }
+PID_WARNING = "Error: Illegal program code"
+# program code isn't 40 chars or contains Illegal characters: ; < > { }
 
 
 def get_json_file(filename):
@@ -149,7 +149,7 @@ class OfferView(TemplateView):
         else:
             warning = "Warning: URL doesn't contain an offer ID"
         if OID and validate_oid(OID) is False:
-            warning = OID_WARNING.format(OID)
+            warning = OID_WARNING
             OID = ''
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
@@ -159,7 +159,7 @@ class OfferView(TemplateView):
                 if 'pid' in request.GET and request.GET['pid']:
                     PID = request.GET['pid']
                     if not validate_pid(PID):
-                        warning = PID_WARNING.format(PID)
+                        warning = PID_WARNING
                         PID = ''
                     if PID:
                         programs = Program.objects.filter(program_code=PID,
@@ -266,7 +266,7 @@ class ProgramRepresentation(View):
             return HttpResponseBadRequest(format_error)
         PID = ids[1]
         if not validate_pid(PID):
-            return HttpResponseBadRequest(PID_WARNING.format(PID))
+            return HttpResponseBadRequest(PID_WARNING)
         program = self.get_program(program_code)
         if not program:
             p_error = ("Error: No program was found "
