@@ -19,7 +19,7 @@ var schoolModel = {
     values.settlementSchool = Boolean( values.settlementSchool );
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
-    values.medianSalary = values.salary || values.medianAnnualPay ||
+    values.medianSalary = values.programSalary || values.schoolSalary ||
       values.earningsMedian;
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters ||
