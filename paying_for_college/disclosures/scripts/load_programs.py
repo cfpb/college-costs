@@ -61,10 +61,11 @@ def get_school(iped):
         return (school, '')
 
 
-def read_in_latin_1(filename):
+def read_in_encoding(filename, encoding='windows-1252'):
+    """Throw a lifeline if the college just exported from Excel"""
     try:
         with open(filename, 'r') as f:
-            reader = cdr(f, encoding='latin-1')
+            reader = cdr(f, encoding=encoding)
             data = [row for row in reader]
     except:
         data = [{}]
@@ -72,17 +73,18 @@ def read_in_latin_1(filename):
 
 
 def read_in_data(filename):
-    try_latin = False
+    """Reads in utf-8 CSV (as per our spec)"""
+    try_encoding = False
     with open(filename, 'r') as f:
         try:
             reader = cdr(f)
             data = [row for row in reader]
         except UnicodeDecodeError:
-            try_latin = True
+            try_encoding = True
         except:
             data = [{}]
-    if try_latin:
-        data = read_in_latin_1(filename)
+    if try_encoding:  # sigh
+        data = read_in_encoding(filename)
     return data
 
 
