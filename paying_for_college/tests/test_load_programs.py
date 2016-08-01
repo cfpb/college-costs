@@ -7,7 +7,7 @@ from mock import mock_open, patch
 from paying_for_college.models import Program, School
 from paying_for_college.disclosures.scripts.load_programs import (get_school,
                                                                   read_in_data,
-                                                                  read_in_latin_1,
+                                                                  read_in_encoding,
                                                                   clean_number_as_string,
                                                                   clean_string_as_string,
                                                                   clean, load,
@@ -73,7 +73,7 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertEqual(result, '')
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
-                'read_in_latin_1')
+                'read_in_encoding')
     def test_read_in_data(self, mock_latin):
         mock_latin.return_value = [{'a': 'd', 'b': 'e', 'c': 'f'}]
         m = mock_open(read_data='a,b,c\nd,e,f')
@@ -90,7 +90,7 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
-                'read_in_latin_1')
+                'read_in_encoding')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'cdr')
     def test_try_latin(self, mock_cdr, mock_latin):
@@ -109,15 +109,15 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertTrue(m.call_count == 2)
         self.assertTrue(data == [{}])
 
-    def test_read_in_latin_1(self):
+    def test_read_in_encoding(self):
         m = mock_open(read_data='a,b,c\nd,e,f')
         with patch("__builtin__.open", m, create=True):
-            data = read_in_latin_1('mockfile.csv')
+            data = read_in_encoding('mockfile.csv')
         self.assertTrue(m.call_count == 1)
         self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
         m.side_effect = Exception("OPEN ERROR")
         with patch("__builtin__.open", m, create=True):
-            data = read_in_latin_1('mockfile.csv')
+            data = read_in_encoding('mockfile.csv')
         self.assertTrue(m.call_count == 2)
         self.assertTrue(data == [{}])
 
