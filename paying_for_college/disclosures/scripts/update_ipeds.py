@@ -214,7 +214,7 @@ def process_missing(missing_ids):
                                                    datetime.date.today())
     missing_data = process_datafiles(add_schools=missing_ids)
     for school_id in missing_data:
-        create_school(school_id, missing_data[school_id])
+        create_school(int(school_id), missing_data[school_id])
         data_row = missing_data[school_id]
         data_row['ID'] = school_id
         csv_out_data.append(data_row)
@@ -226,8 +226,11 @@ def load_values(dry_run=True):
     updated = 0
     points = 0
     oncampus = 0
-    missing = []
     source_dict = process_datafiles()
+    current_ids = [school.pk for school in School.objects.all()]
+    missing = [pk for pk in source_dict.keys() if int(pk) not in current_ids]
+    if missing and dry_run is False:
+        process_missing(missing)
     for ID in source_dict:
         new_data = source_dict[ID]
         if 'onCampusAvail' in new_data:
@@ -249,8 +252,6 @@ def load_values(dry_run=True):
             if not dry_run:
                 school.save()
             updated += 1
-        else:
-            missing.append(ID)
     if dry_run:
         msg = ("DRY RUN:\n"
                "- {} would have updated {} data points for {} schools\n"
@@ -262,9 +263,6 @@ def load_values(dry_run=True):
                                                 icomma(oncampus),
                                                 len(missing)))
         return msg
-
-    if missing:
-        process_missing(missing)
     msg = ("{} updated {} data points for {} schools;\n"
            "{} new school records were created".format(SCRIPT,
                                                        icomma(points),
