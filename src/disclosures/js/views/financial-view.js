@@ -212,14 +212,15 @@ var financialView = {
    * that is based on the remaining cost
    */
   updateRemainingCostContent: function() {
-    var finalRemainingCost = $( '#summary_remaining-cost-final' ),
+    var gap = Math.round( getFinancial.values().gap ),
+        finalRemainingCost = $( '#summary_remaining-cost-final' ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
         negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
-    if ( stringToNum( finalRemainingCost.text() ) > 0 ) {
+    if ( gap > 0 ) {
       positiveRemainingCost.show();
-    } else if ( stringToNum( finalRemainingCost.text() ) < 0 ) {
+    } else if ( gap < 0 ) {
       negativeRemainingCost.show();
     }
   },
