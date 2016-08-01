@@ -3,17 +3,17 @@ import datetime
 from django.core.management.base import BaseCommand, CommandError
 from paying_for_college.disclosures.scripts.update_ipeds import load_values
 
-COMMAND_HELP = "Update_ipeds will download, parse and load the latest "
-"data files from the IPEDS data center. If run without arguments, it will "
-"make a dry run and report how many schools and data points would have been "
-"updated. If run with '--dry-run false' it will update the school records "
-"in the PFC database. The script always fetches the latest academic year "
-"available, which is 2 years behind the calendar year. So in 2016, it fetches "
-"2014 data, which represents data from the 2014-2015 academic year."
-PARSER_HELP = "This command acquires the latest IPEDS values and will "
-"load them if provided the '--dry-run false' argument. If no argument is "
-"passed, the script makes a dry run and reports what would have happened. "
-"Passing arguments other than 'false' or 'true' will return this help message."
+COMMAND_HELP = """Update_ipeds will download, parse and load the latest
+data files from the IPEDS data center. If run without arguments, it will
+make a dry run and report how many schools and data points would have been
+updated. If run with '--dry-run false' it will update the school records
+in the PFC database. The script always fetches the latest academic year
+available, which is 2 years behind the calendar year. So in 2016, it fetches
+2014 data, which represents data from the 2014-2015 academic year.
+"""
+PARSER_HELP = """The --dry-run argument defaults to 'true' and makes no
+changes to the database. To update the database, pass '--dry-run false'
+"""
 
 
 class Command(BaseCommand):
