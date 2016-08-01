@@ -95,7 +95,6 @@ def update(exclude_ids=[], single_school=None):
                         CLOSED += 1
                     if UPDATED is True:
                         UPDATE_COUNT += 1
-                        # school.data_json = json.dumps(data_dict)
                         school.zip5 = fix_zip5(str(school.zip5))
                         school.save()
                 else:

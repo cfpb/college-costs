@@ -45,7 +45,7 @@
         <section class="verify step content_wrapper">
             <div class="content_main">
                 <div class="verify_wrapper">
-                    <div class="verify_content">
+                    <div class="verify_content" data-warning="{{warning}}">
                         <h2 class="verify_prompt">
                             Make sure that the information below is correct
                             before reviewing your offer.
@@ -56,10 +56,10 @@
                                 {{school.primary_alias}}
                             </div>
                             <div class="verify_location">
-                                {{school.city}}, {{school.state}}
+                                {% if school %}{{school.city}}, {{school.state}}{% endif %}
                             </div>
                             <div class="verify_type">
-                                {{school.control}} school
+                                {% if school %}{{school.control}} school{% endif %}
                             </div>
                             <dl class="verify_list">
                                 <dt class="verify_heading">

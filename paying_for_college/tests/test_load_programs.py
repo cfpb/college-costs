@@ -7,6 +7,7 @@ from mock import mock_open, patch
 from paying_for_college.models import Program, School
 from paying_for_college.disclosures.scripts.load_programs import (get_school,
                                                                   read_in_data,
+                                                                  read_in_latin_1,
                                                                   clean_number_as_string,
                                                                   clean_string_as_string,
                                                                   clean, load,
@@ -71,15 +72,52 @@ class TestLoadPrograms(django.test.TestCase):
         result = clean_string_as_string("  No Data ")
         self.assertEqual(result, '')
 
-    def test_read_in_data(self):
-        m = mock_open(read_data='a , b, c \nd,e,f')
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'read_in_latin_1')
+    def test_read_in_data(self, mock_latin):
+        mock_latin.return_value = [{'a': 'd', 'b': 'e', 'c': 'f'}]
+        m = mock_open(read_data='a,b,c\nd,e,f')
         with patch("__builtin__.open", m, create=True):
             data = read_in_data('mockfile.csv')
         self.assertTrue(m.call_count == 1)
-        self.assertTrue(data == [{'a ': 'd', ' b': 'e', ' c ': 'f'}])
-        m.side_effect = Exception("OPEN ERROR")
+        self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
+        # m.side_effect = Exception("OPEN ERROR")
+        m2 = mock_open(read_data='a,b,c\nd,e,f')
+        m2.side_effect = UnicodeDecodeError('bad character', '2', 3, 4, '5')
         with patch("__builtin__.open", m, create=True):
             data = read_in_data('mockfile.csv')
+        self.assertTrue(m.call_count == 2)
+        self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
+
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'read_in_latin_1')
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'cdr')
+    def test_try_latin(self, mock_cdr, mock_latin):
+        mock_cdr.side_effect = UnicodeDecodeError('bad character',
+                                                  '2', 3, 4, '5')
+        mock_latin.return_value = [{'a': 'd', 'b': 'e', 'c': 'f'}]
+        m = mock_open(read_data='a,b,c\nd,e,f')
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_data('mockfile.csv')
+        self.assertTrue(m.call_count == 1)
+        self.assertTrue(mock_cdr.call_count == 1)
+        self.assertTrue(mock_latin.call_count == 1)
+        mock_cdr.side_effect = TypeError
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_data('mockfile.csv')
+        self.assertTrue(m.call_count == 2)
+        self.assertTrue(data == [{}])
+
+    def test_read_in_latin_1(self):
+        m = mock_open(read_data='a,b,c\nd,e,f')
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_latin_1('mockfile.csv')
+        self.assertTrue(m.call_count == 1)
+        self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
+        m.side_effect = Exception("OPEN ERROR")
+        with patch("__builtin__.open", m, create=True):
+            data = read_in_latin_1('mockfile.csv')
         self.assertTrue(m.call_count == 2)
         self.assertTrue(data == [{}])
 
@@ -177,6 +215,11 @@ class TestLoadPrograms(django.test.TestCase):
         load('filename')
         self.assertEqual(mock_read_in.call_count, 3)
         self.assertEqual(mock_program.call_count, 1)  # loader bails before creating program
+        mock_clean.return_value['ipeds_unit_id'] = "408039"
+        mock_clean.return_value['program_code'] = "99982"
+        mock_program.return_value = (program, True)
+        load('filename')
+        self.assertEqual(mock_read_in.call_count, 4)
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'clean')
