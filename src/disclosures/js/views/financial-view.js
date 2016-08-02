@@ -68,8 +68,8 @@ var financialView = {
           militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
           directSubsidized: 'subsidizedCapYearOne',
           directSubsidizedGrad: 'subsidizedCapYearOne',
-          directUnsubsidized: 'directUnsubsidizedIndepMax',
-          directUnsubsidizedGrad: 'directUnsubsidizedIndepMax'
+          directUnsubsidized: 'unsubsidizedCapIndepYearOne',
+          directUnsubsidizedGrad: 'unsubsidizedCapGrad'
         },
         $elems = $( '[data-cap]' );
 
@@ -85,6 +85,12 @@ var financialView = {
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
     } );
+    // Change text of unsubsizied error if graduate program
+    if ( financials.undergrad === false ) {
+      $( '[data-calc-error_content="directUnsubsidized"]').text(
+        'The maximum that can be borrowed per year is'
+      );
+    }
   },
 
   /**
