@@ -4,6 +4,7 @@ import os
 import sys
 import zipfile
 from subprocess import call
+from collections import OrderedDict
 
 import requests
 from unipath import Path
@@ -26,16 +27,12 @@ from django.contrib.humanize.templatetags.humanize import intcomma
 SCRIPT = os.path.basename(__file__).partition('.')[0]
 PFC_ROOT = Path(__file__).ancestor(3)
 # LATEST_YEAR specifies first year of academic-year data
-# So 2014 would fetch data for 2014-2015 cycle
-LATEST_YEAR = datetime.datetime.now().year-2
-# For books and housing, IPEDS adds a column every year.
-# Each new column gets an appended year-index value, starting with zero in 2011
-YEAR_INDEX = LATEST_YEAR - 2011
+# So 2015 would fetch data for 2015-2016 cycle
+LATEST_YEAR = datetime.datetime.now().year-1
 ipeds_directory = '{}/data_sources/ipeds'.format(PFC_ROOT)
 ipeds_data_url = 'http://nces.ed.gov/ipeds/datacenter/data'
 data_slug = 'IC{}_AY'.format(LATEST_YEAR)
 dictionary_slug = 'IC{}_AY_Dict'.format(LATEST_YEAR)
-
 
 DATA_VARS = {
     'universe_url': '{}/HD{}.zip'.format(ipeds_data_url, LATEST_YEAR),
@@ -58,20 +55,22 @@ DATA_VARS = {
 # mapping the vars of our data_json to the IPEDS data csv
 # We pull only one value, 'ROOM', from the IPEDS services csv
 DATA_POINTS = {
-    'books': 'CHG4AY{}'.format(YEAR_INDEX),
-    'otherOffCampus': 'CHG8AY{}'.format(YEAR_INDEX),
-    'otherOnCampus': 'CHG6AY{}'.format(YEAR_INDEX),
-    'otherWFamily': 'CHG9AY{}'.format(YEAR_INDEX),
-    'roomBrdOffCampus': 'CHG7AY{}'.format(YEAR_INDEX),
-    'roomBrdOnCampus': 'CHG5AY{}'.format(YEAR_INDEX),
+    'books': 'CHG4AY3',
+    'otherOffCampus': 'CHG8AY3',
+    'otherOnCampus': 'CHG6AY3',
+    'otherWFamily': 'CHG9AY3',
+    'roomBrdOffCampus': 'CHG7AY3',
+    'roomBrdOnCampus': 'CHG5AY3',
     'tuitionGradInDis': 'TUITION5',
     'tuitionGradInS': 'TUITION6',
     'tuitionGradOss': 'TUITION7',
     'tuitionUnderInDis': 'TUITION1'
 }
 
-STARTER_DICT = {key.upper(): None for key in DATA_POINTS}
-STARTER_DICT['ROOM'] = None
+KEYS = sorted([key.upper() for key in DATA_POINTS] + ['ROOM'])
+STARTER_DICT = OrderedDict()
+for key in KEYS:
+    STARTER_DICT[key] = None
 STARTER_DATA_JSON = json.dumps(STARTER_DICT)
 
 NEW_SCHOOL_DATA_POINTS = {
@@ -241,7 +240,7 @@ def load_values(dry_run=True):
                 new_data['onCampusAvail'] = 'No'
         school = get_school(ID)
         if school:
-            school_data = json.loads(school.data_json)
+            school_data = STARTER_DICT
             for data_key in new_data:
                 val = new_data[data_key]
                 if val == '.':
