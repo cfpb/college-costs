@@ -529,6 +529,8 @@ var financialView = {
       var programLength = Number( $( this ).val() );
       var values = getFinancial.values();
       var yearsAttending = numberToWords.toWords( programLength );
+      var $yearOrLess = $( '[data-multi_year="false"]' );
+      var $multiYears = $( '[data-multi_year="true"]' );
 
       // Formats summary text, such as "half a year" or "one and a half years."
       if ( programLength === 0.5 ) {
@@ -539,8 +541,12 @@ var financialView = {
 
       if ( programLength > 1 ) {
         yearsAttending += ' years';
+        $multiYears.show();
+        $yearOrLess.hide();
       } else {
         yearsAttending += ' year';
+        $multiYears.hide();
+        $yearOrLess.show();
       }
 
       publish.financialData( 'programLength', programLength );

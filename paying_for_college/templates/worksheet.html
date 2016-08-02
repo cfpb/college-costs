@@ -1844,7 +1844,7 @@
                                 <h4 class="aid-form_summary-heading">
                                     Debt summary
                                 </h4>
-                                <div class="line-item">
+                                <div class="line-item" data-multi_year="true">
                                     <div class="line-item_title">
                                         Loans for first year
                                     </div>
@@ -1858,7 +1858,10 @@
                                     </div>
                                 </div>
                                 <div class="line-item">
-                                    <div class="line-item_title">
+                                    <div class="line-item_title" data-multi_year="false">
+                                        Loans for program length
+                                    </div>
+                                    <div class="line-item_title" data-multi_year="true">
                                         Loans for <span
                                         id="future_years-attending"
                                         data-financial="yearsAttending"
@@ -1998,7 +2001,8 @@
                                         <div class="bar-graph_bar"></div>
                                         <div class="bar-graph_point
                                         bar-graph_point__you u-clearfix">
-                                            <div class="bar-graph_label">
+                                            <div class="bar-graph_label"
+                                            data-graph_label="completionRate">
                                                 This school
                                             </div>
                                             <div class="bar-graph_line"></div>
@@ -2807,7 +2811,8 @@
                                         <div class="bar-graph_bar"></div>
                                         <div class="bar-graph_point
                                         bar-graph_point__you u-clearfix">
-                                            <div class="bar-graph_label">
+                                            <div class="bar-graph_label"
+                                            data-graph_label="defaultRate">
                                                 This school
                                             </div>
                                             <div class="bar-graph_line"></div>
