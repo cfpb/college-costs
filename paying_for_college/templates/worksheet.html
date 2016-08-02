@@ -101,9 +101,6 @@
                                     </p>
                                     <div class="cf-select">
                                         <select id="estimated-years-attending">
-                                            <option value="">
-                                                Select an option
-                                            </option>
                                             <option value="0.5">
                                                 6 months
                                             </option>
@@ -997,7 +994,8 @@
                                             data-financial="directUnsubsidized"
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error" data-calc-error="directUnsubsidized">
-                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is
+                                                <span class="cf-icon cf-icon-error-round"></span>
+                                                <span data-calc-error_content="directUnsubsidized">The maximum subsidized and unsubsidized loans that can be borrowed per year is</span>
                                                 <span data-cap="directUnsubsidized">$0</span>
                                             </div>
                                         </div>
@@ -1632,7 +1630,7 @@
                                         </span>
                                         <span class="line-item_amount"
                                         data-line-item="true"
-                                        data-financial="borrowingTotal"
+                                        data-financial="summaryLoanTotal"
                                         id="summary_total-loans"></span>
                                     </div>
                                 </div>
@@ -1686,7 +1684,7 @@
                                         </span>
                                         <span class="line-item_amount"
                                         data-line-item="true"
-                                        data-financial="borrowingTotal"></span>
+                                        data-financial="summaryLoanTotal"></span>
                                     </div>
                                 </div>
                                 <div class="content_line aid-form_equals-line">
@@ -1746,7 +1744,7 @@
                             <p>
                                 Think about how borrowing <span
                                 id="future_total-loans"
-                                data-financial="borrowingTotal">[XX]</span> this
+                                data-financial="summaryLoanTotal">[XX]</span> this
                                 year will affect your future finances. As you
                                 can see in the summary, the
                                 total cost of these loans after <span
@@ -1815,7 +1813,7 @@
                                         </span>
                                         <span class="line-item_amount"
                                         data-line-item="true"
-                                        data-financial="borrowingTotal"></span>
+                                        data-financial="summaryLoanTotal"></span>
                                     </div>
                                 </div>
                                 <div class="content_line aid-form_equals-line">
@@ -1847,7 +1845,7 @@
                                 <h4 class="aid-form_summary-heading">
                                     Debt summary
                                 </h4>
-                                <div class="line-item">
+                                <div class="line-item" data-multi_year="true">
                                     <div class="line-item_title">
                                         Loans for first year
                                     </div>
@@ -1857,11 +1855,14 @@
                                         </span>
                                         <span class="line-item_amount"
                                         data-line-item="true"
-                                        data-financial="borrowingTotal"></span>
+                                        data-financial="summaryLoanTotal"></span>
                                     </div>
                                 </div>
                                 <div class="line-item">
-                                    <div class="line-item_title">
+                                    <div class="line-item_title" data-multi_year="false">
+                                        Loans for program length
+                                    </div>
+                                    <div class="line-item_title" data-multi_year="true">
                                         Loans for <span
                                         id="future_years-attending"
                                         data-financial="yearsAttending"
@@ -2001,7 +2002,8 @@
                                         <div class="bar-graph_bar"></div>
                                         <div class="bar-graph_point
                                         bar-graph_point__you u-clearfix">
-                                            <div class="bar-graph_label">
+                                            <div class="bar-graph_label"
+                                            data-graph_label="completionRate">
                                                 This school
                                             </div>
                                             <div class="bar-graph_line"></div>
@@ -2810,7 +2812,8 @@
                                         <div class="bar-graph_bar"></div>
                                         <div class="bar-graph_point
                                         bar-graph_point__you u-clearfix">
-                                            <div class="bar-graph_label">
+                                            <div class="bar-graph_label"
+                                            data-graph_label="defaultRate">
                                                 This school
                                             </div>
                                             <div class="bar-graph_line"></div>

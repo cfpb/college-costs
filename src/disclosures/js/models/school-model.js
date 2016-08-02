@@ -1,11 +1,24 @@
 'use strict';
 
-
 var schoolModel = {
   values: {},
 
-  init: function( apiData ) {
-    this.values = apiData;
+  init: function( nationalData, schoolData, programData ) {
+
+    $.extend( this.values, schoolData, programData, nationalData );
+
+    // Initialize default rate
+    this.values.programDefaultRate = programData.defaultRate;
+    this.values.schoolDefaultRate = schoolData.defaultRate;
+    this.values.programCompletionRate = programData.completionRate;
+    this.values.schoolCompletionRate = schoolData.completionRate;
+    this.values.defaultRateSource = 'program';
+    if ( programData.defaultRate === 'None' ) {
+      this.values.defaultRate = schoolData.defaultRate;
+      this.values.defaultRateSource = 'school';
+    }
+
+    // Process values from the API
     this.values = this.processBLSExpenses( this.values );
     return this.processAPIData( this.values );
   },
@@ -27,6 +40,9 @@ var schoolModel = {
     if ( values.hasOwnProperty( 'completionRate' ) &&
       values.completionRate !== 'None' ) {
       values.gradRate = values.completionRate;
+      values.gradRateSource = 'program';
+    } else {
+      values.gradRateSource = 'school';
     }
 
     return values;

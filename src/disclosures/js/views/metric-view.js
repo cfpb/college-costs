@@ -20,7 +20,8 @@ var metricView = {
       nationalKey: 'completionRateMedian',
       better: 'higher',
       format: 'decimal-percent',
-      standing: ''
+      standing: '',
+      source: 'unknown'
     },
     defaultRate: {
       school: NaN,
@@ -28,7 +29,8 @@ var metricView = {
       nationalKey: 'loanDefaultRate',
       better: 'lower',
       format: 'decimal-percent',
-      standing: ''
+      standing: '',
+      source: 'unknown'
     }
   },
 
@@ -60,6 +62,7 @@ var metricView = {
       metrics[key].national = financials[nationalKey];
       metrics[key].low = financials[nationalKey + 'Low'];
       metrics[key].high = financials[nationalKey + 'High'];
+      metrics[key].source = financials[key + 'Source'];
       metrics[key] = metricView.checkMetrics( metrics[key] );
     }
     return metrics;
@@ -296,6 +299,7 @@ var metricView = {
           $notification = $graph.siblings( '.metric_notification' );
 
       metricView.setGraphValues( $graph );
+      metricView.setGraphSources( $graph );
       metricView.setGraphPositions( $graph );
       metricView.fixOverlap( $graph );
       if ( this.settlementStatus === false ) {
@@ -304,6 +308,8 @@ var metricView = {
         $graph.find( '.bar-graph_point__average ' ).hide();
         metricView.hideNotificationClasses( $notification );
       }
+
+
     } );
   },
 
@@ -368,6 +374,19 @@ var metricView = {
     } else {
       this.hideNotificationClasses( $notification );
     }
+  },
+
+  /**
+   * Updates graph content with source - Program or School
+   * @param {object} $graph jQuery object of the graph containing the points
+   */
+  setGraphSources: function( $graph ) {
+    var metricKey = $graph.attr( 'data-metric' ),
+        source = metricView.metrics[metricKey].source,
+        text = 'This ' + source,
+        $ele = $graph.find( '[data-graph_label]' );
+
+    $ele.text( text );
   }
 
 };
