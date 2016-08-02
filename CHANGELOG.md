@@ -20,6 +20,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Refactored the offer view to allow bad school, program and offer IDs
 - Set total program debt multiplier minimum to 1.
 - Refactored the load_programs script to handle non-utf-8 encoding
+- Renamed salary variables to 'programSalary,' 'schoolSalary,' and 'nationalSalary' to distinguish data sources
+- Adjust the update_ipeds script to create new schools first, so they get updated with IPEDS data too
+- Tweaked load_programs to fall back to windows-1252
 
 ## 2.1.4
 - Added string checking for program codes
