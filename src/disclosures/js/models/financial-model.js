@@ -62,9 +62,8 @@ var financialModel = {
     }
 
     // Modify values using tuition repayment plan values
-    model.tuitionRepayYearly = model.tuitionRepay / model.programLength;
-    model.borrowingTotal += model.tuitionRepayYearly;
-
+    model.tuitionRepayYearly = model.tuitionRepay / Math.max( model.programLength, 1 );
+    model.summaryLoanTotal = model.borrowingTotal + model.tuitionRepayYearly;
     model.gap -= model.tuitionRepayYearly;
     model.totalDebt += model.tuitionRepayDebt;
     model.loanLifetime += model.tuitionRepayMonthly * model.tuitionRepayTerm;
@@ -73,6 +72,7 @@ var financialModel = {
     // Calculate totals
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
     model.totalProgramDebt = model.borrowingTotal * Math.max( model.programLength, 1 );
+    model.totalProgramDebt += model.tuitionRepay;
   },
 
   /**

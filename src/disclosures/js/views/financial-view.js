@@ -68,8 +68,8 @@ var financialView = {
           militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
           directSubsidized: 'subsidizedCapYearOne',
           directSubsidizedGrad: 'subsidizedCapYearOne',
-          directUnsubsidized: 'directUnsubsidizedIndepMax',
-          directUnsubsidizedGrad: 'directUnsubsidizedIndepMax'
+          directUnsubsidized: 'unsubsidizedCapIndepYearOne',
+          directUnsubsidizedGrad: 'unsubsidizedCapGrad'
         },
         $elems = $( '[data-cap]' );
 
@@ -85,6 +85,12 @@ var financialView = {
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
     } );
+    // Change text of unsubsizied error if graduate program
+    if ( financials.undergrad === false ) {
+      $( '[data-calc-error_content="directUnsubsidized"]').text(
+        'The maximum that can be borrowed per year is'
+      );
+    }
   },
 
   /**
@@ -212,14 +218,16 @@ var financialView = {
    * that is based on the remaining cost
    */
   updateRemainingCostContent: function() {
-    var finalRemainingCost = $( '#summary_remaining-cost-final' ),
+    var gap = Math.round( getFinancial.values().gap ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
         negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
-    if ( stringToNum( finalRemainingCost.text() ) > 0 ) {
+    if ( gap > 0 ) {
       positiveRemainingCost.show();
-    } else if ( stringToNum( finalRemainingCost.text() ) < 0 ) {
+    } else if ( gap < 0 ) {
+      var $span = negativeRemainingCost.find( '[data-financial="gap"]' );
+      $span.text( $span.text().replace( '-', '' ) );
       negativeRemainingCost.show();
     }
   },
@@ -362,6 +370,7 @@ var financialView = {
       financialView.enumeratePrivateLoanIDs();
       $container.find( '[data-private-loan]:last .aid-form_input' ).val( '0' );
       publish.addPrivateLoan();
+      financialView.updateView( getFinancial.values() );
     } );
   },
 
@@ -376,8 +385,7 @@ var financialView = {
       $ele.remove();
       financialView.enumeratePrivateLoanIDs();
       publish.dropPrivateLoan( index );
-      var values = getFinancial.values();
-      financialView.updateView( values );
+      financialView.updateView( getFinancial.values() );
     } );
   },
 
@@ -528,6 +536,8 @@ var financialView = {
       var programLength = Number( $( this ).val() );
       var values = getFinancial.values();
       var yearsAttending = numberToWords.toWords( programLength );
+      var $yearOrLess = $( '[data-multi_year="false"]' );
+      var $multiYears = $( '[data-multi_year="true"]' );
 
       // Formats summary text, such as "half a year" or "one and a half years."
       if ( programLength === 0.5 ) {
@@ -538,8 +548,12 @@ var financialView = {
 
       if ( programLength > 1 ) {
         yearsAttending += ' years';
+        $multiYears.show();
+        $yearOrLess.hide();
       } else {
         yearsAttending += ' year';
+        $multiYears.hide();
+        $yearOrLess.show();
       }
 
       publish.financialData( 'programLength', programLength );
