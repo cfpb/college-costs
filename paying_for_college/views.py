@@ -318,6 +318,8 @@ class ConstantsRepresentation(View):
             constants[ccap.slug] = ccap.value
         for crate in ConstantRate.objects.order_by('slug'):
             constants[crate.slug] = "{0}".format(crate.value)
+        cy = constants['constantsYear']
+        constants['constantsYear'] = "{}-{}".format(cy, str(cy+1)[2:])
         return json.dumps(constants)
 
     def get(self, request):

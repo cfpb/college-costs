@@ -148,9 +148,9 @@
     "fields": {
         "note": "This is the year we base API calls and calculations on. Should be updated when data is advanced.", 
         "updated": "2015-12-19", 
-        "name": "Latest year", 
+        "name": "API year", 
         "value": 2013, 
-        "slug": "latestYear"
+        "slug": "apiYear"
     }
 },
 {
@@ -159,9 +159,20 @@
     "fields": {
         "note": "Salary data apparently is available on a different schedule from school data, so the latest year with data can be different from overall school data.", 
         "updated": "2015-12-19", 
-        "name": "Latest salary year", 
+        "name": "Salary year", 
         "value": 2011, 
-        "slug": "latestSalaryYear"
+        "slug": "salaryYear"
+    }
+},
+{
+    "pk": 17,
+    "model": "paying_for_college.constantcap",
+    "fields": {
+        "note": "IF YOU ARE UPDATING CONSTANTS, update this year value. It will be used as the first year of an academic-year pair on the \"About this tool\" page to indicate which academic year the constants apply to.",
+        "updated": "2016-08-02",
+        "name": "Constants year",
+        "value": 2016,
+        "slug": "constantsYear"
     }
 },
 {
