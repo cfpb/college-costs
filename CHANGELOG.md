@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+
+## 2.1.5
 - Show recalculation updates on mobile screens
 - Added a file-exists check to update_ipeds script
 - Fixed errors in the static content and error messaging
