@@ -288,7 +288,7 @@ class APITests(django.test.TestCase):
         url = reverse('disclosures:constants-json')
         resp = client.get(url)
         self.assertTrue('institutionalLoanRate' in resp.content)
-        self.assertTrue('latestYear' in resp.content)
+        self.assertTrue('apiYear' in resp.content)
 
     # /paying-for-college/understanding-financial-aid-offers/api/constants/
     def test_national_stats_json(self):

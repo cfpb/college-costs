@@ -10,12 +10,12 @@ class DisclosureAdmin(admin.ModelAdmin):
 
 
 class ConstantRateAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'value', 'updated')
+    list_display = ('name', 'slug', 'note', 'value', 'updated')
     list_editable = ['value']
 
 
 class ConstantCapAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'value', 'updated')
+    list_display = ('name', 'slug', 'note', 'value', 'updated')
     list_editable = ['value']
 
 
