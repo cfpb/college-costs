@@ -7,7 +7,7 @@ var schoolModel = {
 
     $.extend( this.values, schoolData, programData, nationalData );
 
-    // Initialize default rate 
+    // Initialize default rate
     this.values.programDefaultRate = programData.defaultRate;
     this.values.schoolDefaultRate = schoolData.defaultRate;
     this.values.programCompletionRate = programData.completionRate;

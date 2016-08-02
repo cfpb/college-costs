@@ -377,11 +377,13 @@ var metricView = {
   },
 
   /**
+   * Updates graph content with source - Program or School
+   * @param {object} $graph jQuery object of the graph containing the points
    */
   setGraphSources: function( $graph ) {
     var metricKey = $graph.attr( 'data-metric' ),
         source = metricView.metrics[metricKey].source,
-        text = "This " + source,
+        text = 'This ' + source,
         $ele = $graph.find( '[data-graph_label]' );
 
     $ele.text( text );

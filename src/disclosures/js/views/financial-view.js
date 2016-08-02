@@ -213,7 +213,6 @@ var financialView = {
    */
   updateRemainingCostContent: function() {
     var gap = Math.round( getFinancial.values().gap ),
-        finalRemainingCost = $( '#summary_remaining-cost-final' ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
         negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
