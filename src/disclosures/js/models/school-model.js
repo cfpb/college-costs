@@ -12,10 +12,10 @@ var schoolModel = {
     this.values.schoolDefaultRate = schoolData.defaultRate;
     this.values.programCompletionRate = programData.completionRate;
     this.values.schoolCompletionRate = schoolData.completionRate;
-    this.values.defaultRateSource = 'Program';
+    this.values.defaultRateSource = 'program';
     if ( programData.defaultRate === 'None' ) {
       this.values.defaultRate = schoolData.defaultRate;
-      this.values.defaultRateSource = 'School';
+      this.values.defaultRateSource = 'school';
     }
 
     // Process values from the API
@@ -40,9 +40,9 @@ var schoolModel = {
     if ( values.hasOwnProperty( 'completionRate' ) &&
       values.completionRate !== 'None' ) {
       values.gradRate = values.completionRate;
-      values.gradRateSource = 'Program';
+      values.gradRateSource = 'program';
     } else {
-      values.gradRateSource = 'School';
+      values.gradRateSource = 'school';
     }
 
     return values;
