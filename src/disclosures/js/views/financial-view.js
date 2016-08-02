@@ -220,6 +220,8 @@ var financialView = {
     if ( gap > 0 ) {
       positiveRemainingCost.show();
     } else if ( gap < 0 ) {
+      var $span = negativeRemainingCost.find( '[data-financial="gap"]' );
+      $span.text( $span.text().replace( '-', '' ) );
       negativeRemainingCost.show();
     }
   },
