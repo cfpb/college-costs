@@ -304,15 +304,8 @@ var metricView = {
       metricView.fixOverlap( $graph );
       metricView.setNotificationClasses( $notification, notificationClasses );
       if ( metricView.settlementStatus === true ) {
-        var isComparison =
-          ( notificationClasses.indexOf( '__better' ) !== -1 ) ||
-          ( notificationClasses.indexOf( '__same' ) !== -1 ) ||
-          ( notificationClasses.indexOf( '__worse' ) !== -1 );
-        if ( isComparison ) {
-          metricView.hideNotificationClasses( $notification );
-        }
+        metricView.updateForSettlement( $graph );
       }
-
     } );
   },
 
@@ -390,8 +383,21 @@ var metricView = {
         $ele = $graph.find( '[data-graph_label]' );
 
     $ele.text( text );
-  }
+  },
 
+  /**
+   * Updates view for settlement schools
+   * @param {object} $graph jQuery object of the graph
+   */
+  updateForSettlement: function( $graph ) {
+    var selector,
+        $notification = $graph.siblings( '.metric_notification' );
+
+    selector = '.metric_notification__no-you,' +
+      '.metric_notification__no-data';
+    $notification.not( selector ).hide();
+    $graph.find( '.bar-graph_point__average' ).hide();
+  }
 };
 
 module.exports = metricView;
