@@ -374,6 +374,25 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   //   // TODO: expect the est. monthly student loan expense is recalculated
   // } );
 
+  it( 'should display the origination fee for Direct loans', function() {
+    page.confirmVerification();
+    browser.wait(
+      browser.actions().mouseMove( page.subsidizedLoans ).perform().then( function() {
+        expect( page.directLoanOriginationFee.getText() ).toEqual( '1.1' );
+      }), 20000
+    );
+  } );
+
+  it( 'should display the origination fee for grad Plus loans for graduate programs', function() {
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=145770&pid=1380&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=62795&tran=500&tuit=60895&unsl=2000&wkst=3000' );
+    page.confirmVerification();
+    browser.wait(
+      browser.actions().mouseMove( page.directPLUSLoans ).perform().then( function() {
+        expect( page.plusLoanOriginationFee.getText() ).toEqual( '4.3' );
+      }), 20000
+    );
+  } );
+
   it( 'should properly hide the federal Perkins loans when the school does not offer it', function() {
     page.confirmVerification();
     browser.sleep( 750 );
