@@ -8,3 +8,4 @@ elasticsearch==2.3.0
 csvkit==0.9.1
 djangorestframework==3.3.3
 six==1.10.0
+boto==2.38.0
