@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+
+## 2.1.5
 - Show recalculation updates on mobile screens
 - Added a file-exists check to update_ipeds script
 - Fixed errors in the static content and error messaging
@@ -24,6 +26,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Adjust the update_ipeds script to create new schools first, so they get updated with IPEDS data too
 - Tweaked load_programs to fall back to windows-1252
 - Added new constant `constantsYear` and changed API and salary year vars to `apiYear` and `salaryYear` 
+- Adjusted update_ipeds script to get most recent year and to deliver sorted json for PR sanity
 
 ## 2.1.4
 - Added string checking for program codes
