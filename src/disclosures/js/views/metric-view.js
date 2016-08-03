@@ -302,13 +302,16 @@ var metricView = {
       metricView.setGraphSources( $graph );
       metricView.setGraphPositions( $graph );
       metricView.fixOverlap( $graph );
-      if ( this.settlementStatus === false ) {
-        metricView.setNotificationClasses( $notification, notificationClasses );
-      } else {
-        $graph.find( '.bar-graph_point__average ' ).hide();
-        metricView.hideNotificationClasses( $notification );
+      metricView.setNotificationClasses( $notification, notificationClasses );
+      if ( metricView.settlementStatus === true ) {
+        var isComparison =
+          ( notificationClasses.indexOf( '__better' ) !== -1 ) ||
+          ( notificationClasses.indexOf( '__same' ) !== -1 ) ||
+          ( notificationClasses.indexOf( '__worse' ) !== -1 );
+        if ( isComparison ) {
+          metricView.hideNotificationClasses( $notification );
+        }
       }
-
 
     } );
   },
