@@ -55,6 +55,22 @@ var financialView = {
   },
 
   /**
+   * Helper function that updates the text of Direct Loan and Grad PLUS
+   * origination fees in the financial view
+   */
+  updateOriginationFeeContent: function() {
+    var $elements = $( '[data-fee="origination"]' );
+
+    $elements.each( function() {
+      var $loanFee = $( this ),
+          modifiedText;
+
+      modifiedText = financialView.round( ( $loanFee.text() - 1 ) * 100, 3 );
+      $loanFee.text( modifiedText );
+    } );
+  },
+
+  /**
    * Sets all the values for caps in the errors notifications
    * @param {object} financials - the financials model
    */
@@ -69,6 +85,9 @@ var financialView = {
           directSubsidized: 'subsidizedCapYearOne',
           directSubsidizedGrad: 'subsidizedCapYearOne',
           directUnsubsidized: 'unsubsidizedCapIndepYearOne',
+          directUnsubsidizedDep: 'unsubsidizedCapYearOne',
+          directUnsubsidizedThirdYear: 'unsubsidizedCapIndepYearThree',
+          directUnsubsidizedDepThirdYear: 'unsubsidizedCapYearThree',
           directUnsubsidizedGrad: 'unsubsidizedCapGrad'
         },
         $elems = $( '[data-cap]' );
@@ -87,7 +106,7 @@ var financialView = {
     } );
     // Change text of unsubsizied error if graduate program
     if ( financials.undergrad === false ) {
-      $( '[data-calc-error_content="directUnsubsidized"]').text(
+      $( '[data-calc-error_content="directUnsubsidized"]' ).text(
         'The maximum that can be borrowed per year is'
       );
     }
@@ -121,6 +140,7 @@ var financialView = {
     metricView.updateDebtBurden();
     this.updateCalculationErrors( values );
     this.termToggleVisible( values );
+    this.updateOriginationFeeContent();
   },
 
   /**
