@@ -60,6 +60,12 @@ class TestViews(django.test.TestCase):
         'pfc-choose',
         'pfc-manage',
     ]
+    standalone_landing_page_views = [
+        'standalone-pfc-landing',
+        'standalone-pfc-repay',
+        'standalone-pfc-choose',
+        'standalone-pfc-manage',
+    ]
     POST = HttpRequest()
     POST.POST = {'school_program': '999999',
                  'ba': True,
@@ -90,8 +96,13 @@ class TestViews(django.test.TestCase):
         bad_school_test = get_program_length(program='', school=bad_school)
         self.assertIs(bad_school_test, None)
 
-    def test_landing_page_views(self):
-        for url_name in self.landing_page_views:
+    # def test_landing_page_views(self):
+    #     for url_name in self.landing_page_views:
+    #         response = client.get(reverse(url_name))
+    #         self.assertTrue('base_template' in response.context_data.keys())
+
+    def test_standalone_landing_views(self):
+        for url_name in self.standalone_landing_page_views:
             response = client.get(reverse(url_name))
             self.assertTrue('base_template' in response.context_data.keys())
 
