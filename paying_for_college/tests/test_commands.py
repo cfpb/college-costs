@@ -60,6 +60,8 @@ class CommandTests(unittest.TestCase):
         mock_load.return_value = (['failure'], 'not OK')
         call_command('load_programs', 'filename')
         self.assertEqual(mock_load.call_count, 2)
+        call_command('load_programs', 'filename', '--s3', 'true')
+        self.assertEqual(mock_load.call_count, 3)
         mock_error = mock.Mock()
         mock_error.side_effect = Exception('Mock Error!')
         mock_load.return_value = mock_error
