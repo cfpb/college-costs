@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Changed display of graph notifications for settlement schoolSalary
+- Added page-level error for URL offers with bad ipeds
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
