@@ -2,6 +2,7 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Added `s3=True` option to `load_programs` to load CSVs straight from s3
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
