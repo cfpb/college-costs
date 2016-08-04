@@ -377,6 +377,19 @@ var metricView = {
   },
 
   /**
+   * Updates salary metric with warning about no program or school data for
+   * settlement schools
+   */
+  updateSalaryWarning: function() {
+    var $salaryDebt = $( '#salary-and-debt-metric' ),
+        notificationClasses =
+        'cf-notification metric_notification__no-you cf-notification__warning',
+        $notification = $salaryDebt.siblings( '.metric_notification' );
+
+    metricView.setNotificationClasses( $notification, notificationClasses );
+  },
+
+  /**
    * Updates graph content with source - Program or School
    * @param {object} $graph jQuery object of the graph containing the points
    */

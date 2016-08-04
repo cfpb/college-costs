@@ -694,6 +694,7 @@ var financialView = {
     } else if ( source === 'national' ) {
       this.$salaryContent.hide();
       this.$salaryMetric.hide();
+      metricView.updateSalaryWarning();
     }
   },
 

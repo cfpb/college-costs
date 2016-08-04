@@ -29,7 +29,6 @@ var schoolModel = {
    * @returns {object} object with reformatted values
    */
   processAPIData: function( values ) {
-    console.log( values );
     values.settlementSchool = Boolean( values.settlementSchool );
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
