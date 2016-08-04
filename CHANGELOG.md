@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Add technical notes on the About This Tool page
+- Make loan origination fees dynamic from the API
 - Changed display of graph notifications for settlement schoolSalary
 - Added page-level error for URL offers with bad ipeds
 - Turned off auxiliary page URLs and the landing page, except in standalone 
@@ -29,7 +31,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Renamed salary variables to 'programSalary,' 'schoolSalary,' and 'nationalSalary' to distinguish data sources
 - Adjust the update_ipeds script to create new schools first, so they get updated with IPEDS data too
 - Tweaked load_programs to fall back to windows-1252
-- Added new constant `constantsYear` and changed API and salary year vars to `apiYear` and `salaryYear` 
+- Added new constant `constantsYear` and changed API and salary year vars to `apiYear` and `salaryYear`
 - Adjusted update_ipeds script to get most recent year and to deliver sorted json for PR sanity
 
 ## 2.1.4
