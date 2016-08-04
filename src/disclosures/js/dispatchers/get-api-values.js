@@ -1,4 +1,5 @@
 'use strict';
+var financialView = require( '../views/financial-view' );
 
 var getApiValues = {
 
@@ -16,7 +17,7 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+        console.log( 'API: constants', status, err );
       }
     } );
     return constantsRequest;
@@ -34,7 +35,7 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+        console.log( 'API: expenses', status, err );
       }
     } );
     return expensesRequest;
@@ -53,7 +54,8 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+        // console.log( 'API: fetchSchoolData', status, err );
+        financialView.badSchoolData();
       }
     } );
 
@@ -80,7 +82,7 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+        console.log( 'API: fetchProgramData', status, err );
       }
     } );
 
@@ -107,7 +109,7 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'something went wrong', status, err );
+        console.log( 'API: fetchNationalData', status, err );
       }
     } );
 

@@ -20,6 +20,7 @@ var schoolModel = {
 
     // Process values from the API
     this.values = this.processBLSExpenses( this.values );
+    this.gradRate = 'null';
     return this.processAPIData( this.values );
   },
 

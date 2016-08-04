@@ -44,6 +44,15 @@
         <div class="content_line"></div>
         <section class="verify step content_wrapper">
             <div class="content_main">
+                <div class="cf-notification cf-notification__error verify_content" 
+                data-error-block="badSchoolData">
+                  <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
+                  <div class="cf-notification_text">
+                    <p>The information your school provided is missing the school ID, which is vital information for this tool to work. Please contact your school and ask them to ensure they are sending us the right school ID and it's in the correct format.</p>
+
+                    <p>Once your school provides you with an updated URL link, you will be able to return here so you can continue reviewing the information in the tool.</p>
+                  </div>
+                </div>
                 <div class="verify_wrapper">
                     <div class="verify_content" data-warning="{{warning}}">
                         <h2 class="verify_prompt">
@@ -2023,17 +2032,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="metric_link">
-                                        <p>
-                                            Curious about the graduation rate
-                                            for the entire school? <a
-                                            href="https://collegescorecard.ed.gov/"
-                                            class="graduation-link"
-                                            target="_blank" rel="noopener">See
-                                            how this school’s graduation rate
-                                            compares to the national average</a>
-                                        </p>
-                                    </div>
                                     <div class="metric_notification"
                                     data-better-direction="higher">
                                         <p class="cf-notification_text
@@ -2068,6 +2066,17 @@
                                         metric_notification_text__no-data">
                                             We currently don’t have data to
                                             display
+                                        </p>
+                                    </div>
+                                    <div class="metric_link">
+                                        <p>
+                                            Curious about the graduation rate
+                                            for the entire school? <a
+                                            href="https://collegescorecard.ed.gov/"
+                                            class="graduation-link"
+                                            target="_blank" rel="noopener">See
+                                            how this school’s graduation rate
+                                            compares to the national average</a>
                                         </p>
                                     </div>
                                 </div>
@@ -2836,16 +2845,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="metric_link">
-                                        <p>
-                                            <a
-                                            href="http://nces.ed.gov/collegenavigator/"
-                                            class="loan-default-link"
-                                            target="_blank" rel="noopener">See
-                                            the loan default rates for the
-                                            entire school</a>
-                                        </p>
-                                    </div>
                                     <div class="metric_notification"
                                     data-better-direction="lower">
                                         <p class="cf-notification_text
@@ -2880,6 +2879,16 @@
                                         metric_notification_text__no-data">
                                             We currently don’t have data to
                                             display
+                                        </p>
+                                    </div>
+                                    <div class="metric_link">
+                                        <p>
+                                            <a
+                                            href="http://nces.ed.gov/collegenavigator/"
+                                            class="loan-default-link"
+                                            target="_blank" rel="noopener">See
+                                            the loan default rates for the
+                                            entire school</a>
                                         </p>
                                     </div>
                                 </div>
