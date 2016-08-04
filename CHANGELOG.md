@@ -4,11 +4,15 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - Add technical notes on the About This Tool page
 - Make loan origination fees dynamic from the API
-- Changed display of graph notifications for settlement schoolSalary
+- Changed display of graph notifications for settlement school status
 - Added page-level error for URL offers with bad ipeds
-- Turned off auxiliary page URLs and the landing page, except in standalone 
+- Turned off auxiliary page URLs and the landing page, except in standalone
 - Added `s3=True` option to `load_programs` to load CSVs straight from s3
 - Fixed constant values for DLOriginationFee and plusOriginationFee
+- Switches salary content to school phrasing if we have no program salary data
+- Hides salary content with a warning if only national data available
+- Tweaks wording around program vs school level for metric graphs
+- Updates loan origination fee displays to work with corrected constants
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
