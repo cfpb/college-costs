@@ -2,6 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- Changed display of graph notifications for settlement schoolSalary
+- Added page-level error for URL offers with bad ipeds
 - Turned off auxiliary page URLs and the landing page, except in standalone 
 - Added `s3=True` option to `load_programs` to load CSVs straight from s3
 
