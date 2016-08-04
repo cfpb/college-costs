@@ -575,12 +575,14 @@ var financialView = {
 
       if ( programLength > 1 ) {
         yearsAttending += ' years';
-        $multiYears.show();
+        $multiYears.filter( '.line-item_title' ).css( 'display', 'inline-block' );
+        $multiYears.filter( '.line-item' ).show();
         $yearOrLess.hide();
       } else {
         yearsAttending += ' year';
         $multiYears.hide();
-        $yearOrLess.show();
+        $yearOrLess.filter( '.line-item_title' ).css( 'display', 'inline-block' );
+        $yearOrLess.filter( '.line-item' ).show();
       }
 
       publish.financialData( 'programLength', programLength );
