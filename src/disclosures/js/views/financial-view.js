@@ -69,7 +69,7 @@ var financialView = {
       var $loanFee = $( this ),
           modifiedText;
 
-      modifiedText = financialView.round( ( $loanFee.text() - 1 ) * 100, 3 );
+      modifiedText = financialView.round( $loanFee.text(), 2 );
       $loanFee.text( modifiedText );
     } );
   },
