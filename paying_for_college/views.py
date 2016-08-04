@@ -229,14 +229,14 @@ class FeedbackView(TemplateView):
             return HttpResponseBadRequest("Invalid form")
 
 
-class BuildComparisonView(View):
+# class BuildComparisonView(View):
 
-    def get(self, request):
-        return render_to_response('worksheet.html',
-                                  {'data_js': "0",
-                                   'base_template': BASE_TEMPLATE,
-                                   'url_root': URL_ROOT},
-                                  context_instance=RequestContext(request))
+#     def get(self, request):
+#         return render_to_response('worksheet.html',
+#                                   {'data_js': "0",
+#                                    'base_template': BASE_TEMPLATE,
+#                                    'url_root': URL_ROOT},
+#                                   context_instance=RequestContext(request))
 
 
 class SchoolRepresentation(View):

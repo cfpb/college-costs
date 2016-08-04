@@ -121,12 +121,12 @@ class TestViews(django.test.TestCase):
         response = client.post(reverse('disclosures:pfc-feedback'))
         self.assertTrue(response.status_code == 400)
 
-    def test_disclosure(self):
-        response = client.get(reverse('disclosures:worksheet'))
-        self.assertTrue('base_template' in response.context.keys())
-        response2 = client.post(reverse('disclosures:worksheet'),
-                                request=self.POST)
-        self.assertTrue('GET' in '%s' % response2)
+    # def test_disclosure(self):
+    #     response = client.get(reverse('disclosures:worksheet'))
+    #     self.assertTrue('base_template' in response.context.keys())
+    #     response2 = client.post(reverse('disclosures:worksheet'),
+    #                             request=self.POST)
+    #     self.assertTrue('GET' in '%s' % response2)
 
     def test_technote(self):
         response = client.get(reverse('disclosures:pfc-technote'))
