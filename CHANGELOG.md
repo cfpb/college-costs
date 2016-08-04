@@ -13,6 +13,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Hides salary content with a warning if only national data available
 - Tweaks wording around program vs school level for metric graphs
 - Updates loan origination fee displays to work with corrected constants
+- Fix alignment issues in debt summary
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
