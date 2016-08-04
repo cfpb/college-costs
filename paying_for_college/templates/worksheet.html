@@ -2010,7 +2010,8 @@
                                     <p class="metric_explanation">
                                         Percentage of first-time, full-time
                                         students who graduate from
-                                        your program at this school
+                                        <span class="content-grad-program">your
+                                            program at</span> this school
                                     </p>
                                     <div class="bar-graph"
                                     data-metric="gradRate"
@@ -2098,10 +2099,11 @@
                         </h3>
                         <div class="criteria_wrapper">
                             <div class="criteria_intro">
-                                <p>
-                                    According to your school, the average
+                                <p id="content_salary">
+                                    <span id="content_median-salary">According
+                                        to your school, the average
                                     first-year salary for students graduating
-                                    from your program is <span
+                                    from your program is</span> <span
                                     id="criteria_median-salary"
                                     data-financial="medianSalary">[XX]</span>
                                     per year. In reality, you could end up
@@ -2140,8 +2142,8 @@
                                         medical residency programs, this rule of
                                         thumb may not apply.
                                     </p>
-                                    <div class="salary-and-debt_projection">
-                                        <div
+                                    <div id="salary-and-debt-metric" class="salary-and-debt_projection">
+                                        <div id="content_salary-metric"
                                         class="salary-and-debt_projection-name">
                                           Average first-year salary
                                           for this program
@@ -2191,13 +2193,13 @@
                                         </p>
                                         <p class="cf-notification_text
                                         metric_notification_text__no-you">
-                                            We currently don’t have data to
-                                            display for your school
+                                            We currently don’t have salary data
+                                            to display for your school
                                         </p>
                                         <p class="cf-notification_text
                                         metric_notification_text__no-data">
-                                            We currently don’t have data to
-                                            display
+                                            We currently don’t have salary data
+                                            to display
                                         </p>
                                     </div>
                                 </div>
@@ -2816,7 +2818,9 @@
                                     </h4>
                                     <p class="metric_explanation">
                                         Percentage of students from this
-                                        program who default on loans after
+                                        <span
+                                        class="content-default-program">program</span>
+                                        who default on loans after
                                         entering repayment
                                     </p>
                                     <div class="bar-graph"

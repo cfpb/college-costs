@@ -33,8 +33,18 @@ var schoolModel = {
     values.settlementSchool = Boolean( values.settlementSchool );
     values.jobRate = values.jobRate || '';
     values.programLength /= 12;
-    values.medianSalary = values.programSalary || values.schoolSalary ||
-      values.nationalSalary;
+    if ( values.programSalary === null ) {
+      if ( values.schoolSalary === null ) {
+        values.medianSalary = values.nationalSalary;
+        values.salarySource = 'national';
+      } else {
+        values.medianSalary = values.schoolSalary;
+        values.salarySource = 'school';
+      }
+    } else {
+      values.medianSalary = values.programSalary;
+      values.salarySource = 'program';
+    }
     values.monthlySalary = Math.round( Number( values.medianSalary ) / 12 );
     values.medianSchoolDebt = values.medianStudentLoanCompleters ||
       values.medianTotalDebt;
