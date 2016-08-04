@@ -68,11 +68,14 @@ var financialModel = {
     model.totalDebt += model.tuitionRepayDebt;
     model.loanLifetime += model.tuitionRepayMonthly * model.tuitionRepayTerm;
     model.loanMonthly += model.tuitionRepayMonthly;
+    model.borrowingTotal += model.tuitionRepayYearly;
+    model.overborrowing = this.recalcOverborrowing();
 
     // Calculate totals
     model.costAfterGrants = model.costOfAttendance - model.grantsTotal;
     model.totalProgramDebt = model.borrowingTotal * Math.max( model.programLength, 1 );
     model.totalProgramDebt += model.tuitionRepay;
+
   },
 
   /**
@@ -98,6 +101,24 @@ var financialModel = {
       schoolValues.undergrad = false;
     }
     $.extend( this.values, schoolValues );
+  },
+
+  /**
+   * recalculates overborrowing so that it includes tuition payment plans
+   * @returns {number} - Overborrowing value
+   */
+  recalcOverborrowing: function() {
+    var model = this.values,
+        overBorrow = 0;
+    if ( model.yearOneCosts < model.grantsSavingsTotal + model.borrowingTotal ) {
+      overBorrow = model.borrowingTotal +
+                           model.grantsSavingsTotal -
+                           model.costOfAttendance;
+      if ( overBorrow > model.borrowingTotal ) {
+        overBorrow = model.borrowingTotal;
+      }
+    }
+    return overBorrow;
   }
 
 };

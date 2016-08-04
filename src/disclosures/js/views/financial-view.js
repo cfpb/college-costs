@@ -480,6 +480,7 @@ var financialView = {
       financialView.keyupDelay = setTimeout( function() {
         financialView.inputHandler( financialView.currentInput );
         financialView.updateView( getFinancial.values() );
+        expensesView.updateView( getExpenses.values() );
       }, 500 );
     } );
   },
