@@ -2,8 +2,8 @@ from django.conf.urls import url
 from paying_for_college.views import *
 
 urlpatterns = [
-    url(r'^$',
-        BuildComparisonView.as_view(), name='worksheet'),
+    # url(r'^$',
+    #     BuildComparisonView.as_view(), name='worksheet'),
 
     url(r'^offer/$',
         OfferView.as_view(), name='offer'),
