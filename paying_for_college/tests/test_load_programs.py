@@ -8,6 +8,7 @@ from paying_for_college.models import Program, School
 from paying_for_college.disclosures.scripts.load_programs import (get_school,
                                                                   read_in_data,
                                                                   read_in_encoding,
+                                                                  read_in_s3,
                                                                   clean_number_as_string,
                                                                   clean_string_as_string,
                                                                   clean, load,
@@ -90,6 +91,31 @@ class TestLoadPrograms(django.test.TestCase):
         self.assertTrue(data == [{'a': 'd', 'b': 'e', 'c': 'f'}])
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'requests.get')
+    def test_read_in_s3(self, mock_requests):
+        mock_requests.return_value.content = u'a,b,c\nd,e,\u201c'.encode('utf-8')
+        data = read_in_s3('fake-s3-url.com')
+        self.assertTrue(mock_requests.call_count == 1)
+        self.assertTrue(data == [{u'a': u'd', u'b': u'e', u'c': u'\u201c'}])
+        mock_requests.return_value.content = u'a,b,c\nd,e,\u201c'.encode('windows-1252')
+        data = read_in_s3('fake-s3-url.com')
+        self.assertTrue(mock_requests.call_count == 2)
+        self.assertTrue(data == [{u'a': u'd', u'b': u'e', u'c': u'\u201c'}])
+
+
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'requests.get')
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'cdr')
+    def test_read_in_s3_error(self, mock_cdr, mock_requests):
+        mock_requests.return_value.content = u'a,b,c\nd,e,\u201c'.encode('utf-8')
+        mock_cdr.side_effect = TypeError
+        data = read_in_s3('fake-s3-url.com')
+        self.assertTrue(mock_requests.call_count == 1)
+        self.assertTrue(mock_cdr.call_count == 1)
+        self.assertTrue(data == [{}])
+
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'read_in_encoding')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'cdr')
@@ -153,6 +179,14 @@ class TestLoadPrograms(django.test.TestCase):
         # print(result)
         # print(expected_dict)
         self.assertDictEqual(result, expected_dict)
+
+    @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
+                'read_in_s3')
+    def test_load_s3(self, mock_read_in_s3):
+        mock_read_in_s3.return_value = [{}]
+        (FAILED, msg) = load('mockurl', s3=True)
+        self.assertTrue(mock_read_in_s3.call_count == 1)
+        self.assertTrue('ERROR' in FAILED[0])
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.read_in_data')
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.clean')

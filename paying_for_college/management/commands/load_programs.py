@@ -1,23 +1,34 @@
 from django.core.management.base import BaseCommand, CommandError
 from paying_for_college.disclosures.scripts import load_programs
 
-COMMAND_HELP = """update_programs will update program data based on \
-data obtained from schools.  It takes in a path to a file, which \
-should be in a csv format with specific fields."""
+COMMAND_HELP = """update_programs will update program data based on
+a CSV provided by schools.  The source argument should be a CSV file path
+or, if the '--s3 true' option is passed, source should be an S3 URL."""
+S3_HELP = """Passing '--s3 true' will point the script at S3 intead of
+a file system path. The source argument should be an S3 endpoint."""
 
 
 class Command(BaseCommand):
     help = COMMAND_HELP
 
     def add_arguments(self, parser):
-        parser.add_argument('filename', nargs='+', type=str)
+        parser.add_argument('source', nargs='+', type=str)
+        parser.add_argument('--s3',
+                            help=S3_HELP,
+                            type=str,
+                            default='false')
 
     def handle(self, *args, **options):
-        # i.e. filename = 'paying_for_college/data_sources/sample_program_data.csv'
-        for filename in options['filename']:
-
+        if options['s3'].upper() == "TRUE":
+            S3 = True
+        else:
+            S3 = False
+        for filesource in options['source']:
             try:
-                (FAILED, endmsg) = load_programs.load(filename)
+                if S3:
+                    (FAILED, endmsg) = load_programs.load(filesource, s3=S3)
+                else:
+                    (FAILED, endmsg) = load_programs.load(filesource)
             except:
                 self.stdout.write("Error with script")
             else:
