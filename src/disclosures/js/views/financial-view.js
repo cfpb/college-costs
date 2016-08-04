@@ -34,6 +34,10 @@ var financialView = {
   $evaluateSection: $( '.evaluate' ),
   $jobPlacementContent: $( '.content_job-placement' ),
   $graduationCohortContent: $( '.content_grad-cohort' ),
+  $salaryContent: $( '#content_salary' ),
+  $medianSalaryContent: $( '#content_median-salary' ),
+  $salaryMetric: $( '#salary-and-debt-metric' ),
+  $salaryMetricContent: $( '#content_salary-metric' ),
   $bigQuestion: $( '.question' ),
   $degreeType: $( '.question [data-section="degreeType"]' ),
   keyupDelay: null,
@@ -65,7 +69,7 @@ var financialView = {
       var $loanFee = $( this ),
           modifiedText;
 
-      modifiedText = financialView.round( ( $loanFee.text() - 1 ) * 100, 3 );
+      modifiedText = financialView.round( $loanFee.text(), 2 );
       $loanFee.text( modifiedText );
     } );
   },
@@ -282,6 +286,8 @@ var financialView = {
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
       values.jobRate !== ''
     );
+    // Update salary content based on what type of data we have
+    this.updateSalaryContent( values.salarySource );
 
     if ( values.level.indexOf( 'degree' ) === -1 ) {
       this.$degreeType.text( 'certificate' );
@@ -693,6 +699,22 @@ var financialView = {
       this.$jobPlacementContent.hide();
     } else {
       this.$jobPlacementContent.show();
+    }
+  },
+
+  /**
+   * Sets dynamic content for salary, based on what data we have
+   * @param {boolean} source - The source of our salary figure (program, school,
+   *                           or national)
+   */
+  updateSalaryContent: function( source ) {
+    if ( source === 'school' ) {
+      this.$medianSalaryContent.text( 'The average salary for students who started attending this school 10 years ago is' );
+      this.$salaryMetricContent.text( 'Average salary for this school' );
+    } else if ( source === 'national' ) {
+      this.$salaryContent.hide();
+      this.$salaryMetric.hide();
+      metricView.updateSalaryWarning();
     }
   },
 

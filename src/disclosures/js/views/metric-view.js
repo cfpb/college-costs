@@ -35,6 +35,8 @@ var metricView = {
   },
 
   settlementStatus: false,
+  $gradGraphContent: $( '.content-grad-program' ),
+  $defaultGraphContent: $( '.content-default-program' ),
 
   /**
    * Initiates the object
@@ -373,6 +375,19 @@ var metricView = {
   },
 
   /**
+   * Updates salary metric with warning about no program or school data for
+   * settlement schools
+   */
+  updateSalaryWarning: function() {
+    var $salaryDebt = $( '#salary-and-debt-metric' ),
+        notificationClasses =
+        'cf-notification metric_notification__no-you cf-notification__warning',
+        $notification = $salaryDebt.siblings( '.metric_notification' );
+
+    metricView.setNotificationClasses( $notification, notificationClasses );
+  },
+
+  /**
    * Updates graph content with source - Program or School
    * @param {object} $graph jQuery object of the graph containing the points
    */
@@ -383,6 +398,12 @@ var metricView = {
         $ele = $graph.find( '[data-graph_label]' );
 
     $ele.text( text );
+    if ( metricKey === 'gradRate' && source === 'school' ) {
+      this.$gradGraphContent.hide();
+    }
+    if ( metricKey === 'defaultRate' && source === 'school' ) {
+      this.$defaultGraphContent.text( source );
+    }
   },
 
   /**
