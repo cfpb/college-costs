@@ -1,7 +1,9 @@
 from __future__ import print_function
 import os
+import StringIO
 
 from rest_framework import serializers
+import requests
 
 from paying_for_college.csvkit.csvkit import DictReader as cdr
 from paying_for_college.models import Program, School
@@ -88,6 +90,23 @@ def read_in_data(filename):
     return data
 
 
+# http://files.consumerfinance.gov.s3.amazonaws.com/pb/paying_for_college/csv/CFPBDATAFILE713%20(2).CSV
+def read_in_s3(url):
+    data = [{}]
+    response = requests.get(url)
+    try:
+        f = StringIO.StringIO(response.content)
+        reader = cdr(f, encoding='utf-8')
+        data = [row for row in reader]
+    except UnicodeDecodeError:
+        f = StringIO.StringIO(response.content)
+        reader = cdr(f, encoding='windows-1252')
+        data = [row for row in reader]
+    except:
+        return data
+    return data
+
+
 def clean_number_as_string(string):
     # This needs to be cleaned up to None, else validation will complain
     clean_str = string.strip()
@@ -129,13 +148,17 @@ def clean(data):
     return cleaned_data
 
 
-def load(filename):
+# 'source' should be a CSV file path or, if s3 is True, an s3 URL
+def load(source, s3=False):
     new_programs = 0
     updated_programs = 0
     FAILED = []  # failed messages
-    raw_data = read_in_data(filename)
+    if s3:
+        raw_data = read_in_s3(source)
+    else:
+        raw_data = read_in_data(source)
     if not raw_data[0]:
-        return (["ERROR: could not read data from {0}".format(filename)], "")
+        return (["ERROR: could not read data from {0}".format(source)], "")
 
     for row in raw_data:
         fixed_data = clean(row)
