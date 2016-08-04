@@ -47,7 +47,6 @@ var financialModel = {
     this.values = recalculate( this.values );
     this.sumTotals();
     this.roundValues();
-    console.log( this.values );
   },
 
   /**
@@ -106,7 +105,8 @@ var financialModel = {
 
   /**
    * recalculates overborrowing so that it includes tuition payment plans
-   */ 
+   * @returns {number} - Overborrowing value
+   */
   recalcOverborrowing: function() {
     var model = this.values,
         overBorrow = 0;
