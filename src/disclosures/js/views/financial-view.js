@@ -761,6 +761,14 @@ var financialView = {
       financialView.updateView( getFinancial.values() );
       expensesView.updateView( getExpenses.values() );
     } );
+  },
+
+  /**
+   * Update view for bad school requests
+   */
+  badSchoolData: function() {
+    $( '.verify_wrapper' ).hide();
+    $( '[data-error-block="badSchoolData"]').show();
   }
 };
 
