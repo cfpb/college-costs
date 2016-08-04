@@ -290,6 +290,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return this.subsidizedLoans.sendKeys( subsidized );
       }
     },
+    directLoanOriginationFee: {
+      get: function() {
+        return element( by.css( '[data-financial="DLOriginationFee"]' ) );
+      }
+    },
     unsubsidizedLoans: {
       get: function() {
         return element( by.id( 'contrib__unsubsidized' ) );
@@ -310,6 +315,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
       value: function( directplus ) {
         this.directPLUSLoans.clear();
         return this.directPLUSLoans.sendKeys( directplus );
+      }
+    },
+    plusLoanOriginationFee: {
+      get: function() {
+        return element( by.css( '[data-financial="plusOriginationFee"]' ) );
       }
     },
     totalFederalLoans: {
