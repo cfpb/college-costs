@@ -123,15 +123,10 @@ var getApiValues = {
 
   initialData: function() {
     // If there's a [data-warning], display error
-    var warning = $( '[data-warning]' ).attr( 'data-warning' ),
-        warningType,
-        checks = [ 'school', 'program', 'offer' ];
-    for ( var x = 0; x < checks.length; x++ ) {
-      if ( warning.indexOf( checks[x] ) !== -1 ) {
-        warningType = checks[x];
-        financialView.missingData( warningType );
-        return $.Deferred;
-      }
+    var warning = $( '[data-warning]' ).attr( 'data-warning' );
+    if ( warning !== '' ) {
+      financialView.missingData( warning );
+      return $.Deferred;
     }
     return $.when( this.constants(), this.expenses() );
   }
