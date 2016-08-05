@@ -18,6 +18,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Add form-level error for bad program ID
 - Update national stats to deliver generic stats at /api/national-stats/
 - simplify warnings for ID problems
+- Updated the budget section to better message lack of salary data
 
 ## 2.1.5
 - Show recalculation updates on mobile screens

@@ -44,7 +44,7 @@
         <div class="content_line"></div>
         <section class="verify step content_wrapper">
             <div class="content_main">
-                <div class="cf-notification cf-notification__error verify_content" 
+                <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noSchool">
                   <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
                   <div class="cf-notification_text">
@@ -53,7 +53,7 @@
                     <p>Once your school provides you with an updated URL link, you will be able to return here so you can continue reviewing the information in the tool.</p>
                   </div>
                 </div>
-                <div class="cf-notification cf-notification__error verify_content" 
+                <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noProgram">
                   <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
                   <div class="cf-notification_text">
@@ -62,7 +62,7 @@
                     <p>Once your school provides you with an updated URL link, you will be able to return here so you can continue reviewing the information in the tool.</p>
                   </div>
                 </div>
-                <div class="cf-notification cf-notification__error verify_content" 
+                <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noOffer">
                   <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
                   <div class="cf-notification_text">
@@ -2404,8 +2404,10 @@
                                       <p class="metric_explanation">
                                           We calculate your debt burden by
                                           dividing your monthly loan payment by
-                                          the average salary for students who
-                                          attended your school.
+                                          the average <span
+                                          id="content_debt-burden-salary">salary
+                                          for students who attended your
+                                          school</span>.
                                       </p>
                                       <div class="debt-burden_projection">
                                           <div
@@ -2526,9 +2528,14 @@
                                         <p>
                                             Average monthly living expenses for
                                             someone and their family making
-                                            <span data-financial="medianSalary">[$XX]
-                                            </span>/year in the region you plan
-                                            to live (Source: <a
+                                            <span
+                                            data-financial="medianSalary">[$XX]
+                                            </span>/year <span
+                                            id="content_expenses-nat-salary">
+                                            (the average national salary for all
+                                            students who attended
+                                            college)</span> in the region you
+                                            plan to live (Source: <a
                                             href="http://www.bls.gov/cex/"
                                             target="_blank"
                                             rel="noopener">Bureau of Labor
