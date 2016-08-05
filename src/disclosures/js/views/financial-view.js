@@ -794,7 +794,9 @@ var financialView = {
    */
   missingData: function( dataType ) {
     $( '.verify_wrapper' ).hide();
-    $( '[data-missing-data-error="' + dataType + '"]').show();
+    if ( $( '[data-missing-data-error]:visible' ).length === 0 ) {
+      $( '[data-missing-data-error="' + dataType + '"]').show();
+    }
   }
 };
 
