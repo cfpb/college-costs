@@ -15,6 +15,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updates loan origination fee displays to work with corrected constants
 - Fix alignment issues in debt summary
 - Update our national statistics from scorecard project
+- Update national stats to deliver generic stats at /api/national-stats/
 
 ## 2.1.5
 - Show recalculation updates on mobile screens

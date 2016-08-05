@@ -192,9 +192,9 @@ class SchoolSearchTest(django.test.TestCase):
         test1 = get_program(school, '981')
         self.assertTrue('Occupational' in test1.program_name)
         test2 = get_program(school, 'xxx')
-        self.assertTrue(test2 == '')
+        self.assertTrue(test2 == None)
         test3 = get_program(school, '<program>')
-        self.assertTrue(test3 == '')
+        self.assertTrue(test3 == None)
 
     @mock.patch('paying_for_college.views.SearchQuerySet.autocomplete')
     def test_school_search_api(self, mock_sqs_autocomplete):
@@ -308,10 +308,11 @@ class APITests(django.test.TestCase):
         url = reverse('disclosures:national-stats-json', args=['408039'])
         resp = client.get(url)
         self.assertTrue('retentionRateMedian' in resp.content)
+        self.assertTrue(resp.status_code == 200)
         url2 = reverse('disclosures:national-stats-json', args=['000000'])
         resp2 = client.get(url2)
-        self.assertTrue('No school' in resp2.content)
-        self.assertTrue(resp2.status_code == 400)
+        self.assertTrue('nationalSalary' in resp2.content)
+        self.assertTrue(resp2.status_code == 200)
 
     def test_expense_json(self):
         """api call for BLS expense data"""
