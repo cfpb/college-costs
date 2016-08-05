@@ -55,7 +55,7 @@ var getApiValues = {
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
         // console.log( 'API: fetchSchoolData', status, err );
-        financialView.badSchoolData();
+        financialView.missingData( 'school' );
       }
     } );
 
@@ -82,7 +82,8 @@ var getApiValues = {
       },
       // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'API: fetchProgramData', status, err );
+        // console.log( 'API: fetchProgramData', status, err );
+        financialView.missingData( 'program' );
       }
     } );
 

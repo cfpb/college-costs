@@ -790,10 +790,11 @@ var financialView = {
 
   /**
    * Update view for bad school requests
+   * @param {string} dataType - type of missing data, 'school' or 'program'
    */
-  badSchoolData: function() {
+  missingData: function( dataType ) {
     $( '.verify_wrapper' ).hide();
-    $( '[data-error-block="badSchoolData"]').show();
+    $( '[data-missing-data-error="' + dataType + '"]').show();
   }
 };
 
