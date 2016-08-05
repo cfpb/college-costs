@@ -35,8 +35,6 @@ var metricView = {
   },
 
   settlementStatus: false,
-  $gradGraphContent: $( '.content-grad-program' ),
-  $defaultGraphContent: $( '.content-default-program' ),
 
   /**
    * Initiates the object
@@ -399,10 +397,10 @@ var metricView = {
 
     $ele.text( text );
     if ( metricKey === 'gradRate' && source === 'school' ) {
-      this.$gradGraphContent.hide();
+      $( '.content-grad-program' ).hide();
     }
     if ( metricKey === 'defaultRate' && source === 'school' ) {
-      this.$defaultGraphContent.text( source );
+      $( '.content-default-program' ).text( source );
     }
   },
 

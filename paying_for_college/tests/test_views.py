@@ -275,6 +275,9 @@ class OfferTest(django.test.TestCase):
         resp9 = client.get(url+no_program)
         self.assertTrue("noProgram" in resp9.context['warning'])
         self.assertTrue(resp9.status_code == 200)
+        resp10 = client.get(url)
+        self.assertTrue(resp10.context['warning'] == '')
+        self.assertTrue(resp10.status_code == 200)
 
 
 class APITests(django.test.TestCase):

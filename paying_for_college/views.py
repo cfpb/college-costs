@@ -144,18 +144,18 @@ class OfferView(TemplateView):
         school_data = 'null'
         warning = ''
         OID = ''
-        # if not request.GET.get('q'):
-        #     return render_to_response('worksheet.html',
-        #                               {'data_js': "0",
-        #                                'school': school,
-        #                                'schoolData': school_data,
-        #                                'program': program,
-        #                                'programData': program_data,
-        #                                'oid': OID,
-        #                                'base_template': BASE_TEMPLATE,
-        #                                'warning': warning,
-        #                                'url_root': URL_ROOT},
-        #                               context_instance=RequestContext(request))
+        if not request.GET:
+            return render_to_response('worksheet.html',
+                                      {'data_js': "0",
+                                       'school': school,
+                                       'schoolData': school_data,
+                                       'program': program,
+                                       'programData': program_data,
+                                       'oid': OID,
+                                       'base_template': BASE_TEMPLATE,
+                                       'warning': warning,
+                                       'url_root': URL_ROOT},
+                                      context_instance=RequestContext(request))
         if 'oid' in request.GET and request.GET['oid']:
             OID = request.GET['oid']
         else:
