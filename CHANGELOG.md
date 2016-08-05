@@ -16,6 +16,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Fix alignment issues in debt summary
 - Update our national statistics from scorecard project
 - Add form-level error for bad program ID
+- Update national stats to deliver generic stats at /api/national-stats/
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
