@@ -188,15 +188,14 @@ class OfferView(TemplateView):
                                   context_instance=RequestContext(request))
 
 
-class LandingView(TemplateView):  # pragma: no-cover
-    template_name = "landing.html"  # pragma: no-cover
+class LandingView(TemplateView):
+    template_name = "landing.html"
 
-# pragma: no-cover
-    def get_context_data(self, **kwargs):  # pragma: no-cover
-        context = super(LandingView, self).get_context_data(**kwargs)  # pragma: no-cover
-        context['base_template'] = BASE_TEMPLATE  # pragma: no-cover
-        context['url_root'] = URL_ROOT  # pragma: no-cover
-        return context  # pragma: no-cover
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+        context['base_template'] = BASE_TEMPLATE
+        context['url_root'] = URL_ROOT
+        return context
 
 
 class FeedbackView(TemplateView):
