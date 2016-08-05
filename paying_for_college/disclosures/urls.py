@@ -30,7 +30,11 @@ urlpatterns = [
         ConstantsRepresentation.as_view(),
         name='constants-json'),
 
-    url(r'^api/national-stats/([^/]+)/$',
+    url(r'^api/national-stats/$',
+        StatsRepresentation.as_view(),
+        name='national-stats-generic-json'),
+
+    url(r'^api/national-stats/(?P<id_pair>[^/]+)/$',
         StatsRepresentation.as_view(),
         name='national-stats-json'),
 

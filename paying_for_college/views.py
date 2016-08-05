@@ -77,6 +77,8 @@ def validate_oid(oid):
 
 
 def validate_pid(pid):
+    if not pid:
+        return False
     for char in [';', '<', '>', '{', '}']:
         if char in pid:
             return False
@@ -116,13 +118,13 @@ def get_school(schoolID):
 def get_program(school, programCode):
     """Try to get latest program; return either program or empty string"""
     if not validate_pid(programCode):
-        return ''
+        return None
     programs = Program.objects.filter(program_code=programCode,
                                       institution=school).order_by('-pk')
     if programs:
         return programs[0]
     else:
-        return ''
+        return None
 
 
 class BaseTemplateView(TemplateView):
@@ -276,6 +278,7 @@ class ProgramRepresentation(View):
                             content_type='application/json')
 
 
+
 class StatsRepresentation(View):
 
     def get_stats(self, school, programID):
@@ -283,17 +286,17 @@ class StatsRepresentation(View):
         national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
         return json.dumps(national_stats)
 
-    def get(self, request, id_pair):
+    def get(self, request, id_pair=''):
         school_id = id_pair.split('_')[0]
         school = get_school(school_id)
-        if not school:
-            error = ("No school could be found "
-                     "for iped ID {0}".format(school_id))
-            return HttpResponseBadRequest(error)
+        # if not school:
+        #     error = ("No school could be found "
+        #              "for iped ID {0}".format(school_id))
+        #     return HttpResponseBadRequest(error)
         try:
             program_id = id_pair.split('_')[1]
         except:
-            program_id = ''
+            program_id = None
         stats = self.get_stats(school, program_id)
         return HttpResponse(stats, content_type='application/json')
 
