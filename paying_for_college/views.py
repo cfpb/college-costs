@@ -278,7 +278,6 @@ class ProgramRepresentation(View):
                             content_type='application/json')
 
 
-
 class StatsRepresentation(View):
 
     def get_stats(self, school, programID):
@@ -289,10 +288,6 @@ class StatsRepresentation(View):
     def get(self, request, id_pair=''):
         school_id = id_pair.split('_')[0]
         school = get_school(school_id)
-        # if not school:
-        #     error = ("No school could be found "
-        #              "for iped ID {0}".format(school_id))
-        #     return HttpResponseBadRequest(error)
         try:
             program_id = id_pair.split('_')[1]
         except:
