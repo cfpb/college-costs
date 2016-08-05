@@ -38,6 +38,8 @@ var financialView = {
   $medianSalaryContent: $( '#content_median-salary' ),
   $salaryMetric: $( '#salary-and-debt-metric' ),
   $salaryMetricContent: $( '#content_salary-metric' ),
+  $debtBurdenSalaryContent: $( '#content_debt-burden-salary' ),
+  $budgetSalaryContent: $( '#content_expenses-nat-salary' ),
   $bigQuestion: $( '.question' ),
   $degreeType: $( '.question [data-section="degreeType"]' ),
   keyupDelay: null,
@@ -718,6 +720,8 @@ var financialView = {
       this.$salaryContent.hide();
       this.$salaryMetric.hide();
       metricView.updateSalaryWarning();
+      this.$budgetSalaryContent.show();
+      this.$debtBurdenSalaryContent.text('national salary for all students who attended college');
     }
   },
 
