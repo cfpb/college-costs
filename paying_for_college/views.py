@@ -136,6 +136,7 @@ class BaseTemplateView(TemplateView):
 
 class OfferView(TemplateView):
     """consult values in querystring and deliver school/program data"""
+    test = False
 
     def get(self, request):
         school = None
@@ -164,6 +165,8 @@ class OfferView(TemplateView):
                     if PID:
                         programs = Program.objects.filter(program_code=PID,
                                                           institution=school).order_by('-pk')
+                        if not self.test:
+                            programs = programs.filter(test=False)
                         if programs:
                             program = programs[0]
                             program_data = program.as_json()

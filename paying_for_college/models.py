@@ -520,6 +520,7 @@ class Program(models.Model):
                                    help_text="COMPLETERS WHO GET RELATED JOB")
     job_note = models.TextField(blank=True,
                                 help_text="EXPLANATION FROM SCHOOL")
+    test = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u"%s (%s)" % (self.program_name, unicode(self.institution))
@@ -548,6 +549,7 @@ class Program(models.Model):
             'jobNote': self.job_note,
             'jobRate': "{0}".format(self.job_rate),
             'level': self.get_level(),
+            'levelCode': self.level,
             'medianStudentLoanCompleters': self.median_student_loan_completers,
             'meanStudentLoanCompleters': self.mean_student_loan_completers,
             'privateDebt': self.private_debt,

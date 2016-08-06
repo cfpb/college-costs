@@ -8,6 +8,9 @@ urlpatterns = [
     url(r'^offer/$',
         OfferView.as_view(), name='offer'),
 
+    url(r'^offer/test/$',
+        OfferView.as_view(test=True), name='offer_test'),
+
     url(r'^api/email/$', EmailLink.as_view(), name='email'),
 
     url(r'^feedback/$',
