@@ -24,10 +24,12 @@ var app = {
       .done( function( constants, expenses ) {
         financialModel.init( constants[0] );
         financialView.init();
-        expensesModel.init( expenses[0] );
-        expensesView.init();
-        // Check for URL offer data
+        if ( location.href.indexOf( 'about-this-tool' ) === -1 ) {
+          expensesModel.init( expenses[0] );
+          expensesView.init();
+        }
         if ( getUrlValues.urlOfferExists() ) {
+          // Check for URL offer data
           var urlValues = getUrlValues.urlValues();
           $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
             .done( function( schoolData, programData, nationalData ) {
@@ -59,7 +61,6 @@ var app = {
               // Update expenses model bases on region and salary
               region = schoolValues.BLSAverage.substr( 0, 2 );
               $( '#bls-region-select' ).val( region ).change();
-
             } );
         }
         // set financial caps based on data
