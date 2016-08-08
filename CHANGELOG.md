@@ -22,6 +22,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - simplify warnings for ID problems
 - make bare /offer/ URL return blank disclosure
 - Updated the budget section to better message lack of salary data
+- Fixed how data flows into the About This Tool page
 - don't treat PID as numeric in js -- characters are allowed
 - Changed `/national-stats/` API to deliver a `nationalSalary` value of $34,300 regardless of program length
 
