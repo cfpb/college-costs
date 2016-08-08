@@ -15,6 +15,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updates loan origination fee displays to work with corrected constants
 - Fix alignment issues in debt summary
 - Update our national statistics from scorecard project
+- Consolidate how input elements are updated
+- Fix input errors if attempting to borrow more than total cost of attendance
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
