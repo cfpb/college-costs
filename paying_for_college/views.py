@@ -136,6 +136,7 @@ class BaseTemplateView(TemplateView):
 
 class OfferView(TemplateView):
     """consult values in querystring and deliver school/program data"""
+    test = False
 
     def get(self, request):
         school = None
@@ -144,6 +145,18 @@ class OfferView(TemplateView):
         school_data = 'null'
         warning = ''
         OID = ''
+        if not request.GET:
+            return render_to_response('worksheet.html',
+                                      {'data_js': "0",
+                                       'school': school,
+                                       'schoolData': school_data,
+                                       'program': program,
+                                       'programData': program_data,
+                                       'oid': OID,
+                                       'base_template': BASE_TEMPLATE,
+                                       'warning': warning,
+                                       'url_root': URL_ROOT},
+                                      context_instance=RequestContext(request))
         if 'oid' in request.GET and request.GET['oid']:
             OID = request.GET['oid']
         else:
@@ -164,6 +177,8 @@ class OfferView(TemplateView):
                     if PID:
                         programs = Program.objects.filter(program_code=PID,
                                                           institution=school).order_by('-pk')
+                        if not self.test:
+                            programs = programs.filter(test=False)
                         if programs:
                             program = programs[0]
                             program_data = program.as_json()

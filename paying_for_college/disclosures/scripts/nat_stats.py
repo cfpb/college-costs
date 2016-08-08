@@ -92,7 +92,7 @@ def get_prepped_stats(program_length=None):
         national_stats_for_page['completionRateMedian'] = full_data[LENGTH_MAP['completion'][program_length]]['median']
         national_stats_for_page['completionRateMedianLow'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][0]
         national_stats_for_page['completionRateMedianHigh'] = full_data[LENGTH_MAP['completion'][program_length]]['average_range'][1]
-        national_stats_for_page['nationalSalary'] = full_data[LENGTH_MAP['earnings'][program_length]]['median']
-        national_stats_for_page['nationalSalaryAvgLow'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][0]
-        national_stats_for_page['nationalSalaryAvgHigh'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][1]
+        # national_stats_for_page['nationalSalary'] = full_data[LENGTH_MAP['earnings'][program_length]]['median']
+        # national_stats_for_page['nationalSalaryAvgLow'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][0]
+        # national_stats_for_page['nationalSalaryAvgHigh'] = full_data[LENGTH_MAP['earnings'][program_length]]['average_range'][1]
     return national_stats_for_page

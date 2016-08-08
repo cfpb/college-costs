@@ -1,7 +1,7 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## Unreleased
+## 2.1.6
 - Add technical notes on the About This Tool page
 - Make loan origination fees dynamic from the API
 - Changed display of graph notifications for settlement school status
@@ -15,11 +15,16 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updates loan origination fee displays to work with corrected constants
 - Fix alignment issues in debt summary
 - Update our national statistics from scorecard project
+- Consolidate how input elements are updated
+- Fix input errors if attempting to borrow more than total cost of attendance
 - Add form-level error for bad program ID
 - Update national stats to deliver generic stats at /api/national-stats/
 - simplify warnings for ID problems
+- make bare /offer/ URL return blank disclosure
 - Updated the budget section to better message lack of salary data
 - Fixed how data flows into the About This Tool page
+- don't treat PID as numeric in js -- characters are allowed
+- Changed `/national-stats/` API to deliver a `nationalSalary` value of $34,300 regardless of program length
 
 ## 2.1.5
 - Show recalculation updates on mobile screens

@@ -17,7 +17,7 @@ function queryHandler( queryString ) {
   };
   var parameters = {};
   var numericKeys = [
-    'iped', 'pid', 'tuit', 'hous', 'book', 'tran', 'othr',
+    'iped', 'tuit', 'hous', 'book', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'prvf', 'insl',
     'insi', 'sav', 'totl'
