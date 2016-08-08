@@ -273,17 +273,16 @@ class ProgramRepresentation(View):
         ids = program_code.split('_')
         if len(ids) != 2:
             format_error = ('Error: Programs must be specified in this way: '
-                            '"/program/SCHOOLID_PROGRAMID/" -- '
-                            'but this is what was received: '
-                            '/program/{}/'.format(program_code))
+                            '"/program/SCHOOLID_PROGRAMID/"')
             return HttpResponseBadRequest(format_error)
         PID = ids[1]
         if not validate_pid(PID):
             return HttpResponseBadRequest("Error: Invalid program ID")
+        if not get_school(ids[0]):
+            return HttpResponseBadRequest("Error: No school found")
         program = self.get_program(program_code)
         if not program:
-            p_error = ("Error: No program was found "
-                       "for code {}".format(program_code))
+            p_error = "Error: No program found"
             return HttpResponseBadRequest(p_error)
         return HttpResponse(program.as_json(),
                             content_type='application/json')
@@ -377,18 +376,15 @@ class VerifyView(View):
     def post(self, request):
         data = request.POST
         timestamp = timezone.now()
-        if 'oid' in data and data['oid']:
+        if 'oid' in data and data['oid'] and validate_oid(data['oid']):
             OID = data['oid']
         else:
-            return HttpResponseBadRequest('No OID provided')
-        if 'iped' in data and data['iped']:
-            school = School.objects.get(school_id=int(data['iped']))
+            return HttpResponseBadRequest('No valid OID provided')
+        if 'iped' in data and data['iped'] and get_school(data['iped']):
+            school = get_school(data['iped'])
             if Notification.objects.filter(institution=school, oid=OID):
                 errmsg = "Error: OfferID has already generated a notification."
                 return HttpResponseBadRequest(errmsg)
-            if not validate_oid(OID):
-                oid_msg = '{} is an invalid OID'.format(OID)
-                return HttpResponseBadRequest(oid_msg)
             notification = Notification(institution=school,
                                         oid=OID,
                                         timestamp=timestamp,
@@ -400,6 +396,5 @@ class VerifyView(View):
             response = HttpResponse(callback)
             return response
         else:
-            errmsg = ("Error: No school ID found received; "
-                      "postdata was {0}".format(request.POST))
+            errmsg = ("Error: No school found")
             return HttpResponseBadRequest(errmsg)
