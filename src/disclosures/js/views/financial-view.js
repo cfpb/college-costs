@@ -330,7 +330,6 @@ var financialView = {
    */
   updateCalculationErrors: function( values ) {
     var errors = values.errors;
-
     // hide errors
     $( '[data-calc-error]' ).hide();
 
@@ -370,17 +369,25 @@ var financialView = {
           'perkinsOverCost', 'subsidizedOverCost',
           'unsubsidizedOverCost', 'gradPlusOverCost'
         ],
+        errorMap = {
+          subsidizedOverCost: 'contrib__subsidized',
+          unsubsidizedOverCost: 'contrib__unsubsidized',
+          perkinsOverCost: 'contrib__perkins',
+          gradPlusOverCost: 'contrib__direct-plus'
+        },
         showOverBorrowing = false,
-        $over = $( '[data-calc-error="overBorrowing"]' );
+        $over = $( '[data-calc-error="overBorrowing"]' ),
+        errorInput;
 
     // check for over-borrowing
     for ( var i = 0; i < overBorrowingErrors.length; i++ ) {
       if ( errors.hasOwnProperty( overBorrowingErrors[i] ) ) {
         showOverBorrowing = true;
+        errorInput = errorMap[overBorrowingErrors[i]];
       }
     }
     if ( showOverBorrowing ) {
-      var $current = $( '#' + financialView.currentInput );
+      var $current = $( '#' + errorInput );
       $over.appendTo( $current.parent() ).show();
     }
   },
