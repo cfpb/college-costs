@@ -63,6 +63,7 @@ var app = {
             } );
         }
         // set financial caps based on data
+        financialView.setCaps( getFinancial.values() );
         financialView.updateView( getFinancial.values() );
       } );
     verifyOffer.init();
