@@ -379,7 +379,7 @@ class VerifyView(View):
         if 'oid' in data and data['oid'] and validate_oid(data['oid']):
             OID = data['oid']
         else:
-            return HttpResponseBadRequest('No valid OID provided')
+            return HttpResponseBadRequest('Error: No valid OID provided')
         if 'iped' in data and data['iped'] and get_school(data['iped']):
             school = get_school(data['iped'])
             if Notification.objects.filter(institution=school, oid=OID):
