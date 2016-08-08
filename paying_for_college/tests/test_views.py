@@ -228,6 +228,7 @@ class OfferTest(django.test.TestCase):
         """request for offer disclosure."""
 
         url = reverse('disclosures:offer')
+        url_test = ('disclosures:offer_test')
         qstring = ('?iped=408039&pid=981&'
                    'oid=f38283b5b7c939a058889f997949efa566c616c5&'
                    'tuit=38976&hous=3000&book=650&tran=500&othr=500&'
@@ -251,6 +252,8 @@ class OfferTest(django.test.TestCase):
                       '5b7c939a058889f997949efa566c616c5')
         resp = client.get(url+qstring)
         self.assertTrue(resp.status_code == 200)
+        resp_test = client.get(url+qstring)
+        self.assertTrue(resp_test.status_code == 200)
         resp2 = client.get(url+no_oid)
         self.assertTrue(resp2.status_code == 200)
         self.assertTrue("noOffer" in resp2.context['warning'])
