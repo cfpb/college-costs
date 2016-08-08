@@ -6249,9 +6249,9 @@
       "resolved": "https://registry.npmjs.org/strip-outer/-/strip-outer-1.0.0.tgz"
     },
     "student-debt-calc": {
-      "version": "2.5.9",
-      "from": "student-debt-calc@2.5.9",
-      "resolved": "https://registry.npmjs.org/student-debt-calc/-/student-debt-calc-2.5.9.tgz",
+      "version": "2.5.10",
+      "from": "student-debt-calc@2.5.10",
+      "resolved": "https://registry.npmjs.org/student-debt-calc/-/student-debt-calc-2.5.10.tgz",
       "dependencies": {
         "abbrev": {
           "version": "1.0.7",
