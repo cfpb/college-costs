@@ -19,6 +19,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Update national stats to deliver generic stats at /api/national-stats/
 - simplify warnings for ID problems
 - Updated the budget section to better message lack of salary data
+- Fixed how data flows into the About This Tool page
 
 ## 2.1.5
 - Show recalculation updates on mobile screens
