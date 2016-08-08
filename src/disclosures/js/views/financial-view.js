@@ -49,8 +49,7 @@ var financialView = {
    * Initiates the object
    */
   init: function() {
-    this.keyupListener();
-    this.focusoutListener();
+    this.inputChangeListener();
     this.verificationListener();
     this.estimatedYearsListener();
     this.addPrivateListener();
@@ -110,7 +109,7 @@ var financialView = {
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
     } );
-    // Change text of unsubsizied error if graduate program
+    // Change text of unsubsidized error if graduate program
     if ( financials.undergrad === false ) {
       $( '[data-calc-error_content="directUnsubsidized"]' ).text(
         'The maximum that can be borrowed per year is'
@@ -370,7 +369,7 @@ var financialView = {
   checkOverBorrowingErrors: function( errors ) {
     var overBorrowingErrors = [
           'perkinsOverCost', 'subsidizedOverCost',
-          'unsubsidizedOverCost'
+          'unsubsidizedOverCost', 'gradPlusOverCost'
         ],
         showOverBorrowing = false,
         $over = $( '[data-calc-error="overBorrowing"]' );
@@ -473,30 +472,24 @@ var financialView = {
   },
 
   /**
-   * Listener function for keyup in financial model INPUT fields
+   * Listener function for input change in financial model INPUT fields
    */
-  keyupListener: function() {
-    this.$reviewAndEvaluate.on( 'keyup', '[data-financial]', function() {
+  inputChangeListener: function() {
+    this.$reviewAndEvaluate.on( 'keyup focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
-      financialView.keyupDelay = setTimeout( function() {
+      if ( $( this ).is( ":focus" ) ) {
+        financialView.keyupDelay = setTimeout( function() {
+          financialView.inputHandler( financialView.currentInput );
+          financialView.updateView( getFinancial.values() );
+          expensesView.updateView( getExpenses.values() );
+        }, 500 );
+      } else {
         financialView.inputHandler( financialView.currentInput );
+        financialView.currentInput = 'none';
         financialView.updateView( getFinancial.values() );
         expensesView.updateView( getExpenses.values() );
-      }, 500 );
-    } );
-  },
-
-  /**
-   * Listener function for focus out in financial model INPUT fields
-   */
-  focusoutListener: function() {
-    this.$reviewAndEvaluate.on( 'focusout', '[data-financial]', function() {
-      clearTimeout( financialView.keyupDelay );
-      financialView.currentInput = $( this ).attr( 'id' );
-      financialView.inputHandler( financialView.currentInput );
-      financialView.currentInput = 'none';
-      financialView.updateView( getFinancial.values() );
+      }
     } );
   },
 

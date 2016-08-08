@@ -15,6 +15,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Updates loan origination fee displays to work with corrected constants
 - Fix alignment issues in debt summary
 - Update our national statistics from scorecard project
+- Consolidate how input elements are updated
+- Fix input errors if attempting to borrow more than total cost of attendance
 - Add form-level error for bad program ID
 - Update national stats to deliver generic stats at /api/national-stats/
 - simplify warnings for ID problems
