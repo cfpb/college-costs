@@ -124,7 +124,7 @@ var getApiValues = {
   initialData: function() {
     // If there's a [data-warning], display error
     var warning = $( '[data-warning]' ).attr( 'data-warning' );
-    if ( warning !== '' ) {
+    if ( warning !== '' && typeof warning !== 'undefined' ) {
       financialView.missingData( warning );
       return $.Deferred;
     }

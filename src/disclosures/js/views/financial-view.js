@@ -109,12 +109,6 @@ var financialView = {
       text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
       $cap.text( text );
     } );
-    // Change text of unsubsidized error if graduate program
-    if ( financials.undergrad === false ) {
-      $( '[data-calc-error_content="directUnsubsidized"]' ).text(
-        'The maximum that can be borrowed per year is'
-      );
-    }
   },
 
   /**
@@ -287,6 +281,11 @@ var financialView = {
       typeof values.jobRate !== 'undefined' && values.jobRate !== 'None' &&
       values.jobRate !== ''
     );
+
+    // Update text for overCap errors
+    financialView.setCaps( getFinancial.values() );
+    this.unsubsidizedErrorText( values.undergrad );
+
     // Update salary content based on what type of data we have
     this.updateSalaryContent( values.salarySource );
 
@@ -331,7 +330,6 @@ var financialView = {
    */
   updateCalculationErrors: function( values ) {
     var errors = values.errors;
-
     // hide errors
     $( '[data-calc-error]' ).hide();
 
@@ -371,17 +369,25 @@ var financialView = {
           'perkinsOverCost', 'subsidizedOverCost',
           'unsubsidizedOverCost', 'gradPlusOverCost'
         ],
+        errorMap = {
+          subsidizedOverCost: 'contrib__subsidized',
+          unsubsidizedOverCost: 'contrib__unsubsidized',
+          perkinsOverCost: 'contrib__perkins',
+          gradPlusOverCost: 'contrib__direct-plus'
+        },
         showOverBorrowing = false,
-        $over = $( '[data-calc-error="overBorrowing"]' );
+        $over = $( '[data-calc-error="overBorrowing"]' ),
+        errorInput;
 
     // check for over-borrowing
     for ( var i = 0; i < overBorrowingErrors.length; i++ ) {
       if ( errors.hasOwnProperty( overBorrowingErrors[i] ) ) {
         showOverBorrowing = true;
+        errorInput = errorMap[overBorrowingErrors[i]];
       }
     }
     if ( showOverBorrowing ) {
-      var $current = $( '#' + financialView.currentInput );
+      var $current = $( '#' + errorInput );
       $over.appendTo( $current.parent() ).show();
     }
   },
@@ -478,7 +484,7 @@ var financialView = {
     this.$reviewAndEvaluate.on( 'keyup focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
-      if ( $( this ).is( ":focus" ) ) {
+      if ( $( this ).is( ':focus' ) ) {
         financialView.keyupDelay = setTimeout( function() {
           financialView.inputHandler( financialView.currentInput );
           financialView.updateView( getFinancial.values() );
@@ -715,6 +721,20 @@ var financialView = {
       metricView.updateSalaryWarning();
       this.$budgetSalaryContent.show();
       this.$debtBurdenSalaryContent.text('national salary for all students who attended college');
+    }
+  },
+
+  /**
+   * Updates the text of the unsubsidized error
+   * @param {boolean} isUndergrad - true if undergraduate program, false otherwise
+   */
+  unsubsidizedErrorText: function( isUndergrad ) {
+    var $error = $( '[data-calc-error_content="directUnsubsidized"]' );
+    if ( isUndergrad ) {
+      $error.text( 'The maximum subsidized and unsubsidized loans that can be ' +
+        'borrowed per year is' );
+    } else {
+      $error.text( 'The maximum that can be borrowed per year is' );
     }
   },
 
