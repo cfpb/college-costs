@@ -64,7 +64,7 @@
     "require-dir": "0.3.0",
     "snyk": "1.17.1",
     "sticky-kit": "1.1.3",
-    "student-debt-calc": "2.5.8"
+    "student-debt-calc": "2.5.10"
   },
   "snyk": true
 }
