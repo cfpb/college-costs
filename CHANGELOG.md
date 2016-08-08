@@ -1,7 +1,7 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## Unreleased
+## 2.1.6
 - Add technical notes on the About This Tool page
 - Make loan origination fees dynamic from the API
 - Changed display of graph notifications for settlement school status
