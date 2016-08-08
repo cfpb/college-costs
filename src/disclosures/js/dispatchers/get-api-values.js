@@ -52,10 +52,8 @@ var getApiValues = {
       success: function( resp ) {
         return resp;
       },
-      // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        // console.log( 'API: fetchSchoolData', status, err );
-        financialView.badSchoolData();
+        financialView.missingData( 'school' );
       }
     } );
 
@@ -80,9 +78,8 @@ var getApiValues = {
       success: function( resp ) {
         return resp;
       },
-      // TODO: the user should be notified of errors
       error: function( req, status, err ) {
-        console.log( 'API: fetchProgramData', status, err );
+        financialView.missingData( 'program' );
       }
     } );
 
@@ -125,6 +122,12 @@ var getApiValues = {
   },
 
   initialData: function() {
+    // If there's a [data-warning], display error
+    var warning = $( '[data-warning]' ).attr( 'data-warning' );
+    if ( warning !== '' ) {
+      financialView.missingData( warning );
+      return $.Deferred;
+    }
     return $.when( this.constants(), this.expenses() );
   }
 

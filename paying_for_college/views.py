@@ -46,11 +46,9 @@ else:  # pragma: no cover
 
 URL_ROOT = 'paying-for-college2'
 EXPENSE_FILE = '{}/fixtures/bls_data.json'.format(BASEDIR)
-NO_SCHOOL_ERROR = "No active school could be found for iped ID {0}"
-OID_WARNING = "Error: Illegal offer ID"
-# only characters 0-9 and a-f are allowed in offer IDs
-PID_WARNING = "Error: Illegal program code"
-# program code isn't 40 chars or contains Illegal characters: ; < > { }
+IPED_ERROR = "noSchool"
+OID_ERROR = "noOffer"
+PID_ERROR = "noProgram"
 
 
 def get_json_file(filename):
@@ -77,6 +75,8 @@ def validate_oid(oid):
 
 
 def validate_pid(pid):
+    if not pid:
+        return False
     for char in [';', '<', '>', '{', '}']:
         if char in pid:
             return False
@@ -116,13 +116,13 @@ def get_school(schoolID):
 def get_program(school, programCode):
     """Try to get latest program; return either program or empty string"""
     if not validate_pid(programCode):
-        return ''
+        return None
     programs = Program.objects.filter(program_code=programCode,
                                       institution=school).order_by('-pk')
     if programs:
         return programs[0]
     else:
-        return ''
+        return None
 
 
 class BaseTemplateView(TemplateView):
@@ -147,9 +147,9 @@ class OfferView(TemplateView):
         if 'oid' in request.GET and request.GET['oid']:
             OID = request.GET['oid']
         else:
-            warning = "Warning: URL doesn't contain an offer ID"
+            warning = OID_ERROR
         if OID and validate_oid(OID) is False:
-            warning = OID_WARNING
+            warning = OID_ERROR
             OID = ''
         if 'iped' in request.GET and request.GET['iped']:
             iped = request.GET['iped']
@@ -159,7 +159,7 @@ class OfferView(TemplateView):
                 if 'pid' in request.GET and request.GET['pid']:
                     PID = request.GET['pid']
                     if not validate_pid(PID):
-                        warning = PID_WARNING
+                        warning = PID_ERROR
                         PID = ''
                     if PID:
                         programs = Program.objects.filter(program_code=PID,
@@ -168,15 +168,13 @@ class OfferView(TemplateView):
                             program = programs[0]
                             program_data = program.as_json()
                         else:
-                            warning = ("Warning: No program could be found "
-                                       "for program_code '{}'".format(PID))
+                            warning = PID_ERROR
                 else:
-                    warning = "Warning: URL doesn't contain a program code"
+                    warning = PID_ERROR
             else:
-                warning = ("Warning: No active school found "
-                           "for ID {}".format(iped))
+                warning = IPED_ERROR
         else:
-                warning = "Warning: URL doesn't contain a school ID"
+                warning = IPED_ERROR
         return render_to_response('worksheet.html',
                                   {'data_js': "0",
                                    'school': school,
@@ -190,14 +188,14 @@ class OfferView(TemplateView):
                                   context_instance=RequestContext(request))
 
 
-class LandingView(TemplateView):  # pragma: no-cover
-    template_name = "landing.html"  # pragma: no-cover
-# pragma: no-cover
-    def get_context_data(self, **kwargs):  # pragma: no-cover
-        context = super(LandingView, self).get_context_data(**kwargs)  # pragma: no-cover
-        context['base_template'] = BASE_TEMPLATE  # pragma: no-cover
-        context['url_root'] = URL_ROOT  # pragma: no-cover
-        return context  # pragma: no-cover
+class LandingView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(LandingView, self).get_context_data(**kwargs)
+        context['base_template'] = BASE_TEMPLATE
+        context['url_root'] = URL_ROOT
+        return context
 
 
 class FeedbackView(TemplateView):
@@ -266,7 +264,7 @@ class ProgramRepresentation(View):
             return HttpResponseBadRequest(format_error)
         PID = ids[1]
         if not validate_pid(PID):
-            return HttpResponseBadRequest(PID_WARNING)
+            return HttpResponseBadRequest("Error: Invalid program ID")
         program = self.get_program(program_code)
         if not program:
             p_error = ("Error: No program was found "
@@ -283,17 +281,13 @@ class StatsRepresentation(View):
         national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
         return json.dumps(national_stats)
 
-    def get(self, request, id_pair):
+    def get(self, request, id_pair=''):
         school_id = id_pair.split('_')[0]
         school = get_school(school_id)
-        if not school:
-            error = ("No school could be found "
-                     "for iped ID {0}".format(school_id))
-            return HttpResponseBadRequest(error)
         try:
             program_id = id_pair.split('_')[1]
         except:
-            program_id = ''
+            program_id = None
         stats = self.get_stats(school, program_id)
         return HttpResponse(stats, content_type='application/json')
 

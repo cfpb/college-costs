@@ -38,6 +38,8 @@ var financialView = {
   $medianSalaryContent: $( '#content_median-salary' ),
   $salaryMetric: $( '#salary-and-debt-metric' ),
   $salaryMetricContent: $( '#content_salary-metric' ),
+  $debtBurdenSalaryContent: $( '#content_debt-burden-salary' ),
+  $budgetSalaryContent: $( '#content_expenses-nat-salary' ),
   $bigQuestion: $( '.question' ),
   $degreeType: $( '.question [data-section="degreeType"]' ),
   keyupDelay: null,
@@ -711,6 +713,8 @@ var financialView = {
       this.$salaryContent.hide();
       this.$salaryMetric.hide();
       metricView.updateSalaryWarning();
+      this.$budgetSalaryContent.show();
+      this.$debtBurdenSalaryContent.text('national salary for all students who attended college');
     }
   },
 
@@ -783,10 +787,13 @@ var financialView = {
 
   /**
    * Update view for bad school requests
+   * @param {string} dataType - type of missing data, 'school' or 'program'
    */
-  badSchoolData: function() {
+  missingData: function( dataType ) {
     $( '.verify_wrapper' ).hide();
-    $( '[data-error-block="badSchoolData"]').show();
+    if ( $( '[data-missing-data-error]:visible' ).length === 0 ) {
+      $( '[data-missing-data-error="' + dataType + '"]').show();
+    }
   }
 };
 
