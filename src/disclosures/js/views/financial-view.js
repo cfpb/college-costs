@@ -484,7 +484,7 @@ var financialView = {
     this.$reviewAndEvaluate.on( 'keyup focusout', '[data-financial]', function() {
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
-      if ( $( this ).is( ":focus" ) ) {
+      if ( $( this ).is( ':focus' ) ) {
         financialView.keyupDelay = setTimeout( function() {
           financialView.inputHandler( financialView.currentInput );
           financialView.updateView( getFinancial.values() );
