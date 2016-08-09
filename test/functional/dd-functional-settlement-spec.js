@@ -62,7 +62,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should let a student verify their information and go on to Step 1 of the offer', function() {
     page.confirmVerification();
-    browser.sleep( 750 );
     expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.correctInfoSection.isDisplayed() ).toBeTruthy();
@@ -73,7 +72,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should let a student report incorrect aid offer information', function() {
     page.denyVerification();
-    browser.sleep( 750 );
     expect( page.correctInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.incorrectInfoButton.isDisplayed() ).toBeFalsy();
     expect( page.correctInfoSection.isDisplayed() ).toBeFalsy();
@@ -116,7 +114,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     browser.wait(
       page.setTuitionFeesCosts( 48976 ).then(
         function() {
-          browser.sleep(500);
           expect( page.totalCostOfAttendance.getText() ).toEqual( '53,626' );
           expect( page.studentTotalCost.getText() ).toEqual( '42,026' );
           expect( page.remainingCostFinal.getText() ).toEqual( '12,526' );
@@ -128,7 +125,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the housing and meals are modified', function() {
     page.confirmVerification();
     page.setHousingMealsCosts( 2000 );
-    browser.sleep( 750 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '42,626' );
     expect( page.studentTotalCost.getText() ).toEqual( '31,026' );
     expect( page.remainingCostFinal.getText() ).toEqual( '1,526' );
@@ -137,7 +133,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the transportation is modified', function() {
     page.confirmVerification();
     page.setTransportationCosts( 400 );
-    browser.sleep( 750 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43,526' );
     expect( page.studentTotalCost.getText() ).toEqual( '31,926' );
     expect( page.remainingCostFinal.getText() ).toEqual( '2,426' );
@@ -146,7 +141,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the books and supplies are modified', function() {
     page.confirmVerification();
     page.setBooksSuppliesCosts( 750 );
-    browser.sleep( 750 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '43,726' );
     expect( page.studentTotalCost.getText() ).toEqual( '32,126' );
     expect( page.remainingCostFinal.getText() ).toEqual( '2,626' );
@@ -155,7 +149,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the other education costs are modified', function() {
     page.confirmVerification();
     page.setOtherEducationCosts( 1000 );
-    browser.sleep( 750 );
     expect( page.totalCostOfAttendance.getText() ).toEqual( '44,126' );
     expect( page.studentTotalCost.getText() ).toEqual( '32,526' );
     expect( page.remainingCostFinal.getText() ).toEqual( '3,026' );
@@ -168,7 +161,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the Federal Pell Grants are modified within the limits', function() {
     page.confirmVerification();
     page.setFederalPellGrants( 5500 );
-    browser.sleep( 750 );
     expect( page.pellGrantCapWarning.isDisplayed() ).toBeFalsy;
     expect( page.totalGrantsScholarships.getText() ).toEqual( '15,600' );
     expect( page.studentTotalCost.getText() ).toEqual( '28,026' );
@@ -178,7 +170,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the Federal Pell Grants are modified above the Federal limits', function() {
     page.confirmVerification();
     page.setFederalPellGrants( 10000 );
-    browser.sleep( 750 );
     expect( page.pellGrantCapWarning.isDisplayed() ).toBeTruthy;
     expect( page.totalGrantsScholarships.getText() ).toEqual( '15,915' );
     expect( page.studentTotalCost.getText() ).toEqual( '27,711' );
@@ -234,7 +225,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the other grants and scholarships are modified', function() {
     page.confirmVerification();
     page.setOtherGrantsScholarships( 1000 );
-    browser.sleep( 750 );
     expect( page.totalGrantsScholarships.getText() ).toEqual( '12,500' );
     expect( page.studentTotalCost.getText() ).toEqual( '31,126' );
     expect( page.remainingCostFinal.getText() ).toEqual( '1,626' );
@@ -279,7 +269,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the cash a student will personally provide is modified', function() {
     page.confirmVerification();
     page.setStudentContribution( 1500 );
-    browser.sleep( 750 );
     expect( page.totalContributions.getText() ).toEqual( '19,500' );
     expect( page.remainingCostFinal.getText() ).toEqual( '1,026' );
   } );
@@ -287,7 +276,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the cash a student\'s family will provide is modified', function() {
     page.confirmVerification();
     page.setFamilyContribution( 4000 );
-    browser.sleep( 750 );
     expect( page.totalContributions.getText() ).toEqual( '8,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '12,526' );
   } );
@@ -295,7 +283,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the Parent PLUS loan is modified', function() {
     page.confirmVerification();
     page.setParentPlusContribution( 2000 );
-    browser.sleep( 750 );
     expect( page.totalContributions.getText() ).toEqual( '19,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '1,526' );
   } );
@@ -304,7 +291,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
     page.confirmVerification();
     page.setFamilyContribution( 4000 );
     page.setParentPlusContribution( 2000 );
-    browser.sleep( 750 );
     expect( page.totalContributions.getText() ).toEqual( '9,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '11,526' );
   } );
@@ -312,7 +298,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the work study earnings are modified within the allowed limit', function() {
     page.confirmVerification();
     page.setWorkStudyContribution( 2000 );
-    browser.sleep( 750 );
     expect( page.totalContributions.getText() ).toEqual( '17,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '3,526' );
   } );
@@ -350,7 +335,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   // it( 'should properly update when the federal Perkins loans are modified within the allowed limit', function() {
   //   page.confirmVerification();
   //   page.setFederalPerkinsLoans( 2000 );
-  //   browser.sleep( 750 );
   //   expect( page.totalFederalLoans.getText() ).toEqual( '7,500' );
   //   expect( page.totalDebt.getText() ).toEqual( '13,500' );
   //   expect( page.remainingCostFinal.getText() ).toEqual( '526' );
@@ -362,7 +346,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   // it( 'should properly update when the federal Perkins loans are modified above the allowed limit', function() {
   //   page.confirmVerification();
   //   page.setFederalPerkinsLoans( 15000 );
-  //   browser.sleep( 750 );
   //   // TODO: expect student is informed about the Perkins loan cap
   //   // expect( EC.visibilityOf( page.perkinsLoanCapWarning ) );
   //   // expect( page.totalProgramDebt.getText() ).toEqual( '3000' );
@@ -395,15 +378,12 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should properly hide the federal Perkins loans when the school does not offer it', function() {
     page.confirmVerification();
-    browser.sleep( 750 );
     expect( page.federalPerkinsLoans.isDisplayed() ).toBeFalsy();
   } );
 
   it( 'should properly update when the federal subsidized loans are modified within the allowed limit', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.setSubsidizedLoans( 3000 );
-    browser.sleep( 1000 );
     expect( page.totalFederalLoans.getText() ).toEqual( '5,000' );
     expect( page.totalDebt.getText() ).toEqual( '11,000' );
     expect( page.remainingCostFinal.getText() ).toEqual( '3,026' );
@@ -415,7 +395,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the federal subsidized loans are modified above the allowed limit', function() {
     page.confirmVerification();
     page.setSubsidizedLoans( 15000 );
-    browser.sleep( 750 );
     // TODO: expect student is informed about the subsidized loan cap
     // expect( EC.visibilityOf( page.subsidizedLoanCapWarning ) );
     expect( page.totalFederalLoans.getText() ).toEqual( '5,500' );
@@ -429,7 +408,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the federal unsubsidized loans are modified within the allowed limit', function() {
     page.confirmVerification();
     page.setUnsubsidizedLoans( 3000 );
-    browser.sleep( 750 );
     expect( page.totalFederalLoans.getText() ).toEqual( '6,500' );
     expect( page.totalDebt.getText() ).toEqual( '12,500' );
     expect( page.remainingCostFinal.getText() ).toEqual( '1,526' );
@@ -441,7 +419,6 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when the federal unsubsidized loans are modified above the allowed limit', function() {
     page.confirmVerification();
     page.setUnsubsidizedLoans( 15000 );
-    browser.sleep( 750 );
     // TODO: expect student is informed about the unsubsidized loan cap
     // expect( EC.visibilityOf( page.unsussidizedLoanCapWarning ) );
     expect( page.totalFederalLoans.getText() ).toEqual( '9,500' );
@@ -505,11 +482,8 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   it( 'should properly update when a private loan is modified', function() {
     page.confirmVerification();
     page.setPrivateLoanAmount( 4000 );
-    browser.sleep( 750 );
     page.setPrivateLoanInterestRate( 4.55 );
-    browser.sleep( 750 );
     page.setPrivateLoanFees( 1 );
-    browser.sleep( 750 );
     expect( page.privateLoanInterestRate.getAttribute('value') ).toBeGreaterThan( 0 );
     expect( page.totalPrivateLoans.getText() ).toEqual( '4,000' );
     expect( page.totalDebt.getText() ).toEqual( '12,500' );
@@ -592,7 +566,6 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
 } );
 
   it( 'should display proper debt values', function() {
-    browser.sleep( 1000 );
     page.confirmVerification();
     expect( page.totalProgramDebt.getText() ).toEqual( '23,000' );
     expect( page.totalRepayment.getText() ).toEqual( '29,971' );
@@ -601,7 +574,6 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   it( 'should update total borrowing and verbiage when program length is changed to a whole year number', function() {
      page.confirmVerification();
      page.setProgramLength( 4 );
-     browser.sleep( 1000 );
      expect( page.futureYearsAttending.getText() ).toEqual( 'four' );
      expect( page.totalProgramDebt.getText() ).toEqual( '46,000' );
   });
@@ -617,10 +589,8 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   });
 
   it( 'should properly describe a future based on not covering enough of the cost of college that is needed', function() {
-    browser.sleep( 1000 );
     page.confirmVerification();
     page.setFamilyContribution( 10000 );
-    browser.sleep( 750 );
     expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeTruthy();
     expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.remainingCostFinal.getText() ).toEqual( '6,526' );
@@ -630,10 +600,8 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   } );
 
   it( 'should properly describe a future based on covering more of the cost of college that is needed', function() {
-    browser.sleep( 1000 );
     page.confirmVerification();
     page.setFamilyContribution( 25000 );
-    browser.sleep( 750 );
     expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeTruthy();
     expect( page.remainingCostFinal.getText() ).toEqual( '-8,474' );
@@ -643,10 +611,8 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   } );
 
   it( 'should properly describe a future based on covering exactly the cost of college that is needed', function() {
-    browser.sleep( 1000 );
     page.confirmVerification();
     page.setFamilyContribution( 16526 );
-    browser.sleep( 750 );
     expect( page.futurePositiveRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.futureNegativeRemainingCost.isDisplayed() ).toBeFalsy();
     expect( page.remainingCostFinal.getText() ).toEqual( '0' );
@@ -657,9 +623,7 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
 
   it( 'should let a student continue on to Step 2', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     expect( page.reviewSection.isDisplayed() ).toBeTruthy();
     expect( page.evaluateSection.isDisplayed() ).toBeTruthy();
     expect( page.bigQuestionSection.isDisplayed() ).toBeTruthy();
@@ -669,119 +633,84 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   // *** Step 2: Evaluate your offer ***
   it( 'should properly display estimated monthly expenses', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$895' );
   } );
 
   it( 'should properly change expenses when region is selected', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setExpensesRegion( 'SO' );
-    browser.sleep( 500 );
     expect( page.monthlyRent.getAttribute('value') ).toEqual( '$912')
   } );
 
   it( 'should properly update when estimated monthly mortage or rent is modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyRent( 1151 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,137' );
   } );
 
   it( 'should properly update when estimated monthly food is modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyFood( 675 );
-    browser.sleep( 750 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,200' );
   } );
 
   it( 'should properly update when estimated monthly clothing is modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyClothing( 100 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$930' );
   } );
 
   it( 'should properly update when estimated monthly transportation is modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyTransportation( 634 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,020' );
   } );
 
   it( 'should properly update when estimated monthly healthcare expenses are modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyHealthcare( 667 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,295' );
   } );
 
   it( 'should properly update when estimated monthly entertainment is modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyEntertainment( 200 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$989' );
   } );
 
   it( 'should properly update when estimated monthly retirement and savings are modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyRetirement( 169 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$958' );
   } );
 
   it( 'should properly update when estimated monthly taxes are modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyTaxes( 300 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,244' );
   } );
 
   it( 'should properly update when estimated monthly other expenses are modified', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.setMonthlyOther( 630 );
-    browser.sleep( 1000 );
     expect( page.totalMonthlyLeftOver.getText() ).toEqual( '-$1,246' );
   } );
 
   it( 'should allow a student who feels that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.answerBigQuestionYes();
-    browser.sleep( 1000 );
     expect( page.bigQuestionYesButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-first active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupSettlementContent.isDisplayed() ).toBeTruthy();
@@ -793,11 +722,8 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
 
   xit( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 1000 );
     expect( page.bigQuestionNoButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-first active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
@@ -808,11 +734,8 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
 
   it( 'should allow a student who is not sure that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.answerBigQuestionNotSure();
-    browser.sleep( 1000 );
     expect( page.bigQuestionNotSureButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-last active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
     expect( page.followupSettlementContent.isDisplayed() ).toBeTruthy();
@@ -825,13 +748,9 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   // *** Step 3: Consider your options / A few more things to consider ***
   it( 'should link to the school website in a new tab', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 1000 );
     page.followSchoolLink();
-    browser.sleep( 1000 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
@@ -842,7 +761,6 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
           } )
           .then( function () {
             browser.close();
-            browser.sleep( 750 );
             browser.switchTo().window( handles[0] );
           } );
       } );
@@ -851,27 +769,21 @@ it( 'should hide the tuition payment plan section if the passed URL value is 0',
   /* Note: this item was removed from the settlement version of the code */
   xit( 'should link to the correct College Scorecard search in a new tab', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
     page.continueStep2();
-    browser.sleep( 1000 );
     page.answerBigQuestionNo();
-    browser.sleep( 1000 );
     page.followScorecardLink();
-    browser.sleep( 1000 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
         browser.switchTo().window( handles[1] )
           .then( function () {
             browser.wait( EC.titleContains( 'College Scorecard' ), 8000, 'Page title did not contain "College Scorecard" within 8 seconds' );
-            browser.sleep( 750 );
             expect( element( by.id( 'major' ) ).getAttribute( 'value' ) ).toBe( 'health' );
             expect( element( by.id( 'zip-code' ) ).getAttribute( 'value' ) ).toBe( '46805' );
             expect( element( by.id( 'search-radius' ) ).getAttribute( 'value' ) ).toBe( '50' );
           } )
           .then( function () {
             browser.close();
-            browser.sleep( 750 );
             browser.switchTo().window( handles[0] );
           } );
       } );

@@ -6,5 +6,6 @@ exports.config = {
 
  	onPrepare:function(){
  		browser.ignoreSynchronization = true;
+    browser.manage().timeouts().implicitlyWait(1500);
  	}
 }
