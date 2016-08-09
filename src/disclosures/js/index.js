@@ -52,7 +52,6 @@ var app = {
                 publish.financialData( 'totalCost', null );
               }
               financialView.updateViewWithURL( schoolValues, urlValues );
-
               // initialize metric view
               metricView.init();
               financialView.updateView( getFinancial.values() );

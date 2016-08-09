@@ -237,14 +237,17 @@ var financialView = {
    * that is based on the remaining cost
    */
   updateRemainingCostContent: function() {
-    var gap = Math.round( getFinancial.values().gap ),
+    var model = getFinancial.values(),
+        gap = Math.round( model.gap ),
+        overborrowing = Math.round( model.overborrowing ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
         negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
+
     if ( gap > 0 ) {
       positiveRemainingCost.show();
-    } else if ( gap < 0 ) {
+    } else if ( overborrowing > 0 ) {
       var $span = negativeRemainingCost.find( '[data-financial="gap"]' );
       $span.text( $span.text().replace( '-', '' ) );
       negativeRemainingCost.show();
