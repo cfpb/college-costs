@@ -37,7 +37,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   } );
 
   it( 'should display the anticipated total direct cost section if passed in the URL', function() {
-    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000' );
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=222938&pid=3266&oid=f38283b5b7c939a058889f997949efa566c616c5&totl=45000&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
     );
@@ -45,7 +45,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   } );
 
   it( 'should hide the anticipated total direct cost section if not passed in the URL', function() {
-    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&tran=500&tuit=38976&unsl=2000&wkst=3000' );
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=222938&pid=3266&oid=f38283b5b7c939a058889f997949efa566c616c5&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
     );
@@ -53,7 +53,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
   } );
 
   it( 'should hide the anticipated total direct cost section if the passed URL value is 0', function() {
-    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=9e0280139f3238cbc9702c7b0d62e5c238a835a0&totl=0&book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000&ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&tran=500&tuit=38976&unsl=2000&wkst=3000' );
+    browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=222938&pid=3266&oid=f38283b5b7c939a058889f997949efa566c616c5&totl=0&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
     browser.wait(
       browser.actions().mouseMove( page.totalDirectCost ).perform(), 10000
     );
@@ -94,7 +94,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should display the correct name for the college', function() {
     page.confirmVerification();
-    expect( page.schoolName.getText() ).toEqual( 'Brown Mackie College-Fort Wayne' );
+    expect( page.schoolName.getText() ).toEqual( 'The Art Institute of Houston' );
   } );
 
   it( 'should let a student edit the tuition and fees', function() {
