@@ -1,6 +1,10 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.1.8
+- fixed GradPlus and over-borrowing calculations
+- student-debt-calc bumped to v. 2.6.0
+
 ## 2.1.7
 - Added security updates
 - Fixed reporting of Perkins loan caps
