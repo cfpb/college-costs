@@ -111,12 +111,14 @@ var financialModel = {
   recalcOverborrowing: function() {
     var model = this.values,
         overBorrow = 0;
-    if ( model.yearOneCosts < model.grantsSavingsTotal + model.borrowingTotal ) {
+    if ( model.costOfAttendance < model.grantsSavingsTotal + model.borrowingTotal ) {
       overBorrow = model.borrowingTotal +
                            model.grantsSavingsTotal -
                            model.costOfAttendance;
-      if ( overBorrow > model.borrowingTotal ) {
-        overBorrow = model.borrowingTotal;
+      if ( overBorrow > model.borrowingTotal && model.borrowingTotal > 0 ) {
+        overBorrow = Math.min( overBorrow, model.borrowingTotal );
+      } else {
+        overBorrow = 0;
       }
     }
     return overBorrow;
