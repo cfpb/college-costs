@@ -115,7 +115,7 @@ var financialModel = {
       overBorrow = model.borrowingTotal +
                            model.grantsSavingsTotal -
                            model.costOfAttendance;
-      if ( overBorrow > model.borrowingTotal && model.borrowingTotal > 0 ) {
+      if ( overBorrow > 0 && model.borrowingTotal > 0 ) {
         overBorrow = Math.min( overBorrow, model.borrowingTotal );
       } else {
         overBorrow = 0;
