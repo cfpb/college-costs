@@ -57,6 +57,7 @@ var financialView = {
     this.resetPrivateLoanView();
     this.continueStep2Listener();
     this.termToggleListener();
+    $( 'main' ).data( 'getFinancial', getFinancial );
   },
 
   /**
