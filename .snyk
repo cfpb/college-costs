@@ -1,4 +1,4 @@
-version: v1.4.0
+version: v1.5.2
 ignore:
   'npm:minimatch:20160620':
     - capital-framework > npmi > npm > node-gyp > minimatch:
@@ -8,50 +8,74 @@ patch:
   'npm:minimatch:20160620':
     - capital-framework > npmi > npm > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      glob-all > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
+      capital-framework > npmi > npm > fstream-npm > fstream-ignore > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > init-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      browser-sync > resp-modifier > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
+      capital-framework > npmi > npm > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > read-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      protractor > jasmine > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
+      capital-framework > npmi > npm > init-package-json > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > init-package-json > read-package-json > glob > minimatch:
-        patched: '2016-06-29T16:28:08.447Z'
-      jasmine > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > read-installed > read-package-json > glob > minimatch:
-        patched: '2016-06-29T16:28:08.447Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
+      capital-framework > npmi > npm > read-package-json > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > fstream-npm > fstream-ignore > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
+      capital-framework > npmi > npm > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > node-gyp > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
+      capital-framework > npmi > npm > tar > fstream > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > minimatch:
         patched: '2016-07-15T15:30:58.969Z'
+      capital-framework > npmi > npm > node-gyp > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > glob > minimatch:
         patched: '2016-07-15T15:30:58.969Z'
+      capital-framework > npmi > npm > fstream > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > node-gyp > fstream > rimraf > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > fstream-npm > fstream-ignore > fstream > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > npm-registry-client > rimraf > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > node-gyp > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > read-installed > read-package-json > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > node-gyp > tar > fstream > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > read-package-json > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > node-gyp > fstream > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > tar > fstream > rimraf > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > npm-registry-client > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > init-package-json > glob > minimatch:
         patched: '2016-07-15T15:35:49.422Z'
+      capital-framework > npmi > npm > fs-vacuum > rimraf > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > minimatch:
-        patched: '2016-07-15T15:35:49.422Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > rimraf > glob > minimatch:
         patched: '2016-07-15T15:33:35.092Z'
+      student-debt-calc > istanbul > fileset > glob > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > fs-vacuum > rimraf > glob > minimatch:
         patched: '2016-07-15T15:33:35.092Z'
+      student-debt-calc > istanbul > fileset > minimatch:
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > fstream > rimraf > glob > minimatch:
         patched: '2016-07-15T15:33:35.092Z'
     - capital-framework > npmi > npm > fstream-npm > fstream-ignore > minimatch:
@@ -104,19 +128,27 @@ patch:
         patched: '2016-08-04T15:51:44.067Z'
     - student-debt-calc > istanbul > fileset > glob > minimatch:
         patched: '2016-08-04T15:51:44.067Z'
+    - glob-all > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - browser-sync > resp-modifier > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - protractor > jasmine > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - jasmine > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
   'npm:tough-cookie:20160722':
     - capital-framework > npmi > npm > npm-registry-client > request > tough-cookie:
-        patched: '2016-07-25T15:16:02.601Z'
-      browser-sync > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
-        patched: '2016-08-09T00:11:35.413Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > request > tough-cookie:
-        patched: '2016-07-25T15:16:02.601Z'
-      browser-sync > localtunnel > request > tough-cookie:
-        patched: '2016-08-09T00:11:35.413Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - capital-framework > npmi > npm > node-gyp > request > tough-cookie:
-        patched: '2016-07-25T15:16:02.601Z'
+        patched: '2016-08-11T12:54:25.189Z'
     - student-debt-calc > request > tough-cookie:
         patched: '2016-07-25T15:16:02.601Z'
+    - browser-sync > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        patched: '2016-08-09T00:11:35.413Z'
+    - browser-sync > localtunnel > request > tough-cookie:
+        patched: '2016-08-09T00:11:35.413Z'
   'npm:negotiator:20160616':
     - browser-sync > socket.io > engine.io > accepts > negotiator:
         patched: '2016-08-09T00:11:35.413Z'
