@@ -56,7 +56,7 @@ class bdist_wheel(_bdist_wheel):
 
 setup(
     name='college-costs',
-    version='2.1.8',
+    version='2.2.0',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
