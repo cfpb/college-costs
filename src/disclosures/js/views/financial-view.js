@@ -716,8 +716,8 @@ var financialView = {
    */
   updateSalaryContent: function( source ) {
     if ( source === 'school' ) {
-      this.$medianSalaryContent.text( 'The average salary for students who started attending this school 10 years ago is' );
-      this.$salaryMetricContent.text( 'Average salary for this school' );
+      this.$medianSalaryContent.text( 'The typical salary for students who started attending this school 10 years ago is' );
+      this.$salaryMetricContent.text( 'typical salary for this school' );
     } else if ( source === 'national' ) {
       this.$salaryContent.hide();
       this.$salaryMetric.hide();
