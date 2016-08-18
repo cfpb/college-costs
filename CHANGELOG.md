@@ -1,7 +1,8 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## 2.1.9
+## 2.2.0
+- release for school review
 - fix wording in costs section after BLS review
 
 ## 2.1.8
