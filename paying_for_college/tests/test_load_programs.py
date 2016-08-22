@@ -254,6 +254,9 @@ class TestLoadPrograms(django.test.TestCase):
         mock_program.return_value = (program, True)
         load('filename')
         self.assertEqual(mock_read_in.call_count, 4)
+        mock_read_in.return_value[0]['test'] = "True"
+        load('filename')
+        self.assertEqual(mock_read_in.call_count, 5)
 
     @mock.patch('paying_for_college.disclosures.scripts.load_programs.'
                 'clean')

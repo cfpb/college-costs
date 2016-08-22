@@ -150,6 +150,7 @@ def clean(data):
 
 # 'source' should be a CSV file path or, if s3 is True, an s3 URL
 def load(source, s3=False):
+    test_program = False
     new_programs = 0
     updated_programs = 0
     FAILED = []  # failed messages
@@ -161,6 +162,8 @@ def load(source, s3=False):
         return (["ERROR: could not read data from {0}".format(source)], "")
 
     for row in raw_data:
+        if 'test' in row.keys() and row['test'].lower() == 'true':
+            test_program = True
         fixed_data = clean(row)
         serializer = ProgramSerializer(data=fixed_data)
 
@@ -204,6 +207,7 @@ def load(source, s3=False):
             program.books = data['books_supplies']
             program.completers = data['completers']
             program.completion_cohort = data['completion_cohort']
+            program.test = test_program
             program.save()
 
         else:  # There is error
