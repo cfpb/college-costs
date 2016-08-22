@@ -10,6 +10,8 @@ from string import Template
 import smtplib
 
 import requests
+
+from paying_for_college.csvkit.csvkit import Writer as cdw
 from django.core.mail import send_mail
 
 REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
@@ -550,8 +552,8 @@ class Program(models.Model):
             'jobRate': "{0}".format(self.job_rate),
             'level': self.get_level(),
             'levelCode': self.level,
-            'medianStudentLoanCompleters': self.median_student_loan_completers,
             'meanStudentLoanCompleters': self.mean_student_loan_completers,
+            'medianStudentLoanCompleters': self.median_student_loan_completers,
             'privateDebt': self.private_debt,
             'programCode': self.program_code,
             'programLength': make_divisible_by_6(self.program_length),
@@ -569,6 +571,64 @@ class Program(models.Model):
             ordered_out[key] = dict_out[key]
 
         return json.dumps(ordered_out)
+
+    def as_csv(self, csvpath, test=True):
+        """Output a CSV representation of a program"""
+        headings = [
+            'ipeds_unit_id',
+            'ope_id',
+            'program_code',
+            'program_name',
+            'program_length',
+            'program_level',
+            'accreditor',
+            'median_salary',
+            'average_time_to_complete',
+            'books_supplies',
+            'campus_name',
+            'cip_code',
+            'completion_rate',
+            'completion_cohort',
+            'completers',
+            'default_rate',
+            'job_placement_rate',
+            'job_placement_note',
+            'mean_student_loan_completers',
+            'median_student_loan_completers',
+            'soc_codes',
+            'total_cost',
+            'tuition_fees',
+            'test'
+        ]
+        with open(csvpath, 'w') as f:
+            writer = cdw(f)
+            writer.writerow(headings)
+            writer.writerow([
+                self.institution.school_id,
+                '',
+                self.program_code,
+                self.program_name,
+                self.program_length,
+                self.level,
+                self.accreditor,
+                self.salary,
+                self.time_to_complete,
+                self.books,
+                self.campus,
+                self.cip_code,
+                "{}".format(self.completion_rate),
+                self.completion_cohort,
+                self.completers,
+                "{0}".format(self.default_rate),
+                "{0}".format(self.job_rate),
+                self.job_note,
+                self.mean_student_loan_completers,
+                self.median_student_loan_completers,
+                self.soc_codes,
+                self.total_cost,
+                self.tuition,
+                self.test
+            ])
 
 # class Offer(models.Model):
 #     """

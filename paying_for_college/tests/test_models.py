@@ -5,6 +5,7 @@ import dateutil.parser
 import smtplib
 
 import mock
+from mock import mock_open, patch
 import requests
 
 from django.test import TestCase
@@ -233,3 +234,14 @@ class NonSettlementNotificaion(TestCase):
         notification = self.create_notification(skul)
         non_msg = notification.notify_school()
         self.assertTrue('No notification required' in non_msg)
+
+
+class ProgramExport(TestCase):
+    fixtures = ['test_program.json']
+
+    def test_program_as_csv(self):
+        p = Program.objects.get(pk=1)
+        m = mock_open()
+        with patch("__builtin__.open", m, create=True):
+            p.as_csv('/tmp.csv')
+        self.assertTrue(m.call_count == 1)
