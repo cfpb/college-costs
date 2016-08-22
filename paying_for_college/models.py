@@ -572,7 +572,7 @@ class Program(models.Model):
 
         return json.dumps(ordered_out)
 
-    def as_csv(self, csvpath, test=True):
+    def as_csv(self, csvpath):
         """Output a CSV representation of a program"""
         headings = [
             'ipeds_unit_id',
