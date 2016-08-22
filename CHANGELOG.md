@@ -1,13 +1,16 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+- Added model function for exporting program as CSV
+
 ## 2.2.0
-- release for school review
-- fix wording in costs section after BLS review
+- Release for school review
+- Fixed wording in costs section after BLS review
 
 ## 2.1.8
-- fixed GradPlus and over-borrowing calculations
-- student-debt-calc bumped to v. 2.6.0
+- Fixed GradPlus and over-borrowing calculations
+- Student-debt-calc bumped to v. 2.6.0
 
 ## 2.1.7
 - Added security updates
