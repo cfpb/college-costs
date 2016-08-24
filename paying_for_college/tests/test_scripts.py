@@ -9,7 +9,7 @@ from mock import mock_open, patch
 import requests
 from django.utils import timezone
 
-from paying_for_college.models import School, Notification, Alias
+from paying_for_college.models import School, Notification, Alias, Program
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
                                                     nat_stats, notifications,
                                                     update_ipeds,
@@ -35,15 +35,20 @@ class PurgeTests(django.test.TestCase):
     fixtures = ['test_fixture.json', 'test_program.json']
 
     def test_purges(self):
+        self.assertFalse(Program.objects.count() == 0)
+        self.assertFalse(Notification.objects.count() == 0)
         self.assertTrue(purge_objects.purge('schools') ==
                         purge_objects.error_msg)
         self.assertTrue(purge_objects.purge('') ==
                         purge_objects.no_args_msg)
-        self.assertTrue("Purging" in purge_objects.purge('programs'))
+        self.assertTrue("test-programs" in
+                        purge_objects.purge('test-programs'))
+        self.assertFalse(Program.objects.count() == 0)
         self.assertTrue("programs" in purge_objects.purge('programs'))
-        self.assertTrue("Purging" in purge_objects.purge('notifications'))
+        self.assertTrue(Program.objects.count() == 0)
         self.assertTrue("notifications" in
                         purge_objects.purge('notifications'))
+        self.assertTrue(Notification.objects.count() == 0)
 
 
 class TestScripts(django.test.TestCase):
