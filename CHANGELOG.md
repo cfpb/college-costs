@@ -3,6 +3,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 - Added model function for exporting program as CSV
+- Added docs/ directory and MkDocs framework to publish URL and CSV specs
 
 ## 2.2.0
 - Release for school review
