@@ -35,20 +35,18 @@ class PurgeTests(django.test.TestCase):
     fixtures = ['test_fixture.json', 'test_program.json']
 
     def test_purges(self):
-        self.assertFalse(Program.objects.count() == 0)
-        self.assertFalse(Notification.objects.count() == 0)
+        self.assertTrue(Program.objects.exists())
+        self.assertTrue(Notification.objects.exists())
         self.assertTrue(purge_objects.purge('schools') ==
                         purge_objects.error_msg)
         self.assertTrue(purge_objects.purge('') ==
                         purge_objects.no_args_msg)
-        self.assertTrue("test-programs" in
-                        purge_objects.purge('test-programs'))
-        self.assertFalse(Program.objects.count() == 0)
-        self.assertTrue("programs" in purge_objects.purge('programs'))
-        self.assertTrue(Program.objects.count() == 0)
-        self.assertTrue("notifications" in
-                        purge_objects.purge('notifications'))
-        self.assertTrue(Notification.objects.count() == 0)
+        self.assertIn("test-programs", purge_objects.purge('test-programs'))
+        self.assertTrue(Program.objects.exists())
+        self.assertIn("programs", purge_objects.purge('programs'))
+        self.assertFalse(Program.objects.exists())
+        self.assertIn("notifications", purge_objects.purge('notifications'))
+        self.assertFalse(Notification.objects.exists())
 
 
 class TestScripts(django.test.TestCase):
