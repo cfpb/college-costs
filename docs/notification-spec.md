@@ -22,8 +22,7 @@ This option is intended to catch cases where the student was given the wrong URL
 In this case, a new oid will need to be generated in order to complete a valid disclosure; oid values are allowed to generate only one notification.
 
 ## Email notification
-Endpoint notifications are preferred because they are more reliable and simper to automate.
-
+Endpoint notifications are preferred because they are more reliable and simpler to automate.  
 Schools that can't set up endpoints can get notifications via email.
 
 
