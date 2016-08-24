@@ -1,0 +1,20 @@
+site_name: college-costs
+pages:
+- Introduction: index.md
+# - Installation: README.md
+# - Terms: TERMS.md
+- Specifications:
+    - CSV spec for program data: csv-spec.md
+    - URL spec for offer data: url-spec.md
+# - Testing: testing.md
+# - Development tips: development-tips.md
+
+theme: mkDOCter
+extra:
+    brand_color: "#2CB34A"
+    logo_url: https://cfpb.github.io/img/logo_210.png
+    logo_alt: Consumer Financial Protection Bureau
+
+markdown_extensions:
+    - admonition
+    - tables
