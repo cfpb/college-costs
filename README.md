@@ -30,6 +30,9 @@ Tools to help students make informed financial decisions about college.
 - [mock](https://github.com/testing-cabal/mock)
 - [coverage](https://coverage.readthedocs.org/en/latest/)
 
+### Data specifications
+- Requirements for submitting data for use in this tool can be found in [our specifications documentation](https://cfpb.github.io/college-costs/).
+
 ### Installation
 This project is not fully functional, but feel free to give it a spin. Here's how:
 - Install the setup dependencies if you don't have them.

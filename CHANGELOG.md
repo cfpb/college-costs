@@ -4,6 +4,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 - Added model function for exporting program as CSV
 - Added management command for purging test programs
+- Added docs/ directory and MkDocs framework to publish URL and CSV specs
 - Marked all non-settlement schools with the `settlement_school` tag of "demo"
 
 ## 2.2.0
