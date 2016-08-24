@@ -1,13 +1,9 @@
 site_name: college-costs
 pages:
 - Introduction: index.md
-# - Installation: README.md
-# - Terms: TERMS.md
 - Specifications:
     - CSV spec for program data: csv-spec.md
     - URL spec for offer data: url-spec.md
-# - Testing: testing.md
-# - Development tips: development-tips.md
 
 theme: mkDOCter
 extra:
