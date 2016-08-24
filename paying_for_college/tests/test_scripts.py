@@ -9,7 +9,7 @@ from mock import mock_open, patch
 import requests
 from django.utils import timezone
 
-from paying_for_college.models import School, Notification, Alias
+from paying_for_college.models import School, Notification, Alias, Program
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
                                                     nat_stats, notifications,
                                                     update_ipeds,
@@ -35,15 +35,18 @@ class PurgeTests(django.test.TestCase):
     fixtures = ['test_fixture.json', 'test_program.json']
 
     def test_purges(self):
+        self.assertTrue(Program.objects.exists())
+        self.assertTrue(Notification.objects.exists())
         self.assertTrue(purge_objects.purge('schools') ==
                         purge_objects.error_msg)
         self.assertTrue(purge_objects.purge('') ==
                         purge_objects.no_args_msg)
-        self.assertTrue("Purging" in purge_objects.purge('programs'))
-        self.assertTrue("programs" in purge_objects.purge('programs'))
-        self.assertTrue("Purging" in purge_objects.purge('notifications'))
-        self.assertTrue("notifications" in
-                        purge_objects.purge('notifications'))
+        self.assertIn("test-programs", purge_objects.purge('test-programs'))
+        self.assertTrue(Program.objects.exists())
+        self.assertIn("programs", purge_objects.purge('programs'))
+        self.assertFalse(Program.objects.exists())
+        self.assertIn("notifications", purge_objects.purge('notifications'))
+        self.assertFalse(Notification.objects.exists())
 
 
 class TestScripts(django.test.TestCase):

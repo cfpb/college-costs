@@ -1,12 +1,13 @@
 from paying_for_college.models import Notification, Program
 
 error_msg = ("The only purge arguments that can be passed "
-             "are 'notifications' and 'programs.'")
-no_args_msg = ("You must supply an object type to purge, "
-               "either notifications or programs")
+             "are 'notifications', 'programs' and 'test-programs'")
+no_args_msg = ("You must supply an object type to purge: "
+               "notifications, programs or test-programs")
 object_map = {
-    'notifications': Notification,
-    'programs': Program
+    'notifications': Notification.objects.all(),
+    'programs': Program.objects.all(),
+    'test-programs': Program.objects.filter(test=True),
 }
 
 
@@ -17,6 +18,7 @@ def purge(objects):
         return no_args_msg
     if objects not in object_map.keys():
         return error_msg
-    msg = "Purging {} {}".format(object_map[objects].objects.count(), objects)
-    object_map[objects].objects.all().delete()
+    queryset = object_map[objects]
+    msg = "Purging {} {}".format(queryset.count(), objects)
+    queryset.delete()
     return msg
