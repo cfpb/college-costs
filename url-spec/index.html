@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>URL spec for offer data - college-costs</title>
+    
+    
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/syntax.css">
+    
+
+    
+    <style type="text/css">
+        .sidebar-nav a:hover,
+        .sidebar-nav a:focus,
+        .sidebar-nav a:active,
+        .sidebar-nav a.sidebar-nav-active {
+            border-left-color: #2CB34A;
+        }
+        header {
+            border-bottom-color: #2CB34A;
+        }
+    </style>
+    
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="../js/respond.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body>
+    
+    <div class="container">
+        <header role="banner">
+            <div class="wrap">
+                
+                <img class="logo" src="https://cfpb.github.io/img/logo_210.png" alt="Consumer Financial Protection Bureau">
+                
+                <h1 class="site-title"><a class="title-link" href="../">college-costs</a></h1>
+            </div>
+        </header>
+    
+        <div class="wrap content">
+            <aside>
+                <nav class="sidebar-nav" role="navigation">
+                    <ul>
+                        
+                        <li>
+                             
+                            <a href=".." class="">Introduction</a>
+
+                            
+                        </li>
+                        
+                        <li>
+                            
+                            <span>Specifications</span>
+                            <ul class="secondary-nav">
+                                
+                                <li>
+                                    <a href="../csv-spec/" class="">CSV spec for program data</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="./" class="sidebar-nav-active">URL spec for offer data</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="../notification-spec/" class="">Notification spec validating offers</a>
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </aside>
+
+            <section id="main" class="main-content" role="main">
+                <h2 id="url-specifications-for-offer-data">URL specifications for offer data</h2>
+<h4 id="mapping-url-fields-to-data-points">Mapping url fields to data points</h4>
+<p>Values should be annual unless otherwise specified.</p>
+<p>This scheme results in URLs about 400 characters long, well below browser/server character limits.<br />
+Here's what a full URL would look like:
+<br>
+consumerfinance.gov/paying-for-college2/<br>
+understanding-your-financial-aid-offer/offer/?<br>
+iped=204316&amp;pid=business-1042&amp;oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0<br>
+&amp;book=650&amp;gib=3000&amp;gpl=1000&amp;hous=3000&amp;insi=4.55&amp;insl=3000&amp;inst=36<br>
+&amp;mta=3000&amp;othg=100&amp;othr=500&amp;parl=10000&amp;pelg=1500&amp;perl=3000<br>
+&amp;ppl=1000&amp;prvl=3000&amp;prvf=2.1&amp;prvi=4.55&amp;schg=2000&amp;stag=2000<br>
+&amp;subl=3500&amp;totl=40000&amp;tran=500&amp;tuit=38976&amp;unsl=2000&amp;wkst=3000
+<br></p>
+<h4 id="value-details">Value details</h4>
+<ul>
+<li>School IDs (iped) must be an integer.</li>
+<li>Program IDs (pid) must not contain these characters: <code>; &lt; &gt; { } _</code></li>
+<li>Offer IDs (oid) must contain only hex characters: a-f, 0-9</li>
+</ul>
+<p>The values below are just examples to show type. <br />
+Rates can be more precise than two decimal places, but may be rounded for display.<br />
+Dollar amounts should be in rounded whole numbers.  </p>
+<table>
+<thead>
+<tr>
+<th align="left">In URL</th>
+<th>Description</th>
+<th>Example value</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">iped</td>
+<td>college ID</td>
+<td>123456</td>
+<td>6-digit integer: the unit ID from IPEDS</td>
+</tr>
+<tr>
+<td align="left">pid</td>
+<td>program ID</td>
+<td>business-981</td>
+<td>string: this would be combined with school ID to get a unique program</td>
+</tr>
+<tr>
+<td align="left">oid</td>
+<td>offer ID</td>
+<td>9e0280139f3238cbc970<br>2c7b0d62e5c238a835d0</td>
+<td>40-hex-character hashed value: represents one offer to one student. First 7 characters should be given to the student for matching with the disclosure page.</td>
+</tr>
+<tr>
+<td align="left">book</td>
+<td>books</td>
+<td>650</td>
+<td>books + supplies</td>
+</tr>
+<tr>
+<td align="left">gib</td>
+<td>gi bill</td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">gpl</td>
+<td>grad plus loans</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">hous</td>
+<td>housing</td>
+<td>3000</td>
+<td>room + board</td>
+</tr>
+<tr>
+<td align="left">insi</td>
+<td>institutional (school) loan interest rate</td>
+<td>0.0455</td>
+<td>rates should be expressed as coefficients, so 4.55% is 0.0455</td>
+</tr>
+<tr>
+<td align="left">insl</td>
+<td>institutional loans (all)</td>
+<td>3000</td>
+<td>including tuition payment plans</td>
+</tr>
+<tr>
+<td align="left">inst</td>
+<td>institutional loan term</td>
+<td>48</td>
+<td>in months</td>
+</tr>
+<tr>
+<td align="left">mta</td>
+<td>military assistance</td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">othg</td>
+<td>other grants and scholarships</td>
+<td>100</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">othr</td>
+<td>other costs</td>
+<td>500</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">parl</td>
+<td>parent loans</td>
+<td>10000</td>
+<td>includes all family contributions (except parent plus loans)</td>
+</tr>
+<tr>
+<td align="left">pelg</td>
+<td>pell_grant</td>
+<td>1500</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">perl</td>
+<td>perkins loans</td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">ppl</td>
+<td>parent plus loans</td>
+<td>1000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">prvl</td>
+<td>private loans</td>
+<td>3000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">prvf</td>
+<td>private loan origination fee</td>
+<td>0.021</td>
+<td>coefficient, not percentage point</td>
+</tr>
+<tr>
+<td align="left">prvi</td>
+<td>private loan interest</td>
+<td>0.0455</td>
+<td>coefficient, not percentage point</td>
+</tr>
+<tr>
+<td align="left">schg</td>
+<td>school grants and scholarships</td>
+<td>2000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">stag</td>
+<td>state grants</td>
+<td>2000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">subl</td>
+<td>subsidized loans</td>
+<td>3500</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">totl</td>
+<td>total direct cost</td>
+<td>40000</td>
+<td>tuition, fees, books, supplies</td>
+</tr>
+<tr>
+<td align="left">tran</td>
+<td>transportation</td>
+<td>200</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">tuit</td>
+<td>tuition</td>
+<td>38976</td>
+<td>annual tuition + fees</td>
+</tr>
+<tr>
+<td align="left">unsl</td>
+<td>unsubsidized loans</td>
+<td>2000</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">wkst</td>
+<td>work study</td>
+<td>3000</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="change-log">Change log</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Change</th>
+<th>date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Added underscore to list of characters not allowed in a program ID</td>
+<td>2016-08-24</td>
+</tr>
+<tr>
+<td align="left">Added note that values should be annual unless otherwise specified</td>
+<td>2016-07-26</td>
+</tr>
+<tr>
+<td align="left">Added note for parl: it represents all family contributions</td>
+<td>2016-07-19</td>
+</tr>
+<tr>
+<td align="left">Added notes on expressing rates and fees</td>
+<td>2016-07-15</td>
+</tr>
+<tr>
+<td align="left">Added <code>totl</code> field</td>
+<td>2016-06-22</td>
+</tr>
+<tr>
+<td align="left">Added <code>prvf</code> and <code>inst</code> fields</td>
+<td>2016-05-27</td>
+</tr>
+<tr>
+<td align="left">Removed the <code>fam</code> and <code>ta</code> fields</td>
+<td>2015-01-12</td>
+</tr>
+</tbody>
+</table>
+            </section>
+        </div>
+
+        <footer role="contentinfo">
+            <div class="wrap">
+                This project is maintained by <a href="https://cfpb.github.io">The Consumer Financial Protection Bureau.</a>.
+
+                <p>Hosted on <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+            </div>
+        </footer>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block htmltitle %}
+    <title>{% if page_title %}{{ page_title }} - {% endif %}{{ site_name }}</title>
+    {% endblock %}
+    {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
+
+    <link rel="stylesheet" href="{{ base_url }}/css/normalize.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/main.css">
+    <link rel="stylesheet" href="{{ base_url }}/css/syntax.css">
+    {# Set the brand_color #}
+
+    {% if config.extra.brand_color %}
+    <style type="text/css">
+        .sidebar-nav a:hover,
+        .sidebar-nav a:focus,
+        .sidebar-nav a:active,
+        .sidebar-nav a.sidebar-nav-active {
+            border-left-color: {{ config.extra.brand_color }};
+        }
+        header {
+            border-bottom-color: {{ config.extra.brand_color }};
+        }
+    </style>
+    {% endif %}
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="{{ base_url }}/js/respond.min.js"></script>
+    <![endif]-->
+
+    {%- for path in extra_javascript %}
+    <script src="{{ path }}"></script>
+    {%- endfor %}
+
+    {%- block extrahead %} {% endblock %}
+</head>
+
+<body>
+    
+    <div class="container">
+        <header role="banner">
+            <div class="wrap">
+                {% if config.extra.logo_url %}
+                <img class="logo" src="{{ config.extra.logo_url }}" alt="{% if config.extra.logo_alt %}{{ config.extra.logo_alt }}{% else %}Logo{% endif %}">
+                {% endif %}
+                <h1 class="site-title"><a class="title-link" href="{{ base_url }}/">{{ site_name }}</a></h1>
+            </div>
+        </header>
+    
+        <div class="wrap content">
+            <aside>
+                <nav class="sidebar-nav" role="navigation">
+                    <ul>
+                        {% for nav_item in nav %}
+                        <li>
+                            {% if nav_item.children %}
+                            <span>{{ nav_item.title }}</span>
+                            <ul class="secondary-nav">
+                                {% for nav_item in nav_item.children %}
+                                <li>
+                                    <a href="{{ nav_item.url }}" class="{% if nav_item.active%}sidebar-nav-active{%endif%}">{{ nav_item.title }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% else %} 
+                            <a href="{{ nav_item.url }}" class="{% if nav_item.active%}sidebar-nav-active{%endif%}">{{ nav_item.title }}</a>
+
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </aside>
+
+            <section id="main" class="main-content" role="main">
+                {{ content }}
+            </section>
+        </div>
+
+        <footer role="contentinfo">
+            <div class="wrap">
+                This project is maintained by <a href="https://cfpb.github.io">The Consumer Financial Protection Bureau.</a>.
+
+                <p>Hosted on <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+            </div>
+        </footer>
+    </div> 
+</body>
+</html>
+{% if current_page and current_page.is_homepage %}
+<!--
+MkDocs version : {{ mkdocs_version }}
+Build Date UTC : {{ build_date_utc }}
+-->
+{% endif %}

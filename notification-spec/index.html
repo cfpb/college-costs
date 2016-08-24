@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>Notification spec validating offers - college-costs</title>
+    
+    
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/syntax.css">
+    
+
+    
+    <style type="text/css">
+        .sidebar-nav a:hover,
+        .sidebar-nav a:focus,
+        .sidebar-nav a:active,
+        .sidebar-nav a.sidebar-nav-active {
+            border-left-color: #2CB34A;
+        }
+        header {
+            border-bottom-color: #2CB34A;
+        }
+    </style>
+    
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="../js/respond.min.js"></script>
+    <![endif]--> 
+</head>
+
+<body>
+    
+    <div class="container">
+        <header role="banner">
+            <div class="wrap">
+                
+                <img class="logo" src="https://cfpb.github.io/img/logo_210.png" alt="Consumer Financial Protection Bureau">
+                
+                <h1 class="site-title"><a class="title-link" href="../">college-costs</a></h1>
+            </div>
+        </header>
+    
+        <div class="wrap content">
+            <aside>
+                <nav class="sidebar-nav" role="navigation">
+                    <ul>
+                        
+                        <li>
+                             
+                            <a href=".." class="">Introduction</a>
+
+                            
+                        </li>
+                        
+                        <li>
+                            
+                            <span>Specifications</span>
+                            <ul class="secondary-nav">
+                                
+                                <li>
+                                    <a href="../csv-spec/" class="">CSV spec for program data</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="../url-spec/" class="">URL spec for offer data</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="./" class="sidebar-nav-active">Notification spec validating offers</a>
+                                </li>
+                                
+                            </ul>
+                            
+                        </li>
+                        
+                    </ul>
+                </nav>
+            </aside>
+
+            <section id="main" class="main-content" role="main">
+                <h2 id="notifications">Notifications</h2>
+<p>School that need to receive notifications of completed disclosures have two ways to be notified.<br />
+The first, and preferred, method is via an API endpoint that the school will maintain.<br />
+The endpoint must be able to receive POST requests with a payload in this form:</p>
+<pre><code>oid: f38283b5b7c939a058889f997949efa566c616c5  
+time: 2016-01-13T16:04:37.777104+00:00  
+errors: none
+</code></pre>
+
+<h2 id="feilds">Feilds</h2>
+<p><strong>oid</strong> is a 40-character hex string from the offer url to allow the school to match an offer to a student.<br />
+<strong>time</strong> is a UTC timestamp string representing when the disclosure notification was generated.<br />
+<strong>errors</strong> is a string indicating whether the disclosure was valid. It will have one of two values:  </p>
+<ul>
+<li>
+<p>"none"<br />
+This will confirm that the disclosure was completed and is valid.</p>
+</li>
+<li>
+<p>"INVALID: student indicated the offer information is wrong"<br />
+This indicates that the student clicked on the link labeled "No, this is not my information"<br />
+This option is intended to catch cases where the student was given the wrong URL or a faulty URL.<br />
+In this case, a new oid will need to be generated in order to complete a valid disclosure; oid values are allowed to generate only one notification.</p>
+</li>
+</ul>
+<h2 id="email-notification">Email notification</h2>
+<p>Endpoint notifications are preferred because they are more reliable and simpler to automate.<br />
+Schools that can't set up endpoints can get notifications via email.</p>
+            </section>
+        </div>
+
+        <footer role="contentinfo">
+            <div class="wrap">
+                This project is maintained by <a href="https://cfpb.github.io">The Consumer Financial Protection Bureau.</a>.
+
+                <p>Hosted on <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+            </div>
+        </footer>
+    </div> 
+</body>
+</html>
