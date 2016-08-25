@@ -1,7 +1,7 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## Unreleased
+## 2.2.1
 - Added model function for exporting program as CSV
 - Added management command for purging test programs
 - Added docs/ directory and MkDocs framework to publish URL and CSV specs
