@@ -1,6 +1,9 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.2.2
+- Switch to djangorestframework==2.4.8 to match servers
+
 ## 2.2.1
 - Added model function for exporting program as CSV
 - Added management command for purging test programs

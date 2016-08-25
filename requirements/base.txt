@@ -6,6 +6,6 @@ python-dateutil==2.2
 PyYAML==3.11
 elasticsearch==2.3.0
 csvkit==0.9.1
-djangorestframework==3.3.3
+djangorestframework==2.4.8
 six==1.10.0
 boto==2.38.0

@@ -30,28 +30,28 @@ NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
 class ProgramSerializer(serializers.Serializer):
 
     ipeds_unit_id = serializers.CharField(max_length=6)  # '210960'
-    ope_id = serializers.CharField(max_length=8, allow_blank=True)  # '747000'
-    campus_name = serializers.CharField(allow_blank=True)  # 'Ai Pittsburgh'
+    ope_id = serializers.CharField(max_length=8, required=False)  # '747000'
+    campus_name = serializers.CharField(required=False)  # 'Ai Pittsburgh'
     program_code = serializers.CharField()  # '44'
-    program_name = serializers.CharField(allow_blank=True)  # 'Hotel & Restaurant Management'
-    program_level = serializers.IntegerField(allow_null=True)  # 3 @TODO: Should this by Char? Choice?
-    program_length = serializers.IntegerField(allow_null=True)  # 24
-    accreditor = serializers.CharField(allow_blank=True)  # ''
-    median_salary = serializers.IntegerField(allow_null=True)  # 31240
-    average_time_to_complete = serializers.IntegerField(allow_null=True)  # 36
-    books_supplies = serializers.IntegerField(allow_null=True)  # 2600
-    completion_rate = serializers.FloatField(allow_null=True)  # 0.29
-    default_rate = serializers.FloatField(allow_null=True)  # 0.23
-    job_placement_rate = serializers.FloatField(allow_null=True)  # 0.7
-    job_placement_note = serializers.CharField(allow_blank=True)  # 'optional note'
-    mean_student_loan_completers = serializers.IntegerField(allow_null=True)  # 34000
-    median_student_loan_completers = serializers.IntegerField(allow_null=True)  # 45857
-    total_cost = serializers.IntegerField(allow_null=True)  # 91004
-    tuition_fees = serializers.IntegerField(allow_null=True)  # 88404
-    cip_code = serializers.CharField(allow_blank=True) # '12.0504'
-    # soc_codes = serializers.CharField(allow_blank=True)  # '35-1011, 35-1012'
-    completers = serializers.IntegerField(allow_null=True)
-    completion_cohort = serializers.IntegerField(allow_null=True)
+    program_name = serializers.CharField(required=False)  # 'Hotel & Restaurant Management'
+    program_level = serializers.IntegerField(required=False)  # 3 @TODO: Should this by Char? Choice?
+    program_length = serializers.IntegerField(required=False)  # 24
+    accreditor = serializers.CharField(required=False)  # ''
+    median_salary = serializers.IntegerField(required=False)  # 31240
+    average_time_to_complete = serializers.IntegerField(required=False)  # 36
+    books_supplies = serializers.IntegerField(required=False)  # 2600
+    completion_rate = serializers.FloatField(required=False)  # 0.29
+    default_rate = serializers.FloatField(required=False)  # 0.23
+    job_placement_rate = serializers.FloatField(required=False)  # 0.7
+    job_placement_note = serializers.CharField(required=False)  # 'optional note'
+    mean_student_loan_completers = serializers.IntegerField(required=False)  # 34000
+    median_student_loan_completers = serializers.IntegerField(required=False)  # 45857
+    total_cost = serializers.IntegerField(required=False)  # 91004
+    tuition_fees = serializers.IntegerField(required=False)  # 88404
+    cip_code = serializers.CharField(required=False) # '12.0504'
+    # soc_codes = serializers.CharField(required=False)  # '35-1011, 35-1012'
+    completers = serializers.IntegerField(required=False)
+    completion_cohort = serializers.IntegerField(required=False)
 
 
 def get_school(iped):
