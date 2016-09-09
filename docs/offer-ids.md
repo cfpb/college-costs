@@ -8,7 +8,7 @@ Two important details to note:
 
 - **The first seven characters in the offer ID should be given to the student so that she can confirm on the  disclosure page that the offer is hers.** 
 - **An offer ID can be used only once.**  
-If an offer ID generates a notification, either successful or with an error, it cannot be used again to validate an offer. If a student needs to re-evaluate an offer, an new offer ID needs to be generated and used in a new offer URL. 
+If an offer ID generates a notification, either successful or with an error, it cannot be used again to validate an offer. If a student needs to re-evaluate an offer, a new offer ID needs to be generated and used in a new offer URL. 
 
 ## Technical details
 We chose a 40-hex-character hash as the form for an offer ID because it has two advantages:  
