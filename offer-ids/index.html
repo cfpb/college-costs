@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-    <title>Notification spec validating offers - college-costs</title>
+    <title>How to create offer ID hashes - college-costs</title>
     
     
 
@@ -74,11 +74,11 @@
                                 </li>
                                 
                                 <li>
-                                    <a href="./" class="sidebar-nav-active">Notification spec validating offers</a>
+                                    <a href="../notification-spec/" class="">Notification spec validating offers</a>
                                 </li>
                                 
                                 <li>
-                                    <a href="../offer-ids/" class="">How to create offer ID hashes</a>
+                                    <a href="./" class="sidebar-nav-active">How to create offer ID hashes</a>
                                 </li>
                                 
                             </ul>
@@ -90,34 +90,43 @@
             </aside>
 
             <section id="main" class="main-content" role="main">
-                <h2 id="notifications">Notifications</h2>
-<p>School that need to receive notifications of completed disclosures have two ways to be notified.<br />
-The first, and preferred, method is via an API endpoint that the school will maintain.<br />
-The endpoint must be able to receive POST requests with a payload in this form:</p>
-<pre><code>oid: f38283b5b7c939a058889f997949efa566c616c5  
-time: 2016-01-13T16:04:37.777104+00:00  
-errors: none
+                <h2 id="offer-ids">Offer IDs</h2>
+<p>Offer IDs allow a school to provide a disclosure of a student's enrollment offer without revealing who the student is. They also allow the CFPB to send confirmations to the school that a disclosure was reviewed by a student, but without transmitting any information about the student.</p>
+<p>Only the school will know which student the offer ID applies to.</p>
+<p>We chose a 40-hex-character hash as the form for an offer ID because it has two advantages:  </p>
+<ul>
+<li>The hashes contain only numbers and the letters a-f and are safe to transmit and accept.</li>
+<li>Unique hash values are easy to create in a way that cannot be traced back to a student.</li>
+</ul>
+<p>The school can decide what values to use to generate the offer ID hashes. 
+One easy method would be to combine a timestamp and another value -- such as a student ID or even a completely random number or numbers -- and generate a SHA-1 hash from those values.</p>
+<p>Following is a short Python script that generates such a hash from an input value of the school's choice. It uses the SHA-1 hash algorithm to create the required 40-character offer ID.</p>
+<pre><code class="python">&quot;&quot;&quot;script to generate offer IDs&quot;&quot;&quot;
+import hashlib
+import datetime
+
+
+def create_hash(value):
+    &quot;&quot;&quot;returns a one-time, unique 40-character SHA-1 hash using the value provided.&quot;&quot;&quot;
+    val = value + datetime.datetime.now().isoformat()
+    return hashlib.sha1(val).hexdigest()
 </code></pre>
 
-<h2 id="feilds">Feilds</h2>
-<p><strong>oid</strong> is a 40-character hex string from the offer url to allow the school to match an offer to a student.<br />
-<strong>time</strong> is a UTC timestamp string representing when the disclosure notification was generated.<br />
-<strong>errors</strong> is a string indicating whether the disclosure was valid. It will have one of two values:  </p>
-<ul>
-<li>
-<p>"none"<br />
-  This will confirm that the disclosure was completed and is valid.</p>
-</li>
-<li>
-<p>"INVALID: student indicated the offer information is wrong"<br />
-  This indicates that the student clicked on the link labeled "No, this is not my information"<br />
-  This option is intended to catch cases where the student was given the wrong URL or a faulty URL.<br />
-  In this case, a new oid will need to be generated in order to complete a valid disclosure; oid values are allowed to generate only one notification.</p>
-</li>
-</ul>
-<h2 id="email-notification">Email notification</h2>
-<p>Endpoint notifications are preferred because they are more reliable and simpler to automate.<br />
-Schools that can't set up endpoints can get notifications via email.</p>
+<p>This would return a unique offer ID that could be used as the 'oid' value in a student's offer URL.<br />
+If run again with the same value, it will generate a completely new unique ID, because a new timestamp is used in creating each hash.</p>
+<p>The school could generate an ID, using any input value desired, keep a record of it as the student's offer ID and use it in the student's disclosure URL as spelled out in the <a href="https://cfpb.github.io/college-costs/url-spec/">URL specification</a>.</p>
+<p><strong>The first seven characters in the offer ID should be given to the student so that she can confirm on the  disclosure page that the offer is hers.</strong> </p>
+<p>The Python hashing script above is <a href="http://files.consumerfinance.gov.s3.amazonaws.com/pb/paying_for_college/scripts/create_offer_hash.py">available for download</a> and can be run from a shell command line with this command:</p>
+<pre><code>python create_offer_hash.py [VALUE]
+</code></pre>
+
+<p>Replace '[VALUE]' with a value of your choice, and the script will generate a unique offer ID with each use.<br />
+Example:</p>
+<pre><code>python create_offer_hash.py student123
+</code></pre>
+
+<p>Entering that command will produce something like this:<br />
+<code>2df92217303700c6165d56a24b89cef419133a89</code></p>
             </section>
         </div>
 
