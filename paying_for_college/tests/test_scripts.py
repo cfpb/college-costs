@@ -32,7 +32,7 @@ completion_rate:\n\
 
 
 class TaggingTests(django.test.TestCase):
-    """Test functions for taggins settlement schools via CSV"""
+    """Test functions for tagging settlement schools via CSV"""
 
     fixtures = ['test_fixture.json']
     mock_csv_data = [{"ipeds_unit_id": "243197",
