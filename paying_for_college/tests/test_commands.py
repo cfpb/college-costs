@@ -4,13 +4,6 @@ import unittest
 from django.core.management.base import CommandError
 from django.core.management import call_command
 
-# from paying_for_college.management.commands import (update_ipeds,
-#                                                     update_via_api,
-#                                                     load_programs,
-#                                                     retry_notifications,
-#                                                     send_stale_notifications,
-#                                                     purge, tag_schools)
-
 
 class CommandTests(unittest.TestCase):
 
