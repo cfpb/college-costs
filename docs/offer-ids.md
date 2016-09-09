@@ -4,6 +4,13 @@ Offer IDs allow a school to provide a disclosure of a student's enrollment offer
 
 Only the school will know which student the offer ID applies to.
 
+Two important details to note:  
+
+- **The first seven characters in the offer ID should be given to the student so that she can confirm on the  disclosure page that the offer is hers.** 
+- **An offer ID can be used only once.**  
+If an offer ID generates a notification, either successful or with an error, it cannot be used again to validate an offer. If a student needs to re-evaluate an offer, an new offer ID needs to be generated and used in a new offer URL. 
+
+## Technical details
 We chose a 40-hex-character hash as the form for an offer ID because it has two advantages:  
 
 - The hashes contain only numbers and the letters a-f and are safe to transmit and accept.
@@ -30,8 +37,6 @@ This would return a unique offer ID that could be used as the 'oid' value in a s
 If run again with the same value, it will generate a completely new unique ID, because a new timestamp is used in creating each hash.
 
 The school could generate an ID, using any input value desired, keep a record of it as the student's offer ID and use it in the student's disclosure URL as spelled out in the [URL specification](https://cfpb.github.io/college-costs/url-spec/).
-
-**The first seven characters in the offer ID should be given to the student so that she can confirm on the  disclosure page that the offer is hers.** 
 
 The Python hashing script above is [available for download](http://files.consumerfinance.gov.s3.amazonaws.com/pb/paying_for_college/scripts/create_offer_hash.py) and can be run from a shell command line with this command:
 
