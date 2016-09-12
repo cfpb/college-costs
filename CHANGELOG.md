@@ -1,7 +1,7 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## Unreleased
+## 2.2.3
 - Added a script to tag settlement schools using an S3 csv of school IDs
 - Added manage command to run update_national_stats_file
 
