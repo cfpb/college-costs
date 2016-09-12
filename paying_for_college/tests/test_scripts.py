@@ -13,7 +13,8 @@ from paying_for_college.models import School, Notification, Alias, Program
 from paying_for_college.disclosures.scripts import (api_utils, update_colleges,
                                                     nat_stats, notifications,
                                                     update_ipeds,
-                                                    purge_objects)
+                                                    purge_objects,
+                                                    tag_settlement_schools)
 from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
                                                               EDMC_DEV,
                                                               OID, ERRORS)
@@ -28,6 +29,40 @@ completion_rate:\n\
   median: 0.4379\n\
   average_range: [.3180, .5236]\n
 """
+
+
+class TaggingTests(django.test.TestCase):
+    """Test functions for tagging settlement schools via CSV"""
+
+    fixtures = ['test_fixture.json']
+    mock_csv_data = [{"ipeds_unit_id": "243197",
+                      "flag": "mock_university"}]
+    bad_csv_data = [{"ipeds_unit_id": "243197",
+                     "floog": "mock_university"}]
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'tag_settlement_schools.read_in_s3')
+    def test_tag_schools(self, mock_read_in):
+        mock_read_in.return_value = self.mock_csv_data
+        msg = tag_settlement_schools.tag_schools('mock_s3URL')
+        self.assertIn("mock_university", msg)
+        self.assertIn("tagged as", msg)
+        flagged = School.objects.filter(settlement_school='mock_university')
+        self.assertTrue(flagged.count() == 1)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'tag_settlement_schools.read_in_s3')
+    def test_tag_schools_no_data(self, mock_read_in):
+        mock_read_in.return_value = [{}]
+        msg = tag_settlement_schools.tag_schools('mock_s3URL')
+        self.assertIn("ERROR", msg)
+
+    @mock.patch('paying_for_college.disclosures.scripts.'
+                'tag_settlement_schools.read_in_s3')
+    def test_tag_schools_bad_heading(self, mock_read_in):
+        mock_read_in.return_value = self.bad_csv_data
+        msg = tag_settlement_schools.tag_schools('mock_s3URL')
+        self.assertIn("ERROR", msg)
 
 
 class PurgeTests(django.test.TestCase):

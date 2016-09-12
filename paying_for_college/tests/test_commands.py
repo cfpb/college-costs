@@ -4,15 +4,23 @@ import unittest
 from django.core.management.base import CommandError
 from django.core.management import call_command
 
-from paying_for_college.management.commands import (update_ipeds,
-                                                    update_via_api,
-                                                    load_programs,
-                                                    retry_notifications,
-                                                    send_stale_notifications,
-                                                    purge)
-
 
 class CommandTests(unittest.TestCase):
+
+    @mock.patch('paying_for_college.management.commands.'
+                'update_pfc_national_stats.nat_stats.'
+                'update_national_stats_file')
+    def test_update_pfc_national_stats(self, mock_update):
+        mock_update.return_value = 'OK'
+        call_command('update_pfc_national_stats')
+        self.assertEqual(mock_update.call_count, 1)
+
+    @mock.patch('paying_for_college.management.commands.'
+                'tag_schools.tag_settlement_schools.tag_schools')
+    def test_tag_schools(self, mock_tag):
+        mock_tag.return_value = 'Aye Aye'
+        call_command('tag_schools', 's3URL')
+        self.assertEqual(mock_tag.call_count, 1)
 
     @mock.patch('paying_for_college.management.commands.'
                 'purge.purge')
