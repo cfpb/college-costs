@@ -11,7 +11,7 @@ program_code | string | assumed unique within a school; <br>can't contain these 
 program_name | string |
 program_length | integer | number of months in program
 program_level | integer | 0 = Non-degree-granting<br> 1 = Certificate<br> 2 = Associate<br> 3 = Bachelor's<br> 4 = Graduate
-accreditor | string | often will be blank
+accreditor | string | may be blank
 median_salary | integer |
 average_time_to_complete | integer | in months
 books_supplies | integer | annual cost of books and supplies
