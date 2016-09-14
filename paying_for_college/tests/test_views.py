@@ -36,6 +36,7 @@ def setup_view(view, request, *args, **kwargs):
 
 class Validators(unittest.TestCase):
     """check the oid validator"""
+    max_oid = '6ca1a60a72b3d4640b20a683d63a40297b7c45c4df479cd93cd57d9c44820069eb71d168eedd531bb488cd2e58d3dbbce8ee80c02ef6fc9623479510adedf704'
     good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
     bad_oid = '9e0<script>console.log("hi")</script>5d0'
     short_oid = '9e45a3e7'
@@ -44,6 +45,7 @@ class Validators(unittest.TestCase):
         self.assertFalse(validate_oid(self.bad_oid))
         self.assertFalse(validate_oid(self.short_oid))
         self.assertTrue(validate_oid(self.good_oid))
+        self.assertTrue(validate_oid(self.max_oid))
 
     def test_validate_pid(self):
         # bad_chars = [';', '<', '>', '{', '}']
