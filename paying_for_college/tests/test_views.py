@@ -1,6 +1,7 @@
 import datetime
 import unittest
 import json
+import copy
 
 import mock
 import django
@@ -35,6 +36,7 @@ def setup_view(view, request, *args, **kwargs):
 
 class Validators(unittest.TestCase):
     """check the oid validator"""
+    max_oid = '6ca1a60a72b3d4640b20a683d63a40297b7c45c4df479cd93cd57d9c44820069eb71d168eedd531bb488cd2e58d3dbbce8ee80c02ef6fc9623479510adedf704'
     good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
     bad_oid = '9e0<script>console.log("hi")</script>5d0'
     short_oid = '9e45a3e7'
@@ -43,6 +45,7 @@ class Validators(unittest.TestCase):
         self.assertFalse(validate_oid(self.bad_oid))
         self.assertFalse(validate_oid(self.short_oid))
         self.assertTrue(validate_oid(self.good_oid))
+        self.assertTrue(validate_oid(self.max_oid))
 
     def test_validate_pid(self):
         # bad_chars = [';', '<', '>', '{', '}']
@@ -364,7 +367,7 @@ class VerifyViewTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
     post_data = {'oid': 'f38283b5b7c939a058889f997949efa566c616c5',
-                 'iped': '408039',
+                 'iped': '243197',
                  'errors': 'none'}
     url = reverse('disclosures:verify')
 
@@ -376,13 +379,22 @@ class VerifyViewTest(django.test.TestCase):
         self.assertTrue(resp2.status_code == 400)
         self.assertTrue('already' in resp2.content)
 
+    def test_verify_view_school_has_no_contact(self):
+        post_data = copy.copy(self.post_data)
+        post_data['iped'] = '408039'
+        post_data['oid'] = 'f38283b5b7c939a058889f997949efa566c616c4'
+        print("\n\n\n***SCHOOL is {}\nSCHOOL CONTACT IS {}\n".format(School.objects.get(pk=408039), School.objects.get(pk=408039).contact))
+        resp = client.post(self.url, data=post_data)
+        print("RESPONSE is {}\n***\n\n\n".format(resp.content))
+        self.assertTrue(resp.status_code == 400)
+
     def test_verify_view_bad_id(self):
         self.post_data['iped'] = ''
         resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 400)
 
     def test_verify_view_bad_oid(self):
-        self.post_data['iped'] = '408039'
+        self.post_data['iped'] = '243197'
         self.post_data['oid'] = 'f38283b5b7c939a058889f997949efa566script'
         resp = client.post(self.url, data=self.post_data)
         self.assertTrue(resp.status_code == 400)

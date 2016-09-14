@@ -68,7 +68,7 @@ def validate_oid(oid):
     if find_illegal:
         return False
     else:
-        if len(oid) == 40:
+        if len(oid) >= 40 and len(oid) <= 128:
             return True
         else:
             return False
@@ -380,6 +380,9 @@ class VerifyView(View):
             return HttpResponseBadRequest('Error: No valid OID provided')
         if 'iped' in data and data['iped'] and get_school(data['iped']):
             school = get_school(data['iped'])
+            if not school.contact:
+                errmsg = "Error: School has no contact."
+                return HttpResponseBadRequest(errmsg)
             if Notification.objects.filter(institution=school, oid=OID):
                 errmsg = "Error: OfferID has already generated a notification."
                 return HttpResponseBadRequest(errmsg)
