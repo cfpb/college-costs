@@ -70,15 +70,15 @@
                                 </li>
                                 
                                 <li>
+                                    <a href="./" class="sidebar-nav-active">How to create offer ID hashes</a>
+                                </li>
+                                
+                                <li>
                                     <a href="../url-spec/" class="">URL spec for offer data</a>
                                 </li>
                                 
                                 <li>
                                     <a href="../notification-spec/" class="">Notification spec validating offers</a>
-                                </li>
-                                
-                                <li>
-                                    <a href="./" class="sidebar-nav-active">How to create offer ID hashes</a>
                                 </li>
                                 
                             </ul>
@@ -100,12 +100,12 @@
 If an offer ID generates a notification, either successful or with an error, it cannot be used again to validate an offer. If a student needs to re-evaluate an offer, a new offer ID needs to be generated and used in a new offer URL. </li>
 </ul>
 <h2 id="technical-details">Technical details</h2>
-<p>We chose a 40-hex-character hash as the form for an offer ID because it has two advantages:  </p>
+<p>We chose a 40-hex-character hash as the standard form for an offer ID because it has two advantages:  </p>
 <ul>
 <li>Unique hash values are easy to create in a way that cannot be traced back to a student.</li>
 <li>The hashes contain only numbers and the letters a-f and are safe to transmit and accept.</li>
 </ul>
-<p>The school is free decide how to generate the offer IDs, but they need to be unique. <br />
+<p>The school is free decide how to generate the offer IDs, and we will allow up to 128 hex characters so other hashing algorithms can be used, but the IDs need to be unique. <br />
 One easy method would be to combine a timestamp and another value -- such as a student ID or a random number or phrase -- and generate a SHA-1 hash from the combined values.</p>
 <p>Following is an example Python function that does just that.</p>
 <pre><code class="python">import hashlib
@@ -149,10 +149,10 @@ If run again, even with the same input value, it would generate a new unique ID,
 <p>The program will now return a message like this:<br />
 <code>200 offer IDs were output to 'student_offer_ids_2016-10-11.csv'</code></p>
 <p>The CSV could be opened in a program such as Excel and used to assign IDs to prospective students.</p>
-<p>Note:<br />
-The date tag in the CSV's name depends on the day the script is run.<br />
-If run with the <code>--csv</code> option multiple times on the same day, the new IDs will be appended to the first CSV created that day, if it hasn't been moved to a different directory.</p>
-<p>If run on another day, a new CSV would be created with that day's date in the name.</p>
+<p>Notes:<br />
+- The date tag in the CSV's name depends on the day the script is run.<br />
+- If run with the <code>--csv</code> option multiple times on the same day, the new IDs will be appended to the first CSV created that day, if it hasn't been moved to a different directory.
+- If run on another day, a new CSV would be created with that day's date in the name.</p>
             </section>
         </div>
 
