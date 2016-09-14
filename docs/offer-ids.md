@@ -11,12 +11,12 @@ Two important details to note:
 If an offer ID generates a notification, either successful or with an error, it cannot be used again to validate an offer. If a student needs to re-evaluate an offer, a new offer ID needs to be generated and used in a new offer URL. 
 
 ## Technical details
-We chose a 40-hex-character hash as the form for an offer ID because it has two advantages:  
+We chose a 40-hex-character hash as the standard form for an offer ID because it has two advantages:  
 
 - Unique hash values are easy to create in a way that cannot be traced back to a student.
 - The hashes contain only numbers and the letters a-f and are safe to transmit and accept.
 
-The school is free decide how to generate the offer IDs, but they need to be unique.   
+The school is free decide how to generate the offer IDs, and we will allow up to 128 hex characters so other hashing algorithms can be used, but the IDs need to be unique.   
 One easy method would be to combine a timestamp and another value -- such as a student ID or a random number or phrase -- and generate a SHA-1 hash from the combined values.
 
 Following is an example Python function that does just that.
