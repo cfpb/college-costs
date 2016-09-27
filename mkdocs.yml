@@ -3,9 +3,9 @@ pages:
 - Introduction: index.md
 - Specifications:
     - CSV spec for program data: csv-spec.md
+    - How to create offer ID hashes: offer-ids.md
     - URL spec for offer data: url-spec.md
     - Notification spec validating offers: notification-spec.md
-    - How to create offer ID hashes: offer-ids.md
 
 theme: mkDOCter
 extra:
