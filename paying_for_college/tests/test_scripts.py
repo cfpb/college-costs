@@ -98,8 +98,8 @@ class TestScripts(django.test.TestCase):
                    'degrees_predominant': '',
                    'degrees_highest': '',
                    'school.ownership': 2,
-                   '2013.completion.completion_rate_4yr_150nt_pooled': 0.45,
-                   '2013.completion.completion_rate_less_than_4yr_150nt_pooled': None,
+                   '{}.completion.completion_rate_4yr_150nt_pooled'.format(YEAR): 0.45,
+                   '{}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(YEAR): None,
                    'school.main_campus': True,
                    'school.online_only': False,
                    'school.operating': True,
@@ -124,8 +124,8 @@ class TestScripts(django.test.TestCase):
                    'degrees_predominant': '',
                    'degrees_highest': '',
                    'school.ownership': 2,
-                   '2013.completion.completion_rate_4yr_150nt_pooled': 0,
-                   '2013.completion.completion_rate_less_than_4yr_150nt_pooled': 0.25,
+                   '{}.completion.completion_rate_4yr_150nt_pooled'.format(YEAR): 0,
+                   '{}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(YEAR): 0.25,
                    'school.main_campus': True,
                    'school.online_only': False,
                    'school.operating': False,
@@ -431,8 +431,8 @@ class TestScripts(django.test.TestCase):
     def test_get_repayment_data(self, mock_requests):
         mock_response = mock.Mock()
         expected_dict = {'results':
-                         [{'2013.repayment.5_yr_repayment.completers': 100,
-                          '2013.repayment.5_yr_repayment.noncompleters': 900}]}
+                         [{'{}.repayment.5_yr_repayment.completers'.format(YEAR): 100,
+                          '{}.repayment.5_yr_repayment.noncompleters'.format(YEAR): 900}]}
         mock_response.json.return_value = expected_dict
         mock_requests.return_value = mock_response
         data = api_utils.get_repayment_data(123456, YEAR)
