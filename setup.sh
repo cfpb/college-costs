@@ -42,6 +42,10 @@ build(){
   echo 'Building project...'
   gulp clean
   gulp build
+  find paying_for_college -name '*.css' -exec \
+      sed  -i '' 's/\/static\/vendor\/box-sizing-polyfill\/boxsizing.htc/\/static\/paying_for_college\/disclosures\/static\/js\/boxsizing.htc/g' {} \;
+  find paying_for_college -name '*.css' -exec \
+      sed  -i '' 's/\/cf-grid\/custom-demo\/static\/css\/boxsizing.htc/\/static\/paying_for_college\/disclosures\/static\/js\/boxsizing.htc/g' {} \;
 }
 
 init
