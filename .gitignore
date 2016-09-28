@@ -58,6 +58,9 @@ paying_for_college/local_static/
 paying_for_college/static/paying_for_college/disclosures/
 *data/
 
+# vim
+*.swp
+
 # Sphinx documentation
 docs/_build/
 
