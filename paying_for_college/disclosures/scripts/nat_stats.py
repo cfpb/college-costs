@@ -11,9 +11,10 @@ import requests
 import yaml
 from paying_for_college.models import ConstantRate
 
-COLLEGE_CHOICE_NATIONAL_DATA_URL = """\
-https://raw.githubusercontent.com/18F/\
-college-choice/dev/_data/national_stats.yaml"""
+COLLEGE_CHOICE_NATIONAL_DATA_URL = (
+        'https://raw.githubusercontent.com/RTICWDT/'
+        'college-scorecard/dev/_data/national_stats.yaml'
+        )
 FIXTURES_DIR = Path(__file__).ancestor(3)
 NAT_DATA_FILE = '{0}/fixtures/national_stats.json'.format(FIXTURES_DIR)
 BACKUP_FILE = '{0}/fixtures/national_stats_backup.json'.format(FIXTURES_DIR)
@@ -51,12 +52,13 @@ def update_national_stats_file():
     nat_dict = get_stats_yaml()
     if nat_dict == {}:
         return "Could not update national stats from {0}".format(
-                                COLLEGE_CHOICE_NATIONAL_DATA_URL)
+            COLLEGE_CHOICE_NATIONAL_DATA_URL
+            )
     else:  # pragma: no cover -- not testing os and open
         if os.path.isfile(NAT_DATA_FILE):
             call(["mv", NAT_DATA_FILE, BACKUP_FILE])
         with open(NAT_DATA_FILE, 'w') as f:
-            f.write(json.dumps(nat_dict))
+            f.write(json.dumps(nat_dict, sort_keys=True, indent=4))
         return "OK"
 
 

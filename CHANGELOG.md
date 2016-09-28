@@ -1,6 +1,10 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+- Updated the URL for national statistics to follow moving of Dept. of Education repo.
+- Updates to the 'collegedata.json' fixture were backported from production, based on 2014-2015 values.
+
 ## 2.2.4
 - Prevented creation of notifications if a school has no contact info
 - Allowed offer IDs of up to 128 characters, up from 40
