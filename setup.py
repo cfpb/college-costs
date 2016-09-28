@@ -77,6 +77,7 @@ setup(
                    'static/paying_for_college/disclosures/static/js/*.js',
                    'static/paying_for_college/disclosures/static/js/*.map',
                    'static/paying_for_college/disclosures/static/img/*.png',
+                   'static/vendor/box-sizing-polyfill/boxsizing.htc'
                    ],
                   },
     include_package_data=True,
