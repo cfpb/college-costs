@@ -13,7 +13,8 @@ import requests
 
 from paying_for_college.disclosures.scripts import api_utils
 from paying_for_college.disclosures.scripts.api_utils import (MODEL_MAP,
-                                                              LATEST_YEAR)
+                                                              LATEST_YEAR,
+                                                              LATEST_SALARY_YEAR)
 from paying_for_college.models import School, CONTROL_MAP
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
@@ -43,9 +44,9 @@ def update(exclude_ids=[], single_school=None):
     FAILED = []  # failed to get a good API response
     NO_DATA = []  # API responded, but with no data
     CLOSED = 0  # schools that have closed since our last scrape
-    START_MSG = "Requesting school data from {0}."
+    START_MSG = "Requesting school data from {0} and salary data from {1}."
     JOB_MSG = "The job is paced for the Ed API, so it can take an hour to run."
-    print(START_MSG.format(LATEST_YEAR))
+    print(START_MSG.format(LATEST_YEAR, LATEST_SALARY_YEAR))
     if not single_school:
         print(JOB_MSG)
     UPDATED = False
