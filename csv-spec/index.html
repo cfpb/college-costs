@@ -92,7 +92,8 @@
             <section id="main" class="main-content" role="main">
                 <h2 id="csv-specifications-for-program-data">CSV specifications for program data</h2>
 <p>The CSV should be UTF-8 encoded.  </p>
-<h4 id="column-names-and-types-for-incoming-college-program-data">Column names and types for incoming college program data</h4>
+<h4 id="column-names-and-types-for-college-program-data">Column names and types for college program data</h4>
+<p>The eight boldface fields are required. Data submissions will be rejected if these fields are missing or blank, or if a program code contains illegal characters.</p>
 <table>
 <thead>
 <tr>
@@ -103,54 +104,54 @@
 </thead>
 <tbody>
 <tr>
-<td align="left">ipeds_unit_id</td>
+<td align="left"><strong>ipeds_unit_id</strong></td>
 <td>integer</td>
 <td>will be used as the canonical 6-digit school ID</td>
 </tr>
 <tr>
-<td align="left">ope_id</td>
-<td>string</td>
-<td>alternate Dept. of Ed school ID as backup</td>
-</tr>
-<tr>
-<td align="left">program_code</td>
+<td align="left"><strong>program_code</strong></td>
 <td>string</td>
 <td>assumed unique within a school; <br>can't contain these characters: ; &lt; &gt; { } _</td>
 </tr>
 <tr>
-<td align="left">program_name</td>
+<td align="left"><strong>program_name</strong></td>
 <td>string</td>
 <td></td>
 </tr>
 <tr>
-<td align="left">program_length</td>
+<td align="left"><strong>program_length</strong></td>
 <td>integer</td>
-<td>number of months in program</td>
+<td>standard number of months to complete program</td>
 </tr>
 <tr>
-<td align="left">program_level</td>
+<td align="left"><strong>program_level</strong></td>
 <td>integer</td>
 <td>0 = Non-degree-granting<br> 1 = Certificate<br> 2 = Associate<br> 3 = Bachelor's<br> 4 = Graduate</td>
 </tr>
 <tr>
-<td align="left">accreditor</td>
-<td>string</td>
-<td>may be blank</td>
+<td align="left"><strong>books_supplies</strong></td>
+<td>integer</td>
+<td>annual cost of books and supplies</td>
 </tr>
 <tr>
-<td align="left">median_salary</td>
+<td align="left"><strong>total_cost</strong></td>
 <td>integer</td>
+<td>total attendance cost for completing an entire program</td>
+</tr>
+<tr>
+<td align="left"><strong>tuition_fees</strong></td>
+<td>integer</td>
+<td>annual cost of tuition and fees</td>
+</tr>
+<tr>
+<td align="left">accreditor</td>
+<td>string</td>
 <td></td>
 </tr>
 <tr>
 <td align="left">average_time_to_complete</td>
 <td>integer</td>
 <td>in months</td>
-</tr>
-<tr>
-<td align="left">books_supplies</td>
-<td>integer</td>
-<td>annual cost of books and supplies</td>
 </tr>
 <tr>
 <td align="left">campus_name</td>
@@ -163,6 +164,11 @@
 <td>used to look up related career/field</td>
 </tr>
 <tr>
+<td align="left">completers</td>
+<td>integer</td>
+<td>number in cohort who completed the program</td>
+</tr>
+<tr>
 <td align="left">completion_rate</td>
 <td>float</td>
 <td>0.41 (would signify 41%)</td>
@@ -171,11 +177,6 @@
 <td align="left">completion_cohort</td>
 <td>integer</td>
 <td>number of students who enrolled in the program</td>
-</tr>
-<tr>
-<td align="left">completers</td>
-<td>integer</td>
-<td>number in cohort who completed the program</td>
 </tr>
 <tr>
 <td align="left">default_rate</td>
@@ -198,24 +199,24 @@
 <td>average of amounts grads owe</td>
 </tr>
 <tr>
+<td align="left">median_salary</td>
+<td>integer</td>
+<td></td>
+</tr>
+<tr>
 <td align="left">median_student_loan_completers</td>
 <td>integer</td>
 <td>median of amounts grads owe</td>
 </tr>
 <tr>
+<td align="left">ope_id</td>
+<td>string</td>
+<td>alternate Dept. of Ed school ID as backup</td>
+</tr>
+<tr>
 <td align="left">soc_codes</td>
 <td>string</td>
 <td>pipe-separated list of related career/fields</td>
-</tr>
-<tr>
-<td align="left">total_cost</td>
-<td>integer</td>
-<td>total attendance cost</td>
-</tr>
-<tr>
-<td align="left">tuition_fees</td>
-<td>integer</td>
-<td>annual cost of tuition and fees</td>
 </tr>
 </tbody>
 </table>
@@ -228,6 +229,10 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left">Added boldface to required fields</td>
+<td>2016-10-21</td>
+</tr>
 <tr>
 <td align="left">Noted ipeds_unit_id is an integer</td>
 <td>2016-08-24</td>
