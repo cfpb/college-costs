@@ -4,6 +4,8 @@ The CSV should be UTF-8 encoded.
 #### Column names and types for college program data
 The eight boldface fields are required. Data submissions will be rejected if these fields are missing or blank, or if a program code contains illegal characters.
 
+A sample CSV in the correct format can be [downloaded here](http://files.consumerfinance.gov.s3.amazonaws.com/pb/paying_for_college/csv/sample-program.csv).
+
 name | type | note
 :--- | :--- | :---
 **ipeds_unit_id** | integer | will be used as the canonical 6-digit school ID
