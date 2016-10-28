@@ -1,5 +1,4 @@
 from __future__ import print_function
-import os
 import StringIO
 
 from rest_framework import serializers
@@ -21,7 +20,6 @@ To run the script, use this manage.py command:
 ```
 ./manage.py load_programs [PATH TO CSV]
 ```
-
 """
 
 NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
@@ -29,29 +27,64 @@ NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
 
 class ProgramSerializer(serializers.Serializer):
 
+    # required fields
     ipeds_unit_id = serializers.CharField(max_length=6)  # '210960'
-    ope_id = serializers.CharField(max_length=8, required=False)  # '747000'
-    campus_name = serializers.CharField(required=False)  # 'Ai Pittsburgh'
-    program_code = serializers.CharField()  # '44'
-    program_name = serializers.CharField(required=False)  # 'Hotel & Restaurant Management'
-    program_level = serializers.IntegerField(required=False)  # 3 @TODO: Should this by Char? Choice?
-    program_length = serializers.IntegerField(required=False)  # 24
-    accreditor = serializers.CharField(required=False)  # ''
-    median_salary = serializers.IntegerField(required=False)  # 31240
-    average_time_to_complete = serializers.IntegerField(required=False)  # 36
-    books_supplies = serializers.IntegerField(required=False)  # 2600
-    completion_rate = serializers.FloatField(required=False)  # 0.29
-    default_rate = serializers.FloatField(required=False)  # 0.23
-    job_placement_rate = serializers.FloatField(required=False)  # 0.7
-    job_placement_note = serializers.CharField(required=False)  # 'optional note'
-    mean_student_loan_completers = serializers.IntegerField(required=False)  # 34000
-    median_student_loan_completers = serializers.IntegerField(required=False)  # 45857
-    total_cost = serializers.IntegerField(required=False)  # 91004
-    tuition_fees = serializers.IntegerField(required=False)  # 88404
-    cip_code = serializers.CharField(required=False) # '12.0504'
-    # soc_codes = serializers.CharField(required=False)  # '35-1011, 35-1012'
-    completers = serializers.IntegerField(required=False)
-    completion_cohort = serializers.IntegerField(required=False)
+    program_code = serializers.CharField(max_length=255)
+    program_name = serializers.CharField(max_length=255)
+    program_level = serializers.IntegerField(min_value=0, max_value=4)
+    program_length = serializers.IntegerField(max_value=120)  # in months
+    total_cost = serializers.IntegerField()
+    tuition_fees = serializers.IntegerField()
+    books_supplies = serializers.IntegerField()
+    # allowed to be missing or blank
+    ope_id = serializers.CharField(  # '747000'
+        max_length=8,
+        allow_blank=True,
+        required=False)
+    campus_name = serializers.CharField(
+        max_length=255,
+        allow_blank=True,
+        required=False)
+    accreditor = serializers.CharField(
+        allow_blank=True,
+        required=False)
+    median_salary = serializers.IntegerField(  # 31240
+        allow_null=True,
+        required=False)
+    average_time_to_complete = serializers.IntegerField(  # 36
+        allow_null=True,
+        required=False)
+    completion_rate = serializers.FloatField(  # 0.29
+        allow_null=True,
+        required=False)
+    default_rate = serializers.FloatField(  # 0.23
+        allow_null=True,
+        required=False)
+    job_placement_rate = serializers.FloatField(  # 0.7
+        allow_null=True,
+        required=False)
+    job_placement_note = serializers.CharField(
+        allow_blank=True,
+        required=False)
+    mean_student_loan_completers = serializers.IntegerField(
+        allow_null=True,
+        required=False)
+    median_student_loan_completers = serializers.IntegerField(
+        allow_null=True,
+        required=False)
+    cip_code = serializers.CharField(  # '12.0504'
+        allow_blank=True,
+        required=False)
+    completers = serializers.IntegerField(
+        allow_null=True,
+        required=False)
+    completion_cohort = serializers.IntegerField(
+        allow_null=True,
+        required=False)
+    # OUR DATABASE HAS A SOC_CODES FIELD but we're not using it for now
+    # soc_codes = serializers.CharField(  # '35-1011, 35-1012'
+    #     allow_blank=True,
+    #     required=False)
 
 
 def get_school(iped):
@@ -110,7 +143,9 @@ def read_in_s3(url):
 def clean_number_as_string(string):
     # This needs to be cleaned up to None, else validation will complain
     clean_str = string.strip()
-    return clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else None
+    return (
+        clean_str if clean_str.lower() not in NO_DATA_ENTRIES_LOWER else None
+    )
 
 
 def clean_string_as_string(string):
@@ -131,11 +166,13 @@ def strip_control_chars(ustring):
 
 def clean(data):
 
-    number_fields = ('program_level', 'program_length', 'median_salary',
+    number_fields = (
+        'program_level', 'program_length', 'median_salary',
         'average_time_to_complete', 'books_supplies', 'completion_rate',
         'default_rate', 'job_placement_rate', 'mean_student_loan_completers',
         'median_student_loan_completers', 'total_cost', 'tuition_fees',
-        'completers', 'completion_cohort')
+        'completers', 'completion_cohort'
+    )
     rate_fields = ('completion_rate', 'default_rate', 'job_placement_rate')
     # Clean string and numeric parameters
     cleaned_data = dict(map(lambda (k, v):
@@ -168,7 +205,7 @@ def load(source, s3=False):
         serializer = ProgramSerializer(data=fixed_data)
 
         if serializer.is_valid():
-            data = serializer.data
+            data = serializer.validated_data
             if not validate_pid(data['program_code']):
                 print("ERROR: invalid program code: "
                       "{}".format(data['program_code']))
@@ -178,8 +215,10 @@ def load(source, s3=False):
                 print(error)
                 continue
 
-            program, cr = Program.objects.get_or_create(institution=school,
-                                                        program_code=data['program_code'])
+            program, cr = Program.objects.get_or_create(
+                institution=school,
+                program_code=data['program_code']
+            )
             if cr:
                 new_programs += 1
             else:
@@ -189,8 +228,10 @@ def load(source, s3=False):
             program.cip_code = data['cip_code']
             program.completion_rate = data['completion_rate']
             program.default_rate = data['default_rate']
-            program.mean_student_loan_completers = data['mean_student_loan_completers']
-            program.median_student_loan_completers = data['median_student_loan_completers']
+            program.mean_student_loan_completers = data['mean_student_'
+                                                        'loan_completers']
+            program.median_student_loan_completers = data['median_student_'
+                                                          'loan_completers']
             program.program_code = data['program_code']
             program.program_name = strip_control_chars(data['program_name'])
             program.program_length = data['program_length']
@@ -213,8 +254,8 @@ def load(source, s3=False):
         else:  # There is error
             for key, error_list in serializer.errors.iteritems():
 
-                fail_msg = ('ERROR on row {}: '
-                            '{}: '.format(raw_data.index(row) + 1, key))
+                fail_msg = (
+                    'ERROR on row {}: {}: '.format(raw_data.index(row) + 1, key))
                 for e in error_list:
                     fail_msg = '{} {},'.format(fail_msg, e)
                 FAILED.append(fail_msg)

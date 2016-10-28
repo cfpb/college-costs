@@ -1,6 +1,6 @@
 #! /bin/bash
 # run python unittests
+set -e
 
-export DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
-coverage run --rcfile=.coveragerc --source='.' manage.py test
+coverage run manage.py test > /dev/null
 coverage report -m

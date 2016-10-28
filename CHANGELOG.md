@@ -2,6 +2,10 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+-
+
+## 2.2.5
+- Updated the `load_programs` script to be compatible with djangorestframework 3.1.3
 - Updated the URL for national statistics to follow moving of Dept. of Education repo.
 - Updates to the 'collegedata.json' fixture were backported from production, based on 2014-2015 values.
 - The console message for the update-via-api management command was changed to note the Salary year being used.

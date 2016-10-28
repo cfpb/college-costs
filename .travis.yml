@@ -10,7 +10,6 @@ before_script:
   - python manage.py migrate
   - python manage.py loaddata test_fixture.json
 script: 
-  # - nosetests --with-coverage --config=.coveragerc --cover-package disclosures
-  - coverage run --source='.' manage.py test
+  - coverage run manage.py test > /dev/null
 after_success:
   - coveralls
