@@ -4,7 +4,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 ## Unreleased
 -
 
-## 2.2.5
+## 2.2.7
 - Updated the `load_programs` script to be compatible with djangorestframework 3.1.3
 - Updated the URL for national statistics to follow moving of Dept. of Education repo.
 - Updates to the 'collegedata.json' fixture were backported from production, based on 2014-2015 values.
