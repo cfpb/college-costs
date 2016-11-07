@@ -6,6 +6,10 @@ from django.core.management import call_command
 
 
 class CommandTests(unittest.TestCase):
+    def setUp(self):
+        stdout_patch = mock.patch('sys.stdout')
+        stdout_patch.start()
+        self.addCleanup(stdout_patch.stop)
 
     @mock.patch('paying_for_college.management.commands.'
                 'update_pfc_national_stats.nat_stats.'

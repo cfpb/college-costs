@@ -21,6 +21,7 @@ from paying_for_college.views import (get_school,
                                       Feedback,
                                       EmailLink,
                                       SchoolRepresentation,
+                                      STANDALONE,
                                       school_search_api)
 
 client = Client()
@@ -104,6 +105,7 @@ class TestViews(django.test.TestCase):
     #         response = client.get(reverse(url_name))
     #         self.assertTrue('base_template' in response.context_data.keys())
 
+    @unittest.skipIf(not STANDALONE, 'not running as standalone project')
     def test_standalone_landing_views(self):
         for url_name in self.standalone_landing_page_views:
             response = client.get(reverse(url_name))
@@ -383,9 +385,7 @@ class VerifyViewTest(django.test.TestCase):
         post_data = copy.copy(self.post_data)
         post_data['iped'] = '408039'
         post_data['oid'] = 'f38283b5b7c939a058889f997949efa566c616c4'
-        print("\n\n\n***SCHOOL is {}\nSCHOOL CONTACT IS {}\n".format(School.objects.get(pk=408039), School.objects.get(pk=408039).contact))
         resp = client.post(self.url, data=post_data)
-        print("RESPONSE is {}\n***\n\n\n".format(resp.content))
         self.assertTrue(resp.status_code == 400)
 
     def test_verify_view_bad_id(self):
