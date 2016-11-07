@@ -2,7 +2,8 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
--
+- Fixed Python unit tests when run as part of cfgov-refresh.
+- Removed debug print statements from Python unit tests.
 
 ## 2.2.7
 - Updated the `load_programs` script to be compatible with djangorestframework 3.1.3
