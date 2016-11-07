@@ -22,6 +22,7 @@ setup(
     packages=find_packages(),
     package_data={'paying_for_college':
                   ['data_sources/ipeds/*cleaned.csv',
+                  ['data_sources/ipeds/test.txt.zip',
                    'fixtures/*.json',
                    'templates/*.txt',
                    'templates/*.html',
