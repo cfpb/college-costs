@@ -127,6 +127,16 @@ class SchoolModelsTest(TestCase):
         )
         self.assertTrue("Emerald City" in print_vals(s, val_dict=True, noprint=True)['city'])
         self.assertTrue("Emerald City" in print_vals(s, noprint=True))
+
+        print_patcher = mock.patch('paying_for_college.models.print')
+        with print_patcher as mock_print:
+            self.assertIsInstance(print_vals(s, val_list=True), list)
+            self.assertTrue(mock_print.called)
+
+        with print_patcher as mock_print:
+            self.assertIsNone(print_vals(s))
+            self.assertTrue(mock_print.called)
+
         self.assertTrue(s.convert_ope6() == '005555')
         self.assertTrue(s.convert_ope8() == '00555500')
         self.assertTrue('Bachelor' in s.get_highest_degree())

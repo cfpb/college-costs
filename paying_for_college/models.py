@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import datetime
 from django.db import models
 try:
@@ -755,7 +757,7 @@ def print_vals(obj, val_list=False, val_dict=False, noprint=False):
             values.append(value)
 
             if not noprint:
-                print "%s: %s" % (key, value)
+                print('%s: %s' % (key, value))
 
         return values
     elif val_dict:
@@ -772,6 +774,6 @@ def print_vals(obj, val_list=False, val_dict=False, noprint=False):
             except:  # pragma: no cover
                 pass
         if noprint is False:
-            print msg
+            print(msg)
         else:
             return msg
