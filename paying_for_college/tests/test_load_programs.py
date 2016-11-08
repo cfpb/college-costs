@@ -89,6 +89,13 @@ class TestLoadPrograms(django.test.TestCase):
                u'completers': 'NUMBER',
                u'completion_cohort': 'NUMBER'}
 
+    def setUp(self):
+        print_patch = mock.patch(
+            'paying_for_college.disclosures.scripts.load_programs.print'
+        )
+        print_patch.start()
+        self.addCleanup(print_patch.stop)
+
     def test_standardize_rate(self):
         self.assertTrue(standardize_rate(u'1.7') == u'0.017')
         self.assertTrue(standardize_rate(u'0.017') == u'0.017')

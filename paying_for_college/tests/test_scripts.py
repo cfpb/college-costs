@@ -3,6 +3,7 @@ import django
 import json
 import datetime
 import string
+import os
 
 import mock
 from mock import mock_open, patch
@@ -20,7 +21,7 @@ from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
                                                               OID, ERRORS)
 from django.conf import settings
 
-PFC_ROOT = settings.REPOSITORY_ROOT
+PFC_ROOT = os.path.join(os.path.dirname(__file__), '../..')
 YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
 completion_rate:\n\
@@ -145,6 +146,13 @@ class TestScripts(django.test.TestCase):
                     'key': 'value'}],
                   'metadata': {'page': 0}
                   }
+
+    def setUp(self):
+        for method in ('print', 'sys.stdout'):
+            base = 'paying_for_college.disclosures.scripts.update_colleges.'
+            patcher = patch(base + method)
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def test_icomma(self):
         icomma_test = update_ipeds.icomma(445999)

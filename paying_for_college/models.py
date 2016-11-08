@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import datetime
 from django.db import models
 try:
@@ -745,15 +747,19 @@ def print_vals(obj, val_list=False, val_dict=False, noprint=False):
     keylist = sorted([key for key in obj._meta.get_all_field_names()],
                      key=lambda s: s.lower())
     if val_list:
-        newlist = []
+        values = []
         for key in keylist:
             try:
-                print "%s: %s" % (key, obj.__getattribute__(key))
-            except:
-                pass
-            else:
-                newlist.append(key)
-        return [obj.__getattribute__(key) for key in newlist]
+                value = obj.__getattribute__(key)
+            except AttributeError:
+                continue
+
+            values.append(value)
+
+            if not noprint:
+                print('%s: %s' % (key, value))
+
+        return values
     elif val_dict:
         return obj.__dict__
     else:
@@ -768,6 +774,6 @@ def print_vals(obj, val_list=False, val_dict=False, noprint=False):
             except:  # pragma: no cover
                 pass
         if noprint is False:
-            print msg
+            print(msg)
         else:
             return msg
