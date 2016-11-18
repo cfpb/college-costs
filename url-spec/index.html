@@ -99,7 +99,7 @@ Here's what a full URL would look like:  </p>
 understanding-your-financial-aid-offer/offer/?
 iped=204316&amp;pid=business-1042&amp;oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 &amp;book=650&amp;gib=3000&amp;gpl=1000&amp;hous=3000&amp;insi=4.55&amp;insl=3000&amp;inst=36
-&amp;mta=3000&amp;othg=100&amp;othr=500&amp;parl=10000&amp;pelg=1500&amp;perl=3000
+&amp;leng=24&amp;mta=3000&amp;othg=100&amp;othr=500&amp;parl=10000&amp;pelg=1500&amp;perl=3000
 &amp;ppl=1000&amp;prvl=3000&amp;prvf=2.1&amp;prvi=4.55&amp;schg=2000&amp;stag=2000
 &amp;subl=3500&amp;totl=40000&amp;tran=500&amp;tuit=38976&amp;unsl=2000&amp;wkst=3000
 </code></pre>
@@ -182,6 +182,12 @@ Dollar amounts should be in rounded whole numbers.  </p>
 <td>institutional loan term</td>
 <td>48</td>
 <td>in months</td>
+</tr>
+<tr>
+<td align="left">leng</td>
+<td>program length</td>
+<td>48</td>
+<td>optional field for providing an adjusted program length, in months</td>
 </tr>
 <tr>
 <td align="left">mta</td>
@@ -302,6 +308,10 @@ Dollar amounts should be in rounded whole numbers.  </p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left">Added <code>leng</code> field for optionally adjusting program length</td>
+<td>2016-11-17</td>
+</tr>
 <tr>
 <td align="left">Added underscore to list of characters not allowed in a program ID</td>
 <td>2016-08-24</td>
