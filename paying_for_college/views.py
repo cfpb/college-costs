@@ -1,36 +1,26 @@
 import os
 import json
-import uuid
 import re
-
 try:
     from collections import OrderedDict
 except:  # pragma: no cover
     from ordereddict import OrderedDict
 
-import requests
-
 from django.utils import timezone
-from django.middleware import csrf
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView
 from django.shortcuts import get_object_or_404, render_to_response
-from django.core import serializers
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.template import RequestContext
 from django.template.loader import get_template
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.conf import settings
-
 from haystack.query import SearchQuerySet
 
 from models import School, Worksheet, Feedback, Notification
 from models import Program, ConstantCap, ConstantRate
-from validators import validate_uuid4  # ,validate_worksheet
 from paying_for_college.disclosures.scripts import nat_stats
 
-# from models import BAHRate
 from forms import FeedbackForm, EmailForm
 BASEDIR = os.path.dirname(__file__)
 
@@ -240,16 +230,6 @@ class FeedbackView(TemplateView):
             return HttpResponseBadRequest("Invalid form")
 
 
-# class BuildComparisonView(View):
-
-#     def get(self, request):
-#         return render_to_response('worksheet.html',
-#                                   {'data_js': "0",
-#                                    'base_template': BASE_TEMPLATE,
-#                                    'url_root': URL_ROOT},
-#                                   context_instance=RequestContext(request))
-
-
 class SchoolRepresentation(View):
 
     def get_school(self, school_id):
@@ -290,7 +270,9 @@ class StatsRepresentation(View):
 
     def get_stats(self, school, programID):
         program = get_program(school, programID)
-        national_stats = nat_stats.get_prepped_stats(program_length=get_program_length(program, school))
+        national_stats = nat_stats.get_prepped_stats(
+            program_length=get_program_length(program, school)
+        )
         return json.dumps(national_stats)
 
     def get(self, request, id_pair=''):

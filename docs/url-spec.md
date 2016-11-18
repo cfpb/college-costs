@@ -10,7 +10,7 @@ consumerfinance.gov/paying-for-college2/
 understanding-your-financial-aid-offer/offer/?
 iped=204316&pid=business-1042&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 &book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36
-&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000
+&leng=24&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000
 &ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000
 &subl=3500&totl=40000&tran=500&tuit=38976&unsl=2000&wkst=3000
 ```
@@ -36,6 +36,7 @@ hous | housing | 3000 | room + board
 insi | institutional (school) loan interest rate | 0.0455 | rates should be expressed as coefficients, so 4.55% is 0.0455
 insl | institutional loans (all) | 3000 | including tuition payment plans
 inst | institutional loan term | 48 | in months
+leng | program length | 48 | optional field for providing an adjusted program length, in months
 mta  | military assistance | 3000 |
 othg | other grants and scholarships | 100 |
 othr | other costs | 500 |
@@ -58,6 +59,7 @@ wkst | work study | 3000 |
 #### Change log
 Change | date
 :----- | :---
+Added `leng` field for optionally adjusting program length | 2016-11-17
 Added underscore to list of characters not allowed in a program ID | 2016-08-24
 Added note that values should be annual unless otherwise specified | 2016-07-26
 Added note for parl: it represents all family contributions | 2016-07-19
