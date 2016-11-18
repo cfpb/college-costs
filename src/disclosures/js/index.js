@@ -43,7 +43,7 @@ var app = {
               // on program data
               if ( !data.hasOwnProperty( 'pidNotFound' ) ) {
                 financialModel.updateModelWithProgram( schoolValues );
-                financialView.updateViewWithProgram( schoolValues );
+                financialView.updateViewWithProgram( schoolValues, urlValues );
               }
 
               // Add url values to the financial model

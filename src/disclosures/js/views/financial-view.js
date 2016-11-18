@@ -260,10 +260,15 @@ var financialView = {
    * graduate program only content, Pell grants, subsidized loans, and
    * Grad PLUS loans.
    * @param {object} values - An object with program values
+   * @param {object} urlvalues - An object with url-derived values
    */
-  updateViewWithProgram: function( values ) {
+  updateViewWithProgram: function( values, urlValues ) {
     // Update program length
-    this.$programLength.val( values.programLength ).change();
+    if ( urlValues.urlProgramLength ) {
+      this.$programLength.val( urlValues.urlProgramLength / 12 ).change();
+    } else {
+      this.$programLength.val( values.programLength ).change();
+    }
     // Update links
     linksView.updateLinks( values );
     // Update availability of Pell grants, subsidized loans, and gradPLUS loans

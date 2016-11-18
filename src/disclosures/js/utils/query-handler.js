@@ -13,11 +13,12 @@ function queryHandler( queryString ) {
     roomBoard: 0,
     books: 0,
     transportation: 0,
-    otherExpenses: 0
+    otherExpenses: 0,
+    urlProgramLength: 0
   };
   var parameters = {};
   var numericKeys = [
-    'iped', 'tuit', 'hous', 'book', 'tran', 'othr',
+    'iped', 'tuit', 'hous', 'book', 'leng', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'prvf', 'insl',
     'insi', 'sav', 'totl'
@@ -26,6 +27,7 @@ function queryHandler( queryString ) {
     iped: 'collegeID',
     pid:  'programID',
     oid:  'offerID',
+    leng: 'urlProgramLength',
     tuit: 'tuitionFees',
     hous: 'roomBoard',
     book: 'books',
@@ -103,8 +105,23 @@ function queryHandler( queryString ) {
     }
   }
 
+  /**
+   * Helper function that makes sure program lengths are divisible by 6, 
+   * so they can be displayed and handled as half-year multiples. 
+   * Both here and in the API, we round up to the next higher 6-month value,
+   * so 14 months would round up to 18, which is displayed as 1 ½ years.
+   */
+  function adjustProgramLength() {
+
+    var lengthValue = valuePairs.urlProgramLength;
+    if ( lengthValue % 6 !== 0 ) {
+      valuePairs.urlProgramLength = lengthValue + (6 - (lengthValue % 6));
+    }
+  }
+
   getPairs();
   remapKeys();
+  adjustProgramLength();
 
   // move private loan properties to privateLoanMulti
   valuePairs.privateLoanMulti = [
