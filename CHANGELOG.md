@@ -2,6 +2,9 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
+- 
+
+## 2.2.8
 - Fixed Python unit tests when run as part of cfgov-refresh.
 - Removed debug print statements from Python unit tests.
 - Added handling for a new disclosure URL field, `leng`

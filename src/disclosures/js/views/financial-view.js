@@ -260,7 +260,7 @@ var financialView = {
    * graduate program only content, Pell grants, subsidized loans, and
    * Grad PLUS loans.
    * @param {object} values - An object with program values
-   * @param {object} urlvalues - An object with url-derived values
+   * @param {object} urlValues - An object with url-derived values
    */
   updateViewWithProgram: function( values, urlValues ) {
     // Update program length

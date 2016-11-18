@@ -106,8 +106,8 @@ function queryHandler( queryString ) {
   }
 
   /**
-   * Helper function that makes sure program lengths are divisible by 6, 
-   * so they can be displayed and handled as half-year multiples. 
+   * Helper function that makes sure program lengths are divisible by 6,
+   * so they can be displayed and handled as half-year multiples.
    * Both here and in the API, we round up to the next higher 6-month value,
    * so 14 months would round up to 18, which is displayed as 1 ½ years.
    */
