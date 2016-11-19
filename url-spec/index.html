@@ -106,9 +106,10 @@ iped=204316&amp;pid=business-1042&amp;oid=a9e280139f3238cbc9702c7b0d62e5c238a835
 
 <h4 id="value-details">Value details</h4>
 <ul>
-<li>School IDs (iped) must be an integer.</li>
-<li>Program IDs (pid) must not contain these characters: <code>; &lt; &gt; { } _</code></li>
-<li>Offer IDs (oid) must contain only hex characters: a-f, 0-9</li>
+<li>The following three values, in bold, are required. If they are missing the tool will display an error.</li>
+<li>School IDs (<strong>iped</strong>) must be an integer.</li>
+<li>Program IDs (<strong>pid</strong>) must not contain these characters: <code>; &lt; &gt; { } _</code></li>
+<li>Offer IDs (<strong>oid</strong>) must contain only hex characters: a-f, 0-9</li>
 </ul>
 <p>The values below are just examples to show type. <br />
 Rates can be more precise than two decimal places, but may be rounded for display.<br />
@@ -124,22 +125,22 @@ Dollar amounts should be in rounded whole numbers.  </p>
 </thead>
 <tbody>
 <tr>
-<td align="left">iped</td>
+<td align="left"><strong>iped</strong></td>
 <td>college ID</td>
 <td>123456</td>
-<td>6-digit integer: the unit ID from IPEDS</td>
+<td><strong>Required</strong> -- a 6-digit integer, the unit ID from IPEDS</td>
 </tr>
 <tr>
-<td align="left">pid</td>
+<td align="left"><strong>pid</strong></td>
 <td>program ID</td>
 <td>business-981</td>
-<td>string: this would be combined with school ID to get a unique program</td>
+<td><strong>Required</strong> -- a string; this would be combined with school ID to get a unique program</td>
 </tr>
 <tr>
-<td align="left">oid</td>
+<td align="left"><strong>oid</strong></td>
 <td>offer ID</td>
 <td>9e0280139f3238cbc970<br>2c7b0d62e5c238a835d0</td>
-<td>40-hex-character hashed value: represents one offer to one student. First 7 characters should be given to the student for matching with the disclosure page.</td>
+<td><strong>Required</strong> -- a 40-hex-character hashed value that represents one offer to one student. First 7 characters should be given to the student for matching with the disclosure page.</td>
 </tr>
 <tr>
 <td align="left">book</td>
