@@ -16,9 +16,10 @@ iped=204316&pid=business-1042&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 ```
 
 #### Value details
-- School IDs (iped) must be an integer.
-- Program IDs (pid) must not contain these characters: `; < > { } _`
-- Offer IDs (oid) must contain only hex characters: a-f, 0-9
+- The following three values, in bold, are required. If they are missing, the tool will display an error.
+- School IDs (**iped**) must be an integer.
+- Program IDs (**pid**) must not contain these characters: `; < > { } _`
+- Offer IDs (**oid**) must contain only hex characters: a-f, 0-9
 
 The values below are just examples to show type.   
 Rates can be more precise than two decimal places, but may be rounded for display.  
@@ -26,9 +27,9 @@ Dollar amounts should be in rounded whole numbers.
 
 In URL | Description | Example value | Note
 :----- | :---------  | :------------ | :---
-iped | college ID | 123456 | 6-digit integer: the unit ID from IPEDS
-pid  | program ID | business-981 | string: this would be combined with school ID to get a unique program
-oid  | offer ID | 9e0280139f3238cbc970<br>2c7b0d62e5c238a835d0 | 40-hex-character hashed value: represents one offer to one student. First 7 characters should be given to the student for matching with the disclosure page.
+**iped** | college ID | 123456 | **Required** -- a 6-digit integer, the unit ID from IPEDS
+**pid**  | program ID | business-981 | **Required** -- a string; this would be combined with college ID to get a unique program
+**oid**  | offer ID | 9e0280139f3238cbc970<br>2c7b0d62e5c238a835d0 | **Required** -- a 40-hex-character hashed value that represents one offer to one student. First 7 characters should be given to the student for matching with the disclosure page.
 book | books | 650 | books + supplies
 gib  | gi bill | 3000 |
 gpl  | grad plus loans | 1000 |
@@ -50,15 +51,16 @@ prvi | private loan interest | 0.0455 | coefficient, not percentage point
 schg | school grants and scholarships | 2000 |
 stag | state grants | 2000 |
 subl | subsidized loans | 3500 |
-totl | total direct cost | 40000 | tuition, fees, books, supplies
+totl | total direct cost | 40000 | tuition, fees, books, and supplies for the entire length of a program
 tran | transportation | 200 |
-tuit | tuition | 38976 | annual tuition + fees
+tuit | tuition | 18000 | annual tuition + fees
 unsl | unsubsidized loans | 2000 |
 wkst | work study | 3000 |
 
 #### Change log
 Change | date
 :----- | :---
+Noted three required fields | 2016-11-19
 Added `leng` field for optionally adjusting program length | 2016-11-17
 Added underscore to list of characters not allowed in a program ID | 2016-08-24
 Added note that values should be annual unless otherwise specified | 2016-07-26
