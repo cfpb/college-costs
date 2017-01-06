@@ -1,8 +1,8 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
-## Unreleased
-- 
+## 2.2.9
+- Update `load_programs` to load from specific s3 bucket location
 
 ## 2.2.8
 - Fixed Python unit tests when run as part of cfgov-refresh.

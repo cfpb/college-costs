@@ -123,7 +123,6 @@ def read_in_data(filename):
     return data
 
 
-# http://files.consumerfinance.gov.s3.amazonaws.com/pb/paying_for_college/csv/CFPBDATAFILE713%20(2).CSV
 def read_in_s3(url):
     data = [{}]
     response = requests.get(url)
@@ -185,14 +184,21 @@ def clean(data):
     return cleaned_data
 
 
-# 'source' should be a CSV file path or, if s3 is True, an s3 URL
 def load(source, s3=False):
+    """
+    Loads program data from a local or S3 file.
+    For a local file, 'source' should be a CSV file path.
+    For an s3 file, 'source' should be the file name of a CSV
+    in the 'validated_program_data' folder on s3.
+    """
     test_program = False
     new_programs = 0
     updated_programs = 0
     FAILED = []  # failed messages
     if s3:
-        raw_data = read_in_s3(source)
+        s3_url = ('http://files.consumerfinance.gov.s3.amazonaws.com'
+                  '/pb/paying_for_college/csv/validated_program_data/{}')
+        raw_data = read_in_s3(s3_url.format(source))
     else:
         raw_data = read_in_data(source)
     if not raw_data[0]:
@@ -255,7 +261,8 @@ def load(source, s3=False):
             for key, error_list in serializer.errors.iteritems():
 
                 fail_msg = (
-                    'ERROR on row {}: {}: '.format(raw_data.index(row) + 1, key))
+                    'ERROR on row {}: {}: '.format(
+                        raw_data.index(row) + 1, key))
                 for e in error_list:
                     fail_msg = '{} {},'.format(fail_msg, e)
                 FAILED.append(fail_msg)
