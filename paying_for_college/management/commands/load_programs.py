@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from paying_for_college.disclosures.scripts import load_programs
 
 COMMAND_HELP = """update_programs will update program data based on
