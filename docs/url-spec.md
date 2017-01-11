@@ -4,11 +4,11 @@
 Values should be annual unless otherwise specified.
 
 This scheme results in URLs about 400 characters long, well below browser/server character limits.  
-Here's what a full URL would look like:  
+Here's what a full URL would look like (using fictional school, program and offer values):  
 ```
 consumerfinance.gov/paying-for-college2/
 understanding-your-financial-aid-offer/offer/?
-iped=204316&pid=business-1042&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
+iped=123456&pid=business-123&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 &book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36
 &leng=24&mta=3000&othg=100&othr=500&parl=10000&pelg=1500&perl=3000
 &ppl=1000&prvl=3000&prvf=2.1&prvi=4.55&schg=2000&stag=2000
