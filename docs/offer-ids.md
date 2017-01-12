@@ -78,7 +78,9 @@ The program will now return a message like this:
 
 The CSV could be opened in a program such as Excel and used to assign IDs to prospective students.
 
-Notes:  
-- The date tag in the CSV's name depends on the day the script is run.  
-- If run with the `--csv` option multiple times on the same day, the new IDs will be appended to the first CSV created that day, if it hasn't been moved to a different directory.  
+Notes:
+
+- The date tag in the CSV's name depends on the day the script is run.
+- If run with the `--csv` option multiple times on the same day, the new IDs will be appended to the first CSV created that day, if it hasn't been moved to a different directory.
 - If run on another day, a new CSV would be created with that day's date in the name.
+
