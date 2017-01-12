@@ -6,7 +6,7 @@ Values should be annual unless otherwise specified.
 This scheme results in URLs about 400 characters long, well below browser/server character limits.  
 Here's what a full URL would look like (using fictional school, program and offer values):  
 ```
-consumerfinance.gov/paying-for-college2/
+http://www.consumerfinance.gov/paying-for-college2/
 understanding-your-financial-aid-offer/offer/?
 iped=123456&pid=business-123&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 &book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36
