@@ -1,6 +1,10 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.3.0
+- Update school model to remove settlement_school options
+- Prep for onboarding school system
+
 ## 2.2.9
 - Update `load_programs` to load from specific s3 bucket location
 

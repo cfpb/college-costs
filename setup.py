@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='college-costs',
-    version='2.2.9',
+    version='2.3.0',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
