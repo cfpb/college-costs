@@ -1,5 +1,7 @@
 'use strict';
 
+var Analytics = require( '../utils/Analytics' );
+var getDataLayerOptions = Analytics.getDataLayerOptions;
 var getExpenses = require( '../dispatchers/get-expenses-values' );
 var publish = require( '../dispatchers/publish-update' );
 var formatUSD = require( 'format-usd' );
@@ -11,8 +13,10 @@ var expensesView = {
   currentInput: '',
 
   init: function() {
+    this.expenseInputChangeListener();
     this.keyupListener();
     this.regionSelectListener();
+    this.feedbackBtnListener();
   },
 
   /**
@@ -54,6 +58,8 @@ var expensesView = {
       }
       if ( values.monthlyLeftover > 0 ) {
         expensesHigherThanSalary.hide();
+        Analytics.sendEvent( getDataLayerOptions( 'Total left at the end of the month',
+          'Zero left to pay' ) );
       } else { expensesHigherThanSalary.show(); }
     } );
   },
@@ -114,6 +120,18 @@ var expensesView = {
   },
 
   /**
+   * Listener function for change events on expenses INPUT fields
+   */
+  expenseInputChangeListener: function() {
+    $( '[data-expenses]' ).one( 'change', function() {
+      var expenses = $( this ).data( 'expenses' );
+      if ( expenses ) {
+        Analytics.sendEvent( getDataLayerOptions( 'Value Edited', expenses ) );
+      }
+    } );
+  },
+
+  /**
    * Listener for the BLS region SELECT
    */
   regionSelectListener: function() {
@@ -121,6 +139,17 @@ var expensesView = {
       var region = $( this ).val();
       publish.updateRegion( region );
       expensesView.updateView( getExpenses.values() );
+      Analytics.sendEvent( getDataLayerOptions( 'Region Changed', region ) );
+    } );
+  },
+
+  /**
+   * Listener for the Feedback BUTTON
+   */
+  feedbackBtnListener: function() {
+    $( '[data-qa=feedback-btn]' ).click( function() {
+      Analytics.sendEvent( getDataLayerOptions(
+        'Was this page helpful?', 'Tell us how' ) );
     } );
   }
 

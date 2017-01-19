@@ -1,6 +1,9 @@
 'use strict';
 
+var Analytics = require( './Analytics' );
+var getDataLayerOptions = Analytics.getDataLayerOptions;
 require( '../libs/google-cloud-print' );
+
 var ua = navigator.userAgent.toLowerCase(),
     isAndroid = ua.indexOf( 'android' ) > -1;
 
@@ -23,5 +26,6 @@ $( document ).ready( function() {
     } else {
       window.print();
     }
+    Analytics.sendEvent( getDataLayerOptions( 'Step Completed', 'Print' ) );
   } );
 } );

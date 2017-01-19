@@ -3,7 +3,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## 2.3.0
 - Update school model to remove settlement_school options
+- Fix CSS issue on feedback page
 - Prep for onboarding school system
+- Adding Google Analytics module and event triggers.
 
 ## 2.2.9
 - Update `load_programs` to load from specific s3 bucket location
