@@ -6,7 +6,6 @@ try:
     from collections import OrderedDict
 except:  # pragma: no cover
     from ordereddict import OrderedDict
-import uuid
 import json
 from string import Template
 import smtplib
@@ -163,7 +162,9 @@ class ConstantCap(models.Model):
 
 class Contact(models.Model):
     """school endpoint or email to which we send confirmations"""
-    contacts = models.TextField(help_text="COMMA-SEPARATED LIST OF EMAILS", blank=True)
+    contacts = models.TextField(
+        help_text="COMMA-SEPARATED LIST OF EMAILS",
+        blank=True)
     endpoint = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255, blank=True)
     internal_note = models.TextField(blank=True)
@@ -177,16 +178,11 @@ class School(models.Model):
     """
     Represents a school
     """
-    SETTLEMENT_CHOICES = (
-        ('edmc', 'Education Management Corporation'),
-        ('', 'Non-settlement')
-        )
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
     settlement_school = models.CharField(max_length=100,
                                          blank=True,
-                                         choices=SETTLEMENT_CHOICES,
                                          default='')
     contact = models.ForeignKey(Contact, blank=True, null=True)
     data_json = models.TextField(blank=True)
@@ -423,7 +419,8 @@ class Notification(models.Model):
                     send_mail("CFPB disclosure notification",
                               NOTIFICATION_TEMPLATE.substitute(payload),
                               "no-reply@cfpb.gov",
-                              [email for email in school.contact.contacts.split(',')],
+                              [email for email
+                               in school.contact.contacts.split(',')],
                               fail_silently=False)
                     self.sent = True
                     self.emails = school.contact.contacts

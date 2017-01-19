@@ -1,5 +1,5 @@
 ## CSV specifications for program data
-The CSV should be UTF-8 encoded.  
+The CSV should be UTF-8 encoded and must be delivered to the CFPB via sFTP.  
 
 #### Column names and types for college program data
 The eight boldface fields are required. Data submissions will be rejected if these fields are missing or blank, or if a program code contains illegal characters.
@@ -35,6 +35,7 @@ soc_codes | string | pipe-separated list of related career/fields
 #### Change log
 Change | date
 :----- | :---
+Added note on sFTP delivery | 2017-01-09
 Added boldface to required fields | 2016-10-21
 Noted ipeds_unit_id is an integer | 2016-08-24
 Added underscore to list of characters not allowed in a program code | 2016-08-24

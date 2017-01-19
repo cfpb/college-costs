@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='college-costs',
-    version='2.2.9',
+    version='2.3.0',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
@@ -26,6 +26,9 @@ setup(
                    'fixtures/*.json',
                    'templates/*.txt',
                    'templates/*.html',
+                   'static/paying_for_college/feedback/css/*.css',
+                   'static/paying_for_college/feedback/js/*.js',
+                   'static/paying_for_college/feedback/images/*.png',
                    'static/paying_for_college/disclosures/static/css/*.css',
                    'static/paying_for_college/disclosures/static/css/*.map',
                    'static/paying_for_college/disclosures/static/fonts/*.eot',

@@ -2,6 +2,9 @@ All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## 2.3.0
+- Update school model to remove settlement_school options
+- Fix CSS issue on feedback page
+- Prep for onboarding school system
 - Adding Google Analytics module and event triggers.
 
 ## 2.2.9
