@@ -1,5 +1,6 @@
 'use strict';
 
+var Analytics = require( '../utils/Analytics' );
 var getFinancial = require( '../dispatchers/get-financial-values' );
 var getExpenses = require( '../dispatchers/get-expenses-values' );
 var publish = require( '../dispatchers/publish-update' );
@@ -12,6 +13,8 @@ var expensesView = require( '../views/expenses-view' );
 var postVerification = require( '../dispatchers/post-verify' );
 
 require( '../libs/sticky-kit' );
+
+var getDataLayerOptions = Analytics.getDataLayerOptions;
 
 var financialView = {
   $elements: $( '[data-financial]' ),
@@ -45,6 +48,7 @@ var financialView = {
   keyupDelay: null,
   currentInput: null,
 
+
   /**
    * Initiates the object
    */
@@ -57,6 +61,7 @@ var financialView = {
     this.resetPrivateLoanView();
     this.continueStep2Listener();
     this.termToggleListener();
+    this.financialInputChangeListener();
   },
 
   /**
@@ -412,6 +417,7 @@ var financialView = {
       $container.find( '[data-private-loan]:last .aid-form_input' ).val( '0' );
       publish.addPrivateLoan();
       financialView.updateView( getFinancial.values() );
+      Analytics.sendEvent( getDataLayerOptions( 'Private Loan Changed', 'Added' ) );
     } );
   },
 
@@ -427,6 +433,7 @@ var financialView = {
       financialView.enumeratePrivateLoanIDs();
       publish.dropPrivateLoan( index );
       financialView.updateView( getFinancial.values() );
+      Analytics.sendEvent( getDataLayerOptions( 'Private Loan Changed', 'Removed' ) );
     } );
   },
 
@@ -490,6 +497,7 @@ var financialView = {
    */
   inputChangeListener: function() {
     this.$reviewAndEvaluate.on( 'keyup focusout', '[data-financial]', function() {
+
       clearTimeout( financialView.keyupDelay );
       financialView.currentInput = $( this ).attr( 'id' );
       if ( $( this ).is( ':focus' ) ) {
@@ -534,8 +542,10 @@ var financialView = {
    * Listener function for offer verification buttons
    */
   verificationListener: function() {
+    var $programLengthElement = this.$programLength;
     this.$verifyControls.on( 'click', '.btn', function( evt ) {
       var values = getFinancial.values();
+      var hrefText = $( this ).text();
       // Graph points need to be visible before updating their positions
       // to get all the right CSS values, so we'll wait 100 ms
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
@@ -549,6 +559,10 @@ var financialView = {
           financialView.$aboutThisTool.focus();
           financialView.stickySummariesListener();
         } );
+
+        Analytics.sendEvent( getDataLayerOptions( 'Years to Complete Program',
+          $programLengthElement.val() ) );
+        Analytics.sendEvent( getDataLayerOptions( 'Step Completed', hrefText ) );
       } else {
         evt.preventDefault();
         financialView.$infoIncorrect.show();
@@ -559,6 +573,7 @@ var financialView = {
           window.location.hash = '#info-wrong';
           financialView.$programLength.focus();
         } );
+        Analytics.sendEvent( getDataLayerOptions( 'Step Completed', hrefText ) );
       }
       financialView.$verifyControls.hide();
     } );
@@ -779,6 +794,8 @@ var financialView = {
       }, 900, 'swing', function() {
         // Noop function.
       } );
+      Analytics.sendEvent( getDataLayerOptions( 'Step Completed',
+        'Continue to Step 2' ) );
     } );
   },
 
@@ -810,6 +827,8 @@ var financialView = {
       $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );
       financialView.updateView( getFinancial.values() );
       expensesView.updateView( getExpenses.values() );
+      Analytics.sendEvent( getDataLayerOptions( 'See how loan length affects your payments',
+        term + ' years' ) );
     } );
   },
 
@@ -822,6 +841,18 @@ var financialView = {
     if ( $( '[data-missing-data-error]:visible' ).length === 0 ) {
       $( '[data-missing-data-error="' + dataType + '"]').show();
     }
+  },
+
+  /**
+   * Listener function for change events on financial INPUT fields
+   */
+  financialInputChangeListener: function() {
+    $( '[data-financial]' ).one( 'change', function() {
+      var dataFinancial = $( this ).data( 'financial' );
+      if ( dataFinancial ) {
+        Analytics.sendEvent( getDataLayerOptions( 'Value Edited', dataFinancial ) );
+      }
+    } );
   }
 };
 
