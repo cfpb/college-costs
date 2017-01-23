@@ -1,14 +1,18 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.3.1
+- Added url field to Feedback model
+- Fixed CSS static calls for feedback pages
+
 ## 2.3.0
-- Update school model to remove settlement_school options
-- Fix CSS issue on feedback page
-- Prep for onboarding school system
-- Adding Google Analytics module and event triggers.
+- Updated school model to remove settlement_school options
+- Fixed CSS issue on feedback page
+- Prepped for onboarding school system
+- Added Google Analytics module and event triggers.
 
 ## 2.2.9
-- Update `load_programs` to load from specific s3 bucket location
+- Updated `load_programs` to load from specific s3 bucket location
 
 ## 2.2.8
 - Fixed Python unit tests when run as part of cfgov-refresh.
