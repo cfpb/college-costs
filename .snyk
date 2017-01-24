@@ -1,27 +1,22 @@
-version: v1.4.0
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:minimatch:20160620':
     - capital-framework > npmi > npm > node-gyp > minimatch:
         reason: None given
         expires: '2016-07-30T14:12:17.870Z'
+# patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:minimatch:20160620':
     - capital-framework > npmi > npm > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      glob-all > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > init-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      browser-sync > resp-modifier > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > read-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      protractor > jasmine > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > init-package-json > read-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
-      jasmine > glob > minimatch:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > read-installed > read-package-json > glob > minimatch:
         patched: '2016-06-29T16:28:08.447Z'
     - capital-framework > npmi > npm > minimatch:
@@ -104,19 +99,27 @@ patch:
         patched: '2016-08-04T15:51:44.067Z'
     - student-debt-calc > istanbul > fileset > glob > minimatch:
         patched: '2016-08-04T15:51:44.067Z'
+    - glob-all > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - browser-sync > resp-modifier > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - protractor > jasmine > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
+    - jasmine > glob > minimatch:
+        patched: '2016-08-09T00:11:35.413Z'
   'npm:tough-cookie:20160722':
     - capital-framework > npmi > npm > npm-registry-client > request > tough-cookie:
         patched: '2016-07-25T15:16:02.601Z'
-      browser-sync > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > request > tough-cookie:
         patched: '2016-07-25T15:16:02.601Z'
-      browser-sync > localtunnel > request > tough-cookie:
-        patched: '2016-08-09T00:11:35.413Z'
     - capital-framework > npmi > npm > node-gyp > request > tough-cookie:
         patched: '2016-07-25T15:16:02.601Z'
     - student-debt-calc > request > tough-cookie:
         patched: '2016-07-25T15:16:02.601Z'
+    - browser-sync > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        patched: '2016-08-09T00:11:35.413Z'
+    - browser-sync > localtunnel > request > tough-cookie:
+        patched: '2016-08-09T00:11:35.413Z'
   'npm:negotiator:20160616':
     - browser-sync > socket.io > engine.io > accepts > negotiator:
         patched: '2016-08-09T00:11:35.413Z'
