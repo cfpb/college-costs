@@ -1,15 +1,15 @@
-{% extends "front/base_update.html" %} 
+{% extends base_template %}
+{% load staticfiles %}
 
 {% block title %}Paying for College - Compare financial aid and college cost{% endblock %}
 
 {% block page_css %}
-<link rel="stylesheet" href="{{ STATIC_PREFIX }}comparisontool/css/comparison-tool.css">
+<link rel="stylesheet" href="{% static 'paying_for_college/feedback/css/comparison-tool.css' %}">
 {% endblock %}
 
 
 {% block page_js %}
-<script type="text/javascript" src="{{ STATIC_PREFIX }}comparisontool/js/cfpb-comparison-analytics-min.js"></script>
-<script src="{{ STATIC_PREFIX }}comparisontool/js/feedback.js"></script>
+<script src="{% static 'paying_for_college/feedback/js/feedback.js' %}"></script>
 {% endblock %}
 
 {% block body_class %}page paying-for-college{% endblock %}
@@ -17,10 +17,8 @@
 {% block content %}     
 <div id="comparison-tool" class="comparison-tool sub-page-wrapper">     
     <header id="comparison-tool-header" class="feedback-header">
-        <a class="noStyles" href="/paying-for-college/">
             <h1>Paying for College</h1>
-        </a>
-        <span>Compare financial aid and college cost</span>             
+        <span>Understanding your financial aid offer</span>             
     </header><!-- end #comparison-tool-header -->
     
     <section class="feedback-section clearfix">
@@ -30,7 +28,7 @@
                 <h2 class="demi">Thank you for your feedback!</h2>
             </header>
             <div>
-                <p>We’ll be sure to review your ideas and input, which will help us make the Paying for College cost comparison worksheet even more helpful!</p>
+                <p>We’ll be sure to review your ideas and input, which will help us make the financial aid tool even more helpful!</p>
                 <p class="medium">Stay informed about CFPB updates by joining our mailing list.</p>
                 <form class="signup inlineSignup pfc-signup" action="https://public.govdelivery.com/service/process_ss.xml" method="GET" data-thanks="Thanks!">
                     <fieldset>

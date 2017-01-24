@@ -1,4 +1,3 @@
-import datetime
 import unittest
 import json
 import copy
@@ -6,11 +5,10 @@ import copy
 import mock
 import django
 from django.test import RequestFactory
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpRequest
 from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.models import School, Program
-from paying_for_college.search_indexes import SchoolIndex
 from paying_for_college.views import (get_school,
                                       validate_oid,
                                       validate_pid,
@@ -20,7 +18,6 @@ from paying_for_college.views import (get_school,
                                       get_program_length,
                                       Feedback,
                                       EmailLink,
-                                      SchoolRepresentation,
                                       STANDALONE,
                                       school_search_api)
 
@@ -37,7 +34,9 @@ def setup_view(view, request, *args, **kwargs):
 
 class Validators(unittest.TestCase):
     """check the oid validator"""
-    max_oid = '6ca1a60a72b3d4640b20a683d63a40297b7c45c4df479cd93cd57d9c44820069eb71d168eedd531bb488cd2e58d3dbbce8ee80c02ef6fc9623479510adedf704'
+    max_oid = (
+        '6ca1a60a72b3d4640b20a683d63a40297b7c45c4df479cd93cd57d9c44820069'
+        'eb71d168eedd531bb488cd2e58d3dbbce8ee80c02ef6fc9623479510adedf704')
     good_oid = '9e0280139f3238cbc9702c7b0d62e5c238a835d0'
     bad_oid = '9e0<script>console.log("hi")</script>5d0'
     short_oid = '9e45a3e7'
@@ -75,7 +74,8 @@ class TestViews(django.test.TestCase):
                  'ba': True,
                  'is_valid': True}
     feedback_post_data = {'csrfmiddlewaretoken': 'abc',
-                          'message': 'test'}
+                          'message': 'test',
+                          'referrer': 'disclosure/page'}
 
     def test_get_json_file(self):
         test_json = get_json_file(EXPENSE_FILE)
@@ -118,8 +118,9 @@ class TestViews(django.test.TestCase):
 
     @mock.patch('paying_for_college.views.render_to_response')
     def test_feedback_post(self, mock_render):
-        response = client.post(reverse('disclosures:pfc-feedback'),
-                               data=self.feedback_post_data)
+        client.post(
+            reverse('disclosures:pfc-feedback'),
+            data=self.feedback_post_data)
         self.assertTrue(mock_render.call_count == 1)
 
     def test_feedback_post_invalid(self):

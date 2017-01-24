@@ -737,6 +737,7 @@ class Feedback(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
+    url = models.TextField(blank=True, null=True)
 
 
 def print_vals(obj, val_list=False, val_dict=False, noprint=False):

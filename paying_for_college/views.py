@@ -164,9 +164,10 @@ class OfferView(TemplateView):
                         warning = PID_ERROR
                         PID = ''
                     if PID:
-                        programs = Program.objects.filter(program_code=PID,
-                                                          institution=school,
-                                                          test=test).order_by('-pk')
+                        programs = Program.objects.filter(
+                            program_code=PID,
+                            institution=school,
+                            test=test).order_by('-pk')
                         if programs:
                             program = programs[0]
                             program_data = program.as_json()
@@ -221,11 +222,15 @@ class FeedbackView(TemplateView):
     def post(self, request):
         form = self.form
         if form.is_valid():
-            feedback = Feedback(message=form.cleaned_data['message'][:2000])
+            base_template = BASE_TEMPLATE
+            feedback = Feedback(
+                message=form.cleaned_data['message'][:2000],
+                url=form.cleaned_data['referrer'])
             feedback.save()
-            return render_to_response("feedback_thanks.html",
-                                      locals(),
-                                      context_instance=RequestContext(request))
+            return render_to_response(
+                "feedback_thanks.html",
+                locals(),
+                context_instance=RequestContext(request))
         else:
             return HttpResponseBadRequest("Invalid form")
 
