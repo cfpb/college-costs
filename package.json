@@ -61,7 +61,7 @@
     "normalize-legacy-addon": "0.1.0",
     "number-to-words": "1.2.3",
     "require-dir": "0.3.0",
-    "snyk": "1.18.0",
+    "snyk": "1.24.6",
     "sticky-kit": "1.1.3",
     "student-debt-calc": "2.6.0"
   },
