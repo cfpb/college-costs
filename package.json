@@ -18,7 +18,6 @@
   "scripts": {
     "test": "snyk test && mocha test/js-unit/",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "browser-sync": "2.14.0",
