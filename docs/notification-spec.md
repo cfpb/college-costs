@@ -21,10 +21,13 @@ errors: none
   - "INVALID: student indicated the offer information is wrong"  
   This indicates that the student clicked on the link labeled "No, this is not my information"  
   This option is intended to catch cases where the student was given the wrong URL or a faulty URL.  
-  In this case, a new oid will need to be generated in order to complete a valid disclosure; oid values are allowed to generate only one notification.
+  In this case, a new `oid` will need to be generated in order to complete a valid disclosure; `oid` values are allowed to generate only one notification.
 
 Schools may use `oid` values of up to 128 hex characters.
 
-## Email notification
+## Email notification option
 Endpoint notifications are preferred because they are more reliable and simpler to automate.  
 Schools that can't set up endpoints can get notifications via email.
+
+## Notification failures
+If a technological problem prevents notifications from being transmitted to the school for more than a day, an email will be sent to the school's contacts with details about the unsent notifications and any attempts to transmit them. The email serves two purposes – to assist in troubleshooting, and to clarify the status of any unsent notifications while the issue is being resolved.
