@@ -18,7 +18,7 @@ It takes in a csv file with column labels as described in ProgramSerializer.
 To run the script, use this manage.py command:
 
 ```
-./manage.py load_programs [PATH TO CSV]
+./manage.py load_programs [PATH TO CSV or s3 filename]
 ```
 """
 
@@ -37,7 +37,7 @@ class ProgramSerializer(serializers.Serializer):
     tuition_fees = serializers.IntegerField()
     books_supplies = serializers.IntegerField()
     # allowed to be missing or blank
-    ope_id = serializers.CharField(  # '747000'
+    ope_id = serializers.CharField(  # '02117100'
         max_length=8,
         allow_blank=True,
         required=False)
@@ -102,7 +102,7 @@ def read_in_encoding(filename, encoding='windows-1252'):
         with open(filename, 'r') as f:
             reader = cdr(f, encoding=encoding)
             data = [row for row in reader]
-    except:
+    except Exception:
         data = [{}]
     return data
 
@@ -112,7 +112,7 @@ def read_in_data(filename):
     try_encoding = False
     with open(filename, 'r') as f:
         try:
-            reader = cdr(f)
+            reader = cdr(f, encoding='utf-8-sig')
             data = [row for row in reader]
         except UnicodeDecodeError:
             try_encoding = True
@@ -128,7 +128,7 @@ def read_in_s3(url):
     response = requests.get(url)
     try:
         f = StringIO.StringIO(response.content)
-        reader = cdr(f, encoding='utf-8')
+        reader = cdr(f, encoding='utf-8-sig')
         data = [row for row in reader]
     except UnicodeDecodeError:
         f = StringIO.StringIO(response.content)
