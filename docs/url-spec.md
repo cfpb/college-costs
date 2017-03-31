@@ -60,6 +60,7 @@ wkst | work study | 3000 |
 #### Change log
 Change | date
 :----- | :---
+Noted three fields are expressed as percentage points: `insi`, `prvf`, and `prvi` | 2017-03-31
 Changed URL to https | 2017-02-10
 Noted three required fields | 2016-11-19
 Added `leng` field for optionally adjusting program length | 2016-11-17
