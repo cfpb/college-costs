@@ -29,12 +29,13 @@ job_placement_note | string | optional note on job rate
 mean_student_loan_completers | integer | average of amounts grads owe
 median_salary | integer |
 median_student_loan_completers | integer | median of amounts grads owe
-ope_id | string | alternate Dept. of Ed school ID as backup
+ope_id | string | max of 8 characters; alternate Dept. of Ed school ID as backup
 soc_codes | string | pipe-separated list of related career/fields
 
 #### Change log
 Change | date
 :----- | :---
+Added 8-character max for ope_id | 2017-03-27
 Added note on sFTP delivery | 2017-01-09
 Added boldface to required fields | 2016-10-21
 Noted ipeds_unit_id is an integer | 2016-08-24

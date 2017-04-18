@@ -6,7 +6,7 @@ Values should be annual unless otherwise specified.
 This scheme results in URLs about 400 characters long, well below browser/server character limits.  
 Here's what a full URL would look like (using fictional school, program and offer values):  
 ```
-http://www.consumerfinance.gov/paying-for-college2/
+https://www.consumerfinance.gov/paying-for-college2/
 understanding-your-financial-aid-offer/offer/?
 iped=123456&pid=business-123&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 &book=650&gib=3000&gpl=1000&hous=3000&insi=4.55&insl=3000&inst=36
@@ -34,7 +34,7 @@ book | books | 650 | books + supplies
 gib  | gi bill | 3000 |
 gpl  | grad plus loans | 1000 |
 hous | housing | 3000 | room + board
-insi | institutional (school) loan interest rate | 0.0455 | rates should be expressed as coefficients, so 4.55% is 0.0455
+insi | institutional (school) loan interest rate | 4.55 | rate should be expressed as percentage points
 insl | institutional loans (all) | 3000 | including tuition payment plans
 inst | institutional loan term | 48 | in months
 leng | program length | 48 | optional field for providing an adjusted program length, in months
@@ -46,8 +46,8 @@ pelg | pell_grant | 1500 |
 perl | perkins loans | 3000 |
 ppl  | parent plus loans | 1000 |
 prvl | private loans | 3000 |
-prvf | private loan origination fee | 0.021 | coefficient, not percentage point
-prvi | private loan interest | 0.0455 | coefficient, not percentage point
+prvf | private loan origination fee | 2.1 | expressed as percentage points
+prvi | private loan interest | 4.55 | expressed as percentage points
 schg | school grants and scholarships | 2000 |
 stag | state grants | 2000 |
 subl | subsidized loans | 3500 |
@@ -60,6 +60,8 @@ wkst | work study | 3000 |
 #### Change log
 Change | date
 :----- | :---
+Noted three fields are expressed as percentage points: `insi`, `prvf`, and `prvi` | 2017-03-31
+Changed URL to https | 2017-02-10
 Noted three required fields | 2016-11-19
 Added `leng` field for optionally adjusting program length | 2016-11-17
 Added underscore to list of characters not allowed in a program ID | 2016-08-24
