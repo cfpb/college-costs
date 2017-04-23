@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-# import json
 import datetime
 import dateutil.parser
 import smtplib
