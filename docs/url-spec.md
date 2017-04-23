@@ -34,7 +34,7 @@ book | books | 650 | books + supplies
 gib  | gi bill | 3000 |
 gpl  | grad plus loans | 1000 |
 hous | housing | 3000 | room + board
-insi | institutional (school) loan interest rate | 0.0455 | rates should be expressed as coefficients, so 4.55% is 0.0455
+insi | institutional (school) loan interest rate | 4.55 | rate should be expressed as percentage points
 insl | institutional loans (all) | 3000 | including tuition payment plans
 inst | institutional loan term | 48 | in months
 leng | program length | 48 | optional field for providing an adjusted program length, in months
@@ -46,8 +46,8 @@ pelg | pell_grant | 1500 |
 perl | perkins loans | 3000 |
 ppl  | parent plus loans | 1000 |
 prvl | private loans | 3000 |
-prvf | private loan origination fee | 0.021 | coefficient, not percentage point
-prvi | private loan interest | 0.0455 | coefficient, not percentage point
+prvf | private loan origination fee | 2.1 | expressed as percentage points
+prvi | private loan interest | 4.55 | expressed as percentage points
 schg | school grants and scholarships | 2000 |
 stag | state grants | 2000 |
 subl | subsidized loans | 3500 |
@@ -60,6 +60,7 @@ wkst | work study | 3000 |
 #### Change log
 Change | date
 :----- | :---
+Noted three fields are expressed as percentage points: `insi`, `prvf`, and `prvi` | 2017-03-31
 Changed URL to https | 2017-02-10
 Noted three required fields | 2016-11-19
 Added `leng` field for optionally adjusting program length | 2016-11-17

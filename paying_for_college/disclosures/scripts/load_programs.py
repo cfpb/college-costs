@@ -177,9 +177,11 @@ def clean(data):
     cleaned_data = dict(map(lambda (k, v):
                         (k, clean_number_as_string(v) if k in number_fields
                          else clean_string_as_string(v)), data.iteritems()))
-
     for rate in rate_fields:
         cleaned_data[rate] = standardize_rate(cleaned_data[rate])
+    cleaned_data['ope_id'] = cleaned_data['ope_id'].replace(
+        '-', '').replace(
+        ' ', '')
 
     return cleaned_data
 
