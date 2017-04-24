@@ -116,12 +116,13 @@ class TestViews(django.test.TestCase):
         self.assertTrue(sorted(response.context_data.keys()) ==
                         ['base_template', 'form', 'url_root'])
 
-    @mock.patch('paying_for_college.views.render_to_response')
-    def test_feedback_post(self, mock_render):
-        client.post(
+    @mock.patch('paying_for_college.views.Feedback')
+    def test_feedback_post(self, mock_feedback):
+        response = client.post(
             reverse('disclosures:pfc-feedback'),
             data=self.feedback_post_data)
-        self.assertTrue(mock_render.call_count == 1)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(mock_feedback.call_count == 1)
 
     def test_feedback_post_invalid(self):
         response = client.post(reverse('disclosures:pfc-feedback'))
