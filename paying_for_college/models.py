@@ -790,8 +790,11 @@ class Feedback(models.Model):
     def cost_error(self):
         """Return 1 or 0: Is total-cost less than tuition?"""
         url_data = self.parsed_url
-        if url_data and int(url_data['totl']) < int(url_data['tuit']):
-            return 1
+        if url_data and url_data['totl'] != '' and url_data['tuit'] != '':
+            if int(url_data['totl']) < int(url_data['tuit']):
+                return 1
+            else:
+                return 0
         else:
             return 0
 

@@ -294,6 +294,8 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(feedback.cost_error, 0)
         feedback.url = feedback.url.replace('totl=81467', 'totl=1000')
         self.assertEqual(feedback.cost_error, 1)
+        feedback.url = feedback.url.replace('totl=1000', 'totl=')
+        self.assertEqual(feedback.cost_error, 0)
 
 
 class NonSettlementNotificaion(TestCase):
