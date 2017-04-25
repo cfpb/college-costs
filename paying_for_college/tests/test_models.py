@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-import json
+import datetime
 import dateutil.parser
 import smtplib
 
@@ -9,7 +9,8 @@ from mock import mock_open, patch
 import requests
 
 from django.test import TestCase
-from paying_for_college.models import School, Contact, Program, Alias, Nickname
+from paying_for_college.models import (
+    School, Contact, Program, Alias, Nickname, Feedback)
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
 from paying_for_college.models import Notification, print_vals
 from paying_for_college.models import get_region, make_divisible_by_6
@@ -43,56 +44,79 @@ class SchoolRegionTest(TestCase):
 
 class SchoolModelsTest(TestCase):
 
-    def create_school(self, ID=999999,
-                      data_json='',
-                      accreditor="Almighty Wizard",
-                      city="Emerald City",
-                      degrees_highest="3",
-                      state="OZ",
-                      ope6=5555,
-                      ope8=555500):
-        return School.objects.create(school_id=ID,
-                                     data_json=data_json,
-                                     accreditor=accreditor,
-                                     degrees_highest=degrees_highest,
-                                     degrees_predominant=degrees_highest,
-                                     city=city,
-                                     state=state,
-                                     ope6_id=ope6,
-                                     ope8_id=ope8)
+    def create_school(
+            self, ID=999999,
+            data_json='',
+            accreditor="Almighty Wizard",
+            city="Emerald City",
+            degrees_highest="3",
+            state="OZ",
+            ope6=5555,
+            ope8=555500):
+        return School.objects.create(
+            school_id=ID,
+            data_json=data_json,
+            accreditor=accreditor,
+            degrees_highest=degrees_highest,
+            degrees_predominant=degrees_highest,
+            city=city,
+            state=state,
+            ope6_id=ope6,
+            ope8_id=ope8)
 
-    def create_alias(self, alias, school):
-        return Alias.objects.create(alias=alias,
-                                    is_primary=True,
-                                    institution=school)
+    def create_alias(
+            self, alias, school):
+        return Alias.objects.create(
+            alias=alias,
+            is_primary=True,
+            institution=school)
 
     def create_contact(self):
-        return Contact.objects.create(contacts='hack@hackey.edu',
-                                      name='Hackey Sack',
-                                      endpoint=u'endpoint.hackey.edu')
+        return Contact.objects.create(
+            contacts='hack@hackey.edu',
+            name='Hackey Sack',
+            endpoint=u'endpoint.hackey.edu')
 
     def create_nickname(self, school):
-        return Nickname.objects.create(institution=school,
-                                       nickname='Hackers')
+        return Nickname.objects.create(
+            institution=school,
+            nickname='Hackers')
 
     def create_program(self, school):
-        return Program.objects.create(institution=school,
-                                      program_name='Hacking',
-                                      level='3')
+        return Program.objects.create(
+            institution=school,
+            program_name='Hacking',
+            level='3')
 
     def create_disclosure(self, school):
-        return Disclosure.objects.create(institution=school,
-                                         name='Regional transferability',
-                                         text="Your credits won't transfer")
+        return Disclosure.objects.create(
+            institution=school,
+            name='Regional transferability',
+            text="Your credits won't transfer")
 
-    def create_notification(self,
-                            school,
-                            oid='f38283b5b7c939a058889f997949efa566c616c5',
-                            time='2016-01-13T20:06:18.913112+00:00'):
-        return Notification.objects.create(institution=school,
-                                           oid=oid,
-                                           timestamp=dateutil.parser.parse(time),
-                                           errors='none')
+    def create_notification(
+            self,
+            school,
+            oid='f38283b5b7c939a058889f997949efa566c616c5',
+            time='2016-01-13T20:06:18.913112+00:00'):
+        return Notification.objects.create(
+            institution=school,
+            oid=oid,
+            timestamp=dateutil.parser.parse(time),
+            errors='none')
+
+    def create_feedback(self):
+        return Feedback.objects.create(
+            created=datetime.datetime.now(),
+            message='Thank you, FPO',
+            url=('www.cfpb.gov/paying-for-college2/'
+                 'understanding-your-financial-aid-offer/offer/'
+                 '?iped=451796&pid=2736'
+                 '&oid=1234567890123456789012345678901234567890'
+                 '&book=1832&gib=0&gpl=0&hous=4431&insi=3.36&insl=4339'
+                 '&inst=35&leng=0&mta=0&othg=0&othr=2517&parl=0&pelg=2070'
+                 '&perl=0&ppl=0&prvl=0&prvf=0&prvi=0&schg=2444&stag=0'
+                 '&subl=3464&totl=81467&tran=1503&tuit=16107&unsl=5937'))
 
     def test_school_related_models(self):
         s = self.create_school()
@@ -100,32 +124,35 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(s.primary_alias, "Not Available")
         d = self.create_disclosure(s)
         self.assertTrue(isinstance(d, Disclosure))
-        self.assertTrue(d.name in d.__unicode__())
+        self.assertIn(d.name, d.__unicode__())
         a = self.create_alias('Wizard U', s)
         self.assertTrue(isinstance(a, Alias))
-        self.assertTrue(a.alias in a.__unicode__())
+        self.assertIn(a.alias, a.__unicode__())
         self.assertEqual(s.primary_alias, a.alias)
         self.assertEqual(s.__unicode__(), a.alias + u" (%s)" % s.school_id)
         c = self.create_contact()
         self.assertTrue(isinstance(c, Contact))
-        self.assertTrue(c.contacts in c.__unicode__())
+        self.assertIn(c.contacts, c.__unicode__())
         n = self.create_nickname(s)
         self.assertTrue(isinstance(n, Nickname))
-        self.assertTrue(n.nickname in n.__unicode__())
-        self.assertTrue(n.nickname in s.nicknames)
+        self.assertIn(n.nickname, n.__unicode__())
+        self.assertIn(n.nickname, s.nicknames)
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
-        self.assertTrue(p.program_name in p.__unicode__())
-        self.assertTrue(p.program_name in p.as_json())
-        self.assertTrue('Bachelor' in p.get_level())
+        self.assertIn(p.program_name, p.__unicode__())
+        self.assertIn(p.program_name, p.as_json())
+        self.assertIn('Bachelor', p.get_level())
         noti = self.create_notification(s)
         self.assertTrue(isinstance(noti, Notification))
-        self.assertTrue(noti.oid in noti.__unicode__())
+        self.assertIn(noti.oid, noti.__unicode__())
         self.assertIsInstance(print_vals(s, noprint=True), basestring)
-        self.assertTrue(
-            'Emerald City' in print_vals(s, val_list=True, noprint=True)
+        self.assertIn(
+            'Emerald City',
+            print_vals(s, val_list=True, noprint=True)
         )
-        self.assertTrue("Emerald City" in print_vals(s, val_dict=True, noprint=True)['city'])
+        self.assertIn(
+            "Emerald City",
+            print_vals(s, val_dict=True, noprint=True)['city'])
         self.assertTrue("Emerald City" in print_vals(s, noprint=True))
 
         print_patcher = mock.patch('paying_for_college.models.print')
@@ -193,8 +220,6 @@ class SchoolModelsTest(TestCase):
         mock_return.ok = False
         mock_post.return_value = mock_return
         fail_msg = noti.notify_school()
-        # print("notification mock_post.call_count is {0}".format(mock_post.call_count))
-        # print("fail msg is {0}\n\n\n".format(fail_msg))
         self.assertTrue('fail' in fail_msg)
 
     def test_endpoint_notification_blank_contact(self):
@@ -228,6 +253,50 @@ class SchoolModelsTest(TestCase):
         msg = noti.notify_school()
         self.assertTrue('Error' in msg)
 
+    def test_feedback_parsed_url(self):
+        sorted_keys = ['book', 'gib', 'gpl', 'hous', 'insi', 'insl', 'inst',
+                       'iped', 'leng', 'mta', 'oid', 'othg', 'othr', 'parl',
+                       'pelg', 'perl', 'pid', 'ppl', 'prvf', 'prvi', 'prvl',
+                       'schg', 'stag', 'subl', 'totl', 'tran', 'tuit', 'unsl']
+        feedback = self.create_feedback()
+        self.assertEqual(
+            sorted(feedback.parsed_url.keys()),
+            sorted_keys)
+        self.assertEqual(
+            feedback.parsed_url['iped'], '451796')
+        self.assertEqual(
+            feedback.parsed_url['oid'],
+            '1234567890123456789012345678901234567890')
+        feedback.url = feedback.url.split('?')[0]
+        self.assertEqual(feedback.parsed_url, {})
+        feedback.url = 'www.cfpb.gov/feedback/'
+        self.assertEqual(feedback.parsed_url, {})
+
+    def test_feedback_school(self):
+        school = self.create_school(ID=451796)
+        feedback = self.create_feedback()
+        self.assertEqual(feedback.school, school)
+        feedback.url = feedback.url.replace("iped=451796&", '')
+        self.assertEqual(feedback.school, None)
+        feedback.url = ''
+        self.assertEqual(feedback.school, None)
+
+    def test_feedback_unmet_cost(self):
+        feedback = self.create_feedback()
+        self.assertEqual(feedback.unmet_cost, 8136)
+        feedback.url = feedback.url.replace('&book=1832', '&book=voodoo')
+        self.assertEqual(feedback.unmet_cost, 6304)
+        feedback.url = feedback.url.replace('offer', 'feedback')
+        self.assertIs(feedback.unmet_cost, None)
+
+    def test_feedback_cost_error(self):
+        feedback = self.create_feedback()
+        self.assertEqual(feedback.cost_error, 0)
+        feedback.url = feedback.url.replace('totl=81467', 'totl=1000')
+        self.assertEqual(feedback.cost_error, 1)
+        feedback.url = feedback.url.replace('totl=1000', 'totl=')
+        self.assertEqual(feedback.cost_error, 0)
+
 
 class NonSettlementNotificaion(TestCase):
     fixtures = ['test_fixture.json']
@@ -236,10 +305,11 @@ class NonSettlementNotificaion(TestCase):
                             school,
                             oid='f38283b5b7c939a058889f997949efa566c616c5',
                             time='2016-01-13T20:06:18.913112+00:00'):
-        return Notification.objects.create(institution=school,
-                                           oid=oid,
-                                           timestamp=dateutil.parser.parse(time),
-                                           errors='none')
+        return Notification.objects.create(
+            institution=school,
+            oid=oid,
+            timestamp=dateutil.parser.parse(time),
+            errors='none')
 
     def test_nonsettlement_notification(self):
         skul = School.objects.get(pk=155317)  # a non-settlement school

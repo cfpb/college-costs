@@ -3,6 +3,8 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## 2.3.3
 - Improved error handling for program CSVs to catch BOM and bad ope_id values
+- New model methods on the Feedback model to assist in disclosure troubleshooting
+- Fix in the `update_colleges` script to capture grad_rate properly
 
 ## 2.3.2
 - Bumped snyk dependency to 1.24.6

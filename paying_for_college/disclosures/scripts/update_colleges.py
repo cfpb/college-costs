@@ -1,7 +1,6 @@
 """Update college data using the Dept. of Education's collegechoice api"""
 from __future__ import print_function
 import os
-import ast
 import sys
 import time
 import json
@@ -12,16 +11,14 @@ import datetime
 import requests
 
 from paying_for_college.disclosures.scripts import api_utils
-from paying_for_college.disclosures.scripts.api_utils import (MODEL_MAP,
-                                                              LATEST_YEAR,
-                                                              LATEST_SALARY_YEAR)
+from paying_for_college.disclosures.scripts.api_utils import (
+    MODEL_MAP, LATEST_YEAR, LATEST_SALARY_YEAR)
 from paying_for_college.models import School, CONTROL_MAP
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
 HOME = os.path.expanduser("~")
-NO_DATA_FILE = "{0}/no_data_YEAR{1}_{2}.json".format(HOME,
-                                                     LATEST_YEAR,
-                                                     DATESTAMP)
+NO_DATA_FILE = "{0}/no_data_YEAR{1}_{2}.json".format(
+    HOME, LATEST_YEAR, DATESTAMP)
 SCRIPTNAME = os.path.basename(__file__).partition('.')[0]
 ID_BASE = "{0}?api_key={1}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
 FIELDS = sorted(MODEL_MAP.keys())
@@ -89,9 +86,9 @@ def update(exclude_ids=[], single_school=None):
                         school.ownership = str(data['school.ownership'])
                         school.control = CONTROL_MAP[school.ownership]
                     if school.grad_rate_4yr:
-                        school.grad_rate == school.grad_rate_4yr
+                        school.grad_rate = school.grad_rate_4yr
                     elif school.grad_rate_lt4:
-                        school.grad_rate == school.grad_rate_lt4
+                        school.grad_rate = school.grad_rate_lt4
                     if school.operating is False:
                         CLOSED += 1
                     if UPDATED is True:
