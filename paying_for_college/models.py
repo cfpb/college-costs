@@ -755,12 +755,12 @@ class Feedback(models.Model):
     def school(self):
         """Returns a school object, derived from a feedback url"""
         if not self.url:
-            return ''
+            return None
         row = self.parsed_url
         if row and row.get('iped'):
             return School.objects.get(pk=row['iped'])
         else:
-            return ''
+            return None
 
     @property
     def unmet_cost(self):
@@ -772,7 +772,7 @@ class Feedback(models.Model):
         def total_fields(field_list):
             total = 0
             for field in field_list:
-                if field in url_data.keys() and url_data[field] != '':
+                if field in url_data.keys() and url_data.get(field, '') != '':
                     try:
                         total += int(url_data[field])
                     except ValueError:

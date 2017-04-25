@@ -277,9 +277,9 @@ class SchoolModelsTest(TestCase):
         feedback = self.create_feedback()
         self.assertEqual(feedback.school, school)
         feedback.url = feedback.url.replace("iped=451796&", '')
-        self.assertEqual(feedback.school, '')
+        self.assertEqual(feedback.school, None)
         feedback.url = ''
-        self.assertEqual(feedback.school, '')
+        self.assertEqual(feedback.school, None)
 
     def test_feedback_unmet_cost(self):
         feedback = self.create_feedback()
