@@ -225,7 +225,7 @@ class FeedbackView(TemplateView):
             base_template = BASE_TEMPLATE
             feedback = Feedback(
                 message=form.cleaned_data['message'][:2000],
-                url=form.cleaned_data['referrer'])
+                url=form.cleaned_data['referrer'].replace('#info-right', ''))
             feedback.save()
             return render_to_response(
                 "feedback_thanks.html",
@@ -361,11 +361,11 @@ class VerifyView(View):
     def post(self, request):
         data = request.POST
         timestamp = timezone.now()
-        if 'oid' in data and data['oid'] and validate_oid(data['oid']):
+        if data.get('oid') and validate_oid(data['oid']):
             OID = data['oid']
         else:
             return HttpResponseBadRequest('Error: No valid OID provided')
-        if 'iped' in data and data['iped'] and get_school(data['iped']):
+        if data.get('iped') and get_school(data['iped']):
             school = get_school(data['iped'])
             if not school.contact:
                 errmsg = "Error: School has no contact."
@@ -373,10 +373,12 @@ class VerifyView(View):
             if Notification.objects.filter(institution=school, oid=OID):
                 errmsg = "Error: OfferID has already generated a notification."
                 return HttpResponseBadRequest(errmsg)
-            notification = Notification(institution=school,
-                                        oid=OID,
-                                        timestamp=timestamp,
-                                        errors=data['errors'][:255])
+            notification = Notification(
+                institution=school,
+                oid=OID,
+                url=data['URL'].replace('#info-right', ''),
+                timestamp=timestamp,
+                errors=data['errors'][:255])
             notification.save()
             msg = notification.notify_school()
             callback = json.dumps({'result':

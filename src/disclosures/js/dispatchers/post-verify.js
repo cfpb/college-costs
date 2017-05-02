@@ -24,7 +24,8 @@ var postVerify = {
           csrfmiddlewaretoken:  this.csrfToken,
           oid:                  offerID,
           iped:                 collegeID,
-          errors:               'none'
+          errors:               'none',
+          URL:                  window.location.href
         };
     url = '/' + $( 'main' ).attr( 'data-context' ) +
       '/understanding-your-financial-aid-offer/api/verify/';

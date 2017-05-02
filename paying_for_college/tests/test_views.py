@@ -371,7 +371,8 @@ class VerifyViewTest(django.test.TestCase):
     fixtures = ['test_fixture.json']
     post_data = {'oid': 'f38283b5b7c939a058889f997949efa566c616c5',
                  'iped': '243197',
-                 'errors': 'none'}
+                 'errors': 'none',
+                 'URL': 'fake-url.com'}
     url = reverse('disclosures:verify')
 
     def test_verify_view(self):
