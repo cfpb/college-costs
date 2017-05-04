@@ -297,6 +297,14 @@ class SchoolModelsTest(TestCase):
         feedback.url = feedback.url.replace('totl=1000', 'totl=')
         self.assertEqual(feedback.cost_error, 0)
 
+    def test_feedback_tuition_plan(self):
+        feedback = self.create_feedback()
+        self.assertEqual(feedback.tuition_plan, 4339)
+        feedback.url = feedback.url.replace('insl=4339', 'insl=a')
+        self.assertEqual(feedback.tuition_plan, None)
+        feedback.url = feedback.url.replace('insl=a', 'insl=')
+        self.assertEqual(feedback.tuition_plan, None)
+
 
 class NonSettlementNotificaion(TestCase):
     fixtures = ['test_fixture.json']

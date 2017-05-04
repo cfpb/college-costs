@@ -341,7 +341,93 @@ class School(models.Model):
         return ", ".join([nick.nickname for nick in self.nickname_set.all()])
 
 
-class Notification(models.Model):
+class DisclosureBase(models.Model):
+    """Abstract base class for disclosure-related interactions"""
+    url = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+    @property
+    def parsed_url(self):
+        """parses a disclosure URL and returns a field:value dict"""
+        data = {}
+        if not self.url or 'feedback' in self.url or '?' not in self.url:
+            return data
+        split_fields = self.url.replace(
+            '#info-right', '').split('?')[1].split('&')
+        for field in split_fields:
+            pair = field.split('=')
+            data[pair[0]] = pair[1]
+        return data
+
+    @property
+    def school(self):
+        """Returns a school object, derived from a feedback url"""
+        if not self.url:
+            return None
+        row = self.parsed_url
+        if row and row.get('iped'):
+            return School.objects.get(pk=row['iped'])
+        else:
+            return None
+
+    @property
+    def unmet_cost(self):
+        """Calculates and returns a disclosure's unmet cost"""
+        url_data = self.parsed_url
+        if not url_data:
+            return None
+
+        def total_fields(field_list):
+            total = 0
+            for field in field_list:
+                if field in url_data.keys() and url_data.get(field, '') != '':
+                    try:
+                        total += int(url_data[field])
+                    except ValueError:
+                        pass
+            return total
+
+        cost_fields = ['tuit', 'hous', 'book', 'tran', 'othr']
+        asset_fields = ['pelg', 'gib', 'mta', 'schg', 'othg', 'stag', 'wkst',
+                        'prvl', 'ppl', 'perl', 'gpl', 'insl', 'subl', 'unsl']
+        total_costs = total_fields(cost_fields)
+        total_assets = total_fields(asset_fields)
+        return total_costs - total_assets
+
+    @property
+    def cost_error(self):
+        """Return 1 or 0: Is total-cost less than tuition?"""
+        url_data = self.parsed_url
+        if url_data and url_data['totl'] != '' and url_data['tuit'] != '':
+            if int(url_data['totl']) < int(url_data['tuit']):
+                return 1
+            else:
+                return 0
+        else:
+            return 0
+
+    @property
+    def tuition_plan(self):
+        """Return amount of tuition plan or None"""
+        url_data = self.parsed_url
+        if url_data and url_data.get('insl'):
+            try:
+                return int(url_data.get('insl'))
+            except ValueError:
+                return None
+
+
+class Feedback(DisclosureBase):
+    """
+    User-submitted feedback
+    """
+    created = models.DateTimeField(auto_now_add=True)
+    message = models.TextField()
+
+
+class Notification(DisclosureBase):
     """record of a disclosure verification"""
     institution = models.ForeignKey(School)
     oid = models.CharField(max_length=40)
@@ -729,74 +815,6 @@ class Worksheet(models.Model):
     saved_data = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-
-class Feedback(models.Model):
-    """
-    User-submitted feedback
-    """
-    created = models.DateTimeField(auto_now_add=True)
-    message = models.TextField()
-    url = models.TextField(blank=True, null=True)
-
-    @property
-    def parsed_url(self):
-        """parses a disclosure URL and returns a field:value dict"""
-        data = {}
-        if not self.url or 'feedback' in self.url or '?' not in self.url:
-            return data
-        split_fields = self.url.split('?')[1].split('&')
-        for field in split_fields:
-            pair = field.split('=')
-            data[pair[0]] = pair[1]
-        return data
-
-    @property
-    def school(self):
-        """Returns a school object, derived from a feedback url"""
-        if not self.url:
-            return None
-        row = self.parsed_url
-        if row and row.get('iped'):
-            return School.objects.get(pk=row['iped'])
-        else:
-            return None
-
-    @property
-    def unmet_cost(self):
-        """Calculates and returns a disclosure's unmet cost"""
-        url_data = self.parsed_url
-        if not url_data:
-            return None
-
-        def total_fields(field_list):
-            total = 0
-            for field in field_list:
-                if field in url_data.keys() and url_data.get(field, '') != '':
-                    try:
-                        total += int(url_data[field])
-                    except ValueError:
-                        pass
-            return total
-
-        cost_fields = ['tuit', 'hous', 'book', 'tran', 'othr']
-        asset_fields = ['pelg', 'gib', 'mta', 'schg', 'othg', 'stag', 'wkst',
-                        'prvl', 'ppl', 'perl', 'gpl', 'insl', 'subl', 'unsl']
-        total_costs = total_fields(cost_fields)
-        total_assets = total_fields(asset_fields)
-        return total_costs - total_assets
-
-    @property
-    def cost_error(self):
-        """Return 1 or 0: Is total-cost less than tuition?"""
-        url_data = self.parsed_url
-        if url_data and url_data['totl'] != '' and url_data['tuit'] != '':
-            if int(url_data['totl']) < int(url_data['tuit']):
-                return 1
-            else:
-                return 0
-        else:
-            return 0
 
 
 def print_vals(obj, val_list=False, val_dict=False, noprint=False):
