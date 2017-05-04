@@ -1,6 +1,9 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.3.4
+- Add abstract model for Feedback and Notification
+
 ## 2.3.3
 - Improved error handling for program CSVs to catch BOM and bad ope_id values
 - New model methods on the Feedback model to assist in disclosure troubleshooting
