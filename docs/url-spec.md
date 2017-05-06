@@ -1,7 +1,8 @@
 ## URL specifications for offer data
 
 #### Mapping url fields to data points
-Values should be annual unless otherwise specified.
+Values should be annual unless otherwise specified.  
+The `totl` field is a notable exception. It represents the sum of tuition, fees, books, and supplies for the entire length of a program. 
 
 This scheme results in URLs about 400 characters long, well below browser/server character limits.  
 Here's what a full URL would look like (using fictional school, program and offer values):  
@@ -17,9 +18,9 @@ iped=123456&pid=business-123&oid=a9e280139f3238cbc9702c7b0d62e5c238a835a0
 
 #### Value details
 - The following three values, in bold, are required. If they are missing, the tool will display an error.
-- School IDs (**iped**) must be an integer.
-- Program IDs (**pid**) must not contain these characters: `; < > { } _`
-- Offer IDs (**oid**) must contain only hex characters: a-f, 0-9
+- School ID (**iped**) must be an integer.
+- Program ID (**pid**) must not contain these characters: `; < > { } _`
+- Offer ID (**oid**) must contain only hex characters: a-f, 0-9
 
 The values below are just examples to show type.   
 Rates can be more precise than two decimal places, but may be rounded for display.  
