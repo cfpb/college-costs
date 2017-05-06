@@ -92,7 +92,8 @@
             <section id="main" class="main-content" role="main">
                 <h2 id="url-specifications-for-offer-data">URL specifications for offer data</h2>
 <h4 id="mapping-url-fields-to-data-points">Mapping url fields to data points</h4>
-<p>Values should be annual unless otherwise specified.</p>
+<p>Values should be annual unless otherwise specified.<br />
+The <code>totl</code> field is a notable exception. It represents the sum of tuition, fees, books, and supplies for the entire length of a program. </p>
 <p>This scheme results in URLs about 400 characters long, well below browser/server character limits.<br />
 Here's what a full URL would look like (using fictional school, program and offer values):  </p>
 <pre><code>https://www.consumerfinance.gov/paying-for-college2/
@@ -107,9 +108,9 @@ iped=123456&amp;pid=business-123&amp;oid=a9e280139f3238cbc9702c7b0d62e5c238a835a
 <h4 id="value-details">Value details</h4>
 <ul>
 <li>The following three values, in bold, are required. If they are missing, the tool will display an error.</li>
-<li>School IDs (<strong>iped</strong>) must be an integer.</li>
-<li>Program IDs (<strong>pid</strong>) must not contain these characters: <code>; &lt; &gt; { } _</code></li>
-<li>Offer IDs (<strong>oid</strong>) must contain only hex characters: a-f, 0-9</li>
+<li>School ID (<strong>iped</strong>) must be an integer.</li>
+<li>Program ID (<strong>pid</strong>) must not contain these characters: <code>; &lt; &gt; { } _</code></li>
+<li>Offer ID (<strong>oid</strong>) must contain only hex characters: a-f, 0-9</li>
 </ul>
 <p>The values below are just examples to show type. <br />
 Rates can be more precise than two decimal places, but may be rounded for display.<br />
