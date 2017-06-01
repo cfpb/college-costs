@@ -400,8 +400,10 @@ class DisclosureBase(models.Model):
     def cost_error(self):
         """Return 1 or 0: Is total-cost less than tuition?"""
         url_data = self.parsed_url
-        if url_data and url_data['totl'] != '' and url_data['tuit'] != '':
-            if int(url_data['totl']) < int(url_data['tuit']):
+        if (url_data
+                and url_data.get('totl') != ''
+                and url_data.get('tuit') != ''):
+            if int(url_data.get('totl', 0)) < int(url_data.get('tuit', 0)):
                 return 1
             else:
                 return 0
