@@ -95,6 +95,10 @@ var questionView = {
       }, 900, 'swing', function() {
         // Noop function.
       } );
+
+      Analytics.sendEvent( getDataLayerOptions( 'Step Completed',
+        $( this ).text().trim() )
+      );
     } );
   }
 
