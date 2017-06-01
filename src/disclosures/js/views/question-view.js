@@ -80,11 +80,9 @@ var questionView = {
       } else if ( $( this ).attr( 'id' ) === 'question_answer-yes' ) {
         questionView.$followupYes.show();
         questionView.$followupNoNotSure.hide();
-        Analytics.sendEvent( getDataLayerOptions( 'Step Completed', 'Yes' ) );
       } else {
         questionView.$followupNoNotSure.show();
         questionView.$followupYes.hide();
-        Analytics.sendEvent( getDataLayerOptions( 'Step Completed', 'Not sure' ) );
       }
       // Show the rest of the page
       questionView.$getOptions.show();
