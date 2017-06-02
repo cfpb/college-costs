@@ -289,12 +289,44 @@ class SchoolModelsTest(TestCase):
         feedback.url = feedback.url.replace('offer', 'feedback')
         self.assertIs(feedback.unmet_cost, None)
 
-    def test_feedback_cost_error(self):
+    def test_feedback_cost_error_valid_values(self):
         feedback = self.create_feedback()
         self.assertEqual(feedback.cost_error, 0)
+
+    def test_feedback_cost_error_true(self):
+        feedback = self.create_feedback()
         feedback.url = feedback.url.replace('totl=81467', 'totl=1000')
         self.assertEqual(feedback.cost_error, 1)
-        feedback.url = feedback.url.replace('totl=1000', 'totl=')
+
+    def test_feedback_cost_error_blank_totl(self):
+        feedback = self.create_feedback()
+        feedback.url = feedback.url.replace('totl=81467', 'totl=')
+        self.assertEqual(feedback.cost_error, 1)
+
+    def test_feedback_cost_error_blank_tuition(self):
+        feedback = self.create_feedback()
+        feedback.url = feedback.url.replace('tuit=16107', 'tuit=')
+        self.assertEqual(feedback.cost_error, 0)
+
+    def test_feedback_cost_error_missing_tuit_field(self):
+        feedback = self.create_feedback()
+        feedback.url = feedback.url.replace('&tuit=16107', '')
+        self.assertEqual(feedback.cost_error, 0)
+
+    def test_feedback_cost_error_missing_totl_field(self):
+        feedback = self.create_feedback()
+        feedback.url = feedback.url.replace('&totl=81467', '')
+        self.assertEqual(feedback.cost_error, 1)
+
+    def test_feedback_cost_error_missing_totl_and_tuit_fields(self):
+        feedback = self.create_feedback()
+        feedback.url = feedback.url.replace('&tuit=16107', '')
+        feedback.url = feedback.url.replace('&totl=81467', '')
+        self.assertEqual(feedback.cost_error, 0)
+
+    def test_feedback_cost_error_missing_url(self):
+        feedback = self.create_feedback()
+        feedback.url = ''
         self.assertEqual(feedback.cost_error, 0)
 
     def test_feedback_tuition_plan(self):
