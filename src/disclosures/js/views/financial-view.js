@@ -804,14 +804,23 @@ var financialView = {
    * if the summaries are in the inline-block sidebar column
    */
   stickySummariesListener: function() {
-    var $stickyOffers = $( '.offer-part_summary-wrapper' );
-    $stickyOffers.stick_in_parent()
+    var $stickyOffers = $( '.offer-part_summary-wrapper' ),
+        $win = $(window);
+    if ( $win.width() >= 600 ) {
+      $stickyOffers.stick_in_parent()
       .on( 'sticky_kit:bottom', function( evt ) {
         $( evt.target ).addClass( 'is_bottomed' );
       } )
       .on( 'sticky_kit:unbottom', function( evt ) {
         $( evt.target ).removeClass( 'is_bottomed' );
       } );
+    } else {
+      $stickyOffers.trigger( 'sticky_kit:detach' );
+    }
+
+    $win.resize( function() {
+      financialView.stickySummariesListener();
+    } );
   },
 
   /**
