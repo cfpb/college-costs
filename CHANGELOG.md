@@ -1,6 +1,12 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## 2.3.6
+- Modified Google Analytics question event to fire independent of settlement status
+
+## 2.3.5
+- Fixed Google Analytics events on "Yes" and "Not sure" buttons
+
 ## 2.3.4
 - Add abstract model for Feedback and Notification
 

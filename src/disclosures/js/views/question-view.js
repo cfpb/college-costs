@@ -1,7 +1,9 @@
 'use strict';
+var Analytics = require( '../utils/Analytics' );
 var postVerification = require( '../dispatchers/post-verify' );
 var getFinancial = require( '../dispatchers/get-financial-values' );
 var getSchool = require( '../dispatchers/get-school-values' );
+var getDataLayerOptions = Analytics.getDataLayerOptions;
 
 var questionView = {
   $settlementBigQuestion: $( '.step_settlement' ),
@@ -91,6 +93,10 @@ var questionView = {
       }, 900, 'swing', function() {
         // Noop function.
       } );
+
+      Analytics.sendEvent( getDataLayerOptions( 'Step Completed',
+        $( this ).text().trim() )
+      );
     } );
   }
 
