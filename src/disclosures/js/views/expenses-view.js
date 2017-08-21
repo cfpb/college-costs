@@ -109,13 +109,19 @@ var expensesView = {
    * Listener function for keyup in expenses INPUT fields
    */
   keyupListener: function() {
-    this.$reviewAndEvaluate.on( 'keyup', '[data-expenses]', function() {
+    this.$reviewAndEvaluate.on( 'keyup focusout', '[data-expenses]', function() {
       clearTimeout( expensesView.keyupDelay );
       expensesView.currentInput = $( this ).attr( 'id' );
-      expensesView.keyupDelay = setTimeout( function() {
+      if ( $( this ).is( ':focus' ) ) {
+        expensesView.keyupDelay = setTimeout( function() {
+          expensesView.inputHandler( expensesView.currentInput );
+          expensesView.updateView( getExpenses.values() );
+        }, 500 );
+      } else {
         expensesView.inputHandler( expensesView.currentInput );
+        expensesView.currentInput = 'none';
         expensesView.updateView( getExpenses.values() );
-      }, 500 );
+      }
     } );
   },
 
