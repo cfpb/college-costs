@@ -132,6 +132,10 @@
 
   &_content {
 
+    dt, dd {
+      display: block;
+    }
+
     .respond-to-min(@bp-sm-min, {
       .grid_column(9);
     });
@@ -143,6 +147,7 @@
     .respond-to-min(@bp-xl-min, {
       .grid_column(6);
     });
+
   }
 
   &_prompt {
