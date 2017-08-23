@@ -12,7 +12,7 @@ Tools to help students make informed financial decisions about college.
  * [pip](https://pypi.python.org/pypi/pip)
  * [virtualenv](https://virtualenv.pypa.io/en/latest/)
  * [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/)
- * [node](http://nodejs.org/)
+ * [node](http://nodejs.org/) (version 6)
  * [gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 <!--  * [elasticsearch](https://www.elastic.co/products/elasticsearch) -->
