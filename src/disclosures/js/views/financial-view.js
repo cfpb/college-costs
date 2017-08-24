@@ -806,7 +806,12 @@ var financialView = {
   stickySummariesListener: function() {
     var $stickyOffers = $( '.offer-part_summary-wrapper' ),
         $win = $(window);
+
+    // "detach" event handler before re-attaching
+    $stickyOffers.trigger( 'sticky_kit:detach' );
+
     if ( $win.width() >= 600 ) {
+      // Attach event handler
       $stickyOffers.stick_in_parent()
       .on( 'sticky_kit:bottom', function( evt ) {
         $( evt.target ).addClass( 'is_bottomed' );
@@ -814,10 +819,9 @@ var financialView = {
       .on( 'sticky_kit:unbottom', function( evt ) {
         $( evt.target ).removeClass( 'is_bottomed' );
       } );
-    } else {
-      $stickyOffers.trigger( 'sticky_kit:detach' );
     }
 
+    // On resize, check if event handler should be attached
     $win.resize( function() {
       financialView.stickySummariesListener();
     } );
