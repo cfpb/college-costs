@@ -33,6 +33,11 @@
     &_main {
       padding-top: 0;
       padding-bottom: 0;
+
+      // Overrides a style bleeding in from footer.css/header.css
+      p:last-child {
+        margin-bottom: 15px;
+      }
     }
 
     &_sidebar a {
@@ -127,6 +132,10 @@
 
   &_content {
 
+    dt, dd {
+      display: block;
+    }
+
     .respond-to-min(@bp-sm-min, {
       .grid_column(9);
     });
@@ -138,6 +147,7 @@
     .respond-to-min(@bp-xl-min, {
       .grid_column(6);
     });
+
   }
 
   &_prompt {

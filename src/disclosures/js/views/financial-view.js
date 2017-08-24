@@ -804,14 +804,27 @@ var financialView = {
    * if the summaries are in the inline-block sidebar column
    */
   stickySummariesListener: function() {
-    var $stickyOffers = $( '.offer-part_summary-wrapper' );
-    $stickyOffers.stick_in_parent()
+    var $stickyOffers = $( '.offer-part_summary-wrapper' ),
+        $win = $(window);
+
+    // "detach" event handler before re-attaching
+    $stickyOffers.trigger( 'sticky_kit:detach' );
+
+    if ( $win.width() >= 600 ) {
+      // Attach event handler
+      $stickyOffers.stick_in_parent()
       .on( 'sticky_kit:bottom', function( evt ) {
         $( evt.target ).addClass( 'is_bottomed' );
       } )
       .on( 'sticky_kit:unbottom', function( evt ) {
         $( evt.target ).removeClass( 'is_bottomed' );
       } );
+    }
+
+    // On resize, check if event handler should be attached
+    $win.resize( function() {
+      financialView.stickySummariesListener();
+    } );
   },
 
   /**
