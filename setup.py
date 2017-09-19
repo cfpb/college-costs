@@ -14,7 +14,7 @@ def read_file(filename):
 
 setup(
     name='college-costs',
-    version='2.3.4',
+    version_format='{tag}.dev{commitcount}+{gitsha}',
     author='CFPB',
     author_email='tech@cfpb.gov',
     maintainer='cfpb',
@@ -56,6 +56,6 @@ setup(
     ],
     long_description=read_file('README.md'),
     zip_safe=False,
-    setup_requires=['cfgov_setup==1.2',],
+    setup_requires=['cfgov_setup==1.2', 'setuptools-git-version==1.0.3'],
     frontend_build_script='setup.sh'
 )

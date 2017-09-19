@@ -1,15 +1,28 @@
 language: python
 python:
-  - "2.7"
+- '2.7'
+nodejs: 6
 install:
-  - pip install -r requirements/testing.txt
-  - pip install coveralls
+- pip install -r requirements/testing.txt
+- pip install coveralls
 env:
-  - DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
+- DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
 before_script:
-  - python manage.py migrate
-  - python manage.py loaddata test_fixture.json
-script: 
-  - coverage run manage.py test > /dev/null
+- python manage.py migrate
+- python manage.py loaddata test_fixture.json
+- npm install -g gulp-cli
+script:
+- coverage run manage.py test > /dev/null
+- python2.7 setup.py bdist_wheel
+- ls dist/*
 after_success:
-  - coveralls
+- coveralls
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: CWwS16f24uOQyrvAAhjWyTrFRVI2D4roOKgID8kzXJ0TMUIU1XAa9unuqev0vAZNO+HrIb8hqMJ48ups3dBplcbi0wlksvr5NiDJCbxJFINye6wro86q9P8jwIirnCDQTGPDUm6A+oEzttuWu359Fs8beQ2229opFC0OvQsAlVrdSe+LWYgcpyXWRqqRKjWQmejwtqkbj5sNdmsSifd3gfwAS4rFcKqoRf3NcVBf0GEoz2MIetTih+TOoOPFxz9lyLNFHaR2Lry8vHhs2y7VQoK1goRqZEaVSBCQBAzKFDHbfdZvk9meIv0McPmzwu7f45MXeSG+GljE4RMEFbUwhLnOC6Ytd2hRjc25UpfNS5/jtY9IF1Uz6XtgMQZrrAMCFFkqiCsRr2xs6VBL+/z1mmC67fQkD3qvDjvvATgxi/pG3kswzI5iOfGgBkrgO85yxI6Z6fEO5460FCqnuQHGfrFuiD8p17I4UL3IIJ5/p3/ojuGKzVrwOgeMcTW2hokLQ8dy2vKyyq/GTt5k1rrSlY7WGj3raNGfTqKJGE1Gv6mnF9qq9Fmz5p4HQwZNm9Hqz2olT2FSMXtrlvKLzyd4uEFbFkzEKQ4Td5YieNle33YwKVQEEbzpMCWU0fCmnx5g/o5F4lJA3govLsSDaDLs7Qdm6zwzv4sEpzMhsIVH0BY=
+  file_glob: true
+  file: dist/*.whl
+  on:
+    tags: true
