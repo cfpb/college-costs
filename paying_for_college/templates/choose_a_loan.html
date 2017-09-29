@@ -1,15 +1,23 @@
 {% extends base_template %}
 {% load staticfiles %}
-{% block page_meta %}
-<meta charset="UTF-8" />
-<meta property="og:title" content="Choose a student loan &gt; Consumer Financial Protection Bureau"/>
-<meta property="og:image" content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
-<meta property="og:type" content="government"/>
-{% comment %}It looks like this isn't working{% endcomment %}
-<meta property="og:url" content="{{ URL }}"/>
-{% endblock %}
 
 {% block title %}Choose a student loan{% endblock %}
+
+{% block page_meta %}
+<meta charset="UTF-8" />
+<meta property="og:title" content="{{ page.title }} &gt; Consumer Financial Protection Bureau"/>
+<meta property="og:url" content="{{ URL }}"/>
+<meta name="description" content="Use this tool to compare college costs and financial aid offers to see the financial impact you’ll face down the road. You can compare up to three schools at once."/>
+
+<meta property="og:description" content="Use this tool to compare college costs and financial aid offers to see the financial impact you’ll face down the road. You can compare up to three schools at once."/>
+{% endblock %}
+
+{% block open_graph_image %}
+<meta property="og:image"
+    content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
+<meta property="twitter:image"
+    content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
+{% endblock %}
 
 {% block page_css %}
     <link href="{% static "paying_for_college/choosealoan/css/guides.css" %}" rel="stylesheet" media="screen">
