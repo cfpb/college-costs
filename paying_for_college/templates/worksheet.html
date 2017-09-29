@@ -1,6 +1,19 @@
 {% extends base_template %}
 {% load staticfiles %}
 {% block title %}Understanding your financial aid offer{% endblock %}
+{% block page_meta %}
+<meta charset="UTF-8" />
+<meta property="og:title" content="{{ page.title }} &gt; Consumer Financial Protection Bureau"/>
+<meta property="og:url" content="{{ URL }}"/>
+{% endblock %}
+
+{% block open_graph_image %}
+<meta property="og:image"
+    content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
+<meta property="twitter:image"
+    content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
+{% endblock %}
+
 {% block page_viewport %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {% endblock %}
