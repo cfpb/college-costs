@@ -32,7 +32,7 @@ def fix_zip5(zip5):
     if len(zip5) == 3:
         return "00{0}".format(zip5)
     else:
-        return zip5
+        return zip5[:5]
 
 
 def update(exclude_ids=[], single_school=None):
