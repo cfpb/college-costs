@@ -1,4 +1,4 @@
-{% extends base_template %} 
+{% extends base_template %}
 {% load static from staticfiles %}
 {% block title %}Check the financial risks and rewards of a college program{% endblock %}
 
@@ -15,7 +15,7 @@
     content="https://s3.amazonaws.com/files.consumerfinance.gov/f/images/ask-cfpb-social-student-loans.original.png">
 {% endblock %}
 
-{% block page_viewport %}	
+{% block page_viewport %}
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 {% endblock %}
 
@@ -100,7 +100,7 @@ var restoredata = {{ data_js|safe }};
 		    			<p><i class="icon-left"></i><a href="/{{url_root}}/">Paying for College</a></p>
 		    		</div>
 		    		<h1 class="sub-page">Compare financial aid</h1>
-		    		<p>Compare college costs and financial aid offers to see how they might impact you down the road. Just researching schools? Check out <a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank">College Scorecard</a>.</p>
+		    		<p>Compare college costs and financial aid offers to see how they might impact you down the road. Just researching schools? Check out <a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank" rel="noopener noreferrer">College Scorecard</a>.</p>
 		    	</div>
 		    	<div class="pfc-hero-image">
 		    		<img alt="" src="{% static "paying_for_college/disclosures/images/hero_compare.png" %}">
@@ -115,7 +115,7 @@ var restoredata = {{ data_js|safe }};
 				<p></p>
 			</div>
 			<h2 class="h3 vert-pad bottom-border bold">Compare Schools</h2>
-			<span class="about-link"><a class="school-link" href="/paying-for-college/compare-financial-aid-and-college-cost/technote/" target="_blank">About this tool</a></span>
+			<span class="about-link"><a class="school-link" href="/paying-for-college/compare-financial-aid-and-college-cost/technote/" target="_blank" rel="noopener noreferrer">About this tool</a></span>
 			<div id="step-one" class="get-started step-one clearfix">
 				<div class="step-left">
 					<div class="pfc-container-left">
@@ -165,7 +165,7 @@ var restoredata = {{ data_js|safe }};
 											</label>
 										</div><!-- /get-started-radio-group -->
 										<div class="get-started-radio-group">
-											<input id="program3" class="radio-input" type="radio" name="program" value="grad">	
+											<input id="program3" class="radio-input" type="radio" name="program" value="grad">
 											<label class="prgmtype" for="program3">
 												Graduate
 											</label>
@@ -254,7 +254,7 @@ var restoredata = {{ data_js|safe }};
 									With family (little or no cost to you)
 								</label>
 							</div><!-- /get-started-radio-group -->
-			        	</fieldset>			            
+			        	</fieldset>
 			        </div><!-- /pfc-container-left -->
 			    </div><!-- /add-school /staged /stage-res-hse /step-3d3 /res-hse /step-left -->
 			    <div class="step-right">
@@ -270,7 +270,7 @@ var restoredata = {{ data_js|safe }};
 			        <div class="pfc-container-left">
 			        	<h4>Success!</h4>
 			        	<div id="success-no-data" class="success-message">
-			        		<p>You have added <span class="success-school-name"></span> to the chart below. We don’t have all the cost info for this school, but you can look up this information on <a href="" class="navigator-link" target="_blank">College Navigator</a>.</p>
+			        		<p>You have added <span class="success-school-name"></span> to the chart below. We don’t have all the cost info for this school, but you can look up this information on <a href="" class="navigator-link" target="_blank" rel="noopener noreferrer">College Navigator</a>.</p>
 			        		<p>Add another school, or continue to enter your financial aid offer below.</p>
 			       	 	</div>
 			        	<div id="success-offer-xml" class="success-message">
@@ -358,7 +358,7 @@ var restoredata = {{ data_js|safe }};
 						<td data-column="3"><div class="h6 data-total" data-nickname="firstyrcostattend">$0</div></td>
 					</tr>
 					<tr class="hide highlighted-row">
-						<td class="full" colspan="4">If you have a financial aid offer from this school, use it to enter your information here. If not, you can go to <a href="http://www.collegenavigator.gov/" target="_blank" class="exit-link">www.collegenavigator.gov</a> to look up this school’s cost of attendance info, add it to the fields below, then add more schools to see how they compare.</td>
+						<td class="full" colspan="4">If you have a financial aid offer from this school, use it to enter your information here. If not, you can go to <a href="http://www.collegenavigator.gov/" target="_blank" rel="noopener noreferrer" class="exit-link">www.collegenavigator.gov</a> to look up this school’s cost of attendance info, add it to the fields below, then add more schools to see how they compare.</td>
 					</tr>
 					<tr class="hide highlighted-row">
 						<th scope="row" data-column="0"><span class="tooltip-info" data-tooltip="Tuition &amp; Fees: Tuition and fees are what the school charges the student to participate in classes." data-tipname="tuitionfees">Tuition &amp; fees</span></th>
@@ -758,7 +758,7 @@ var restoredata = {{ data_js|safe }};
 										<td>Left to pay:</td>
 										<td data-nickname="gap" class="value">$0</td>
 									</tr>
-								</table><!-- end .bars -->		
+								</table><!-- end .bars -->
 							</div><!-- end .meter -->
 						</td>
 						<td class="bg-spacing" data-column="2">
@@ -811,7 +811,7 @@ var restoredata = {{ data_js|safe }};
 										<td>Left to pay:</td>
 										<td data-nickname="gap" class="value">$0</td>
 									</tr>
-								</table><!-- end .bars -->		
+								</table><!-- end .bars -->
 							</div><!-- end .meter -->
 						</td>
 						<td class="bg-spacing" data-column="3">
@@ -864,7 +864,7 @@ var restoredata = {{ data_js|safe }};
 										<td>Left to pay:</td>
 										<td data-nickname="gap" class="value">$0</td>
 									</tr>
-								</table><!-- end .bars -->		
+								</table><!-- end .bars -->
 							</div><!-- end .meter -->
 						</td>
 					</tr>
@@ -930,7 +930,7 @@ var restoredata = {{ data_js|safe }};
 				<tbody>
 					<tr class="bottom-border" id="indicators-row">
 						<th class="nopad-horiz" colspan="4">
-							<div class="h3 bold">School indicators (<a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank">Source</a>)</div>
+							<div class="h3 bold">School indicators (<a class="exit-link" href="http://collegecost.ed.gov/scorecard/index.aspx" target="_blank" rel="noopener noreferrer">Source</a>)</div>
 						</th>
 					</tr>
 					<tr class="school-name-row">
@@ -955,7 +955,7 @@ var restoredata = {{ data_js|safe }};
 								<div class="graduation-rate-chart">
 									<div class="gradrisk-container">
 										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
-										<div class="gradrisk-pointer"></div>	
+										<div class="gradrisk-pointer"></div>
 									</div>
 									<div class="gradrisk-bar">
 										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
@@ -969,7 +969,7 @@ var restoredata = {{ data_js|safe }};
 								<div class="graduation-rate-chart">
 									<div class="gradrisk-container">
 										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
-										<div class="gradrisk-pointer"></div>	
+										<div class="gradrisk-pointer"></div>
 									</div>
 									<div class="gradrisk-bar">
 										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
@@ -983,7 +983,7 @@ var restoredata = {{ data_js|safe }};
 								<div class="graduation-rate-chart">
 									<div class="gradrisk-container">
 										<span data-nickname="gradriskpercent" class="gradrisk-percent"></span><span class="gradrisk-indc cfpb_visually_hide"></span>
-										<div class="gradrisk-pointer"></div>	
+										<div class="gradrisk-pointer"></div>
 									</div>
 									<div class="gradrisk-bar">
 										<div class="low">Low</div><div class="medium">Medium</div><div class="high">High</div>
@@ -1071,7 +1071,7 @@ var restoredata = {{ data_js|safe }};
 			<h2 class="h3 vert-pad bottom-border bold">Feedback</h2>
 			<div class="feedback-container">
 				<p>What do you think about Paying for College? We're always looking to make our tools and resources better for you. Tell us how!</p>
-				<a class="feedback button school-link" target="_blank" href="/paying-for-college/compare-financial-aid-and-college-cost/feedback/">Give us Feedback</a>
+				<a class="feedback button school-link" target="_blank" rel="noopener noreferrer" href="/paying-for-college/compare-financial-aid-and-college-cost/feedback/">Give us Feedback</a>
 			</div>
 		</div><!-- end #save-footer -->
 	</div><!-- end #comparison-tool -->

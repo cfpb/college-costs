@@ -38,7 +38,7 @@ var linksView = {
       var $scorecardSchool = $( '<a>', {
         'href': scorecardURL,
         'target': '_blank',
-        'rel': 'noopener',
+        'rel': 'noopener noreferrer',
         'class': this.$scorecardSchoolLink.attr( 'class' )
       } )
         .text( this.$scorecardSchoolLink.text() );
