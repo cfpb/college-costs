@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.0
+version: v1.12.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:minimatch:20160620':
@@ -137,3 +137,12 @@ patch:
         patched: '2016-08-09T00:11:35.413Z'
     - browser-sync > socket.io > engine.io > ws:
         patched: '2016-08-09T00:11:35.413Z'
+  'npm:hoek:20180212':
+    - capital-framework > npmi > npm > node-gyp > request > hawk > hoek:
+        patched: '2018-06-19T00:15:33.565Z'
+    - capital-framework > npmi > npm > node-gyp > request > hawk > boom > hoek:
+        patched: '2018-06-19T00:15:33.565Z'
+    - capital-framework > npmi > npm > node-gyp > request > hawk > sntp > hoek:
+        patched: '2018-06-19T00:15:33.565Z'
+    - capital-framework > npmi > npm > node-gyp > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-06-19T00:15:33.565Z'
