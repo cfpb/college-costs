@@ -38,7 +38,7 @@ var linksView = {
       var $scorecardSchool = $( '<a>', {
         'href': scorecardURL,
         'target': '_blank',
-        'rel': 'noopener',
+        'rel': 'noopener noreferrer',
         'class': this.$scorecardSchoolLink.attr( 'class' )
       } )
         .text( this.$scorecardSchoolLink.text() );
@@ -58,7 +58,7 @@ var linksView = {
       var $gradLink = $( '<a>', {
         'href': gradURL,
         'target': '_blank',
-        'rel': 'noopener',
+        'rel': 'noopener noreferrer',
         'class': this.$gradLinkText.attr( 'class' )
       } )
         .text( this.$gradLinkText.text() );
@@ -77,7 +77,7 @@ var linksView = {
       var $defaultLink = $( '<a>', {
         'href': defaultURL,
         'target': '_blank',
-        'rel': 'noopener',
+        'rel': 'noopener noreferrer',
         'class': this.$defaultLinkText.attr( 'class' )
       } )
         .text( this.$defaultLinkText.text() );
@@ -96,7 +96,7 @@ var linksView = {
       var $schoolLink = $( '<a>', {
         'href': schoolURL,
         'target': '_blank',
-        'rel': 'noopener',
+        'rel': 'noopener noreferrer',
         'class': this.$schoolLinkText.attr( 'class' )
       } )
         .text( this.$schoolLinkText.text() );
