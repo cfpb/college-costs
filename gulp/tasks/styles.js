@@ -1,56 +1,53 @@
-'use strict';
+const gulp = require( 'gulp' );
+const gulpAutoprefixer = require( 'gulp-autoprefixer' );
+const gulpCssmin = require( 'gulp-cssmin' );
+const gulpHeader = require( 'gulp-header' );
+const gulpLess = require( 'gulp-less' );
+const gulpRename = require( 'gulp-rename' );
+const gulpSourcemaps = require( 'gulp-sourcemaps' );
+const mqr = require( 'gulp-mq-remove' );
+const pkg = require( '../config' ).pkg;
+const banner = require( '../config' ).banner;
+const config = require( '../config' ).styles;
+const handleErrors = require( '../utils/handle-errors' );
 
-var gulp = require( 'gulp' );
-var $ = require( 'gulp-load-plugins' )();
-var mqr = require( 'gulp-mq-remove' );
-var pkg = require( '../config' ).pkg;
-var banner = require( '../config' ).banner;
-var config = require( '../config' ).styles;
-var handleErrors = require( '../utils/handleErrors' );
-
-gulp.task( 'styles:modern', function() {
+gulp.task( 'styles:modern', () => {
   return gulp.src( config.cwd + config.src )
-    .pipe( $.sourcemaps.init() )
-    .pipe( $.less( config.settings ) )
+    .pipe( gulpSourcemaps.init() )
+    .pipe( gulpLess( config.settings ) )
     .on( 'error', handleErrors )
-    .pipe( $.autoprefixer( {
+    .pipe( gulpAutoprefixer( {
       browsers: [ 'last 2 version' ]
     } ) )
-    .pipe( $.header( banner, { pkg: pkg } ) )
-    .pipe( $.rename( {
+    .pipe( gulpHeader( banner, { pkg: pkg } ) )
+    .pipe( gulpRename( {
       suffix: '.min'
     } ) )
-    .pipe( $.sourcemaps.write( '.' ) )
+    .pipe( gulpSourcemaps.write( '.' ) )
     .pipe( gulp.dest( config.dest ) );
 } );
 
-gulp.task( 'styles:ie', function() {
+gulp.task( 'styles:ie', () => {
   return gulp.src( config.cwd + config.src )
-    .pipe( $.less( config.settings ) )
+    .pipe( gulpLess( config.settings ) )
     .on( 'error', handleErrors )
-    .pipe( $.replace(
-      /url\('chosen-sprite.png'\)/ig,
-      'url("/static/img/chosen-sprite.png")'
-    ) )
-    .pipe( $.replace(
-      /url\('chosen-sprite@2x.png'\)/ig,
-      'url("/static/img/chosen-sprite@2x.png")'
-    ) )
-    .pipe( $.autoprefixer( {
+    .pipe( gulpAutoprefixer( {
       browsers: [ 'IE 7', 'IE 8' ]
     } ) )
     .pipe( mqr( {
       width: '75em'
     } ) )
-    .pipe( $.cssmin() )
-    .pipe( $.rename( {
+    .pipe( gulpCssmin() )
+    .pipe( gulpRename( {
       suffix:  '.ie',
       extname: '.css'
     } ) )
     .pipe( gulp.dest( config.dest ) );
 } );
 
-gulp.task( 'styles', [
-  'styles:modern',
-  'styles:ie'
-] );
+gulp.task( 'styles',
+  gulp.parallel(
+    'styles:modern',
+    'styles:ie'
+  )
+);

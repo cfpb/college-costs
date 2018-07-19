@@ -1,9 +1,6 @@
-'use strict';
+const gulp = require( 'gulp' );
+const del = require( 'del' );
 
-var gulp = require( 'gulp' );
-var del = require( 'del' );
-var config = require( '../config' ).clean;
-
-gulp.task( 'clean', function() {
-  del( config.dest );
+gulp.task( 'clean', () => {
+  return del( './paying_for_college/static/paying_for_college/disclosures' );
 } );

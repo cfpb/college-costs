@@ -1,43 +1,41 @@
-'use strict';
+const gulp = require( 'gulp' );
+const gulpChanged = require( 'gulp-changed' );
+const config = require( '../config' ).copy;
+const handleErrors = require( '../utils/handle-errors' );
 
-var gulp = require( 'gulp' );
-var $ = require( 'gulp-load-plugins' )();
-var config = require( '../config' ).copy;
-var handleErrors = require( '../utils/handleErrors' );
-
-gulp.task( 'copy:files', function() {
+gulp.task( 'copy:files', () => {
   return gulp.src( config.files.src )
-    .pipe( $.changed( config.files.dest ) )
+    .pipe( gulpChanged( config.files.dest ) )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( config.files.dest ) );
 } );
 
-gulp.task( 'copy:icons', function() {
+gulp.task( 'copy:icons', () => {
   return gulp.src( config.icons.src )
-    .pipe( $.changed( config.icons.dest ) )
+    .pipe( gulpChanged( config.icons.dest ) )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( config.icons.dest ) );
 } );
 
-gulp.task( 'copy:libjs', function() {
+gulp.task( 'copy:libjs', () => {
   return gulp.src( config.libjs.src )
-    .pipe( $.changed( config.libjs.dest ) )
+    .pipe( gulpChanged( config.libjs.dest ) )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( config.libjs.dest ) );
 } );
 
-gulp.task( 'copy:vendorjs', function() {
+gulp.task( 'copy:vendorjs', () => {
   return gulp.src( config.vendorjs.src )
-    .pipe( $.changed( config.vendorjs.dest ) )
+    .pipe( gulpChanged( config.vendorjs.dest ) )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( config.vendorjs.dest ) );
 } );
 
 gulp.task( 'copy',
-  [
+  gulp.parallel(
     'copy:files',
     'copy:icons',
     'copy:libjs',
     'copy:vendorjs'
-  ]
+  )
 );
