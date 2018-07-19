@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "test": "snyk test && mocha test/js-unit/",
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "browser-sync": "2.14.0",
@@ -60,7 +61,7 @@
     "normalize-legacy-addon": "0.1.0",
     "number-to-words": "1.2.3",
     "require-dir": "0.3.0",
-    "snyk": "1.24.6",
+    "snyk": "^1.88.0",
     "sticky-kit": "1.1.3",
     "student-debt-calc": "2.6.3"
   },
