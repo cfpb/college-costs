@@ -12,6 +12,7 @@ omit =
     *setup.py
     */data_sources/*
     */csvkit/*
+    *settings/*
 
 [report]
 exclude_lines = 
