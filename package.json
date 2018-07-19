@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "box-sizing-polyfill": "0.1.0",
-    "capital-framework": "3.5.2",
+    "capital-framework": "3.6.1",
     "del": "2.2.1",
     "format-usd": "1.0.1",
     "fs": "0.0.2",
