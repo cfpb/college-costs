@@ -1,14 +1,13 @@
-'use strict';
+const gulp = require( 'gulp' );
+const gulpChanged = require( 'gulp-changed' );
+const gulpImagemin = require( 'gulp-imagemin' );
+const config = require( '../config' ).images;
+const handleErrors = require( '../utils/handle-errors' );
 
-var gulp = require( 'gulp' );
-var $ = require( 'gulp-load-plugins' )();
-var config = require( '../config' ).images;
-var handleErrors = require( '../utils/handleErrors' );
-
-gulp.task( 'images', function() {
+gulp.task( 'images', () => {
   return gulp.src( config.src )
-    .pipe( $.changed( config.dest ) )
-    .pipe( $.imagemin() )
+    .pipe( gulpChanged( config.dest ) )
+    .pipe( gulpImagemin() )
     .on( 'error', handleErrors )
     .pipe( gulp.dest( config.dest ) );
 } );

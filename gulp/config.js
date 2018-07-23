@@ -1,12 +1,10 @@
-'use strict';
-
-var pkgjson = require( '../package.json' );
-var globAll = require( 'glob-all' );
+const pkgjson = require( '../package.json' );
+const globAll = require( 'glob-all' );
 
 /**
  * Set up file paths
  */
-var loc = {
+const loc = {
   src:  './src/disclosures',
   dist: './paying_for_college/static/paying_for_college/disclosures',
   modules: './node_modules',
@@ -37,9 +35,6 @@ module.exports = {
     src:   loc.src + '/static/js/**/*.js',
     tests: loc.test
   },
-  clean: {
-    dest: loc.dist
-  },
   styles: {
     cwd:      loc.src + '/css',
     src:      '/main.less',
@@ -63,12 +58,6 @@ module.exports = {
     dest: loc.dist + '/static/js/',
     name: 'main.js'
   },
-  browserify: {
-    paths: {
-      scripts: 'src/disclosures/js/index.js',
-      dest: 'dist/scripts/'
-    }
-  },
   images: {
     src:  loc.src + '/img/**',
     dest: loc.dist + '/static/img'
@@ -82,8 +71,6 @@ module.exports = {
         loc.src + '/**/*.html',
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
-        loc.src + '/robots.txt',
-        loc.src + '/favicon.ico',
         '!' + loc.modules + '/**/*.html'
       ],
       dest: loc.dist
