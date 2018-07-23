@@ -404,8 +404,8 @@ This is for each step in the process.
 
 #step-two .step-right {
     position: absolute;
-    	right: 0;
-    	bottom: 24px;
+    right: 0;
+    bottom: 24px;
     margin-right: 0;
     text-align: right;
     width: 387.5px;
@@ -420,8 +420,8 @@ This is for each step in the process.
 #step-three .step-right {
     margin-right: 0;
     position: absolute;
-    	right: 0;
-    	bottom: 24px;
+    right: 0;
+    bottom: 24px;
     text-align: right;
     width: 387.5px;
 }
@@ -439,8 +439,8 @@ This is for each step in the process.
 #step-four .step-right {
     margin-right: 0;
     position: absolute;
-    	right: 0;
-    	bottom: 24px;
+    right: 0;
+    bottom: 24px;
     text-align: right;
     width: 387.5px;
 }
@@ -456,13 +456,13 @@ This is for each step in the process.
 
 /* Basic structure */
 .pfc-left {
-	float: left;
-	margin-right: 10px;
+    float: left;
+    margin-right: 10px;
 }
 
 .pfc-right {
-	float: right;
-	margin-right: 0;
+    float: right;
+    margin-right: 0;
 }
 
 /* This is for the Get Started button only. */
@@ -490,14 +490,14 @@ This is for each step in the process.
 }
 
 .get-started .step-legend {
-	padding: 0 30px;
-	margin: 1em 0;
-	width: 874px;
+    padding: 0 30px;
+    margin: 1em 0;
+    width: 874px;
 }
 
 /* General label styling in Get Started */
 .get-started label {
-	font-size: 0.875em;
+    font-size: 0.875em;
 }
 
 .get-started .school-name,
@@ -514,7 +514,7 @@ This is for each step in the process.
     display: block;
     margin-right: 1.25em;
     text-align: right;
-    width: 24%; 
+    width: 24%;
 }
 
 .school-search {
@@ -564,7 +564,7 @@ This is for each step in the process.
     margin-right: 1.25em;
     padding: 1.25em 0;
     text-align: right;
-    width: 24%; 
+    width: 24%;
 }
 
 .get-started-radios {
@@ -580,7 +580,7 @@ This is for each step in the process.
 }
 
 .get-started .xml-text {
-	width: 60%;
+    width: 60%;
 }
 
 .get-started .finaidoffer {
@@ -592,7 +592,7 @@ This overrides a lot of styles in the main stylesheet. It contains
 font styles, heading styles, etc. Other adjustments happen within components.
 -------------------------------------------------------------------------------*/
 .comparison-tool {
-	color: #101820;
+    color: #101820;
     font-family: "Avenir Next", Verdana, sans-serif !important;
 }
 
@@ -624,7 +624,7 @@ thead #institution-row div.inactive {
 
 .h3,
 table h3 {
-	color: #101820;
+    color: #101820;
     font-size: 0.8125em;
     font-weight: 400;
     letter-spacing: 0;
@@ -634,8 +634,8 @@ table h3 {
 
 .h4,
 h4 {
-	color: #101820;
-	font-size: 1.125em;
+    color: #101820;
+    font-size: 1.125em;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: none;
@@ -643,7 +643,7 @@ h4 {
 
 .totalcont .h4,
 .totalcost .h4 {
-	color: #101820;
+    color: #101820;
     font-size: 1.25em;
     font-weight: 600;
     letter-spacing: 0;
@@ -651,7 +651,7 @@ h4 {
 
 .totalcont .h6.data-total,
 .totalcost .h6.data-total {
-	color: #101820;
+    color: #101820;
     font-size: 1.5em;
     font-weight: 600;
     letter-spacing: 0;
@@ -659,7 +659,7 @@ h4 {
 
 .h6,
 h6 {
-	color: #101820;
+    color: #101820;
     font-size: 1.125em;
     font-weight: 600;
     letter-spacing: 0;
@@ -683,18 +683,18 @@ The buttons differ from others on the site. */
 .paying-for-college #modal button {
     box-sizing: border-box;
     display: inline-block;
-    
+
     padding: 0.71428571428571em 1em; /* 10/14 14/14 */
-    
+
     border: none;
     -webkit-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
 
     margin-right: 1em;
-    
+
     background-color: #0072ce; /* Pacific */
-    
+
     color: #fff;
     font-size: 1em;
     line-height: 1;
@@ -789,16 +789,16 @@ The buttons differ from others on the site. */
 }
 
 .paying-for-college #wrapper .button-link {
-	background-color: transparent;
-	border-bottom: 1px dashed #d14124;
-	color: #d14124;
-	padding: 0;
+    background-color: transparent;
+    border-bottom: 1px dashed #d14124;
+    color: #d14124;
+    padding: 0;
 }
 
 .paying-for-college #wrapper .button-link:hover,
 .paying-for-college #wrapper .button-link:focus {
-	background-color: transparent;
-	border-bottom: 1px solid #d14124;
+    background-color: transparent;
+    border-bottom: 1px solid #d14124;
 }
 
 /* THE TABLE & TABLE ELEMENTS
@@ -1189,7 +1189,7 @@ Make them smaller and push them right to make it all look presentable. */
     font-size: 1em;
     height: 1.75em;
     margin: 0;
-    padding: 0 0 0 0.4em;   
+    padding: 0 0 0 0.4em;
     position: absolute;
         right: 1.825em;
     text-align: left;
@@ -1303,7 +1303,7 @@ This contains the form elements for manipulating data within the tool.
       outline: 1px solid #2cb34a;
 }
 
-.comparison-tool td input.disabled, td input.disabled:hover,  
+.comparison-tool td input.disabled, td input.disabled:hover,
 .comparison-tool td h6.disabled, td h6.disabled:hover {
     border: none;
     color: transparent;
@@ -1350,7 +1350,7 @@ h4.tooltip-info {
 }
 
 label.tooltip-info {
-    display: inline;    
+    display: inline;
 }
 
 #tooltip-container {
@@ -1518,7 +1518,7 @@ label.tooltip-info {
 #comparison-tables .breakdown .meter .bars .bar.overage {
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
     filter: alpha(opacity=50);
-    opacity: 0.9;   
+    opacity: 0.9;
 }
 
 #comparison-tables .breakdown .meter .cost-of-attendance th {
@@ -1637,7 +1637,7 @@ label.tooltip-info {
 #comparison-tables .gradrisk-container .gradrisk-percent {
     display: block;
     font-size: .9em;
-    text-align: center; 
+    text-align: center;
     position: relative;
     width: 3em;
 }
@@ -1763,8 +1763,8 @@ label.tooltip-info {
     margin-right: auto;
     padding: 2%;
     position: fixed;
-        top: 25%;
-        left: 25%;
+    top: 25%;
+    left: 25%;
     width: 40%;
     z-index: 3; /* places the modal dialog on top of everything else */
 }
@@ -1779,8 +1779,8 @@ label.tooltip-info {
     margin: 0;
     padding: 0.5em;
     position: absolute;
-        right: 1%;
-        top: 2%;
+    right: 1%;
+    top: 2%;
 }
 
 #modal #close-modal .icon-delete-alt {
@@ -2066,13 +2066,13 @@ This contains varous elements that are standalone components within the tool.
 }
 
 .nopad-vert {
-	padding-bottom: 0 !important;
+    padding-bottom: 0 !important;
     padding-top: 0 !important;
 }
 
 .nopad-horiz {
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 .center {
@@ -2085,11 +2085,11 @@ This contains varous elements that are standalone components within the tool.
 }
 
 .demi {
-	font-weight: 600 !important;
+    font-weight: 600 !important;
 }
 
 .bold {
-	font-weight: bold !important;
+    font-weight: bold !important;
 }
 
 .bottom-border,

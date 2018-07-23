@@ -24,7 +24,7 @@ describe( 'queryHandler...', function() {
     expect( typeof valuePairs.otherExpenses ).to.equal( "number" );
   });
 
-  it( '...ignores any key which does not appear in keyMaps' , function() {
+  it( '...ignores any key which does not appear in keyMaps', function() {
     var queryString = '?tuit=100&hous=101&book=102&tran=103&othr=104&lol=999&hack=true',
         valuePairs = queryHandler( queryString );
     expect( valuePairs.tuitionFees ).to.equal( 100 );
