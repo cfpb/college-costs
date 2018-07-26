@@ -4,13 +4,13 @@ python:
 install:
 - pip install -r requirements/testing.txt
 - pip install coveralls
-- npm install -g gulp
 env:
 - DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
 before_script:
 - python manage.py migrate
 - python manage.py loaddata test_fixture.json
-- gulp lint --travis
+- npm install -g gulp
+- npm run gulp lint --travis
 script:
 - coverage run manage.py test > /dev/null
 - python2.7 setup.py bdist_wheel
