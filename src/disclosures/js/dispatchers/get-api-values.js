@@ -1,15 +1,17 @@
-'use strict';
-var financialView = require( '../views/financial-view' );
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var getApiValues = {
+const financialView = require( '../views/financial-view' );
+
+const getApiValues = {
 
   values: {},
 
   constants: function() {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
+    const urlBase = $( 'main' ).attr( 'data-context' );
+    const url = '/' + urlBase +
               '/understanding-your-financial-aid-offer/api/constants/';
-    var constantsRequest = $.ajax( {
+    const constantsRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -24,10 +26,10 @@ var getApiValues = {
   },
 
   expenses: function() {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
+    const urlBase = $( 'main' ).attr( 'data-context' );
+    const url = '/' + urlBase +
               '/understanding-your-financial-aid-offer/api/expenses/';
-    var expensesRequest = $.ajax( {
+    const expensesRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -42,11 +44,11 @@ var getApiValues = {
   },
 
   fetchSchoolData: function( iped ) {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
+    const urlBase = $( 'main' ).attr( 'data-context' );
+    const url = '/' + urlBase +
               '/understanding-your-financial-aid-offer/api/school/' +
               iped + '/';
-    var schoolDataRequest = $.ajax( {
+    const schoolDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -68,11 +70,11 @@ var getApiValues = {
       } ];
     }
 
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
+    const urlBase = $( 'main' ).attr( 'data-context' );
+    const url = '/' + urlBase +
               '/understanding-your-financial-aid-offer/api/program/' +
               iped + '_' + pid + '/';
-    var programDataRequest = $.ajax( {
+    const programDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -87,8 +89,8 @@ var getApiValues = {
   },
 
   fetchNationalData: function( iped, pid ) {
-    var urlBase = $( 'main' ).attr( 'data-context' );
-    var url = '/' + urlBase +
+    const urlBase = $( 'main' ).attr( 'data-context' );
+    let url = '/' + urlBase +
               '/understanding-your-financial-aid-offer/api/national-stats/' +
               iped;
 
@@ -98,7 +100,7 @@ var getApiValues = {
       url += '_' + pid + '/';
     }
 
-    var nationalDataRequest = $.ajax( {
+    const nationalDataRequest = $.ajax( {
       url: url,
       dataType: 'json',
       success: function( resp ) {
@@ -123,7 +125,7 @@ var getApiValues = {
 
   initialData: function() {
     // If there's a [data-warning], display error
-    var warning = $( '[data-warning]' ).attr( 'data-warning' );
+    const warning = $( '[data-warning]' ).attr( 'data-warning' );
     if ( warning !== '' && typeof warning !== 'undefined' ) {
       financialView.missingData( warning );
       return $.Deferred;

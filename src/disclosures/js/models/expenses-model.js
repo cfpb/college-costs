@@ -1,7 +1,6 @@
-'use strict';
-var getFinancial = require( '../dispatchers/get-financial-values' );
+const getFinancial = require( '../dispatchers/get-financial-values' );
 
-var expensesModel = {
+const expensesModel = {
   values: {},
 
   expenseKeys: [
@@ -28,7 +27,7 @@ var expensesModel = {
    * Takes model values and performs calculations
    */
   calc: function() {
-    var model = this.values,
+    let model = this.values,
         financialValues = getFinancial.values();
     // monthly expenses
     model.totalMonthlyExpenses =
@@ -50,7 +49,7 @@ var expensesModel = {
    * @returns {string} salaryRange - String representing salary range
    */
   getSalaryRange: function( salary ) {
-    var rangeFinder = {
+    const rangeFinder = {
       'less_than_5000': [ 0, 4999 ],
       '5000_to_9999':   [ 5000, 9999 ],
       '10000_to_14999': [ 10000, 14999 ],
@@ -62,8 +61,8 @@ var expensesModel = {
       '70000_or_more':  [ 70000, Infinity ]
     };
 
-    var arr;
-    for ( var key in rangeFinder ) {
+    let arr;
+    for ( const key in rangeFinder ) {
       if ( rangeFinder.hasOwnProperty( key ) ) {
         arr = rangeFinder[key];
         if ( salary >= arr[0] && salary <= arr[1] ) {
@@ -72,9 +71,9 @@ var expensesModel = {
       }
     }
 
-    // TODO: Update to a string and check that nothing breaks.
-    //       Docs specify `getSalaryRange` returns a string,
-    //       but it returns a boolean here.
+    /* TODO: Update to a string and check that nothing breaks.
+       Docs specify `getSalaryRange` returns a string,
+       but it returns a boolean here. */
     return false;
   },
 
@@ -86,8 +85,8 @@ var expensesModel = {
    * @param {number} salary - Annual salary
    */
   resetCurrentValues: function( region, salary ) {
-    for ( var x = 0; x < this.expenseKeys.length; x++ ) {
-      var key = this.expenseKeys[x],
+    for ( let x = 0; x < this.expenseKeys.length; x++ ) {
+      let key = this.expenseKeys[x],
           expense = key.toLowerCase(),
           salaryRange = this.getSalaryRange( salary ),
           val = this.values.stored[key][region][salaryRange];

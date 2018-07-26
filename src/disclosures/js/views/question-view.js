@@ -1,11 +1,13 @@
-'use strict';
-var Analytics = require( '../utils/Analytics' );
-var postVerification = require( '../dispatchers/post-verify' );
-var getFinancial = require( '../dispatchers/get-financial-values' );
-var getSchool = require( '../dispatchers/get-school-values' );
-var getDataLayerOptions = Analytics.getDataLayerOptions;
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var questionView = {
+const Analytics = require( '../utils/Analytics' );
+const postVerification = require( '../dispatchers/post-verify' );
+const getFinancial = require( '../dispatchers/get-financial-values' );
+const getSchool = require( '../dispatchers/get-school-values' );
+const getDataLayerOptions = Analytics.getDataLayerOptions;
+
+const questionView = {
   $settlementBigQuestion: $( '.step_settlement' ),
   $nonsettlementBigQuestion: $( '.step_nonsettlement' ),
   $getOptions: $( '.get-options' ),
@@ -25,7 +27,7 @@ var questionView = {
    * Initiates the object
    */
   init: function() {
-    var settlementStatus =
+    const settlementStatus =
       getSchool.values().settlementSchool || false;
 
     this.displayOptions( settlementStatus );
@@ -66,9 +68,9 @@ var questionView = {
    * @param {boolean} isSettlementStatus Flag if this is a settlement school
    */
   bigQuestionListener: function( isSettlementStatus ) {
-    var $answerButtons = $( '.question_answers > .btn' );
+    const $answerButtons = $( '.question_answers > .btn' );
     $answerButtons.on( 'click', function() {
-      var values = getFinancial.values();
+      const values = getFinancial.values();
       if ( isSettlementStatus === true ) {
         postVerification.verify( values.offerID, values.schoolID, false );
       }

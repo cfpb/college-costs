@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Formats a raw URL to be used in an href attribute.
  * The raw URL may or may not start with "http://" or "https://"
@@ -7,7 +5,7 @@
  * @returns {string} The formated URL
  */
 function formatSchoolURL( url ) {
-  var formattedURL,
+  let formattedURL,
       protocolRegex = /^https?:\/\//;
   if ( url && protocolRegex.test( url ) ) {
     formattedURL = url;

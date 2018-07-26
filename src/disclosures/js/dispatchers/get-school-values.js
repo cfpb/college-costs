@@ -1,8 +1,6 @@
-'use strict';
+const schoolModel = require( '../models/school-model' );
 
-var schoolModel = require( '../models/school-model' );
-
-var getSchoolValues = {
+const getSchoolValues = {
   values: function() {
     return schoolModel.values;
   }

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Constructs a search query to append to a link to College Scorecard that looks
  * for schools that offer a given program near a given ZIP.
@@ -9,7 +7,7 @@
  * @returns {string} The search query (or false if PCIP and ZIP are missing)
  */
 function constructScorecardSearch( pcip, zip, radius ) {
-  var searchParameters = [],
+  let searchParameters = [],
       // Use a 50-mile radius, the most common Scorecard search, as a default
       searchRadius = radius || '50',
       pcipData = {

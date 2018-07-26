@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Turns a string into a number.
  * Assumes each number in the string should be preserved (unlike parseInt)
@@ -11,7 +9,7 @@ function handleStringInput( numberString ) {
   if ( typeof numberString === 'number' ) {
     return numberString;
   }
-  var signMaker = 1,
+  let signMaker = 1,
       minusPosition = numberString.indexOf( numberString.match( '-' ) ),
       digitPosition = numberString.indexOf( numberString.match( /\d/ ) );
 

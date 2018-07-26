@@ -1,6 +1,4 @@
-'use strict';
-
-var Analytics = {
+const Analytics = {
 
   tagManagerIsLoaded: false,
 
@@ -33,7 +31,7 @@ var Analytics = {
     if ( window.hasOwnProperty( 'google_tag_manager' ) ) {
       Analytics.tagManagerIsLoaded = true;
     } else {
-      var _tagManager;
+      let _tagManager;
       Object.defineProperty( window, 'google_tag_manager', {
         enumerable: true,
         configurable: true,
@@ -57,11 +55,11 @@ var Analytics = {
    * @param {object} dataLayerOptions Type of event.
    */
   sendEvent: function( dataLayerOptions ) {
-    var callback = dataLayerOptions.eventCallback;
+    const callback = dataLayerOptions.eventCallback;
     if ( Analytics.tagManagerIsLoaded ) {
       window.dataLayer.push( dataLayerOptions );
     } else if ( callback && typeof callback === 'function' ) {
-      callback();  // eslint-disable-line callback-return, inline-comments, max-len
+      callback(); // eslint-disable-line callback-return, inline-comments, max-len
     }
   },
 
@@ -76,7 +74,7 @@ var Analytics = {
    */
   sendEvents: function( eventsArray ) {
     if ( Array.isArray( eventsArray ) ) {
-      for ( var i = 0, len = eventsArray.length; i < len; i++ ) {
+      for ( let i = 0, len = eventsArray.length; i < len; i++ ) {
         Analytics.sendEvent( eventsArray[i] );
       }
     }

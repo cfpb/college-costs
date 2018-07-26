@@ -1,24 +1,24 @@
-'use strict';
+const gulp = require( 'gulp' );
+const gulpRename = require( 'gulp-rename' );
+const configScripts = require( '../config' ).scripts;
+const handleErrors = require( '../utils/handle-errors' );
+const webpack = require( 'webpack' );
+const webpackConfig = require( '../../config/webpack-config.js' );
+const webpackStream = require( 'webpack-stream' );
 
-var gulp = require( 'gulp' );
-var $ = require( 'gulp-load-plugins' )();
-var browserify = require( 'browserify' );
-var source = require( 'vinyl-source-stream' );
-var buffer = require( 'vinyl-buffer' );
-var config = require( '../config' ).scripts;
-var handleErrors = require( '../utils/handleErrors' );
+/**
+ * Process JavaScript.
+ * @returns {PassThrough} A source stream.
+ */
+function scripts() {
+  return gulp.src( configScripts.entrypoint )
+    .pipe( webpackStream( webpackConfig.commonConf, webpack ) )
+    .on( 'error', handleErrors.bind( this, { exitProcess: true } ) )
+    .pipe( gulpRename( {
+      basename: 'main',
+      extname: '.js'
+    } ) )
+    .pipe( gulp.dest( configScripts.dest ) );
+}
 
-gulp.task( 'scripts', function() {
-  var b = browserify( {
-    entries: config.entrypoint,
-    debug: true
-  } );
-
-  b.bundle()
-    .pipe( source( 'main.js' ) )
-    .pipe( buffer().on( 'error', handleErrors ) )
-    .pipe( $.sourcemaps.init( { loadMaps: true } ) )
-    .pipe( $.uglify() )
-    .pipe( $.sourcemaps.write( './' ) )
-    .pipe( gulp.dest( config.dest ) );
-} );
+gulp.task( 'scripts', scripts );

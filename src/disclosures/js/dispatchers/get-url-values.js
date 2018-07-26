@@ -1,7 +1,6 @@
-'use strict';
-var queryHandler = require( '../utils/query-handler' );
+const queryHandler = require( '../utils/query-handler' );
 
-var getUrlValues = {
+const getUrlValues = {
 
   /**
    * Check to see if the URL contains an offer
@@ -16,7 +15,7 @@ var getUrlValues = {
    * @returns {object} URL values as key-value pairs
    */
   urlValues: function() {
-    var urlValues;
+    let urlValues;
     urlValues = queryHandler( location.search );
     return urlValues;
   }

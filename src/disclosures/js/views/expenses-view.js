@@ -1,13 +1,14 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var Analytics = require( '../utils/Analytics' );
-var getDataLayerOptions = Analytics.getDataLayerOptions;
-var getExpenses = require( '../dispatchers/get-expenses-values' );
-var publish = require( '../dispatchers/publish-update' );
-var formatUSD = require( 'format-usd' );
-var stringToNum = require( '../utils/handle-string-input' );
+const Analytics = require( '../utils/Analytics' );
+const getDataLayerOptions = Analytics.getDataLayerOptions;
+const getExpenses = require( '../dispatchers/get-expenses-values' );
+const publish = require( '../dispatchers/publish-update' );
+const formatUSD = require( 'format-usd' );
+const stringToNum = require( '../utils/handle-string-input' );
 
-var expensesView = {
+const expensesView = {
   $elements: $( '[data-expenses]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
   currentInput: '',
@@ -26,7 +27,7 @@ var expensesView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    var originalValue = $ele.val() || $ele.text(),
+    let originalValue = $ele.val() || $ele.text(),
         isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
@@ -48,9 +49,9 @@ var expensesView = {
    * @param {object} values - expenses model values
    */
   updateExpenses: function( values ) {
-    var expensesHigherThanSalary = $( '.aid-form_higher-expenses' );
+    const expensesHigherThanSalary = $( '.aid-form_higher-expenses' );
     this.$elements.each( function() {
-      var $ele = $( this ),
+      let $ele = $( this ),
           name = $ele.attr( 'data-expenses' ),
           currency = true;
       if ( expensesView.currentInput !== $ele.attr( 'id' ) ) {
@@ -78,7 +79,7 @@ var expensesView = {
    * @param {string} id - The id attribute of the element to be handled
    */
   inputHandler: function( id ) {
-    var $ele = $( '#' + id ),
+    let $ele = $( '#' + id ),
         value = stringToNum( $ele.val() ),
         key = $ele.attr( 'data-expenses' );
     publish.expensesData( key, value );
@@ -130,7 +131,7 @@ var expensesView = {
    */
   expenseInputChangeListener: function() {
     $( '[data-expenses]' ).one( 'change', function() {
-      var expenses = $( this ).data( 'expenses' );
+      const expenses = $( this ).data( 'expenses' );
       if ( expenses ) {
         Analytics.sendEvent( getDataLayerOptions( 'Value Edited', expenses ) );
       }
@@ -142,7 +143,7 @@ var expensesView = {
    */
   regionSelectListener: function() {
     $( '#bls-region-select' ).change( function() {
-      var region = $( this ).val();
+      const region = $( this ).val();
       publish.updateRegion( region );
       expensesView.updateView( getExpenses.values() );
       Analytics.sendEvent( getDataLayerOptions( 'Region Changed', region ) );

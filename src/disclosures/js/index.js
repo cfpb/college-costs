@@ -1,23 +1,24 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var fetch = require( './dispatchers/get-api-values' );
-var verifyOffer = require( './dispatchers/post-verify' );
-var financialModel = require( './models/financial-model' );
-var schoolModel = require( './models/school-model' );
-var expensesModel = require( './models/expenses-model' );
-var getFinancial = require( './dispatchers/get-financial-values' );
-var getUrlValues = require( './dispatchers/get-url-values' );
-var financialView = require( './views/financial-view' );
-var expensesView = require( './views/expenses-view' );
-var metricView = require( './views/metric-view' );
-var questionView = require( './views/question-view' );
-var publish = require( './dispatchers/publish-update' );
+const fetch = require( './dispatchers/get-api-values' );
+const verifyOffer = require( './dispatchers/post-verify' );
+const financialModel = require( './models/financial-model' );
+const schoolModel = require( './models/school-model' );
+const expensesModel = require( './models/expenses-model' );
+const getFinancial = require( './dispatchers/get-financial-values' );
+const getUrlValues = require( './dispatchers/get-url-values' );
+const financialView = require( './views/financial-view' );
+const expensesView = require( './views/expenses-view' );
+const metricView = require( './views/metric-view' );
+const questionView = require( './views/question-view' );
+const publish = require( './dispatchers/publish-update' );
 
 require( './utils/nemo' );
 require( './utils/nemo-shim' );
 require( './utils/print-page' );
 
-var app = {
+const app = {
   init: function() {
   // jquery promise to delay full model creation until ajax resolves
     $.when( fetch.initialData() )
@@ -30,17 +31,17 @@ var app = {
         }
         if ( getUrlValues.urlOfferExists() ) {
           // Check for URL offer data
-          var urlValues = getUrlValues.urlValues();
+          const urlValues = getUrlValues.urlValues();
           $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
             .done( function( schoolData, programData, nationalData ) {
-              var data = {},
+              let data = {},
                   schoolValues,
                   region;
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
               schoolValues = schoolModel.init( nationalData[0], schoolData[0], programData[0] );
 
-              // If PID exists, update the financial model and view based
-              // on program data
+              /* If PID exists, update the financial model and view based
+                 on program data */
               if ( !data.hasOwnProperty( 'pidNotFound' ) ) {
                 financialModel.updateModelWithProgram( schoolValues );
                 financialView.updateViewWithProgram( schoolValues, urlValues );

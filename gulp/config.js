@@ -1,12 +1,10 @@
-'use strict';
-
-var pkgjson = require( '../package.json' );
-var globAll = require( 'glob-all' );
+const pkgjson = require( '../package.json' );
+const globAll = require( 'glob-all' );
 
 /**
  * Set up file paths
  */
-var loc = {
+const loc = {
   src:  './src/disclosures',
   dist: './paying_for_college/static/paying_for_college/disclosures',
   modules: './node_modules',
@@ -82,8 +80,6 @@ module.exports = {
         loc.src + '/**/*.html',
         loc.src + '/**/*.pdf',
         loc.src + '/_*/**/*',
-        loc.src + '/robots.txt',
-        loc.src + '/favicon.ico',
         '!' + loc.modules + '/**/*.html'
       ],
       dest: loc.dist
@@ -98,7 +94,6 @@ module.exports = {
     },
     vendorjs: {
       src: [
-        loc.modules + '/box-sizing-polyfill/boxsizing.htc',
         loc.modules + '/html5shiv/dist/html5shiv-printshiv.min.js'
       ],
       dest: loc.dist + '/static/js/'

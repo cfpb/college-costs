@@ -1,8 +1,9 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var stringToNum = require( '../utils/handle-string-input' );
+const stringToNum = require( '../utils/handle-string-input' );
 
-var getViewValues = {
+const getViewValues = {
   def: 0,
 
   init: function( apiValues ) {
@@ -11,14 +12,14 @@ var getViewValues = {
 
   getPrivateLoans: function( values ) {
     // Note: Only run once, during init()
-    var $privateLoans = $( '[data-private-loan]' );
+    const $privateLoans = $( '[data-private-loan]' );
     values.privateLoanMulti = [];
     $privateLoans.each( function() {
-      var $ele = $( this ),
+      let $ele = $( this ),
           $fields = $ele.find( '[data-private-loan_key]' ),
           loanObject = { amount: 0, totalLoan: 0, rate: 0, deferPeriod: 0 };
       $fields.each( function() {
-        var key = $( this ).attr( 'data-private-loan_key' ),
+        let key = $( this ).attr( 'data-private-loan_key' ),
             value = $( this ).val();
         if ( key === 'rate' ) {
           value /= 100;
@@ -32,11 +33,11 @@ var getViewValues = {
 
   inputs: function() {
     // Note: Only run once, during init()
-    var values = {};
-    var $elements = $( '[data-financial]' );
+    let values = {};
+    const $elements = $( '[data-financial]' );
 
     $elements.not( '[data-private-loan_key]' ).each( function() {
-      var name = $( this ).attr( 'data-financial' );
+      const name = $( this ).attr( 'data-financial' );
       values[name] = stringToNum( $( this ).val() ) || 0;
       if ( $( this ).attr( 'data-percentage_value' ) === 'true' ) {
         values[name] /= 100;
