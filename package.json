@@ -51,7 +51,7 @@
     "webpack-stream": "5.0.0"
   },
   "dependencies": {
-    "capital-framework": "3.6.1",
+    "capital-framework": "4.22.1",
     "del": "^3.0.0",
     "format-usd": "1.0.1",
     "fs": "0.0.2",
