@@ -31,6 +31,8 @@ def forward(apps, schema_editor):
                 db_alias).get(oid=parse_url(feedback).get('oid'))
             notification.url = feedback.url
             notification.save()
+        except IndexError:
+            continue
         except ObjectDoesNotExist:
             continue
         except MultipleObjectsReturned:
