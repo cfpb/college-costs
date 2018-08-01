@@ -1,9 +1,10 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var recalculate = require( 'student-debt-calc' );
-var getViewValues = require( '../dispatchers/get-view-values' );
+const recalculate = require( 'student-debt-calc' );
+const getViewValues = require( '../dispatchers/get-view-values' );
 
-var financialModel = {
+const financialModel = {
   values: {},
 
   /**
@@ -30,7 +31,7 @@ var financialModel = {
    * Adds various scholarships to form the 'scholarships' property
    */
   sumScholarships: function() {
-    var model = financialModel.values;
+    const model = financialModel.values;
     // model.scholarships as a sum of UI inputs
     model.scholarships =
       model.schoolGrants +
@@ -53,11 +54,11 @@ var financialModel = {
    * Sums totals for various view elements
    */
   sumTotals: function() {
-    var model = financialModel.values;
+    const model = financialModel.values;
 
     model.privateLoanTotal = 0;
 
-    for ( var x = 0; x < model.privateLoanMulti.length; x++ ) {
+    for ( let x = 0; x < model.privateLoanMulti.length; x++ ) {
       model.privateLoanTotal += model.privateLoanMulti[x].amount;
     }
 
@@ -83,11 +84,11 @@ var financialModel = {
    * Rounds values for which we do not want to display decimals
    */
   roundValues: function() {
-    var model = financialModel.values,
+    let model = financialModel.values,
         roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime',
           'tuitionRepayYearly' ];
-    for ( var x = 0; x < roundedKeys.length; x++ ) {
-      var key = roundedKeys[x];
+    for ( let x = 0; x < roundedKeys.length; x++ ) {
+      const key = roundedKeys[x];
       model[key] = Math.round( model[key] );
     }
   },
@@ -109,7 +110,7 @@ var financialModel = {
    * @returns {number} - Overborrowing value
    */
   recalcOverborrowing: function() {
-    var model = this.values,
+    let model = this.values,
         overBorrow = 0;
     if ( model.costOfAttendance < model.grantsSavingsTotal + model.borrowingTotal ) {
       overBorrow = model.borrowingTotal +

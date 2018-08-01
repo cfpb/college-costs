@@ -1,10 +1,11 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var Analytics = require( './Analytics' );
-var getDataLayerOptions = Analytics.getDataLayerOptions;
+const Analytics = require( './Analytics' );
+const getDataLayerOptions = Analytics.getDataLayerOptions;
 require( '../libs/google-cloud-print' );
 
-var ua = navigator.userAgent.toLowerCase(),
+let ua = navigator.userAgent.toLowerCase(),
     isAndroid = ua.indexOf( 'android' ) > -1;
 
 /**
@@ -12,7 +13,7 @@ var ua = navigator.userAgent.toLowerCase(),
  */
 function printAndroidPage() {
   // https://developers.google.com/cloud-print/docs/gadget
-  var gadget = new window.cloudprint.Gadget();
+  const gadget = new window.cloudprint.Gadget();
   gadget.setPrintDocument( 'text/html', $( 'title' ).html(),
     document.documentElement.innerHTML, 'utf-8' );
   gadget.openPrintDialog();

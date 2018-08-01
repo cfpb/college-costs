@@ -1,9 +1,10 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var formatURL = require( '../utils/format-url' );
-var constructScorecardSearch = require( '../utils/construct-scorecard-search' );
+const formatURL = require( '../utils/format-url' );
+const constructScorecardSearch = require( '../utils/construct-scorecard-search' );
 
-var linksView = {
+const linksView = {
   $gradLinkText: $( '.graduation-link' ),
   $defaultLinkText: $( '.loan-default-link' ),
   $schoolLinkText: $( '.school-link' ),
@@ -32,10 +33,10 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setCollegeScorecardLink: function( values ) {
-    var scorecardURL = 'https://collegescorecard.ed.gov/school/?' +
+    const scorecardURL = 'https://collegescorecard.ed.gov/school/?' +
       values.schoolID;
     if ( scorecardURL ) {
-      var $scorecardSchool = $( '<a>', {
+      const $scorecardSchool = $( '<a>', {
         'href': scorecardURL,
         'target': '_blank',
         'rel': 'noopener noreferrer',
@@ -52,10 +53,10 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setGraduationLink: function( values ) {
-    var gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
+    const gradURL = 'https://collegescorecard.ed.gov/school/?' + values.schoolID +
     '#graduation';
     if ( gradURL ) {
-      var $gradLink = $( '<a>', {
+      const $gradLink = $( '<a>', {
         'href': gradURL,
         'target': '_blank',
         'rel': 'noopener noreferrer',
@@ -71,10 +72,10 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setLoanDefaultLink: function( values ) {
-    var defaultURL = 'http://nces.ed.gov/collegenavigator/?id=' +
+    const defaultURL = 'http://nces.ed.gov/collegenavigator/?id=' +
       values.schoolID + '#fedloans';
     if ( defaultURL ) {
-      var $defaultLink = $( '<a>', {
+      const $defaultLink = $( '<a>', {
         'href': defaultURL,
         'target': '_blank',
         'rel': 'noopener noreferrer',
@@ -91,9 +92,9 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setSchoolLink: function( values ) {
-    var schoolURL = formatURL( values.url );
+    const schoolURL = formatURL( values.url );
     if ( schoolURL ) {
-      var $schoolLink = $( '<a>', {
+      const $schoolLink = $( '<a>', {
         'href': schoolURL,
         'target': '_blank',
         'rel': 'noopener noreferrer',
@@ -110,7 +111,7 @@ var linksView = {
    * @param {object} values Financial model values
    */
   setScorecardSearch: function( values ) {
-    var pcip = '',
+    let pcip = '',
         zip = '',
         // We're using a 50-mile radius, the most common Scorecard search
         radius = '50',

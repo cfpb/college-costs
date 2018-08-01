@@ -1,8 +1,6 @@
-'use strict';
+const financialModel = require( '../models/financial-model' );
 
-var financialModel = require( '../models/financial-model' );
-
-var getFinancialValues = {
+const getFinancialValues = {
   values: function() {
     return financialModel.values;
   }

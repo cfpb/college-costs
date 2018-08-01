@@ -1,8 +1,6 @@
-'use strict';
+const expensesModel = require( '../models/expenses-model' );
 
-var expensesModel = require( '../models/expenses-model' );
-
-var getExpensesValues = {
+const getExpensesValues = {
   values: function() {
     return expensesModel.values;
   }

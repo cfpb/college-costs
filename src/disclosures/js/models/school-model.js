@@ -1,6 +1,7 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var schoolModel = {
+const schoolModel = {
   values: {},
 
   init: function( nationalData, schoolData, programData ) {
@@ -60,8 +61,8 @@ var schoolModel = {
   },
 
   processBLSExpenses: function( values ) {
-    // BLS expense data is delivered as annual values.
-    // The tool displays monthly expenses.
+    /* BLS expense data is delivered as annual values.
+       The tool displays monthly expenses. */
 
     if ( values.region === 'Not available' ) {
       values.BLSAverage = 'national';

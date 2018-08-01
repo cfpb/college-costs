@@ -1,22 +1,23 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var Analytics = require( '../utils/Analytics' );
-var getFinancial = require( '../dispatchers/get-financial-values' );
-var getExpenses = require( '../dispatchers/get-expenses-values' );
-var publish = require( '../dispatchers/publish-update' );
-var stringToNum = require( '../utils/handle-string-input' );
-var formatUSD = require( 'format-usd' );
-var numberToWords = require( 'number-to-words' );
-var linksView = require( '../views/links-view' );
-var metricView = require( '../views/metric-view' );
-var expensesView = require( '../views/expenses-view' );
-var postVerification = require( '../dispatchers/post-verify' );
+const Analytics = require( '../utils/Analytics' );
+const getFinancial = require( '../dispatchers/get-financial-values' );
+const getExpenses = require( '../dispatchers/get-expenses-values' );
+const publish = require( '../dispatchers/publish-update' );
+const stringToNum = require( '../utils/handle-string-input' );
+const formatUSD = require( 'format-usd' );
+const numberToWords = require( 'number-to-words' );
+const linksView = require( '../views/links-view' );
+const metricView = require( '../views/metric-view' );
+const expensesView = require( '../views/expenses-view' );
+const postVerification = require( '../dispatchers/post-verify' );
 
 require( '../libs/sticky-kit' );
 
-var getDataLayerOptions = Analytics.getDataLayerOptions;
+const getDataLayerOptions = Analytics.getDataLayerOptions;
 
-var financialView = {
+const financialView = {
   $elements: $( '[data-financial]' ),
   $reviewAndEvaluate: $( '[data-section="review"], [data-section="evaluate"]' ),
   $verifyControls: $( '.verify_controls' ),
@@ -69,10 +70,10 @@ var financialView = {
    * origination fees in the financial view
    */
   updateOriginationFeeContent: function() {
-    var $elements = $( '[data-fee="origination"]' );
+    const $elements = $( '[data-fee="origination"]' );
 
     $elements.each( function() {
-      var $loanFee = $( this ),
+      let $loanFee = $( this ),
           modifiedText;
 
       modifiedText = financialView.round( $loanFee.text(), 2 );
@@ -85,7 +86,7 @@ var financialView = {
    * @param {object} financials - the financials model
    */
   setCaps: function( financials ) {
-    var capMap = {
+    let capMap = {
           pell: 'pellCap',
           pellGrad: 'pellCap',
           perkins: 'perkinsUnderCap',
@@ -103,7 +104,7 @@ var financialView = {
         $elems = $( '[data-cap]' );
 
     $elems.each( function() {
-      var $cap = $( this ),
+      let $cap = $( this ),
           prop = $cap.attr( 'data-cap' ),
           capKey = capMap[prop],
           text;
@@ -123,7 +124,7 @@ var financialView = {
    * @returns {number} rounded value
    */
   round: function( n, decimals ) {
-    var number = n + 'e' + decimals;
+    const number = n + 'e' + decimals;
     return Number( Math.round( number ) + 'e-' + decimals );
   },
 
@@ -133,7 +134,7 @@ var financialView = {
    */
   updateView: function( values ) {
     // handle non-private-loan fields
-    var $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+    let $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
         $percents = $nonPrivate.filter( '[data-percentage_value]' ),
         $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
         $privateLoans = $( '[data-private-loan]' );
@@ -154,7 +155,7 @@ var financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    var originalValue = $ele.val() || $ele.text(),
+    let originalValue = $ele.val() || $ele.text(),
         isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
@@ -181,7 +182,7 @@ var financialView = {
    */
   updatePercentages: function( values, $percents ) {
     $percents.not( '#' + financialView.currentInput ).each( function() {
-      var $ele = $( this ),
+      let $ele = $( this ),
           name = $ele.attr( 'data-financial' ),
           value = financialView.round( values[name] * 100, 3 );
       financialView.updateElement( $ele, value, false );
@@ -196,7 +197,7 @@ var financialView = {
    */
   updateLeftovers: function( values, $leftovers ) {
     $leftovers.not( '#' + financialView.currentInput ).each( function() {
-      var $ele = $( this ),
+      let $ele = $( this ),
           currency = true,
           name = $ele.attr( 'data-financial' );
       if ( financialView.currentInput === $( this ).attr( 'id' ) ) {
@@ -216,11 +217,11 @@ var financialView = {
    */
   updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
-      var $loanElements = $( this ),
+      let $loanElements = $( this ),
           index = $loanElements.index(),
           $fields = $loanElements.find( '[data-private-loan_key]' );
       $fields.not( '#' + financialView.currentInput ).each( function() {
-        var $ele = $( this ),
+        let $ele = $( this ),
             key = $ele.attr( 'data-private-loan_key' ),
             val = values.privateLoanMulti[index][key],
             id = $ele.attr( 'id' ),
@@ -242,7 +243,7 @@ var financialView = {
    * that is based on the remaining cost
    */
   updateRemainingCostContent: function() {
-    var model = getFinancial.values(),
+    let model = getFinancial.values(),
         gap = Math.round( model.gap ),
         overborrowing = Math.round( model.overborrowing ),
         positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
@@ -253,7 +254,7 @@ var financialView = {
     if ( gap > 0 ) {
       positiveRemainingCost.show();
     } else if ( overborrowing > 0 ) {
-      var $span = negativeRemainingCost.find( '[data-financial="gap"]' );
+      const $span = negativeRemainingCost.find( '[data-financial="gap"]' );
       $span.text( $span.text().replace( '-', '' ) );
       negativeRemainingCost.show();
     }
@@ -342,7 +343,7 @@ var financialView = {
    * @param {object} values - financial model values object
    */
   updateCalculationErrors: function( values ) {
-    var errors = values.errors;
+    const errors = values.errors;
     // hide errors
     $( '[data-calc-error]' ).hide();
 
@@ -355,7 +356,7 @@ var financialView = {
    * @param {object} errors - Errors object
    */
   checkOverCapErrors: function( errors ) {
-    var errorMap = {
+    const errorMap = {
       subsidizedOverCap: 'directSubsidized',
       unsubsidizedOverCap: 'directUnsubsidized',
       perkinsOverCap: 'perkins',
@@ -364,9 +365,9 @@ var financialView = {
     };
 
     // check errors for overCap errors
-    for ( var error in errors ) {
+    for ( const error in errors ) {
       if ( errors.hasOwnProperty( error ) ) {
-        var key = errorMap[error],
+        let key = errorMap[error],
             selector = '[data-calc-error="' + key + '"]';
         $( selector ).show();
       }
@@ -378,7 +379,7 @@ var financialView = {
    * @param {object} errors - Errors object
    */
   checkOverBorrowingErrors: function( errors ) {
-    var overBorrowingErrors = [
+    let overBorrowingErrors = [
           'perkinsOverCost', 'subsidizedOverCost',
           'unsubsidizedOverCost', 'gradPlusOverCost'
         ],
@@ -393,14 +394,14 @@ var financialView = {
         errorInput;
 
     // check for over-borrowing
-    for ( var i = 0; i < overBorrowingErrors.length; i++ ) {
+    for ( let i = 0; i < overBorrowingErrors.length; i++ ) {
       if ( errors.hasOwnProperty( overBorrowingErrors[i] ) ) {
         showOverBorrowing = true;
         errorInput = errorMap[overBorrowingErrors[i]];
       }
     }
     if ( showOverBorrowing ) {
-      var $current = $( '#' + errorInput );
+      const $current = $( '#' + errorInput );
       $over.appendTo( $current.parent() ).show();
     }
   },
@@ -410,7 +411,7 @@ var financialView = {
    */
   addPrivateListener: function() {
     this.$addPrivateButton.click( function() {
-      var $container = $( '.private-loans' ),
+      let $container = $( '.private-loans' ),
           $button = $( '[data-add-loan-button]' );
       financialView.$privateLoanClone.clone().insertBefore( $button );
       financialView.enumeratePrivateLoanIDs();
@@ -425,9 +426,9 @@ var financialView = {
    * Listener function for the "remove private loan" button
    */
   removePrivateListener: function() {
-    var buttonClass = '.private-loans_remove-btn';
+    const buttonClass = '.private-loans_remove-btn';
     this.$privateContainer.on( 'click', buttonClass, function() {
-      var $ele = $( this ).closest( '[data-private-loan]' ),
+      let $ele = $( this ).closest( '[data-private-loan]' ),
           index = $ele.index();
       $ele.remove();
       financialView.enumeratePrivateLoanIDs();
@@ -443,7 +444,7 @@ var financialView = {
    */
   resetPrivateLoanView: function() {
     $( '[data-private-loan]' ).each( function() {
-      var index = $( this ).index();
+      const index = $( this ).index();
       if ( index > 0 ) {
         $( this ).remove();
         publish.dropPrivateLoan( index );
@@ -457,11 +458,11 @@ var financialView = {
   enumeratePrivateLoanIDs: function() {
     // renumber private loan ids to prevent duplicate IDs
     $( '[data-private-loan]' ).each( function() {
-      var index = $( this ).index(),
+      let index = $( this ).index(),
           $ele = $( this ),
           $fields = $ele.find( '[data-private-loan_key]' );
       $fields.each( function() {
-        var name = $( this ).attr( 'name' ),
+        let name = $( this ).attr( 'name' ),
             newID = name + '_' + index.toString();
         $( this ).attr( 'id', newID );
       } );
@@ -473,11 +474,11 @@ var financialView = {
    * @param {string} id - The id attribute of the element to be handled
    */
   inputHandler: function( id ) {
-    var $ele = $( '#' + id );
-    var value = stringToNum( $ele.val() );
-    var key = $ele.attr( 'data-financial' );
-    var privateLoanKey = $ele.attr( 'data-private-loan_key' );
-    var percentage = $ele.attr( 'data-percentage_value' );
+    const $ele = $( '#' + id );
+    let value = stringToNum( $ele.val() );
+    const key = $ele.attr( 'data-financial' );
+    const privateLoanKey = $ele.attr( 'data-private-loan_key' );
+    const percentage = $ele.attr( 'data-percentage_value' );
 
     if ( percentage === 'true' ) {
       value /= 100;
@@ -486,8 +487,8 @@ var financialView = {
     if ( typeof privateLoanKey === 'undefined' ) {
       publish.financialData( key, value );
     } else {
-      var index = $ele.closest( '[data-private-loan]' ).index();
-      var privLoanKey = $ele.attr( 'data-private-loan_key' );
+      const index = $ele.closest( '[data-private-loan]' ).index();
+      const privLoanKey = $ele.attr( 'data-private-loan_key' );
       publish.updatePrivateLoan( index, privLoanKey, value );
     }
   },
@@ -542,12 +543,13 @@ var financialView = {
    * Listener function for offer verification buttons
    */
   verificationListener: function() {
-    var $programLengthElement = this.$programLength;
+    const $programLengthElement = this.$programLength;
     this.$verifyControls.on( 'click', '.btn', function( evt ) {
-      var values = getFinancial.values();
-      var hrefText = $( this ).text();
-      // Graph points need to be visible before updating their positions
-      // to get all the right CSS values, so we'll wait 100 ms
+      const values = getFinancial.values();
+      const hrefText = $( this ).text();
+
+      /* Graph points need to be visible before updating their positions
+         to get all the right CSS values, so we'll wait 100 ms */
       if ( $( this ).attr( 'href' ) === '#info-right' ) {
         evt.preventDefault();
         financialView.$infoVerified.show();
@@ -584,11 +586,11 @@ var financialView = {
    */
   estimatedYearsListener: function() {
     this.$programLength.on( 'change', function() {
-      var programLength = Number( $( this ).val() );
-      var values = getFinancial.values();
-      var yearsAttending = numberToWords.toWords( programLength );
-      var $yearOrLess = $( '[data-multi_year="false"]' );
-      var $multiYears = $( '[data-multi_year="true"]' );
+      const programLength = Number( $( this ).val() );
+      const values = getFinancial.values();
+      let yearsAttending = numberToWords.toWords( programLength );
+      const $yearOrLess = $( '[data-multi_year="false"]' );
+      const $multiYears = $( '[data-multi_year="true"]' );
 
       // Formats summary text, such as "half a year" or "one and a half years."
       if ( programLength === 0.5 ) {
@@ -743,7 +745,7 @@ var financialView = {
       this.$salaryMetric.hide();
       metricView.updateSalaryWarning();
       this.$budgetSalaryContent.show();
-      this.$debtBurdenSalaryContent.text('national salary for all students who attended college');
+      this.$debtBurdenSalaryContent.text( 'national salary for all students who attended college' );
     }
   },
 
@@ -752,7 +754,7 @@ var financialView = {
    * @param {boolean} isUndergrad - true if undergraduate program, false otherwise
    */
   unsubsidizedErrorText: function( isUndergrad ) {
-    var $error = $( '[data-calc-error_content="directUnsubsidized"]' );
+    const $error = $( '[data-calc-error_content="directUnsubsidized"]' );
     if ( isUndergrad ) {
       $error.text( 'The maximum subsidized and unsubsidized loans that can be ' +
         'borrowed per year is' );
@@ -762,13 +764,13 @@ var financialView = {
   },
 
   termToggleVisible: function( values ) {
-    var fedTotal;
+    let fedTotal;
 
     fedTotal = values.perkinsDebt + values.directSubsidizedDebt;
     fedTotal += values.directUnsubsidizedDebt + values.gradPlusDebt;
 
-    // If federal loan debt at graduation exceeds $30,000, then
-    // the 25-year repayment term is an option
+    /* If federal loan debt at graduation exceeds $30,000, then
+       the 25-year repayment term is an option */
     if ( fedTotal > 30000 ) {
       $( '[data-term-toggle]' ).show();
       $( '.repaymentContent' ).hide();
@@ -782,7 +784,7 @@ var financialView = {
   },
 
   continueStep2Listener: function() {
-    var $continueButton = $( '.continue_controls > .btn' );
+    const $continueButton = $( '.continue_controls > .btn' );
     $continueButton.on( 'click', function() {
       // Remove continue button
       $continueButton.hide();
@@ -804,8 +806,8 @@ var financialView = {
    * if the summaries are in the inline-block sidebar column
    */
   stickySummariesListener: function() {
-    var $stickyOffers = $( '.offer-part_summary-wrapper' ),
-        $win = $(window);
+    let $stickyOffers = $( '.offer-part_summary-wrapper' ),
+        $win = $( window );
 
     // "detach" event handler before re-attaching
     $stickyOffers.trigger( 'sticky_kit:detach' );
@@ -813,12 +815,12 @@ var financialView = {
     if ( $win.width() >= 600 ) {
       // Attach event handler
       $stickyOffers.stick_in_parent()
-      .on( 'sticky_kit:bottom', function( evt ) {
-        $( evt.target ).addClass( 'is_bottomed' );
-      } )
-      .on( 'sticky_kit:unbottom', function( evt ) {
-        $( evt.target ).removeClass( 'is_bottomed' );
-      } );
+        .on( 'sticky_kit:bottom', function( evt ) {
+          $( evt.target ).addClass( 'is_bottomed' );
+        } )
+        .on( 'sticky_kit:unbottom', function( evt ) {
+          $( evt.target ).removeClass( 'is_bottomed' );
+        } );
     }
 
     // On resize, check if event handler should be attached
@@ -832,7 +834,7 @@ var financialView = {
    */
   termToggleListener: function() {
     $( '[data-repayment-section] input' ).click( function() {
-      var $ele = $( this ),
+      let $ele = $( this ),
           $toggles = $( '[data-repayment-section] input' ),
           term = $ele.val();
       publish.financialData( 'repaymentTerm', term );
@@ -852,7 +854,7 @@ var financialView = {
   missingData: function( dataType ) {
     $( '.verify_wrapper' ).hide();
     if ( $( '[data-missing-data-error]:visible' ).length === 0 ) {
-      $( '[data-missing-data-error="' + dataType + '"]').show();
+      $( '[data-missing-data-error="' + dataType + '"]' ).show();
     }
   },
 
@@ -861,7 +863,7 @@ var financialView = {
    */
   financialInputChangeListener: function() {
     $( '[data-financial]' ).one( 'change', function() {
-      var dataFinancial = $( this ).data( 'financial' );
+      const dataFinancial = $( this ).data( 'financial' );
       if ( dataFinancial ) {
         Analytics.sendEvent( getDataLayerOptions( 'Value Edited', dataFinancial ) );
       }

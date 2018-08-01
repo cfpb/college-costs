@@ -1,6 +1,33 @@
 All notable changes to this project will be documented in this file.
 We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
+## Unreleased
+
+### Added
+-
+
+### Changed
+- Convert browserify config to webpack.
+- Remove unused dependencies.
+- Update ESLint config to version 5.
+- Fix linter errors.
+- Convert to ES6 syntax.
+
+### Removed
+-
+
+## 2.3.12
+
+## 2.3.11
+
+## 2.3.10
+
+## 2.3.9
+
+## 2.3.8
+
+## 2.3.7
+
 ## 2.3.6
 - Modified Google Analytics question event to fire independent of settlement status
 

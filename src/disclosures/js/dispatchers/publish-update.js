@@ -1,9 +1,10 @@
-'use strict';
+// TODO: Remove jquery.
+const $ = require( 'jquery' );
 
-var financialModel = require( '../models/financial-model' );
-var expensesModel = require( '../models/expenses-model' );
+const financialModel = require( '../models/financial-model' );
+const expensesModel = require( '../models/expenses-model' );
 
-var publishUpdate = {
+const publishUpdate = {
 
   /**
    * Function which updates financial model with new value
@@ -54,11 +55,11 @@ var publishUpdate = {
    * financial model
    */
   addPrivateLoan: function() {
-    var newLoanObject = { amount: 0,
-                          fees: 0,
-                          rate: 0.079,
-                          deferPeriod: 0
-                        };
+    const newLoanObject = { amount: 0,
+      fees: 0,
+      rate: 0.079,
+      deferPeriod: 0
+    };
     financialModel.values.privateLoanMulti.push( newLoanObject );
     financialModel.calc( financialModel.values );
     expensesModel.calc();
@@ -80,7 +81,7 @@ var publishUpdate = {
    * @param {string} region - region code
    */
   updateRegion: function( region ) {
-    var salary = financialModel.values.medianSalary;
+    const salary = financialModel.values.medianSalary;
     expensesModel.resetCurrentValues( region, salary );
     expensesModel.calc();
   }

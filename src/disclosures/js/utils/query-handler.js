@@ -1,6 +1,4 @@
-'use strict';
-
-var stringToNum = require( './handle-string-input.js' );
+const stringToNum = require( './handle-string-input.js' );
 
 /**
  * Handles URL questy string to turn key-value pairs into an object.
@@ -8,7 +6,7 @@ var stringToNum = require( './handle-string-input.js' );
  * @returns {object} - An object containing key-value pairs from the query
  */
 function queryHandler( queryString ) {
-  var valuePairs = {
+  const valuePairs = {
     tuitionFees: 0,
     roomBoard: 0,
     books: 0,
@@ -16,14 +14,14 @@ function queryHandler( queryString ) {
     otherExpenses: 0,
     urlProgramLength: 0
   };
-  var parameters = {};
-  var numericKeys = [
+  const parameters = {};
+  const numericKeys = [
     'iped', 'tuit', 'hous', 'book', 'leng', 'tran', 'othr',
     'pelg', 'schg', 'stag', 'othg', 'mta', 'gib', 'fam', 'wkst', 'parl',
     'perl', 'subl', 'unsl', 'ppl', 'gpl', 'prvl', 'prvi', 'prvf', 'insl',
     'insi', 'sav', 'totl'
   ];
-  var keyMaps = {
+  const keyMaps = {
     iped: 'collegeID',
     pid:  'programID',
     oid:  'offerID',
@@ -64,7 +62,7 @@ function queryHandler( queryString ) {
    * @returns {string|number} newValue - The corrected value of the key
    */
   function checkValue( key, value ) {
-    var newValue = value;
+    let newValue = value;
 
     if ( numericKeys.indexOf( key ) !== -1 ) {
       newValue = stringToNum( value );
@@ -79,14 +77,14 @@ function queryHandler( queryString ) {
    * function
    */
   function getPairs() {
-    var pair;
-    var regex = /[?&]?([^=]+)=([^&]*)/g;
+    let pair;
+    const regex = /[?&]?([^=]+)=([^&]*)/g;
 
     queryString.split( '+' ).join( ' ' );
 
     while ( pair = regex.exec( queryString ) ) { // eslint-disable-line no-cond-assign
-      var key = decodeURIComponent( pair[1] );
-      var value = decodeURIComponent( pair[2] );
+      const key = decodeURIComponent( pair[1] );
+      let value = decodeURIComponent( pair[2] );
 
       value = checkValue( key, value );
       parameters[key] = value || 0;
@@ -97,9 +95,9 @@ function queryHandler( queryString ) {
    * Helper function which maps the parameters object using the keyMaps
    */
   function remapKeys() {
-    for ( var key in parameters ) {
+    for ( const key in parameters ) {
       if ( keyMaps.hasOwnProperty( key ) ) {
-        var newKey = keyMaps[key];
+        const newKey = keyMaps[key];
         valuePairs[newKey] = parameters[key];
       }
     }
@@ -113,9 +111,9 @@ function queryHandler( queryString ) {
    */
   function adjustProgramLength() {
 
-    var lengthValue = valuePairs.urlProgramLength;
+    const lengthValue = valuePairs.urlProgramLength;
     if ( lengthValue % 6 !== 0 ) {
-      valuePairs.urlProgramLength = lengthValue + (6 - (lengthValue % 6));
+      valuePairs.urlProgramLength = lengthValue + ( 6 - ( lengthValue % 6 ) );
     }
   }
 
