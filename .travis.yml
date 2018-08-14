@@ -2,6 +2,7 @@ language: python
 python:
 - '2.7'
 install:
+- npm install -g gulp-cli
 - pip install coveralls tox
 script:
 - npm config set package-lock false
