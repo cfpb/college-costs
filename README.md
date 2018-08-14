@@ -88,10 +88,9 @@ http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer
 ### Running tests
 
 #### Python Tests
-You can run python tests from the project root with this command:
-```bash
-./pytest.sh
-```
+
+If you have [Tox](https://tox.readthedocs.io/en/latest/) installed (recommended),
+you can run the specs for this project with the `tox` command.
 
 #### Javascript Tests
 To run JavaScript unit tests:

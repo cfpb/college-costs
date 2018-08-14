@@ -2,17 +2,10 @@ language: python
 python:
 - '2.7'
 install:
-- pip install -r requirements/testing.txt
-- pip install coveralls
-env:
-- DJANGO_SETTINGS_MODULE=paying_for_college.config.settings.standalone
-before_script:
-- python manage.py migrate
-- python manage.py loaddata test_fixture.json
-- npm install -g gulp-cli
+- pip install coveralls tox
 script:
-- coverage run manage.py test > /dev/null
 - npm config set package-lock false
+- tox
 - python2.7 setup.py bdist_wheel
 - ls dist/*
 - gulp lint --travis
