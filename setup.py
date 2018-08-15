@@ -12,7 +12,7 @@ install_requires = [
     'Django>=1.8,<1.12',
     'django-haystack==2.7.0',
     'djangorestframework==3.6.4',
-    'elasticsearch==1.6.0',
+    'elasticsearch==2.4.1',
     'PyYAML==3.11',
     'python-dateutil==2.2',
     'requests==2.7.0',
