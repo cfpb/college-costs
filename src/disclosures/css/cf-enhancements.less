@@ -59,14 +59,14 @@ a.btn__full-small.btn__link {
    ========================================================================== */
 
 .form-label {
-  .webfont-medium();
+  font: @webfont-medium;
   font-size: 1.125em;
 }
 
 .form-label_text-wrapper {
   display: block;
   margin-bottom: unit(5px / @base-font-size-px, em);
-  .webfont-medium();
+  font: @webfont-medium;
   font-size: 1.125em;
 }
 
@@ -166,7 +166,7 @@ a.btn__full-small.btn__link {
     top: unit(@base-line-height - @char-icon-size, em);
     background: @green-20;
     color: @black;
-    .webfont-medium();
+    font: @webfont-medium;
     font-size: unit(18px / @base-font-size-px, em);
     line-height: @char-icon-size;
     text-align: center;
@@ -319,7 +319,7 @@ a.btn__full-small.btn__link {
                  unit( 6px / @base-font-size-px, em );
         border: 0;
         outline: 2px solid transparent;
-        .webfont-regular();
+        font: @webfont-regular;
         appearance: none;
         background-color: @white;
         color: @black;
