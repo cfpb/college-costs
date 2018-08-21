@@ -68,7 +68,7 @@ const questionView = {
    * @param {boolean} isSettlementStatus Flag if this is a settlement school
    */
   bigQuestionListener: function( isSettlementStatus ) {
-    const $answerButtons = $( '.question_answers > .btn' );
+    const $answerButtons = $( '.question_answers > button' );
     $answerButtons.on( 'click', function() {
       const values = getFinancial.values();
       if ( isSettlementStatus === true ) {
