@@ -12,6 +12,7 @@ before_script:
 - npm install -g gulp-cli
 script:
 - coverage run manage.py test > /dev/null
+- npm config set package-lock false
 - python2.7 setup.py bdist_wheel
 - ls dist/*
 - gulp lint --travis
