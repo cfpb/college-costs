@@ -7,6 +7,7 @@ const financialModel = require( './models/financial-model' );
 const schoolModel = require( './models/school-model' );
 const expensesModel = require( './models/expenses-model' );
 const getFinancial = require( './dispatchers/get-financial-values' );
+const getExpenses = require( './dispatchers/get-expenses-values' );
 const getUrlValues = require( './dispatchers/get-url-values' );
 const financialView = require( './views/financial-view' );
 const expensesView = require( './views/expenses-view' );
@@ -73,4 +74,11 @@ const app = {
 
 $( document ).ready( function() {
   app.init();
+
+  // The following line allows for functional testing by exposing
+  // the getFinancial method.
+  // $( '#financial-offer' ).data( 'getFinancial', getFinancial );
+  // console.log( $( '#financial-offer' ).data() );
+  window.getFinancial = getFinancial;
+  window.getExpenses = getExpenses;
 } );

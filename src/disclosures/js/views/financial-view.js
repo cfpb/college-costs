@@ -863,7 +863,7 @@ const financialView = {
    */
   financialInputChangeListener: function() {
     $( '[data-financial]' ).one( 'change', function() {
-      const dataFinancial = $( this ).data( 'financial' );
+      const dataFinancial = $( this ).data( 'financial' ); 
       if ( dataFinancial ) {
         Analytics.sendEvent( getDataLayerOptions( 'Value Edited', dataFinancial ) );
       }

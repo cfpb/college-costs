@@ -34,12 +34,13 @@
 <!--<![endif]-->
 {% endblock %}
 {% block responsive_nav %}
+<div class="hidden" id="test-store"></div>
 <a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i>
     <span class="u-visually-hidden">Menu</span></a>
 {% endblock %}
 {% block content %}
-<main data-context="{{url_root}}">
-    <div class="understanding-financial-aid-offer">
+<main id="main" data-context="{{url_root}}">
+    <div id="financial-offer" class="understanding-financial-aid-offer">
         <section class="content_hero hero hero__intro">
             <div class="hero_wrapper wrapper">
                 <div class="hero_text">

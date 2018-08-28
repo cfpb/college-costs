@@ -154,6 +154,11 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.css( '[data-calc-error="pell"]' ) );
       }
     },
+    pellGrantCostWarning: {
+      get: function() {
+        return element( by.css( '[data-calc-error="pell"]' ) );
+      }
+    },
     schoolScholarships: {
       get: function() {
         return element( by.id( 'grants__school' ) );
@@ -192,7 +197,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
         return element( by.id( 'grants__military' ) );
       }
     },
-    setmilitaryTuitionAssistance: {
+    setMilitaryTuitionAssistance: {
       value: function(military) {
         this.militaryTuitionAssistance.clear();
         return this.militaryTuitionAssistance.sendKeys(military);
@@ -205,8 +210,8 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     setGIBill: {
       value: function(gibill) {
-        this.benefitsGIBill.clear();
-        return this.benefitsGIBill.sendKeys(gibill);
+        this.GIBill.clear();
+        return this.GIBill.sendKeys(gibill);
       }
     },
     totalGrantsScholarships: {

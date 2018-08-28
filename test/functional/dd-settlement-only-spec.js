@@ -15,12 +15,10 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '39.8px' );
-    expect( page.schoolGradRateValue.getText() ).toEqual( '18%' );
     expect( page.nationalGradRatePoint.isDisplayed() ).toBeFalsy();
   } );
 
-  it( 'should not display the graduation rate notification', function() {
+  fit( 'should not display the graduation rate notification', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     page.continueStep2();
