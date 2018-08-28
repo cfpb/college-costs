@@ -44,7 +44,7 @@ module.exports = {
     dest:     loc.dist + '/static/css',
     settings: {
       paths:  globAll.sync( [
-        loc.modules + '/capital-framework/**'
+        loc.modules + '/cf-*/**'
       ] ),
       compress: true
     }

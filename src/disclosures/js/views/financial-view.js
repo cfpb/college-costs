@@ -544,7 +544,7 @@ const financialView = {
    */
   verificationListener: function() {
     const $programLengthElement = this.$programLength;
-    this.$verifyControls.on( 'click', '.btn', function( evt ) {
+    this.$verifyControls.on( 'click', 'button', function( evt ) {
       const values = getFinancial.values();
       const hrefText = $( this ).text();
 
@@ -784,7 +784,7 @@ const financialView = {
   },
 
   continueStep2Listener: function() {
-    const $continueButton = $( '.continue_controls > .btn' );
+    const $continueButton = $( '.continue_controls > button' );
     $continueButton.on( 'click', function() {
       // Remove continue button
       $continueButton.hide();
