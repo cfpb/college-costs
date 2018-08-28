@@ -20,7 +20,7 @@ function printAndroidPage() {
 }
 
 $( document ).ready( function() {
-  $( '.next-steps_controls > .btn' ).on( 'click', function( evt ) {
+  $( '.next-steps_controls > button' ).on( 'click', function( evt ) {
     evt.preventDefault();
     if ( isAndroid ) {
       printAndroidPage();
