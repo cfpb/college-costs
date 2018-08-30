@@ -15,9 +15,9 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    page.answerBigQuestionNo();
+    page.answerBigQuestionYes();
     browser.sleep( 1000 );
-    browser.wait( EC.visibilityOf( page.feedbackLink ), 8000 );
+    browser.wait( EC.visibilityOf( page.feedbackLink ), 8000 ); 
     expect( page.feedbackLink.getAttribute( 'href' ) ).toMatch( /\/paying-for-college2\/understanding-your-financial-aid-offer\/feedback$/ );
   } );
 
@@ -26,7 +26,7 @@ fdescribe( 'The "Was this tool helpful?" section', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    page.answerBigQuestionNo();
+    page.answerBigQuestionYes();
     browser.sleep( 1000 );
     page.followFeedbackLink();
     browser.sleep( 1000 );

@@ -16,7 +16,6 @@ const linksView = {
    * @param {object} values Financial model values
    */
   updateLinks: function( values ) {
-    console.log( 'updating links... ', values )
     this.$gradLinkText = $( '.graduation-link' );
     this.$defaultLinkText = $( '.loan-default-link' );
     this.$schoolLinkText = $( '.school-link' );
@@ -91,9 +90,8 @@ const linksView = {
    * Creates a link in Step 3 to the school's website if the school has provided
    * a URL in the College Scorecard data
    * @param {object} values Financial model values
-   */
+   */ 
   setSchoolLink: function( values ) {
-    console.log( 'schoolLink: ' + values );
     const schoolURL = formatURL( values.url );
     if ( schoolURL ) {
       const $schoolLink = $( '<a>', {

@@ -544,7 +544,7 @@ const financialView = {
    */
   verificationListener: function() {
     const $programLengthElement = this.$programLength;
-    this.$verifyControls.on( 'click', 'button', function( evt ) {
+    this.$verifyControls.on( 'click', 'a', function( evt ) {
       const values = getFinancial.values();
       const hrefText = $( this ).text();
 

@@ -2,6 +2,18 @@
 
 var SettlementPage = require( './settlementAidOfferPage.js' );
 
+const getFinancial = require( './utility-scripts.js' ).getFinancial;
+const getExpense = require( './utility-scripts.js' ).getExpense;
+const cleanNumber = require( './utility-scripts.js' ).cleanNumber;
+const waitForCostOfAttendance = require( './utility-scripts.js' ).waitForCostOfAttendance;
+const waitForRemainingCost = require( './utility-scripts.js' ).waitForRemainingCost;
+const waitForNumbers = require( './utility-scripts.js' ).waitForNumbers;
+const waitForExpenses = require( './utility-scripts.js' ).waitForExpenses;
+const checkFinancialText = require( './utility-scripts.js' ).checkFinancialText;
+const checkFinancialValue = require( './utility-scripts.js' ).checkFinancialValue;
+const checkExpenseText = require( './utility-scripts.js' ).checkExpenseText;
+const checkExpenseValue = require( './utility-scripts.js' ).checkExpenseValue;
+
 fdescribe( 'The dynamic financial aid disclosure', function() {
   var page;
   var EC = protractor.ExpectedConditions;
@@ -12,10 +24,10 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should automatically populate the program length if it\'s available', function() {
     browser.sleep( 600 );
-    expect( page.programLengthSelect.$('option:checked').getText() ).toMatch( /2 years/ );
-    page.confirmVerification();
-    browser.sleep( 1000 );
-    expect( page.totalProgramDebt.getText() ).toEqual( '23,000' );
+    page.programLengthSelect.$('option:checked').getText()
+    .then( function( text ) {
+      expect( cleanNumber( text ) ).toEqual( getFinancial( 'programLength' ) );
+    } )
   } );
 
   /* Note: this item was removed from the settlement version of the code */
@@ -36,15 +48,17 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
      browser.sleep( 1000 );
      page.continueStep2();
      browser.sleep( 1000 );
-     expect( page.averageMonthlySalary.getText() ).toEqual( '1,917');
+     checkFinancialText( page, 'averageMonthlySalary' );
   } );
 
-  it( 'should dynamically display the job rate if it\'s available', function() {
+  /* Removed from settlement */
+  xit( 'should dynamically display the job rate if it\'s available', function() {
      browser.sleep( 600 );
      page.confirmVerification();
      browser.sleep( 1000 );
      page.continueStep2();
      browser.sleep( 1000 );
+     checkFinancialText( )
      expect( page.jobRate.getText() ).toEqual( '18' );
   } );
 

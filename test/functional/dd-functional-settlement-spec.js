@@ -2,131 +2,18 @@
 
 var SettlementPage = require( './settlementAidOfferPage.js' );
 
-function getFinancial( prop ) {
-  var script = "$( '#main' ).attr( 'data-test', window.getFinancial.values()." +
-                prop + " );";
-  browser.executeScript( script );
-  return $( '#main' ).getAttribute( 'data-test' ).then( function( attr) {
-    return attr;
-  } );
-}
+const getFinancial = require( './utility-scripts.js' ).getFinancial;
+const getExpense = require( './utility-scripts.js' ).getExpense;
+const cleanNumber = require( './utility-scripts.js' ).cleanNumber;
+const waitForCostOfAttendance = require( './utility-scripts.js' ).waitForCostOfAttendance;
+const waitForRemainingCost = require( './utility-scripts.js' ).waitForRemainingCost;
+const waitForNumbers = require( './utility-scripts.js' ).waitForNumbers;
+const waitForExpenses = require( './utility-scripts.js' ).waitForExpenses;
+const checkFinancialText = require( './utility-scripts.js' ).checkFinancialText;
+const checkFinancialValue = require( './utility-scripts.js' ).checkFinancialValue;
+const checkExpenseText = require( './utility-scripts.js' ).checkExpenseText;
+const checkExpenseValue = require( './utility-scripts.js' ).checkExpenseValue;
 
-function getExpense( prop ) {
-  var script = "$( '#main' ).attr( 'data-test', window.getExpenses.values()." +
-                prop + " );";
-  browser.executeScript( script );
-  return $( '#main' ).getAttribute( 'data-test' ).then( function( attr) {
-    return attr;
-  } );
-}
-
-function cleanNumber( string ) {
-  var sign = 1;
-  var num = string.replace( /[^0-9\.]+/g, '' );
-
-  if ( string.indexOf( '-' ) > -1 ) {
-    num = '-' + num;
-  }
-
-  return num;
-}
-
-function waitForCostOfAttendance( page ) {
-  return browser.wait( function() {
-        return page.totalCostOfAttendance.getText().then(
-          function( text ) {
-            return text !== 'Updating...' && text !== '0';
-          } );
-      } )  
-}
-
-function waitForRemainingCost( page ) {
-  return browser.wait( function() {
-        return page.remainingCostFinal.getText().then(
-          function( text ) {
-            return text !== 'Updating...' && text !== '0';
-          } );
-      } )  
-}
-
-function waitForNumbers( page ) {
-  return browser.wait( function() {
-        return page.remainingCostFinal.getText().then(
-          function( text ) {
-            return text !== 'Updating...' && text !== '0';
-          } );
-      } )
-}
-
-function waitForExpenses( page ) {
-  return browser.wait( function() {
-        return page.totalMonthlyLeftOver.getText().then(
-          function( text ) {
-            return text !== 'Updating...' && text !== '0';
-          } );
-      } )
-}
-
-var valueKeys = {
-  remainingCostFinal: 'gap',
-  totalCostOfAttendance: 'costOfAttendance',
-  studentTotalCost: 'firstYearNetCost',
-  tuitionFeesCosts: 'tuitionFees',
-  housingMealsCosts: 'roomBoard',
-  booksSuppliesCosts: 'books',
-  transportationCosts: 'transportation',
-  otherEducationCosts: 'otherExpenses',
-  federalPellGrants: 'pell',
-  directLoanOriginationFee: 'DLOriginationFee',
-  totalProgramDebt: 'totalProgramDebt',
-  totalRepayment: 'loanLifetime',
-  totalMonthlyLeftOver: 'monthlyLeftover',
-  monthlyRent: ''
-}
-
-function checkFinancialValue( page, key, expectedValue ) {
-  page[key].getAttribute( 'value' ).then( function( attr ) {
-    attr = cleanNumber( attr );
-    if ( typeof expectedValue === 'undefined' ) {
-      expect( getFinancial( valueKeys[key] ) ).toEqual( attr );
-    } else {
-      expect( attr ).toEqual( expectedValue );
-    }
-  } );
-}
-
-function checkFinancialText( page, key, expectedValue ) {
-  page[key].getText().then( function( attr ) {
-    attr = cleanNumber( attr );
-    if ( typeof expectedValue === 'undefined' ) {
-      expect( getFinancial( valueKeys[key] ) ).toEqual( attr );
-    } else {
-      expect( attr ).toEqual( expectedValue );
-    }
-  } );
-}
-
-function checkExpenseValue( page, key, expectedValue ) {
-  page[key].getAttribute( 'value' ).then( function( attr ) {
-    attr = cleanNumber( attr );
-    if ( typeof expectedValue === 'undefined' ) {
-      expect( getExpense( valueKeys[key] ) ).toEqual( attr );
-    } else {
-      expect( attr ).toEqual( expectedValue );
-    }
-  } );
-}
-
-function checkExpenseText( page, key, expectedValue ) {
-  page[key].getText().then( function( attr ) {
-    attr = cleanNumber( attr );
-    if ( typeof expectedValue === 'undefined' ) {
-      expect( getExpense( valueKeys[key] ) ).toEqual( attr );
-    } else {
-      expect( attr ).toEqual( expectedValue );
-    }
-  } );
-}
 
 fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', function() {
   var page;
@@ -222,7 +109,7 @@ fdescribe( 'A dynamic financial aid disclosure that\'s required by settlement', 
 
   it( 'should display the correct name for the college', function() {
     page.confirmVerification();
-    expect( page.schoolName.getText() ).toEqual( 'Brown Mackie College-Fort Wayne' );
+    expect( page.schoolName.getText() ).toEqual( 'The Art Institute of Las Vegas' );
   } );
 
   it( 'should display the correct name for the college', function() {
@@ -1050,30 +937,35 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.answerBigQuestionYes();
     browser.sleep( 1000 );
-    // TODO: Uncomment after PR #
-    // expect( page.bigQuestionYesButton.getAttribute( 'class' ) ).toEqual( 'a-btn a-btn__grouped active' );
+    expect( page.bigQuestionYesButton.getAttribute( 'class' ) ).toEqual( 'a-btn active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
-    expect( page.followupSettlementContent.isDisplayed() ).toBeFalsy();
+    // In settlement situation, only the settlement content should be displayed...
+    expect( page.followupSettlementContent.isDisplayed() ).toBeTruthy();
     expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
-    expect( page.followupYesContent.isDisplayed() ).toBeTruthy();
-    expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
-    expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
-  } );
-
-  it( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
-    page.confirmVerification();
-    browser.sleep( 1000 );
-    page.continueStep2();
-    browser.sleep( 1000 );
-    page.answerBigQuestionNo();
-    browser.sleep( 1000 );
-    expect( page.bigQuestionNoButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-first active' );
-    expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
-    expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
     expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
     expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
   } );
+
+  // NOTE: The "No" option does not appear in settlement schools. This test is not relevant
+  // until non-settlement schools are added to the application.
+  //
+  // it( 'should allow a student who feels that it\'s not a good aid offer to go on to Step 3', function() {
+  //   page.confirmVerification();
+  //   browser.sleep( 1000 );
+  //   page.continueStep2();
+  //   browser.sleep( 1000 );
+  //   page.answerBigQuestionNo();
+  //   browser.sleep( 1000 );
+  //   expect( page.bigQuestionNoButton.getAttribute( 'class' ) ).toEqual( 'a-btn a-btn__grouped active' );
+  //   expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
+  //   // In settlement situation, only the settlement content should be displayed...
+  //   expect( page.followupSettlementContent.isDisplayed() ).toBeTruthy();
+  //   expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
+  //   expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
+  //   expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
+  //   expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
+  // } );
 
   it( 'should allow a student who is not sure that it\'s a good aid offer to go on to Step 3', function() {
     page.confirmVerification();
@@ -1082,17 +974,18 @@ it( 'should properly update when more than one private loans is modified', funct
     browser.sleep( 1000 );
     page.answerBigQuestionNotSure();
     browser.sleep( 1000 );
-    expect( page.bigQuestionNotSureButton.getAttribute( 'class' ) ).toEqual( 'btn btn__grouped-last active' );
+    expect( page.bigQuestionNotSureButton.getAttribute( 'class' ) ).toEqual( 'a-btn active' );
     expect( page.optionsConsiderationsSection.isDisplayed() ).toBeTruthy();
-    expect( page.followupSettlementContent.isDisplayed() ).toBeFalsy();
-    expect( page.followupNoNotSureContent.isDisplayed() ).toBeTruthy();
+    // In settlement situation, only the settlement content should be displayed...
+    expect( page.followupSettlementContent.isDisplayed() ).toBeTruthy();
+    expect( page.followupNoNotSureContent.isDisplayed() ).toBeFalsy();
     expect( page.followupYesContent.isDisplayed() ).toBeFalsy();
     expect( page.nextStepsSection.isDisplayed() ).toBeTruthy();
     expect( page.feedbackSection.isDisplayed() ).toBeTruthy();
   } );
 
   // *** Step 3: Consider your options / A few more things to consider ***
-  it( 'should link to the school website in a new tab', function() {
+  xit( 'should link to the school website in a new tab', function() {
     browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=182111&pid=1412&oid=fa8283b5b7c939a058889f997949efa566c616a6&book=0&gib=0&gpl=0&hous=5611&insi=5.0&insl=3000&inst=36&mta=0&othg=100&othr=6079&parl=7000&pelg=1500&perl=5500&ppl=0&prvl=2000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=90175&tran=500&tuit=86975&unsl=2000&wkst=1000' )
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -1101,11 +994,10 @@ it( 'should properly update when more than one private loans is modified', funct
     page.answerBigQuestionYes();
     browser.sleep( 1000 );
     page.followSchoolLink();
-    browser.sleep( 1000 );
+    browser.sleep( 500 );
     browser.getAllWindowHandles()
       .then( function ( handles ) {
         expect( handles.length ).toBe( 2 );
-        console.log( handles );
         browser.switchTo().window( handles[1] )
           .then( function () {
             browser.wait( EC.titleContains( 'Art Institutes' ), 8000, 'Page title did not contain "Brown Mackie" within 8 seconds' );

@@ -5,7 +5,8 @@ var settlementAidOfferPage = function( url ) {
       browser.get( url )
     }
     else {
-      browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&totl=45000&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
+      // browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=408039&pid=981&oid=f38283b5b7c939a058889f997949efa566c616c5&totl=45000&tuit=38976&hous=3000&book=650&tran=500&othr=500&pelg=1500&schg=2000&stag=2000&othg=100&ta=3000&mta=3000&gib=3000&wkst=3000&parl=14000&perl=3000&subl=15000&unsl=2000&ppl=1000&gpl=1000&prvl=3000&prvi=4.55&prvf=1.01&insl=3000&insi=4.55&inst=8' );
+      browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=182111&pid=1412&oid=fa8283b5b7c939a058889f997949efa566c616a6&book=0&gib=0&gpl=0&hous=5611&insi=5.0&insl=3000&inst=36&mta=0&othg=100&othr=6079&parl=7000&pelg=1500&perl=5500&ppl=0&prvl=2000&prvf=2.1&prvi=4.55&schg=2000&stag=2000&subl=3500&totl=90175&tran=500&tuit=86975&unsl=2000&wkst=1000' );
     }
 };
 
@@ -850,7 +851,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     feedbackLink: {
       get: function() {
-        return element( by.css( '.feedback .btn' ) );
+        return element( by.css( '.feedback a' ) );
       }
     },
     followFeedbackLink: {

@@ -12,7 +12,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Sticky summary interactions
 
-  it( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
+  xit( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
     browser.driver.manage().window().setSize(700, 700);
     page.confirmVerification();
     browser.sleep(1000);
@@ -27,7 +27,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.costSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
   } );
 
-  it( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
+  xit( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
     browser.driver.manage().window().setSize(700, 900);
     page.confirmVerification();
     browser.sleep(1000);
@@ -42,7 +42,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.loansSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
   } );
 
-  it( 'should not pin an offer summary on x-small screens', function() {
+  xit( 'should not pin an offer summary on x-small screens', function() {
     browser.driver.manage().window().setSize(500, 800);
     page.confirmVerification();
     browser.sleep(1000);
@@ -59,7 +59,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Private loan interactions
 
-  it( 'should add a private loan entry when the add button is clicked', function() {
+  xit( 'should add a private loan entry when the add button is clicked', function() {
     var count;
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -74,7 +74,7 @@ fdescribe( 'The college costs worksheet page', function() {
     );
   } );
 
-  it( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
+  xit( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
     var count;
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -90,7 +90,7 @@ fdescribe( 'The college costs worksheet page', function() {
     );
   } );
 
-  it( 'should add a private loan even after the last private loan is removed', function() {
+  xit( 'should add a private loan even after the last private loan is removed', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     browser.wait(
@@ -113,7 +113,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Loan repayment toggle interactions
 
-  it( 'should show the loan payment toggles in Step 2 if federal loans are over $30k', function() {
+  xit( 'should show the loan payment toggles in Step 2 if federal loans are over $30k', function() {
     browser.actions().mouseMove(page.programLengthSelect).perform();
     page.setProgramLength( 6 );
     browser.actions().mouseMove(page.correctInfoButton).perform();
@@ -131,7 +131,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.debtBurdenLoanLengthToggles.isDisplayed() ).toBeTruthy();
   } );
 
-  it( 'should hide the loan payment toggles in Step 2 if federal loans are $30k or less', function() {
+  xit( 'should hide the loan payment toggles in Step 2 if federal loans are $30k or less', function() {
     page.setProgramLength( 2 );
     page.confirmVerification();
     browser.actions().mouseMove(page.subsidizedLoans).perform();
@@ -147,7 +147,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.debtBurdenLoanLengthToggles.isDisplayed() ).toBeFalsy();
   } );
 
-  it( 'should change one loan payment toggle if the other is changed', function() {
+  xit( 'should change one loan payment toggle if the other is changed', function() {
     page.setProgramLength( 6 );
     page.confirmVerification();
     browser.actions().mouseMove( page.subsidizedLoans ).perform();
@@ -164,7 +164,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Recalcuated summary interactions
 
-  fit( 'should indicate that an update to a summary has successfully been made', function() {
+  xit( 'should indicate that an update to a summary has successfully been made', function() {
     page.confirmVerification();
     browser.wait(
       browser.actions().mouseMove(page.housingMealsCosts).perform().then(
