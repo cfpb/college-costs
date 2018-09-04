@@ -298,7 +298,7 @@ settlementAidOfferPage.prototype = Object.create({}, {
     },
     directLoanOriginationFee: {
       get: function() {
-        return element( by.css( '[data-financial="DLOriginationFee"]' ) );
+        return element.all( by.css( '[data-financial="DLOriginationFee"]' ) ).first();
       }
     },
     unsubsidizedLoans: {

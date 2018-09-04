@@ -3,11 +3,12 @@
 @license Sticky-kit v1.1.3 | WTFPL | Leaf Corcoran 2015 | http://leafo.net
 */
 
+$ = require( 'jquery' );
 
 (function() {
-  var $, win;
+  // var $, win;
 
-  $ = this.jQuery || window.jQuery;
+  // $ = this.jQuery || window.jQuery;
 
   win = $(window);
 

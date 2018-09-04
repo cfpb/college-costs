@@ -31,16 +31,16 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   } );
 
   /* Note: this item was removed from the settlement version of the code */
-  xit( 'should dynamically display the completion rate if it\'s available', function() {
-    browser.sleep( 600 );
-    page.confirmVerification();
-    browser.sleep( 1000 );
-    page.continueStep2();
-    browser.sleep( 1000 );
-    page.answerBigQuestionNo();
-    browser.sleep( 1000 );
-    expect( page.completionRate.getText() ).toEqual( '37' );
-  } );
+  // xit( 'should dynamically display the completion rate if it\'s available', function() {
+  //   browser.sleep( 600 );
+  //   page.confirmVerification();
+  //   browser.sleep( 1000 );
+  //   page.continueStep2();
+  //   browser.sleep( 1000 );
+  //   page.answerBigQuestionNo();
+  //   browser.sleep( 1000 );
+  //   expect( page.completionRate.getText() ).toEqual( '37' );
+  // } );
 
   it( 'should dynamically display the expected monthly salary if it\'s available', function() {
      browser.sleep( 600 );
@@ -52,15 +52,15 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
   } );
 
   /* Removed from settlement */
-  xit( 'should dynamically display the job rate if it\'s available', function() {
-     browser.sleep( 600 );
-     page.confirmVerification();
-     browser.sleep( 1000 );
-     page.continueStep2();
-     browser.sleep( 1000 );
-     checkFinancialText( )
-     expect( page.jobRate.getText() ).toEqual( '18' );
-  } );
+  // xit( 'should dynamically display the job rate if it\'s available', function() {
+  //    browser.sleep( 600 );
+  //    page.confirmVerification();
+  //    browser.sleep( 1000 );
+  //    page.continueStep2();
+  //    browser.sleep( 1000 );
+  //    checkFinancialText( )
+  //    expect( page.jobRate.getText() ).toEqual( '18' );
+  // } );
 
   it( 'should dynamically display the graduation cohort content if it\'s available', function() {
     browser.get( 'http://localhost:8000/paying-for-college2/understanding-your-financial-aid-offer/offer/?iped=234492&pid=94&oid=740280139f3238cbc9702c7b0d62e5c238a835d0&book=850&gib=6000&gpl=0&hous=20000&insl=0&insi=1&inst=1&mta=4500&othg=2000&othr=500&parl=0&pelg=4000&perl=0&prvf=0&prvi=8&prvl=0&ppl=0&schg=2000&stag=2000&subl=1000&totl=88592&tran=5000&tuit=30000&unsl=1000&wkst=0' );

@@ -14,6 +14,7 @@ const expensesView = require( '../views/expenses-view' );
 const postVerification = require( '../dispatchers/post-verify' );
 
 require( '../libs/sticky-kit' );
+let resizeTimer;
 
 const getDataLayerOptions = Analytics.getDataLayerOptions;
 
@@ -559,7 +560,6 @@ const financialView = {
           metricView.updateGraphs( values );
           window.location.hash = '#info-right';
           financialView.$aboutThisTool.focus();
-          financialView.stickySummariesListener();
         } );
 
         Analytics.sendEvent( getDataLayerOptions( 'Years to Complete Program',
@@ -577,6 +577,7 @@ const financialView = {
         } );
         Analytics.sendEvent( getDataLayerOptions( 'Step Completed', hrefText ) );
       }
+      financialView.stickySummariesListener();
       financialView.$verifyControls.hide();
     } );
   },
@@ -809,11 +810,10 @@ const financialView = {
     let $stickyOffers = $( '.offer-part_summary-wrapper' ),
         $win = $( window );
 
-    // "detach" event handler before re-attaching
-    $stickyOffers.trigger( 'sticky_kit:detach' );
-
-    if ( $win.width() >= 600 ) {
+    if ( $win.width() >= 600 && $stickyOffers.data( 'sticky_kit' ) !== true ) {
       // Attach event handler
+      $stickyOffers.trigger( 'sticky_kit:detach' );
+      console.log( 'Adding', $stickyOffers.data( 'sticky_kit' ) );
       $stickyOffers.stick_in_parent()
         .on( 'sticky_kit:bottom', function( evt ) {
           $( evt.target ).addClass( 'is_bottomed' );
@@ -821,11 +821,17 @@ const financialView = {
         .on( 'sticky_kit:unbottom', function( evt ) {
           $( evt.target ).removeClass( 'is_bottomed' );
         } );
+    } else if ( $win.width() < 600 ) {
+      $stickyOffers.trigger( 'sticky_kit:detach' );
+      console.log( 'detaching:', $stickyOffers.stick_in_parent );
     }
 
     // On resize, check if event handler should be attached
-    $win.resize( function() {
-      financialView.stickySummariesListener();
+    $win.on( 'resize', function( evt ) {
+      clearTimeout( financialView.resizeTimer );
+        financialView.resizeTimer = setTimeout(function() {
+          financialView.stickySummariesListener();            
+        }, 250);
     } );
   },
 

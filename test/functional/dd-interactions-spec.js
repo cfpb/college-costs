@@ -12,8 +12,8 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Sticky summary interactions
 
-  xit( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
-    browser.driver.manage().window().setSize(700, 700);
+  it( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
+    browser.driver.manage().window().setSize(1000, 700);
     page.confirmVerification();
     browser.sleep(1000);
     browser.wait(
@@ -21,13 +21,14 @@ fdescribe( 'The college costs worksheet page', function() {
         browser.executeScript(
             'window.scrollTo(0,' + pellGrantsLocation.y + ')'
         )
+        browser.sleep( 5000 );
+        expect( page.costSummary.getAttribute( 'class' ) ).toMatch(/\bis_stuck\b/);
+        expect( page.costSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
       } ), 10000
     );
-    expect( page.costSummary.getAttribute( 'class' ) ).toMatch(/\bis_stuck\b/);
-    expect( page.costSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
   } );
 
-  xit( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
+  it( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
     browser.driver.manage().window().setSize(700, 900);
     page.confirmVerification();
     browser.sleep(1000);
@@ -42,7 +43,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.loansSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
   } );
 
-  xit( 'should not pin an offer summary on x-small screens', function() {
+  it( 'should not pin an offer summary on x-small screens', function() {
     browser.driver.manage().window().setSize(500, 800);
     page.confirmVerification();
     browser.sleep(1000);
@@ -59,7 +60,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Private loan interactions
 
-  xit( 'should add a private loan entry when the add button is clicked', function() {
+  it( 'should add a private loan entry when the add button is clicked', function() {
     var count;
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -74,7 +75,7 @@ fdescribe( 'The college costs worksheet page', function() {
     );
   } );
 
-  xit( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
+  it( 'should remove a private loan entry when the loan\'s remove button is clicked', function() {
     var count;
     page.confirmVerification();
     browser.sleep( 1000 );
@@ -90,7 +91,7 @@ fdescribe( 'The college costs worksheet page', function() {
     );
   } );
 
-  xit( 'should add a private loan even after the last private loan is removed', function() {
+  it( 'should add a private loan even after the last private loan is removed', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     browser.wait(
@@ -113,7 +114,7 @@ fdescribe( 'The college costs worksheet page', function() {
 
   // Loan repayment toggle interactions
 
-  xit( 'should show the loan payment toggles in Step 2 if federal loans are over $30k', function() {
+  it( 'should show the loan payment toggles in Step 2 if federal loans are over $30k', function() {
     browser.actions().mouseMove(page.programLengthSelect).perform();
     page.setProgramLength( 6 );
     browser.actions().mouseMove(page.correctInfoButton).perform();
@@ -131,7 +132,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.debtBurdenLoanLengthToggles.isDisplayed() ).toBeTruthy();
   } );
 
-  xit( 'should hide the loan payment toggles in Step 2 if federal loans are $30k or less', function() {
+  it( 'should hide the loan payment toggles in Step 2 if federal loans are $30k or less', function() {
     page.setProgramLength( 2 );
     page.confirmVerification();
     browser.actions().mouseMove(page.subsidizedLoans).perform();
@@ -147,7 +148,7 @@ fdescribe( 'The college costs worksheet page', function() {
     expect( page.debtBurdenLoanLengthToggles.isDisplayed() ).toBeFalsy();
   } );
 
-  xit( 'should change one loan payment toggle if the other is changed', function() {
+  it( 'should change one loan payment toggle if the other is changed', function() {
     page.setProgramLength( 6 );
     page.confirmVerification();
     browser.actions().mouseMove( page.subsidizedLoans ).perform();
@@ -160,37 +161,6 @@ fdescribe( 'The college costs worksheet page', function() {
     browser.actions().mouseMove( page.debtBurdenLoan25YrsToggle ).perform();
     browser.sleep( 2000 );
     expect( page.debtBurdenLoan25YrsToggle.getAttribute( 'checked' ).length > 0 );
-  } );
-
-  // Recalcuated summary interactions
-
-  xit( 'should indicate that an update to a summary has successfully been made', function() {
-    page.confirmVerification();
-    browser.wait(
-      browser.actions().mouseMove(page.housingMealsCosts).perform().then(
-        function() {
-          page.setHousingMealsCosts( 3100 );
-        }
-      ), 10000
-    );
-    expect(
-      page.totalCostOfAttendance.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
-    expect(
-      page.totalGrantsScholarships.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.studentTotalCost.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
-    expect(
-      page.totalContributions.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.totalDebt.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.remainingCostFinal.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
   } );
 
 } );
