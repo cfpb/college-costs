@@ -34,24 +34,27 @@
 <!--<![endif]-->
 {% endblock %}
 {% block responsive_nav %}
+<div class="hidden" id="test-store"></div>
 <a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i>
     <span class="u-visually-hidden">Menu</span></a>
 {% endblock %}
 {% block content %}
-<main data-context="{{url_root}}">
-    <div class="understanding-financial-aid-offer">
-        <section class="content_hero hero hero__intro">
-            <div class="hero_wrapper wrapper">
-                <div class="hero_text">
-                    <h1 class="hero_heading">
+<main id="main" data-context="{{url_root}}">
+    <div id="financial-offer" class="understanding-financial-aid-offer">
+        <section class="m-hero">
+            <div class="m-hero_wrapper wrapper">
+                <div class="m-hero_text">
+                    <h1 class="m-hero_heading">
                         Understanding your financial aid offer
                     </h1>
-                    <p class="hero_subhead">
+                    <p class="m-hero_subhead">
                         This personalized summary will help you evaluate your
                         financial aid offer from your school to see how
                         student debt may impact your future finances. </p>
                 </div>
-                <div class="hero_image"></div>
+                <div class="m-hero_image-wrapper">
+                  <div class="m-hero_image"></div>
+                </div>
             </div>
         </section>
         <div class="content_line"></div>

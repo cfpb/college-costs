@@ -43,8 +43,6 @@ const questionView = {
       questionView.$settlementBigQuestion.show();
       questionView.$nonsettlementBigQuestion.hide();
       $( '#question_answer-no' ).hide();
-      $( '#question_answer-yes' ).removeClass( 'btn__grouped' );
-      $( '#question_answer-yes' ).addClass( 'btn__grouped-first' );
       questionView.$optionsWrapper.addClass(
         'get-options__settlement content_main' );
       questionView.$optionsWrapper.addClass(
@@ -76,6 +74,9 @@ const questionView = {
       }
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
+
+console.log( 'ID! --- ' + $(this).attr( 'id' ) );
+
       if ( isSettlementStatus === true ) {
         questionView.$followupYes.hide();
         questionView.$followupNoNotSure.hide();

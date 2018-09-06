@@ -13,7 +13,7 @@ fdescribe( 'The college costs worksheet page', function() {
   // Sticky summary interactions
 
   it( 'should pin an offer summary to the top of the window on screens larger than x-small', function() {
-    browser.driver.manage().window().setSize(700, 700);
+    browser.driver.manage().window().setSize(1000, 700);
     page.confirmVerification();
     browser.sleep(1000);
     browser.wait(
@@ -21,10 +21,11 @@ fdescribe( 'The college costs worksheet page', function() {
         browser.executeScript(
             'window.scrollTo(0,' + pellGrantsLocation.y + ')'
         )
+        browser.sleep( 5000 );
+        expect( page.costSummary.getAttribute( 'class' ) ).toMatch(/\bis_stuck\b/);
+        expect( page.costSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
       } ), 10000
     );
-    expect( page.costSummary.getAttribute( 'class' ) ).toMatch(/\bis_stuck\b/);
-    expect( page.costSummary.getAttribute( 'class' ) ).not.toMatch(/\bis_bottomed\b/);
   } );
 
   it( 'should pin the correct offer summary to the top of the window on screens larger than x-small', function() {
@@ -160,37 +161,6 @@ fdescribe( 'The college costs worksheet page', function() {
     browser.actions().mouseMove( page.debtBurdenLoan25YrsToggle ).perform();
     browser.sleep( 2000 );
     expect( page.debtBurdenLoan25YrsToggle.getAttribute( 'checked' ).length > 0 );
-  } );
-
-  // Recalcuated summary interactions
-
-  fit( 'should indicate that an update to a summary has successfully been made', function() {
-    page.confirmVerification();
-    browser.wait(
-      browser.actions().mouseMove(page.housingMealsCosts).perform().then(
-        function() {
-          page.setHousingMealsCosts( 3100 );
-        }
-      ), 10000
-    );
-    expect(
-      page.totalCostOfAttendance.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
-    expect(
-      page.totalGrantsScholarships.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.studentTotalCost.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
-    expect(
-      page.totalContributions.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.totalDebt.getAttribute( 'class' )
-    ).not.toMatch(/\bsuccess\b/);
-    expect(
-      page.remainingCostFinal.getAttribute( 'class' )
-    ).toMatch(/\bsuccess\b/);
   } );
 
 } );

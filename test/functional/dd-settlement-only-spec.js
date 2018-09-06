@@ -2,6 +2,18 @@
 
 var SettlementPage = require( './settlementAidOfferPage.js' );
 
+const getFinancial = require( './utility-scripts.js' ).getFinancial;
+const getExpense = require( './utility-scripts.js' ).getExpense;
+const cleanNumber = require( './utility-scripts.js' ).cleanNumber;
+const waitForCostOfAttendance = require( './utility-scripts.js' ).waitForCostOfAttendance;
+const waitForRemainingCost = require( './utility-scripts.js' ).waitForRemainingCost;
+const waitForNumbers = require( './utility-scripts.js' ).waitForNumbers;
+const waitForExpenses = require( './utility-scripts.js' ).waitForExpenses;
+const checkFinancialText = require( './utility-scripts.js' ).checkFinancialText;
+const checkFinancialValue = require( './utility-scripts.js' ).checkFinancialValue;
+const checkExpenseText = require( './utility-scripts.js' ).checkExpenseText;
+const checkExpenseValue = require( './utility-scripts.js' ).checkExpenseValue;
+
 fdescribe( 'The dynamic financial aid disclosure', function() {
   var page;
   var EC = protractor.ExpectedConditions;
@@ -10,13 +22,11 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page = new SettlementPage();
   } );
 
-  it( 'should graph graduation rates without national averages', function() {
+  it( 'should graph graduation rates without national averages', function() {    
     page.confirmVerification();
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolGradRatePoint.getCssValue( 'bottom' ) ).toEqual( '39.8px' );
-    expect( page.schoolGradRateValue.getText() ).toEqual( '18%' );
     expect( page.nationalGradRatePoint.isDisplayed() ).toBeFalsy();
   } );
 
@@ -33,7 +43,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.gradRateLink.getAttribute( 'href' ) ).toEqual( 'https://collegescorecard.ed.gov/school/?408039#graduation' );
+    expect( page.gradRateLink.getAttribute( 'href' ) ).toEqual( 'https://collegescorecard.ed.gov/school/?182111#graduation' );
   } );
 
   it( 'should open the link to the College Scorecard graduation rate comparison in a new tab with the graduation rate section open', function() {
@@ -48,7 +58,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
         expect( handles.length ).toBe( 2 );
         browser.switchTo().window( handles[1] )
           .then( function () {
-            browser.wait( EC.titleContains( 'Brown Mackie College-Fort Wayne' ), 8000, 'Page title did not contain "Brown Mackie College-Fort Wayne" within 8 seconds' );
+            browser.wait( EC.titleContains( 'The Art Institute of Las Vegas' ), 8000, 'Page title did not contain "The Art Institute of Las Vegas" within 8 seconds' );
             browser.sleep( 750 );
             expect( element( by.id( 'grad-meter' ) ).isDisplayed() ).toBeTruthy();
           } )
@@ -62,20 +72,23 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
 
   it( 'should display the first year salary and total debt at repayment', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
-    page.continueStep2();
-    browser.sleep( 1000 );
-    expect( page.schoolSalaryValue.getText() ).toEqual( '$23,000' );
-    expect( page.schoolDebtAtRepaymentValue.getText() ).toEqual( '$23,985' );
+    waitForNumbers( page )
+    .then( function() {
+      page.continueStep2();
+      browser.sleep( 500 );
+      checkFinancialText( page, 'schoolSalaryValue' );
+    });
   } );
 
   it( 'should calculate debt burden', function() {
     page.confirmVerification();
-    browser.sleep( 1000 );
-    page.continueStep2();
-    browser.sleep( 1000 );
-    expect( page.debtBurdenPayment.getText() ).toEqual( '$250' );
-    expect( page.debtBurdenSalary.getText() ).toEqual( '$1,917' );
+    waitForNumbers( page )
+    .then( function() {
+      page.continueStep2();
+      browser.sleep( 500 );
+      checkFinancialText( page, 'debtBurdenPayment' );
+      checkFinancialText( page, 'debtBurdenSalary' );
+    });
   } );
 
   it( 'should not display the debt burden notification', function() {
@@ -91,8 +104,12 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     browser.sleep( 1000 );
     page.continueStep2();
     browser.sleep( 1000 );
-    expect( page.schoolDefaultRatePoint.getCssValue( 'bottom' ) ).toEqual( '130px' );
-    expect( page.schoolDefaultRateValue.getText() ).toEqual( '55%' );
+    getFinancial( 'defaultRate' )
+    .then( function( rate ) {
+      rate = ( rate * 100 ) + '%';
+      expect( page.schoolDefaultRateValue.getText() ).toEqual( rate );
+    } );
+
     expect( page.nationalDefaultRatePoint.isDisplayed() ).toBeFalsy();
   } );
 
@@ -110,7 +127,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     page.continueStep2();
     browser.sleep( 1000 );
     browser.wait( EC.visibilityOf( page.defaultRateLink ), 8000 );
-    expect( page.defaultRateLink.getAttribute( 'href' ) ).toEqual( 'http://nces.ed.gov/collegenavigator/?id=408039#fedloans' );
+    expect( page.defaultRateLink.getAttribute( 'href' ) ).toEqual( 'http://nces.ed.gov/collegenavigator/?id=182111#fedloans' );
   } );
 
   it( 'should open the link to the College Navigator cohort loan default rates in a new tab with the loan default rates section open', function() {
@@ -127,7 +144,6 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
           .then( function () {
             browser.wait( EC.titleContains( 'College Navigator' ), 8000, 'Page title did not contain "College Navigator" within 8 seconds' );
             browser.sleep( 750 );
-            expect( element( by.id( 'divctl00_cphCollegeNavBody_ucInstitutionMain_ctl11' ) ).isDisplayed() ).toBeTruthy();
           } )
           .then( function () {
             browser.close();
