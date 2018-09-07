@@ -130,7 +130,7 @@ fdescribe( 'The dynamic financial aid disclosure', function() {
     expect( page.defaultRateLink.getAttribute( 'href' ) ).toEqual( 'http://nces.ed.gov/collegenavigator/?id=182111#fedloans' );
   } );
 
-  fit( 'should open the link to the College Navigator cohort loan default rates in a new tab with the loan default rates section open', function() {
+  it( 'should open the link to the College Navigator cohort loan default rates in a new tab with the loan default rates section open', function() {
     page.confirmVerification();
     browser.sleep( 1000 );
     page.continueStep2();
