@@ -2,6 +2,49 @@ import os
 from setuptools import setup, find_packages
 
 
+setup_requires=[
+    'cfgov-setup==1.2',
+    'setuptools-git-version==1.0.3',
+]
+
+
+install_requires = [
+    'Django>=1.8,<1.12',
+    'django-haystack==2.7.0',
+    'djangorestframework==3.6.4',
+    'elasticsearch==2.4.1',
+    'PyYAML==3.11',
+    'python-dateutil==2.2',
+    'requests==2.7.0',
+    'Unipath==1.1',
+]
+
+
+docs_extras = [
+    'Markdown==2.3.1',
+    'PyYAML==3.10',
+    'backports-abc==0.4',
+    'certifi==2016.8.2',
+    'click==3.3',
+    'django-livereload==1.2',
+    'livereload==2.3.2',
+    'mkDOCter==1.0.3',
+    'mkdocs==0.15.3',
+    'mkdocs-bootstrap==0.1.1',
+    'mkdocs-bootswatch==0.1.0',
+    'singledispatch==3.4.0.3',
+    'six==1.9.0',
+    'tornado==4.1',
+]
+
+
+testing_extras = [
+    'coverage==4.2',
+    'dj-database-url==0.4.2',
+    'mock==2.0.0',
+]
+
+
 def read_file(filename):
     """Read a file into a string"""
     path = os.path.abspath(os.path.dirname(__file__))
@@ -55,6 +98,11 @@ setup(
     ],
     long_description=read_file('README.md'),
     zip_safe=False,
-    setup_requires=['cfgov-setup==1.2', 'setuptools-git-version==1.0.3'],
-    frontend_build_script='setup.sh'
+    setup_requires=setup_requires,
+    install_requires=install_requires,
+    frontend_build_script='setup.sh',
+    extras_require={
+        'docs': docs_extras,
+        'testing': testing_extras,
+    }
 )

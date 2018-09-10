@@ -20,7 +20,7 @@ install(){
 dbsetup(){
   source .env
   echo 'Loading requirements...'
-  pip install -r requirements/testing.txt
+  pip install -e '.[docs,testing]'
   if [ -f $DATABASE ]; then
     echo 'Removing existing database...'
     rm -f $DATABASE

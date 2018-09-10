@@ -3,15 +3,13 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ## Unreleased
 
-### Added
--
-
 ### Changed
 - Convert browserify config to webpack.
 - Remove unused dependencies.
 - Update ESLint config to version 5.
 - Fix linter errors.
 - Convert to ES6 syntax.
+- Add Django 1.11 support.
 
 ### Removed
 -

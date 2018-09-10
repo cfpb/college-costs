@@ -9,7 +9,7 @@ except:  # pragma: no cover
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render
 from django.core.mail import send_mail
 from django.template import RequestContext
 from django.template.loader import get_template
@@ -135,17 +135,17 @@ class OfferView(TemplateView):
         warning = ''
         OID = ''
         if not request.GET:
-            return render_to_response('worksheet.html',
-                                      {'data_js': "0",
-                                       'school': school,
-                                       'schoolData': school_data,
-                                       'program': program,
-                                       'programData': program_data,
-                                       'oid': OID,
-                                       'base_template': BASE_TEMPLATE,
-                                       'warning': warning,
-                                       'url_root': URL_ROOT},
-                                      context_instance=RequestContext(request))
+            return render(request, 'worksheet.html', {
+                'data_js': "0",
+                'school': school,
+                'schoolData': school_data,
+                'program': program,
+                'programData': program_data,
+                'oid': OID,
+                'base_template': BASE_TEMPLATE,
+                'warning': warning,
+                'url_root': URL_ROOT,
+            })
         if 'oid' in request.GET and request.GET['oid']:
             OID = request.GET['oid']
         else:
@@ -179,17 +179,17 @@ class OfferView(TemplateView):
                 warning = IPED_ERROR
         else:
                 warning = IPED_ERROR
-        return render_to_response('worksheet.html',
-                                  {'data_js': "0",
-                                   'school': school,
-                                   'schoolData': school_data,
-                                   'program': program,
-                                   'programData': program_data,
-                                   'oid': OID,
-                                   'base_template': BASE_TEMPLATE,
-                                   'warning': warning,
-                                   'url_root': URL_ROOT},
-                                  context_instance=RequestContext(request))
+        return render(request, 'worksheet.html', {
+            'data_js': "0",
+            'school': school,
+            'schoolData': school_data,
+            'program': program,
+            'programData': program_data,
+            'oid': OID,
+            'base_template': BASE_TEMPLATE,
+            'warning': warning,
+            'url_root': URL_ROOT,
+        })
 
 
 class LandingView(TemplateView):
@@ -222,15 +222,13 @@ class FeedbackView(TemplateView):
     def post(self, request):
         form = self.form
         if form.is_valid():
-            base_template = BASE_TEMPLATE
             feedback = Feedback(
                 message=form.cleaned_data['message'][:2000],
                 url=form.cleaned_data['referrer'].replace('#info-right', ''))
             feedback.save()
-            return render_to_response(
-                "feedback_thanks.html",
-                locals(),
-                context_instance=RequestContext(request))
+            return render(request, 'feedback_thanks.html', {
+                'base_template': BASE_TEMPLATE,
+            })
         else:
             return HttpResponseBadRequest("Invalid form")
 

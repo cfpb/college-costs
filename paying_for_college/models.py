@@ -821,8 +821,8 @@ class Worksheet(models.Model):
 
 def print_vals(obj, val_list=False, val_dict=False, noprint=False):
     """inspect a Django db object"""
-    keylist = sorted([key for key in obj._meta.get_all_field_names()],
-                     key=lambda s: s.lower())
+    keylist = sorted(f.name.lower() for f in obj._meta.get_fields())
+
     if val_list:
         values = []
         for key in keylist:
