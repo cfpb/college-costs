@@ -86,11 +86,17 @@ Python tests for this project can be run using
 [Tox](https://tox.readthedocs.io/en/latest/) with the `tox` command.
 
 #### Javascript Tests
-To run JavaScript unit tests and check for security vulnerabilities in
-Node packages (requires a [Snyk](https://snyk.io/) login):
+To run JavaScript unit tests:
 
 ```bash
 npm test
+```
+
+To check for security vulnerabilities in Node packages(requires a
+[Snyk](https://snyk.io/) login)
+
+```bash
+npm run snyk
 ```
 
 To run functional tests, **you need to make sure that you have version 4.0+ of Node.js**. Install/upgrade it using either `npm` or `brew`.
