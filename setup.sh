@@ -26,7 +26,6 @@ clean(){
 install(){
   echo 'Installing project dependencies...'
   npm install
-  npm install --save --save-exact jquery.easing@1.3.2 normalize-css@2.3.1 normalize-legacy-addon@0.1.0
 }
 
 # Run tasks to build the project for distribution.
