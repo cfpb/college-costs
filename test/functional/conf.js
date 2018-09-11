@@ -4,7 +4,7 @@ exports.config = {
   capabilities: { 'browserName': 'chrome' },
   specs: ['dd-functional-settlement-spec.js', 'dd-settlement-only-spec.js', 'dd-feedback-spec.js', 'dd-school-data-spec.js', 'dd-interactions-spec.js' ],
   // By limiting the specs to one file, we can isolate and fix specific tests:
-  // specs: ['dd-settlement-only-spec.js'],
+  // specs: ['dd-interactions-spec.js'],
   onPrepare:function(){
     browser.ignoreSynchronization = true;
   }

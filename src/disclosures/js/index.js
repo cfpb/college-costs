@@ -75,10 +75,10 @@ const app = {
 $( document ).ready( function() {
   app.init();
 
-  // The following line allows for functional testing by exposing
-  // the getFinancial method.
-  // $( '#financial-offer' ).data( 'getFinancial', getFinancial );
-  // console.log( $( '#financial-offer' ).data() );
+  /* The following line allows for functional testing by exposing
+     the getFinancial method.
+     $( '#financial-offer' ).data( 'getFinancial', getFinancial );
+     console.log( $( '#financial-offer' ).data() ); */
   window.getFinancial = getFinancial;
   window.getExpenses = getExpenses;
 } );

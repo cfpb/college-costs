@@ -16,7 +16,8 @@
     "college-costs"
   ],
   "scripts": {
-    "test": "mocha test/js-unit/ && snyk test",
+    "test": "mocha test/js-unit/",
+    "snyk": "snyk test",
     "snyk-protect": "snyk protect"
   },
   "devDependencies": {

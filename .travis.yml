@@ -7,6 +7,7 @@ install:
 script:
 - npm config set package-lock false
 - tox
+- npm test
 - python2.7 setup.py bdist_wheel
 - ls dist/*
 - gulp lint --travis

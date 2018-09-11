@@ -813,7 +813,6 @@ const financialView = {
     if ( $win.width() >= 600 && $stickyOffers.data( 'sticky_kit' ) !== true ) {
       // Attach event handler
       $stickyOffers.trigger( 'sticky_kit:detach' );
-      console.log( 'Adding', $stickyOffers.data( 'sticky_kit' ) );
       $stickyOffers.stick_in_parent()
         .on( 'sticky_kit:bottom', function( evt ) {
           $( evt.target ).addClass( 'is_bottomed' );
@@ -823,15 +822,14 @@ const financialView = {
         } );
     } else if ( $win.width() < 600 ) {
       $stickyOffers.trigger( 'sticky_kit:detach' );
-      console.log( 'detaching:', $stickyOffers.stick_in_parent );
     }
 
     // On resize, check if event handler should be attached
     $win.on( 'resize', function( evt ) {
       clearTimeout( financialView.resizeTimer );
-        financialView.resizeTimer = setTimeout(function() {
-          financialView.stickySummariesListener();            
-        }, 250);
+      financialView.resizeTimer = setTimeout( function() {
+        financialView.stickySummariesListener();
+      }, 250 );
     } );
   },
 
@@ -869,7 +867,7 @@ const financialView = {
    */
   financialInputChangeListener: function() {
     $( '[data-financial]' ).one( 'change', function() {
-      const dataFinancial = $( this ).data( 'financial' ); 
+      const dataFinancial = $( this ).data( 'financial' );
       if ( dataFinancial ) {
         Analytics.sendEvent( getDataLayerOptions( 'Value Edited', dataFinancial ) );
       }

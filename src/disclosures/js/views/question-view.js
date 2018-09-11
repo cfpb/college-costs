@@ -75,8 +75,6 @@ const questionView = {
       $answerButtons.removeClass( 'active' );
       $( this ).addClass( 'active' );
 
-console.log( 'ID! --- ' + $(this).attr( 'id' ) );
-
       if ( isSettlementStatus === true ) {
         questionView.$followupYes.hide();
         questionView.$followupNoNotSure.hide();

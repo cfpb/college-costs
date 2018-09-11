@@ -90,7 +90,7 @@ const linksView = {
    * Creates a link in Step 3 to the school's website if the school has provided
    * a URL in the College Scorecard data
    * @param {object} values Financial model values
-   */ 
+   */
   setSchoolLink: function( values ) {
     const schoolURL = formatURL( values.url );
     if ( schoolURL ) {
