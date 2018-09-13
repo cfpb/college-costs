@@ -136,6 +136,29 @@ apache-jmeter-3.0/bin/jmeter.sh -t college-costs/test/load_testing/Offer.jmx -Js
 
 The corresponding `Offer.csv` in `test/load_testing` specified the parameters being used for testing.  The order and name of each column is specified in the JMX file under CSV Offer.
 
+## API Docs
+
+[Documentation](https://cfpb.github.io/college-costs/) for this repository is rendered via GitHub pages and [Swagger](https://swagger.io/docs/). They can be edited in the `docs/` directory, but to view or deploy them, you'll need to install the docs dependencies listed in the `setup.py`:
+
+```
+pip install -e '.[docs]'
+```
+
+You can then preview your changes locally by running `mkdocs serve` and then reviewing <http://127.0.0.1:8000/>
+
+When your changes are ready, you can submit them as a normal pull request. After that, you can use this command to publish them:
+
+```
+mkdocs gh-deploy --clean
+```
+
+That pushes the necessary files to the `gh-pages` branch.
+
+### Notes
+
+- The `mkdocs gh-deploy` command will push any edits you've made locally to the `gh-pages` branch of the repository, whether you've committed them or not.
+- Mkdocs will create a "site" directory locally when you use either `build`, `serve` or `gh-deploy`. This is used to assemble assets to be pushed to the gh-pages branch, but the `site/` directory itself doesn't need to be under version control. It can be deleted after a deploy.
+
 ## Getting involved
 
 If you find a bug or see a way to improve the project, we'd love to hear from you. Add an issue, or fork the project and send us a pull request with your suggested changes.

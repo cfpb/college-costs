@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-setup_requires=[
+setup_requires = [
     'cfgov-setup==1.2',
     'setuptools-git-version==1.0.3',
 ]
@@ -10,37 +10,24 @@ setup_requires=[
 
 install_requires = [
     'Django>=1.8,<1.12',
-    'django-haystack==2.7.0',
+    'django-haystack==2.7.0',  # Latest version that supports both Django 1.8 and 1.11
     'djangorestframework==3.6.4',
-    'elasticsearch==2.4.1',
-    'PyYAML==3.11',
-    'python-dateutil==2.2',
-    'requests==2.7.0',
-    'Unipath==1.1',
+    'elasticsearch>=2.4.1,<3',
+    'PyYAML>=3.11,<3.14',
+    'requests>=2.18,<3',
+    'Unipath>=1.1,<2',
 ]
 
 
 docs_extras = [
-    'Markdown==2.3.1',
-    'PyYAML==3.10',
-    'backports-abc==0.4',
-    'certifi==2016.8.2',
-    'click==3.3',
-    'django-livereload==1.2',
-    'livereload==2.3.2',
-    'mkDOCter==1.0.3',
-    'mkdocs==0.15.3',
-    'mkdocs-bootstrap==0.1.1',
-    'mkdocs-bootswatch==0.1.0',
-    'singledispatch==3.4.0.3',
-    'six==1.9.0',
-    'tornado==4.1',
+    'mkDOCter==1.0.5',
+    'mkdocs==0.17.5',
 ]
 
 
 testing_extras = [
-    'coverage==4.2',
-    'dj-database-url==0.4.2',
+    'coverage>=4.5.1,<5',
+    'dj-database-url>=0.4.2,<1',
     'mock==2.0.0',
 ]
 

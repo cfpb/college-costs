@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 import datetime
-import dateutil.parser
 import smtplib
 
 import mock
@@ -9,6 +8,7 @@ from mock import mock_open, patch
 import requests
 
 from django.test import TestCase
+from django.utils import timezone
 from paying_for_college.models import (
     School, Contact, Program, Alias, Nickname, Feedback)
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
@@ -97,12 +97,11 @@ class SchoolModelsTest(TestCase):
     def create_notification(
             self,
             school,
-            oid='f38283b5b7c939a058889f997949efa566c616c5',
-            time='2016-01-13T20:06:18.913112+00:00'):
+            oid='f38283b5b7c939a058889f997949efa566c616c5'):
         return Notification.objects.create(
             institution=school,
             oid=oid,
-            timestamp=dateutil.parser.parse(time),
+            timestamp=timezone.now(),
             errors='none')
 
     def create_feedback(self):
@@ -338,17 +337,16 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(feedback.tuition_plan, None)
 
 
-class NonSettlementNotificaion(TestCase):
+class NonSettlementNotification(TestCase):
     fixtures = ['test_fixture.json']
 
     def create_notification(self,
                             school,
-                            oid='f38283b5b7c939a058889f997949efa566c616c5',
-                            time='2016-01-13T20:06:18.913112+00:00'):
+                            oid='f38283b5b7c939a058889f997949efa566c616c5'):
         return Notification.objects.create(
             institution=school,
             oid=oid,
-            timestamp=dateutil.parser.parse(time),
+            timestamp=timezone.now(),
             errors='none')
 
     def test_nonsettlement_notification(self):
