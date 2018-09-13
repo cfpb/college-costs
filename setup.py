@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-setup_requires=[
+setup_requires = [
     'cfgov-setup==1.2',
     'setuptools-git-version==1.0.3',
 ]
@@ -21,20 +21,8 @@ install_requires = [
 
 
 docs_extras = [
-    'Markdown==2.6.9',
-    'PyYAML==3.10',
-    'backports-abc==0.4',
-    'certifi==2016.8.2',
-    'click==3.3',
-    'django-livereload==1.2',
-    'livereload==2.3.2',
     'mkDOCter==1.0.5',
-    'mkdocs==0.16.3',
-    'mkdocs-bootstrap==0.1.1',
-    'mkdocs-bootswatch==0.1.0',
-    'singledispatch==3.4.0.3',
-    'six==1.9.0',
-    'tornado==4.1',
+    'mkdocs==0.17.5',
 ]
 
 
