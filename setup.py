@@ -14,7 +14,6 @@ install_requires = [
     'djangorestframework==3.6.4',
     'elasticsearch>=2.4.1,<3',
     'PyYAML>=3.11,<3.14',
-    'python-dateutil>=2.2,<3',
     'requests>=2.18,<3',
     'Unipath>=1.1,<2',
 ]
