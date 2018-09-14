@@ -45,23 +45,15 @@ gulp.task( 'styles:ie', function() {
     .pipe( gulp.dest( configStyles.dest ) );
 } );
 
-gulp.task( 'styles:icons', function() {
-  let static = 'paying_for_college/static/paying_for_college/disclosures/static/';
-  return gulp.src( './node_modules/cf-icons/src/icons/*' )
-    .pipe( gulp.dest( static + 'icons/' ) );
-  
-} );
 gulp.task( 'styles:icon-fonts', function() {
   let static = 'paying_for_college/static/paying_for_college/disclosures/static/';
   return gulp.src( './node_modules/cf-icons/src/fonts/*' )
     .pipe( gulp.dest( static + 'fonts/' ) );
-  
 } );
 
 
 gulp.task( 'styles', gulp.parallel(
   'styles:modern',
   'styles:ie',
-  'styles:icons',
   'styles:icon-fonts'
 ) );
