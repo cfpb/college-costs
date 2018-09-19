@@ -65,6 +65,7 @@ setup(
                    'static/paying_for_college/disclosures/static/fonts/*.svg',
                    'static/paying_for_college/disclosures/static/fonts/*.woff',
                    'static/paying_for_college/disclosures/static/fonts/*.ttf',
+                   'static/paying_for_college/disclosures/static/icons/*.svg',
                    'static/paying_for_college/disclosures/static/js/*.htc',
                    'static/paying_for_college/disclosures/static/js/*.js',
                    'static/paying_for_college/disclosures/static/js/*.map',
