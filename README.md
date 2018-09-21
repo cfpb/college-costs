@@ -138,7 +138,7 @@ The corresponding `Offer.csv` in `test/load_testing` specified the parameters be
 
 ## API Docs
 
-[Documentation](https://cfpb.github.io/college-costs/) for this repository is rendered via GitHub pages and [Swagger](https://swagger.io/docs/). They can be edited in the `docs/` directory, but to view or deploy them, you'll need to install the docs dependencies listed in the `setup.py`:
+[Documentation](https://cfpb.github.io/college-costs/) for this repository is rendered via GitHub pages. They can be edited in the `docs/` directory, but to view or deploy them, you'll need to install the docs dependencies listed in the `setup.py`:
 
 ```
 pip install -e '.[docs]'
