@@ -9,9 +9,9 @@ setup_requires = [
 
 
 install_requires = [
-    'Django>=1.8,<1.12',
     'django-haystack==2.7.0',  # Latest version that supports both Django 1.8 and 1.11
     'djangorestframework==3.6.4',
+    'Django>=1.11,<1.12',
     'elasticsearch>=2.4.1,<3',
     'PyYAML>=3.11,<3.14',
     'requests>=2.18,<3',
