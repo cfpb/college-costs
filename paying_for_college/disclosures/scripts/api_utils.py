@@ -24,14 +24,16 @@ import requests
 
 from paying_for_college.models import ConstantCap
 
-try:
-    LATEST_YEAR = ConstantCap.objects.get(slug='apiYear').value
-except:  # pragma: no cover
-    LATEST_YEAR = 2013
+# try:
+#     LATEST_YEAR = ConstantCap.objects.get(slug='apiYear').value
+# except:  # pragma: no cover
+#     LATEST_YEAR = 2013
 try:
     LATEST_SALARY_YEAR = ConstantCap.objects.get(slug='salaryYear').value
 except:  # pragma: no cover
     LATEST_SALARY_YEAR = 2011
+
+LATEST_YEAR = 'latest'
 
 try:
     API_KEY = os.getenv('ED_API_KEY')

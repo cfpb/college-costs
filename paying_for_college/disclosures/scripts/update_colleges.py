@@ -60,8 +60,6 @@ def update(exclude_ids=[], single_school=None):
             base_query = base_query.exclude(pk__in=exclude_ids)
     for school in base_query:
         PROCESSED += 1
-        sys.stdout.write('.')
-        sys.stdout.flush()
         if PROCESSED % 500 == 0:  # pragma: no cover
             print("\n{0}\n".format(PROCESSED))
         if PROCESSED % 5 == 0:
@@ -70,13 +68,15 @@ def update(exclude_ids=[], single_school=None):
         # print(url)
         try:
             resp = requests.get(url)
-        except:
+        except Exception:
             FAILED.append(school)
             continue
         else:
             if resp.ok is True:
                 raw_data = resp.json()
                 if raw_data and raw_data['results']:
+                    sys.stdout.write('.')
+                    sys.stdout.flush()
                     data = raw_data['results'][0]
                     for key in MODEL_MAP:
                         if key in data.keys() and data[key] is not None:
