@@ -11,16 +11,14 @@ import datetime
 import requests
 
 from paying_for_college.disclosures.scripts import api_utils
-from paying_for_college.disclosures.scripts.api_utils import (
-    MODEL_MAP, LATEST_YEAR, LATEST_SALARY_YEAR)
+from paying_for_college.disclosures.scripts.api_utils import MODEL_MAP
 from paying_for_college.models import School, CONTROL_MAP
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
 HOME = os.path.expanduser("~")
-NO_DATA_FILE = "{0}/no_data_YEAR{1}_{2}.json".format(
-    HOME, LATEST_YEAR, DATESTAMP)
+NO_DATA_FILE = "{}/no_data_{}.json".format(HOME, DATESTAMP)
 SCRIPTNAME = os.path.basename(__file__).partition('.')[0]
-ID_BASE = "{0}?api_key={1}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
+ID_BASE = "{}?api_key={}".format(api_utils.SCHOOLS_ROOT, api_utils.API_KEY)
 FIELDS = sorted(MODEL_MAP.keys())
 FIELDSTRING = ",".join(FIELDS)
 
@@ -41,9 +39,12 @@ def update(exclude_ids=[], single_school=None):
     FAILED = []  # failed to get a good API response
     NO_DATA = []  # API responded, but with no data
     CLOSED = 0  # schools that have closed since our last scrape
-    START_MSG = "Requesting school data from {0} and salary data from {1}."
-    JOB_MSG = "The job is paced for the Ed API, so it can take an hour to run."
-    print(START_MSG.format(LATEST_YEAR, LATEST_SALARY_YEAR))
+    START_MSG = "Requesting latest school data."
+    JOB_MSG = (
+        "The job is paced to be friendly to the Scorecard API, "
+        "so it can take an hour to run.\n"
+        "A dot means a school was updated; a dash means no data found.")
+    print(START_MSG)
     if not single_school:
         print(JOB_MSG)
     UPDATED = False
@@ -120,7 +121,7 @@ def update(exclude_ids=[], single_school=None):
                                     len(FAILED),
                                     CLOSED,
                                     SCRIPTNAME,
-                                    (datetime.datetime.now()-STARTER))
+                                    (datetime.datetime.now() - STARTER))
     if NO_DATA:
         data_note = "\nA list of schools that had no API data was saved to {0}"
         endmsg += data_note.format(NO_DATA_FILE)
@@ -131,6 +132,7 @@ def update(exclude_ids=[], single_school=None):
             f.write(json.dumps(no_data_dict))
     # print(endmsg)
     return (FAILED, NO_DATA, endmsg)
+
 
 if __name__ == '__main__':
     (failed, no_data, endmsg) = update()
