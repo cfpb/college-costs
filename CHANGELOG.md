@@ -1,30 +1,31 @@
-All notable changes to this project will be documented in this file.
-We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
+As of version 2.4.0, this project no longer uses `CHANGELOG.md`
+to track released changes.
 
-## Unreleased
+See the project repository release history at:
 
-### Changed
-- Convert browserify config to webpack.
-- Remove unused dependencies.
-- Update ESLint config to version 5.
-- Fix linter errors.
-- Convert to ES6 syntax.
-- Add Django 1.11 support.
+https://github.com/cfpb/college-costs/releases
 
-### Removed
--
+You can find the release notes for versions prior to 2.4.0 below.
+
+---
 
 ## 2.3.12
+- Fix update_via_api script to handle longer ZIP codes coming from the Scorecard API
 
 ## 2.3.11
+- Cleans up the Open Graph overrides for social sharing and adds to additional pages
 
 ## 2.3.10
+- Update social images
 
 ## 2.3.9
+- Configure travis to build wheels
 
 ## 2.3.8
+- Fix bugs
 
 ## 2.3.7
+- Improve handling of bad URLs or URL values in Feedback model method
 
 ## 2.3.6
 - Modified Google Analytics question event to fire independent of settlement status
@@ -47,7 +48,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added url field to Feedback model
 - Fixed CSS static calls for feedback pages
 
-## 2.3.0
+## 2.3.0 - 2017-01-19
 - Updated school model to remove settlement_school options
 - Fixed CSS issue on feedback page
 - Prepped for onboarding school system
@@ -84,7 +85,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added docs/ directory and MkDocs framework to publish URL and CSV specs
 - Marked all non-settlement schools with the `settlement_school` tag of "demo"
 
-## 2.2.0
+## 2.2.0 - 2016-08-18
 - Release for school review
 - Fixed wording in costs section after BLS review
 
@@ -218,7 +219,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Fixed migrations for deployment, adding 0003
 - Adjusted setup.py to include fixtures and templates
 
-## 2.1.0
+## 2.1.0 - 2016-05-25
 - Pinned and shrinkwrapped NPM dependencies
 - Added `snyk` to monitor for known NPM package vulnerabilities.
 - Updated the project to Django 1.8 and removed solr dependencies
@@ -274,7 +275,9 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 - Added debt burden calculations and notifications
 - Added script for sending test notifications
 
-## 2.0.0
+
+## 2.0.0 - 2016-02-22
+
 ### Added/updated
 - New url for handling querystring offer data
 - Added notification functionality for disclosures
@@ -287,6 +290,7 @@ We follow the [Semantic Versioning 2.0.0](http://semver.org/) format.
 
 ### Removed
 - API code for saving and revisiting worksheets
+
 
 ## 1.1.0 - 2015-10-28
 
