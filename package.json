@@ -16,8 +16,8 @@
     "college-costs"
   ],
   "scripts": {
-    "test": "mocha test/js-unit/",
-    "snyk": "snyk test",
+    "test": "snyk test && mocha test/js-unit/",
+    "snyk": "snyk",
     "snyk-protect": "snyk protect"
   },
   "devDependencies": {
@@ -72,7 +72,7 @@
     "require-dir": "^1.0.0",
     "snyk": "^1.89.0",
     "sticky-kit": "1.1.3",
-    "student-debt-calc": "^2.6.4"
+    "student-debt-calc": "^2.6.5"
   },
   "snyk": true
 }
