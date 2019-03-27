@@ -13,7 +13,7 @@ install_requires = [
     'django-haystack>=2.7,<2.9',
     'djangorestframework>=3.6,<3.9',
     'elasticsearch>=2.4.1,<3',
-    'PyYAML>=3.11,<3.14',
+    'PyYAML>=3.13,<3.14',
     'requests>=2.18,<3',
     'Unipath>=1.1,<2',
 ]
