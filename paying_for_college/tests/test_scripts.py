@@ -22,7 +22,6 @@ from paying_for_college.disclosures.scripts.ping_edmc import (notify_edmc,
 from django.conf import settings
 
 PFC_ROOT = os.path.join(os.path.dirname(__file__), '../..')
-YEAR = api_utils.LATEST_YEAR
 MOCK_YAML = """\
 completion_rate:\n\
   min: 0\n\
@@ -99,8 +98,8 @@ class TestScripts(django.test.TestCase):
                    'degrees_predominant': '',
                    'degrees_highest': '',
                    'school.ownership': 2,
-                   '{}.completion.completion_rate_4yr_150nt_pooled'.format(YEAR): 0.45,
-                   '{}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(YEAR): None,
+                   'latest.completion.completion_rate_4yr_150nt_pooled': 0.45,
+                   'latest.completion.completion_rate_less_than_4yr_150nt_pooled': None,
                    'school.main_campus': True,
                    'school.online_only': False,
                    'school.operating': True,
@@ -125,8 +124,8 @@ class TestScripts(django.test.TestCase):
                    'degrees_predominant': '',
                    'degrees_highest': '',
                    'school.ownership': 2,
-                   '{}.completion.completion_rate_4yr_150nt_pooled'.format(YEAR): 0,
-                   '{}.completion.completion_rate_less_than_4yr_150nt_pooled'.format(YEAR): 0.25,
+                   'latest.completion.completion_rate_4yr_150nt_pooled': 0,
+                   'latest.completion.completion_rate_less_than_4yr_150nt_pooled': 0.25,
                    'school.main_campus': True,
                    'school.online_only': False,
                    'school.operating': False,
@@ -439,11 +438,11 @@ class TestScripts(django.test.TestCase):
     def test_get_repayment_data(self, mock_requests):
         mock_response = mock.Mock()
         expected_dict = {'results':
-                         [{'{}.repayment.5_yr_repayment.completers'.format(YEAR): 100,
-                          '{}.repayment.5_yr_repayment.noncompleters'.format(YEAR): 900}]}
+                         [{'latest.repayment.5_yr_repayment.completers': 100,
+                          'latest.repayment.5_yr_repayment.noncompleters': 900}]}
         mock_response.json.return_value = expected_dict
         mock_requests.return_value = mock_response
-        data = api_utils.get_repayment_data(123456, YEAR)
+        data = api_utils.get_repayment_data(123456)
         self.assertTrue(data['completer_repayment_rate_after_5_yrs'] == 10.0)
 
     @mock.patch('paying_for_college.disclosures.scripts.'
@@ -456,7 +455,7 @@ class TestScripts(django.test.TestCase):
         self.assertTrue(data == self.mock_dict2['results'])
 
     def test_build_field_string(self):
-        fstring = api_utils.build_field_string(YEAR)
+        fstring = api_utils.build_field_string()
         self.assertTrue(fstring.startswith('id'))
         self.assertTrue(fstring.endswith('25000'))
 
