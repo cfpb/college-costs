@@ -15,6 +15,7 @@ install_requires = [
     'elasticsearch>=2.4.1,<3',
     'PyYAML==3.13',
     'requests>=2.18,<3',
+    'unicodecsv==0.14.1',
     'Unipath>=1.1,<2',
 ]
 
@@ -78,8 +79,8 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Intended Audience :: Developers',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.6',
         'Framework :: Django',
         'Development Status :: 4 - Beta',
         'Operating System :: OS Independent',

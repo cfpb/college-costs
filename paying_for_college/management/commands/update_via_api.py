@@ -1,6 +1,4 @@
-import datetime
-
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from paying_for_college.disclosures.scripts import update_colleges
 
 COMMAND_HELP = """update_via_api gets school-level data from the Department of \

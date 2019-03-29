@@ -1,10 +1,9 @@
-#!/usr/bin/env python
 # -*- coding: utf8 -*-
+from __future__ import unicode_literals
 import datetime
+import six
 import smtplib
 
-import mock
-from mock import mock_open, patch
 import requests
 
 from django.test import TestCase
@@ -12,8 +11,15 @@ from django.utils import timezone
 from paying_for_college.models import (
     School, Contact, Program, Alias, Nickname, Feedback)
 from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
-from paying_for_college.models import Notification, print_vals
+from paying_for_college.models import Notification
 from paying_for_college.models import get_region, make_divisible_by_6
+
+if six.PY2:  # pragma: no qa
+    import mock
+    from mock import mock_open, patch
+else:  # pragma: no qa
+    from unittest import mock
+    from unittest.mock import mock_open, patch
 
 
 class MakeDivisibleTest(TestCase):
@@ -75,7 +81,7 @@ class SchoolModelsTest(TestCase):
         return Contact.objects.create(
             contacts='hack@hackey.edu',
             name='Hackey Sack',
-            endpoint=u'endpoint.hackey.edu')
+            endpoint='endpoint.hackey.edu')
 
     def create_nickname(self, school):
         return Nickname.objects.create(
@@ -123,46 +129,27 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(s.primary_alias, "Not Available")
         d = self.create_disclosure(s)
         self.assertTrue(isinstance(d, Disclosure))
-        self.assertIn(d.name, d.__unicode__())
+        self.assertIn(d.name, d.__str__())
         a = self.create_alias('Wizard U', s)
         self.assertTrue(isinstance(a, Alias))
-        self.assertIn(a.alias, a.__unicode__())
+        self.assertIn(a.alias, a.__str__())
         self.assertEqual(s.primary_alias, a.alias)
-        self.assertEqual(s.__unicode__(), a.alias + u" (%s)" % s.school_id)
+        self.assertEqual(s.__str__(), a.alias + " ({})".format(s.school_id))
         c = self.create_contact()
         self.assertTrue(isinstance(c, Contact))
-        self.assertIn(c.contacts, c.__unicode__())
+        self.assertIn(c.contacts, c.__str__())
         n = self.create_nickname(s)
         self.assertTrue(isinstance(n, Nickname))
-        self.assertIn(n.nickname, n.__unicode__())
+        self.assertIn(n.nickname, n.__str__())
         self.assertIn(n.nickname, s.nicknames)
         p = self.create_program(s)
         self.assertTrue(isinstance(p, Program))
-        self.assertIn(p.program_name, p.__unicode__())
+        self.assertIn(p.program_name, p.__str__())
         self.assertIn(p.program_name, p.as_json())
         self.assertIn('Bachelor', p.get_level())
         noti = self.create_notification(s)
         self.assertTrue(isinstance(noti, Notification))
-        self.assertIn(noti.oid, noti.__unicode__())
-        self.assertIsInstance(print_vals(s, noprint=True), basestring)
-        self.assertIn(
-            'Emerald City',
-            print_vals(s, val_list=True, noprint=True)
-        )
-        self.assertIn(
-            "Emerald City",
-            print_vals(s, val_dict=True, noprint=True)['city'])
-        self.assertTrue("Emerald City" in print_vals(s, noprint=True))
-
-        print_patcher = mock.patch('paying_for_college.models.print')
-        with print_patcher as mock_print:
-            self.assertIsInstance(print_vals(s, val_list=True), list)
-            self.assertTrue(mock_print.called)
-
-        with print_patcher as mock_print:
-            self.assertIsNone(print_vals(s))
-            self.assertTrue(mock_print.called)
-
+        self.assertIn(noti.oid, noti.__str__())
         self.assertTrue(s.convert_ope6() == '005555')
         self.assertTrue(s.convert_ope8() == '00555500')
         self.assertTrue('Bachelor' in s.get_highest_degree())
@@ -177,9 +164,9 @@ class SchoolModelsTest(TestCase):
 
     def test_constant_models(self):
         cr = ConstantRate(name='cr test', slug='crTest', value='0.1')
-        self.assertTrue(cr.__unicode__() == u'cr test (crTest), updated None')
+        self.assertTrue(cr.__str__() == 'cr test (crTest), updated None')
         cc = ConstantCap(name='cc test', slug='ccTest', value='0')
-        self.assertTrue(cc.__unicode__() == u'cc test (ccTest), updated None')
+        self.assertTrue(cc.__str__() == 'cc test (ccTest), updated None')
 
     @mock.patch('paying_for_college.models.send_mail')
     def test_email_notification(self, mock_mail):
@@ -207,7 +194,7 @@ class SchoolModelsTest(TestCase):
         skul = self.create_school()
         skul.settlement_school = 'edmc'
         contact = self.create_contact()
-        contact.endpoint = u'fake-api.fakeschool.edu'
+        contact.endpoint = 'fake-api.fakeschool.edu'
         contact.save()
         skul.contact = contact
         skul.save()
@@ -362,6 +349,6 @@ class ProgramExport(TestCase):
     def test_program_as_csv(self):
         p = Program.objects.get(pk=1)
         m = mock_open()
-        with patch("__builtin__.open", m, create=True):
+        with patch("six.moves.builtins.open", m, create=True):
             p.as_csv('/tmp.csv')
-        self.assertTrue(m.call_count == 1)
+        self.assertEqual(m.call_count, 1)

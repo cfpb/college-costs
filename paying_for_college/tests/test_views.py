@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import unittest
 import json
 import copy
@@ -6,22 +7,13 @@ import mock
 import django
 from django.test import RequestFactory
 from django.http import HttpRequest
-from django.test import Client
 from django.core.urlresolvers import reverse
 from paying_for_college.models import School, Program
-from paying_for_college.views import (get_school,
-                                      validate_oid,
-                                      validate_pid,
-                                      EXPENSE_FILE,
-                                      get_json_file,
-                                      get_program,
-                                      get_program_length,
-                                      Feedback,
-                                      EmailLink,
-                                      STANDALONE,
-                                      school_search_api)
-
-client = Client()
+from paying_for_college.views import (
+    get_school, validate_oid, validate_pid, EXPENSE_FILE,
+    get_json_file, get_program, get_program_length, Feedback,
+    EmailLink, STANDALONE, school_search_api
+)
 
 
 def setup_view(view, request, *args, **kwargs):
@@ -102,40 +94,42 @@ class TestViews(django.test.TestCase):
 
     # def test_landing_page_views(self):
     #     for url_name in self.landing_page_views:
-    #         response = client.get(reverse(url_name))
+    #         response = self.client.get(reverse(url_name))
     #         self.assertTrue('base_template' in response.context_data.keys())
 
     @unittest.skipIf(not STANDALONE, 'not running as standalone project')
     def test_standalone_landing_views(self):
         for url_name in self.standalone_landing_page_views:
-            response = client.get(reverse(url_name))
-            self.assertTrue('base_template' in response.context_data.keys())
+            response = self.client.get(reverse(url_name))
+            self.assertIn('base_template', list(response.context_data.keys()))
 
     def test_feedback(self):
-        response = client.get(reverse('disclosures:pfc-feedback'))
-        self.assertTrue(sorted(response.context_data.keys()) ==
-                        ['base_template', 'form', 'url_root'])
+        response = self.client.get(reverse('disclosures:pfc-feedback'))
+        self.assertEqual(
+            sorted(list(response.context_data.keys())),
+            ['base_template', 'form', 'url_root']
+        )
 
     def test_feedback_post_creates_feedback(self):
         self.assertFalse(Feedback.objects.exists())
-        client.post(
+        self.client.post(
             reverse('disclosures:pfc-feedback'),
             data=self.feedback_post_data)
         self.assertTrue(Feedback.objects.exists())
 
     def test_feedback_post_invalid(self):
-        response = client.post(reverse('disclosures:pfc-feedback'))
+        response = self.client.post(reverse('disclosures:pfc-feedback'))
         self.assertTrue(response.status_code == 400)
 
     # def test_disclosure(self):
-    #     response = client.get(reverse('disclosures:worksheet'))
+    #     response = self.client.get(reverse('disclosures:worksheet'))
     #     self.assertTrue('base_template' in response.context.keys())
-    #     response2 = client.post(reverse('disclosures:worksheet'),
+    #     response2 = self.client.post(reverse('disclosures:worksheet'),
     #                             request=self.POST)
     #     self.assertTrue('GET' in '%s' % response2)
 
     def test_technote(self):
-        response = client.get(reverse('disclosures:pfc-technote'))
+        response = self.client.get(reverse('disclosures:pfc-technote'))
         self.assertTrue('base_template' in response.context_data.keys())
 
 
@@ -155,14 +149,14 @@ class EmailTest(django.test.TestCase):
         request = self.factory.post(self.url)
         view = setup_view(EmailLink(), request, self.post_data)
         resp = view.post(request)
-        self.assertTrue('ok' in resp.content)
+        self.assertIn(b'ok', resp.content)
 
     @mock.patch('paying_for_college.views.get_template')
     @mock.patch('paying_for_college.views.send_mail')
     def test_email_view(self, mock_send_mail, mock_get_template):
         request = self.factory.post(self.url, data=self.post_data)
         view = EmailLink.as_view()
-        response = view(request)
+        view(request)
         self.assertTrue(mock_send_mail.call_count == 1)
         self.assertTrue(mock_get_template.call_count == 1)
 
@@ -198,9 +192,9 @@ class SchoolSearchTest(django.test.TestCase):
         test1 = get_program(school, '981')
         self.assertTrue('Occupational' in test1.program_name)
         test2 = get_program(school, 'xxx')
-        self.assertTrue(test2 == None)
+        self.assertIs(test2, None)
         test3 = get_program(school, '<program>')
-        self.assertTrue(test3 == None)
+        self.assertIs(test3, None)
 
     @mock.patch('paying_for_college.views.SearchQuerySet.autocomplete')
     def test_school_search_api(self, mock_sqs_autocomplete):
@@ -219,9 +213,9 @@ class SchoolSearchTest(django.test.TestCase):
         url = "%s?q=Kansas" % reverse('disclosures:school_search')
         request = RequestFactory().get(url)
         resp = school_search_api(request)
-        self.assertTrue('Kansas' in resp.content)
-        self.assertTrue('155317' in resp.content)
-        self.assertTrue('Jayhawks' in resp.content)
+        self.assertTrue(b'Kansas' in resp.content)
+        self.assertTrue(b'155317' in resp.content)
+        self.assertTrue(b'Jayhawks' in resp.content)
 
 
 class OfferTest(django.test.TestCase):
@@ -234,7 +228,7 @@ class OfferTest(django.test.TestCase):
         """request for offer disclosure."""
 
         url = reverse('disclosures:offer')
-        url_test = ('disclosures:offer_test')
+        # url_test = ('disclosures:offer_test')
         qstring = ('?iped=408039&pid=981&'
                    'oid=f38283b5b7c939a058889f997949efa566c616c5&'
                    'tuit=38976&hous=3000&book=650&tran=500&othr=500&'
@@ -247,7 +241,7 @@ class OfferTest(django.test.TestCase):
                       'oid=f38283b5b7c939a058889f997949efa566c61')
         bad_program = ('?iped=408039&pid=xxx&'
                        'oid=f38283b5b7c939a058889f997949efa566c616c5')
-        puerto_rico = '?iped=243197&pid=981&oid='
+        # puerto_rico = '?iped=243197&pid=981&oid='
         missing_oid_field = '?iped=408039&pid=981'
         missing_school_id = '?iped='
         bad_oid = ('?iped=408039&pid=981&oid=f382'
@@ -256,35 +250,35 @@ class OfferTest(django.test.TestCase):
                            '5b7c939a058889f997949efa566c616c5')
         no_program = ('?iped=408039&pid=&oid=f38283b'
                       '5b7c939a058889f997949efa566c616c5')
-        resp = client.get(url+qstring)
+        resp = self.client.get(url + qstring)
         self.assertTrue(resp.status_code == 200)
-        resp_test = client.get(url+qstring)
+        resp_test = self.client.get(url + qstring)
         self.assertTrue(resp_test.status_code == 200)
-        resp2 = client.get(url+no_oid)
+        resp2 = self.client.get(url + no_oid)
         self.assertTrue(resp2.status_code == 200)
         self.assertTrue("noOffer" in resp2.context['warning'])
-        resp3 = client.get(url+bad_school)
+        resp3 = self.client.get(url + bad_school)
         self.assertTrue("noSchool" in resp3.context['warning'])
         self.assertTrue(resp3.status_code == 200)
-        resp4 = client.get(url+bad_program)
+        resp4 = self.client.get(url + bad_program)
         self.assertTrue(resp4.status_code == 200)
         self.assertTrue("noProgram" in resp4.context['warning'])
-        resp5 = client.get(url+missing_oid_field)
+        resp5 = self.client.get(url + missing_oid_field)
         self.assertTrue(resp5.status_code == 200)
         self.assertTrue("noOffer" in resp5.context['warning'])
-        resp6 = client.get(url+missing_school_id)
+        resp6 = self.client.get(url + missing_school_id)
         self.assertTrue("noSchool" in resp6.context['warning'])
         self.assertTrue(resp6.status_code == 200)
-        resp7 = client.get(url+bad_oid)
+        resp7 = self.client.get(url + bad_oid)
         self.assertTrue("noOffer" in resp7.context['warning'])
         self.assertTrue(resp7.status_code == 200)
-        resp8 = client.get(url+illegal_program)
+        resp8 = self.client.get(url + illegal_program)
         self.assertTrue("noProgram" in resp8.context['warning'])
         self.assertTrue(resp8.status_code == 200)
-        resp9 = client.get(url+no_program)
+        resp9 = self.client.get(url + no_program)
         self.assertTrue("noProgram" in resp9.context['warning'])
         self.assertTrue(resp9.status_code == 200)
-        resp10 = client.get(url)
+        resp10 = self.client.get(url)
         self.assertTrue(resp10.context['warning'] == '')
         self.assertTrue(resp10.status_code == 200)
 
@@ -300,70 +294,70 @@ class APITests(django.test.TestCase):
         """api call for school details."""
 
         url = reverse('disclosures:school-json', args=['155317'])
-        resp = client.get(url)
-        self.assertTrue('Kansas' in resp.content)
-        self.assertTrue('155317' in resp.content)
+        resp = self.client.get(url)
+        self.assertIn(b'Kansas', resp.content)
+        self.assertIn(b'155317', resp.content)
 
     # /paying-for-college/understanding-financial-aid-offers/api/constants/
     def test_constants_json(self):
         """api call for constants."""
 
         url = reverse('disclosures:constants-json')
-        resp = client.get(url)
-        self.assertTrue('institutionalLoanRate' in resp.content)
-        self.assertTrue('apiYear' in resp.content)
+        resp = self.client.get(url)
+        self.assertIn(b'institutionalLoanRate', resp.content)
+        self.assertIn(b'apiYear', resp.content)
 
     # /paying-for-college/understanding-financial-aid-offers/api/constants/
     def test_national_stats_json(self):
         """api call for national statistics."""
 
         url = reverse('disclosures:national-stats-json', args=['408039'])
-        resp = client.get(url)
-        self.assertTrue('retentionRateMedian' in resp.content)
-        self.assertTrue(resp.status_code == 200)
+        resp = self.client.get(url)
+        self.assertIn(b'retentionRateMedian', resp.content)
+        self.assertEqual(resp.status_code, 200)
         url2 = reverse('disclosures:national-stats-json', args=['000000'])
-        resp2 = client.get(url2)
-        self.assertTrue('nationalSalary' in resp2.content)
-        self.assertTrue(resp2.status_code == 200)
+        resp2 = self.client.get(url2)
+        self.assertIn(b'nationalSalary', resp2.content)
+        self.assertEqual(resp2.status_code, 200)
 
     def test_expense_json(self):
         """api call for BLS expense data"""
         url = reverse('disclosures:expenses-json')
-        resp = client.get(url)
-        self.assertTrue('Other' in resp.content)
+        resp = self.client.get(url)
+        self.assertIn(b'Other', resp.content)
 
     @mock.patch('paying_for_college.views.get_json_file')
     def test_expense_json_failure(self, mock_get_json):
         """failed api call for BLS expense data"""
         url = reverse('disclosures:expenses-json')
         mock_get_json.return_value = ''
-        resp = client.get(url)
-        self.assertTrue('No expense' in resp.content)
+        resp = self.client.get(url)
+        self.assertIn(b'No expense', resp.content)
 
     # /paying-for-college/understanding-financial-aid-offers/api/program/408039_981/
     def test_program_json(self):
         """api call for program details."""
 
         url = reverse('disclosures:program-json', args=['408039_981'])
-        resp = client.get(url)
-        self.assertTrue('housing' in resp.content)
-        self.assertTrue('books' in resp.content)
+        resp = self.client.get(url)
+        self.assertIn(b'housing', resp.content)
+        self.assertIn(b'books', resp.content)
         bad_url = reverse('disclosures:program-json', args=['408039'])
-        resp2 = client.get(bad_url)
-        self.assertTrue(resp2.status_code == 400)
-        self.assertTrue('Error' in resp2.content)
+        resp2 = self.client.get(bad_url)
+        self.assertEqual(resp2.status_code, 400)
+        self.assertTrue(b'Error' in resp2.content)
         url3 = reverse('disclosures:program-json', args=['408039_xyz'])
-        resp3 = client.get(url3)
-        self.assertTrue(resp3.status_code == 400)
-        self.assertTrue('Error' in resp3.content)
+        resp3 = self.client.get(url3)
+        self.assertEqual(resp3.status_code, 400)
+        self.assertIn(b'Error', resp3.content)
         url4 = reverse('disclosures:program-json', args=['408039_<script>'])
-        resp4 = client.get(url4)
-        self.assertTrue(resp4.status_code == 400)
-        self.assertTrue('Error' in resp4.content)
+        resp4 = self.client.get(url4)
+        self.assertEqual(resp4.status_code, 400)
+        self.assertIn(b'Error', resp4.content)
         url5 = reverse('disclosures:program-json', args=['x08039_981'])
-        resp5 = client.get(url5)
-        self.assertTrue(resp5.status_code == 400)
-        self.assertTrue('Error' in resp5.content)
+        resp5 = self.client.get(url5)
+        self.assertEqual(resp5.status_code, 400)
+        self.assertIn(b'Error', resp5.content)
 
 
 class VerifyViewTest(django.test.TestCase):
@@ -376,32 +370,32 @@ class VerifyViewTest(django.test.TestCase):
     url = reverse('disclosures:verify')
 
     def test_verify_view(self):
-        resp = client.post(self.url, data=self.post_data)
-        self.assertTrue(resp.status_code == 200)
-        self.assertTrue('Verification' in resp.content)
-        resp2 = client.post(self.url, data=self.post_data)
-        self.assertTrue(resp2.status_code == 400)
-        self.assertTrue('already' in resp2.content)
+        resp = self.client.post(self.url, data=self.post_data)
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(b'Verification', resp.content)
+        resp2 = self.client.post(self.url, data=self.post_data)
+        self.assertEqual(resp2.status_code, 400)
+        self.assertIn(b'already', resp2.content)
 
     def test_verify_view_school_has_no_contact(self):
         post_data = copy.copy(self.post_data)
         post_data['iped'] = '408039'
         post_data['oid'] = 'f38283b5b7c939a058889f997949efa566c616c4'
-        resp = client.post(self.url, data=post_data)
-        self.assertTrue(resp.status_code == 400)
+        resp = self.client.post(self.url, data=post_data)
+        self.assertEqual(resp.status_code, 400)
 
     def test_verify_view_bad_id(self):
         self.post_data['iped'] = ''
-        resp = client.post(self.url, data=self.post_data)
-        self.assertTrue(resp.status_code == 400)
+        resp = self.client.post(self.url, data=self.post_data)
+        self.assertEqual(resp.status_code, 400)
 
     def test_verify_view_bad_oid(self):
         self.post_data['iped'] = '243197'
         self.post_data['oid'] = 'f38283b5b7c939a058889f997949efa566script'
-        resp = client.post(self.url, data=self.post_data)
-        self.assertTrue(resp.status_code == 400)
+        resp = self.client.post(self.url, data=self.post_data)
+        self.assertEqual(resp.status_code, 400)
 
     def test_verify_view_no_data(self):
         self.post_data = {}
-        resp = client.post(self.url, data=self.post_data)
-        self.assertTrue(resp.status_code == 400)
+        resp = self.client.post(self.url, data=self.post_data)
+        self.assertEqual(resp.status_code, 400)

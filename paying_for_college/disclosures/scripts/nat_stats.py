@@ -1,15 +1,16 @@
 import json
 import os
+import six
 from subprocess import call
-try:
-    from collections import OrderedDict
-except Exception:  # pragma: no cover
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 
 from unipath import Path
 import requests
 import yaml
 # from paying_for_college.models import ConstantRate
+
+if six.PY2:  # pragma: no cover
+    FileNotFoundError = IOError
 
 COLLEGE_CHOICE_NATIONAL_DATA_URL = (
     'https://raw.githubusercontent.com/RTICWDT/'
@@ -25,11 +26,11 @@ LENGTH_MAP = {'earnings': {2: 'median_earnings_l4', 4: 'median_earnings_4'},
 
 
 def get_bls_stats():
-    """deliver BLS spending stats stored in repo"""
+    """Deliver BLS spending stats stored in the repo."""
     try:
         with open(BLS_FILE, 'r') as f:
             data = json.loads(f.read())
-    except Exception:
+    except FileNotFoundError:
         data = {}
     return data
 
