@@ -1,27 +1,31 @@
-import os
 import json
+import os
 import re
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, render
+from django.template import RequestContext
+from django.template.loader import get_template
+from django.utils import timezone
+from django.views.generic import TemplateView, View
+from haystack.query import SearchQuerySet
+
+from paying_for_college.disclosures.scripts import nat_stats
+from paying_for_college.forms import EmailForm, FeedbackForm
+from paying_for_college.models import (
+    ConstantCap, ConstantRate, Feedback, Notification, Program, School,
+    Worksheet
+)
+
+
 try:
     from collections import OrderedDict
 except Exception:  # pragma: no cover
     from ordereddict import OrderedDict
 
-from django.utils import timezone
-from django.core.urlresolvers import reverse
-from django.views.generic import View, TemplateView
-from django.shortcuts import get_object_or_404, render
-from django.core.mail import send_mail
-from django.template import RequestContext
-from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.conf import settings
-from haystack.query import SearchQuerySet
-
-from paying_for_college.models import School, Worksheet, Feedback, Notification
-from paying_for_college.models import Program, ConstantCap, ConstantRate
-from paying_for_college.disclosures.scripts import nat_stats
-
-from paying_for_college.forms import FeedbackForm, EmailForm
 BASEDIR = os.path.dirname(__file__)
 
 try:

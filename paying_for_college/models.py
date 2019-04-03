@@ -2,16 +2,24 @@
 from __future__ import print_function, unicode_literals
 
 import datetime
-from django.db import models
-from collections import OrderedDict
 import json
-from string import Template
+import six
 import smtplib
+from collections import OrderedDict
+from string import Template
+
+from django.core.mail import send_mail
+from django.db import models
 
 import requests
 
-from paying_for_college.csvkit.csvkit import Writer as cdw
-from django.core.mail import send_mail
+
+if six.PY2:
+    from unicodecsv import writer as csw
+    from unicodecsv import DictReader as cdr
+else:  # pgragma: no qa
+    from csv import writer as csw
+    from csv import DictReader as cdr  # noqa
 
 REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
                      'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
@@ -699,7 +707,7 @@ class Program(models.Model):
             'test'
         ]
         with open(csvpath, 'w') as f:
-            writer = cdw(f)
+            writer = csw(f)
             writer.writerow(headings)
             writer.writerow([
                 self.institution.school_id,

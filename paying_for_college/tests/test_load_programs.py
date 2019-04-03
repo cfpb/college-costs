@@ -4,18 +4,15 @@ from __future__ import unicode_literals
 import six
 
 import django
-import mock
 
-from paying_for_college.models import Program, School
+import mock
 from paying_for_college.disclosures.scripts.load_programs import (
-    get_school,
-    read_in_data,
-    read_in_s3,
-    clean_number_as_string,
-    clean_string_as_string,
-    clean, load,
-    standardize_rate,
+    clean, clean_number_as_string, clean_string_as_string, get_school, load,
+    read_in_data, read_in_s3, standardize_rate
 )
+from paying_for_college.models import Program, School
+
+
 if six.PY2:  # pragma: no qa
     from mock import mock_open, patch
 else:  # pragma: no qa

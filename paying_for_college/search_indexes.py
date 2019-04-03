@@ -1,4 +1,5 @@
 from haystack import indexes
+
 from paying_for_college.models import School
 
 

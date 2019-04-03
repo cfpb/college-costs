@@ -1,13 +1,13 @@
 import json
 import os
 import six
-from subprocess import call
 from collections import OrderedDict
+from subprocess import call
 
-from unipath import Path
 import requests
 import yaml
-# from paying_for_college.models import ConstantRate
+from unipath import Path
+
 
 if six.PY2:  # pragma: no cover
     FileNotFoundError = IOError

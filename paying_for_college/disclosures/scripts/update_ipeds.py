@@ -3,21 +3,16 @@ import json
 import os
 import six
 import zipfile
-from subprocess import call
 from collections import OrderedDict
+from subprocess import call
+
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 import requests
+from paying_for_college.models import Alias, School, cdr, csw
+from paying_for_college.views import get_school
 from unipath import Path
 
-from paying_for_college.views import get_school
-from paying_for_college.models import School, Alias
-from django.contrib.humanize.templatetags.humanize import intcomma
-if six.PY2:  # pragma: no qa
-    from unicodecsv import DictReader as cdr
-    from unicodecsv import writer as cwriter
-else:  # pragma: no qa
-    from csv import DictReader as cdr
-    from csv import writer as cwriter
 
 SCRIPT = os.path.basename(__file__).partition('.')[0]
 PFC_ROOT = Path(__file__).ancestor(3)
@@ -113,7 +108,7 @@ def download_zip_file(url, zip_file):
 
 def write_clean_csv(fpath, fieldnames, clean_headings, data):
     with open(fpath, 'w') as f:
-        writer = cwriter(f)
+        writer = csw(f)
         writer.writerow(clean_headings)
         for row in data:
             writer.writerow([row[name] for name in fieldnames])
@@ -162,7 +157,7 @@ def read_csv(fpath, encoding='utf-8'):
 
 def dump_csv(fpath, header, data):
     with open(fpath, 'w') as f:
-        writer = cwriter(f)
+        writer = csw(f)
         writer.writerow(header)
         for row in data:
             writer.writerow([row[heading] for heading in header])

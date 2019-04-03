@@ -1,5 +1,7 @@
-from unipath import Path
 import getpass
+
+from unipath import Path
+
 
 LOCAL_USER = getpass.getuser()
 REPOSITORY_ROOT = Path(__file__).ancestor(4)

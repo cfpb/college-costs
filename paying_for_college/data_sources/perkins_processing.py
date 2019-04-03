@@ -1,5 +1,7 @@
-from paying_for_college.csvkit.csvkit import DictReader as cdr
-from paying_for_college.models import School
+from __future__ import unicode_literals
+
+from paying_for_college.models import School, cdr
+
 
 """
 # Data processing steps
@@ -44,7 +46,9 @@ misses = tag_schools(CSVFILE, dry_run=False)
 """
 
 CSVFILE = 'paying_for_college/data_sources/2015_perkins.csv'
-ENDNOTE = 'processed {} entries, found {} offering Perkins, updated {} schools in our database'
+ENDNOTE = (
+    'processed {} entries, found {} offering Perkins, '
+    'updated {} schools in our database')
 DRY_ENDNOTE = ENDNOTE.replace('updated', 'would have updated')
 MISSNOTE = "Couldn't find {} schools by ope8_id"
 
@@ -58,7 +62,7 @@ def load_perkins_data(csvfile):
 
 def tag_schools(csvfile, dry_run=True):
     if dry_run:
-        print "DRY RUN ...\nto update schools, run with 'dry_run=False'"
+        print("DRY RUN ...\nto update schools, run with 'dry_run=False'")
     processed = 0
     potentials = 0
     updated = 0
@@ -78,12 +82,12 @@ def tag_schools(csvfile, dry_run=True):
                     if dry_run is False:
                         target.save()
     if dry_run:
-        print DRY_ENDNOTE.format(processed, potentials, updated)
+        print(DRY_ENDNOTE.format(processed, potentials, updated))
     else:
-        print ENDNOTE.format(processed, potentials, updated)
+        print(ENDNOTE.format(processed, potentials, updated))
     if misses:
-        print MISSNOTE.format(len(misses))
-        print "These schools were not found:"
+        print(MISSNOTE.format(len(misses)))
+        print("These schools were not found:")
         for entry in misses:
             print entry
     return misses

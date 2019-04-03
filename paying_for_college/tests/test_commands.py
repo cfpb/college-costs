@@ -1,8 +1,14 @@
-import mock
-import unittest
+import six
 
-from django.core.management.base import CommandError
 from django.core.management import call_command
+
+
+if six.PY2:
+    import unittest
+    import mock
+else:
+    import unittest
+    from unittest import mock
 
 
 class CommandTests(unittest.TestCase):
@@ -11,23 +17,24 @@ class CommandTests(unittest.TestCase):
         stdout_patch.start()
         self.addCleanup(stdout_patch.stop)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'update_pfc_national_stats.nat_stats.'
-                'update_national_stats_file')
+    @mock.patch(
+        'paying_for_college.management.commands.'
+        'update_pfc_national_stats.nat_stats.'
+        'update_national_stats_file')
     def test_update_pfc_national_stats(self, mock_update):
         mock_update.return_value = 'OK'
         call_command('update_pfc_national_stats')
         self.assertEqual(mock_update.call_count, 1)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'tag_schools.tag_settlement_schools.tag_schools')
+    @mock.patch(
+        'paying_for_college.management.commands.'
+        'tag_schools.tag_settlement_schools.tag_schools')
     def test_tag_schools(self, mock_tag):
         mock_tag.return_value = 'Aye Aye'
         call_command('tag_schools', 's3URL')
         self.assertEqual(mock_tag.call_count, 1)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'purge.purge')
+    @mock.patch('paying_for_college.management.commands.purge.purge')
     def test_purges(self, mock_purge):
         mock_purge.return_value = 'Aye Aye'
         call_command('purge', 'notifications')
@@ -39,8 +46,8 @@ class CommandTests(unittest.TestCase):
         call_command('purge', 'schools')
         self.assertEqual(mock_purge.call_count, 4)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'update_ipeds.load_values')
+    @mock.patch(
+        'paying_for_college.management.commands.update_ipeds.load_values')
     def test_update_ipeds(self, mock_load):
         mock_load.return_value = 'DRY RUN'
         call_command('update_ipeds')
@@ -50,8 +57,9 @@ class CommandTests(unittest.TestCase):
         call_command('update_ipeds', '--dry-run', 'jabberwocky')
         self.assertEqual(mock_load.call_count, 2)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'update_via_api.update_colleges.update')
+    @mock.patch(
+        'paying_for_college.management.commands.'
+        'update_via_api.update_colleges.update')
     def test_api_update(self, mock_update):
         mock_update.return_value = ([], [], 'OK')
         call_command('update_via_api')
@@ -62,8 +70,9 @@ class CommandTests(unittest.TestCase):
         call_command('update_via_api', '--school_id', '99999')
         self.assertTrue(mock_update.call_count == 3)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'load_programs.load_programs.load')
+    @mock.patch(
+        'paying_for_college.management.commands.'
+        'load_programs.load_programs.load')
     def test_load_programs(self, mock_load):
         mock_load.return_value = ([], 'OK')
         call_command('load_programs', 'filename')
@@ -80,8 +89,9 @@ class CommandTests(unittest.TestCase):
         error_state = call_command('load_programs', 'filename')
         self.assertTrue(error_state is None)
 
-    @mock.patch('paying_for_college.management.commands.'
-                'load_programs.load_programs.load')
+    @mock.patch(
+        'paying_for_college.management.commands.'
+        'load_programs.load_programs.load')
     def test_load_programs_more_than_1_files(self, mock_load):
         mock_load.return_value = ([], 'OK')
         call_command('load_programs', 'filename', 'filename2', 'filename3')

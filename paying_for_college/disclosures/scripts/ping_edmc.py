@@ -1,6 +1,8 @@
 # send test notifications to school
-import requests
 import datetime
+
+import requests
+
 
 # urls
 EDMC_DEV = "https://dev.exml.edmc.edu/cfpb"
@@ -36,18 +38,19 @@ def notify_edmc(url, oid, errors):
                            resp.content)
     return report
 
+
 if __name__ == "__main__":
     print(notify_edmc(EDMC_DEV, OID, ERRORS))
     print(notify_edmc(EDMC_BETA, OID, ERRORS))
     print(notify_edmc(EDMC_PROD, OID, ERRORS))
 
-## to test against binpost
+# to test against binpost
 # hit_binpost = requests.post(BINPOST, data=PAYLOAD)
 # print hit_binpost.content
 
-## to hit rbin
+# to hit rbin
 # hit_rbin = requests.post(RBIN, data=PAYLOAD)
-## then check http://requestb.in/1ak4sxc1?inspect#s8ubhf
+# then check http://requestb.in/1ak4sxc1?inspect#s8ubhf
 
-## curl test
-# curl -v -X POST --data "oid=f38283b5b7c939a058889f997949efa566c616c5&errors=INVALID: test notification via curl&time=2016-01-21T18:36:09.922690+00:00" --url "https://dev.exml.edmc.edu/cfpb"
+# curl test
+# curl -v -X POST --data "oid=f38283b5b7c939a058889f997949efa566c616c5&errors=INVALID: test notification via curl&time=2016-01-21T18:36:09.922690+00:00" --url "https://dev.exml.edmc.edu/cfpb"  # noqa

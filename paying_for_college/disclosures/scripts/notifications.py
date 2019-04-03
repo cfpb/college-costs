@@ -1,11 +1,11 @@
 import datetime
-from django.utils import timezone
-import json
 from string import Template
 
 from django.core.mail import send_mail
+from django.utils import timezone
 
 from paying_for_college.models import Notification
+
 
 INTRO = ('Notification failures \n'
          'Notification delivery failed for the following offer IDs:\n\n')
@@ -41,10 +41,10 @@ def send_stale_notifications(add_email=[]):
                 in stale_notifications if notification.institution.contact}
     for noti in stale_notifications:
         payload = {
-            'oid':    noti.oid,
-            'time':   noti.timestamp.isoformat(),
+            'oid': noti.oid,
+            'time': noti.timestamp.isoformat(),
             'errors': noti.errors,
-            'log':    noti.log
+            'log': noti.log
         }
         clist = contacts[noti.institution.contact]
         clist.append(payload)

@@ -1,0 +1,22 @@
+[flake8]
+ignore = 
+    # There's nothing wrong with assigning lambdas
+    E731,
+    # PEP8 weakly recommends Knuth-style line breaks before binary
+    # operators
+    W503, W504
+exclude = 
+    # These are directories that it's a waste of time to traverse
+    .eggs,
+    .env,
+    .git,
+    .tox,
+    .venv,
+    bin,
+    config,
+    docs,
+    gulp,
+    node_modules,
+    */migrations/*.py,
+    paying_for_college/config/*
+    paying_for_college/disclosures/urls.py

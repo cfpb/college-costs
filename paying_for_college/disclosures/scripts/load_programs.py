@@ -4,16 +4,13 @@ from __future__ import print_function, unicode_literals
 import io
 import six
 
-from rest_framework import serializers
 import requests
-
-from paying_for_college.models import Program, School
+from paying_for_college.models import Program, School, cdr
 from paying_for_college.views import validate_pid
+from rest_framework import serializers
 
-if six.PY2:  # pragma: no cover
-    from unicodecsv import DictReader
-else:  # pragma: no cover
-    from csv import DictReader
+
+NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
 
 """
 # Program Data Processing Steps
@@ -28,8 +25,6 @@ To run the script, use this manage.py command:
 ./manage.py load_programs [PATH TO CSV or s3 filename]
 ```
 """
-
-NO_DATA_ENTRIES_LOWER = ('', 'blank', 'no grads', 'no data', 'none')
 
 
 class ProgramSerializer(serializers.Serializer):
@@ -106,12 +101,12 @@ def get_school(iped):
 def read_py2(filename):  # pragma: no qa
     try:
         with open(filename, 'r') as f:
-            reader = DictReader(f, encoding='utf-8-sig')
+            reader = cdr(f, encoding='utf-8-sig')
             data = [row for row in reader]
     except UnicodeDecodeError:
         try:
             with open(filename, 'r') as f:
-                reader = DictReader(f, encoding='windows-1252')
+                reader = cdr(f, encoding='windows-1252')
                 data = [row for row in reader]
         except Exception:
             data = [{}]
@@ -123,12 +118,12 @@ def read_py2(filename):  # pragma: no qa
 def read_py3(filename):  # pragma: no qa
     try:
         with open(filename, newline='', encoding='utf-8-sig') as f:
-            reader = DictReader(f)
+            reader = cdr(f)
             data = [row for row in reader]
     except UnicodeDecodeError:
         try:
             with open(filename, newline='', encoding='windows-1252') as f:
-                reader = DictReader(f)
+                reader = cdr(f)
                 data = [row for row in reader]
         except Exception:
             data = [{}]
@@ -151,7 +146,7 @@ def read_in_s3(url):
         f = io.BytesIO(response.text.encode('utf-8'))
     else:
         f = io.StringIO(response.text)
-    reader = DictReader(f)
+    reader = cdr(f)
     data = [row for row in reader]
     return data
 

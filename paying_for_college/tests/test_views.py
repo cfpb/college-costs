@@ -1,18 +1,20 @@
 from __future__ import unicode_literals
-import unittest
-import json
+
 import copy
+import json
+import unittest
+
+import django
+from django.core.urlresolvers import reverse
+from django.http import HttpRequest
+from django.test import RequestFactory
 
 import mock
-import django
-from django.test import RequestFactory
-from django.http import HttpRequest
-from django.core.urlresolvers import reverse
-from paying_for_college.models import School, Program
+from paying_for_college.models import Program, School
 from paying_for_college.views import (
-    get_school, validate_oid, validate_pid, EXPENSE_FILE,
-    get_json_file, get_program, get_program_length, Feedback,
-    EmailLink, STANDALONE, school_search_api
+    EXPENSE_FILE, STANDALONE, EmailLink, Feedback, get_json_file, get_program,
+    get_program_length, get_school, school_search_api, validate_oid,
+    validate_pid
 )
 
 

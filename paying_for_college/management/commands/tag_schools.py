@@ -1,12 +1,14 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
+
 from paying_for_college.disclosures.scripts import tag_settlement_schools
 
+
 COMMAND_HELP = """
-`tag_schools` updates the 'settlement_school' flag, which is used to mark 
-schools that are participating in the disclosure program pursuant 
-to a legal settlement. The command accepts one argument, an S3 URL, which  
-should point to a CSV of schools subject to settlement. The CSV must contain 
-columns for 'ipeds_unit_id' and 'flag'.
+`tag_schools` updates the 'settlement_school' flag, which is used to mark
+ schools that are participating in the disclosure program pursuant
+ to a legal settlement. The command accepts one argument, an S3 URL, which
+ should point to a CSV of schools subject to settlement. The CSV must contain
+ columns for 'ipeds_unit_id' and 'flag'.
 """
 
 

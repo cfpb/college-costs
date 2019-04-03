@@ -13,9 +13,11 @@ from https://api.data.gov/signup/
     https://api.data.gov/docs/api-key/
 """
 from __future__ import print_function
+
 import os
 
 import requests
+
 
 API_KEY = os.getenv('ED_API_KEY', '')
 API_ROOT = "https://api.data.gov/ed/collegescorecard/v1"

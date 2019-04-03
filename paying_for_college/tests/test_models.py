@@ -1,18 +1,19 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
+
 import datetime
 import six
 import smtplib
 
-import requests
-
 from django.test import TestCase
 from django.utils import timezone
+
+import requests
 from paying_for_college.models import (
-    School, Contact, Program, Alias, Nickname, Feedback)
-from paying_for_college.models import ConstantCap, ConstantRate, Disclosure
-from paying_for_college.models import Notification
-from paying_for_college.models import get_region, make_divisible_by_6
+    Alias, ConstantCap, ConstantRate, Contact, Disclosure, Feedback, Nickname,
+    Notification, Program, School, get_region, make_divisible_by_6
+)
+
 
 if six.PY2:  # pragma: no qa
     import mock

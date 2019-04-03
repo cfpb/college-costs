@@ -1,19 +1,19 @@
-import django
 import datetime
 import os
 import six
 
-import requests
+import django
 from django.utils import timezone
 
-from paying_for_college.models import School, Notification, Alias, Program
+import requests
 from paying_for_college.disclosures.scripts import (
-    api_utils, update_colleges, nat_stats, notifications,
-    update_ipeds, purge_objects, tag_settlement_schools
+    api_utils, nat_stats, notifications, purge_objects, tag_settlement_schools,
+    update_colleges, update_ipeds
 )
 from paying_for_college.disclosures.scripts.ping_edmc import (
-    notify_edmc, EDMC_DEV, OID, ERRORS
+    EDMC_DEV, ERRORS, OID, notify_edmc
 )
+from paying_for_college.models import Alias, Notification, Program, School
 
 
 if six.PY2:  # pragma: no cover
