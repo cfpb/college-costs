@@ -20,21 +20,20 @@ const postVerify = {
   },
 
   verify: function( offerID, collegeID, error ) {
-    let url,
-        postdata = {
-          csrfmiddlewaretoken:  this.csrfToken,
-          oid:                  offerID,
-          iped:                 collegeID,
-          errors:               'none',
-          URL:                  window.location.href
-        };
-    url = '/' + $( 'main' ).attr( 'data-context' ) +
-      '/understanding-your-financial-aid-offer/api/verify/';
+    const postdata = {
+      csrfmiddlewaretoken: this.csrfToken,
+      oid:                 offerID,
+      iped:                collegeID,
+      errors:              'none',
+      URL:                 window.location.href
+    };
+    const urlPath = '/' + $( 'main' ).attr( 'data-context' ) +
+                    '/understanding-your-financial-aid-offer/api/verify/';
     if ( error === true ) {
       postdata.errors =
         'INVALID: student indicated the offer information is wrong';
     }
-    $.post( url, postdata );
+    $.post( urlPath, postdata );
   }
 
 };

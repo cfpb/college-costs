@@ -15,8 +15,7 @@ const getUrlValues = {
    * @returns {object} URL values as key-value pairs
    */
   urlValues: function() {
-    let urlValues;
-    urlValues = queryHandler( location.search );
+    const urlValues = queryHandler( location.search );
     return urlValues;
   }
 };

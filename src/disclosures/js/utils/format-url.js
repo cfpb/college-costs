@@ -5,8 +5,8 @@
  * @returns {string} The formated URL
  */
 function formatSchoolURL( url ) {
-  let formattedURL,
-      protocolRegex = /^https?:\/\//;
+  let formattedURL;
+  const protocolRegex = /^https?:\/\//;
   if ( url && protocolRegex.test( url ) ) {
     formattedURL = url;
   } else if ( url ) {

@@ -27,8 +27,8 @@ const expensesView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    let originalValue = $ele.val() || $ele.text(),
-        isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
+    const originalValue = $ele.val() || $ele.text();
+    const isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
@@ -51,9 +51,9 @@ const expensesView = {
   updateExpenses: function( values ) {
     const expensesHigherThanSalary = $( '.aid-form_higher-expenses' );
     this.$elements.each( function() {
-      let $ele = $( this ),
-          name = $ele.attr( 'data-expenses' ),
-          currency = true;
+      const $ele = $( this );
+      const name = $ele.attr( 'data-expenses' );
+      const currency = true;
       if ( expensesView.currentInput !== $ele.attr( 'id' ) ) {
         expensesView.updateElement( $ele, values[name], currency );
       }
@@ -79,9 +79,9 @@ const expensesView = {
    * @param {string} id - The id attribute of the element to be handled
    */
   inputHandler: function( id ) {
-    let $ele = $( '#' + id ),
-        value = stringToNum( $ele.val() ),
-        key = $ele.attr( 'data-expenses' );
+    const $ele = $( '#' + id );
+    const value = stringToNum( $ele.val() );
+    const key = $ele.attr( 'data-expenses' );
     publish.expensesData( key, value );
     expensesView.updateView( getExpenses.values() );
   },

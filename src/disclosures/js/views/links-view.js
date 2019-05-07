@@ -111,12 +111,11 @@ const linksView = {
    * @param {object} values Financial model values
    */
   setScorecardSearch: function( values ) {
-    let pcip = '',
-        zip = '',
-        // We're using a 50-mile radius, the most common Scorecard search
-        radius = '50',
-        scorecardURL = this.$scorecardLink.attr( 'href' ),
-        scorecardQuery;
+    let pcip = '';
+    let zip = '';
+    // We're using a 50-mile radius, the most common Scorecard search
+    const radius = '50';
+    const scorecardURL = this.$scorecardLink.attr( 'href' );
 
     if ( values.hasOwnProperty( 'cipCode' ) ) {
       pcip = values.cipCode.slice( 0, 2 );
@@ -124,7 +123,7 @@ const linksView = {
     if ( values.hasOwnProperty( 'zip5' ) ) {
       zip = values.zip5;
     }
-    scorecardQuery = constructScorecardSearch( pcip, zip, radius );
+    const scorecardQuery = constructScorecardSearch( pcip, zip, radius );
     this.$scorecardLink.attr( 'href', scorecardURL + scorecardQuery );
   }
 

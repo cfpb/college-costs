@@ -74,10 +74,9 @@ const financialView = {
     const $elements = $( '[data-fee="origination"]' );
 
     $elements.each( function() {
-      let $loanFee = $( this ),
-          modifiedText;
+      const $loanFee = $( this );
 
-      modifiedText = financialView.round( $loanFee.text(), 2 );
+      const modifiedText = financialView.round( $loanFee.text(), 2 );
       $loanFee.text( modifiedText );
     } );
   },
@@ -87,33 +86,36 @@ const financialView = {
    * @param {object} financials - the financials model
    */
   setCaps: function( financials ) {
-    let capMap = {
-          pell: 'pellCap',
-          pellGrad: 'pellCap',
-          perkins: 'perkinsUnderCap',
-          perkinsGrad: 'perkinsGradCap',
-          militaryTuitionAssistance: 'militaryAssistanceCap',
-          militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
-          directSubsidized: 'subsidizedCapYearOne',
-          directSubsidizedGrad: 'subsidizedCapYearOne',
-          directUnsubsidized: 'unsubsidizedCapIndepYearOne',
-          directUnsubsidizedDep: 'unsubsidizedCapYearOne',
-          directUnsubsidizedThirdYear: 'unsubsidizedCapIndepYearThree',
-          directUnsubsidizedDepThirdYear: 'unsubsidizedCapYearThree',
-          directUnsubsidizedGrad: 'unsubsidizedCapGrad'
-        },
-        $elems = $( '[data-cap]' );
+    const capMap = {
+            pell: 'pellCap',
+            pellGrad: 'pellCap',
+            perkins: 'perkinsUnderCap',
+            perkinsGrad: 'perkinsGradCap',
+            militaryTuitionAssistance: 'militaryAssistanceCap',
+            militaryTuitionAssistanceGrad: 'militaryAssistanceCap',
+            directSubsidized: 'subsidizedCapYearOne',
+            directSubsidizedGrad: 'subsidizedCapYearOne',
+            directUnsubsidized: 'unsubsidizedCapIndepYearOne',
+            directUnsubsidizedDep: 'unsubsidizedCapYearOne',
+            directUnsubsidizedThirdYear: 'unsubsidizedCapIndepYearThree',
+            directUnsubsidizedDepThirdYear: 'unsubsidizedCapYearThree',
+            directUnsubsidizedGrad: 'unsubsidizedCapGrad'
+          },
+          $elems = $( '[data-cap]' );
 
     $elems.each( function() {
-      let $cap = $( this ),
-          prop = $cap.attr( 'data-cap' ),
-          capKey = capMap[prop],
-          text;
+      const $cap = $( this );
+      let prop = $cap.attr( 'data-cap' );
+      let capKey = capMap[prop];
+
       if ( financials.undergrad === false ) {
         prop += 'Grad';
         capKey = capMap[prop];
       }
-      text = formatUSD( { amount: financials[capKey], decimalPlaces: 0 } );
+      const text = formatUSD( {
+        amount: financials[capKey],
+        decimalPlaces: 0
+      } );
       $cap.text( text );
     } );
   },
@@ -135,10 +137,10 @@ const financialView = {
    */
   updateView: function( values ) {
     // handle non-private-loan fields
-    let $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
-        $percents = $nonPrivate.filter( '[data-percentage_value]' ),
-        $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
-        $privateLoans = $( '[data-private-loan]' );
+    const $nonPrivate = this.$elements.not( '[data-private-loan_key]' ),
+          $percents = $nonPrivate.filter( '[data-percentage_value]' ),
+          $leftovers = $nonPrivate.not( '[data-percentage_value]' ),
+          $privateLoans = $( '[data-private-loan]' );
     this.updatePercentages( values, $percents );
     this.updateLeftovers( values, $leftovers );
     this.updatePrivateLoans( values, $privateLoans );
@@ -156,8 +158,8 @@ const financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    let originalValue = $ele.val() || $ele.text(),
-        isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
+    const originalValue = $ele.val() || $ele.text(),
+          isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }
@@ -183,9 +185,9 @@ const financialView = {
    */
   updatePercentages: function( values, $percents ) {
     $percents.not( '#' + financialView.currentInput ).each( function() {
-      let $ele = $( this ),
-          name = $ele.attr( 'data-financial' ),
-          value = financialView.round( values[name] * 100, 3 );
+      const $ele = $( this ),
+            name = $ele.attr( 'data-financial' ),
+            value = financialView.round( values[name] * 100, 3 );
       financialView.updateElement( $ele, value, false );
     } );
   },
@@ -198,9 +200,9 @@ const financialView = {
    */
   updateLeftovers: function( values, $leftovers ) {
     $leftovers.not( '#' + financialView.currentInput ).each( function() {
-      let $ele = $( this ),
-          currency = true,
-          name = $ele.attr( 'data-financial' );
+      const $ele = $( this );
+      let currency = true;
+      const name = $ele.attr( 'data-financial' );
       if ( financialView.currentInput === $( this ).attr( 'id' ) ) {
         currency = false;
       }
@@ -218,15 +220,15 @@ const financialView = {
    */
   updatePrivateLoans: function( values, $privateLoans ) {
     $privateLoans.each( function() {
-      let $loanElements = $( this ),
-          index = $loanElements.index(),
-          $fields = $loanElements.find( '[data-private-loan_key]' );
+      const $loanElements = $( this );
+      const index = $loanElements.index();
+      const $fields = $loanElements.find( '[data-private-loan_key]' );
       $fields.not( '#' + financialView.currentInput ).each( function() {
-        let $ele = $( this ),
-            key = $ele.attr( 'data-private-loan_key' ),
-            val = values.privateLoanMulti[index][key],
-            id = $ele.attr( 'id' ),
-            isntCurrentInput = id !== financialView.currentInput;
+        const $ele = $( this );
+        const key = $ele.attr( 'data-private-loan_key' );
+        let val = values.privateLoanMulti[index][key];
+        const id = $ele.attr( 'id' );
+        const isntCurrentInput = id !== financialView.currentInput;
         if ( $ele.is( '[data-percentage_value="true"]' ) ) {
           val *= 100;
           $ele.val( financialView.round( val, 3 ) );
@@ -244,11 +246,11 @@ const financialView = {
    * that is based on the remaining cost
    */
   updateRemainingCostContent: function() {
-    let model = getFinancial.values(),
-        gap = Math.round( model.gap ),
-        overborrowing = Math.round( model.overborrowing ),
-        positiveRemainingCost = $( '.offer-part_content-positive-cost' ),
-        negativeRemainingCost = $( '.offer-part_content-negative-cost' );
+    const model = getFinancial.values();
+    const gap = Math.round( model.gap );
+    const overborrowing = Math.round( model.overborrowing );
+    const positiveRemainingCost = $( '.offer-part_content-positive-cost' );
+    const negativeRemainingCost = $( '.offer-part_content-negative-cost' );
     positiveRemainingCost.hide();
     negativeRemainingCost.hide();
 
@@ -368,8 +370,8 @@ const financialView = {
     // check errors for overCap errors
     for ( const error in errors ) {
       if ( errors.hasOwnProperty( error ) ) {
-        let key = errorMap[error],
-            selector = '[data-calc-error="' + key + '"]';
+        const key = errorMap[error];
+        const selector = '[data-calc-error="' + key + '"]';
         $( selector ).show();
       }
     }
@@ -380,19 +382,19 @@ const financialView = {
    * @param {object} errors - Errors object
    */
   checkOverBorrowingErrors: function( errors ) {
-    let overBorrowingErrors = [
-          'perkinsOverCost', 'subsidizedOverCost',
-          'unsubsidizedOverCost', 'gradPlusOverCost'
-        ],
-        errorMap = {
-          subsidizedOverCost: 'contrib__subsidized',
-          unsubsidizedOverCost: 'contrib__unsubsidized',
-          perkinsOverCost: 'contrib__perkins',
-          gradPlusOverCost: 'contrib__direct-plus'
-        },
-        showOverBorrowing = false,
-        $over = $( '[data-calc-error="overBorrowing"]' ),
-        errorInput;
+    const overBorrowingErrors = [
+      'perkinsOverCost', 'subsidizedOverCost',
+      'unsubsidizedOverCost', 'gradPlusOverCost'
+    ];
+    const errorMap = {
+      subsidizedOverCost: 'contrib__subsidized',
+      unsubsidizedOverCost: 'contrib__unsubsidized',
+      perkinsOverCost: 'contrib__perkins',
+      gradPlusOverCost: 'contrib__direct-plus'
+    };
+    let showOverBorrowing = false;
+    const $over = $( '[data-calc-error="overBorrowing"]' );
+    let errorInput;
 
     // check for over-borrowing
     for ( let i = 0; i < overBorrowingErrors.length; i++ ) {
@@ -412,8 +414,8 @@ const financialView = {
    */
   addPrivateListener: function() {
     this.$addPrivateButton.click( function() {
-      let $container = $( '.private-loans' ),
-          $button = $( '[data-add-loan-button]' );
+      const $container = $( '.private-loans' );
+      const $button = $( '[data-add-loan-button]' );
       financialView.$privateLoanClone.clone().insertBefore( $button );
       financialView.enumeratePrivateLoanIDs();
       $container.find( '[data-private-loan]:last .aid-form_input' ).val( '0' );
@@ -429,8 +431,8 @@ const financialView = {
   removePrivateListener: function() {
     const buttonClass = '.private-loans_remove-btn';
     this.$privateContainer.on( 'click', buttonClass, function() {
-      let $ele = $( this ).closest( '[data-private-loan]' ),
-          index = $ele.index();
+      const $ele = $( this ).closest( '[data-private-loan]' );
+      const index = $ele.index();
       $ele.remove();
       financialView.enumeratePrivateLoanIDs();
       publish.dropPrivateLoan( index );
@@ -459,12 +461,12 @@ const financialView = {
   enumeratePrivateLoanIDs: function() {
     // renumber private loan ids to prevent duplicate IDs
     $( '[data-private-loan]' ).each( function() {
-      let index = $( this ).index(),
-          $ele = $( this ),
-          $fields = $ele.find( '[data-private-loan_key]' );
+      const index = $( this ).index();
+      const $ele = $( this );
+      const $fields = $ele.find( '[data-private-loan_key]' );
       $fields.each( function() {
-        let name = $( this ).attr( 'name' ),
-            newID = name + '_' + index.toString();
+        const name = $( this ).attr( 'name' );
+        const newID = name + '_' + index.toString();
         $( this ).attr( 'id', newID );
       } );
     } );
@@ -807,8 +809,8 @@ const financialView = {
    * if the summaries are in the inline-block sidebar column
    */
   stickySummariesListener: function() {
-    let $stickyOffers = $( '.offer-part_summary-wrapper' ),
-        $win = $( window );
+    const $stickyOffers = $( '.offer-part_summary-wrapper' );
+    const $win = $( window );
 
     if ( $win.width() >= 600 && $stickyOffers.data( 'sticky_kit' ) !== true ) {
       // Attach event handler
@@ -838,9 +840,9 @@ const financialView = {
    */
   termToggleListener: function() {
     $( '[data-repayment-section] input' ).click( function() {
-      let $ele = $( this ),
-          $toggles = $( '[data-repayment-section] input' ),
-          term = $ele.val();
+      const $ele = $( this );
+      const $toggles = $( '[data-repayment-section] input' );
+      const term = $ele.val();
       publish.financialData( 'repaymentTerm', term );
       $toggles.prop( 'checked', false );
       $toggles.filter( '[value="' + term + '"]' ).prop( 'checked', true );

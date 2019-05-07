@@ -15,12 +15,12 @@ const getViewValues = {
     const $privateLoans = $( '[data-private-loan]' );
     values.privateLoanMulti = [];
     $privateLoans.each( function() {
-      let $ele = $( this ),
-          $fields = $ele.find( '[data-private-loan_key]' ),
-          loanObject = { amount: 0, totalLoan: 0, rate: 0, deferPeriod: 0 };
+      const $ele = $( this );
+      const $fields = $ele.find( '[data-private-loan_key]' );
+      const loanObject = { amount: 0, totalLoan: 0, rate: 0, deferPeriod: 0 };
       $fields.each( function() {
-        let key = $( this ).attr( 'data-private-loan_key' ),
-            value = $( this ).val();
+        const key = $( this ).attr( 'data-private-loan_key' );
+        let value = $( this ).val();
         if ( key === 'rate' ) {
           value /= 100;
         }

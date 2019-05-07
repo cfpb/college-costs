@@ -5,8 +5,8 @@ const Analytics = require( './Analytics' );
 const getDataLayerOptions = Analytics.getDataLayerOptions;
 require( '../libs/google-cloud-print' );
 
-let ua = navigator.userAgent.toLowerCase(),
-    isAndroid = ua.indexOf( 'android' ) > -1;
+const ua = navigator.userAgent.toLowerCase();
+const isAndroid = ua.indexOf( 'android' ) > -1;
 
 /**
  * Print the current screen using Google Cloud Print for Android devices.
