@@ -42,7 +42,9 @@ def get_stats_yaml():
         nat_yaml = requests.get(COLLEGE_CHOICE_NATIONAL_DATA_URL)
         if nat_yaml.ok and nat_yaml.text:
             nat_dict = yaml.safe_load(nat_yaml.text)
-    except Exception:
+    except AttributeError:  # If response.text has no value
+        return nat_dict
+    except requests.exceptions.ConnectionError:  # If requests can't connect
         return nat_dict
     else:
         return nat_dict

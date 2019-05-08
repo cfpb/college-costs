@@ -458,6 +458,17 @@ class TestScripts(django.test.TestCase):
         self.assertTrue(fstring.endswith('25000'))
 
     @patch('paying_for_college.disclosures.scripts.nat_stats.requests.get')
+    def test_bad_nat_stats_request(self, mock_requests):
+        mock_requests.side_effect = requests.exceptions.ConnectionError
+        self.assertEqual(nat_stats.get_stats_yaml(), {})
+
+    @patch('paying_for_college.disclosures.scripts.nat_stats.yaml.safe_load')
+    @patch('paying_for_college.disclosures.scripts.nat_stats.requests.get')
+    def test_nat_stats_request_returns_none(self, mock_requests, mock_yaml):
+        mock_yaml.side_effect = AttributeError
+        self.assertEqual(nat_stats.get_stats_yaml(), {})
+
+    @patch('paying_for_college.disclosures.scripts.nat_stats.requests.get')
     def test_get_stats_yaml(self, mock_requests):
         mock_response = mock.Mock()
         mock_response.text = MOCK_YAML
