@@ -5,10 +5,6 @@ STANDALONE = True
 
 SECRET_KEY = "forstandaloneonly"
 
-STATICFILES_DIRS = (
-    PROJECT_ROOT.child('local_static'),
-)
-
 HAYSTACK_CONNECTIONS = {'default':
                         {'ENGINE':
                          ('haystack.backends.elasticsearch_backend.'
