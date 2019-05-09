@@ -148,7 +148,7 @@ def read_csv(fpath, encoding='utf-8'):
             reader = cdr(f, encoding=encoding)
             data = [row for row in reader]
             return reader.fieldnames, data
-    else:
+    else:  # pragma: no cover
         with open(fpath, newline='', encoding=encoding) as f:
             reader = cdr(f)
             data = [row for row in reader]

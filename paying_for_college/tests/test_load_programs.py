@@ -13,10 +13,10 @@ from paying_for_college.disclosures.scripts.load_programs import (
 from paying_for_college.models import Program, School
 
 
-if six.PY2:  # pragma: no qa
+if six.PY2:
     from mock import mock_open, patch
-else:  # pragma: no qa
-    from unittest.mock import mock_open, patch  # pragma: no qa
+else:  # pragma: no cover
+    from unittest.mock import mock_open, patch
 
 
 class TestLoadPrograms(django.test.TestCase):

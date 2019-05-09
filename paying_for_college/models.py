@@ -10,16 +10,17 @@ from string import Template
 
 from django.core.mail import send_mail
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 import requests
 
 
-if six.PY2:
-    from unicodecsv import writer as csw
-    from unicodecsv import DictReader as cdr
-else:  # pgragma: no qa
-    from csv import writer as csw
-    from csv import DictReader as cdr  # noqa
+if six.PY2:  # pragma: no cover
+    from unicodecsv import writer as csw  # pragma: no cover
+    from unicodecsv import DictReader as cdr  # noqa # pragma: no cover
+else:  # pragma: no cover
+    from csv import writer as csw  # pragma: no cover
+    from csv import DictReader as cdr  # noqa # pragma: no cover
 
 REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
                      'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
@@ -85,6 +86,7 @@ def make_divisible_by_6(value):
         return value + (6 - (value % 6))
 
 
+@python_2_unicode_compatible
 class ConstantRate(models.Model):
     """Rate values that generally only change annually"""
     name = models.CharField(max_length=255)
@@ -102,6 +104,7 @@ class ConstantRate(models.Model):
         ordering = ['slug']
 
 
+@python_2_unicode_compatible
 class ConstantCap(models.Model):
     """Cap values that generally only change annually"""
     name = models.CharField(max_length=255)
@@ -167,6 +170,7 @@ class ConstantCap(models.Model):
 # ZIP (now school.zip5)
 
 
+@python_2_unicode_compatible
 class Contact(models.Model):
     """school endpoint or email to which we send confirmations"""
     contacts = models.TextField(
@@ -182,6 +186,7 @@ class Contact(models.Model):
         )
 
 
+@python_2_unicode_compatible
 class School(models.Model):
     """
     Represents a school
@@ -442,6 +447,7 @@ class Feedback(DisclosureBase):
     message = models.TextField()
 
 
+@python_2_unicode_compatible
 class Notification(DisclosureBase):
     """record of a disclosure verification"""
     institution = models.ForeignKey(School)
@@ -478,7 +484,7 @@ class Notification(DisclosureBase):
         if school.contact:
             if school.contact.endpoint:
                 endpoint = school.contact.endpoint
-                if type(endpoint) == str:
+                if type(endpoint) == six.text_type:
                     endpoint = endpoint.encode('utf-8')
                 try:
                     resp = requests.post(endpoint, data=payload, timeout=10)
@@ -552,6 +558,7 @@ class Notification(DisclosureBase):
             return no_contact_msg
 
 
+@python_2_unicode_compatible
 class Disclosure(models.Model):
     """Legally required wording for aspects of a school's aid disclosure"""
     name = models.CharField(max_length=255)
@@ -562,6 +569,7 @@ class Disclosure(models.Model):
         return self.name + " ({})".format(self.institution)
 
 
+@python_2_unicode_compatible
 class Program(models.Model):
     """
     Cost and outcome info for an individual course of study at a school
@@ -787,6 +795,7 @@ class Program(models.Model):
 #         super(Offer, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Alias(models.Model):
     """
     One of potentially several names for a school
@@ -802,6 +811,7 @@ class Alias(models.Model):
         verbose_name_plural = "Aliases"
 
 
+@python_2_unicode_compatible
 class Nickname(models.Model):
     """
     One of potentially several nicknames for a school

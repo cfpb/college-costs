@@ -15,10 +15,10 @@ from paying_for_college.models import (
 )
 
 
-if six.PY2:  # pragma: no qa
+if six.PY2:  # pragma: no cover
     import mock
     from mock import mock_open, patch
-else:  # pragma: no qa
+else:  # pragma: no cover
     from unittest import mock
     from unittest.mock import mock_open, patch
 
@@ -151,6 +151,7 @@ class SchoolModelsTest(TestCase):
         noti = self.create_notification(s)
         self.assertTrue(isinstance(noti, Notification))
         self.assertIn(noti.oid, noti.__str__())
+
         self.assertTrue(s.convert_ope6() == '005555')
         self.assertTrue(s.convert_ope8() == '00555500')
         self.assertTrue('Bachelor' in s.get_highest_degree())
@@ -162,6 +163,20 @@ class SchoolModelsTest(TestCase):
         s.ope8_id = None
         self.assertTrue(s.convert_ope6() == '')
         self.assertTrue(s.convert_ope8() == '')
+
+    @mock.patch('paying_for_college.models.requests.get')
+    def test_notification_request(self, mock_requests):
+        contact = self.create_contact()
+        unicode_endpoint = 'http://unicode.contact.com'
+        contact.endpoint = unicode_endpoint
+        contact.save()
+        school = self.create_school()
+        school.contact = contact
+        notification = self.create_notification(school)
+        notification.notify_school()
+        self.assertTrue(
+            mock_requests.called_with, unicode_endpoint.encode('utf-8')
+        )
 
     def test_constant_models(self):
         cr = ConstantRate(name='cr test', slug='crTest', value='0.1')

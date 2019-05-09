@@ -6,7 +6,7 @@ from django.core.management import call_command
 if six.PY2:
     import unittest
     import mock
-else:
+else:  # pragma: no cover
     import unittest
     from unittest import mock
 
