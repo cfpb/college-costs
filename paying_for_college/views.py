@@ -1,6 +1,7 @@
 import json
 import os
 import re
+from collections import OrderedDict
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -20,11 +21,6 @@ from paying_for_college.models import (
     Worksheet
 )
 
-
-try:
-    from collections import OrderedDict
-except Exception:  # pragma: no cover
-    from ordereddict import OrderedDict
 
 BASEDIR = os.path.dirname(__file__)
 
