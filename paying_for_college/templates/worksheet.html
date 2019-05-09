@@ -35,8 +35,10 @@
 {% endblock %}
 {% block responsive_nav %}
 <div class="hidden" id="test-store"></div>
-<a class="toggle-menu" href="#"><i class="cf-icon cf-icon-menu"></i>
-    <span class="u-visually-hidden">Menu</span></a>
+<a class="toggle-menu" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 784.5 1200" class="cf-icon-svg"><path d="M65 370.5h654.5c35.9 0 65-29.1 65-65s-29.1-65-65-65H65c-35.9 0-65 29.1-65 65s29.1 65 65 65zM719.5 515H65c-35.9 0-65 29.1-65 65s29.1 65 65 65h654.5c35.9 0 65-29.1 65-65s-29.1-65-65-65zM719.5 789.4H65c-35.9 0-65 29.1-65 65s29.1 65 65 65h654.5c35.9 0 65-29.1 65-65s-29.1-65-65-65z"></path></svg>
+    <span class="u-visually-hidden">Menu</span>
+</a>
 {% endblock %}
 {% block content %}
 <main id="main" data-context="{{url_root}}">
@@ -60,18 +62,24 @@
         <div class="content_line"></div>
         <section class="verify step content_wrapper">
             <div class="content_main">
+
                 <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noSchool">
-                  <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
+                  <span class="cf-notification_icon cf-notification_icon__error" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                  </span>
                   <div class="cf-notification_text">
                     <p>The information your school provided is missing the school ID, which is vital information for this tool to work. Please contact your school and ask them to ensure they are sending us the right school ID and it's in the correct format.</p>
 
                     <p>Once your school provides you with an updated URL link, you will be able to return here so you can continue reviewing the information in the tool.</p>
                   </div>
                 </div>
+
                 <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noProgram">
-                  <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
+                  <span class="cf-notification_icon cf-notification_icon__error" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                  </span>
                   <div class="cf-notification_text">
                     <p>The information your school provided is missing the program ID, which is vital information for this tool to work. Please contact your school and ask them to ensure they are sending us the right program ID and it's in the correct format.</p>
 
@@ -80,7 +88,9 @@
                 </div>
                 <div class="cf-notification cf-notification__error verify_content"
                 data-missing-data-error="noOffer">
-                  <span class="cf-notification_icon cf-notification_icon__error cf-icon cf-icon-delete-round" role="alert"></span>
+                  <span class="cf-notification_icon cf-notification_icon__error" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                  </span>
                   <div class="cf-notification_text">
                     <p>The information your school provided is missing the offer ID, which is vital information for this tool to work. Please contact your school and ask them to ensure they are sending us the right offer ID and it's in the correct format.</p>
 
@@ -450,10 +460,11 @@
                                             data-financial="pell"
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error" data-calc-error="pell">
-                                                <span class="cf-icon cf-icon-error-round"></span> The maximum that can be awarded per year is <span data-cap="pell">$0</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                                The maximum that can be awarded per year is <span data-cap="pell">$0</span>
                                             </div>
                                             <div class="aid-form_calc-error" data-calc-error="overBorrowing">
-                                                <span class="cf-icon cf-icon-error-round"></span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
                                                 The total of your federal aid can't be more than the total cost of attendance
                                             </div>
                                         </div>
@@ -542,9 +553,8 @@
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error"
                                             data-calc-error="militaryTuitionAssistance">
-                                                <span class="cf-icon
-                                                cf-icon-error-round"></span>The
-                                                maximum that can be awarded per
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                                The maximum that can be awarded per
                                                 year is <span
                                                 data-cap="militaryTuitionAssistance">$0</span>
                                             </div>
@@ -948,7 +958,8 @@
                                             data-financial="perkins"
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error" data-calc-error="perkins">
-                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                                The maximum that can be borrowed per year is
                                                 <span data-cap="perkins">$0</span>
                                             </div>
                                         </div>
@@ -988,7 +999,8 @@
                                             data-financial="directSubsidized"
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error" data-calc-error="directSubsidized">
-                                                <span class="cf-icon cf-icon-error-round"></span>The maximum that can be borrowed per year is
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                                The maximum that can be borrowed per year is
                                                 <span data-cap="directSubsidized">$0</span>
                                             </div>
                                         </div>
@@ -1040,7 +1052,7 @@
                                             data-financial="directUnsubsidized"
                                             autocorrect="off" value="0">
                                             <div class="aid-form_calc-error" data-calc-error="directUnsubsidized">
-                                                <span class="cf-icon cf-icon-error-round"></span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
                                                 <span data-calc-error_content="directUnsubsidized">The maximum subsidized and unsubsidized loans that can be borrowed per year is</span>
                                                 <span data-cap="directUnsubsidized">$0</span>
                                             </div>
@@ -1164,8 +1176,7 @@
                                                 type="button"
                                                 title="Remove this private loan">
                                                     Remove
-                                                    <span class="cf-icon
-                                                    cf-icon-delete-round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
                                                 </span>
                                                 </button>
                                             </div>
@@ -1277,8 +1288,7 @@
                                                 type="button"
                                                 title="Remove this private loan">
                                                     Remove
-                                                    <span class="cf-icon
-                                                    cf-icon-delete-round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
                                                 </span>
                                                 </button>
                                             </div>
@@ -1386,8 +1396,7 @@
                                                 type="button"
                                                 title="Remove this private loan">
                                                     Remove
-                                                    <span class="cf-icon
-                                                    cf-icon-delete-round">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
                                                 </span>
                                                 </button>
                                             </div>
@@ -1488,8 +1497,7 @@
                                         private-loans_add-btn" type="button"
                                         title="Add another private loan"
                                         data-add-loan-button="true">
-                                            <span class="cf-icon
-                                            cf-icon-plus-round"></span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm263.1 550.7H549.6v213.6c0 27.6-22.4 50-50 50s-50-22.4-50-50V655.9H236c-27.6 0-50-22.4-50-50s22.4-50 50-50h213.6V342.3c0-27.6 22.4-50 50-50s50 22.4 50 50v213.6h213.6c27.6 0 50 22.4 50 50s-22.5 50-50.1 50z"></path></svg>
                                             Add another private loan
                                         </button>
                                     </div>
@@ -2089,8 +2097,9 @@
                                         <p class="cf-notification_text
                                         metric_notification_text__worse">
                                             <span class="cf-notification_icon
-                                            cf-notification_icon__error cf-icon
-                                            cf-icon-error-round"></span>
+                                            cf-notification_icon__error">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                            </span>
                                             Lower graduation rate than national
                                             average
                                         </p>
@@ -2218,8 +2227,9 @@
                                         <p class="cf-notification_text
                                         metric_notification_text__worse">
                                             <span class="cf-notification_icon
-                                            cf-notification_icon__error cf-icon
-                                            cf-icon-error-round"></span>
+                                            cf-notification_icon__error">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                            </span>
                                             Projected first-year salary is
                                             lower than total student debt
                                         </p>
@@ -2495,10 +2505,10 @@
                                           </p>
                                           <p class="cf-notification_text
                                           metric_notification_text__worse">
-                                              <span class="cf-notification_icon
-                                              cf-notification_icon__error
-                                              cf-icon
-                                              cf-icon-error-round"></span>
+                                            <span class="cf-notification_icon
+                                                         cf-notification_icon__error">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                            </span>
                                               Loan payment is higher than
                                               recommended 8% of salary
                                           </p>
@@ -2907,8 +2917,9 @@
                                         <p class="cf-notification_text
                                         metric_notification_text__worse">
                                             <span class="cf-notification_icon
-                                            cf-notification_icon__error cf-icon
-                                            cf-icon-error-round"></span>
+                                                         cf-notification_icon__error">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" class="cf-icon-svg"><path d="M500 105.2c-276.1 0-500 223.9-500 500s223.9 500 500 500 500-223.9 500-500-223.9-500-500-500zm261.8 692.2c19.4 19.6 19.3 51.3-.3 70.7-19.5 19.3-50.9 19.3-70.4 0L499.6 676.6 308 868.1c-19.6 19.4-51.3 19.3-70.7-.3-19.3-19.5-19.3-50.9 0-70.4l191.6-191.5-191.6-191.6c-19.3-19.8-18.9-51.4.9-70.7 19.4-18.9 50.4-18.9 69.8 0l191.6 191.5 191.5-191.5c19.6-19.4 51.3-19.3 70.7.3 19.3 19.5 19.3 50.9 0 70.4L570.3 605.9l191.5 191.5z"></path></svg>
+                                            </span>
                                             Higher default rate than national
                                             average
                                         </p>
@@ -3269,8 +3280,9 @@
                                 <button class="a-btn a-btn__full-on-xs"
                                 type="button"
                                 data-gtm_ignore="true">
-                                    <span class="a-btn_icon__on-left cf-icon
-                                    cf-icon-print"></span>
+                                    <span class="a-btn_icon__on-left">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 761.9 1200" class="cf-icon-svg"><path d="M203.7 889.9h355v50h-355zM203.7 788.4h355v50h-355z"></path><path d="M670.9 368.4L477.3 174.8H122.1c-16.5 0-30 13.5-30 30V500H70c-38.5 0-70 31.5-70 70v305.5c0 38.5 31.5 70 70 70h22.1v60.5c0 16.5 13.5 30 30 30h518.8c16.5 0 30-13.5 30-30v-60.5h21c38.5 0 70-31.5 70-70V569.9c0-38.5-31.5-70-70-70h-21V368.4zm-60 607.6H152.1V742.7h458.8V976zM425 234.8v146.4c0 21.1 17.3 38.4 38.4 38.4h147.5V500H152.1V234.8H425zm237.9 403.9c-16.6 0-30-13.4-30-30s13.4-30 30-30 30 13.4 30 30-13.4 30-30 30z"></path></svg>
+                                    </span>
                                     Print
                                 </button>
                             </div>

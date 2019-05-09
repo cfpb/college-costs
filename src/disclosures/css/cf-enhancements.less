@@ -342,19 +342,20 @@ a.btn__full-small.btn__link {
     }
 
     &:after {
+        width: unit( @select-height / @base-font-size-px, em );
+        box-sizing: border-box;
+        border-left: 1px solid @select-border;
         position: absolute;
         top: 0;
         right: 0;
-        height: unit( 30px / @base-font-size-px, em );
-        width: unit( 30px / @base-font-size-px, em );
-        border-left: 1px solid @gray-40;
-        background-color: @gray-10;
-        color: @gray-60;
-        content: @cf-icon-down;
-        font-family: 'CFPB Minicons';
-        line-height: unit( 30px / @base-font-size-px, em );
-        text-align: center;
+        bottom: 0;
+        background-color: @select-icon-bg;
+        content: '';
         pointer-events: none;
+        background-image: url( '../icons/down.svg' );
+        background-size: auto @cf-icon-height;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
 }
 
