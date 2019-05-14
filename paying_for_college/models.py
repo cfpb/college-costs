@@ -370,7 +370,7 @@ class DisclosureBase(models.Model):
     def parsed_url(self):
         """parses a disclosure URL and returns a field:value dict"""
         data = {}
-        if not self.url or 'feedback' in self.url or '?' not in self.url:
+        if not self.url or '?' not in self.url:
             return data
         split_fields = self.url.replace(
             '#info-right', '').split('?')[1].split('&')
