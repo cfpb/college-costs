@@ -1,7 +1,11 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
+from django.test import TestCase
 
-from paying_for_college.validators import *
+from paying_for_college.validators import (
+    clean_boolean, clean_float, clean_integer, clean_string, clean_yes_no,
+    validate_uuid4
+)
+
 
 INVALID_UUID = """
 \r\n\r\nOMG CHECK OUT THIS TOTES LEGIT CFPB-APPROVED WEBSITE: /

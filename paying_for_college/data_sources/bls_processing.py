@@ -1,12 +1,13 @@
 import json
 
-from paying_for_college.csvkit.csvkit import DictReader as cdr
-from paying_for_college.models import School
+from paying_for_college.models import cdr
+
 
 """
 # Data processing steps
 
-This script was used to process a few xlsx files to look at expediture data based on income and region
+This script was used to process a few xlsx files to look at expediture data
+based on income and region
 - source: http://www.bls.gov/cex/
 - files under Region of residence by income before taxes:
   - xregnmw.xlsx
@@ -73,7 +74,7 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
     }
 
     INCOME_KEY_MAP = {
-        "Less than $5,000" : "less_than_5000",
+        "Less than $5,000": "less_than_5000",
         "$5,000 to $9,999": "5000_to_9999",
         "$10,000 to $14,999": "10000_to_14999",
         "$15,000 to $19,999": "15000_to_19999",
@@ -85,19 +86,21 @@ def add_bls_dict_with_region(base_bls_dict, region, csvfile):
     }
 
     data = load_bls_data(csvfile)
-    print "******Processing {} file...******".format(region)
+    print("******Processing {} file...******".format(region))
     for row in data:
         item = row['Item'].strip()
         if item in CATEGORIES_KEY_MAP.keys():
-            print "Current processing {}.....".format(item)
-            print "Will be adding {} to base_bls_dict...".format(CATEGORIES_KEY_MAP[item])
+            print("Current processing {}.....".format(item))
+            print("Will be adding {} to base_bls_dict...".format(
+                CATEGORIES_KEY_MAP[item]))
             base_bls_dict[CATEGORIES_KEY_MAP[item]].setdefault(region, {})
             for income_key, income_json_key in INCOME_KEY_MAP.items():
-                print "adding {} ...".format(income_key)
-                amount = int(row[income_key].replace(',',''))
-                print "amount: {}".format(amount)
-                base_bls_dict[CATEGORIES_KEY_MAP[item]][region].setdefault(income_json_key, 0)
-                base_bls_dict[CATEGORIES_KEY_MAP[item]][region][income_json_key] += amount
+                print("adding {} ...".format(income_key))
+                amount = int(row[income_key].replace(',', ''))
+                print("amount: {}".format(amount))
+                base_bls_dict[CATEGORIES_KEY_MAP[item]][region].setdefault(
+                    income_json_key, 0)
+                base_bls_dict[CATEGORIES_KEY_MAP[item]][region][income_json_key] += amount  # noqa
 
 
 def bls_as_dict(we_csvfile, ne_csvfile, mw_csvfile, so_csvfile):

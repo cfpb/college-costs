@@ -1,5 +1,7 @@
 from django.conf.urls import url
+
 from paying_for_college.views import *
+
 
 urlpatterns = [
     # url(r'^$',

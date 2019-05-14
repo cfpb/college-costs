@@ -1,34 +1,24 @@
 import datetime
 import json
 import os
-import sys
+import six
 import zipfile
-from subprocess import call
 from collections import OrderedDict
+from subprocess import call
+
+from django.contrib.humanize.templatetags.humanize import intcomma
 
 import requests
+from paying_for_college.models import Alias, School, cdr, csw
+from paying_for_college.views import get_school
 from unipath import Path
 
-# try:
-#     from csvkit import CSVKitDictReader as cdr
-# except:  # pragma: no cover
-#     from csv import DictReader as cdr
-# try:
-#     from csvkit import CSVKitWriter as cwriter
-# except:  # pragma: no cover
-#     from csv import writer as cwriter
-
-from paying_for_college.csvkit.csvkit import DictReader as cdr
-from paying_for_college.csvkit.csvkit import Writer as cwriter
-from paying_for_college.views import get_school
-from paying_for_college.models import School, Alias
-from django.contrib.humanize.templatetags.humanize import intcomma
 
 SCRIPT = os.path.basename(__file__).partition('.')[0]
 PFC_ROOT = Path(__file__).ancestor(3)
 # LATEST_YEAR specifies first year of academic-year data
 # So 2015 would fetch data for 2015-2016 cycle
-LATEST_YEAR = datetime.datetime.now().year-1
+LATEST_YEAR = datetime.datetime.now().year - 1
 ipeds_directory = '{}/data_sources/ipeds'.format(PFC_ROOT)
 ipeds_data_url = 'http://nces.ed.gov/ipeds/datacenter/data'
 data_slug = 'IC{}_AY'.format(LATEST_YEAR)
@@ -118,7 +108,7 @@ def download_zip_file(url, zip_file):
 
 def write_clean_csv(fpath, fieldnames, clean_headings, data):
     with open(fpath, 'w') as f:
-        writer = cwriter(f)
+        writer = csw(f)
         writer.writerow(clean_headings)
         for row in data:
             writer.writerow([row[name] for name in fieldnames])
@@ -144,24 +134,30 @@ def download_files():
         target = DATA_VARS['{}_zip'.format(slug)]
         target_slug = target.split('/')[-1]
         if download_zip_file(url, target):
-            print "downloaded {}".format(target_slug)
+            print("Downloaded {}".format(target_slug))
         else:
-            print "failed to download {}".format(target_slug)
+            print("Failed to download {}".format(target_slug))
     clean_csv_headings()
 
 
 def read_csv(fpath, encoding='utf-8'):
     if not os.path.isfile(fpath):
         download_files()
-    with open(fpath, 'r') as f:
-        reader = cdr(f, encoding=encoding)
-        data = [row for row in reader]
-        return reader.fieldnames, data
+    if six.PY2:
+        with open(fpath, 'r') as f:
+            reader = cdr(f, encoding=encoding)
+            data = [row for row in reader]
+            return reader.fieldnames, data
+    else:  # pragma: no cover
+        with open(fpath, newline='', encoding=encoding) as f:
+            reader = cdr(f)
+            data = [row for row in reader]
+            return reader.fieldnames, data
 
 
 def dump_csv(fpath, header, data):
     with open(fpath, 'w') as f:
-        writer = cwriter(f)
+        writer = csw(f)
         writer.writerow(header)
         for row in data:
             writer.writerow([row[heading] for heading in header])
@@ -203,7 +199,7 @@ def create_school(id, data):
             setattr(school, field, data[field])
     school.zip5 = school.zip5[:5]
     school.save()
-    alias = create_alias(ALIAS, school)
+    create_alias(ALIAS, school)
 
 
 def process_missing(missing_ids):
@@ -252,19 +248,23 @@ def load_values(dry_run=True):
                 school.save()
             updated += 1
     if dry_run:
-        msg = ("DRY RUN:\n"
-               "- {} would have updated {} data points for {} schools\n"
-               "- {} schools found with on-campus housing\n"
-               "- {} new school records "
-               "would have been created".format(SCRIPT,
-                                                icomma(points),
-                                                icomma(updated),
-                                                icomma(oncampus),
-                                                len(missing)))
+        msg = (
+            "DRY RUN:\n"
+            "- {} would have updated {} data points for {} schools\n"
+            "- {} schools found with on-campus housing\n"
+            "- {} new school records "
+            "would have been created".format(
+                SCRIPT,
+                icomma(points),
+                icomma(updated),
+                icomma(oncampus),
+                len(missing)))
         return msg
-    msg = ("{} updated {} data points for {} schools;\n"
-           "{} new school records were created".format(SCRIPT,
-                                                       icomma(points),
-                                                       icomma(updated),
-                                                       len(missing)))
+    msg = (
+        "{} updated {} data points for {} schools;\n"
+        "{} new school records were created".format(
+            SCRIPT,
+            icomma(points),
+            icomma(updated),
+            len(missing)))
     return msg

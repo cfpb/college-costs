@@ -1,7 +1,7 @@
-import datetime
+from django.core.management.base import BaseCommand
 
-from django.core.management.base import BaseCommand, CommandError
 from paying_for_college.disclosures.scripts import update_colleges
+
 
 COMMAND_HELP = """update_via_api gets school-level data from the Department of \
 Education's CollegeScorecard API. The script intentionally runs slowly \
@@ -15,15 +15,12 @@ class Command(BaseCommand):
     help = COMMAND_HELP
 
     def add_arguments(self, parser):
-        parser.add_argument('--school_id',
-                            help=PARSER_HELP,
-                            default=False)
+        parser.add_argument('--school_id', help=PARSER_HELP, default=False)
 
     def handle(self, *args, **options):
         try:
-            (failed,
-             no_data,
-             endmsg) = update_colleges.update(single_school=options['school_id'])
+            (failed, no_data, endmsg) = update_colleges.update(
+                single_school=options['school_id'])
         except(IndexError):
             self.stdout.write(ID_ERROR.format(options['school_id']))
         else:

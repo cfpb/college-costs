@@ -1,7 +1,9 @@
-import datetime
+from django.core.management.base import BaseCommand
 
-from django.core.management.base import BaseCommand, CommandError
-from paying_for_college.disclosures.scripts.notifications import send_stale_notifications
+from paying_for_college.disclosures.scripts.notifications import (
+    send_stale_notifications
+)
+
 
 COMMAND_HELP = "Send_stale_notifications gathers up stale notifications -- "
 "those that are more than a day old and have failed to reach a school -- "

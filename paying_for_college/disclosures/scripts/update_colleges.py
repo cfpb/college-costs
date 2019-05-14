@@ -1,18 +1,20 @@
 """Update college data using the Dept. of Education's collegechoice api"""
 from __future__ import print_function
+
+import datetime
+import json
 import os
 import sys
 import time
-import json
-import datetime
-# import pprint
-# PP = pprint.PrettyPrinter(indent=4)
 
 import requests
-
 from paying_for_college.disclosures.scripts import api_utils
 from paying_for_college.disclosures.scripts.api_utils import MODEL_MAP
-from paying_for_college.models import School, CONTROL_MAP
+from paying_for_college.models import CONTROL_MAP, School
+
+
+# import pprint
+# PP = pprint.PrettyPrinter(indent=4)
 
 DATESTAMP = datetime.datetime.now().strftime("%Y-%m-%d")
 HOME = os.path.expanduser("~")

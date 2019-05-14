@@ -1,4 +1,4 @@
-from .load_programs import read_in_s3
+from paying_for_college.disclosures.scripts.load_programs import read_in_s3
 from paying_for_college.views import get_school
 
 
@@ -27,6 +27,5 @@ def tag_schools(s3_url):
             school.save()
             counter += 1
     intro = "school was" if counter == 1 else "schools were"
-    return "{} {} tagged as '{}' settlement schools".format(counter,
-                                                            intro,
-                                                            initial_flag)
+    return "{} {} tagged as '{}' settlement schools".format(
+        counter, intro, initial_flag)

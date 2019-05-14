@@ -1,19 +1,26 @@
-from __future__ import print_function
+# -*- coding: utf-8 -*-
+from __future__ import print_function, unicode_literals
 
 import datetime
-from django.db import models
-try:
-    from collections import OrderedDict
-except:  # pragma: no cover
-    from ordereddict import OrderedDict
 import json
-from string import Template
+import six
 import smtplib
+from collections import OrderedDict
+from string import Template
+
+from django.core.mail import send_mail
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 
 import requests
 
-from paying_for_college.csvkit.csvkit import Writer as cdw
-from django.core.mail import send_mail
+
+if six.PY2:  # pragma: no cover
+    from unicodecsv import writer as csw  # pragma: no cover
+    from unicodecsv import DictReader as cdr  # noqa # pragma: no cover
+else:  # pragma: no cover
+    from csv import writer as csw  # pragma: no cover
+    from csv import DictReader as cdr  # noqa # pragma: no cover
 
 REGION_MAP = {'MW': ['IL', 'IN', 'IA', 'KS', 'MI', 'MN',
                      'MO', 'NE', 'ND', 'OH', 'SD', 'WI'],
@@ -40,7 +47,7 @@ HIGHEST_DEGREES = {  # highest-awarded values from Ed API and our CSV spec
     '2': "Associate degree",
     '3': "Bachelor's degree",
     '4': "Graduate degree"
-    }
+}
 
 LEVELS = {  # Dept. of Ed classification of post-secondary degree levels
     '1': "Program of less than 1 academic year",
@@ -79,6 +86,7 @@ def make_divisible_by_6(value):
         return value + (6 - (value % 6))
 
 
+@python_2_unicode_compatible
 class ConstantRate(models.Model):
     """Rate values that generally only change annually"""
     name = models.CharField(max_length=255)
@@ -89,25 +97,27 @@ class ConstantRate(models.Model):
     note = models.TextField(blank=True)
     updated = models.DateField(auto_now=True)
 
-    def __unicode__(self):
-        return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
+    def __str__(self):
+        return "{} ({}), updated {}".format(self.name, self.slug, self.updated)
 
     class Meta:
         ordering = ['slug']
 
 
+@python_2_unicode_compatible
 class ConstantCap(models.Model):
     """Cap values that generally only change annually"""
     name = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255,
-                            blank=True,
-                            help_text="VARIABLE NAME FOR JS")
+    slug = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="VARIABLE NAME FOR JS")
     value = models.IntegerField()
     note = models.TextField(blank=True)
     updated = models.DateField(auto_now=True)
 
-    def __unicode__(self):
-        return u"%s (%s), updated %s" % (self.name, self.slug, self.updated)
+    def __str__(self):
+        return "{} ({}), updated {}".format(self.name, self.slug, self.updated)
 
     class Meta:
         ordering = ['slug']
@@ -160,6 +170,7 @@ class ConstantCap(models.Model):
 # ZIP (now school.zip5)
 
 
+@python_2_unicode_compatible
 class Contact(models.Model):
     """school endpoint or email to which we send confirmations"""
     contacts = models.TextField(
@@ -169,11 +180,13 @@ class Contact(models.Model):
     name = models.CharField(max_length=255, blank=True)
     internal_note = models.TextField(blank=True)
 
-    def __unicode__(self):
-        return u", ".join([bit for bit in [self.contacts,
-                                           self.endpoint] if bit])
+    def __str__(self):
+        return ", ".join(
+            [bit for bit in [self.contacts, self.endpoint] if bit]
+        )
 
 
+@python_2_unicode_compatible
 class School(models.Model):
     """
     Represents a school
@@ -181,9 +194,10 @@ class School(models.Model):
     school_id = models.IntegerField(primary_key=True)
     ope6_id = models.IntegerField(blank=True, null=True)
     ope8_id = models.IntegerField(blank=True, null=True)
-    settlement_school = models.CharField(max_length=100,
-                                         blank=True,
-                                         default='')
+    settlement_school = models.CharField(
+        max_length=100,
+        blank=True,
+        default='')
     contact = models.ForeignKey(Contact, blank=True, null=True)
     data_json = models.TextField(blank=True)
     city = models.CharField(max_length=50, blank=True)
@@ -192,59 +206,63 @@ class School(models.Model):
     enrollment = models.IntegerField(blank=True, null=True)
     accreditor = models.CharField(max_length=255, blank=True)
     ownership = models.CharField(max_length=255, blank=True)
-    control = models.CharField(max_length=50,
-                               blank=True,
-                               help_text="'Public', 'Private' or 'For-profit'")
+    control = models.CharField(
+        max_length=50,
+        blank=True,
+        help_text="'Public', 'Private' or 'For-profit'")
     url = models.TextField(blank=True)
     degrees_predominant = models.TextField(blank=True)
     degrees_highest = models.TextField(blank=True)
     main_campus = models.NullBooleanField()
     online_only = models.NullBooleanField()
     operating = models.BooleanField(default=True)
-    under_investigation = models.BooleanField(default=False,
-                                              help_text=("Heightened Cash "
-                                                         "Monitoring 2"))
+    under_investigation = models.BooleanField(
+        default=False,
+        help_text="Heightened Cash Monitoring 2")
     KBYOSS = models.BooleanField(default=False)  # shopping-sheet participant
-
-    grad_rate_4yr = models.DecimalField(max_digits=5,
-                                        decimal_places=3,
-                                        blank=True, null=True)
-    grad_rate_lt4 = models.DecimalField(max_digits=5,
-                                        decimal_places=3,
-                                        blank=True, null=True)
-    grad_rate = models.DecimalField(max_digits=5,
-                                    decimal_places=3,
-                                    blank=True, null=True,
-                                    help_text="A 2-YEAR POOLED VALUE")
-    repay_3yr = models.DecimalField(max_digits=13,
-                                    decimal_places=10,
-                                    blank=True, null=True,
-                                    help_text=("GRADS WITH A DECLINING BALANCE"
-                                               " AFTER 3 YRS"))
-    default_rate = models.DecimalField(max_digits=5,
-                                       decimal_places=3,
-                                       blank=True, null=True,
-                                       help_text="LOAN DEFAULT RATE AT 3 YRS")
-    median_total_debt = models.DecimalField(max_digits=7,
-                                            decimal_places=1,
-                                            blank=True, null=True,
-                                            help_text="MEDIAN STUDENT DEBT")
-    median_monthly_debt = models.DecimalField(max_digits=14,
-                                              decimal_places=9,
-                                              blank=True, null=True,
-                                              help_text=("MEDIAN STUDENT "
-                                                         "MONTHLY DEBT"))
-    median_annual_pay = models.IntegerField(blank=True,
-                                            null=True,
-                                            help_text=("MEDIAN PAY "
-                                                       "10 YRS AFTER ENTRY"))
-    avg_net_price = models.IntegerField(blank=True,
-                                        null=True,
-                                        help_text="OVERALL AVERAGE")
-    tuition_out_of_state = models.IntegerField(blank=True,
-                                               null=True)
-    tuition_in_state = models.IntegerField(blank=True,
-                                           null=True)
+    grad_rate_4yr = models.DecimalField(
+        max_digits=5,
+        decimal_places=3,
+        blank=True, null=True)
+    grad_rate_lt4 = models.DecimalField(
+        max_digits=5,
+        decimal_places=3,
+        blank=True, null=True)
+    grad_rate = models.DecimalField(
+        max_digits=5,
+        decimal_places=3,
+        blank=True, null=True,
+        help_text="A 2-YEAR POOLED VALUE")
+    repay_3yr = models.DecimalField(
+        max_digits=13,
+        decimal_places=10,
+        blank=True, null=True,
+        help_text="GRADS WITH A DECLINING BALANCE AFTER 3 YRS")
+    default_rate = models.DecimalField(
+        max_digits=5,
+        decimal_places=3,
+        blank=True, null=True,
+        help_text="LOAN DEFAULT RATE AT 3 YRS")
+    median_total_debt = models.DecimalField(
+        max_digits=7,
+        decimal_places=1,
+        blank=True, null=True,
+        help_text="MEDIAN STUDENT DEBT")
+    median_monthly_debt = models.DecimalField(
+        max_digits=14,
+        decimal_places=9,
+        blank=True, null=True,
+        help_text=("MEDIAN STUDENT MONTHLY DEBT"))
+    median_annual_pay = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text=("MEDIAN PAY 10 YRS AFTER ENTRY"))
+    avg_net_price = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text="OVERALL AVERAGE")
+    tuition_out_of_state = models.IntegerField(blank=True, null=True)
+    tuition_in_state = models.IntegerField(blank=True, null=True)
     offers_perkins = models.BooleanField(default=False)
 
     def as_json(self):
@@ -292,20 +310,20 @@ class School(models.Model):
             ordered_out[key] = dict_out[key]
         return json.dumps(ordered_out)
 
-    def __unicode__(self):
-        return self.primary_alias + u" (%s)" % self.school_id
+    def __str__(self):
+        return self.primary_alias + " ({})".format(self.school_id)
 
     def get_predominant_degree(self):
         predominant = ''
-        if (self.degrees_predominant and
-           self.degrees_predominant in HIGHEST_DEGREES):
+        if (self.degrees_predominant
+                and self.degrees_predominant in HIGHEST_DEGREES):
             predominant = HIGHEST_DEGREES[self.degrees_predominant]
         return predominant
 
     def get_highest_degree(self):
         highest = ''
-        if (self.degrees_highest and
-           self.degrees_highest in HIGHEST_DEGREES):
+        if (self.degrees_highest
+                and self.degrees_highest in HIGHEST_DEGREES):
             highest = HIGHEST_DEGREES[self.degrees_highest]
         return highest
 
@@ -313,7 +331,7 @@ class School(models.Model):
         if self.ope6_id:
             digits = len(str(self.ope6_id))
             if digits < 6:
-                return ('0' * (6-digits)) + str(self.ope6_id)
+                return ('0' * (6 - digits)) + str(self.ope6_id)
             else:
                 return str(self.ope6_id)
         else:
@@ -323,7 +341,7 @@ class School(models.Model):
         if self.ope8_id:
             digits = len(str(self.ope8_id))
             if digits < 8:
-                return ('0' * (8-digits)) + str(self.ope8_id)
+                return ('0' * (8 - digits)) + str(self.ope8_id)
             else:
                 return str(self.ope8_id)
         else:
@@ -429,6 +447,7 @@ class Feedback(DisclosureBase):
     message = models.TextField()
 
 
+@python_2_unicode_compatible
 class Notification(DisclosureBase):
     """record of a disclosure verification"""
     institution = models.ForeignKey(School)
@@ -440,10 +459,12 @@ class Notification(DisclosureBase):
     sent = models.BooleanField(default=False)
     log = models.TextField(blank=True)
 
-    def __unicode__(self):
-        return "{0} {1} ({2})".format(self.oid,
-                                      self.institution.primary_alias,
-                                      self.institution.pk)
+    def __str__(self):
+        return "{0} {1} ({2})".format(
+            self.oid,
+            self.institution.primary_alias,
+            self.institution.pk
+        )
 
     def notify_school(self):
         school = self.institution
@@ -451,18 +472,19 @@ class Notification(DisclosureBase):
             nonmsg = "No notification required; {} is not a settlement school"
             return nonmsg.format(school.primary_alias)
         payload = {
-            'oid':    self.oid,
-            'time':   self.timestamp.isoformat(),
+            'oid': self.oid,
+            'time': self.timestamp.isoformat(),
             'errors': self.errors
         }
         now = datetime.datetime.now()
-        no_contact_msg = ("School notification failed: "
-                          "No endpoint or email info {}".format(now))
+        no_contact_msg = (
+            "School notification failed: "
+            "No endpoint or email info {}".format(now))
         # we prefer to use endpount notification, so use it first if existing
         if school.contact:
             if school.contact.endpoint:
                 endpoint = school.contact.endpoint
-                if type(endpoint) == unicode:
+                if type(endpoint) == six.text_type:
                     endpoint = endpoint.encode('utf-8')
                 try:
                     resp = requests.post(endpoint, data=payload, timeout=10)
@@ -492,13 +514,16 @@ class Notification(DisclosureBase):
                         self.save()
                         return self.log
                     else:
-                        msg = ("Send attempted: {}\nURL: {}\n"
-                               "response reason: {}\nstatus_code: {}\n"
-                               "content: {}\n\n".format(now,
-                                                        endpoint,
-                                                        resp.reason,
-                                                        resp.status_code,
-                                                        resp.content))
+                        msg = (
+                            "Send attempted: {}\nURL: {}\n"
+                            "response reason: {}\nstatus_code: {}\n"
+                            "content: {}\n\n".format(
+                                now,
+                                endpoint,
+                                resp.reason,
+                                resp.status_code,
+                                resp.content)
+                        )
                         self.log = self.log + msg
                         self.save()
                         return "Notification failed: {}".format(msg)
@@ -533,16 +558,18 @@ class Notification(DisclosureBase):
             return no_contact_msg
 
 
+@python_2_unicode_compatible
 class Disclosure(models.Model):
     """Legally required wording for aspects of a school's aid disclosure"""
     name = models.CharField(max_length=255)
     institution = models.ForeignKey(School, blank=True, null=True)
     text = models.TextField(blank=True)
 
-    def __unicode__(self):
-        return self.name + u" (%s)" % unicode(self.institution)
+    def __str__(self):
+        return self.name + " ({})".format(self.institution)
 
 
+@python_2_unicode_compatible
 class Program(models.Model):
     """
     Cost and outcome info for an individual course of study at a school
@@ -611,8 +638,8 @@ class Program(models.Model):
                                 help_text="EXPLANATION FROM SCHOOL")
     test = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return u"%s (%s)" % (self.program_name, unicode(self.institution))
+    def __str__(self):
+        return "{} ({})".format(self.program_name, self.institution)
 
     def get_level(self):
         level = ''
@@ -688,7 +715,7 @@ class Program(models.Model):
             'test'
         ]
         with open(csvpath, 'w') as f:
-            writer = cdw(f)
+            writer = csw(f)
             writer.writerow(headings)
             writer.writerow([
                 self.institution.school_id,
@@ -768,6 +795,7 @@ class Program(models.Model):
 #         super(Offer, self).save(*args, **kwargs)
 
 
+@python_2_unicode_compatible
 class Alias(models.Model):
     """
     One of potentially several names for a school
@@ -776,13 +804,14 @@ class Alias(models.Model):
     alias = models.TextField()
     is_primary = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return u"%s (alias for %s)" % (self.alias, unicode(self.institution))
+    def __str__(self):
+        return "{} (alias for {})".format(self.alias, self.institution)
 
     class Meta:
         verbose_name_plural = "Aliases"
 
 
+@python_2_unicode_compatible
 class Nickname(models.Model):
     """
     One of potentially several nicknames for a school
@@ -791,9 +820,9 @@ class Nickname(models.Model):
     nickname = models.TextField()
     is_female = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return u"%s (nickname for %s)" % (self.nickname,
-                                          unicode(self.institution))
+    def __str__(self):
+        return "{} (nickname for {})".format(
+            self.nickname, self.institution)
 
     class Meta:
         ordering = ['nickname']
@@ -817,40 +846,3 @@ class Worksheet(models.Model):
     saved_data = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
-
-def print_vals(obj, val_list=False, val_dict=False, noprint=False):
-    """inspect a Django db object"""
-    keylist = sorted(f.name.lower() for f in obj._meta.get_fields())
-
-    if val_list:
-        values = []
-        for key in keylist:
-            try:
-                value = obj.__getattribute__(key)
-            except AttributeError:
-                continue
-
-            values.append(value)
-
-            if not noprint:
-                print('%s: %s' % (key, value))
-
-        return values
-    elif val_dict:
-        return obj.__dict__
-    else:
-        msg = ""
-        try:
-            msg += "%s values for %s:\n" % (obj._meta.object_name, obj)
-        except:  # pragma: no cover
-            pass
-        for key in keylist:
-            try:
-                msg += "%s: %s\n" % (key, obj.__getattribute__(key))
-            except:  # pragma: no cover
-                pass
-        if noprint is False:
-            print(msg)
-        else:
-            return msg

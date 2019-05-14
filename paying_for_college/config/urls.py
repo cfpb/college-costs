@@ -1,10 +1,9 @@
-from django.conf.urls import url, include
 from django.conf import settings
-from paying_for_college.views import (LandingView,
-                                      BaseTemplateView,
-                                      URL_ROOT)
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf import settings
+
+from paying_for_college.views import URL_ROOT, BaseTemplateView, LandingView
+
 
 try:
     STANDALONE = settings.STANDALONE

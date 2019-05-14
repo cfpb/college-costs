@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
+
 from paying_for_college.disclosures.scripts import load_programs
+
 
 COMMAND_HELP = """update_programs will update program data based on
 a CSV provided by schools.  The source argument should be a CSV file path
@@ -29,7 +31,7 @@ class Command(BaseCommand):
                     (FAILED, endmsg) = load_programs.load(filesource, s3=S3)
                 else:
                     (FAILED, endmsg) = load_programs.load(filesource)
-            except:
+            except Exception:
                 self.stdout.write("Error with script")
             else:
                 if FAILED:

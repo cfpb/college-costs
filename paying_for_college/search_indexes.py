@@ -1,5 +1,6 @@
 from haystack import indexes
-from models import School
+
+from paying_for_college.models import School
 
 
 class SchoolIndex(indexes.SearchIndex, indexes.Indexable):

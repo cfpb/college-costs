@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
+from django.test import TestCase
+
 from paying_for_college.models import School
 from paying_for_college.search_indexes import SchoolIndex
-
-from django.test import TestCase
 
 
 class SchoolIndexTest(TestCase):

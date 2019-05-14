@@ -1,32 +1,32 @@
-import os
 import json
+import os
 import re
-try:
-    from collections import OrderedDict
-except:  # pragma: no cover
-    from ordereddict import OrderedDict
+from collections import OrderedDict
 
-from django.utils import timezone
-from django.core.urlresolvers import reverse
-from django.views.generic import View, TemplateView
-from django.shortcuts import get_object_or_404, render
+from django.conf import settings
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, render
 from django.template import RequestContext
 from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.conf import settings
+from django.utils import timezone
+from django.views.generic import TemplateView, View
 from haystack.query import SearchQuerySet
 
-from models import School, Worksheet, Feedback, Notification
-from models import Program, ConstantCap, ConstantRate
 from paying_for_college.disclosures.scripts import nat_stats
+from paying_for_college.forms import EmailForm, FeedbackForm
+from paying_for_college.models import (
+    ConstantCap, ConstantRate, Feedback, Notification, Program, School,
+    Worksheet
+)
 
-from forms import FeedbackForm, EmailForm
+
 BASEDIR = os.path.dirname(__file__)
 
 try:
     STANDALONE = settings.STANDALONE
-except:  # pragma: no cover
+except Exception:  # pragma: no cover
     STANDALONE = False
 
 if STANDALONE:
@@ -45,7 +45,7 @@ def get_json_file(filename):
     try:
         with open(filename, 'r') as f:
             return f.read()
-    except:
+    except Exception:
         return ''
 
 
@@ -83,7 +83,7 @@ def get_program_length(program, school):
     else:
         return None
     if LEVEL in ['0', '1', '2']:
-            return 2
+        return 2
     elif LEVEL in ['3', '4']:
         return 4
     else:
@@ -94,7 +94,7 @@ def get_school(schoolID):
     """Try to get a school by ID; return either school or empty string"""
     try:
         school = School.objects.get(school_id=int(schoolID))
-    except:
+    except Exception:
         return None
     else:
         if school.operating is False:
@@ -178,7 +178,7 @@ class OfferView(TemplateView):
             else:
                 warning = IPED_ERROR
         else:
-                warning = IPED_ERROR
+            warning = IPED_ERROR
         return render(request, 'worksheet.html', {
             'data_js': "0",
             'school': school,
@@ -283,7 +283,7 @@ class StatsRepresentation(View):
         school = get_school(school_id)
         try:
             program_id = id_pair.split('_')[1]
-        except:
+        except Exception:
             program_id = None
         stats = self.get_stats(school, program_id)
         return HttpResponse(stats, content_type='application/json')
@@ -310,7 +310,7 @@ class ConstantsRepresentation(View):
         for crate in ConstantRate.objects.order_by('slug'):
             constants[crate.slug] = "{0}".format(crate.value)
         cy = constants['constantsYear']
-        constants['constantsYear'] = "{}-{}".format(cy, str(cy+1)[2:])
+        constants['constantsYear'] = "{}-{}".format(cy, str(cy + 1)[2:])
         return json.dumps(constants)
 
     def get(self, request):
