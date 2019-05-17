@@ -116,7 +116,7 @@ class SchoolModelsTest(TestCase):
             created=datetime.datetime.now(),
             message='Thank you, FPO',
             url=('www.cfpb.gov/paying-for-college2/'
-                 'understanding-your-financial-aid-offer/offer/'
+                 'understanding-your-financial-aid-offer/feedback/'
                  '?iped=451796&pid=2736'
                  '&oid=1234567890123456789012345678901234567890'
                  '&book=1832&gib=0&gpl=0&hous=4431&insi=3.36&insl=4339'
@@ -288,7 +288,10 @@ class SchoolModelsTest(TestCase):
         self.assertEqual(feedback.unmet_cost, 8136)
         feedback.url = feedback.url.replace('&book=1832', '&book=voodoo')
         self.assertEqual(feedback.unmet_cost, 6304)
-        feedback.url = feedback.url.replace('offer', 'feedback')
+        feedback.url = feedback.url = (
+            'www.cfpb.gov/paying-for-college2/'
+            'understanding-your-financial-aid-offer/feedback/'
+        )
         self.assertIs(feedback.unmet_cost, None)
 
     def test_feedback_cost_error_valid_values(self):

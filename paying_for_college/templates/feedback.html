@@ -33,7 +33,6 @@
               <form method="post" id="feedback-container">
                   <label for="id_message"><span class="demi">Enter your comments here</span></label>
                                   {% csrf_token %}
-                  <input type="hidden" name="referrer" value="{{ request.META.HTTP_REFERER }}">
                   <span class="pfc-feedback">{{ form.message }}</span>
                   <p><button>Submit your feedback</button></p>
               </form>

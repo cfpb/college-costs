@@ -224,7 +224,7 @@ class FeedbackView(TemplateView):
         if form.is_valid():
             feedback = Feedback(
                 message=form.cleaned_data['message'][:2000],
-                url=form.cleaned_data['referrer'].replace('#info-right', ''))
+                url=request.build_absolute_uri())
             feedback.save()
             return render(request, 'feedback_thanks.html', {
                 'base_template': BASE_TEMPLATE,
