@@ -5,6 +5,7 @@ python:
 install:
 - pip install tox-travis
 - npm install -g gulp-cli
+- npm config set package-lock false
 - pip install coveralls tox
 script:
 - tox
