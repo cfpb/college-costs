@@ -11,7 +11,7 @@ setup_requires = [
 install_requires = [
     'Django>=1.11,<1.12',
     'django-haystack>=2.7,<2.9',
-    'djangorestframework>=3.6,<3.9',
+    'djangorestframework>=3.6,<4.0',
     'elasticsearch>=2.4.1,<3',
     'PyYAML==3.13',
     'requests>=2.18,<3',
