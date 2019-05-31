@@ -49,7 +49,6 @@ def update(exclude_ids=[], single_school=None):
     print(START_MSG)
     if not single_school:
         print(JOB_MSG)
-    UPDATED = False
     STARTER = datetime.datetime.now()
     PROCESSED = 0
     UPDATE_COUNT = 0
@@ -62,6 +61,7 @@ def update(exclude_ids=[], single_school=None):
         if exclude_ids:
             base_query = base_query.exclude(pk__in=exclude_ids)
     for school in base_query:
+        UPDATED = False
         PROCESSED += 1
         if PROCESSED % 500 == 0:  # pragma: no cover
             print("\n{0}\n".format(PROCESSED))
@@ -81,6 +81,10 @@ def update(exclude_ids=[], single_school=None):
                     sys.stdout.write('.')
                     sys.stdout.flush()
                     data = raw_data['results'][0]
+                    if data['school.operating'] == 0:
+                        data['school.operating'] = False
+                    elif data['school.operating'] == 1:
+                        data['school.operating'] = True
                     for key in MODEL_MAP:
                         if key in data.keys() and data[key] is not None:
                             setattr(school, MODEL_MAP[key], data[key])
