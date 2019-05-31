@@ -116,10 +116,11 @@ const financialModel = {
   recalcOverborrowing: function() {
     const model = this.values;
     let overBorrow = 0;
-    if ( model.costOfAttendance < model.grantsSavingsTotal + model.borrowingTotal ) {
+    if ( model.costOfAttendance <
+         model.grantsSavingsTotal + model.borrowingTotal ) {
       overBorrow = model.borrowingTotal +
-                           model.grantsSavingsTotal -
-                           model.costOfAttendance;
+                   model.grantsSavingsTotal -
+                   model.costOfAttendance;
       if ( overBorrow > 0 && model.borrowingTotal > 0 ) {
         overBorrow = Math.min( overBorrow, model.borrowingTotal );
       } else {
