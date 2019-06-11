@@ -14,7 +14,6 @@ const expensesView = require( '../views/expenses-view' );
 const postVerification = require( '../dispatchers/post-verify' );
 
 require( '../libs/sticky-kit' );
-let resizeTimer;
 
 const getDataLayerOptions = Analytics.getDataLayerOptions;
 
@@ -158,8 +157,8 @@ const financialView = {
    * @param {Boolean} currency - True if value is to be formatted as currency
    */
   updateElement: function( $ele, value, currency ) {
-    const originalValue = $ele.val() || $ele.text(),
-          isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
+    const originalValue = $ele.val() || $ele.text();
+    const isSummaryLineItem = $ele.attr( 'data-line-item' ) === 'true';
     if ( currency === true ) {
       value = formatUSD( { amount: value, decimalPlaces: 0 } );
     }

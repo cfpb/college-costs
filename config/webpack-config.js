@@ -53,7 +53,7 @@ const commonConf = {
   optimization: {
     minimizer: [
       COMMON_MINIFICATION_CONFIG
-    ],
+    ]
   }
 };
 

@@ -405,7 +405,6 @@ const metricView = {
    */
   updateForSettlement: function( $graph ) {
     const $notification = $graph.siblings( '.metric_notification' );
-
     const selector = '.metric_notification__no-you,' +
                      '.metric_notification__no-data';
     $notification.not( selector ).hide();
