@@ -84,9 +84,13 @@ const financialModel = {
    * Rounds values for which we do not want to display decimals
    */
   roundValues: function() {
-    let model = financialModel.values,
-        roundedKeys = [ 'totalDebt', 'loanMonthly', 'loanLifetime',
-          'tuitionRepayYearly' ];
+    const model = financialModel.values;
+    const roundedKeys = [
+      'totalDebt',
+      'loanMonthly',
+      'loanLifetime',
+      'tuitionRepayYearly'
+    ];
     for ( let x = 0; x < roundedKeys.length; x++ ) {
       const key = roundedKeys[x];
       model[key] = Math.round( model[key] );
@@ -110,8 +114,8 @@ const financialModel = {
    * @returns {number} - Overborrowing value
    */
   recalcOverborrowing: function() {
-    let model = this.values,
-        overBorrow = 0;
+    const model = this.values;
+    let overBorrow = 0;
     if ( model.costOfAttendance < model.grantsSavingsTotal + model.borrowingTotal ) {
       overBorrow = model.borrowingTotal +
                            model.grantsSavingsTotal -

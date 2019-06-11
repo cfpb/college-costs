@@ -3,7 +3,7 @@
    ========================================================================== */
 
 const webpack = require( 'webpack' );
-const UglifyWebpackPlugin = require( 'uglifyjs-webpack-plugin' );
+const TerserWebpackPlugin = require( 'terser-webpack-plugin' );
 
 /* Commmon webpack 'module' option used in each configuration.
    Runs code through Babel and uses global supported browser list. */
@@ -12,8 +12,13 @@ const COMMON_MODULE_CONFIG = {
     use: {
       loader: 'babel-loader?cacheDirectory=true',
       options: {
-        presets: [ [ 'babel-preset-env', {
-          configPath: __dirname,
+        presets: [ [ '@babel/preset-env', {
+          targets: {
+            browsers: [
+              'last 2 versions',
+              'Explorer >= 9'
+            ]
+          },
           /* Use useBuiltIns: 'usage' and set `debug: true` to see what
              scripts require polyfilling. */
           useBuiltIns: false,
@@ -26,10 +31,10 @@ const COMMON_MODULE_CONFIG = {
 
 /* Set warnings to true to show linter-style warnings.
    Set mangle to false and beautify to true to debug the output code. */
-const COMMON_UGLIFY_CONFIG = new UglifyWebpackPlugin( {
+const COMMON_MINIFICATION_CONFIG = new TerserWebpackPlugin( {
   cache: true,
   parallel: true,
-  uglifyOptions: {
+  terserOptions: {
     ie8: false,
     ecma: 5,
     warnings: true,
@@ -45,9 +50,11 @@ const commonConf = {
   cache: true,
   module: COMMON_MODULE_CONFIG,
   mode: 'production',
-  plugins: [
-    COMMON_UGLIFY_CONFIG
-  ]
+  optimization: {
+    minimizer: [
+      COMMON_MINIFICATION_CONFIG
+    ],
+  }
 };
 
 module.exports = { commonConf };

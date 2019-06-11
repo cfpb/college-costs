@@ -35,11 +35,9 @@ const app = {
           const urlValues = getUrlValues.urlValues();
           $.when( fetch.schoolData( urlValues.collegeID, urlValues.programID ) )
             .done( function( schoolData, programData, nationalData ) {
-              let data = {},
-                  schoolValues,
-                  region;
+              const data = {};
               $.extend( data, schoolData[0], programData[0], nationalData[0] );
-              schoolValues = schoolModel.init( nationalData[0], schoolData[0], programData[0] );
+              const schoolValues = schoolModel.init( nationalData[0], schoolData[0], programData[0] );
 
               /* If PID exists, update the financial model and view based
                  on program data */
@@ -60,7 +58,7 @@ const app = {
               questionView.init();
 
               // Update expenses model bases on region and salary
-              region = schoolValues.BLSAverage.substr( 0, 2 );
+              const region = schoolValues.BLSAverage.substr( 0, 2 );
               $( '#bls-region-select' ).val( region ).change();
             } );
         }

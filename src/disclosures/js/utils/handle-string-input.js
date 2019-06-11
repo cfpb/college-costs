@@ -9,9 +9,9 @@ function handleStringInput( numberString ) {
   if ( typeof numberString === 'number' ) {
     return numberString;
   }
-  let signMaker = 1,
-      minusPosition = numberString.indexOf( numberString.match( '-' ) ),
-      digitPosition = numberString.indexOf( numberString.match( /\d/ ) );
+  let signMaker = 1;
+  const minusPosition = numberString.indexOf( numberString.match( '-' ) );
+  const digitPosition = numberString.indexOf( numberString.match( /\d/ ) );
 
   // If a '-' appears before the first digit, we assume numberString is negative
   if ( numberString.indexOf( numberString.match( '-' ) ) !== -1 &&

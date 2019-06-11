@@ -27,8 +27,8 @@ const expensesModel = {
    * Takes model values and performs calculations
    */
   calc: function() {
-    let model = this.values,
-        financialValues = getFinancial.values();
+    const model = this.values;
+    const financialValues = getFinancial.values();
     // monthly expenses
     model.totalMonthlyExpenses =
       Math.round( model.housing + model.food +
@@ -86,10 +86,10 @@ const expensesModel = {
    */
   resetCurrentValues: function( region, salary ) {
     for ( let x = 0; x < this.expenseKeys.length; x++ ) {
-      let key = this.expenseKeys[x],
-          expense = key.toLowerCase(),
-          salaryRange = this.getSalaryRange( salary ),
-          val = this.values.stored[key][region][salaryRange];
+      const key = this.expenseKeys[x];
+      const expense = key.toLowerCase();
+      const salaryRange = this.getSalaryRange( salary );
+      const val = this.values.stored[key][region][salaryRange];
 
       this.values[expense] = Math.round( val / 12 );
     }
