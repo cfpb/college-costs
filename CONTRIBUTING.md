@@ -86,6 +86,4 @@ information visit the [Autoprefixer documentation site]
 - JavaScript: Unlike the main consumerfinance.gov project, this project does
   serve interactive scripting to IE 8, but only for the comparison tool, not
   for the header or footer scripting.
-- Icons: We currently use icon fonts to deliver scalable icons. Browsers that
-  do not support icon fonts unfortunately do not receive backups but we try to
-  always pair icons with text.
+

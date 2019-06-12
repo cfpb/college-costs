@@ -84,10 +84,6 @@ module.exports = {
       ],
       dest: loc.dist
     },
-    icons: {
-      src:  loc.modules + '/capital-framework/src/cf-icons/src/fonts/*',
-      dest: loc.dist + '/static/fonts/'
-    },
     libjs: {
       src: loc.modules + '/sticky-kit/dist/sticky-kit.js',
       dest: 'src/disclosures/js/libs/'
