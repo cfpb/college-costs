@@ -10,13 +10,6 @@ gulp.task( 'copy:files', function() {
     .pipe( gulp.dest( configCopy.files.dest ) );
 } );
 
-gulp.task( 'copy:icons', function() {
-  return gulp.src( configCopy.icons.src )
-    .pipe( gulpChanged( configCopy.icons.dest ) )
-    .on( 'error', handleErrors )
-    .pipe( gulp.dest( configCopy.icons.dest ) );
-} );
-
 gulp.task( 'copy:libjs', function() {
   return gulp.src( configCopy.libjs.src )
     .pipe( gulpChanged( configCopy.libjs.dest ) )
@@ -34,7 +27,6 @@ gulp.task( 'copy:vendorjs', function() {
 gulp.task( 'copy',
   gulp.parallel(
     'copy:files',
-    'copy:icons',
     'copy:libjs',
     'copy:vendorjs'
   )
