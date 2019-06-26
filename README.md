@@ -3,6 +3,9 @@
 # Paying for College
 Tools to help students make informed financial decisions about college.
 
+## ⚠️ DEPRECATION NOTE ⚠️
+This repository is being retired, and its code has been ported to the [cfgov-refresh](https://github.com/cfpb/cfgov-refresh) repo. Code on this site will no longer be maintained, with the exception of our published documentation of [specifications for using the tool](https://cfpb.github.io/college-costs/). 
+
 ![](compare_hero.png)
 
 - **Status**:  Beta
