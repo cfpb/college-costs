@@ -135,7 +135,7 @@ class TestViews(django.test.TestCase):
         self.assertTrue('base_template' in response.context_data.keys())
 
 
-# http://www.consumerfinance.gov/paying-for-college/compare-financial-aid-and-college-cost/api/email/
+# https://www.consumerfinance.gov/paying-for-college/compare-financial-aid-and-college-cost/api/email/
 class EmailTest(django.test.TestCase):
 
     fixtures = ['test_fixture.json']
