@@ -10,12 +10,6 @@ describe( 'format-url', function() {
     expect( formattedURL ).to.equal( 'https://www.consumerfinance.gov' );
   });
 
-  it( 'formats a URL when it starts with http://', function() {
-    var url = 'https://www.consumerfinance.gov',
-        formattedURL = formatURL( url );
-    expect( formattedURL ).to.equal( 'https://www.consumerfinance.gov' );
-  });
-
   it( 'formats a URL when it starts with https://', function() {
     var url = 'https://www.consumerfinance.gov',
         formattedURL = formatURL( url );
