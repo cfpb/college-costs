@@ -10,7 +10,7 @@ function formatSchoolURL( url ) {
   if ( url && protocolRegex.test( url ) ) {
     formattedURL = url;
   } else if ( url ) {
-    formattedURL = 'http://' + url;
+    formattedURL = 'https://' + url;
   } else {
     formattedURL = false;
   }
