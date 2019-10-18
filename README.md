@@ -57,7 +57,7 @@ setvirtualenvproject
 
 The college-cost tools should show up at [localhost:8000/paying-for-college2/](http://localhost:8000/paying-for-college2/)
 
-The app is set up to run as a component of CFPB's website, [consumerfinance.gov](http://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
+The app is set up to run as a component of CFPB's website, [consumerfinance.gov](https://www.consumerfinance.gov), so if you run it locally, some fonts and font-related icons may not load because of [Cross-Origin Resource Sharing](http://www.w3.org/TR/cors/) policies.
 
 ### Search
 The app has a simple API for searching schools by name or nickname. The endpoint, to which you can append a querystring, is:
@@ -178,4 +178,4 @@ If you find a bug or see a way to improve the project, we'd love to hear from yo
 
 ## Credits and references
 
-This project is based on the current [CFPB Paying for College](http://www.consumerfinance.gov/paying-for-college/) suite of tools for students.
+This project is based on the current [CFPB Paying for College](https://www.consumerfinance.gov/paying-for-college/) suite of tools for students.

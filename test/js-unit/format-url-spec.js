@@ -7,13 +7,7 @@ describe( 'format-url', function() {
   it( 'formats a URL when it does not start with a protocol', function() {
     var url = 'www.consumerfinance.gov',
         formattedURL = formatURL( url );
-    expect( formattedURL ).to.equal( 'http://www.consumerfinance.gov' );
-  });
-
-  it( 'formats a URL when it starts with http://', function() {
-    var url = 'http://www.consumerfinance.gov',
-        formattedURL = formatURL( url );
-    expect( formattedURL ).to.equal( 'http://www.consumerfinance.gov' );
+    expect( formattedURL ).to.equal( 'https://www.consumerfinance.gov' );
   });
 
   it( 'formats a URL when it starts with https://', function() {
