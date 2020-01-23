@@ -7,7 +7,7 @@ The repository is maintained to preserve [our specifications for using the tool]
 
 ## API Docs
 
-[The documentation](https://cfpb.github.io/college-costs/) for this repository is rendered via GitHub pages. They can be edited in the `docs/` directory, but to view the locally or deploy them, you'll need to install the docs dependencies listed in the `setup.py`:
+[The documentation](https://cfpb.github.io/college-costs/) for this repository is rendered via GitHub pages. They can be edited in the `docs/` directory, but to view the locally or deploy them, you'll need to switch to the deprecated master branch and install the docs dependencies listed in `setup.py`:
 
 ```
 pip install -e '.[docs]'
